@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>GitHub月报: AI工程化与自动化工具崛起</title>
+
+    <meta name="description" content="GitHub月度趋势解析：AI工程化、工作流自动化及开源工具普惠化三大浪潮。">
+    <meta name="author" content="AIChipEra">
+
+    <!-- Core RevealJS -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <!-- Theme - Using white as base, overridden by custom styles -->
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet" id="theme">
+
+    <!-- Utility & Icons -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --r-main-font: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: 'Noto Serif SC', serif;
+            --r-heading-text-transform: none; /* Keep Chinese characters as is */
+            --r-heading-font-weight: 700; /* Bolder headings */
+            --r-main-font-size: 32px; /* Base size for scaling */
+
+             /* Custom Color Palette - Deep Tech / Nebula */
+            --color-primary-darkest: #0c0a09; /* Neutral 950 */
+            --color-primary-dark: #1f2937; /* Gray 800 */
+            --color-primary-medium: #374151; /* Gray 700 */
+            --color-primary-light: #4b5563; /* Gray 600 */
+            --color-accent-teal: #14b8a6; /* Teal 500 */
+            --color-accent-indigo: #6366f1; /* Indigo 500 */
+            --color-accent-pink: #ec4899; /* Pink 500 */
+            --color-text-light: #f3f4f6; /* Gray 100 */
+            --color-text-medium: #d1d5db; /* Gray 300 */
+            --color-text-dark: #1f2937; /* Gray 800 */
+
+            --r-background-color: var(--color-primary-dark);
+            --r-main-color: var(--color-text-light);
+            --r-heading-color: var(--color-text-light);
+            --r-link-color: var(--color-accent-teal);
+            --r-link-color-hover: var(--color-accent-indigo);
+        }
+
+        .reveal {
+            font-family: var(--r-main-font);
+            font-size: var(--r-main-font-size);
+            color: var(--r-main-color);
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--r-heading-color);
+            text-transform: var(--r-heading-text-transform);
+            font-weight: var(--r-heading-font-weight);
+            margin-bottom: 0.7em; /* Consistent heading spacing */
+        }
+
+        .reveal h1 { font-size: 2.6em; line-height: 1.1; }
+        .reveal h2 { font-size: 1.8em; }
+        .reveal h3 { font-size: 1.4em; }
+        .reveal h4 { font-size: 1.1em; font-weight: 600; font-family: var(--r-main-font); } /* Use main font for H4 */
+        .reveal p, .reveal li { font-size: 0.95em; line-height: 1.65; }
+
+        /* Custom Slide Backgrounds */
+        .slide-gradient-bg-nebula {
+             background: linear-gradient(145deg, var(--color-accent-indigo) 0%, var(--color-accent-pink) 50%, var(--color-primary-dark) 100%);
+        }
+         .slide-gradient-bg-deep {
+             background: linear-gradient(135deg, var(--color-primary-medium) 0%, var(--color-primary-darkest) 100%);
+         }
+        .slide-accent-bg {
+             background: linear-gradient(135deg, var(--color-accent-teal) 0%, var(--color-accent-indigo) 100%);
+        }
+        .slide-accent-bg h1, .slide-accent-bg h2, .slide-accent-bg p {
+            color: var(--color-primary-darkest); /* Dark text on light gradient */
+            text-shadow: none;
+        }
+
+        /* Content Styling */
+        .reveal section img {
+            background: none; border: none; box-shadow: none;
+            max-height: 45vh; margin: 15px auto;
+        }
+        .reveal .small-text { font-size: 0.7em; color: var(--color-text-medium); opacity: 0.8; }
+        .reveal .highlight { color: var(--color-accent-teal); font-weight: 500; }
+        .reveal .highlight-indigo { color: var(--color-accent-indigo); font-weight: 500; }
+        .reveal .highlight-pink { color: var(--color-accent-pink); font-weight: 500; }
+
+        /* List Styling - Enhanced */
+        .reveal ul { list-style: none; padding-left: 0; }
+        .reveal li { margin-bottom: 0.7em; display: flex; align-items: flex-start; }
+        .reveal li::before {
+            font-family: "Font Awesome 6 Free"; font-weight: 900;
+            content: "\f0da"; /* Default: fa-chevron-right */
+            margin-right: 0.6em; color: var(--color-accent-teal);
+            font-size: 0.9em; margin-top: 0.25em; /* Align icon */
+            min-width: 1.2em; /* Ensure alignment */
+            text-align: center;
+        }
+        /* Custom list icons */
+        .reveal li.ai::before { content: "\f135"; color: var(--color-accent-indigo); } /* fa-rocket */
+        .reveal li.workflow::before { content: "\f0e8"; } /* fa-sitemap */
+        .reveal li.opensource::before { content: "\f06b"; color: var(--color-accent-pink); } /* fa-gift */
+        .reveal li.education::before { content: "\f19d"; } /* fa-graduation-cap */
+        .reveal li.code::before { content: "\f121"; } /* fa-code */
+        .reveal li.trend::before { content: "\f042"; } /* fa-signal */
+        .reveal li.future::before { content: "\f06e"; color: var(--color-accent-teal);} /* fa-eye */
+        .reveal li.check::before { content: "\f00c"; color: #4ade80; } /* fa-check, green */
+
+        /* QR Code Styling */
+        .qr-code {
+            position: fixed; bottom: 25px; right: 25px;
+            width: 85px; height: 85px;
+            z-index: 1000; background: rgba(255, 255, 255, 0.9); /* Slightly transparent */
+            padding: 6px; border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .qr-code:hover {
+             transform: scale(1.1);
+        }
+
+        /* Tailwind utility overrides/additions */
+        .text-shadow-light { text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4); }
+        .section-title {
+            border-bottom: 4px solid var(--color-accent-indigo);
+            padding-bottom: 0.4em; display: inline-block;
+            margin-bottom: 1.2em; font-weight: 700;
+        }
+
+        /* Table styling */
+        .reveal table {
+            margin: 1.5em auto; border-collapse: separate; border-spacing: 0;
+            width: 95%; background-color: rgba(0,0,0,0.1); border-radius: 8px;
+            overflow: hidden; /* For rounded corners */
+        }
+        .reveal th {
+            background-color: var(--color-primary-light); color: var(--color-text-light);
+            padding: 0.6em 1.2em; text-align: left;
+            font-weight: 600; font-size: 0.9em;
+            font-family: var(--r-main-font); /* Use main font for table header */
+        }
+        .reveal td {
+            padding: 0.6em 1.2em; border-bottom: 1px solid var(--color-primary-light);
+            font-size: 0.8em; color: var(--color-text-medium);
+        }
+        .reveal tr:last-child td { border-bottom: none; }
+        .reveal tr:hover td {
+            background-color: rgba(255, 255, 255, 0.05); color: var(--color-text-light);
+        }
+        .reveal td a { color: var(--color-accent-teal); text-decoration: none; }
+        .reveal td a:hover { color: var(--color-accent-indigo); text-decoration: underline; }
+
+        /* Card layout for themes */
+        .theme-card {
+             background-color: rgba(75, 85, 99, 0.3); /* Gray-600 with opacity */
+             border: 1px solid var(--color-primary-light);
+             border-radius: 12px; padding: 1.5rem;
+             transition: transform 0.3s ease, box-shadow 0.3s ease;
+             height: 100%; /* Ensure cards have same height in a grid row */
+             display: flex; flex-direction: column; justify-content: center;
+        }
+        .theme-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        .theme-card i { margin-bottom: 0.8rem; }
+        .theme-card h4 { margin-bottom: 0.5rem; color: var(--color-accent-teal); }
+        .theme-card p { font-size: 0.85em; color: var(--color-text-medium); }
+
+    </style>
+</head>
+<body>
+    <img src="../../asserts/wx.jpg" alt="关注我们公众号" class="qr-code" id="qr-code-global">
+
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- === SLIDE 1: Title === -->
+            <section data-background-gradient="linear-gradient(145deg, #1e3a8a 0%, #0c0a09 100%)" data-transition="zoom">
+                <h1 class="text-shadow-light font-serif font-bold tracking-wide">AI工程化与自动化工具崛起</h1>
+                <h2 class="text-shadow-light font-serif text-2xl mt-4 tracking-normal" style="color: var(--color-accent-teal);">GitHub月趋势三大浪潮解析 (2025年3月)</h2>
+                <p class="mt-16 text-lg" style="color: var(--color-text-medium);">
+                    <i class="fas fa-user-astronaut mr-2"></i>AIChipEra
+                </p>
+                <p class="small-text mt-2">
+                    <i class="fas fa-clock mr-2"></i>月报观测时间: 2025-03-30 21:38:11
+                </p>
+                <aside class="notes">
+                    开场：大家好，欢迎来到本月GitHub趋势报告。我是AIChipEra。今天我们将深入探讨2025年3月GitHub上的三大技术浪潮：AI工程化、工作流自动化和开源工具的普及。
+                </aside>
+            </section>
+
+            <!-- === SLIDE 2: Disclaimer === -->
+            <section data-transition="fade-in slide-out">
+                 <h3 class="section-title">重要提示</h3>
+                 <div class="mt-10 text-lg p-8 bg-yellow-900 bg-opacity-40 rounded-xl border-2 border-yellow-700 shadow-lg">
+                     <p class="flex items-center">
+                         <i class="fas fa-exclamation-triangle fa-2x mr-4 text-yellow-400"></i>
+                         <span>以下内容仅供项目介绍和学习交流， <strong class="text-yellow-300 font-semibold">绝不构成任何投资建议</strong>，请务必独立思考、审慎甄别！</span>
+                    </p>
+                 </div>
+                 <aside class="notes">在深入之前，请注意：本报告仅用于技术学习和交流，不涉及任何投资建议。请大家保持批判性思维。</aside>
+            </section>
+
+             <!-- === SLIDE 3: Monthly Highlights === -->
+            <section data-transition="slide-in right">
+                <h2 class="section-title">本月核心要点</h2>
+                <ul class="mt-8 text-left leading-relaxed space-y-3">
+                    <li class="fragment ai"><strong class="highlight-indigo">AI工程化深化:</strong> 从模型走向<span class="highlight">生产级系统</span>，深度绑定金融、机器人等<span class="highlight">垂直场景</span> (MetaGPT, ai-hedge-fund)。</li>
+                    <li class="fragment workflow"><strong class="highlight">工作流自动化升级:</strong> <span class="highlight-indigo">LLM</span>赋能，实现<span class="highlight">智能化</span>与<span class="highlight">认知增强</span> (n8n, dify)。</li>
+                    <li class="fragment opensource"><strong class="highlight">开源工具普惠化:</strong> <span class="highlight-pink">轻量化</span>、<span class="highlight-pink">自托管</span>降低门槛，关注数据主权与效率 (Glance, Ladybird)。</li>
+                    <li class="fragment education"><strong class="highlight">原理级学习热潮:</strong> <code class="text-sm bg-gray-700 px-1 rounded">build-your-own-x</code> (<span class="highlight text-yellow-400">23.5万星</span>) 引爆开发者对<span class="highlight">底层技术</span>的学习热情。</li>
+                    <li class="fragment code"><strong class="highlight">语言格局:</strong> <span class="highlight-indigo">Python</span>主导AI，<span class="highlight-pink">TypeScript</span>助力企业级开发，<span class="highlight">Go</span>受青睐于轻量工具。</li>
+                    <li class="fragment future"><strong class="highlight">未来方向:</strong> 多智能体协作、边缘计算融合、RAG标准化蓄势待发。</li>
+                </ul>
+                 <aside class="notes">
+                    本月主要观察到：
+                    1. AI不再是玩具，开始进入实际生产环节，特别是在金融和机器人领域。
+                    2. 自动化工具变得更聪明，能理解和处理更复杂的任务。
+                    3. 开源工具更易用、更轻便，让更多人能自己部署和掌控数据。
+                    4. “动手造轮子”的学习方式大受欢迎，开发者渴望理解技术本质。
+                    5. Python依旧是AI首选，TS在企业应用中重要，Go适合小而美的工具。
+                    6. 预测未来：AI Agent协同、边缘计算、RAG将是重点。
+                 </aside>
+            </section>
+
+            <!-- === SLIDE 4: Section Break: Trend Analysis === -->
+            <section data-background-color="var(--color-primary-medium)" data-transition="convex-in concave-out">
+                <h2 class="font-serif text-4xl tracking-wider">热门项目趋势深度分析</h2>
+                <i class="fas fa-chart-pie fa-3x mt-6" style="color: var(--color-accent-indigo);"></i>
+            </section>
+
+            <!-- === SLIDE 5: Overall Trends (Themes) === -->
+            <section>
+                <h3 class="section-title">本月三大核心趋势 + 教育热点</h3>
+                 <div class="grid md:grid-cols-3 gap-6 mt-10">
+                     <div class="theme-card fragment" data-fragment-index="1">
+                         <i class="fas fa-cogs fa-3x text-indigo-400"></i>
+                         <h4 class="font-serif text-xl">AI工程化</h4>
+                         <p>垂直场景深度融合 (金融, 机器人)<br>生产级系统构建 (MetaGPT)</p>
+                     </div>
+                     <div class="theme-card fragment" data-fragment-index="2">
+                         <i class="fas fa-network-wired fa-3x text-teal-400"></i>
+                         <h4 class="font-serif text-xl">工作流自动化</h4>
+                         <p>LLM/RAG赋能，流程智能化<br>认知增强型工具 (n8n, dify)</p>
+                     </div>
+                     <div class="theme-card fragment" data-fragment-index="3">
+                         <i class="fas fa-feather-alt fa-3x text-pink-400"></i>
+                         <h4 class="font-serif text-xl">开源工具普惠化</h4>
+                         <p>轻量化部署、自托管方案<br>关注数据主权与效率 (Glance)</p>
+                     </div>
+                 </div>
+                 <div class="mt-8 fragment" data-fragment-index="4">
+                     <h4 class="text-center text-xl mb-2"><i class="fas fa-graduation-cap mr-2 text-yellow-400"></i>特别关注：教育实践项目爆发</h4>
+                     <p class="text-center text-lg"><code class="text-sm bg-gray-700 px-1 rounded">build-your-own-x</code> 以 <span class="highlight text-yellow-400 font-bold">23.5万</span> 新增星数登顶，凸显原理学习需求。</p>
+                 </div>
+                 <aside class="notes">
+                     详细拆解本月趋势：
+                     1. AI工程化：不再是概念验证，而是面向生产，与具体行业结合。
+                     2. 工作流自动化：AI让自动化工具从“执行”升级到“思考”。
+                     3. 开源普惠：工具更轻、更容易自己部署，降低使用门槛。
+                     4. 教育爆发点：开发者社区对“从零构建”的学习模式反响热烈。
+                 </aside>
+            </section>
+
+            <!-- === SLIDE 6: Programming Language Distribution === -->
+            <section>
+                <h3 class="section-title">编程语言分布与技术栈特点</h3>
+                <div class="flex flex-col md:flex-row justify-around items-start mt-8">
+                    <div class="md:w-1/2 mb-6 md:mb-0">
+                        <h4 class="font-serif text-lg mb-3"><i class="fas fa-code mr-2"></i>语言分布 (Top 15)</h4>
+                        <ul class="text-left space-y-2">
+                            <li class="fragment code"><strong class="text-indigo-400 mr-2">Python (6项):</strong> AI生态绝对主导 (模型, 代理框架)。</li>
+                            <li class="fragment code"><strong class="text-pink-400 mr-2">TypeScript (2项):</strong> 企业级自动化平台首选。</li>
+                            <li class="fragment code"><strong class="text-teal-400 mr-2">Go (1项):</strong> 轻量级工具优势 (低资源占用)。</li>
+                            <li class="fragment code"><strong class="text-yellow-400 mr-2">C++ (1项):</strong> 高性能领域 (浏览器)。</li>
+                             <li class="fragment code"><strong class="text-red-400 mr-2">Java (1项):</strong> 数据库工具。</li>
+                            <li class="fragment code"><span class="text-gray-400 mr-2">其他 (JS, Markdown等):</span> 各占一席。</li>
+                        </ul>
+                    </div>
+                    <div class="md:w-1/2 md:pl-6 border-t md:border-t-0 md:border-l border-gray-600 pt-6 md:pt-0 md:pl-8">
+                         <h4 class="font-serif text-lg mb-3"><i class="fas fa-layer-group mr-2"></i>技术栈特点</h4>
+                         <ul class="text-left space-y-2">
+                             <li class="fragment check"><strong class="highlight">模块化:</strong> 功能组件化，易于扩展 (MetaGPT多智能体, dify插件)。</li>
+                             <li class="fragment check"><strong class="highlight">混合架构:</strong> AI+传统技术栈融合 (n8n集成LLM)。</li>
+                             <li class="fragment check"><strong class="highlight">云原生友好:</strong> Docker部署普遍，支持自托管与云。</li>
+                             <li class="fragment check"><strong class="highlight">社区驱动:</strong> 开源协议，用户贡献模板/规则。</li>
+                         </ul>
+                    </div>
+                </div>
+                 <aside class="notes">
+                    语言方面，Python在AI领域地位稳固。TS在需要类型安全和大型前端应用中表现好。Go适合做需要快速启动、资源占用少的工具。技术栈上，模块化和混合架构是主流，方便集成和扩展，同时对云部署友好。
+                 </aside>
+            </section>
+
+             <!-- === SLIDE 7: Technical Needs & Directions === -->
+             <section>
+                 <h3 class="section-title">技术需求与发展方向</h3>
+                 <ul class="mt-8 text-left space-y-3">
+                     <li class="fragment ai"><strong class="highlight-indigo">AI工程化落地加速:</strong> 从实验到<span class="highlight">生产级</span>系统，关注<span class="highlight">可解释性</span>、<span class="highlight">多模态</span>、<span class="highlight">跨系统集成</span>。</li>
+                     <li class="fragment workflow"><strong class="highlight">自动化工具智能化:</strong> 从规则驱动 <i class="fas fa-arrow-right mx-1"></i> <span class="highlight">认知增强</span>，支持复杂决策 (智能客服, 动态报告)。</li>
+                     <li class="fragment opensource"><strong class="highlight">开源工具普惠化:</strong> <span class="highlight-pink">轻量</span>、<span class="highlight-pink">低门槛</span>成卖点，推动<span class="highlight">技术民主化</span> (Glance单文件, lerobot低成本硬件)。</li>
+                 </ul>
+                 <aside class="notes">市场的需求是什么？未来会怎样？1. AI要能真正用起来，变成可靠的系统。2. 自动化工具要更聪明，能辅助决策。3. 开源工具要更简单易用，让更多人用上新技术。</aside>
+            </section>
+
+            <!-- === SLIDE 8: Monthly Comparison === -->
+            <section>
+                <h3 class="section-title">热门项目变化对比 (vs. 过往月份)</h3>
+                 <ul class="mt-8 text-left space-y-4">
+                     <li class="fragment trend">
+                        <span class="inline-block w-6 text-center mr-2"><i class="fas fa-industry text-indigo-400"></i></span>
+                        <strong class="highlight">AI与垂直领域深度绑定:</strong> 不再是通用模型，聚焦<span class="highlight-indigo">金融(ai-hedge-fund)</span>、<span class="highlight-indigo">机器人(lerobot)</span>等具体场景，直指生产需求。
+                     </li>
+                     <li class="fragment trend">
+                         <span class="inline-block w-6 text-center mr-2"><i class="fas fa-book-open text-yellow-400"></i></span>
+                         <strong class="highlight">教育实践类项目爆发:</strong> <code class="text-sm bg-gray-700 px-1 rounded">build-your-own-x</code> 登顶，<span class="highlight text-yellow-400">原理级学习</span>需求凸显，改变以往工具类主导的格局。
+                    </li>
+                 </ul>
+                 <aside class="notes">和以前相比，这个月有什么不同？1. AI项目更接地气，开始解决具体行业的问题。2. 大家对学习技术原理的热情空前高涨，动手实践项目爆火。</aside>
+            </section>
+
+             <!-- === SLIDE 9: Future Predictions === -->
+            <section>
+                <h3 class="section-title">下一波技术热点预测</h3>
+                 <ul class="mt-8 text-left space-y-3">
+                     <li class="fragment future"><strong class="highlight-indigo">多智能体协作系统:</strong> <span class="highlight">AI驱动</span>开发全流程自动化，“自然语言 <i class="fas fa-long-arrow-alt-right mx-1"></i> 代码 <i class="fas fa-long-arrow-alt-right mx-1"></i> 运维”闭环。</li>
+                     <li class="fragment future"><strong class="highlight">边缘计算与机器人融合:</strong> <span class="highlight">边缘侧AI</span>加速发展 (工业物联网, 智能家居)。</li>
+                     <li class="fragment future"><strong class="highlight">RAG技术标准化:</strong> 统一的<span class="highlight">检索增强生成</span>框架标准或将出现。</li>
+                     <li class="fragment future"><strong class="highlight">AI伦理与可解释性:</strong> 技术成熟伴随监管和信任需求提升。</li>
+                      <li class="fragment future"><strong class="highlight">低代码/无代码+AI:</strong> 进一步降低应用开发门槛。</li>
+                 </ul>
+                <aside class="notes">展望未来：1. AI Agent会更强大，能协作完成复杂任务，比如整个软件开发。2. AI会更多地运行在本地设备和机器人上。3. RAG技术会更成熟和标准化。4. AI的伦理和如何解释它的工作原理会更受关注。5. AI会让低代码/无代码平台更强大。</aside>
+            </section>
+
+            <!-- === SLIDE 10: Uniqueness of the Month === -->
+            <section>
+                <h3 class="section-title">本月技术趋势独特性</h3>
+                 <div class="grid md:grid-cols-3 gap-6 mt-10 text-center">
+                     <div class="theme-card fragment" data-fragment-index="1">
+                         <i class="fas fa-arrow-down fa-3x text-teal-400"></i>
+                         <h4 class="font-serif text-xl">技术下沉</h4>
+                         <p>复杂技术 (<span class="highlight">LLM, 浏览器引擎</span>) 通过<span class="highlight">模块化</span>与<span class="highlight">轻量化</span>部署，普惠个人开发者。</p>
+                     </div>
+                     <div class="theme-card fragment" data-fragment-index="2">
+                         <i class="fas fa-arrow-up fa-3x text-indigo-400"></i>
+                         <h4 class="font-serif text-xl">场景上浮</h4>
+                         <p>AI从通用模型转向<span class="highlight">高价值场景</span> (金融, 机器人)，直指<span class="highlight">生产环境</span>需求。</p>
+                     </div>
+                     <div class="theme-card fragment" data-fragment-index="3">
+                         <i class="fas fa-users fa-3x text-pink-400"></i>
+                         <h4 class="font-serif text-xl">社区驱动强化</h4>
+                         <p>从代码共享 <i class="fas fa-arrow-right mx-1"></i> <span class="highlight">知识共建</span> (教程, 模板)，社区贡献成<span class="highlight">核心动力</span>。</p>
+                     </div>
+                 </div>
+                 <p class="mt-10 fragment text-center text-lg">技术发展从“<span class="text-gray-400">模型驱动</span>”转向“<span class="highlight-indigo">场景驱动</span>”，<br>开发者需求从“<span class="text-gray-400">工具获取</span>”升级为“<span class="highlight-indigo">系统化解决方案构建</span>”。</p>
+                <aside class="notes">这个月趋势的特别之处：1. 技术门槛降低，复杂技术变得更易用。2. AI应用更关注实际价值和生产力。3. 开源社区不只是分享代码，更在共建知识和解决方案。总的来说，技术越来越关注解决实际问题，开发者需要的是完整的解决方案，而不只是单一工具。</aside>
+            </section>
+
+            <!-- === SLIDE 11: Section Break: Hot Projects === -->
+            <section data-background-color="var(--color-primary-medium)" data-transition="convex-in concave-out">
+                <h2 class="font-serif text-4xl tracking-wider">本月热门项目聚焦</h2>
+                 <i class="fas fa-fire-alt fa-3x mt-6" style="color: var(--color-accent-pink);"></i>
+            </section>
+
+            <!-- === SLIDE 12: Hot Projects Ranking === -->
+            <section>
+                 <h3 class="section-title">热门项目排名 Top 10 (Star 数)</h3>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-3 mt-6 text-sm leading-normal">
+                     <div class="fragment fade-in-then-semi-out"><strong>1. <i class="fas fa-book text-yellow-400"></i> build-your-own-x:</strong> ⭐365k (Edu) - 从零构建技术</div>
+                     <div class="fragment fade-in-then-semi-out"><strong>2. <i class="fas fa-brain text-indigo-400"></i> dify:</strong> ⭐87.8k (TS/Py) - 开源LLM应用开发平台</div>
+                     <div class="fragment fade-in-then-semi-out"><strong>3. <i class="fas fa-sitemap text-teal-400"></i> n8n:</strong> ⭐72.8k (TS) - 工作流自动化平台(AI能力)</div>
+                     <div class="fragment fade-in-then-semi-out"><strong>4. <i class="fas fa-users-cog text-indigo-500"></i> MetaGPT:</strong> ⭐53.8k (Py) - 多智能体软件开发框架</div>
+                     <div class="fragment fade-in-then-semi-out"><strong>5. <i class="fas fa-ban text-red-400"></i> uBlock Origin:</strong> ⭐52.2k (JS) - 高效广告拦截器</div>
+                     <div class="fragment fade-in-then-semi-out"><strong>6. <i class="fab fa-firefox-browser text-orange-400"></i> ladybird:</strong> ⭐36.6k (C++) - 独立Web浏览器</div>
+                     <div class="fragment fade-in-then-semi-out"><strong>7. <i class="fas fa-memory text-purple-400"></i> mem0:</strong> ⭐26.9k (Py) - AI Agent的记忆层</div>
+                     <div class="fragment fade-in-then-semi-out"><strong>8. <i class="fas fa-layer-group text-blue-400"></i> awesome-llm-apps:</strong> ⭐25.5k (Py) - LLM应用集合(Agents+RAG)</div>
+                     <div class="fragment fade-in-then-semi-out"><strong>9. <i class="fas fa-database text-green-400"></i> Chat2DB:</strong> ⭐21.9k (Java) - AI驱动数据库工具</div>
+                     <div class="fragment fade-in-then-semi-out"><strong>10. <i class="fas fa-tachometer-alt text-cyan-400"></i> glance:</strong> ⭐20.9k (Go) - 自托管信息聚合仪表盘</div>
+                 </div>
+                  <p class="mt-8 small-text text-center">
+                     <span class="mr-4"><strong class="highlight">语言Top3:</strong> Python(6), TypeScript(2), Go(1)/C++(1)/JS(1)...</span>
+                     <span><strong class="highlight">Star分布(Top15):</strong> 50k+(5), 10k-50k(8), <10k(2)</span>
+                 </p>
+                 <aside class="notes">来看下本月最火的10个项目。排名第一的是学习项目build-your-own-x，星数惊人。后面紧跟着LLM平台dify、自动化工具n8n、AI软件公司MetaGPT等。语言上Python最多，然后是TS。大部分项目星数都在1万以上。</aside>
+            </section>
+
+             <!-- === SLIDE 13: Project Deep Dive - Parent === -->
+             <section>
+                 <!-- Main slide introducing the deep dive -->
+                 <section data-background-color="var(--color-primary-light)">
+                     <h2 class="font-serif text-3xl tracking-wide">重点项目深度解析</h2>
+                     <i class="fas fa-project-diagram fa-3x mt-6 text-white"></i>
+                     <p class="mt-4">精选代表性项目，洞悉技术亮点与价值</p>
+                     <p class="small-text mt-8 animate-pulse">请按 <i class="fas fa-arrow-down"></i> 查看详情</p>
+                 </section>
+
+                 <!-- Vertical Slide 1: build-your-own-x -->
+                 <section>
+                    <h3 class="font-serif mb-4"><i class="fas fa-book mr-2 text-yellow-400"></i>build-your-own-x</h3>
+                     <p class="text-left text-sm leading-relaxed">
+                         <strong class="highlight">核心价值:</strong> <span class="highlight-yellow-400">“实践出真知”</span>，通过从零构建 (<span class="highlight">区块链, OS, 渲染器</span>等) 掌握<span class="highlight">技术底层原理</span>。
+                         <br><strong class="highlight">技术优势:</strong> 覆盖<span class="highlight">20+技术领域</span>，结构化学习路径 (<span class="highlight">理论+实践+验证</span>)，多语言多形式资源。
+                         <br><strong class="highlight">适用人群:</strong> 渴望突破理论瓶颈、追求<span class="highlight">深度技术理解</span>的开发者。
+                         <br><strong class="highlight">关注点:</strong> 部分教程依赖特定工具链，社区内容需甄别。
+                    </p>
+                     <aside class="notes">项目1：build-your-own-x。核心是动手实践，理解原理。覆盖面广，路径清晰。适合想深入学习技术的开发者。</aside>
+                 </section>
+
+                 <!-- Vertical Slide 2: dify -->
+                 <section>
+                      <h3 class="font-serif mb-4"><i class="fas fa-brain mr-2 text-indigo-400"></i>dify</h3>
+                      <p class="text-left text-sm leading-relaxed">
+                          <strong class="highlight">核心价值:</strong> <span class="highlight-indigo">一站式LLM应用开发平台</span>，简化从原型到生产全流程。
+                          <br><strong class="highlight">技术优势:</strong> 集成<span class="highlight">AI工作流</span> (多步自动化), <span class="highlight">RAG管道</span> (提升准确性), <span class="highlight">代理能力</span>, <span class="highlight">模型管理</span>, <span class="highlight">可观测性</span>。模块化架构，容器化部署。
+                          <br><strong class="highlight">应用场景:</strong> 智能问答、文档分析、自动化助手等需快速迭代和落地的场景。
+                          <br><strong class="highlight">关注点:</strong> 社区与企业双轨支持，满足不同规模需求。
+                     </p>
+                      <aside class="notes">项目2：dify。目标是让开发LLM应用更容易。把工作流、RAG、模型管理等都集成好了。适合快速开发和部署AI应用。</aside>
+                 </section>
+
+                  <!-- Vertical Slide 3: MetaGPT -->
+                 <section>
+                      <h3 class="font-serif mb-4"><i class="fas fa-users-cog mr-2 text-indigo-500"></i>MetaGPT</h3>
+                      <p class="text-left text-sm leading-relaxed">
+                          <strong class="highlight">核心价值:</strong> <span class="highlight-indigo">多智能体协作</span>框架，模拟软件公司运作，实现<span class="highlight">“自然语言编程”</span>。
+                          <br><strong class="highlight">技术优势:</strong> <span class="highlight">角色化分工</span> (产品经理, 架构师等AI Agent)，端到端开发自动化。标准化操作流程(SOP)，兼容多LLM，模块化可定制。
+                          <br><strong class="highlight">应用场景:</strong> 敏捷开发、原型设计、自动化软件工程探索。
+                          <br><strong class="highlight">关注点:</strong> 依赖外部LLM API成本与合规。重新定义从创意到代码的方式。
+                     </p>
+                     <aside class="notes">项目3：MetaGPT。用AI模拟一个软件团队来开发软件。输入需求，输出代码。核心是多Agent协作。代表了AI驱动开发的新方向。</aside>
+                 </section>
+
+                 <!-- Vertical Slide 4: Glance -->
+                 <section>
+                    <h3 class="font-serif mb-4"><i class="fas fa-tachometer-alt mr-2 text-cyan-400"></i>Glance</h3>
+                     <p class="text-left text-sm leading-relaxed">
+                         <strong class="highlight">核心价值:</strong> <span class="highlight-teal-400">轻量级自托管仪表盘</span>，聚合多源信息，解决信息碎片化。
+                         <br><strong class="highlight">技术优势:</strong> Go语言开发，<span class="highlight">20MB单二进制</span>文件，部署快、资源占用低。支持Docker/树莓派。<span class="highlight">20+预置小部件</span> (RSS, Twitch, Docker状态等)，可定制扩展。
+                         <br><strong class="highlight">应用场景:</strong> 个人信息聚合、团队运维监控、简易项目看板。
+                         <br><strong class="highlight">关注点:</strong> YAML配置，模块化体验，高效信息中枢解决方案。
+                    </p>
+                     <aside class="notes">项目4：Glance。一个可以自己部署的小巧仪表盘，把各种信息（博客、社交媒体、服务器状态）汇总到一处。用Go写的，非常轻量。适合个人或小团队监控信息。</aside>
+                 </section>
+
+             </section>
+
+             <!-- === SLIDE 14: Weekly Summaries === -->
+            <section>
+                 <h3 class="section-title">本月每周热点回顾</h3>
+                 <p class="small-text mb-4">点击链接查看每周详细分析报告 (微信公众号文章)</p>
+                 <div style="max-height: 65vh; overflow-y: auto;">
+                     <table class="w-full text-sm">
+                         <thead>
+                         <tr>
+                             <th class="w-1/4">时间</th>
+                             <th>链接/标题</th>
+                         </tr>
+                         </thead>
+                         <tbody>
+                             <tr><td>第一周</td><td><span class="text-gray-500">未追踪</span></td></tr>
+                             <tr><td>第二周 (W11)</td><td><a href="https://mp.weixin.qq.com/s/sn_ruCC5Ruj2EyIFJQRdDw" target="_blank">AI深度整合与实时架构革新引领GitHub新风向</a></td></tr>
+                             <tr><td>第三周 (W12)</td><td><a href="https://mp.weixin.qq.com/s/fuevg7mZSVdrY7oHrPJEgw" target="_blank">AI工程化与MCP协议引爆开源新浪潮</a></td></tr>
+                             <tr><td>第四周 (W13)</td><td><a href="https://mp.weixin.qq.com/s/4g4n_FP2fuo3UlRmcNKdsw" target="_blank">AI场景落地与工具革命：技术平民化与伦理新方向</a></td></tr>
+                         </tbody>
+                     </table>
+                 </div>
+                 <aside class="notes">这里汇总了本月后三周的详细周报链接，方便大家回顾每周的具体热点。</aside>
+            </section>
+
+
+            <!-- === SLIDE 15: Conclusion & QR Code === -->
+            <section data-background-gradient="linear-gradient(145deg, #1e3a8a 0%, #0c0a09 100%)" data-transition="zoom-out fast">
+                <h2 class="font-serif text-3xl mb-10 tracking-wide">总结与展望</h2>
+                <p class="text-lg leading-loose">
+                    本月GitHub趋势昭示：<br>
+                    <span class="highlight-indigo">AI工程化</span>已成定局，<span class="highlight">场景落地</span>加速；<br>
+                    <span class="highlight-teal-400">工作流自动化</span>迈向<span class="highlight">智能化</span>新阶段；<br>
+                    <span class="highlight-pink">开源工具</span>持续<span class="highlight">普惠</span>，<span class="highlight-yellow-400">原理学习</span>回归。
+                </p>
+                <p class="mt-12 text-2xl font-serif" style="color: var(--color-accent-teal);">
+                    技术浪潮已至，拥抱变革！
+                </p>
+                 <p class="mt-8 text-lg">感谢观看！</p>
+                <!-- QR Code is globally positioned via CSS -->
+                 <aside class="notes">最后总结一下：AI正在变得越来越实用，自动化工具越来越智能，开源让技术更容易获得，同时大家也越来越重视基础原理。技术变革的速度很快，我们需要保持学习，拥抱变化。感谢大家的观看！别忘了扫描右下角的二维码关注我们获取更多信息。</aside>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Core RevealJS -->
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <!-- Optional Plugins -->
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js"></script>
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js"></script>
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js"></script>
+    <!-- Mermaid (Included as requested, though not used in this specific content) -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <script>
+        Reveal.initialize({
+            hash: true, controls: true, progress: true, slideNumber: 'c/t',
+            history: true, keyboard: true, overview: true, center: true,
+            touch: true, loop: false, rtl: false, shuffle: false,
+            fragments: true, fragmentInURL: true, embedded: false, help: true, pause: true,
+            transition: 'slide', // slide, fade, convex, concave, zoom
+            transitionSpeed: 'default',
+            backgroundTransition: 'fade', // fade is often smoother for backgrounds
+
+            // Presentation size - adjusted slightly for better fit
+             width: 1366,
+             height: 768,
+             margin: 0.05,
+             minScale: 0.2, maxScale: 1.8,
+
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+
+        // Optional: Initialize Mermaid if needed later
+        // mermaid.initialize({ startOnLoad: true });
+
+    </script>
+</body>
+</html>
