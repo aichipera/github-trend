@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>GitHub周趋势: AI场景落地与工具革命</title>
+
+    <meta name="description" content="本周GitHub趋势揭示技术平民化与伦理新方向，AI应用从模型开发转向场景落地，工具链迎来革命性突破。">
+    <meta name="author" content="AIChipEra">
+
+    <!-- Core RevealJS -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <!-- Theme - Using white as base, will override with Tailwind + Custom CSS -->
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet" id="theme">
+
+    <!-- Utility & Icons -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --r-main-font: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: 'Noto Serif SC', serif;
+            --r-heading-text-transform: none; /* Keep Chinese characters as is */
+            --r-heading-font-weight: 600;
+            --r-main-font-size: 30px; /* Base size for scaling */
+
+             /* Custom Color Palette - Modern Tech Feel */
+            --color-primary-dark: #0f172a; /* Slate 900 */
+            --color-primary-medium: #1e293b; /* Slate 800 */
+            --color-primary-light: #334155; /* Slate 700 */
+            --color-accent-cyan: #22d3ee; /* Cyan 400 */
+            --color-accent-purple: #a78bfa; /* Violet 400 */
+            --color-text-light: #f1f5f9; /* Slate 100 */
+            --color-text-medium: #cbd5e1; /* Slate 300 */
+            --color-text-dark: #1e293b; /* Slate 800 */
+            --r-background-color: var(--color-primary-dark);
+            --r-main-color: var(--color-text-light);
+            --r-heading-color: var(--color-text-light);
+            --r-link-color: var(--color-accent-cyan);
+            --r-link-color-hover: var(--color-accent-purple);
+        }
+
+        .reveal {
+            font-family: var(--r-main-font);
+            font-size: var(--r-main-font-size);
+            color: var(--r-main-color);
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--r-heading-color);
+            text-transform: var(--r-heading-text-transform);
+            font-weight: var(--r-heading-font-weight);
+        }
+
+        .reveal h1 { font-size: 2.8em; }
+        .reveal h2 { font-size: 2.0em; }
+        .reveal h3 { font-size: 1.5em; }
+        .reveal h4 { font-size: 1.1em; }
+        .reveal p, .reveal li { font-size: 1.0em; line-height: 1.6; }
+
+        /* Custom Slide Backgrounds */
+        .slide-gradient-bg {
+             background: linear-gradient(135deg, var(--color-primary-medium) 0%, var(--color-primary-dark) 100%);
+        }
+        .slide-accent-bg {
+            background: linear-gradient(135deg, var(--color-accent-purple) 0%, var(--color-accent-cyan) 100%);
+        }
+        .slide-accent-bg h1, .slide-accent-bg h2, .slide-accent-bg p {
+            color: var(--color-primary-dark); /* Dark text on light gradient */
+            text-shadow: none;
+        }
+
+        /* Content Styling */
+        .reveal section img {
+            background: none;
+            border: none;
+            box-shadow: none;
+            max-height: 50vh; /* Limit image height */
+            margin: 20px auto;
+        }
+
+        .reveal .small-text { font-size: 0.7em; color: var(--color-text-medium); }
+        .reveal .highlight { color: var(--color-accent-cyan); font-weight: 500; }
+        .reveal .highlight-purple { color: var(--color-accent-purple); font-weight: 500; }
+
+        /* List Styling */
+        .reveal ul { list-style: none; padding-left: 0; }
+        .reveal li { margin-bottom: 0.8em; display: flex; align-items: flex-start; }
+        .reveal li::before {
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            content: "\f138"; /* Example: fa-angle-right */
+            margin-right: 0.5em;
+            color: var(--color-accent-cyan);
+            font-size: 0.9em;
+            margin-top: 0.2em; /* Adjust vertical alignment */
+        }
+        .reveal li.check::before { content: "\f00c"; color: #4ade80; } /* fa-check, green */
+        .reveal li.code::before { content: "\f121"; } /* fa-code */
+        .reveal li.ai::before { content: "\f135"; } /* fa-rocket / alternative: fa-robot */
+        .reveal li.ethics::before { content: "\f085"; color: var(--color-accent-purple); } /* fa-gavel / fa-cogs for settings/ethics */
+        .reveal li.trend::before { content: "\f042"; } /* fa-signal */
+        .reveal li.tool::before { content: "\f0ad"; } /* fa-wrench */
+
+
+        /* QR Code Styling */
+        .qr-code {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 80px; /* Adjust size as needed */
+            height: 80px;
+            z-index: 1000; /* Ensure it's on top */
+            background: white; /* Ensure visibility */
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        /* Tailwind utility overrides/additions */
+        .text-shadow-custom {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .section-title {
+            border-bottom: 3px solid var(--color-accent-cyan);
+            padding-bottom: 0.3em;
+            display: inline-block;
+            margin-bottom: 1em;
+        }
+
+        /* Table styling */
+        .reveal table {
+            margin: 2em auto;
+            border-collapse: collapse;
+            width: 90%;
+        }
+        .reveal th {
+            background-color: var(--color-primary-light);
+            color: var(--color-text-light);
+            padding: 0.5em 1em;
+            text-align: left;
+            font-weight: 600;
+            font-family: var(--r-main-font); /* Use main font for table header */
+        }
+        .reveal td {
+            padding: 0.5em 1em;
+            border: 1px solid var(--color-primary-light);
+            font-size: 0.8em;
+            color: var(--color-text-medium);
+        }
+        .reveal tr:nth-child(even) td {
+            background-color: var(--color-primary-medium);
+        }
+         .reveal tr:hover td {
+            background-color: var(--color-primary-light);
+            color: var(--color-text-light);
+        }
+
+    </style>
+</head>
+<body>
+    <img src="../../asserts/wx.jpg" alt="关注我们公众号" class="qr-code" id="qr-code-global">
+
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- === SLIDE 1: Title === -->
+            <section data-background-gradient="linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%)" data-transition="zoom">
+                <h1 class="text-shadow-custom font-serif font-bold">AI场景落地与工具革命</h1>
+                <h2 class="text-shadow-custom font-serif text-2xl mt-4" style="color: var(--color-accent-cyan);">GitHub周趋势揭示技术平民化与伦理新方向</h2>
+                <p class="mt-12 text-lg" style="color: var(--color-text-medium);">
+                    <i class="fas fa-user-tie mr-2"></i>AIChipEra
+                </p>
+                <p class="small-text mt-4">
+                    <i class="fas fa-clock mr-2"></i>周报观测时间: 2025-03-30 21:04:52
+                </p>
+                <aside class="notes">
+                    开场白，介绍主题：本周GitHub热门项目趋势，重点关注AI落地、工具创新、技术普及和伦理考量。
+                </aside>
+            </section>
+
+            <!-- === SLIDE 2: Disclaimer === -->
+            <section data-transition="fade">
+                 <h3 class="section-title">重要提示</h3>
+                 <p class="mt-8 text-lg p-6 bg-yellow-800 bg-opacity-50 rounded-lg border border-yellow-600">
+                     <i class="fas fa-exclamation-triangle mr-3 text-yellow-400"></i>以下内容仅供项目介绍和学习交流使用， <strong class="text-yellow-300">不构成任何投资建议</strong>，请注意独立思考与甄别！
+                 </p>
+                 <aside class="notes">强调内容的学习性质，规避投资风险提示。</aside>
+            </section>
+
+             <!-- === SLIDE 3: Weekly Highlights === -->
+            <section data-transition="slide-in right">
+                <h2 class="section-title">周报核心要点</h2>
+                <p class="mt-6 text-left leading-relaxed">
+                    本周GitHub趋势凸显<span class="highlight">技术实用主义</span>浪潮，AI应用从模型开发转向<span class="highlight">场景落地</span>。
+                    <span class="fragment fade-in-then-semi-out">如 <strong class="highlight-purple">Deep-Live-Cam</strong> 实现单图实时换脸，<strong class="highlight-purple">Spring AI Alibaba</strong> 降低企业集成门槛。</span>
+                    <span class="fragment fade-in-then-semi-out">工具链<span class="highlight">革命性突破</span>，如 <strong class="highlight-purple">avante.nvim</strong> 将AI深度植入Neovim生态。</span>
+                    <span class="fragment fade-in-then-semi-out">Python主导领域面临Java/C++等<span class="highlight">垂直场景渗透</span>。</span>
+                    <span class="fragment fade-in-then-semi-out"><span class="highlight-purple">伦理设计</span>首次成核心卖点，内容过滤强制标注引关注。</span>
+                    <span class="fragment fade-in-then-semi-out">从 <strong class="highlight">OCRmyPDF</strong> 文档智能化到 <strong class="highlight">Maple Mono</strong> 字体革命，开源协作加速工具链迭代。</span>
+                    <span class="fragment fade-in-then-semi-out">预示<span class="highlight">多模态生成</span>、<span class="highlight">轻量化推理</span>等下一波热点即将爆发。</span>
+                </p>
+                 <aside class="notes">
+                    快速总结本周关键发现：
+                    1.  AI落地实用化
+                    2.  工具链创新
+                    3.  语言格局变化
+                    4.  伦理考量凸显
+                    5.  开源加速迭代
+                    6.  未来趋势预告
+                 </aside>
+            </section>
+
+            <!-- === SLIDE 4: Section Break: Trend Analysis === -->
+            <section data-background-color="#1e293b" data-transition="convex">
+                <h2 class="font-serif text-4xl">热门项目趋势分析</h2>
+                <i class="fas fa-chart-line fa-3x mt-4" style="color: var(--color-accent-purple);"></i>
+            </section>
+
+            <!-- === SLIDE 5: Overall Trends === -->
+            <section>
+                <h3 class="section-title">本周整体趋势：三大核心主题</h3>
+                 <div class="grid md:grid-cols-3 gap-6 mt-8 text-center">
+                     <div class="p-4 bg-gray-700 bg-opacity-30 rounded-lg fragment" data-fragment-index="1">
+                         <i class="fas fa-robot fa-2x mb-3 text-blue-400"></i>
+                         <h4 class="font-serif text-lg mb-2">AI应用落地</h4>
+                         <p class="text-sm">LLM场景化 (RAG)<br>实时生成技术</p>
+                     </div>
+                     <div class="p-4 bg-gray-700 bg-opacity-30 rounded-lg fragment" data-fragment-index="2">
+                         <i class="fas fa-tools fa-2x mb-3 text-green-400"></i>
+                         <h4 class="font-serif text-lg mb-2">工具链优化</h4>
+                         <p class="text-sm">开发效率提升<br>生态深度整合</p>
+                     </div>
+                     <div class="p-4 bg-gray-700 bg-opacity-30 rounded-lg fragment" data-fragment-index="3">
+                         <i class="fas fa-file-alt fa-2x mb-3 text-purple-400"></i>
+                         <h4 class="font-serif text-lg mb-2">内容生成与处理</h4>
+                         <p class="text-sm">文档智能化 (OCR)<br>字体设计优化</p>
+                     </div>
+                 </div>
+                 <p class="mt-8 fragment" data-fragment-index="4">
+                    <i class="fas fa-shield-alt mr-2" style="color: var(--color-accent-purple);"></i>特别关注：<strong class="highlight-purple">伦理与安全设计</strong>开始融入技术核心。
+                 </p>
+                 <aside class="notes">
+                     总结三大主题：AI落地、工具优化、内容处理。特别点出伦理成为新考量。
+                 </aside>
+            </section>
+
+            <!-- === SLIDE 6: Programming Language Distribution === -->
+            <section>
+                <h3 class="section-title">编程语言分布与技术栈特点</h3>
+                <ul class="mt-6 text-left">
+                    <li class="fragment code"><strong class="text-yellow-400 mr-2">Python (4项):</strong> 主导AI开发与数据处理 (<code class="text-sm">awesome-llm-apps, Deep-Live-Cam, OCRmyPDF, maple-font</code>)。</li>
+                    <li class="fragment code"><strong class="text-red-400 mr-2">Java (1项):</strong> 服务企业级AI框架 (<code class="text-sm">Spring AI Alibaba</code>)。</li>
+                    <li class="fragment code"><strong class="text-blue-400 mr-2">TypeScript (2项):</strong> 跨平台工具开发 (<code class="text-sm">newsnow, DesktopCommanderMCP</code>)。</li>
+                    <li class="fragment code"><strong class="text-green-400 mr-2">C++ (1项):</strong> 高性能模拟器领域 (<code class="text-sm">shadPS4</code>)。</li>
+                    <li class="fragment code"><strong class="text-purple-400 mr-2">Lua (1项):</strong> 轻量化AI插件 (Neovim生态 - <code class="text-sm">avante.nvim</code>)。</li>
+                </ul>
+                <p class="mt-6 fragment"><strong class="highlight">技术栈特点：</strong><span class="highlight-purple">混合架构</span> (开源模型+云服务)，<span class="highlight-purple">跨平台兼容</span> (Docker, Apple Silicon)，<span class="highlight-purple">轻量化设计</span> (Node.js+TS)。</p>
+                 <aside class="notes">
+                    展示各语言的项目数量和代表作。点出混合架构、跨平台、轻量化的技术栈趋势。
+                 </aside>
+            </section>
+
+             <!-- === SLIDE 7: Technical Needs & Directions === -->
+             <section>
+                 <h3 class="section-title">技术需求与发展方向</h3>
+                 <ul class="mt-6 text-left">
+                     <li class="fragment ai"><strong class="highlight">AI应用平民化:</strong> 多模型兼容、开箱即用方案降低门槛。</li>
+                     <li class="fragment ai"><strong class="highlight">实时性与交互性:</strong> 毫秒级响应、流式处理提升体验。</li>
+                     <li class="fragment tool"><strong class="highlight">开发流程智能化:</strong> AI与开发工具深度整合，打通本地环境。</li>
+                     <li class="fragment trend"><strong class="highlight">开源生态扩展:</strong> 社区协作、激励机制加速技术迭代。</li>
+                 </ul>
+                 <aside class="notes">总结当前的技术需求和未来的发展趋势：易用性、实时性、智能化、开源协作。</aside>
+            </section>
+
+            <!-- === SLIDE 8: Historical Comparison === -->
+            <section>
+                <h3 class="section-title">热门项目变化与对比</h3>
+                 <ul class="mt-6 text-left">
+                     <li class="fragment trend"><strong class="highlight">AI焦点转移:</strong> 从 <span class="text-gray-400">模型开发</span> <i class="fas fa-arrow-right mx-2"></i> <span class="highlight-purple">场景落地与应用框架</span>。</li>
+                     <li class="fragment tool"><strong class="highlight">工具链竞争加剧:</strong> Neovim生态 vs Claude生态，细分需求驱动。</li>
+                     <li class="fragment ethics"><strong class="highlight">伦理设计首次成为卖点:</strong> <code class="text-sm">Deep-Live-Cam</code> 强制标注，公众担忧影响技术设计。</li>
+                 </ul>
+                 <aside class="notes">对比过去，强调AI从模型到应用、工具竞争、伦理考量成为新变化。</aside>
+            </section>
+
+             <!-- === SLIDE 9: Future Predictions === -->
+            <section>
+                <h3 class="section-title">下一波技术热点预测</h3>
+                 <ol class="mt-6 text-left list-decimal pl-6">
+                     <li class="fragment">多模态AI工具爆发 (文本、图像、代码综合生成)。</li>
+                     <li class="fragment">轻量级AI推理框架 (边缘设备优化)。</li>
+                     <li class="fragment">AI与开发环境深度耦合 (IDE核心功能集成)。</li>
+                     <li class="fragment">开源文档处理生态完善 (OCR、编辑、排版标准化)。</li>
+                     <li class="fragment">伦理技术标准化 (安全模块纳入主流框架)。</li>
+                 </ol>
+                <aside class="notes">预测未来5大热点方向。</aside>
+            </section>
+
+            <!-- === SLIDE 10: Uniqueness of the Week === -->
+            <section>
+                <h3 class="section-title">本周技术趋势独特性</h3>
+                 <ul class="mt-6 text-left">
+                    <li class="fragment check"><strong class="highlight">实用主义主导:</strong> 聚焦解决具体痛点，而非技术炫技。</li>
+                    <li class="fragment check"><strong class="highlight">开源生态爆发力:</strong> 社区协作与激励机制形成创新闭环。</li>
+                    <li class="fragment ethics"><strong class="highlight">伦理与技术并重:</strong> 主动嵌入伦理约束，从“可用”转向“可控”。</li>
+                 </ul>
+                 <p class="mt-8 fragment text-center text-lg">技术社区正从“<span class="text-gray-400">探索可能性</span>” <i class="fas fa-arrow-right mx-2"></i> “<span class="highlight-purple">解决现实问题</span>”</p>
+                <aside class="notes">总结本周趋势的独特性：实用、开源驱动、伦理考量。点出技术社区的转变。</aside>
+            </section>
+
+            <!-- === SLIDE 11: Bi-Weekly Comparison (Brief) === -->
+            <section>
+                <h3 class="section-title">双周维度对比观察</h3>
+                 <ul class="mt-6 text-left">
+                     <li class="fragment trend"><strong class="highlight">热度变化:</strong> 新项目主导 (9个新增)，存量项目平稳。</li>
+                     <li class="fragment code"><strong class="highlight">语言变化:</strong> <span class="text-red-400">Java</span> <i class="fas fa-arrow-up"></i>, <span class="text-green-400">C++</span> <i class="fas fa-arrow-up"></i>, <span class="text-purple-400">Lua</span> <i class="fas fa-arrow-up"></i> | <span class="text-gray-400">Go</span> <i class="fas fa-arrow-down"></i>, <span class="text-blue-400">TS</span> <i class="fas fa-arrow-down"></i>, <span class="text-yellow-400">Jupyter</span> <i class="fas fa-arrow-down"></i><i class="fas fa-arrow-down"></i></li>
+                     <li class="fragment check"><strong class="highlight">显著变化:</strong> Java回归企业AI，Lua生态(Neovim)崛起，工具类项目爆发。</li>
+                 </ul>
+                 <p class="mt-6 fragment text-center text-lg">开发者对<span class="highlight">新兴技术</span>好奇心强，<span class="highlight">效率工具</span>需求显著增长。</p>
+                 <aside class="notes">简要介绍双周对比，突出新项目多、语言结构调整、工具需求旺盛。</aside>
+            </section>
+
+             <!-- === SLIDE 12: Section Break: Hot Projects === -->
+            <section data-background-color="#1e293b" data-transition="convex">
+                <h2 class="font-serif text-4xl">本周热门项目聚焦</h2>
+                 <i class="fas fa-star fa-3x mt-4" style="color: var(--color-accent-cyan);"></i>
+            </section>
+
+            <!-- === SLIDE 13: Hot Projects Ranking === -->
+            <section>
+                 <h3 class="section-title">热门项目排名 (Star 数)</h3>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 mt-6 text-sm">
+                     <div class="fragment fade-in-then-semi-out"><strong>1. <i class="fas fa-camera text-red-400"></i> Deep-Live-Cam (Py):</strong> ⭐48.8k - 实时换脸&视频伪造</div>
+                     <div class="fragment fade-in-then-semi-out"><strong>2. <i class="fas fa-file-pdf text-orange-400"></i> OCRmyPDF (Py):</strong> ⭐26.0k - PDF加OCR文本层</div>
+                     <div class="fragment fade-in-then-semi-out"><strong>3. <i class="fas fa-brain text-purple-400"></i> awesome-llm-apps (Py):</strong> ⭐25.5k - LLM应用合集(Agents+RAG)</div>
+                     <div class="fragment fade-in-then-semi-out"><strong>4. <i class="fas fa-gamepad text-blue-400"></i> shadPS4 (C++):</strong> ⭐20.9k - PS4模拟器</div>
+                     <div class="fragment fade-in-then-semi-out"><strong>5. <i class="fas fa-font text-green-400"></i> maple-font (Py):</strong> ⭐13.6k - 开源圆角编程字体</div>
+                     <div class="fragment fade-in-then-semi-out"><strong>6. <i class="fas fa-keyboard text-yellow-400"></i> avante.nvim (Lua):</strong> ⭐11.8k - Neovim的Cursor AI体验</div>
+                     <div class="fragment fade-in-then-semi-out"><strong>7. <i class="fas fa-newspaper text-cyan-400"></i> newsnow (TS):</strong> ⭐7.1k - 优雅实时新闻阅读</div>
+                     <div class="fragment fade-in-then-semi-out"><strong>8. <i class="fab fa-java text-red-500"></i> spring-ai-alibaba (Java):</strong> ⭐1.9k - Java智能体AI框架</div>
+                     <div class="fragment fade-in-then-semi-out"><strong>9. <i class="fas fa-desktop text-indigo-400"></i> DesktopCommanderMCP (TS):</strong> ⭐1.2k - Claude的本地控制MCP服务器</div>
+                 </div>
+                  <p class="mt-8 small-text text-center">
+                     <span class="mr-4"><strong class="highlight">语言分布:</strong> Py(4), TS(2), Java(1), Lua(1), C++(1)</span>
+                     <span><strong class="highlight">Star分布:</strong> 10k-50k(6), 1k-5k(2), 5k-10k(1)</span>
+                 </p>
+                 <aside class="notes">展示Top 9项目列表，包含图标、名称、语言、Star数和简短描述。总结语言和Star分布。</aside>
+            </section>
+
+             <!-- === SLIDE 14: Project Deep Dive - Parent === -->
+             <section>
+                 <!-- Main slide introducing the deep dive -->
+                 <section data-background-color="#334155">
+                     <h2 class="font-serif text-3xl">重点项目深度解析</h2>
+                     <i class="fas fa-microscope fa-3x mt-4 text-white"></i>
+                     <p class="mt-4">深入了解代表性项目的技术亮点与价值</p>
+                     <p class="small-text mt-8 animate-pulse">请按 <i class="fas fa-arrow-down"></i> 查看详情</p>
+                 </section>
+
+                 <!-- Vertical Slide 1: Deep-Live-Cam -->
+                 <section>
+                    <h3 class="font-serif mb-4"><i class="fas fa-camera mr-2 text-red-400"></i>Deep-Live-Cam</h3>
+                     <p class="text-left text-sm leading-relaxed">
+                         <strong class="highlight">核心价值:</strong> 基于<span class="highlight-purple">单张图像</span>实现<span class="highlight-purple">实时换脸</span>与视频深度伪造，极大降低技术门槛。
+                         <br><strong class="highlight">技术优势:</strong> 轻量ONNX模型+GFPGAN超分，<span class="highlight-purple">毫秒级处理</span> (NVIDIA/Apple Silicon)。
+                         <br><strong class="highlight">伦理设计:</strong> 内置<span class="highlight-purple">内容过滤</span>与<span class="highlight-purple">强制标注</span>机制，平衡技术普惠与风险控制。
+                         <br><strong class="highlight">应用场景:</strong> 直播、创意内容、虚拟试穿等。
+                         <br><strong class="highlight">关注点:</strong> 依赖特定硬件，需警惕滥用风险，遵守伦理规范。
+                    </p>
+                     <aside class="notes">项目1：Deep-Live-Cam。强调单图实时、技术性能、伦理设计。</aside>
+                 </section>
+
+                 <!-- Vertical Slide 2: Spring AI Alibaba -->
+                 <section>
+                      <h3 class="font-serif mb-4"><i class="fab fa-java mr-2 text-red-500"></i>Spring AI Alibaba</h3>
+                      <p class="text-left text-sm leading-relaxed">
+                          <strong class="highlight">核心价值:</strong> 面向Java开发者，<span class="highlight-purple">深度集成阿里云通义千问</span>，简化企业级AI应用开发。
+                          <br><strong class="highlight">技术优势:</strong> 无缝衔接阿里云生态，<span class="highlight-purple">ChatClient统一调用</span>，内置<span class="highlight-purple">RAG模块</span> (文档解析、向量存储、智能检索)，支持同步/流式API，<span class="highlight-purple">Spring Boot Starter</span> 自动配置。
+                          <br><strong class="highlight">应用场景:</strong> 智能客服、内容生成、数据分析等快速集成大模型能力的场景。
+                          <br><strong class="highlight">关注点:</strong> 强依赖阿里云服务 (需API Key)，适合云原生应用。
+                     </p>
+                      <aside class="notes">项目2：Spring AI Alibaba。强调Java生态、阿里云集成、RAG、简化开发。</aside>
+                 </section>
+
+                  <!-- Vertical Slide 3: avante.nvim -->
+                 <section>
+                      <h3 class="font-serif mb-4"><i class="fas fa-keyboard mr-2 text-yellow-400"></i>avante.nvim</h3>
+                      <p class="text-left text-sm leading-relaxed">
+                          <strong class="highlight">核心价值:</strong> 将<span class="highlight-purple">AI代码辅助</span>深度融入<span class="highlight-purple">Neovim</span>，模拟Cursor AI IDE体验，提升编码效率。
+                          <br><strong class="highlight">技术优势:</strong> <span class="highlight-purple">多模型支持</span> (OpenAI, Copilot等)，一键获取并应用代码建议，<span class="highlight-purple">流式响应</span>，与Treesitter/Telescope等<span class="highlight-purple">生态工具</span>深度整合，支持Markdown渲染和图像。
+                          <br><strong class="highlight">应用场景:</strong> 复杂逻辑优化、代码问题解决、新功能探索，尤其适合Neovim重度用户。
+                          <br><strong class="highlight">关注点:</strong> 需Neovim 0.10+，依赖外部AI服务API。
+                     </p>
+                     <aside class="notes">项目3：avante.nvim。强调Neovim集成、AI辅助、生态整合、效率提升。</aside>
+                 </section>
+             </section>
+
+             <!-- === SLIDE 15: Daily Summaries === -->
+            <section>
+                 <h3 class="section-title">本周每日Github热点回顾</h3>
+                 <p class="small-text mb-4">点击链接查看每日详细分析报告 (微信公众号文章)</p>
+                 <div style="max-height: 60vh; overflow-y: auto;">
+                     <table class="w-full text-sm">
+                         <thead>
+                         <tr>
+                             <th>时间</th>
+                             <th>链接/标题</th>
+                         </tr>
+                         </thead>
+                         <tbody>
+                             <tr><td>周一</td><td><a href="https://mp.weixin.qq.com/s?__biz=MzkyMzg3NTc1OQ==&mid=2247485545&idx=1&sn=7e6e574cccfe1b9a29cd95ad11b3a744&scene=21#wechat_redirect" target="_blank" class="hover:underline">AI工具链井喷与Rust崛起 (20250324)</a></td></tr>
+                             <tr><td>周二</td><td><a href="https://mp.weixin.qq.com/s?__biz=MzkyMzg3NTc1OQ==&mid=2247485660&idx=1&sn=38b83803091d0ea8b945403f66e5d145&scene=21#wechat_redirect" target="_blank" class="hover:underline">生成式AI场景爆发与大模型工程化 (20250325)</a></td></tr>
+                             <tr><td>周三</td><td><a href="https://mp.weixin.qq.com/s?__biz=MzkyMzg3NTc1OQ==&mid=2247485724&idx=1&sn=53433d3e7db05722a2f3fe2f8c1101f2&scene=21#wechat_redirect" target="_blank" class="hover:underline">AI工具链与云原生崛起 (20250326)</a></td></tr>
+                             <tr><td>周四</td><td><a href="https://mp.weixin.qq.com/s?__biz=MzkyMzg3NTc1OQ==&mid=2247485767&idx=1&sn=6da4ec5469b4c1590f2ffb2e2cc2a7fd&scene=21#wechat_redirect" target="_blank" class="hover:underline">AI场景落地与Rust高性能方案 (20250327)</a></td></tr>
+                             <tr><td>周五</td><td><a href="https://mp.weixin.qq.com/s?__biz=MzkyMzg3NTc1OQ==&mid=2247485853&idx=1&sn=7583f285240911781efbab3f7e8d1bd9&scene=21#wechat_redirect" target="_blank" class="hover:underline">AI工程化、Rust崛起与平民化安全工具 (20250328)</a></td></tr>
+                             <tr><td>周六</td><td><a href="https://mp.weixin.qq.com/s?__biz=MzkyMzg3NTc1OQ==&mid=2247485885&idx=1&sn=9c181742df691a76cc4f6381f17a3c60&scene=21#wechat_redirect" target="_blank" class="hover:underline">AI Agent生态爆发，Rust安全崛起 (20250329)</a></td></tr>
+                             <tr><td>周日</td><td><a href="https://mp.weixin.qq.com/s?__biz=MzkyMzg3NTc1OQ==&mid=2247485900&idx=1&sn=3e821a8a8f655827c6c2c5f59597fb7c&scene=21#wechat_redirect" target="_blank" class="hover:underline">LLM应用生态爆发，开源自托管崛起 (20250330)</a></td></tr>
+                         </tbody>
+                     </table>
+                 </div>
+                 <aside class="notes">提供一个表格，链接到本周的每日报告，方便观众深入了解。</aside>
+            </section>
+
+
+            <!-- === SLIDE 16: Conclusion & QR Code === -->
+            <section data-background-gradient="linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%)" data-transition="zoom-out">
+                <h2 class="font-serif text-3xl mb-8">总结与展望</h2>
+                <p class="text-lg leading-relaxed">
+                    本周GitHub趋势清晰地展示了AI技术正加速从<span class="highlight">理论走向实用</span>，<br>
+                    开发者工具链经历<span class="highlight">智能化革命</span>，<br>
+                    开源社区成为推动<span class="highlight">技术平民化</span>与探索<span class="highlight-purple">伦理边界</span>的关键力量。
+                </p>
+                <p class="mt-12 text-2xl font-serif" style="color: var(--color-accent-cyan);">
+                    保持关注，拥抱变化！
+                </p>
+                 <p class="mt-8 text-lg">感谢观看！</p>
+                <!-- QR Code is globally positioned via CSS -->
+                 <aside class="notes">总结核心观点：实用化、工具革命、开源力量、伦理考量。感谢并提示关注公众号。</aside>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Core RevealJS -->
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <!-- Optional Plugins -->
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js"></script>
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js"></script>
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js"></script>
+    <!-- Mermaid (Included as requested, though not used in this specific content) -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <script>
+        // More info about initialization & config:
+        // - https://revealjs.com/config/
+        // - https://revealjs.com/plugins/
+        Reveal.initialize({
+            hash: true, // Enables deep linking to slides
+            controls: true, // Display controls in the bottom right corner
+            progress: true, // Display a presentation progress bar
+            slideNumber: 'c/t', // Display the page number of the current slide / total slides
+            history: true, // Push each slide change to the browser history
+            keyboard: true, // Enable keyboard shortcuts for navigation
+            overview: true, // Enable the slide overview mode (press 'Esc')
+            center: true, // Vertical centering of slides
+            touch: true, // Enables touch navigation on devices
+            loop: false, // Loop the presentation
+            rtl: false, // Change the presentation direction to be RTL
+            shuffle: false, // Randomizes the order of slides each time the presentation loads
+            fragments: true, // Turns fragments on globally
+            fragmentInURL: true, // Embed fragment state in URL
+            embedded: false, // Flags if the presentation is running embedded within another page
+            help: true, // Show navigational help overlay?
+            pause: true, // Pause slides when window is inactive
+            // Transition style
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            // Transition speed
+            transitionSpeed: 'default', // default/fast/slow
+            // Transition style for full page slide backgrounds
+            backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+
+            // Presentation size
+             width: 1280,
+             height: 720,
+             margin: 0.04, // Factor of page height
+             minScale: 0.2, // Minimum size based on width
+             maxScale: 1.5, // Maximum size based on width
+
+            // Optional reveal.js plugins
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+
+        // Initialize Mermaid if you plan to use diagrams
+        // mermaid.initialize({ startOnLoad: true });
+
+        // Ensure QR code is visible on first and last slide specifically
+        // (Although CSS keeps it fixed, this adds logic if needed for conditional display)
+        // Reveal.addEventListener('slidechanged', event => {
+        //     const qrCode = document.getElementById('qr-code-global');
+        //     if (event.indexh === 0 || Reveal.isLastSlide()) {
+        //          qrCode.style.display = 'block';
+        //      } else {
+        //          qrCode.style.display = 'block'; // CSS already keeps it fixed, so always block is fine
+        //      }
+        // });
+        // Initial check for first slide
+        // const qrCode = document.getElementById('qr-code-global');
+        // if (Reveal.getIndices().h === 0) {
+        //     qrCode.style.display = 'block';
+        // }
+
+    </script>
+</body>
+</html>
