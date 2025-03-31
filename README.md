@@ -22,3 +22,6 @@
 
 ![微信公众号二维码](asserts/wx.jpg)
 
+## 致谢
+
+PPT提示词参考了 [网页PPT设计专家Prompt](https://xiangyangqiaomu.feishu.cn/wiki/Gn6HwZsGqiWVtekoDHkcaTd1njc)
