@@ -1,230 +1,210 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub新趋势：TypeScript主导，AI工程化与区块链UX革命</title>
 
-    <title>GitHub热门趋势分析 - AIChipEra</title>
-    <meta name="description" content="GitHub最新趋势揭示技术演进新方向：AI工程化工具、开发者效率方案强势崛起，TypeScript成为核心语言。深度解析技术栈变革，洞悉开发者如何用TypeScript重构效率，用AI重塑工作流。">
-    <meta name="author" content="AIChipEra">
-
-    <!-- 核心框架 -->
+    <!-- Core Framework -->
     <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
-    <!-- 主题选择: 'white' 提供了干净的基础，便于Tailwind定制 -->
-    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet" id="theme">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" id="theme" rel="stylesheet">
 
-    <!-- 扩展依赖 -->
+    <!-- Extension Dependencies -->
     <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <!-- 引入 Noto Serif SC 和 Noto Sans SC -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-    <!-- 自定义样式 -->
     <style>
-        /* 基础字体设置 (确保 Noto Sans SC 优先，然后是指定的回退) */
-        body, .reveal {
-            /* 优先使用 Noto Sans SC，然后是指定的回退字体栈 */
-            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
-            font-weight: 400; /* Regular weight for body text */
+        /* Base Font Stack (Fallback) */
+        body {
+            font-family: "Noto Sans SC", Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
         }
 
-        /* 标题使用 Noto Serif SC */
-        .reveal h1,
-        .reveal h2,
-        .reveal h3,
-        .reveal h4,
-        .reveal h5,
-        .reveal h6 {
-            font-family: 'Noto Serif SC', serif;
-            font-weight: 600; /* Semi-bold or Bold for titles */
-        }
-
-        /* 响应式字体大小 (移动端优先) */
-        :root {
-            --r-main-font-size: 16px; /* 基础字体大小，影响rem单位 */
-            --r-heading1-size: 2.5rem; /* H1 标题 */
-            --r-heading2-size: 1.8rem; /* H2 副标题 / Section Title */
-            --r-heading3-size: 1.4rem; /* H3 */
-            --r-text-size: 1.1rem;    /* 正文 */
-        }
-
-        /* 在较大屏幕上可以适当增大字体 */
-        @media (min-width: 768px) { /* Tailwind 'md' breakpoint */
-            :root {
-                --r-main-font-size: 18px;
-                --r-heading1-size: 3rem;
-                --r-heading2-size: 2rem;
-                --r-heading3-size: 1.5rem;
-                --r-text-size: 1.2rem;
-            }
-        }
-        @media (min-width: 1024px) { /* Tailwind 'lg' breakpoint */
-            :root {
-                --r-main-font-size: 20px;
-                 /* 保持标题大小或微调 */
-            }
-        }
-
-        .reveal .slides section {
-            /* 确保内容垂直居中，并且有足够的内边距 */
-            box-sizing: border-box;
-            padding: 20px;
-            text-align: left; /* 默认左对齐，移动端更友好 */
-            display: flex;
-            flex-direction: column;
-            justify-content: center; /* 垂直居中内容 */
-            min-height: 90vh; /* 限制内容高度，确保在各种屏幕上可见 */
-        }
-
-        /* 移动端优化标题和文本对齐 */
-        .reveal .slides section h1,
-        .reveal .slides section h2,
-        .reveal .slides section h3 {
-             text-align: center; /* 移动端标题居中 */
-             margin-bottom: 1rem;
-        }
-        .reveal .slides section p,
-        .reveal .slides section ul,
-        .reveal .slides section ol {
-            text-align: left; /* 正文左对齐 */
-            margin-bottom: 0.8rem;
-        }
-        .reveal .slides section ul li,
-        .reveal .slides section ol li {
-            margin-bottom: 0.5rem;
-        }
-
-         /* 桌面端布局调整 */
-        @media (min-width: 768px) {
-            .reveal .slides section {
-                padding: 40px;
-            }
-            .reveal .slides section h1,
-            .reveal .slides section h2,
-            .reveal .slides section h3 {
-                 text-align: left; /* 桌面端标题恢复左对齐 */
-            }
-        }
-
-        /* 自定义配色方案 (示例) */
-        :root {
-            --primary-color: #4A00E0;  /* 深紫色 */
-            --secondary-color: #8E2DE2; /* 亮紫色 (渐变用) */
-            --accent-color: #FFC837;   /* 金黄色 (强调) */
-            --text-color-light: #343A40; /* 深灰色文字 */
-            --text-color-dark: #F8F9FA; /* 浅灰色文字 (用于深色背景) */
-            --bg-color-light: #FFFFFF; /* 白色背景 */
-            --bg-color-dark: #212529; /* 深色背景 */
-            --link-color: #4A00E0;
-            --link-color-hover: #8E2DE2;
-        }
-
+        /* Reveal.js Customization */
         .reveal {
-            color: var(--text-color-light);
+            font-size: 16px; /* Base font size */
         }
 
-        .reveal a {
-            color: var(--link-color);
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-        .reveal a:hover {
-            color: var(--link-color-hover);
-            text-decoration: underline;
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: "Noto Serif SC", serif;
+            font-weight: 600;
+            color: #1a202c; /* Darker Gray for Titles */
+            margin-bottom: 0.75em;
         }
 
-        /* 封面和尾页特殊样式 */
-        .cover-slide, .end-slide {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100%; /* 占据整个视口高度 */
+        .reveal h1 { font-size: 3rem; } /* Slightly larger main title */
+        .reveal h2 { font-size: 2rem; } /* Slide titles */
+        .reveal h3 { font-size: 1.5rem; } /* Sub-headings */
+        .reveal p, .reveal li, .reveal td, .reveal th {
+            font-family: "Noto Sans SC", sans-serif;
+            font-size: 1.1rem; /* Readable body text */
+            line-height: 1.6;
+            color: #4a5568; /* Medium Gray for Body */
         }
 
-        .cover-slide h1 {
-             font-size: var(--r-heading1-size);
-             color: var(--text-color-dark); /* 假设封面背景较深 */
-             margin-bottom: 0.5rem;
-             font-weight: 700;
-        }
-        .cover-slide h2 {
-             font-size: var(--r-heading2-size);
-             color: var(--text-color-dark);
-             opacity: 0.8;
-             margin-bottom: 2rem;
-        }
-        .cover-slide p.speaker {
-             font-size: var(--r-text-size);
-             color: var(--text-color-dark);
-             opacity: 0.7;
+        .reveal section img {
+            border: none;
+            box-shadow: none;
+            background: none;
+            margin: 10px 0; /* Adjust spacing */
         }
 
-        /* 页脚链接和二维码 */
-        .footer-link {
+        .reveal strong {
+           color: #2b6cb0; /* Blue emphasis */
+           font-weight: 500;
+        }
+
+        .reveal ul, .reveal ol {
+            margin-left: 1.5em; /* Indentation for lists */
+        }
+
+        .reveal li {
+            margin-bottom: 0.5em;
+        }
+
+        .reveal pre code {
+            font-size: 0.9em;
+            max-height: 400px; /* Limit code block height */
+        }
+
+        .reveal table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+        }
+        .reveal th, .reveal td {
+            border: 1px solid #e2e8f0; /* Light gray border */
+            padding: 8px 12px;
+            text-align: left;
+        }
+        .reveal th {
+            background-color: #f7fafc; /* Very light gray header */
+            font-weight: 500;
+        }
+
+        /* Custom Theme Elements */
+        .reveal .slide-background-content {
+            background-color: #ffffff; /* Ensure white background */
+        }
+
+        /* Aha Moment Styling - Subtle Gradient Background Example */
+        .reveal .slide-background.gradient-bg .slide-background-content {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); /* Light blue gradient */
+        }
+        .reveal .slide-background.dark-gradient-bg .slide-background-content {
+             background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%); /* Dark gradient */
+        }
+         .reveal .dark-gradient-bg h1, .reveal .dark-gradient-bg h2, .reveal .dark-gradient-bg h3, .reveal .dark-gradient-bg p, .reveal .dark-gradient-bg li {
+            color: #ffffff; /* White text on dark background */
+        }
+        .reveal .dark-gradient-bg strong {
+            color: #63b3ed; /* Light blue emphasis on dark */
+        }
+
+
+        /* Title & Footer Elements */
+        .footer-content {
             position: absolute;
             bottom: 20px;
             right: 20px;
             display: flex;
             align-items: center;
-            gap: 10px; /* Use gap for spacing */
-            font-size: 0.8rem; /* Smaller font size for footer */
-            z-index: 10; /* Ensure it's above background elements */
+            font-size: 0.75rem;
+            color: #718096; /* Gray text */
+            z-index: 10;
         }
-        .footer-link img {
-            width: 60px; /* Adjust QR code size as needed */
+        .footer-content img {
+            width: 60px; /* Adjust QR code size */
             height: 60px;
-            display: block; /* Remove extra space below image */
+            margin-left: 10px;
+            background: white; /* Ensure QR code visibility */
+            padding: 2px;
+            border-radius: 4px;
         }
-         .footer-link a {
-             color: #cccccc; /* Lighter color on dark background */
-             white-space: nowrap;
-         }
-         .cover-slide .footer-link a, .end-slide .footer-link a {
-             color: var(--text-color-dark); /* Adjust based on actual cover/end bg */
-             opacity: 0.8;
-         }
-          .cover-slide .footer-link a:hover, .end-slide .footer-link a:hover {
-             opacity: 1;
-         }
-
-        /* 列表项图标 */
-        .reveal ul.fa-ul li {
-            list-style-type: none;
-            padding-left: 2.5em; /* Space for Font Awesome icon */
-            position: relative;
+        .footer-content a {
+            color: #4299e1; /* Blue link */
+            text-decoration: none;
         }
-        .reveal ul.fa-ul li .fa-li {
-            left: 0;
-            position: absolute;
-            text-align: center;
-            width: 2em; /* Ensure icon aligns properly */
-            color: var(--secondary-color); /* Use secondary color for icons */
+        .footer-content a:hover {
+            text-decoration: underline;
         }
 
-        /* 代码块样式微调 */
-        .reveal pre code {
-            max-height: 400px; /* Limit code block height */
-            font-size: 0.9em; /* Slightly smaller code font */
+        /* Icon styling */
+        .reveal .icon {
+            color: #4299e1; /* Blue icons */
+            margin-right: 0.4em;
         }
 
-        /* Fragment 动画效果 */
+        /* Fragment styling */
         .reveal .fragment {
             opacity: 0;
-            transition: all 0.3s ease-in-out;
-            transform: translateY(10px); /* Subtle upward movement */
+            visibility: hidden;
+            transition: all .3s ease-in-out;
         }
         .reveal .fragment.visible {
             opacity: 1;
+            visibility: visible;
+        }
+        .reveal .fragment.fade-up {
+             transform: translateY(20px);
+        }
+        .reveal .fragment.fade-up.visible {
             transform: translateY(0);
         }
 
-        /* 使用 Tailwind 类辅助 */
-        .text-primary { color: var(--primary-color); }
-        .text-secondary { color: var(--secondary-color); }
-        .text-accent { color: var(--accent-color); }
-        .bg-primary-gradient { background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); }
+        /* Tailwind utility classes helpers (if needed for specificity) */
+        .text-primary { color: #2b6cb0; }
+        .text-secondary { color: #4a5568; }
+
+        /* Specific slide styling */
+        #title-slide .reveal h1 {
+            font-size: 2.8rem; /* Slightly adjust title size */
+            color: #ffffff;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+        }
+        #title-slide .reveal p {
+            color: #e2e8f0;
+            font-size: 1.4rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+         #title-slide .reveal .speaker-info {
+             font-size: 1rem;
+             color: #cbd5e0;
+             margin-top: 2em;
+         }
+
+        .repo-card {
+            background-color: #f7fafc;
+            border-radius: 8px;
+            padding: 1.5em;
+            margin-bottom: 1em;
+            border: 1px solid #e2e8f0;
+        }
+        .repo-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 0.5em;
+        }
+        .repo-stats td {
+            font-size: 0.95rem;
+        }
+        .lang-icon {
+            display: inline-block;
+            padding: 0.2em 0.6em;
+            border-radius: 4px;
+            font-size: 0.85em;
+            margin-left: 0.5em;
+            color: white;
+            background-color: #4a5568; /* Default background */
+        }
+        .lang-TypeScript { background-color: #2b7489; }
+        .lang-Python { background-color: #3572A5; }
+        .lang-Shell { background-color: #89e051; }
+        .lang-JavaScript { background-color: #f1e05a; color: #333; }
+        .lang-MDX { background-color: #fcb32c; color: #333; }
+        .lang-Lua { background-color: #000080; }
+        .lang-Jupyter { background-color: #DA5B0B; }
+        .lang-Markdown { background-color: #083fa1; }
+         .lang-Other { background-color: #ededed; color: #333; }
 
     </style>
 </head>
@@ -232,405 +212,489 @@
     <div class="reveal">
         <div class="slides">
 
-            <!-- Slide 1: Cover -->
-            <section class="cover-slide" data-background-image="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" data-background-size="cover" data-background-opacity="0.6" data-background-color="#1a1a2e">
-                <h1 class="!text-white">TypeScript主导GitHub新趋势！</h1>
-                <h2 class="!text-gray-300">AI工程化与区块链UX革命引爆开发者社区</h2>
-                <p class="speaker mt-8 !text-gray-400">演讲者：AIChipEra</p>
+            <!-- Title Slide -->
+            <section id="title-slide" data-background-image="https://images.unsplash.com/photo-1550063873-ab792950096b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80" data-background-opacity="0.6" data-background-color="#1a202c">
+                <h1 class="r-fit-text">TypeScript主导GitHub新趋势！</h1>
+                <p class="mt-4">AI工程化与区块链UX革命引爆开发者社区</p>
+                <p class="speaker-info mt-12 text-lg">演讲者：AIChipEra</p>
+                 <p class="text-sm mt-2">日报观测时间: 2025-04-02 21:45:54</p>
 
-                <div class="footer-link">
+                <aside class="notes">
+                    开场白，点明主题：TypeScript在当前技术趋势中的核心地位，以及AI和区块链领域的重要进展。
+                </aside>
+
+                <div class="footer-content">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="微信二维码">
+                </div>
+            </section>
+
+             <section data-background-color="#f0f9ff">
+                  <h2><i class="fas fa-exclamation-circle icon text-yellow-500"></i> 重要提示</h2>
+                   <p class="text-lg text-gray-700">以下内容根据 <strong>2025-04-02</strong> 的GitHub热门仓库数据生成，仅供项目介绍和学习使用。</p>
+                   <p class="mt-4 text-red-600 font-semibold">不构成任何投资建议，请注意甄别！</p>
+                   <aside class="notes">强调报告的观察时间和目的，警示风险。</aside>
+            </section>
+
+
+            <!-- Introduction -->
+            <section data-background-color="#f8fafc">
+                <h2><i class="fas fa-newspaper icon"></i> 日报要点</h2>
+                <p class="text-lg leading-relaxed">
+                    GitHub最新趋势揭示技术演进新方向：<strong>AI工程化工具</strong> (如Crawl4AI, OpenHands) 与 <strong>开发者效率方案</strong> (nvm, Inbox Zero) 强势崛起，<strong>TypeScript</strong> 以40%占比成为开源生态核心语言。区块链开发转向<strong>用户体验优化</strong> (Ink Kit)，开源教育通过 <strong>"Build Your Own X"</strong> 实践模式填补技能鸿沟。AI从单点模型向<strong>全链路部署</strong> (Gemini Cookbook) 演进，轻量化工具与跨平台应用并行发展。
+                </p>
+                 <p class="fragment fade-up text-lg mt-4 text-blue-700">
+                    本文深度解析技术栈变革逻辑，揭示下一波热点，洞悉开发者如何用TypeScript重构效率，用AI重塑工作流。
+                </p>
+                <aside class="notes">概述今日报告的核心发现，突出关键领域和项目。</aside>
+            </section>
+
+            <!-- Trend Analysis -->
+            <section>
+                <h2><i class="fas fa-chart-line icon"></i> 热门项目趋势分析</h2>
+
+                <!-- Subsection: Overall Trends -->
+                <section data-background-color="#eef2ff">
+                    <h3><i class="fas fa-fire icon text-red-500"></i> 今日整体趋势</h3>
+                    <ul class="list-disc space-y-3 text-left text-lg">
+                        <li class="fragment fade-up"><strong class="text-indigo-700">四大核心领域:</strong> AI工程化、开发者效率、区块链应用、开源教育实践。</li>
+                        <li class="fragment fade-up"><strong class="text-indigo-700">AI项目聚焦:</strong> 数据采集 (Crawl4AI)、模型部署 (Open WebUI)、自动化开发 (OpenHands)。</li>
+                        <li class="fragment fade-up"><strong class="text-indigo-700">开发者工具:</strong> 多环境适配 (nvm)、效率提升 (Inbox Zero)。</li>
+                        <li class="fragment fade-up"><strong class="text-indigo-700">区块链重点:</strong> DApp开发与UX优化 (Ink Kit)。</li>
+                         <li class="fragment fade-up"><strong class="text-indigo-700">共性特征:</strong> 跨平台兼容 (Electron)、开源协作、自托管方案 (Open WebUI)。</li>
+                    </ul>
+                    <aside class="notes">分析今日最受关注的领域和主题，列出代表性项目。</aside>
+                </section>
+
+                <!-- Subsection: Language & Tech Stack -->
+                <section data-background-color="#f0fdf4">
+                    <h3><i class="fas fa-code icon text-green-600"></i> 编程语言与技术栈</h3>
+                     <div class="flex flex-col md:flex-row gap-8 text-left">
+                         <div class="flex-1">
+                             <h4 class="text-xl font-semibold mb-2 text-green-700">语言分布</h4>
+                             <ul class="list-none space-y-2">
+                                 <li class="fragment fade-up"><i class="fab fa-js-square icon text-yellow-500"></i> <strong>TypeScript:</strong> <span class="font-bold text-2xl text-blue-600">40%</span> 主导地位 (Electron, Web3 SDK)</li>
+                                 <li class="fragment fade-up"><i class="fab fa-python icon text-blue-500"></i> <strong>Python:</strong> 25% (AI工具, 爬虫)</li>
+                                 <li class="fragment fade-up"><i class="fas fa-terminal icon text-gray-600"></i> <strong>Shell/Lua:</strong> 轻量级系统工具 (nvm, KOReader)</li>
+                             </ul>
+                         </div>
+                         <div class="flex-1">
+                             <h4 class="text-xl font-semibold mb-2 text-green-700">技术栈趋势</h4>
+                             <ul class="list-none space-y-2">
+                                 <li class="fragment fade-up"><i class="fas fa-desktop icon"></i> <strong>前端:</strong> Next.js + TypeScript + Tailwind CSS 成为标配。</li>
+                                 <li class="fragment fade-up"><i class="fas fa-robot icon"></i> <strong>AI集成:</strong> Docker部署, 模型即服务 (MCP), RAG技术应用广泛。</li>
+                                 <li class="fragment fade-up"><i class="fas fa-link icon"></i> <strong>区块链:</strong> TypeScript + CSS-in-JS 简化DApp开发。</li>
+                             </ul>
+                         </div>
+                     </div>
+                    <aside class="notes">分析编程语言占比和流行的技术栈组合。</aside>
+                </section>
+
+                 <!-- Subsection: Needs & Directions -->
+                <section data-background-color="#fffbeb">
+                    <h3><i class="fas fa-compass icon text-yellow-600"></i> 技术需求与发展方向</h3>
+                     <ul class="list-disc space-y-3 text-left text-lg">
+                        <li class="fragment fade-up"><strong class="text-yellow-800">AI工程化需求:</strong> 数据采集标准化 (Crawl4AI), 模型部署安全可控 (Open WebUI), 开发自动化 (OpenHands) <i class="fas fa-arrow-up ml-1"></i> 激增。</li>
+                         <li class="fragment fade-up"><strong class="text-yellow-800">开发者体验优化:</strong> 轻量级工具 (nvm), 跨平台原生应用 (Electron), AI辅助流程 (Inbox Zero) 追求<strong class="text-blue-700">零摩擦协作</strong>。</li>
+                        <li class="fragment fade-up"><strong class="text-yellow-800">开源生态深化:</strong> MIT/Apache协议普遍, 插件系统, 模块化设计 (Ink Kit), 社区驱动文档 (Build Your Own X) 推动技术普惠。</li>
+                    </ul>
+                     <aside class="notes">探讨当前技术发展的核心需求和未来方向。</aside>
+                </section>
+
+                <!-- Subsection: Comparison -->
+                <section data-background-color="#eff6ff">
+                     <h3><i class="fas fa-exchange-alt icon text-blue-600"></i> 热门项目变化对比</h3>
+                    <p class="text-lg mb-4">相较于前几日，今日榜单呈现 <strong>系统级解决方案</strong> 的崛起：</p>
+                    <ul class="list-disc space-y-3 text-left text-lg">
+                        <li class="fragment fade-up"><strong class="text-blue-800">AI 从模型到场景:</strong> 焦点从LLM API调用转向 <strong>数据-模型-应用</strong> 全链路 (Crawl4AI + OpenHands + Gemini Cookbook)。</li>
+                        <li class="fragment fade-up"><strong class="text-blue-800">区块链 从底层到界面:</strong> 从智能合约开发转向 <strong>DApp用户体验优化</strong> (Ink Kit UI库)。</li>
+                        <li class="fragment fade-up"><strong class="text-blue-800">开源教育 从理论到实践:</strong> Build Your Own X 通过“从零构建”项目，将知识传递转化为 <strong>可验证的工程实践</strong>。</li>
+                    </ul>
+                     <aside class="notes">对比近期趋势变化，突出系统级方案的重要性。</aside>
+                </section>
+
+                <!-- Subsection: Predictions -->
+                <section data-background-color="#fdf2f8">
+                    <h3><i class="fas fa-lightbulb icon text-pink-600"></i> 下一波技术热点预测 <span class="text-sm">(Aha Moment!)</span></h3>
+                     <ul class="list-disc space-y-3 text-left text-lg">
+                        <li class="fragment fade-up"><i class="fas fa-tools icon text-pink-700"></i> <strong>AI工程化工具:</strong> LLM监控与成本优化、多模型协同框架。</li>
+                        <li class="fragment fade-up"><i class="fas fa-photo-video icon text-pink-700"></i> <strong>多模态应用爆发:</strong> 结合Gemini等API的内容生成平台 (视频+文本+图像一体化)。</li>
+                        <li class="fragment fade-up"><i class="fas fa-magic icon text-pink-700"></i> <strong>区块链UX革命:</strong> 基于Ink Kit等的无代码DApp开发工具。</li>
+                        <li class="fragment fade-up"><i class="fas fa-book-reader icon text-pink-700"></i> <strong>e-ink设备生态:</strong> KOReader预示电子墨水屏专用应用潜力。</li>
+                    </ul>
+                    <aside class="notes">预测未来可能的技术热点，引发思考。</aside>
+                </section>
+
+                <!-- Subsection: Specificity -->
+                 <section data-background-color="#f3f4f6">
+                     <h3><i class="fas fa-fingerprint icon text-gray-600"></i> 今日技术趋势的特殊性</h3>
+                     <ul class="list-disc space-y-3 text-left text-lg">
+                        <li class="fragment fade-up"><strong>AI与传统工具深度融合:</strong> AI从“辅助”向“核心功能”渗透 (Inbox Zero, Postiz)。</li>
+                        <li class="fragment fade-up"><strong>开源基础设施模块化:</strong> 提供可组合的标准化组件 (MCP服务器, Crawl4AI)，推动“快速拼装”。</li>
+                         <li class="fragment fade-up"><strong>跨平台与轻量化并重:</strong> TypeScript/Electron支撑复杂功能，Shell/Python工具强调极简适配，形成“轻重结合”平衡。</li>
+                    </ul>
+                    <aside class="notes">总结今日趋势的独特之处。</aside>
+                </section>
+
+                <!-- Subsection: Conclusion -->
+                 <section data-background-gradient="linear-gradient(to bottom, #ffffff, #e0f2fe)">
+                    <h3><i class="fas fa-check-circle icon text-green-500"></i> 结论</h3>
+                    <p class="text-xl leading-relaxed">
+                        今日趋势揭示技术发展的核心逻辑：<br/>
+                        <strong>AI驱动效率提升</strong>、<strong>开源生态推动协作</strong>、<strong>开发者工具追求极致体验</strong>。
+                    </p>
+                     <p class="fragment fade-up mt-4 text-xl text-blue-700">
+                        未来热点将围绕“AI工程化落地的基础设施完善”与“跨领域场景的智能化重构”展开。
+                     </p>
+                    <p class="fragment fade-up mt-2 text-lg text-gray-600">轻量化、模块化、开源化将是核心竞争力。</p>
+                     <aside class="notes">总结报告的核心观点和未来展望。</aside>
+                </section>
+            </section>
+
+             <!-- Dual-Day Comparison -->
+            <section>
+                <h2><i class="fas fa-calendar-alt icon"></i> 热门项目双日维度对比分析</h2>
+
+                <section data-background-color="#fff7ed">
+                    <h3><i class="fas fa-arrow-trend-up icon text-orange-500"></i> 热度变化趋势</h3>
+                    <ul class="list-disc space-y-3 text-left text-lg">
+                        <li>整体热度呈 <strong class="text-green-600">显著上升</strong> 态势，无项目热度下降。</li>
+                         <li>新增项目 <strong class="text-orange-700">11个</strong>，4个项目涨幅超 <strong class="text-red-600">100%</strong> (如 awesome-mcp-servers +1894星)。</li>
+                         <li>表明开发者对新兴工具、AI相关项目关注度 <strong class="text-blue-600">持续升温</strong>。</li>
+                    </ul>
+                    <aside class="notes">分析项目热度的整体变化。</aside>
+                </section>
+
+                <section data-background-color="#f0f9ff">
+                    <h3><i class="fas fa-plus-circle icon text-blue-500"></i> 新项目特点</h3>
+                     <ul class="list-disc space-y-3 text-left text-lg">
+                         <li>以 <strong class="text-blue-700">工具型</strong> 与 <strong class="text-purple-700">跨平台应用</strong> 为主。</li>
+                        <li><strong>TypeScript</strong> 主导 (6/11)，如 inbox-zero, postiz-app。</li>
+                        <li><strong>Jupyter Notebook</strong> (cookbook) 与 <strong>Lua</strong> (koreader) 加入，凸显数据分析与轻量级应用热度。</li>
+                         <li>开源AI项目 (OpenHands) 与低代码平台 (open-webui) 出现，显示 <strong class="text-green-600">AI普惠化</strong> 趋势。</li>
+                    </ul>
+                     <aside class="notes">分析新上榜项目的特征。</aside>
+                </section>
+
+                 <section data-background-color="#f0fdfa">
+                    <h3><i class="fas fa-language icon text-green-500"></i> 编程语言分布变化</h3>
+                     <ul class="list-disc space-y-3 text-left text-lg">
+                         <li><strong class="text-blue-600">TypeScript <i class="fas fa-arrow-up text-green-500"></i> (+2):</strong> 增长显著，成为新项目首选。</li>
+                         <li><strong class="text-indigo-700">Lua <i class="fas fa-recycle text-green-500"></i> (+1), JavaScript <i class="fas fa-recycle text-green-500"></i> (+1):</strong> 回归，受特定领域驱动。</li>
+                         <li><strong class="text-orange-700">Rust <i class="fas fa-arrow-down text-red-500"></i> (-1), Ruby <i class="fas fa-arrow-down text-red-500"></i> (-1):</strong> 热度相对下滑。</li>
+                    </ul>
+                     <aside class="notes">对比前后两日编程语言的分布变化。</aside>
+                </section>
+
+                 <section data-background-color="#fef2f2">
+                    <h3><i class="fas fa-star icon text-red-500"></i> 值得关注的显著变化</h3>
+                     <ul class="list-disc space-y-3 text-left text-lg">
+                         <li><strong class="text-blue-700">TypeScript生态扩张:</strong> 新项目中占比超50%，地位巩固。</li>
+                         <li><strong class="text-indigo-800">Lua的“逆袭”:</strong> `koreader` 上榜，反映小众语言在特定领域的生命力。</li>
+                        <li><strong class="text-purple-700">AI教育工具爆发:</strong> `cookbook` (Gemini教程), `aie-book` (AI书籍) 出现，预示AI学习资源开源化加速。</li>
+                    </ul>
+                     <aside class="notes">突出双日对比中最重要的变化点。</aside>
+                </section>
+            </section>
+
+
+             <!-- Hotspot Changes -->
+            <section data-background-color="#f5f3ff">
+                 <h2><i class="fas fa-fire-alt icon text-purple-600"></i> 热点变化</h2>
+                 <div class="flex flex-col md:flex-row gap-6 text-left text-base">
+                     <div class="flex-1">
+                         <h3 class="text-lg font-semibold mb-2 text-green-600"><i class="fas fa-plus-circle icon"></i> 新增热点</h3>
+                         <ul class="list-none space-y-1">
+                             <li>elie222/inbox-zero</li>
+                             <li>inkonchain/docs</li>
+                             <li>open-webui/open-webui</li>
+                             <li>google-gemini/cookbook</li>
+                             <li>gitroomhq/postiz-app</li>
+                             <li>inkonchain/ink-kit</li>
+                             <li>chiphuyen/aie-book</li>
+                             <li>all-hands-ai/openhands</li>
+                             <li>codecrafters-io/build-your-own-x</li>
+                             <li>koreader/koreader</li>
+                             <li>dubinc/dub</li>
+                         </ul>
+                     </div>
+                     <div class="flex-1">
+                         <h3 class="text-lg font-semibold mb-2 text-red-600"><i class="fas fa-minus-circle icon"></i> 减退热点</h3>
+                         <ul class="list-none space-y-1">
+                              <li>jlowin/fastmcp</li>
+                              <li>microsoft/generative-ai-for-beginners</li>
+                              <li>patrickjs/awesome-cursorrules</li>
+                              <li>hackclub/hcb</li>
+                              <li>rustdesk/rustdesk</li>
+                              <li>louislam/dockge</li>
+                              <li>ahmedkhaleel2004/gitdiagram</li>
+                         </ul>
+                     </div>
+                     <div class="flex-1">
+                         <h3 class="text-lg font-semibold mb-2 text-blue-600"><i class="fas fa-sync-alt icon"></i> 持续热门</h3>
+                         <ul class="list-none space-y-1">
+                              <li>th-ch/youtube-music (4天)</li>
+                              <li>punkpeye/awesome-mcp-servers (6天)</li>
+                              <li>unclecode/crawl4ai (3天)</li>
+                         </ul>
+                     </div>
+                 </div>
+                 <aside class="notes">清晰展示热点的增减和持续情况。</aside>
+            </section>
+
+
+            <!-- Detailed Repository Data -->
+            <section>
+                <h2><i class="fas fa-database icon"></i> 详细仓库数据</h2>
+
+                <!-- Repository: nvm-sh/nvm -->
+                <section class="repo-card">
+                    <h3>nvm-sh/nvm <span class="lang-icon lang-Shell">Shell</span></h3>
+                    <p class="text-sm italic">Node Version Manager - POSIX-compliant bash script to manage multiple active node.js versions</p>
+                    <p class="text-sm mb-3">Node版本管理器——符合POSIX标准的Bash脚本，用于管理多个活跃的Node.js版本</p>
+                    <table class="repo-stats text-sm">
+                        <tr><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                        <tr><td>83.3k ⭐</td><td>2天</td><td>2次</td><td class="text-green-600 font-semibold">+135</td></tr>
+                    </table>
+                    <p class="fragment fade-up mt-3 text-base"><strong>AI 总结:</strong> 轻量级Node.js多版本管理工具，解决环境冲突，支持跨平台，通过<code>.nvmrc</code>实现项目级版本自动加载，提升多项目开发效率。</p>
+                    <p class="fragment fade-up mt-1 text-sm text-gray-600"><strong>增长分析:</strong> 次日单日激增135星，显示爆发式增长潜力。</p>
+                    <aside class="notes">介绍 NVM 项目，关键信息和 AI 总结。</aside>
+                </section>
+
+                <!-- Repository: th-ch/youtube-music -->
+                <section class="repo-card">
+                    <h3>th-ch/youtube-music <span class="lang-icon lang-TypeScript">TypeScript</span></h3>
+                    <p class="text-sm italic">YouTube Music Desktop App bundled with custom plugins (and built-in ad blocker / downloader)</p>
+                    <p class="text-sm mb-3">YouTube Music 桌面应用捆绑自定义插件（含内置广告拦截器及下载工具）</p>
+                    <table class="repo-stats text-sm">
+                         <tr><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                         <tr><td>16.5k ⭐</td><td>4天</td><td>4次</td><td class="text-green-600 font-semibold">+1604</td></tr>
+                    </table>
+                    <p class="fragment fade-up mt-3 text-base"><strong>AI 总结:</strong> 基于Electron的YouTube Music桌面客户端，通过插件系统提供原生化体验、广告拦截、歌词同步等功能，高度可定制。</p>
+                    <p class="fragment fade-up mt-1 text-sm text-gray-600"><strong>增长分析:</strong> 持续高增长，最后一日增幅显著提升，短期爆发力强。</p>
+                    <aside class="notes">介绍 YouTube Music Desktop App 项目。</aside>
+                </section>
+
+                 <!-- Repository: punkpeye/awesome-mcp-servers -->
+                 <section class="repo-card">
+                     <h3>punkpeye/awesome-mcp-servers <span class="lang-icon lang-Other">Resource</span></h3>
+                     <p class="text-sm italic">A collection of MCP servers.</p>
+                     <p class="text-sm mb-3">MCP服务器集合。</p>
+                     <table class="repo-stats text-sm">
+                         <tr><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                         <tr><td>28.2k ⭐</td><td>6天</td><td>9次</td><td class="text-green-600 font-semibold">+1961</td></tr>
+                     </table>
+                     <p class="fragment fade-up mt-3 text-base"><strong>AI 总结:</strong> 聚合Model Context Protocol (MCP)服务器的资源库，为AI模型提供标准化接口与外部系统交互，简化AI应用开发。</p>
+                    <p class="fragment fade-up mt-1 text-sm text-gray-600"><strong>增长分析:</strong> 热度持续攀升，今日增量超均值，增长稳定。</p>
+                    <aside class="notes">介绍 Awesome MCP Servers 资源库。</aside>
+                </section>
+
+                 <!-- Repository: unclecode/crawl4ai -->
+                 <section class="repo-card">
+                    <h3>unclecode/crawl4ai <span class="lang-icon lang-Python">Python</span></h3>
+                    <p class="text-sm italic">🚀🤖 Crawl4AI: Open-source LLM Friendly Web Crawler & Scraper.</p>
+                    <p class="text-sm mb-3">🚀🤖 Crawl4AI：开源且支持大语言模型的网络爬虫与网页抓取工具。</p>
+                    <table class="repo-stats text-sm">
+                         <tr><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                         <tr><td>35.9k ⭐</td><td>3天</td><td>3次</td><td class="text-green-600 font-semibold">+454</td></tr>
+                     </table>
+                    <p class="fragment fade-up mt-3 text-base"><strong>AI 总结:</strong> LLM友好的网络爬虫与数据抓取工具，专注大规模网页采集、清洗与结构化输出，支持分布式与动态渲染，内置AI预处理管道。</p>
+                    <p class="fragment fade-up mt-1 text-sm text-gray-600"><strong>增长分析:</strong> 增长稳定微升，潜力显现。</p>
+                    <aside class="notes">介绍 Crawl4AI 项目。</aside>
+                </section>
+
+                <!-- Repository: elie222/inbox-zero -->
+                 <section class="repo-card">
+                     <h3>elie222/inbox-zero <span class="lang-icon lang-TypeScript">TypeScript</span></h3>
+                     <p class="text-sm italic">Open source email app to reach inbox zero fast.</p>
+                     <p class="text-sm mb-3">快速实现零收件箱的开源邮件应用。</p>
+                     <table class="repo-stats text-sm">
+                         <tr><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                         <tr><td>4.2k ⭐</td><td>1天</td><td>1次</td><td class="text-green-600 font-semibold">+288</td></tr>
+                     </table>
+                     <p class="fragment fade-up mt-3 text-base"><strong>AI 总结:</strong> 开源邮件管理工具，通过AI自动化与智能分类，帮助用户快速清空邮箱，优化邮件处理流程，支持自托管与多LLM集成。</p>
+                     <aside class="notes">介绍 Inbox Zero 项目。注意当日新增是总星数。</aside>
+                 </section>
+
+                 <!-- Repository: gitroomhq/postiz-app -->
+                 <section class="repo-card">
+                     <h3>gitroomhq/postiz-app <span class="lang-icon lang-TypeScript">TypeScript</span></h3>
+                     <p class="text-sm italic">📨 The ultimate social media scheduling tool, with a bunch of AI 🤖</p>
+                     <p class="text-sm mb-3">终极社交媒体排期工具，集成多项AI功能</p>
+                    <table class="repo-stats text-sm">
+                        <tr><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                        <tr><td>19k ⭐</td><td>1天</td><td>1次</td><td class="text-green-600 font-semibold">+96</td></tr>
+                     </table>
+                     <p class="fragment fade-up mt-3 text-base"><strong>AI 总结:</strong> AI驱动的社交媒体管理工具，整合多平台API，提供内容生成、智能排期、数据分析等功能，提升运营效率。</p>
+                    <aside class="notes">介绍 Postiz 项目。</aside>
+                </section>
+
+                <!-- Repository: open-webui/open-webui -->
+                 <section class="repo-card">
+                     <h3>open-webui/open-webui <span class="lang-icon lang-JavaScript">JavaScript</span></h3>
+                     <p class="text-sm italic">User-friendly AI Interface (Supports Ollama, OpenAI API, ...)</p>
+                     <p class="text-sm mb-3">用户友好型AI接口（支持Ollama、OpenAI API等）</p>
+                     <table class="repo-stats text-sm">
+                          <tr><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                          <tr><td>87k ⭐</td><td>1天</td><td>1次</td><td class="text-green-600 font-semibold">+257</td></tr>
+                     </table>
+                     <p class="fragment fade-up mt-3 text-base"><strong>AI 总结:</strong> 开源自托管AI平台，提供Web界面管理本地LLM (Ollama)，集成文档检索(RAG)、图像生成、语音交互，支持多模型与插件扩展。</p>
+                     <aside class="notes">介绍 Open WebUI 项目。</aside>
+                 </section>
+
+                <!-- Repository: inkonchain/ink-kit -->
+                <section class="repo-card">
+                     <h3>inkonchain/ink-kit <span class="lang-icon lang-TypeScript">TypeScript</span></h3>
+                     <p class="text-sm italic">Onchain-focused SDK with ready-to-use templates, themes, and magical animated components ✨</p>
+                    <p class="text-sm mb-3">专注于链上应用的SDK，提供开箱即用的模板、主题及炫酷动画组件✨</p>
+                     <table class="repo-stats text-sm">
+                         <tr><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                         <tr><td>35.7k ⭐</td><td>1天</td><td>1次</td><td class="text-green-600 font-semibold">+189</td></tr>
+                    </table>
+                     <p class="fragment fade-up mt-3 text-base"><strong>AI 总结:</strong> 专注于区块链应用开发的SDK，提供模板、主题系统和动画组件，简化DApp界面开发，提升视觉与交互体验。</p>
+                    <aside class="notes">介绍 Ink Kit 项目。</aside>
+                 </section>
+
+                <!-- Repository: inkonchain/docs -->
+                <section class="repo-card">
+                     <h3>inkonchain/docs <span class="lang-icon lang-MDX">MDX</span></h3>
+                     <p class="text-sm italic">Ink Documentation</p>
+                     <p class="text-sm mb-3">Ink文档</p>
+                    <table class="repo-stats text-sm">
+                         <tr><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                         <tr><td>35.8k ⭐</td><td>1天</td><td>1次</td><td class="text-green-600 font-semibold">+163</td></tr>
+                    </table>
+                    <p class="fragment fade-up mt-3 text-base"><strong>AI 总结:</strong> 基于Next.js和Nextra构建的现代化技术文档系统，为InkChain项目提供自动化、可维护的文档管理方案，支持协作与实时预览。</p>
+                    <aside class="notes">介绍 Ink Documentation 项目。</aside>
+                 </section>
+
+                <!-- Repository: dubinc/dub -->
+                 <section class="repo-card">
+                     <h3>dubinc/dub <span class="lang-icon lang-TypeScript">TypeScript</span></h3>
+                     <p class="text-sm italic">Open-source link attribution platform. Loved by modern marketing teams.</p>
+                     <p class="text-sm mb-3">开源链接归因平台。深受现代营销团队青睐。</p>
+                     <table class="repo-stats text-sm">
+                          <tr><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                         <tr><td>20.8k ⭐</td><td>1天</td><td>2次</td><td class="text-green-600 font-semibold">+195</td></tr>
+                     </table>
+                    <p class="fragment fade-up mt-3 text-base"><strong>AI 总结:</strong> 开源链接归因平台，提供短链接管理、深度追踪、数据分析功能，支持自定义域名和团队协作，提升营销效率。</p>
+                    <p class="fragment fade-up mt-1 text-sm text-gray-600"><strong>增长分析:</strong> 今日增幅加速，短期增长势头强劲。</p>
+                    <aside class="notes">介绍 Dub.co 项目。</aside>
+                 </section>
+
+                <!-- Repository: google-gemini/cookbook -->
+                 <section class="repo-card">
+                     <h3>google-gemini/cookbook <span class="lang-icon lang-Jupyter">Jupyter Notebook</span></h3>
+                     <p class="text-sm italic">Examples and guides for using the Gemini API</p>
+                     <p class="text-sm mb-3">使用Gemini API的示例和指南</p>
+                    <table class="repo-stats text-sm">
+                         <tr><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                         <tr><td>11.4k ⭐</td><td>1天</td><td>1次</td><td class="text-green-600 font-semibold">+74</td></tr>
+                     </table>
+                     <p class="fragment fade-up mt-3 text-base"><strong>AI 总结:</strong> Google官方维护的Gemini API开发者资源库，提供教程和案例，覆盖多模态、实时交互、代码执行等功能，降低开发门槛。</p>
+                     <aside class="notes">介绍 Gemini API Cookbook 项目。</aside>
+                 </section>
+
+                <!-- Repository: koreader/koreader -->
+                <section class="repo-card">
+                     <h3>koreader/koreader <span class="lang-icon lang-Lua">Lua</span></h3>
+                     <p class="text-sm italic">An ebook reader application supporting PDF, DjVu, EPUB, FB2 and many more formats...</p>
+                     <p class="text-sm mb-3">支持多种格式的电子书阅读器应用，可在Kindle, Kobo, Android等设备运行。</p>
+                     <table class="repo-stats text-sm">
+                         <tr><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                         <tr><td>19.6k ⭐</td><td>1天</td><td>1次</td><td class="text-green-600 font-semibold">+310</td></tr>
+                     </table>
+                     <p class="fragment fade-up mt-3 text-base"><strong>AI 总结:</strong> 专为电子墨水屏优化的开源阅读器，支持多格式，性能优越，高度可定制，提供流畅的文档阅读体验，尤其适合e-ink设备。</p>
+                    <aside class="notes">介绍 KOReader 项目。</aside>
+                 </section>
+
+                 <!-- Repository: codecrafters-io/build-your-own-x -->
+                 <section class="repo-card">
+                     <h3>codecrafters-io/build-your-own-x <span class="lang-icon lang-Markdown">Markdown</span></h3>
+                     <p class="text-sm italic">Master programming by recreating your favorite technologies from scratch.</p>
+                     <p class="text-sm mb-3">通过从零复现你钟爱的技术来掌握编程。</p>
+                     <table class="repo-stats text-sm">
+                          <tr><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                          <tr><td>367k ⭐</td><td>1天</td><td>4次</td><td class="text-green-600 font-semibold">+498</td></tr>
+                     </table>
+                    <p class="fragment fade-up mt-3 text-base"><strong>AI 总结:</strong> 实践型技术学习项目，通过教程引导用户从零构建数据库、编译器、操作系统等经典技术，深入理解底层原理。</p>
+                    <p class="fragment fade-up mt-1 text-sm text-gray-600"><strong>增长分析:</strong> 总增长强劲，但今日新增环比回落，需关注持续性。</p>
+                    <aside class="notes">介绍 Build Your Own X 项目。</aside>
+                 </section>
+
+                <!-- Repository: All-Hands-AI/OpenHands -->
+                <section class="repo-card">
+                     <h3>All-Hands-AI/OpenHands <span class="lang-icon lang-Python">Python</span></h3>
+                     <p class="text-sm italic">🙌 OpenHands: Code Less, Make More</p>
+                     <p class="text-sm mb-3">OpenHands：少写代码，创造更多</p>
+                     <table class="repo-stats text-sm">
+                         <tr><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                         <tr><td>51.9k ⭐</td><td>1天</td><td>1次</td><td class="text-green-600 font-semibold">+112</td></tr>
+                     </table>
+                     <p class="fragment fade-up mt-3 text-base"><strong>AI 总结:</strong> AI开发代理平台，模拟开发者操作，自动编写/修改代码、执行指令、调用API，提升开发效率，支持多LLM与Docker部署。</p>
+                    <aside class="notes">介绍 OpenHands 项目。</aside>
+                 </section>
+
+                <!-- Repository: chiphuyen/aie-book -->
+                <section class="repo-card">
+                     <h3>chiphuyen/aie-book <span class="lang-icon lang-Jupyter">Jupyter Notebook</span></h3>
+                     <p class="text-sm italic">[WIP] Resources for AI engineers. Also contains supporting materials for the book AI Engineering.</p>
+                     <p class="text-sm mb-3">[WIP] AI工程师资源。包含《AI Engineering》（Chip Huyen, 2025）一书的配套材料。</p>
+                    <table class="repo-stats text-sm">
+                          <tr><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                         <tr><td>3.1k ⭐</td><td>1天</td><td>1次</td><td class="text-green-600 font-semibold">+13</td></tr>
+                    </table>
+                    <p class="fragment fade-up mt-3 text-base"><strong>AI 总结:</strong> 聚焦基础模型工程化落地的开源项目与书籍资源，提供系统性方法论解决AI应用全流程挑战，强调生产环境实践。</p>
+                    <aside class="notes">介绍 AI Engineering Book 项目。</aside>
+                </section>
+
+            </section>
+
+
+            <!-- Conclusion Slide -->
+            <section id="conclusion-slide" data-background-image="https://images.unsplash.com/photo-1611606063065-ee7946f0787a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80" data-background-opacity="0.5" data-background-color="#2d3748">
+                <h2 class="text-white">感谢观看</h2>
+                <p class="text-gray-300 text-xl mt-4">保持关注，洞悉前沿技术趋势！</p>
+
+                <div class="footer-content">
                      <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
-                    <img src="../../asserts/wx.jpg" alt="关注我们二维码">
+                     <img src="../../asserts/wx.jpg" alt="微信二维码">
                 </div>
-            </section>
-
-            <!-- Slide 2: Disclaimer -->
-            <section data-background-color="#f8f9fa">
-                <h2><i class="fas fa-info-circle text-secondary mr-2"></i>重要提示</h2>
-                 <p class="text-sm text-gray-600 mt-4">
-                    GitHub热门仓库日报观测时间为 <strong class="text-primary">2025-04-02 21:45:54</strong>。
-                </p>
-                <p class="mt-4 text-lg font-semibold text-red-600 bg-red-100 p-4 rounded-md">
-                    <i class="fas fa-exclamation-triangle mr-2"></i>以下内容仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！
-                </p>
-            </section>
-
-            <!-- Slide 3: Daily Highlights Title -->
-             <section data-background-gradient="linear-gradient(to right, #6a11cb, #2575fc)">
-                <h2 class="!text-white"><i class="fas fa-newspaper mr-2"></i>日报核心要点</h2>
-                 <p class="!text-gray-200">快速概览今日 GitHub 技术热点与趋势</p>
-            </section>
-
-            <!-- Slide 4: Daily Highlights Points -->
-            <section>
-                <h3>今日焦点</h3>
-                <ul class="fa-ul text-lg mt-4 space-y-3">
-                    <li class="fragment"><span class="fa-li"><i class="fas fa-brain"></i></span><strong>AI工程化</strong>工具 (Crawl4AI, OpenHands) 与 <strong>开发者效率</strong>方案 (nvm, Inbox Zero) 强势崛起。</li>
-                    <li class="fragment"><span class="fa-li"><i class="fab fa-js-square text-blue-500"></i></span><strong>TypeScript (40%)</strong> 成为开源生态核心语言，引领技术栈潮流。</li>
-                    <li class="fragment"><span class="fa-li"><i class="fas fa-cubes"></i></span><strong>区块链开发</strong> 转向用户体验优化 (Ink Kit)。</li>
-                    <li class="fragment"><span class="fa-li"><i class="fas fa-graduation-cap"></i></span><strong>开源教育</strong> 通过 "Build Your Own X" 实践模式填补技能鸿沟。</li>
-                    <li class="fragment"><span class="fa-li"><i class="fas fa-rocket"></i></span>AI从单点模型向<strong>全链路部署</strong> (Gemini Cookbook) 演进。</li>
-                     <li class="fragment"><span class="fa-li"><i class="fas fa-mobile-alt"></i></span>轻量化工具与跨平台应用并行发展，<strong>移动端优先</strong>成为设计考量。</li>
-                </ul>
-            </section>
-
-            <!-- Slide 5: Trend Analysis Title -->
-            <section data-background-color="#e2e8f0">
-                <h2><i class="fas fa-chart-line mr-2"></i>热门项目趋势深度分析</h2>
-                 <p class="text-gray-700">洞察技术演进的底层逻辑</p>
-            </section>
-
-            <!-- Section: Overall Trend Analysis (Vertical Slides) -->
-            <section>
-                <!-- Slide 6: Tech Domains -->
-                <section>
-                    <h3><i class="fas fa-layer-group mr-2 text-primary"></i>今日最受关注的技术领域</h3>
-                    <div class="grid md:grid-cols-2 gap-6 mt-4">
-                        <div class="fragment p-4 bg-gray-100 rounded-lg shadow">
-                            <h4 class="text-primary mb-2"><i class="fas fa-robot mr-1"></i> AI 工程化</h4>
-                            <p class="text-sm text-gray-700">数据采集 (Crawl4AI)、模型部署 (Open WebUI)、自动化开发 (OpenHands)。</p>
-                        </div>
-                        <div class="fragment p-4 bg-gray-100 rounded-lg shadow">
-                            <h4 class="text-primary mb-2"><i class="fas fa-tools mr-1"></i> 开发者效率</h4>
-                             <p class="text-sm text-gray-700">环境管理 (nvm)、邮件处理 (Inbox Zero)、跨平台 (Electron)。</p>
-                        </div>
-                        <div class="fragment p-4 bg-gray-100 rounded-lg shadow">
-                             <h4 class="text-primary mb-2"><i class="fas fa-link mr-1"></i> 区块链应用</h4>
-                             <p class="text-sm text-gray-700">DApp 开发 (Ink Kit)、链上交互体验 (Awesome MCP Servers)。</p>
-                        </div>
-                        <div class="fragment p-4 bg-gray-100 rounded-lg shadow">
-                            <h4 class="text-primary mb-2"><i class="fas fa-book-open mr-1"></i> 开源教育实践</h4>
-                            <p class="text-sm text-gray-700">实践导向 ("Build Your Own X")，技能升级。</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Slide 7: Language/Stack -->
-                <section>
-                    <h3><i class="fas fa-code mr-2 text-secondary"></i>编程语言与技术栈特点</h3>
-                     <div class="flex flex-col md:flex-row gap-6 mt-4">
-                        <div class="flex-1">
-                            <h4 class="mb-2">语言分布</h4>
-                            <ul class="text-sm space-y-1">
-                                <li class="fragment"><strong>TypeScript (40%):</strong> 主导地位 (Electron, Blockchain SDK)</li>
-                                <li class="fragment"><strong>Python (25%):</strong> AI 工具, 爬虫</li>
-                                <li class="fragment"><strong>Shell/Lua:</strong> 系统工具 (nvm), 轻量应用 (KOReader)</li>
-                            </ul>
-                        </div>
-                        <div class="flex-1">
-                             <h4 class="mb-2">技术栈趋势</h4>
-                            <ul class="text-sm space-y-1">
-                                <li class="fragment"><strong>前端:</strong> Next.js + TS + Tailwind CSS (标配)</li>
-                                <li class="fragment"><strong>AI集成:</strong> Docker, 模型即服务, RAG</li>
-                                <li class="fragment"><strong>区块链:</strong> Web3 + TS + CSS-in-JS (Ink Kit)</li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Slide 8: Needs/Direction -->
-                <section>
-                    <h3><i class="fas fa-compass mr-2 text-accent"></i>技术需求与发展方向</h3>
-                    <ul class="fa-ul mt-4 space-y-3">
-                        <li class="fragment"><span class="fa-li"><i class="fas fa-cogs"></i></span><strong>AI工程化需求:</strong> 数据标准化、部署安全可控、开发自动化。</li>
-                        <li class="fragment"><span class="fa-li"><i class="fas fa-feather-alt"></i></span><strong>开发者体验优化:</strong> 轻量工具、跨平台原生、AI辅助流程，追求零摩擦。</li>
-                        <li class="fragment"><span class="fa-li"><i class="fas fa-users"></i></span><strong>开源生态深化:</strong> MIT/Apache协议、插件系统、模块化设计、社区驱动文档。</li>
-                     </ul>
-                </section>
-
-                 <!-- Slide 9: Changes -->
-                <section>
-                     <h3><i class="fas fa-exchange-alt mr-2 text-primary"></i>热门项目变化对比 (vs 前几日)</h3>
-                     <ul class="fa-ul mt-4 space-y-3">
-                         <li class="fragment"><span class="fa-li"><i class="fas fa-sitemap"></i></span><strong>系统级解决方案崛起:</strong> 从单点工具 (代码生成) 到全链路方案。</li>
-                         <li class="fragment"><span class="fa-li"><i class="fas fa-brain"></i></span><strong>AI演进:</strong> 从模型API调用到 <strong class="text-secondary">数据-模型-应用</strong> 全链路 (Crawl4AI + OpenHands + Gemini Cookbook)。</li>
-                         <li class="fragment"><span class="fa-li"><i class="fas fa-vector-square"></i></span><strong>区块链演进:</strong> 从底层智能合约到 <strong class="text-secondary">DApp用户体验优化</strong> (Ink Kit)。</li>
-                         <li class="fragment"><span class="fa-li"><i class="fas fa-hammer"></i></span><strong>开源教育演进:</strong> 从理论知识到 <strong class="text-secondary">可验证的工程实践</strong> ("Build Your Own X")。</li>
-                     </ul>
-                </section>
-
-                <!-- Slide 10: Future Hotspots -->
-                <section>
-                    <h3><i class="fas fa-fire mr-2 text-red-500"></i>下一波技术热点预测</h3>
-                     <div class="grid md:grid-cols-2 gap-4 mt-4 text-center">
-                        <div class="fragment p-3 bg-blue-100 rounded">
-                            <i class="fas fa-tools text-blue-600 text-2xl mb-1"></i>
-                            <p class="text-sm font-semibold">AI工程化工具</p>
-                            <p class="text-xs text-gray-600">LLM监控、成本优化、多模型协同</p>
-                        </div>
-                         <div class="fragment p-3 bg-purple-100 rounded">
-                            <i class="fas fa-photo-video text-purple-600 text-2xl mb-1"></i>
-                            <p class="text-sm font-semibold">多模态应用爆发</p>
-                            <p class="text-xs text-gray-600">一体化内容生成平台</p>
-                        </div>
-                        <div class="fragment p-3 bg-green-100 rounded">
-                             <i class="fas fa-mouse-pointer text-green-600 text-2xl mb-1"></i>
-                            <p class="text-sm font-semibold">区块链UX革命</p>
-                            <p class="text-xs text-gray-600">无代码DApp开发工具</p>
-                        </div>
-                        <div class="fragment p-3 bg-gray-200 rounded">
-                            <i class="fas fa-book-reader text-gray-600 text-2xl mb-1"></i>
-                            <p class="text-sm font-semibold">e-ink设备生态</p>
-                            <p class="text-xs text-gray-600">专用应用 (学术、长文本)</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Slide 11: Special Aspects -->
-                <section>
-                     <h3><i class="fas fa-star mr-2 text-yellow-500"></i>今日技术趋势的特殊性</h3>
-                    <ul class="fa-ul mt-4 space-y-3">
-                        <li class="fragment"><span class="fa-li"><i class="fas fa-plug"></i></span><strong>AI与传统工具深度融合:</strong> AI从“辅助”向“核心功能”渗透 (Inbox Zero, Postiz)。</li>
-                        <li class="fragment"><span class="fa-li"><i class="fas fa-puzzle-piece"></i></span><strong>开源基础设施模块化:</strong> 提供可组合标准组件，从“造轮子”到“拼装”。</li>
-                        <li class="fragment"><span class="fa-li"><i class="fas fa-balance-scale"></i></span><strong>跨平台与轻量化并重:</strong> TS+Electron (复杂功能) vs Shell/Python (极简适配)。轻重结合。</li>
-                    </ul>
-                </section>
-
-                <!-- Slide 12: Conclusion -->
-                <section>
-                     <h3><i class="fas fa-check-circle mr-2 text-green-500"></i>趋势结论</h3>
-                    <p class="fragment mt-4 text-lg">今日趋势揭示核心逻辑：<strong class="text-primary">AI驱动效率</strong>、<strong class="text-secondary">开源推动协作</strong>、<strong class="text-accent">开发者工具追求极致体验</strong>。</p>
-                    <p class="fragment mt-3">未来热点将围绕 <strong class="text-primary">AI工程化基础设施完善</strong> 与 <strong class="text-secondary">跨领域场景智能化重构</strong> 展开。</p>
-                    <p class="fragment mt-3"><strong class="text-green-600">轻量化、模块化、开源化</strong> 将成为技术方案的核心竞争力。</p>
-                </section>
-            </section>
-
-            <!-- Slide 13: Bi-Daily Comparison Title -->
-            <section data-background-color="#f0fdf4">
-                 <h2><i class="fas fa-calendar-alt mr-2"></i>热门项目双日维度对比</h2>
-                 <p class="text-gray-700">观察近期热度与技术栈变化</p>
-            </section>
-
-             <!-- Section: Bi-Daily Analysis (Vertical Slides) -->
-            <section>
-                <!-- Slide 14: Heat Trend -->
-                <section>
-                    <h3><i class="fas fa-thermometer-three-quarters mr-2 text-red-600"></i>热度变化趋势</h3>
-                    <ul class="fa-ul mt-4 space-y-3">
-                        <li class="fragment"><span class="fa-li"><i class="fas fa-arrow-up text-green-500"></i></span><strong>显著上升:</strong> 无项目热度下降，新增11个项目。</li>
-                         <li class="fragment"><span class="fa-li"><i class="fas fa-fire text-orange-500"></i></span><strong>爆发增长:</strong> 4个项目涨幅超100% (e.g., `awesome-mcp-servers` +1894星)。</li>
-                         <li class="fragment"><span class="fa-li"><i class="fas fa-gamepad text-blue-500"></i></span><strong>关注升温:</strong> 游戏服务器、AI教育、音乐工具需求激增。</li>
-                    </ul>
-                </section>
-
-                <!-- Slide 15: New Projects -->
-                <section>
-                    <h3><i class="fas fa-lightbulb mr-2 text-yellow-400"></i>新晋项目特点</h3>
-                    <ul class="fa-ul mt-4 space-y-3">
-                        <li class="fragment"><span class="fa-li"><i class="fas fa-toolbox"></i></span><strong>工具型与跨平台应用为主:</strong> 解决具体开发或工作流问题。</li>
-                        <li class="fragment"><span class="fa-li"><i class="fab fa-js-square text-blue-500"></i></span><strong>TypeScript 主导 (6/11):</strong> `inbox-zero`, `postiz-app` 等，反映后端/工具流行。</li>
-                        <li class="fragment"><span class="fa-li"><i class="fas fa-book"></i></span><strong>Jupyter Notebook & Lua 回归:</strong> 数据分析 (`cookbook`) 与轻量应用 (`koreader`) 热度提升。</li>
-                        <li class="fragment"><span class="fa-li"><i class="fas fa-robot"></i></span><strong>AI 普惠化:</strong> 开源AI项目 (`OpenHands`) 与低代码平台 (`open-webui`)。</li>
-                    </ul>
-                 </section>
-
-                <!-- Slide 16: Language Changes -->
-                <section>
-                    <h3><i class="fas fa-language mr-2 text-indigo-500"></i>编程语言分布变化</h3>
-                     <div class="grid md:grid-cols-2 gap-4 mt-4">
-                        <div class="fragment p-3 bg-green-100 rounded">
-                            <p><i class="fab fa-js-square text-blue-500 mr-1"></i> <strong>TypeScript <i class="fas fa-arrow-up text-green-600"></i> (+2)</strong></p>
-                            <p class="text-sm text-gray-600">新项目首选，生态持续扩张</p>
-                        </div>
-                         <div class="fragment p-3 bg-yellow-100 rounded">
-                            <p><i class="fas fa-moon text-purple-600 mr-1"></i> <strong>Lua <i class="fas fa-undo text-blue-600"></i> (+1)</strong></p>
-                            <p class="text-sm text-gray-600">特定领域 (`koreader`) 生命力</p>
-                        </div>
-                        <div class="fragment p-3 bg-yellow-100 rounded">
-                             <p><i class="fab fa-node-js text-green-700 mr-1"></i> <strong>JavaScript <i class="fas fa-undo text-blue-600"></i> (+1)</strong></p>
-                            <p class="text-sm text-gray-600">轻量工具驱动回归</p>
-                        </div>
-                        <div class="fragment p-3 bg-red-100 rounded">
-                            <p><i class="fab fa-rust text-orange-600 mr-1"></i> <strong>Rust / Ruby <i class="fas fa-arrow-down text-red-600"></i> (-1 each)</strong></p>
-                            <p class="text-sm text-gray-600">或受TS等替代效应影响</p>
-                        </div>
-                    </div>
-                </section>
-
-                 <!-- Slide 17: Noteworthy Changes -->
-                <section>
-                    <h3><i class="fas fa-exclamation-circle mr-2 text-orange-500"></i>值得关注的显著变化</h3>
-                     <ul class="fa-ul mt-4 space-y-3">
-                         <li class="fragment"><span class="fa-li"><i class="fab fa-js-square text-blue-500"></i></span><strong>TypeScript 生态扩张:</strong> 新项目中占比超 50%，巩固地位。</li>
-                        <li class="fragment"><span class="fa-li"><i class="fas fa-moon text-purple-600"></i></span><strong>Lua 的“逆袭”:</strong> `koreader` 上榜，小众语言在特定领域潜力。</li>
-                        <li class="fragment"><span class="fa-li"><i class="fas fa-chalkboard-teacher text-green-600"></i></span><strong>AI 教育工具爆发:</strong> `cookbook` (Gemini教程), `aie-book` (AI书籍)，学习资源开源化加速。</li>
-                     </ul>
-                </section>
-            </section>
-
-            <!-- Slide 18: Hotspot Changes Title -->
-            <section data-background-color="#fffbeb">
-                <h2><i class="fas fa-fire-alt mr-2"></i>热点项目动态</h2>
-                <p class="text-gray-700">新增、减退与持续热门的项目</p>
-            </section>
-
-            <!-- Slide 19: Hotspot Changes Lists -->
-            <section>
-                 <div class="grid md:grid-cols-3 gap-6">
-                    <div class="fragment">
-                        <h4 class="text-green-600 mb-2"><i class="fas fa-plus-circle mr-1"></i> 新增热点</h4>
-                        <ul class="text-sm space-y-1 list-disc list-inside">
-                            <li>elie222/inbox-zero</li>
-                            <li>inkonchain/docs</li>
-                            <li>open-webui/open-webui</li>
-                            <li>google-gemini/cookbook</li>
-                            <li>gitroomhq/postiz-app</li>
-                            <li>inkonchain/ink-kit</li>
-                            <li>chiphuyen/aie-book</li>
-                            <li>all-hands-ai/openhands</li>
-                            <li>codecrafters-io/build-your-own-x</li>
-                            <li>koreader/koreader</li>
-                            <li>dubinc/dub</li>
-                        </ul>
-                    </div>
-                     <div class="fragment">
-                        <h4 class="text-red-600 mb-2"><i class="fas fa-minus-circle mr-1"></i> 减退热点</h4>
-                        <ul class="text-sm space-y-1 list-disc list-inside">
-                            <li>jlowin/fastmcp</li>
-                            <li>microsoft/generative-ai-for-beginners</li>
-                            <li>patrickjs/awesome-cursorrules</li>
-                            <li>hackclub/hcb</li>
-                            <li>rustdesk/rustdesk</li>
-                            <li>louislam/dockge</li>
-                            <li>ahmedkhaleel2004/gitdiagram</li>
-                        </ul>
-                    </div>
-                    <div class="fragment">
-                        <h4 class="text-blue-600 mb-2"><i class="fas fa-sync-alt mr-1"></i> 持续热门</h4>
-                        <ul class="text-sm space-y-1 list-disc list-inside">
-                            <li>th-ch/youtube-music (4天)</li>
-                             <li>punkpeye/awesome-mcp-servers (6天)</li>
-                            <li>unclecode/crawl4ai (3天)</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-             <!-- Slide 20: Detailed Repo Analysis Title -->
-            <section data-background-color="#f3f4f6">
-                <h2><i class="fas fa-search-plus mr-2"></i>精选热门仓库解析</h2>
-                 <p class="text-gray-600">深入了解关键项目价值与技术特点</p>
-                <!-- Maybe add a note that only selected repos are shown -->
-                <p class="text-xs text-gray-500 mt-4">(展示部分代表性项目)</p>
-            </section>
-
-            <!-- Section: Selected Repo Details (Vertical Slides) -->
-            <section>
-                 <!-- Example Repo 1: TypeScript - youtube-music -->
-                <section>
-                    <h3><a href="https://github.com/th-ch/youtube-music" target="_blank">th-ch/youtube-music <i class="fas fa-external-link-alt text-xs ml-1"></i></a></h3>
-                    <div class="flex items-center text-sm text-gray-500 mb-3">
-                        <span class="mr-4"><i class="fab fa-js-square text-blue-500 mr-1"></i> TypeScript (92.7%)</span>
-                        <span class="mr-4"><i class="fas fa-star text-yellow-500 mr-1"></i> 16.5k</span>
-                         <span class="mr-4"><i class="fas fa-chart-line text-green-500 mr-1"></i> +1604 today</span>
-                         <span><i class="fas fa-calendar-check text-blue-500 mr-1"></i> 4 days on list</span>
-                    </div>
-                    <p class="text-base font-semibold mb-2">AI 总结:</p>
-                    <p class="text-sm text-gray-700">基于 Electron 的 YouTube Music 桌面客户端，通过<strong class="text-primary">插件系统</strong>解决广告干扰、功能受限问题。核心价值在于<strong class="text-secondary">高度可定制</strong>（界面、广告拦截、歌词同步）与<strong class="text-accent">原生化体验</strong>。采用 TypeScript 构建，跨平台 (Win/Mac/Linux)。适合追求极致体验的音乐爱好者，尤其在多平台环境展示强大适配性。</p>
-                 </section>
-
-                <!-- Example Repo 2: AI - unclecode/crawl4ai -->
-                <section>
-                     <h3><a href="https://github.com/unclecode/crawl4ai" target="_blank">unclecode/crawl4ai <i class="fas fa-external-link-alt text-xs ml-1"></i></a></h3>
-                    <div class="flex items-center text-sm text-gray-500 mb-3">
-                        <span class="mr-4"><i class="fab fa-python text-yellow-400 mr-1"></i> Python (98.8%)</span>
-                        <span class="mr-4"><i class="fas fa-star text-yellow-500 mr-1"></i> 35.9k</span>
-                         <span class="mr-4"><i class="fas fa-chart-line text-green-500 mr-1"></i> +454 today</span>
-                         <span><i class="fas fa-calendar-check text-blue-500 mr-1"></i> 3 days on list</span>
-                    </div>
-                    <p class="text-base font-semibold mb-2">AI 总结:</p>
-                    <p class="text-sm text-gray-700">开源 <strong class="text-primary">LLM 友好型爬虫</strong>与数据抓取工具。解决大规模网页采集、清洗、结构化输出难题。优势：支持<strong class="text-secondary">分布式与动态渲染</strong>，内置<strong class="text-accent">AI预处理管道</strong>（去噪、格式化），集成智能反爬机制。已成 AIGC 领域数据采集标准工具之一，适用于训练数据构建、知识库搭建等。</p>
-                </section>
-
-                <!-- Example Repo 3: Blockchain - inkonchain/ink-kit -->
-                 <section>
-                    <h3><a href="https://github.com/inkonchain/ink-kit" target="_blank">inkonchain/ink-kit <i class="fas fa-external-link-alt text-xs ml-1"></i></a></h3>
-                     <div class="flex items-center text-sm text-gray-500 mb-3">
-                        <span class="mr-4"><i class="fab fa-js-square text-blue-500 mr-1"></i> TypeScript (87.0%)</span>
-                        <span class="mr-4"><i class="fas fa-star text-yellow-500 mr-1"></i> 35.7k</span>
-                         <span class="mr-4"><i class="fas fa-chart-line text-green-500 mr-1"></i> +189 today</span>
-                         <span><i class="fas fa-calendar-plus text-purple-500 mr-1"></i> New today</span>
-                    </div>
-                     <p class="text-base font-semibold mb-2">AI 总结:</p>
-                    <p class="text-sm text-gray-700">专注于<strong class="text-primary">链上应用开发</strong>的高性能 SDK。提供模板、主题、<strong class="text-secondary">魔法动画组件</strong>，解决 DApp 界面开发效率低、风格统一差问题。优势：CSS 变量驱动主题系统、模块化组件、区块链场景优化。适用于 DeFi、NFT 平台等，降低界面开发门槛，提升用户体验。</p>
-                 </section>
-
-                <!-- Example Repo 4: Education - codecrafters-io/build-your-own-x -->
-                 <section>
-                    <h3><a href="https://github.com/codecrafters-io/build-your-own-x" target="_blank">codecrafters-io/build-your-own-x <i class="fas fa-external-link-alt text-xs ml-1"></i></a></h3>
-                     <div class="flex items-center text-sm text-gray-500 mb-3">
-                        <span class="mr-4"><i class="fab fa-markdown text-gray-700 mr-1"></i> Markdown</span>
-                         <span class="mr-4"><i class="fas fa-star text-yellow-500 mr-1"></i> 367k</span>
-                         <span class="mr-4"><i class="fas fa-chart-line text-green-500 mr-1"></i> +498 today</span>
-                         <span><i class="fas fa-calendar-plus text-purple-500 mr-1"></i> New today</span>
-                    </div>
-                    <p class="text-base font-semibold mb-2">AI 总结:</p>
-                    <p class="text-sm text-gray-700">实践型技术学习项目，<strong class="text-primary">从零构建</strong> 3D渲染器、区块链、OS 等经典技术。解决理论与实践脱节问题，通过<strong class="text-secondary">动手实现</strong>深入理解系统原理。优势：覆盖广、多语言支持、多模态资源。适合希望掌握底层逻辑、提升系统设计思维的开发者。</p>
-                </section>
-            </section>
-
-
-            <!-- Slide N: End Slide -->
-            <section class="end-slide" data-background-gradient="linear-gradient(to top, #434343, #000000)">
-                 <h2 class="!text-white"><i class="fas fa-check-circle mr-2"></i>感谢观看</h2>
-                <p class="!text-gray-300 mt-4">持续关注 GitHub 趋势，把握技术脉搏</p>
-                <p class="!text-gray-400 text-lg mt-8">演讲者：AIChipEra</p>
-
-                 <div class="footer-link">
-                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="!text-gray-300 hover:!text-white">Star & Follow: github.com/aichipera/github-trend</a>
-                    <img src="../../asserts/wx.jpg" alt="关注我们二维码">
-                </div>
+                 <aside class="notes">结束语，再次引导关注项目和联系方式。</aside>
             </section>
 
         </div>
     </div>
 
-    <!-- Core框架 JS -->
+    <!-- Core Framework JS -->
     <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
-    <!-- 扩展依赖 JS -->
-     <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
-    <!-- Reveal.js 初始化 -->
+    <!-- Optional Plugins -->
+    <!-- <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js"></script> -->
+    <!-- <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js"></script> -->
+    <!-- <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js"></script> -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+
     <script>
+        // More info about initialization & config:
+        // - https://revealjs.com/config/
+        // - https://revealjs.com/api/
         Reveal.initialize({
-            hash: true, // Enable deep linking
-            center: false, // Content vertically centered by default via CSS
-            width: "100%", // Use full width
-            height: "100%", // Use full height
-            margin: 0, // No margin around slides
-            minScale: 0.2, // Allow scaling down for smaller screens
-	        maxScale: 1.5, // Allow scaling up slightly
-
-            // Transitions
-            transition: 'fade', // Choose a smooth transition: none/fade/slide/convex/concave/zoom
-            transitionSpeed: 'fast', // default/fast/slow
-
-            // Navigation
+            hash: true, // Enables deep linking slides
             controls: true, // Display controls in the bottom right corner
             progress: true, // Display a presentation progress bar
-            history: true, // Push each slide change to the browser history
-            keyboard: true, // Enable keyboard shortcuts for navigation
-            overview: true, // Enable slide overview (press 'esc')
-            touch: true, // Enable touch navigation on devices
+            center: true, // Vertical centering
+            slideNumber: 'c/t', // Display the page number of the current slide / total slides
+            transition: 'slide', // Transition style: none/fade/slide/convex/concave/zoom
+            transitionSpeed: 'default', // default/fast/slow
+            backgroundTransition: 'fade', // Background transition: none/fade/slide/convex/concave/zoom
 
-            // Vertical slides
-            navigationMode: 'default', // linear or default
-
-            // Lazy loading
-            // lazyLoad: true,
-
-            // Auto-slide (optional)
-            // autoSlide: 5000,
-            // loop: false,
-
-            // Plugins (if any were added)
+            // Optional reveal.js plugins
             // plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
         });
 
-        // Optional: Mermaid Initialization (if you plan to use Mermaid diagrams)
-        // mermaid.initialize({ startOnLoad: false }); // Wait for Reveal to be ready
-        // Reveal.on('ready', event => {
-        //     mermaid.init(undefined, document.querySelectorAll('.mermaid'));
-        // });
+        // Optional: Initialize Mermaid if needed for diagrams (currently not used based on content)
+        // mermaid.initialize({ startOnLoad: true });
     </script>
 </body>
 </html>
