@@ -28,7 +28,7 @@ def find_ppt_files():
                             'path': f'{rel_path}/{file}',
                             'name': file,
                             'title': title,
-                            'date': os.path.getmtime(file_path)
+                            'date': os.path.basename(os.path.dirname(file_path))
                         })
     
     for category in files_dict:
@@ -74,7 +74,7 @@ def generate_html(files_dict):
                 <ul class="space-y-3">"""
                 
             for file in files_dict[category]:
-                date_str = datetime.fromtimestamp(file['date']).strftime('%Y-%m-%d')
+                date_str = file['date']
                 html += f"""
                     <li class="group">
                         <a href="{file['path']}" class="block p-3 rounded-md hover:bg-gray-50 transition-colors">
