@@ -1,0 +1,626 @@
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>AI工具爆发！Rust崛起！开发者正用这些技术重构效率边界</title>
+
+    <!-- Core framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" id="theme" rel="stylesheet">
+
+    <!-- Extension dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom Styles for "Aha Moment" Design */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+        :root {
+            --r-main-font: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: 'Noto Serif SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, serif;
+            --r-heading-font-weight: 600;
+            --r-main-font-size: 38px; /* Slightly larger base size */
+            --r-heading1-size: 2.8em;
+            --r-heading2-size: 1.8em;
+            --r-heading3-size: 1.3em;
+            --r-heading4-size: 1.0em;
+
+            /* Modern Color Palette */
+            --color-primary: #0b132b; /* Deep Navy */
+            --color-secondary: #1c2541; /* Darker Navy/Slate */
+            --color-accent1: #3a506b; /* Steel Blue */
+            --color-accent2: #5bc0be; /* Teal/Turquoise */
+            --color-highlight: #ffca3a; /* Yellow for highlights */
+            --color-light-bg: #f8f9fa;
+            --color-dark-text: #212529;
+            --color-light-text: #f8f9fa;
+
+            --r-main-color: var(--color-dark-text);
+            --r-heading-color: var(--color-primary);
+            --r-link-color: var(--color-accent2);
+            --r-link-color-hover: #4caaa8; /* Darker teal */
+            --r-background-color: var(--color-light-bg);
+        }
+
+        body {
+            font-family: var(--r-main-font);
+        }
+
+        .reveal {
+            font-size: var(--r-main-font-size);
+        }
+
+        .reveal .slides {
+            text-align: left;
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            font-family: var(--r-heading-font);
+            font-weight: var(--r-heading-font-weight);
+            color: var(--r-heading-color);
+            margin-bottom: 0.6em;
+            line-height: 1.2;
+             text-align: center; /* Center headings */
+        }
+        .reveal h1 { font-size: var(--r-heading1-size); text-shadow: 1px 1px 3px rgba(0,0,0,0.1); }
+        .reveal h2 { font-size: var(--r-heading2-size); }
+        .reveal h3 { font-size: var(--r-heading3-size); color: var(--color-secondary); }
+        .reveal h4 { font-size: var(--r-heading4-size); color: var(--color-accent1); }
+
+
+        .reveal p, .reveal li {
+            font-size: 0.9em; /* Adjust body text size */
+            line-height: 1.65;
+            color: var(--r-main-color);
+            margin-bottom: 0.7em;
+        }
+
+        .reveal section {
+            padding: 40px 5% !important; /* More padding */
+            box-sizing: border-box;
+            min-height: 95vh; /* Use min-height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center content vertically */
+        }
+
+         /* Ensure content inside section flows naturally from top */
+        .reveal .slides section > *:first-child {
+            margin-top: 0;
+        }
+        .reveal .slides section > *:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Cover & End Slide Specifics */
+        .reveal .slides section.cover-slide,
+        .reveal .slides section.end-slide {
+            text-align: center;
+            color: var(--color-light-text);
+        }
+        .reveal .slides section.cover-slide h1,
+        .reveal .slides section.end-slide h1 {
+            color: var(--color-light-text);
+            font-size: 3em;
+             margin-bottom: 0.3em;
+        }
+         .reveal .slides section.cover-slide h2 { /* Subtitle */
+            color: var(--color-light-text);
+            font-family: var(--r-main-font);
+            font-weight: 400;
+            font-size: 1.4em;
+            opacity: 0.9;
+            margin-bottom: 1.5em;
+            max-width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .reveal .slides section.cover-slide .speaker-info,
+        .reveal .slides section.end-slide .speaker-info {
+            font-size: 0.9em;
+            margin-top: 2.5em;
+            opacity: 0.8;
+        }
+
+        /* Gradient Background for Cover/End */
+        .gradient-bg {
+             background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent1) 100%);
+        }
+
+        /* Fixed Footer for Link/QR */
+        .footer-fixed {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            display: flex;
+            align-items: center;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 8px 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-size: 0.45em; /* Smaller text */
+        }
+        .footer-fixed img {
+            width: 60px; /* Adjust QR code size */
+            height: 60px;
+            margin-right: 12px;
+            border-radius: 4px;
+        }
+        .footer-fixed a {
+            color: var(--r-link-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .footer-fixed a:hover {
+            color: var(--r-link-color-hover);
+            text-decoration: underline;
+        }
+
+        /* Content Styling */
+        .reveal strong {
+            color: var(--color-accent2); /* Use Teal for strong emphasis */
+            font-weight: 600;
+        }
+        .reveal code {
+            background-color: #e9ecef;
+            padding: 0.2em 0.5em;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-family: monospace;
+        }
+        .reveal pre code {
+            display: block;
+            padding: 1em;
+            margin: 1em 0;
+            font-size: 0.7em;
+            line-height: 1.6;
+            max-height: 450px;
+            overflow-y: auto;
+            background: var(--color-secondary);
+            color: var(--color-light-text);
+            border-radius: 8px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+        }
+        .reveal ul {
+            list-style: none;
+            padding-left: 0;
+             margin-top: 1em;
+        }
+        .reveal ul li {
+            position: relative;
+            padding-left: 2em; /* More space for icon */
+            margin-bottom: 0.8em; /* More spacing */
+        }
+        .reveal ul li::before {
+            content: '\f058'; /* Font Awesome check-circle icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900; /* Solid icon */
+            position: absolute;
+            left: 0;
+            top: 0.05em; /* Fine-tune vertical alignment */
+            color: var(--color-accent2);
+            font-size: 1.1em;
+        }
+
+        /* Custom class for icons within text */
+        .fa-icon {
+            color: var(--color-accent1);
+            margin-right: 0.4em;
+            font-size: 0.95em;
+            vertical-align: middle;
+        }
+
+        /* Highlight box */
+        .highlight-box {
+            background-color: rgba(var(--color-accent2-rgb, 91, 192, 190), 0.1); /* Teal background with opacity */
+            border-left: 5px solid var(--color-accent2);
+            padding: 1em 1.5em;
+            margin: 1.5em 0;
+            border-radius: 8px;
+        }
+        .highlight-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Grid layout helper */
+       .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
+            margin-top: 1.5em;
+        }
+        .grid-item {
+            background-color: #fff;
+            padding: 1.2em;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+         .grid-item h4 {
+            margin-top: 0;
+            margin-bottom: 0.5em;
+            font-size: 1.1em;
+            color: var(--color-primary);
+        }
+        .grid-item p {
+            font-size: 0.85em;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+
+        /* Aha moment specific styling */
+        .aha-moment {
+            color: var(--color-highlight); /* Yellow for Aha! */
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        /* Smaller text class */
+        .text-small {
+            font-size: 0.75em;
+            opacity: 0.8;
+            text-align: center;
+            margin-top: 1em;
+        }
+
+        /* Transition */
+        .reveal .slides {
+            transition: transform 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000); /* Smoother ease-out */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            :root { --r-main-font-size: 32px; }
+            .reveal h1 { font-size: 2.2em; }
+            .reveal h2 { font-size: 1.6em; }
+            .reveal p, .reveal li { font-size: 0.85em; }
+            .footer-fixed { font-size: 0.4em; bottom: 15px; right: 15px; padding: 6px 10px; }
+            .footer-fixed img { width: 50px; height: 50px; }
+            .grid-container { grid-template-columns: 1fr; } /* Stack items on mobile */
+        }
+
+        /* Add root definition for accent2 RGB for RGBA usage */
+        :root {
+           --color-accent2-rgb: 91, 192, 190;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover -->
+            <section class="cover-slide gradient-bg" data-background-gradient="linear-gradient(135deg, #0b132b 0%, #3a506b 100%)">
+                <h1>AI工具爆发！Rust崛起！</h1>
+                <h2>开发者正用这些技术重构效率边界</h2>
+                <p class="speaker-info">
+                    GitHub热门仓库日报 | 观测时间: 2025-04-03 21:45:32 <br>
+                    演讲者: AIChipEra
+                </p>
+                <div class="footer-fixed">
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">关注项目 & Star</a>
+                </div>
+            </section>
+
+            <!-- Slide 2: Disclaimer -->
+            <section>
+                <h2><i class="fas fa-exclamation-triangle fa-icon" style="color: #ffc107;"></i>重要提示</h2>
+                <div class="highlight-box" style="border-left-color: #ffc107;">
+                    <p>以下内容根据公开数据分析生成，仅供项目介绍和技术学习使用。</p>
+                    <p><strong>不构成任何投资建议</strong>，请注意独立思考和风险甄别！</p>
+                </div>
+            </section>
+
+            <!-- Slide 3: Daily Summary (Aha Moment Intro) -->
+            <section>
+                <h2>日报要点：技术风向剧变 <span class="aha-moment">Aha!</span></h2>
+                <ul>
+                    <li class="fragment"><i class="fas fa-brain fa-icon"></i><strong>AI 融入日常</strong>：浏览器变身智能助手，自动化工具“一键可达”。</li>
+                    <li class="fragment"><i class="fas fa-shield-alt fa-icon"></i><strong>开源与自主</strong>：开发者用 Rust 重塑安全边界，用自托管掌握数据主权。</li>
+                    <li class="fragment"><i class="fas fa-feather-alt fa-icon"></i><strong>轻量化革命</strong>：新框架挑战传统，追求极致性能与标准原生。</li>
+                    <li class="fragment"><i class="fas fa-cogs fa-icon"></i><strong>硬核技术平民化</strong>：SLAM、文档理解等专业技术打包成易用工具。</li>
+                    <li class="fragment"><i class="fas fa-code-branch fa-icon"></i><strong>核心信仰</strong>：开源社区用代码投票，选择 <strong>“自主、高效、场景为王”</strong>。</li>
+                </ul>
+            </section>
+
+            <!-- Section: Trend Analysis -->
+            <section>
+                <section>
+                    <h2>热门项目趋势分析</h2>
+                    <h3><i class="fas fa-chart-line fa-icon"></i>今日技术风向标</h3>
+                    <div class="grid-container">
+                        <div class="grid-item">
+                            <h4><i class="fas fa-robot fa-icon"></i>AI赋能工具</h4>
+                            <p>大模型驱动自动化，降低操作复杂度 (如 Browser-use, OpenHands)。</p>
+                        </div>
+                        <div class="grid-item">
+                            <h4><i class="fas fa-network-wired fa-icon"></i>跨平台与效率</h4>
+                            <p>提升开发与协作效率，强调多平台兼容 (如 RustDesk, ffmpeg-kit)。</p>
+                        </div>
+                         <div class="grid-item">
+                            <h4><i class="fas fa-database fa-icon"></i>开源基础设施</h4>
+                            <p>自托管与优化基础工具，关注数据主权与性能 (如 nvm, Fleet)。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3><i class="fas fa-code fa-icon"></i>编程语言风云榜</h3>
+                     <ul>
+                        <li><i class="fab fa-python fa-icon" style="color:#3776AB;"></i><strong>Python</strong>: 主导AI工具开发，生态成熟。</li>
+                        <li><i class="fab fa-js-square fa-icon" style="color:#F7DF1E;"></i><strong>TypeScript/JS</strong>: Web与桌面融合，前端主力。</li>
+                        <li><i class="fab fa-rust fa-icon" style="color:#DEA584;"></i><strong>Rust</strong>: 高性能、高安全场景崛起 (跨链, 系统工具)。</li>
+                        <li><i class="fab fa-golang fa-icon" style="color:#00ADD8;"></i><strong>Go / <i class="fas fa-terminal fa-icon" style="color:#89E051;"></i>Shell</strong>: 系统级工具与基础设施，追求轻量高效。</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3><i class="fas fa-bullseye fa-icon"></i>开发者核心诉求与方向</h3>
+                     <ul>
+                        <li class="fragment"><strong>AI + 业务场景</strong>：从通用模型到解决具体问题。</li>
+                        <li class="fragment"><strong>开源“自主可控”</strong>：自托管工具增长，关注数据安全。</li>
+                        <li class="fragment"><strong>轻量化与标准化</strong>：摒弃过度抽象，回归原生API效率。</li>
+                        <li class="fragment"><strong>垂直领域整合</strong>：专业技术从研究走向工程化落地。</li>
+                    </ul>
+                </section>
+
+                 <section>
+                    <h3><i class="fas fa-history fa-icon"></i>趋势演变与<i class="fas fa-binoculars fa-icon"></i>未来展望</h3>
+                    <h4>近期变化：</h4>
+                    <ul>
+                        <li class="fragment">技术场景<strong>细分化</strong> (AI工具定制化)。</li>
+                        <li class="fragment">工具链<strong>下沉化</strong> (关注底层优化)。</li>
+                        <li class="fragment">新兴领域热度上升 (跨链、隐私计算)。</li>
+                    </ul>
+                     <h4 class="fragment">下一波热点预测：</h4>
+                    <ul>
+                        <li class="fragment">AI驱动的<strong>自动化生产力工具链</strong>。</li>
+                        <li class="fragment"><strong>边缘计算</strong>与轻量化框架加速。</li>
+                         <li class="fragment">开源<strong>安全与合规</strong>治理工具成刚需。</li>
+                        <li class="fragment"><strong>文档与知识管理</strong>技术深度整合。</li>
+                    </ul>
+                </section>
+
+                <section>
+                     <h3><i class="fas fa-lightbulb fa-icon"></i>今日趋势独特性：<span class="aha-moment">普惠</span>与<span class="aha-moment">深耕</span></h3>
+                     <div class="highlight-box">
+                         <p><i class="fas fa-users fa-icon"></i><strong>技术普惠</strong>：AI降低门槛，推动技术民主化 (如 Browser-use)。</p>
+                         <p><i class="fas fa-microscope fa-icon"></i><strong>场景深耕</strong>：聚焦垂直痛点，“小而美”解决方案受青睐。</p>
+                         <p><i class="fas fa-people-carry fa-icon"></i><strong>社区驱动</strong>：开源协作是技术演进的核心动力。</p>
+                     </div>
+                     <p class="fragment"><strong>总结</strong>：技术正围绕 <strong>效率提升、安全可控、场景深化</strong> 展开，从“通用工具”向“场景化基础设施”转型。</p>
+                </section>
+            </section>
+
+             <!-- Section: Hot Project Comparison -->
+            <section>
+                <section>
+                    <h2>热门项目双日对比分析</h2>
+                    <h3><i class="fas fa-fire fa-icon"></i>热度飙升 & <i class="fas fa-star fa-icon"></i>新星涌现</h3>
+                     <ul>
+                        <li><i class="fas fa-chart-area fa-icon"></i><strong>热度持续走高</strong>：社区活跃，新项目达10个，60%项目热度上升。</li>
+                        <li><i class="fas fa-drafting-compass fa-icon"></i><strong>新项目多元化</strong>：Rust (系统), Go (运维), PHP (框架), JS (轻量前端 - Nue), 工具型 (Typst, FFmpeg-Kit) 各显神通。</li>
+                         <li><i class="fas fa-cogs fa-icon"></i><strong>趋势聚焦</strong>：系统工具、音视频处理、开发效率成新热点。</li>
+                    </ul>
+                </section>
+                <section>
+                     <h3><i class="fas fa-exchange-alt fa-icon"></i>语言格局变迁 & <i class="fas fa-rocket fa-icon"></i>明星项目</h3>
+                     <h4>语言热度变化：</h4>
+                    <ul>
+                        <li><i class="fab fa-rust fa-icon" style="color:#DEA584;"></i><strong>Rust (+3)</strong>: 涨幅榜首，巩固系统编程地位。</li>
+                        <li><i class="fab fa-python fa-icon" style="color:#3776AB;"></i>Python / <i class="fab fa-c fa-icon" style="color:#555555;"></i>C: 基础技术层需求稳固。</li>
+                         <li><i class="fab fa-js-square fa-icon" style="color:#F7DF1E;"></i>TS / <i class="fas fa-moon fa-icon" style="color:#000080;"></i>Lua: 热度稍降。</li>
+                    </ul>
+                     <h4>显著增长项目：</h4>
+                    <ul>
+                        <li class="fragment"><i class="fab fa-youtube fa-icon" style="color:red;"></i> youtube-music (+374): <strong>无广告</strong>音乐体验需求强烈。</li>
+                        <li class="fragment"><i class="fas fa-inbox fa-icon" style="color:#4285F4;"></i> inbox-zero (+370): 邮件<strong>自动化</strong>切入效率赛道。</li>
+                        <li class="fragment"><i class="fas fa-spider fa-icon"></i> crawl4ai: AI训练<strong>数据采集</strong>工具潜力巨大。</li>
+                    </ul>
+                     <p class="fragment"><strong>结论</strong>: 开发者向 <strong>工具优化、系统性能、效率提升</strong> 加速倾斜。</p>
+                </section>
+            </section>
+
+            <!-- Slide: Hotspot Changes -->
+            <section>
+                <h2><i class="fas fa-map-marker-alt fa-icon"></i>GitHub 热点速览</h2>
+                <div class="grid-container" style="grid-template-columns: repeat(3, 1fr); font-size: 0.7em;">
+                    <div class="grid-item" style="border-left-color: #28a745;">
+                        <h4 style="color: #28a745;"><i class="fas fa-plus-circle"></i> 新增热点 (10)</h4>
+                        <p>ffmpeg-kit, symfony, fleet, slam-handbook, typst, union, ragflow, nue, browser-use, rustdesk</p>
+                    </div>
+                     <div class="grid-item" style="border-left-color: #dc3545;">
+                         <h4 style="color: #dc3545;"><i class="fas fa-minus-circle"></i> 减退热点 (9)</h4>
+                        <p>build-your-own-x, aie-book, inkonchain/docs, gemini-cookbook, koreader, open-webui, dub, awesome-mcp-servers, ink-kit</p>
+                    </div>
+                    <div class="grid-item" style="border-left-color: #ffc107;">
+                        <h4 style="color: #ffc107;"><i class="fas fa-sync-alt"></i> 持续热门 (3)</h4>
+                        <p>crawl4ai (4天), nvm (3天), youtube-music (5天)</p>
+                    </div>
+                </div>
+                 <p class="text-small">数据观测时间: 2025-04-03 21:45:32</p>
+            </section>
+
+            <!-- Section: Selected Projects -->
+            <section>
+                <section>
+                    <h2><i class="fas fa-project-diagram fa-icon"></i>精选项目深度解读</h2>
+                    <p>探索那些正在引领变革的前沿技术</p>
+                </section>
+
+                <!-- Add slides for selected projects here -->
+                 <section>
+                    <h3><i class="fas fa-robot fa-icon"></i><i class="fab fa-chrome fa-icon"></i> AI赋能浏览器: <strong>Browser-use</strong></h3>
+                     <ul>
+                        <li><strong>核心</strong>: 用自然语言控制浏览器，AI代理执行任务。</li>
+                        <li><strong>价值 <span class="aha-moment">Aha!</span></strong>: 简化网页交互自动化，无需复杂脚本。</li>
+                        <li><strong>场景</strong>: 电商比价、数据抓取、表单填充、社交媒体迁移。</li>
+                        <li><strong>技术</strong>: Python, Playwright, 集成主流LLMs (GPT-4o等)。</li>
+                    </ul>
+                    <p><a href="https://github.com/browser-use/browser-use" target="_blank">仓库链接</a> | Stars: 52.3k+</p>
+                </section>
+
+                <section>
+                    <h3><i class="fas fa-spider fa-icon"></i><i class="fas fa-brain fa-icon"></i> LLM友好型爬虫: <strong>Crawl4AI</strong></h3>
+                     <ul>
+                        <li><strong>核心</strong>: 专为LLM设计的开源网络爬虫与数据抓取工具。</li>
+                        <li><strong>价值 <span class="aha-moment">Aha!</span></strong>: 高效收集、清洗、结构化网页数据，直接适配AI训练。</li>
+                        <li><strong>场景</strong>: AI训练数据准备、行业知识库构建、语料收集。</li>
+                        <li><strong>技术</strong>: Python, LLM适配性强, 反爬策略, 分布式爬取。</li>
+                    </ul>
+                    <p><a href="https://github.com/unclecode/crawl4ai" target="_blank">仓库链接</a> | Stars: 36.3k+</p>
+                </section>
+
+                <section>
+                     <h3><i class="fas fa-shield-alt fa-icon"></i><i class="fas fa-desktop fa-icon"></i> 安全自托管远程桌面: <strong>RustDesk</strong></h3>
+                     <ul>
+                        <li><strong>核心</strong>: 开源、自托管的远程桌面工具，TeamViewer替代品。</li>
+                         <li><strong>价值 <span class="aha-moment">Aha!</span></strong>: 数据主权在手，安全可控，零配置连接。</li>
+                        <li><strong>场景</strong>: 个人设备管理、企业IT运维、安全远程协作。</li>
+                         <li><strong>技术</strong>: Rust (内存安全, 高性能), 跨平台, TCP穿透/中继。</li>
+                    </ul>
+                    <p><a href="https://github.com/rustdesk/rustdesk" target="_blank">仓库链接</a> | Stars: 85.9k+</p>
+                </section>
+
+                <section>
+                    <h3><i class="fas fa-feather-alt fa-icon"></i><i class="fab fa-html5 fa-icon"></i> Web标准极致框架: <strong>Nue</strong></h3>
+                     <ul>
+                        <li><strong>核心</strong>: 标准优先的Web框架，追求极简与高性能。</li>
+                        <li><strong>价值 <span class="aha-moment">Aha!</span></strong>: 摒弃抽象层，代码量小，性能接近原生。</li>
+                        <li><strong>场景</strong>: 轻量级应用、高性能前端、需结合原生计算 (WASM)。</li>
+                        <li><strong>技术</strong>: HTML/CSS/JS/WASM, Rust/Go计算层, Web Components。</li>
+                    </ul>
+                     <p><a href="https://github.com/nuejs/nue" target="_blank">仓库链接</a> | Stars: 7.4k+</p>
+                </section>
+
+                <section>
+                    <h3><i class="fas fa-inbox fa-icon"></i><i class="fas fa-bolt fa-icon"></i> AI驱动邮件清零: <strong>Inbox Zero</strong></h3>
+                     <ul>
+                        <li><strong>核心</strong>: 开源邮件应用，用AI自动化处理，快速清空收件箱。</li>
+                        <li><strong>价值 <span class="aha-moment">Aha!</span></strong>: 大幅提升邮件处理效率，减少人工操作。</li>
+                        <li><strong>场景</strong>: 高效个人邮件管理、中小企业自动化办公。</li>
+                        <li><strong>技术</strong>: TypeScript, Next.js, AI模型集成 (OpenAI, Anthropic), Gmail API。</li>
+                    </ul>
+                     <p><a href="https://github.com/elie222/inbox-zero" target="_blank">仓库链接</a> | Stars: 4.5k+</p>
+                </section>
+
+                 <section>
+                    <h3><i class="fas fa-book-open fa-icon"></i><i class="fas fa-map-marked-alt fa-icon"></i> 权威SLAM知识体系: <strong>SLAM Handbook</strong></h3>
+                     <ul>
+                        <li><strong>核心</strong>: 全球顶尖学者编写的系统性SLAM技术手册。</li>
+                        <li><strong>价值 <span class="aha-moment">Aha!</span></strong>: 整合理论与实践，提供统一技术框架参考。</li>
+                         <li><strong>场景</strong>: 学术研究、工程应用 (机器人, 自动驾驶, AR/VR)。</li>
+                        <li><strong>技术</strong>: 社区协作, 因子图, 多传感器融合, 动态环境建图。</li>
+                    </ul>
+                     <p><a href="https://github.com/SLAM-Handbook-contributors/slam-handbook-public-release" target="_blank">仓库链接</a> | Stars: 2.5k+</p>
+                </section>
+
+                 <section>
+                    <h3><i class="fas fa-link fa-icon"></i><i class="fas fa-lock fa-icon"></i> 零知识跨链桥: <strong>Union</strong></h3>
+                     <ul>
+                        <li><strong>核心</strong>: 基于ZKP的信任最小化跨链协议。</li>
+                        <li><strong>价值 <span class="aha-moment">Aha!</span></strong>: 实现高安全、抗审查的跨链交互，无需信任中介。</li>
+                         <li><strong>场景</strong>: DeFi跨链, NFT流通, Web3互操作性。</li>
+                        <li><strong>技术</strong>: Rust, 零知识证明 (ZKP), 共识验证, Cosmos IBC/EVM兼容。</li>
+                    </ul>
+                    <p><a href="https://github.com/unionlabs/union" target="_blank">仓库链接</a> | Stars: 51.2k+</p>
+                </section>
+
+                <section>
+                    <h3><i class="fas fa-file-alt fa-icon"></i><i class="fas fa-search fa-icon"></i> 深度文档理解RAG引擎: <strong>RAGFlow</strong></h3>
+                    <ul>
+                        <li><strong>核心</strong>: 基于深度文档理解的开源RAG引擎。</li>
+                         <li><strong>价值 <span class="aha-moment">Aha!</span></strong>: 从复杂文档中提取知识，生成可信、可追溯的AI回答。</li>
+                         <li><strong>场景</strong>: 智能知识库, 自动化客服, 金融/法律文档分析。</li>
+                         <li><strong>技术</strong>: Python/TS, 深度文档理解, 智能分块, LLM/Embedding集成。</li>
+                    </ul>
+                     <p><a href="https://github.com/infiniflow/ragflow" target="_blank">仓库链接</a> | Stars: 47.7k+</p>
+                 </section>
+
+            </section>
+
+            <!-- Slide: Conclusion (Aha Moment Recap) -->
+            <section>
+                 <h2><i class="fas fa-rocket fa-icon"></i>灵光一现：技术重塑效率边界 <span class="aha-moment">Aha!</span></h2>
+                 <p style="text-align: center;">我们正处在一个激动人心的技术变革点：</p>
+                 <div class="grid-container" style="grid-template-columns: repeat(2, 1fr);">
+                     <div class="grid-item highlight-box" style="border-left-color: var(--color-primary);">
+                         <h4><i class="fas fa-brain fa-icon"></i> AI民主化</h4>
+                         <p>AI不再是象牙塔技术，正成为人人可用的效率倍增器。</p>
+                     </div>
+                     <div class="grid-item highlight-box" style="border-left-color: var(--color-accent1);">
+                         <h4><i class="fab fa-rust fa-icon"></i> Rust崛起</h4>
+                         <p>以安全和性能优势，在关键领域定义新标准。</p>
+                     </div>
+                     <div class="grid-item highlight-box" style="border-left-color: var(--color-secondary);">
+                         <h4><i class="fas fa-shield-alt fa-icon"></i> 开源自主</h4>
+                         <p>开发者通过自托管和开源工具，夺回技术与数据控制权。</p>
+                     </div>
+                     <div class="grid-item highlight-box" style="border-left-color: var(--color-accent2);">
+                         <h4><i class="fas fa-crosshairs fa-icon"></i> 场景为王</h4>
+                         <p>通用工具让位于深度契合特定场景的解决方案。</p>
+                     </div>
+                 </div>
+                 <p class="fragment" style="text-align: center; margin-top: 1.5em;"><strong>未来属于那些拥抱变化、善用工具、重构效率的开发者！</strong></p>
+             </section>
+
+            <!-- Slide: End -->
+            <section class="end-slide gradient-bg" data-background-gradient="linear-gradient(135deg, #3a506b 0%, #0b132b 100%)">
+                <h1>感谢观看</h1>
+                 <h2 style="font-size: 1.6em;">保持关注，探索前沿</h2>
+                <p class="speaker-info">
+                    持续追踪GitHub趋势，发现下一个改变世界的技术<br>
+                    Presented by AIChipEra
+                </p>
+                <div class="footer-fixed">
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">关注项目 & Star on GitHub</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Core framework script -->
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <!-- Optional plugins -->
+    <!-- <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js"></script> -->
+    <!-- <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js"></script> -->
+    <!-- <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js"></script> -->
+     <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <script>
+        // More info about initialization & config:
+        // - https://revealjs.com/initialization/
+        // - https://revealjs.com/config/
+        Reveal.initialize({
+            hash: true, // Enables deep linking slides using hashes in the URL
+            center: false, // Vertically center slides (overridden by CSS flex)
+            progress: true, // Display the presentation progress bar
+            slideNumber: 'c/t', // Display slide number (current/total)
+            transition: 'slide', // Transition style: none/fade/slide/convex/concave/zoom
+            transitionSpeed: 'default', // default/fast/slow
+            backgroundTransition: 'fade', // Transition style for backgrounds
+
+            // Learn about plugins: https://revealjs.com/plugins/
+            plugins: [ /* RevealMarkdown, RevealHighlight, RevealNotes */ ]
+        });
+
+        // Initialize Mermaid.js for diagrams if needed
+        // mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+</html>
