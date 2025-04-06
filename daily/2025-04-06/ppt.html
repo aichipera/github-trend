@@ -1,0 +1,603 @@
+<html lang="zh">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>AI工具链爆发！这三大技术方向正重塑开发者未来</title>
+
+  <!-- Core framework -->
+  <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+  <!-- Theme -->
+  <!-- Options: beige, black, blood, league, moon, night, serif, simple, sky, solarized, white -->
+  <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet" id="theme">
+
+  <!-- Extended dependencies -->
+  <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Custom Styles for Aha Moment & Requirements -->
+  <style>
+    :root {
+      --r-main-font: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+      --r-heading-font: 'Noto Serif SC', 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, serif;
+      --r-heading-font-weight: 600;
+      --r-block-margin: 20px;
+      --r-link-color: #2a76dd;
+      --r-link-color-hover: #6ca0e8;
+      --r-main-font-size: 36px; /* Base size, adjust as needed */
+      --r-background-color: #f8f8f8;
+      --r-main-color: #333;
+      --r-heading-color: #1a1a1a;
+
+      /* Custom Palette */
+      --color-primary: #0052cc; /* Deep Blue */
+      --color-secondary: #00a3bf; /* Teal */
+      --color-accent: #ffab00;  /* Amber/Yellow */
+      --color-bg-light: #f8f8f8;
+      --color-text-dark: #333;
+      --color-text-light: #f8f8f8;
+      --color-text-medium: #555;
+    }
+
+    body {
+      font-family: var(--r-main-font);
+    }
+
+    .reveal {
+      font-family: var(--r-main-font);
+      font-size: var(--r-main-font-size); /* Controls base font size */
+      font-weight: 400;
+      color: var(--color-text-dark);
+    }
+
+    .reveal h1,
+    .reveal h2,
+    .reveal h3,
+    .reveal h4,
+    .reveal h5,
+    .reveal h6 {
+      font-family: var(--r-heading-font);
+      font-weight: var(--r-heading-font-weight);
+      color: var(--color-heading-color);
+      margin-bottom: 0.5em;
+      line-height: 1.2;
+      word-wrap: break-word;
+    }
+
+    .reveal h1 { font-size: 2.8em; } /* ~2.8rem based on 16px root */
+    .reveal h2 { font-size: 2em; } /* ~2rem */
+    .reveal h3 { font-size: 1.6em; } /* ~1.6rem */
+    .reveal h4 { font-size: 1.2em; } /* ~1.2rem, good for body titles */
+    .reveal p, .reveal li { font-size: 1em; line-height: 1.5; color: var(--color-text-medium); } /* ~1rem */
+    .reveal small { font-size: 0.7em; } /* ~0.7rem */
+
+    .reveal .slides section,
+    .reveal .slides section > section {
+      padding: 20px;
+      box-sizing: border-box; /* Ensure padding is included in width/height */
+    }
+
+    /* Cover Slide Specific Styles */
+    .cover-slide {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      /* Example gradient background */
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: var(--color-text-light);
+    }
+    .cover-slide h1, .cover-slide h2, .cover-slide p {
+        color: var(--color-text-light);
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+     .cover-slide h1 {
+        font-size: 3em; /* Larger title for cover */
+        margin-bottom: 0.2em;
+     }
+    .cover-slide h2 {
+        font-size: 1.5em; /* Subtitle */
+        font-weight: 400;
+        opacity: 0.9;
+        margin-bottom: 1em;
+    }
+    .cover-slide .speaker {
+        font-size: 1em;
+        margin-top: 2em;
+        opacity: 0.8;
+    }
+
+
+    /* Footer for Link and QR */
+    .slide-footer {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      font-size: 0.5em; /* smaller font size */
+      display: flex;
+      align-items: center;
+      gap: 15px; /* Space between QR and link */
+      z-index: 10; /* Ensure it's above background elements */
+      background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent background */
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+    .slide-footer img {
+      width: 50px; /* Adjust QR code size */
+      height: 50px;
+    }
+    .slide-footer a {
+      color: var(--r-link-color);
+      text-decoration: none;
+    }
+    .slide-footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Enhance readability and visual hierarchy */
+    .reveal strong, .reveal b {
+        font-weight: 600;
+        color: var(--color-primary); /* Highlight strong text */
+    }
+
+    .reveal ul, .reveal ol {
+      margin-left: 1.5em; /* Indent lists */
+      margin-bottom: 1em;
+    }
+    .reveal li {
+      margin-bottom: 0.5em;
+    }
+
+    /* Use Tailwind utilities for quick layout */
+    .flex-container { display: flex; justify-content: space-around; align-items: flex-start; gap: 20px; }
+    .flex-item { flex: 1; }
+
+    /* Custom background examples */
+    .bg-gradient-tech {
+        background: linear-gradient(45deg, #e0f2f7, #d1e3ff);
+    }
+    .bg-dark-subtle {
+        background-color: #e9ecef;
+    }
+
+    /* Icon styles */
+    .reveal .fa, .reveal .fas, .reveal .fab {
+        color: var(--color-secondary); /* Consistent icon color */
+        margin-right: 0.3em;
+    }
+    .reveal .highlight-icon {
+        color: var(--color-accent); /* Use accent for specific highlights */
+        font-size: 1.2em;
+    }
+
+    /* Repo card style */
+    .repo-card {
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        transition: transform 0.2s ease-in-out;
+    }
+    .repo-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .repo-card h4 {
+        font-size: 1.3em; /* Slightly smaller heading for cards */
+        color: var(--color-primary);
+        margin-bottom: 0.3em;
+    }
+    .repo-card p {
+        font-size: 0.9em;
+        color: var(--color-text-medium);
+        margin-bottom: 0.8em;
+    }
+     .repo-card .info {
+        font-size: 0.8em;
+        color: #666;
+        display: flex;
+        gap: 15px;
+        align-items: center;
+     }
+     .repo-card .info .fa {
+        margin-right: 5px;
+     }
+
+    /* Table style for repo data */
+    .reveal table {
+        margin: auto;
+        border-collapse: collapse;
+        border-spacing: 0;
+        font-size: 0.8em; /* Smaller font for tables */
+        width: 90%;
+    }
+    .reveal th, .reveal td {
+        text-align: left;
+        padding: 0.5em 0.75em;
+        border-bottom: 1px solid #eee;
+    }
+    .reveal th {
+        background-color: #f2f2f2;
+        font-weight: 600;
+        color: var(--color-heading-color);
+    }
+    .reveal tr:last-child td {
+        border-bottom: none;
+    }
+
+    /* Ensure fragments are initially hidden */
+    .reveal .fragment {
+      opacity: 0;
+      visibility: hidden;
+      transition: all .3s ease-in-out;
+    }
+    .reveal .fragment.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    .reveal .fragment.fade-in-then-semi-out {
+      opacity: 0;
+      transition: all .3s ease-in-out;
+    }
+    .reveal .fragment.fade-in-then-semi-out.current-fragment {
+      opacity: 1;
+    }
+    .reveal .fragment.fade-in-then-semi-out.visible:not(.current-fragment) {
+      opacity: 0.35;
+    }
+
+
+  </style>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Slide 1: Cover -->
+      <section class="cover-slide" data-transition="zoom">
+        <h1>AI工具链爆发！</h1>
+        <h2>这三大技术方向正重塑开发者未来</h2>
+        <p>GitHub热门仓库趋势分析 (2025-04-06)</p>
+        <p class="speaker">演讲者: AIChipEra</p>
+        <div class="slide-footer">
+            <img src="../../asserts/wx.jpg" alt="QR Code">
+            <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+        </div>
+      </section>
+
+      <!-- Slide 2: Disclaimer -->
+      <section data-transition="fade">
+        <h2><i class="fas fa-exclamation-triangle"></i> 免责声明</h2>
+        <p class="text-lg mt-8 text-gray-600">
+            以下内容（观测时间: <strong>2025-04-06 20:40:16</strong>）<br>
+            仅供项目介绍和学习使用，<strong>不构成任何投资建议</strong>，请注意甄别！
+        </p>
+      </section>
+
+      <!-- Slide 3: 日报要点 -->
+      <section data-transition="slide-in right">
+        <h2><i class="fas fa-lightbulb"></i> 日报要点：核心洞察</h2>
+        <p class="mt-6">Meta和微软的最新开源项目透露重大信号：<strong class="text-blue-600">AI技术正从模型竞赛转向工具链战争</strong>。</p>
+        <ul class="mt-6 space-y-4 text-left mx-auto w-11/12">
+            <li class="fragment fade-in" data-fragment-index="1"><i class="fas fa-users text-teal-500"></i> **AI普惠工具：** 让AI人人可用，降低技术门槛。</li>
+            <li class="fragment fade-in" data-fragment-index="2"><i class="fas fa-tachometer-alt text-purple-500"></i> **性能优化方案：** 专业度爆表，深耕底层效能。</li>
+            <li class="fragment fade-in" data-fragment-index="3"><i class="fas fa-link text-orange-500"></i> **技术粘合剂：** 连接不同系统，解决整合痛点。</li>
+        </ul>
+        <p class="fragment mt-8 text-gray-700" data-fragment-index="4">真正改变行业的不是单个模型，而是这些让技术落地更顺畅的<strong class="text-indigo-600">“幕后英雄”</strong>。开发者如何抓住红利？答案就在GitHub上疯狂生长的项目中。</p>
+      </section>
+
+      <!-- Slide 4: 热门项目趋势分析 (Vertical Slides) -->
+      <section>
+        <section data-transition="slide-in left" data-background-gradient="linear-gradient(to bottom, #dfe9f3 0%, white 100%)">
+            <h2><i class="fas fa-chart-line"></i> 今日GitHub技术趋势深度分析</h2>
+            <p>AI基础设施与工具链开发正形成明显的技术聚拢效应。</p>
+            <p class="mt-4 text-sm text-gray-500">(按 ↓ 查看详细分析)</p>
+        </section>
+        <section data-background-color="var(--color-bg-light)">
+            <h3><i class="fas fa-project-diagram"></i> 核心聚拢：基础设施与工具链</h3>
+            <p>Meta <strong class="text-blue-700">Llama Models</strong> 与微软 <strong class="text-green-700">MarkItDown</strong> 分别从大模型底层和应用层，展现生成式AI向垂直领域渗透的加速态势。</p>
+            <p class="mt-4">AI项目不再局限于模型本身，而是向工具链上下游延伸。</p>
+        </section>
+        <section data-background-color="var(--color-bg-light)">
+            <h3><i class="fas fa-plug"></i> "连接器时代"：解决整合痛点</h3>
+             <p><strong class="text-purple-600">Activepieces</strong> 的自动化编排与 <strong class="text-indigo-600">Supabase-MCP</strong> 的数据库连接协议，反映出AI应用开发正进入"连接器时代"。</p>
+            <p class="mt-4">解决模型与现有系统的整合痛点成为关键突破点。</p>
+        </section>
+         <section data-background-color="var(--color-bg-light)">
+            <h3><i class="fas fa-code"></i> 技术栈分布与特点</h3>
+            <ul class="text-left text-base space-y-3">
+                <li><i class="fab fa-python text-yellow-500"></i> <strong>Python (42%):</strong> 继续主导AI/ML领域。</li>
+                <li><i class="fab fa-js text-blue-500"></i> <strong>TypeScript (25%):</strong> 在工具类项目中表现抢眼。</li>
+                <li><i class="fas fa-shield-alt text-orange-600"></i> <strong>Rust:</strong> 在高性能基础设施中增长 (如Union)。</li>
+                <li class="mt-4"><i class="fas fa-puzzle-piece text-gray-600"></i> **模块化设计 (>70%):** 微内核+插件架构成共识 (Anime.js V4, Fleet)。</li>
+                <li><i class="fas fa-exchange-alt text-gray-600"></i> **协议化交互:** MCP、IBC等中间协议出现频率较上月增长 <strong>37%</strong>。</li>
+            </ul>
+        </section>
+        <section data-background-color="var(--color-bg-light)">
+            <h3><i class="fas fa-exchange-alt"></i> 技术需求三大转向 (对比3个月前)</h3>
+            <ol class="text-left text-base space-y-3">
+                 <li class="fragment fade-in-then-semi-out"><i class="fas fa-layer-group"></i> 从单一模型能力比拼 <i class="fas fa-arrow-right"></i> <strong>全栈工具链建设</strong>。</li>
+                 <li class="fragment fade-in-then-semi-out"><i class="fas fa-crosshairs"></i> 从通用解决方案 <i class="fas fa-arrow-right"></i> <strong>垂直场景优化</strong> (如BabelDOC)。</li>
+                 <li class="fragment fade-in-then-semi-out"><i class="fas fa-handshake"></i> 从封闭生态 <i class="fas fa-arrow-right"></i> <strong>开放协作</strong> (PhysX开源, Datawhale社区)。</li>
+             </ol>
+             <p class="mt-4 fragment">映射技术落地阶段特征：开发者更关注将前沿技术转化为<strong>实际生产力</strong>。</p>
+        </section>
+        <section data-background-color="var(--color-bg-light)">
+            <h3><i class="fas fa-bullseye"></i> 下一波技术热点预测</h3>
+            <ul class="text-left text-base space-y-3">
+                <li class="fragment"><i class="fas fa-tools"></i> **AI-Native开发工具** (类似Cursor但更垂直)。</li>
+                <li class="fragment"><i class="fas fa-cubes"></i> **跨模态内容生成基础设施** (文生视频/3D中间件)。</li>
+                <li class="fragment"><i class="fas fa-server"></i> **边缘计算与AI的融合方案** (类似Llama.cpp优化浪潮)。</li>
+            </ul>
+            <p class="mt-4 fragment">特别是随着 Llama 3 等模型开源，<strong>本地化部署工具链</strong>将迎来爆发期。</p>
+        </section>
+        <section data-background-color="var(--color-bg-light)">
+            <h3><i class="fas fa-balance-scale"></i> 今日特有趋势：双轨并行</h3>
+            <div class="flex-container mt-6">
+                <div class="flex-item text-center fragment" data-fragment-index="1">
+                    <i class="fas fa-universal-access text-blue-500 text-3xl mb-2"></i>
+                    <h4>AI普惠化</h4>
+                    <p class="text-sm">Llama Models等项目持续降低技术门槛。</p>
+                </div>
+                <div class="flex-item text-center fragment" data-fragment-index="1">
+                     <i class="fas fa-microchip text-purple-600 text-3xl mb-2"></i>
+                    <h4>专业深化</h4>
+                    <p class="text-sm">Union等项目的技术复杂度提升。</p>
+                </div>
+            </div>
+             <p class="mt-6 fragment" data-fragment-index="2"><i class="fas fa-flask"></i> <strong>学术与工业界界限模糊化：</strong> BabelDOC, LLM-Cookbook等项目弥合鸿沟。</p>
+        </section>
+        <section data-background-color="var(--color-bg-light)">
+            <h3><i class="fas fa-exclamation-circle"></i> 挑战与机遇：开发者体验</h3>
+            <p>项目复杂度提升，<strong>开发者体验</strong>可能面临挑战 (Top 12中8个需复杂配置)。</p>
+            <p class="mt-4 fragment">可能催生新的<strong>“开发体验优化”</strong>细分领域。</p>
+            <p class="mt-6 fragment"><strong>总体趋势:</strong> 技术深度与广度同步扩张，纵向深耕专业场景，横向构建连接网络，形成<strong>立体化发展模式</strong>。</p>
+        </section>
+      </section>
+
+
+      <!-- Slide 5: Intro to Repos -->
+      <section data-transition="fade-in slide-out">
+        <h2><i class="fas fa-database"></i> 热门仓库深度解读</h2>
+        <p>透视技术趋势的具体实践</p>
+        <div class="mt-8 grid grid-cols-3 gap-4 text-center text-sm">
+            <span class="fragment bg-blue-100 text-blue-800 p-2 rounded"><i class="fab fa-python"></i> Llama Models</span>
+            <span class="fragment bg-green-100 text-green-800 p-2 rounded"><i class="fab fa-python"></i> MarkItDown</span>
+            <span class="fragment bg-purple-100 text-purple-800 p-2 rounded"><i class="fab fa-js"></i> Activepieces</span>
+            <span class="fragment bg-indigo-100 text-indigo-800 p-2 rounded"><i class="fab fa-js"></i> Supabase-MCP</span>
+            <span class="fragment bg-yellow-100 text-yellow-800 p-2 rounded"><i class="fab fa-python"></i> BabelDOC</span>
+            <span class="fragment bg-red-100 text-red-800 p-2 rounded"><i class="fas fa-shield-alt"></i> Union (Rust)</span>
+            <span class="fragment bg-gray-100 text-gray-800 p-2 rounded"><i class="fas fa-cogs"></i> Fleet (Go)</span>
+             <span class="fragment bg-teal-100 text-teal-800 p-2 rounded"><i class="fab fa-js"></i> Anime.js</span>
+             <span class="fragment bg-orange-100 text-orange-800 p-2 rounded"><i class="fas fa-atom"></i> PhysX (C++)</span>
+        </div>
+      </section>
+
+      <!-- Repository Slides Section -->
+      <section>
+          <!-- Llama Models -->
+          <section class="repo-card" data-transition="slide">
+            <h4><i class="fab fa-meta"></i> meta-llama/llama-models <span class="text-sm font-normal text-gray-500">(Python)</span></h4>
+            <p><strong>项目速读:</strong> Meta的开源大语言模型工具集，旨在降低生成式AI技术使用门槛，强调负责任使用。</p>
+            <p class="mt-4"><strong>核心优势:</strong></p>
+            <ul class="text-sm space-y-2">
+                <li><i class="fas fa-layer-group text-blue-500"></i> 开放模型生态：多尺寸模型 (1B-405B)，长上下文 (4K-128K)。</li>
+                <li><i class="fas fa-compress-alt text-green-500"></i> 独特量化技术 (FP8/Int4)：大幅降低硬件门槛。</li>
+                <li><i class="fas fa-language text-purple-500"></i> 多Tokenizer方案 (Sentencepiece/TikToken)：增强多语言处理。</li>
+            </ul>
+             <div class="info mt-4">
+                <span><i class="fas fa-star highlight-icon"></i> 6.2k</span>
+                <span><i class="fas fa-sync"></i> 1k Forks</span>
+                <span><i class="fas fa-fire text-red-500"></i> 日增 153</span>
+                <span><i class="fas fa-tags"></i> 开源LLM, AI工具</span>
+            </div>
+          </section>
+
+          <!-- MarkItDown -->
+          <section class="repo-card" data-transition="slide">
+            <h4><i class="fab fa-microsoft"></i> microsoft/markitdown <span class="text-sm font-normal text-gray-500">(Python)</span></h4>
+            <p><strong>项目速读:</strong> 微软开源的文档转换工具，将办公文档转为结构化Markdown，优化LLM处理效率。</p>
+            <p class="mt-4"><strong>核心优势:</strong></p>
+            <ul class="text-sm space-y-2">
+                <li><i class="fas fa-magic text-blue-500"></i> 智能解析能力：集成Azure文档智能，处理复杂PDF。</li>
+                <li><i class="fas fa-puzzle-piece text-green-500"></i> 模块化设计：按需加载，插件扩展。</li>
+                <li><i class="fas fa-memory text-purple-500"></i> 内存友好：直接处理流，无需临时文件，适合云端。</li>
+            </ul>
+             <div class="info mt-4">
+                <span><i class="fas fa-star highlight-icon"></i> 42.5k</span>
+                <span><i class="fas fa-sync"></i> 2k Forks</span>
+                <span><i class="fas fa-fire text-red-500"></i> 日增 410 (增长迅猛!)</span>
+                <span><i class="fas fa-tags"></i> 文档处理, AI工具链</span>
+            </div>
+          </section>
+
+          <!-- Activepieces -->
+          <section class="repo-card" data-transition="slide">
+            <h4><i class="fas fa-robot"></i> activepieces/activepieces <span class="text-sm font-normal text-gray-500">(TypeScript)</span></h4>
+            <p><strong>项目速读:</strong> 开源AI自动化工作流平台 (Zapier替代品)，可视化编排280+应用，深度集成AI能力。</p>
+            <p class="mt-4"><strong>核心优势:</strong></p>
+            <ul class="text-sm space-y-2">
+                <li><i class="fas fa-sitemap text-blue-500"></i> 可视化编排 & 280+连接器：低代码易用性。</li>
+                <li><i class="fas fa-brain text-green-500"></i> AI原生集成 (MCP协议)：组件可被Claude/Cursor等直接调用。</li>
+                <li><i class="fas fa-code text-purple-500"></i> 类型安全 & 社区驱动：开发者友好，支持私有部署。</li>
+            </ul>
+             <div class="info mt-4">
+                <span><i class="fas fa-star highlight-icon"></i> 12.6k</span>
+                <span><i class="fas fa-sync"></i> 1.7k Forks</span>
+                 <span><i class="fas fa-fire text-red-500"></i> 日增 69</span>
+                <span><i class="fas fa-tags"></i> 自动化, 工作流, AI集成</span>
+            </div>
+          </section>
+
+           <!-- Supabase MCP -->
+          <section class="repo-card" data-transition="slide">
+            <h4><i class="fas fa-database"></i> supabase-community/supabase-mcp <span class="text-sm font-normal text-gray-500">(TypeScript)</span></h4>
+            <p><strong>项目速读:</strong> AI助手与Supabase数据库的标准桥梁，通过MCP协议实现安全高效的数据操作。</p>
+            <p class="mt-4"><strong>核心优势:</strong></p>
+            <ul class="text-sm space-y-2">
+                <li><i class="fas fa-link text-blue-500"></i> 协议化设计 (MCP)：统一AI工具访问方式，降低维护成本。</li>
+                <li><i class="fas fa-database text-green-500"></i> 数据库操作模块：支持原生SQL与迁移管理。</li>
+                <li><i class="fas fa-code text-purple-500"></i> 类型安全：自动生成TS类型定义，严谨数据操作。</li>
+            </ul>
+             <div class="info mt-4">
+                <span><i class="fas fa-star highlight-icon"></i> 249</span>
+                 <span><i class="fas fa-sync"></i> 21 Forks</span>
+                <span><i class="fas fa-fire text-red-500"></i> 日增 61 (需求迫切!)</span>
+                <span><i class="fas fa-tags"></i> AI数据库连接器, MCP</span>
+            </div>
+          </section>
+
+          <!-- BabelDOC -->
+          <section class="repo-card" data-transition="slide">
+            <h4><i class="fas fa-language"></i> funstory-ai/BabelDOC <span class="text-sm font-normal text-gray-500">(Python)</span></h4>
+            <p><strong>项目速读:</strong> 创新的学术论文翻译工具，处理PDF，生成保留排版的双语对照文档。</p>
+            <p class="mt-4"><strong>核心优势:</strong></p>
+            <ul class="text-sm space-y-2">
+                <li><i class="fas fa-file-pdf text-red-500"></i> 专业PDF处理：完美处理公式、表格、术语。</li>
+                <li><i class="fas fa-exchange-alt text-blue-500"></i> 双语对照 & 保留排版：提升阅读体验。</li>
+                <li><i class="fas fa-brain text-green-500"></i> LLM驱动 (优化GPT-4o-mini)：翻译质量与成本平衡。</li>
+            </ul>
+             <div class="info mt-4">
+                <span><i class="fas fa-star highlight-icon"></i> 813</span>
+                 <span><i class="fas fa-sync"></i> 43 Forks</span>
+                <span><i class="fas fa-fire text-red-500"></i> 日增 92</span>
+                <span><i class="fas fa-tags"></i> 文档翻译, 学术工具, PDF处理</span>
+            </div>
+          </section>
+
+          <!-- Union -->
+           <section class="repo-card" data-transition="slide">
+            <h4><i class="fas fa-link"></i> unionlabs/union <span class="text-sm font-normal text-gray-500">(Rust)</span></h4>
+            <p><strong>项目速读:</strong> 基于零知识证明的跨链桥接协议，追求极致安全、去中心化和抗审查。</p>
+            <p class="mt-4"><strong>核心优势:</strong></p>
+            <ul class="text-sm space-y-2">
+                <li><i class="fas fa-shield-alt text-red-600"></i> 最小信任 & ZKP：无需可信第三方，高安全性。</li>
+                <li><i class="fas fa-check-double text-blue-500"></i> 共识验证机制：确保跨链通信可靠性。</li>
+                <li><i class="fas fa-network-wired text-green-500"></i> IBC & EVM兼容：连接主流区块链生态。</li>
+            </ul>
+             <div class="info mt-4">
+                <span><i class="fas fa-star highlight-icon"></i> 52.1k</span>
+                <span><i class="fas fa-sync"></i> 2.6k Forks</span>
+                <span><i class="fas fa-fire text-red-500"></i> 日增 280 (增长火爆!)</span>
+                <span><i class="fas fa-tags"></i> 跨链桥, ZKP, DeFi基础设施</span>
+            </div>
+          </section>
+
+          <!-- Fleet -->
+           <section class="repo-card" data-transition="slide">
+            <h4><i class="fas fa-server"></i> fleetdm/fleet <span class="text-sm font-normal text-gray-500">(Go)</span></h4>
+            <p><strong>项目速读:</strong> 开源设备管理平台，基于osquery实现跨平台安全合规、漏洞检测和监控。</p>
+            <p class="mt-4"><strong>核心优势:</strong></p>
+            <ul class="text-sm space-y-2">
+                <li><i class="fas fa-feather-alt text-blue-500"></i> 轻量模块化架构：按需启用功能，避免资源浪费。</li>
+                <li><i class="fas fa-shield-alt text-green-500"></i> 内置安全基准 (CIS)：一键查询模板，降低运维门槛。</li>
+                <li><i class="fab fa-osi text-purple-500"></i> 核心永久免费开源：透明公开的商业模式。</li>
+            </ul>
+             <div class="info mt-4">
+                <span><i class="fas fa-star highlight-icon"></i> 4.5k</span>
+                 <span><i class="fas fa-sync"></i> 529 Forks</span>
+                <span><i class="fas fa-fire text-red-500"></i> 日增 216 (加速增长!)</span>
+                <span><i class="fas fa-tags"></i> 设备管理, 安全运维, osquery</span>
+            </div>
+          </section>
+
+          <!-- Other Repos Summary -->
+          <section data-transition="slide">
+             <h3><i class="fas fa-ellipsis-h"></i> 其他值得关注的项目</h3>
+             <div class="flex-container mt-6 text-sm">
+                <div class="flex-item repo-card p-4">
+                    <h5 class="font-semibold text-indigo-600">juliangarnier/anime (JS)</h5>
+                    <p class="text-xs">轻量高性能JS动画引擎，简化复杂动画实现。</p>
+                    <span class="text-gray-500"><i class="fas fa-star text-yellow-500"></i> 53.3k</span>
+                </div>
+                 <div class="flex-item repo-card p-4">
+                    <h5 class="font-semibold text-indigo-600">NVIDIA-Omniverse/PhysX (C++)</h5>
+                    <p class="text-xs">业界领先物理引擎，Omniverse核心组件。</p>
+                     <span class="text-gray-500"><i class="fas fa-star text-yellow-500"></i> 3.1k</span>
+                </div>
+             </div>
+             <div class="flex-container mt-4 text-sm">
+                <div class="flex-item repo-card p-4">
+                    <h5 class="font-semibold text-indigo-600">datawhalechina/llm-cookbook (Jupyter)</h5>
+                    <p class="text-xs">面向开发者的LLM中文入门教程，吴恩达课程实践版。</p>
+                     <span class="text-gray-500"><i class="fas fa-star text-yellow-500"></i> 16.8k</span>
+                </div>
+                 <div class="flex-item repo-card p-4">
+                    <h5 class="font-semibold text-indigo-600">twbs/bootstrap (JS/CSS)</h5>
+                    <p class="text-xs">最流行的前端框架，快速构建响应式网站。</p>
+                     <span class="text-gray-500"><i class="fas fa-star text-yellow-500"></i> 172k</span>
+                </div>
+             </div>
+             <div class="flex-container mt-4 text-sm">
+                 <div class="flex-item repo-card p-4">
+                    <h5 class="font-semibold text-indigo-600">SimplifyJobs/Summer2025-Internships</h5>
+                    <p class="text-xs">社区驱动的2025夏季科技实习信息汇总。</p>
+                     <span class="text-gray-500"><i class="fas fa-star text-yellow-500"></i> 36.8k</span>
+                </div>
+                 <div class="flex-item"></div> <!-- Placeholder for alignment -->
+             </div>
+          </section>
+      </section>
+
+
+      <!-- Slide 7: Conclusion -->
+      <section data-transition="zoom-in fade-out" data-background-gradient="linear-gradient(to top, #accbee 0%, #e7f0fd 100%)">
+        <h2><i class="fas fa-flag-checkered"></i> 总结：抓住AI工具链的浪潮</h2>
+        <ul class="mt-8 space-y-4 text-left mx-auto w-10/12">
+            <li class="fragment"><i class="fas fa-exchange-alt text-blue-600"></i> **核心转变：** 焦点已从单一模型转向<strong class="text-blue-800">端到端工具链与基础设施</strong>。</li>
+            <li class="fragment"><i class="fas fa-link text-green-600"></i> **整合是关键：** "连接器"项目（如Activepieces, Supabase-MCP）价值凸显，解决<strong class="text-green-800">落地整合</strong>难题。</li>
+            <li class="fragment"><i class="fab fa-osi text-purple-600"></i> **开源驱动创新：** 无论是底层模型(Llama)还是上层应用(MarkItDown, Fleet)，<strong class="text-purple-800">开放协作</strong>加速技术迭代。</li>
+            <li class="fragment"><i class="fas fa-code-branch text-orange-600"></i> **开发者机遇：** 探索、贡献、构建——利用这些工具<strong class="text-orange-800">提升效率，创造价值</strong>。</li>
+        </ul>
+        <p class="mt-8 fragment text-gray-700">拥抱工具链思维，是开发者在AI时代保持竞争力的关键。</p>
+      </section>
+
+      <!-- Slide 8: Thank You & Contact -->
+      <section class="cover-slide" data-transition="fade" style="background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);">
+        <h1>感谢观看</h1>
+        <p>关注我们，探索更多前沿技术！</p>
+        <p class="speaker mt-12">演讲者: AIChipEra</p>
+        <div class="slide-footer" style="background-color: rgba(0,0,0, 0.3);">
+            <img src="../../asserts/wx.jpg" alt="QR Code">
+            <a href="https://github.com/aichipera/github-trend" target="_blank" style="color: white;">github.com/aichipera/github-trend</a>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Core framework script -->
+  <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+  <!-- Extended dependencies scripts (optional, if needed for specific features) -->
+  <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+  <script>
+    // More info about initialization & config:
+    // - https://revealjs.com/initialization/
+    // - https://revealjs.com/config/
+    Reveal.initialize({
+      hash: true, // Add slide number to URL hash
+      controls: true, // Display controls in the bottom right corner
+      progress: true, // Display a presentation progress bar
+      center: true, // Vertical centering
+      slideNumber: 'c/t', // Display the page number of the current slide <Current Slide / Total Slides>
+      transition: 'slide', // Global transition type: none/fade/slide/convex/concave/zoom
+      backgroundTransition: 'fade', // Background transition
+
+      // Optional Reveal.js plugins (add imports if needed)
+      plugins: [ /* RevealMarkdown, RevealHighlight, RevealNotes */ ]
+    });
+
+    // Optional: Initialize Mermaid.js if you plan to use diagrams
+    // mermaid.initialize({ startOnLoad: true });
+  </script>
+
+</body>
+</html>
