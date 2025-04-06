@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub周报：AI工具链狂飙，MCP协议成新风口</title>
+
+    <!-- Core Framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" id="theme" rel="stylesheet">
+
+    <!-- Extension Dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Base Font Stack (Fallback) */
+        body {
+            font-family: "Noto Sans SC", Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+        }
+
+        /* Reveal.js Customization */
+        .reveal {
+            font-size: 18px; /* Base font size slightly increased */
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: "Noto Serif SC", serif;
+            font-weight: 600;
+            color: #1a202c; /* Darker Gray for Titles */
+            margin-bottom: 0.75em;
+            word-wrap: break-word;
+            text-align: center; /* Center align headings */
+        }
+        .reveal section > h2, .reveal section > h3 {
+             margin-bottom: 1em; /* More space below section titles */
+        }
+
+
+        .reveal h1 { font-size: 3rem; line-height: 1.2; }
+        .reveal h2 { font-size: 2.2rem; line-height: 1.3; }
+        .reveal h3 { font-size: 1.7rem; line-height: 1.4; }
+        .reveal h4 { font-size: 1.3rem; font-weight: 500; color: #2d3748; text-align: left;}
+
+        .reveal p, .reveal li, .reveal td, .reveal th {
+            font-family: "Noto Sans SC", sans-serif;
+            font-size: 1.1rem; /* Slightly larger body text */
+            line-height: 1.7; /* Improved line spacing */
+            color: #374151; /* Medium-Dark Gray for Body */
+            text-align: left; /* Default left align text */
+        }
+        .reveal p.center, .reveal li.center { text-align: center;}
+
+        .reveal section img {
+            border: none;
+            box-shadow: none;
+            background: none;
+            margin: 20px auto; /* Center images */
+            display: block;
+        }
+
+        .reveal strong, .reveal b {
+           color: #1d4ed8; /* Brighter Blue emphasis */
+           font-weight: 600; /* Bold emphasis */
+        }
+
+        .reveal ul, .reveal ol {
+            margin: 0 auto 1em auto; /* Center list block */
+            max-width: 800px; /* Limit width for readability */
+            text-align: left;
+        }
+
+        .reveal li {
+            margin-bottom: 0.7em;
+        }
+
+        .reveal pre code {
+            font-size: 0.9em;
+            max-height: 450px;
+            background-color: #f3f4f6;
+            border-radius: 6px;
+            padding: 1em;
+        }
+
+        .reveal table {
+            width: 90%; /* Slightly less than 100% for padding */
+            border-collapse: collapse;
+            margin: 1.5em auto; /* Center table */
+            font-size: 0.9rem; /* Smaller table text */
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .reveal th, .reveal td {
+            border: 1px solid #e5e7eb;
+            padding: 10px 14px;
+            text-align: left;
+        }
+        .reveal th {
+            background-color: #f9fafb;
+            font-weight: 600; /* Bolder header */
+            color: #1f2937;
+        }
+        .reveal td {
+            color: #4b5563;
+        }
+        .reveal .stats-value {
+            font-weight: 500;
+            color: #1f2937;
+        }
+         .reveal .stars-increase {
+            color: #16a34a; /* Green for star increase */
+            font-weight: 600;
+         }
+
+        /* Custom Theme Elements */
+        .reveal .slide-background-content {
+            background-color: #ffffff;
+        }
+
+        /* Aha Moment Styling */
+        .reveal .slide-background.gradient-aha .slide-background-content {
+            background: linear-gradient(135deg, #e0f2fe 0%, #a5f3fc 100%); /* Light blue/cyan gradient */
+        }
+         .reveal .gradient-aha h1, .reveal .gradient-aha h2, .reveal .gradient-aha h3 {
+            color: #075985; /* Dark Cyan-Blue title */
+        }
+         .reveal .gradient-aha p, .reveal .gradient-aha li {
+            color: #0c4a6e; /* Darker blue text */
+         }
+         .reveal .gradient-aha strong {
+             color: #1e40af; /* Stronger blue */
+         }
+
+        /* Title & Footer Elements */
+        .footer-content {
+            position: absolute;
+            bottom: 25px;
+            right: 25px;
+            display: flex;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #6b7280; /* Gray text */
+            z-index: 10;
+        }
+        .footer-content img {
+            width: 65px;
+            height: 65px;
+            margin-left: 12px;
+            background: white;
+            padding: 3px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: inline-block; /* Fix display */
+        }
+        .footer-content a {
+            color: #3b82f6; /* Blue link */
+            text-decoration: none;
+        }
+        .footer-content a:hover {
+            text-decoration: underline;
+        }
+
+        /* Icon styling */
+        .reveal .icon {
+            color: #3b82f6; /* Default Blue icons */
+            margin-right: 0.5em;
+            font-size: 0.95em;
+        }
+        /* Specific icon colors if needed */
+        .icon-ai { color: #8b5cf6; } /* Purple for AI */
+        .icon-protocol { color: #ec4899; } /* Pink for Protocol */
+        .icon-efficiency { color: #10b981; } /* Teal for Efficiency */
+        .icon-data { color: #f59e0b; } /* Amber for Data */
+        .icon-collab { color: #6366f1; } /* Indigo for Collaboration */
+        .icon-predict { color: #0ea5e9; } /* Sky Blue for Prediction */
+        .icon-star { color: #facc15; } /* Yellow for Stars */
+
+        /* Fragment styling */
+        .reveal .fragment {
+            opacity: 0;
+            visibility: hidden;
+            transition: all .4s ease-in-out; /* Slightly slower transition */
+        }
+        .reveal .fragment.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .reveal .fragment.fade-up {
+             transform: translateY(30px);
+        }
+        .reveal .fragment.fade-up.visible {
+            transform: translateY(0);
+        }
+
+        /* Specific slide styling */
+        #title-slide h1 {
+            font-size: 3.5rem; /* Larger title */
+            color: #ffffff;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+        }
+        #title-slide p {
+            color: #e5e7eb;
+            font-size: 1.6rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+            text-align: center;
+        }
+         #title-slide .speaker-info {
+             font-size: 1.1rem;
+             color: #d1d5db;
+             margin-top: 3em;
+             text-align: center;
+         }
+          #title-slide .date-info {
+             font-size: 0.9rem;
+             color: #9ca3af;
+             margin-top: 0.8em;
+              text-align: center;
+         }
+        #disclaimer-slide p { text-align: center; }
+        #disclaimer-slide strong { color: #dc2626; } /* Red emphasis for warning */
+
+
+        .repo-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 2em;
+            margin-bottom: 1.5em;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.07);
+            text-align: left;
+            transition: transform 0.2s ease-in-out;
+        }
+         .repo-card:hover {
+             /* transform: translateY(-3px); */
+             /* box-shadow: 0 6px 15px rgba(0,0,0,0.1); */
+         }
+        .repo-card h3 {
+            font-size: 1.8rem; /* Slightly larger repo title */
+            margin-bottom: 0.5em;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+             text-align: left;
+        }
+         .repo-card h3 a {
+             color: #1e3a8a;
+             text-decoration: none;
+             margin-right: 0.5em; /* Space before badges */
+         }
+         .repo-card h3 a:hover {
+             text-decoration: underline;
+             color: #1d4ed8;
+         }
+        .repo-card .description {
+            font-size: 1rem;
+            color: #6b7280;
+            margin-bottom: 1.2em;
+            font-style: italic; /* Italicize description */
+        }
+        .repo-card .description span {
+             font-style: normal; /* Normal style for translation */
+         }
+
+         .repo-card .ai-summary strong {
+            font-weight: 600;
+             color: #1f2937;
+             display: block; /* Title on its own line */
+             margin-bottom: 0.3em;
+         }
+        .repo-card .ai-summary {
+            font-size: 1.05rem;
+             color: #374151;
+             margin-top: 1em;
+             padding-left: 1em;
+             border-left: 4px solid #93c5fd; /* Light blue border */
+             background-color: #f9fafb; /* Very light background for summary */
+             padding: 0.8em 1em;
+             border-radius: 4px;
+        }
+
+        .lang-icon {
+            display: inline-block;
+            padding: 0.3em 0.8em;
+            border-radius: 14px; /* Pill shape */
+            font-size: 0.8rem;
+            margin-left: 0.5em; /* Reduced margin */
+            margin-bottom: 0.4em;
+            color: white;
+            font-family: "Noto Sans SC", sans-serif;
+            font-weight: 500;
+            line-height: 1.4;
+            vertical-align: middle; /* Align with text */
+        }
+        /* Language Colors (Consistent with previous) */
+        .lang-TypeScript { background-color: #3178c6; }
+        .lang-Python { background-color: #3572A5; }
+        .lang-Shell { background-color: #89e051; color: #333; }
+        .lang-JavaScript { background-color: #f1e05a; color: #333; }
+        .lang-Lua { background-color: #2c2d72; }
+        .lang-Go { background-color: #00ADD8; }
+        .lang-Rust { background-color: #dea584; color: #333;}
+        .lang-Batchfile { background-color: #C1F12E; color: #333; }
+        .lang-Unknown { background-color: #a0aec0; } /* Gray for Unknown */
+        .lang-Resource { background-color: #718096; } /* Darker Gray for Resource */
+        .lang-Other { background-color: #e2e8f0; color: #4a5568; }
+
+        /* Grid layout for distributions */
+        .dist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5em;
+            margin-top: 1em;
+            text-align: left;
+        }
+        .dist-grid div {
+            background-color: #f8fafc;
+            padding: 1em;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+        .dist-grid h4 {
+            margin-bottom: 0.5em;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #111827;
+        }
+        .dist-grid ul { margin: 0; padding: 0; list-style: none; }
+        .dist-grid li { font-size: 1rem; margin-bottom: 0.3em; color: #4b5563; }
+        .dist-grid strong { color: #1e40af; }
+
+        /* Styling for lists in trend analysis */
+        .trend-list li {
+            position: relative;
+            padding-left: 1.8em; /* More space for icon */
+            margin-bottom: 0.8em;
+        }
+        .trend-list li .icon {
+            position: absolute;
+            left: 0;
+            top: 0.25em; /* Adjust vertical alignment */
+            font-size: 1.2em; /* Slightly larger icon */
+        }
+        .trend-list strong { font-weight: 600; }
+
+        /* Hotspot changes grid */
+        .hotspot-grid {
+             display: grid;
+             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+             gap: 1.5em;
+             margin-top: 1em;
+             text-align: left;
+         }
+         .hotspot-card {
+             background-color: #fff;
+             padding: 1.5em;
+             border-radius: 8px;
+             border: 1px solid #e5e7eb;
+             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+         }
+         .hotspot-card h4 {
+             margin-bottom: 0.8em;
+             font-size: 1.2rem;
+             font-weight: 600;
+             display: flex;
+             align-items: center;
+         }
+         .hotspot-card ul { margin: 0; padding: 0; list-style: none; }
+         .hotspot-card li {
+            font-size: 0.95rem;
+            margin-bottom: 0.4em;
+            color: #4b5563;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+         }
+         .hotspot-new h4 { color: #15803d; } /* Dark Green */
+         .hotspot-faded h4 { color: #b91c1c; } /* Dark Red */
+         .hotspot-ongoing h4 { color: #1d4ed8; } /* Dark Blue */
+         .hotspot-new .icon { color: #16a34a; }
+         .hotspot-faded .icon { color: #ef4444; }
+         .hotspot-ongoing .icon { color: #3b82f6; }
+
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Title Slide -->
+            <section id="title-slide" data-background-image="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" data-background-opacity="0.5" data-background-color="#111827">
+                <h1 class="r-fit-text">AI工具链狂飙！</h1>
+                <p class="mt-4">MCP协议成新风口，开发者效率革命来了？</p>
+                <p class="speaker-info mt-12 text-lg">演讲者：AIChipEra</p>
+                <p class="date-info">周报观测时间: 2025-04-06 21:00:00</p>
+
+                <aside class="notes">
+                    开场白：点明本周核心趋势——AI工具链和MCP协议的爆发，引出效率革命的思考。
+                </aside>
+
+                <div class="footer-content">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="微信二维码">
+                </div>
+            </section>
+
+             <section id="disclaimer-slide" data-background-color="#fffbeb">
+                  <h2><i class="fas fa-exclamation-triangle icon text-yellow-500"></i> 重要提示</h2>
+                   <p class="text-lg text-gray-700">以下内容根据 <strong>2025-04-06</strong> 的GitHub热门仓库周报数据生成。</p>
+                   <p class="mt-4 text-gray-800"><strong>仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</strong></p>
+                   <aside class="notes">强调报告的观测时间和目的，警示风险。背景色选用柔和的黄色调。</aside>
+            </section>
+
+
+            <!-- Introduction -->
+            <section data-background-color="#f3f4f6" class="gradient-aha">
+                <h2><i class="fas fa-rocket icon"></i> 周报要点：三大技术爆炸！</h2>
+                <ul class="list-none space-y-4 text-lg max-w-3xl mx-auto text-center">
+                    <li class="fragment fade-up"><i class="fas fa-brain icon icon-ai"></i> <strong>AI深度渗透:</strong> 从代码编辑到邮件管理，自然语言交互编辑器 (<code class="text-sm bg-gray-200 px-1 rounded">avante.nvim</code>) 让编程效率翻倍！</li>
+                    <li class="fragment fade-up"><i class="fas fa-link icon icon-protocol"></i> <strong>MCP协议生态狂飙:</strong> 星速激增 (<code class="text-sm bg-gray-200 px-1 rounded">awesome-mcp-servers</code>)，标准化接口让大模型与系统对接成本直降 <strong class="text-red-600">70%</strong>！</li>
+                    <li class="fragment fade-up"><i class="fas fa-shield-alt icon icon-collab"></i> <strong>远程协作与数据工具升级:</strong> 自托管模式 (<code class="text-sm bg-gray-200 px-1 rounded">rustdesk</code>)、反爬黑科技 (<code class="text-sm bg-gray-200 px-1 rounded">crawl4ai</code>) 涌现。</li>
+                </ul>
+                 <p class="fragment fade-up text-xl mt-8 text-center text-blue-800 font-semibold">
+                    开发者正用代码重构协作边界——当AI工具链遇上协议革命，这场效率风暴或将重塑整个开发范式！
+                </p>
+                <aside class="notes">用更具冲击力的语言概述要点，突出AI、MCP和效率工具，营造"Aha moment"。使用渐变背景。</aside>
+            </section>
+
+            <!-- Trend Analysis -->
+            <section>
+                <h2><i class="fas fa-chart-bar icon text-blue-600"></i> 热门项目趋势分析</h2>
+
+                <!-- Subsection: Overall Trends -->
+                <section data-background-color="#eef2ff">
+                    <h3><i class="fas fa-fire icon text-red-500"></i> 本周整体趋势：AI赋能与协议标准化</h3>
+                     <ul class="trend-list list-none space-y-3 text-left text-lg">
+                        <li class="fragment fade-up"><i class="fas fa-bullseye icon icon-ai"></i><strong>核心领域:</strong> AI辅助开发、协议标准化 (MCP)、开发者效率、数据获取处理、远程协作安全。</li>
+                        <li class="fragment fade-up"><i class="fas fa-code icon text-purple-600"></i><strong>语言与技术栈:</strong> <strong>TypeScript</strong> (桌面应用/工具), <strong>Go</strong> (协议/通信), <strong>Python</strong> (数据/原型) 主导。现代框架 (Next.js, FastAPI) + 开源协议 + 模块化。</li>
+                        <li class="fragment fade-up"><i class="fas fa-tasks icon icon-efficiency"></i><strong>技术需求:</strong> AI工具链深度整合、协议标准化降低对接成本、数据基建优化、自主可控协作环境。</li>
+                        <li class="fragment fade-up"><i class="fas fa-exchange-alt icon text-yellow-600"></i><strong>项目变化:</strong> <strong>协议标准化 (MCP) 增长最猛</strong> (<code>awesome-mcp-servers</code> +12589★)！AI驱动工具 (<code>GitDiagram</code>, <code>Crawl4AI</code>) 爆发力强。</li>
+                        <li class="fragment fade-up"><i class="fas fa-lightbulb icon icon-predict"></i><strong>热点预测:</strong> AI工具链深化 (IDE集成/调试)、MCP生态扩展、智能数据爬虫、安全远程协作 (加密/审计)。</li>
+                         <li class="fragment fade-up"><i class="fas fa-fingerprint icon text-gray-600"></i><strong>独特性:</strong> AI工具实用化 (<code>avante.nvim</code> 自然语言交互)、协议+效率工具结合 (代码理解/协作升级)、轻量化即插即用方案受关注。</li>
+                    </ul>
+                     <p class="fragment fade-up mt-4 text-center text-lg text-indigo-700"><strong>总结:</strong> 社区对 <strong>AI赋能效率、协议标准化、数据自主权</strong> 的三重诉求凸显。</p>
+                     <aside class="notes">全面分析本周趋势，包括领域、语言、需求、变化、预测和独特性。</aside>
+                </section>
+
+                <!-- Subsection: Dual-Week Comparison -->
+                <section data-background-color="#f0fdfa">
+                     <h3><i class="fas fa-calendar-alt icon text-teal-600"></i> 双周维度对比分析</h3>
+                     <ul class="trend-list list-none space-y-3 text-left text-lg">
+                         <li class="fragment fade-up"><i class="fas fa-thermometer-half icon text-orange-600"></i><strong>热度趋势:</strong> 整体平稳，新项目(13个)多但热度分散，仅1个上升。</li>
+                        <li class="fragment fade-up"><i class="fas fa-tools icon text-indigo-600"></i><strong>新项目特点:</strong> 聚焦工具类 (<code>nvm</code>, <code>crawl4ai</code>, <code>rustdesk</code>) 与跨平台应用，部分满足特定场景 (<code>zapret-discord-youtube</code>, <code>koreader</code>)。</li>
+                        <li class="fragment fade-up"><i class="fas fa-language icon text-blue-600"></i><strong>语言分布变化:</strong> <strong>TypeScript/Go/Batchfile <i class="fas fa-arrow-up text-green-500"></i>上升</strong> (工具/脚本需求)。Python/Java/C++ <i class="fas fa-arrow-down text-red-500"></i>下降。Lua/Unknown增长反映特定领域/新兴项目。</li>
+                        <li class="fragment fade-up"><i class="fas fa-star icon icon-star"></i><strong>显著变化:</strong>
+                            <ul class="list-disc ml-6 mt-2 text-base">
+                                <li><strong>`avante.nvim` (+515★)</strong> 成涨幅冠军，Neovim生态活跃。</li>
+                                <li><strong>`zapret-discord-youtube` (Batchfile)</strong> 上榜，网络工具需求激增。</li>
+                                <li><strong>Go</strong> 在协议/通信项目 (<code>mcp-go</code>, <code>whatsmeow</code>) 中表现突出。</li>
+                                 <li>Python 新项目多但整体热度下滑，竞争加剧？</li>
+                            </ul>
+                        </li>
+                    </ul>
+                     <aside class="notes">对比近两周数据，分析热度、新项目特征、语言变化及关键项目动态。</aside>
+                </section>
+
+                 <!-- Subsection: Hotspot Changes -->
+                 <section data-background-color="#f5f3ff">
+                     <h2><i class="fas fa-fire-alt icon text-purple-600"></i> 热点变化追踪</h2>
+                     <div class="hotspot-grid">
+                         <div class="hotspot-card hotspot-new">
+                             <h4><i class="fas fa-plus-circle icon"></i>新增热点</h4>
+                             <ul>
+                                 <li>punkpeye/awesome-mcp-servers</li>
+                                 <li>tulir/whatsmeow</li>
+                                 <li>nvm-sh/nvm</li>
+                                 <li>jlowin/fastmcp</li>
+                                 <li>ahmedkhaleel2004/gitdiagram</li>
+                                 <li>th-ch/youtube-music</li>
+                                 <li>koreader/koreader</li>
+                                 <li>mark3labs/mcp-go</li>
+                                 <li>elie222/inbox-zero</li>
+                                 <li>rustdesk/rustdesk</li>
+                                 <li>unclecode/crawl4ai</li>
+                                 <li>flowseal/zapret-discord-youtube</li>
+                                 <li>patrickjs/awesome-cursorrules</li>
+                             </ul>
+                         </div>
+                         <div class="hotspot-card hotspot-faded">
+                             <h4><i class="fas fa-minus-circle icon"></i>减退热点</h4>
+                             <ul>
+                                 <li>subframe7536/maple-font</li>
+                                 <li>alibaba/spring-ai-alibaba</li>
+                                 <li>ourongxing/newsnow</li>
+                                 <li>shubhamsaboo/awesome-llm-apps</li>
+                                 <li>ocrmypdf/ocrmypdf</li>
+                                 <li>shadps4-emu/shadps4</li>
+                                 <li>hacksider/deep-live-cam</li>
+                                 <li>wonderwhy-er/desktopcommandermcp</li>
+                             </ul>
+                         </div>
+                         <!-- Placeholder for ongoing if needed, currently none specified in prompt for week -->
+                         <!-- <div class="hotspot-card hotspot-ongoing">
+                             <h4><i class="fas fa-sync-alt icon"></i>持续热门</h4>
+                             <ul>
+                                <li>(Example/If any)</li>
+                             </ul>
+                         </div> -->
+                     </div>
+                     <aside class="notes">用卡片网格展示热点变化，更直观。</aside>
+                 </section>
+
+                  <!-- Subsection: Language & Star Distribution -->
+                  <section data-background-color="#fafafa">
+                     <h2><i class="fas fa-tags icon text-gray-700"></i> 技术标签分布</h2>
+                     <div class="dist-grid">
+                         <div>
+                            <h4><i class="fas fa-code icon text-blue-500"></i> 编程语言分布</h4>
+                            <ul>
+                                <li><strong>TypeScript:</strong> 3 (21.4%)</li>
+                                <li><strong>Python:</strong> 2 (14.3%)</li>
+                                <li><strong>Go:</strong> 2 (14.3%)</li>
+                                <li><strong>Lua:</strong> 2 (14.3%)</li>
+                                <li><strong>Unknown:</strong> 2 (14.3%)</li>
+                                <li><strong>Shell:</strong> 1 (7.1%)</li>
+                                <li><strong>Batchfile:</strong> 1 (7.1%)</li>
+                                <li><strong>Rust:</strong> 1 (7.1%)</li>
+                            </ul>
+                         </div>
+                         <div>
+                            <h4><i class="fas fa-star icon icon-star"></i> Star 分布</h4>
+                             <ul>
+                                 <li><strong>50k+ Stars:</strong> 2 (14.3%)</li>
+                                 <li><strong>10k-50k Stars:</strong> 7 (50.0%)</li>
+                                 <li><strong>5k-10k Stars:</strong> 2 (14.3%)</li>
+                                 <li><strong>1k-5k Stars:</strong> 3 (21.4%)</li>
+                            </ul>
+                         </div>
+                     </div>
+                     <aside class="notes">展示编程语言和Star数量的分布情况。</aside>
+                 </section>
+
+                 <!-- Subsection: Top Ranked Projects -->
+                 <section data-background-color="#f8fafc">
+                    <h3><i class="fas fa-trophy icon text-yellow-500"></i> 本周热门项目 Top 10</h3>
+                    <ol class="list-decimal pl-6 max-w-3xl mx-auto text-lg">
+                        <li class="mb-2"><strong><a href="https://github.com/rustdesk/rustdesk" target="_blank">rustdesk/rustdesk</a></strong> (⭐86.3k) - 开源自托管远程桌面</li>
+                        <li class="mb-2"><strong><a href="https://github.com/nvm-sh/nvm" target="_blank">nvm-sh/nvm</a></strong> (⭐83.8k) - Node.js版本管理器</li>
+                        <li class="mb-2"><strong><a href="https://github.com/unclecode/crawl4ai" target="_blank">unclecode/crawl4ai</a></strong> (⭐37.5k) - LLM友好型爬虫</li>
+                        <li class="mb-2"><strong><a href="https://github.com/punkpeye/awesome-mcp-servers" target="_blank">punkpeye/awesome-mcp-servers</a></strong> (⭐31.9k) - MCP服务器集合</li>
+                        <li class="mb-2"><strong><a href="https://github.com/PatrickJS/awesome-cursorrules" target="_blank">PatrickJS/awesome-cursorrules</a></strong> (⭐20.4k) - Cursor AI规则文件集合</li>
+                        <li class="mb-2"><strong><a href="https://github.com/koreader/koreader" target="_blank">koreader/koreader</a></strong> (⭐19.8k) - 电子墨水屏阅读器</li>
+                        <li class="mb-2"><strong><a href="https://github.com/th-ch/youtube-music" target="_blank">th-ch/youtube-music</a></strong> (⭐17.4k) - YouTube Music桌面应用</li>
+                        <li class="mb-2"><strong><a href="https://github.com/yetone/avante.nvim" target="_blank">yetone/avante.nvim</a></strong> (⭐12.3k) - Neovim AI插件 (类Cursor)</li>
+                        <li class="mb-2"><strong><a href="https://github.com/Flowseal/zapret-discord-youtube" target="_blank">Flowseal/zapret-discord-youtube</a></strong> (⭐11.8k) - Discord/YouTube网络绕过工具</li>
+                        <li class="mb-2"><strong><a href="https://github.com/ahmedkhaleel2004/gitdiagram" target="_blank">ahmedkhaleel2004/gitdiagram</a></strong> (⭐8.3k) - GitHub仓库交互图表</li>
+                    </ol>
+                     <aside class="notes">列出本周排名前10的热门项目。</aside>
+                </section>
+
+            </section>
+
+             <!-- Daily Links Section -->
+             <section data-background-color="#e5e7eb">
+                 <h2><i class="fas fa-calendar-week icon text-gray-700"></i> 本周每日热点回顾</h2>
+                 <p class="text-lg text-center text-gray-600">详细分析请查阅每日报告：</p>
+                 <table class="w-1/2 mx-auto mt-6 text-center">
+                     <thead>
+                         <tr><th>日期</th><th>链接</th></tr>
+                     </thead>
+                     <tbody>
+                         <tr><td>周一</td><td><a href="TODO_URL" target="_blank">查看报告</a></td></tr>
+                         <tr><td>周二</td><td><a href="TODO_URL" target="_blank">查看报告</a></td></tr>
+                         <tr><td>周三</td><td><a href="TODO_URL" target="_blank">查看报告</a></td></tr>
+                         <tr><td>周四</td><td><a href="TODO_URL" target="_blank">查看报告</a></td></tr>
+                         <tr><td>周五</td><td><a href="TODO_URL" target="_blank">查看报告</a></td></tr>
+                         <tr><td>周六</td><td><a href="TODO_URL" target="_blank">查看报告</a></td></tr>
+                         <tr><td>周日</td><td><a href="TODO_URL" target="_blank">查看报告</a></td></tr>
+                     </tbody>
+                 </table>
+                 <aside class="notes">提供每日报告的链接入口（占位符）。</aside>
+             </section>
+
+            <!-- Detailed Repository Data -->
+            <section>
+                <h2><i class="fas fa-briefcase icon text-gray-800"></i> 本周重点仓库速览</h2>
+
+                <section class="repo-card">
+                    <h3>
+                        <a href="https://github.com/th-ch/youtube-music" target="_blank">th-ch/youtube-music</a>
+                        <span class="lang-icon lang-TypeScript">TypeScript</span>
+                    </h3>
+                    <p class="description">
+                        <i>YouTube Music Desktop App bundled with custom plugins (and built-in ad blocker / downloader)</i><br/>
+                        <span>捆绑自定义插件的 YouTube Music 桌面应用（含内置广告拦截器/下载器）</span>
+                    </p>
+                    <table class="repo-stats">
+                        <tr><th>Star 数</th><th>本周 Star 增加数</th><th>总上榜次数</th></tr>
+                        <tr><td class="stats-value">17.4k ⭐</td><td class="stats-value stars-increase">+5834</td><td class="stats-value">1次</td></tr>
+                    </table>
+                    <p class="ai-summary mt-3 fragment fade-up">
+                        <strong>AI 速读:</strong> 基于 Electron 的 YouTube Music 桌面客户端，通过插件系统提供原生化体验、广告拦截、歌词同步、主题定制等功能，弥补网页版不足，提升桌面端使用体验。
+                    </p>
+                </section>
+
+                 <section class="repo-card">
+                     <h3>
+                         <a href="https://github.com/ahmedkhaleel2004/gitdiagram" target="_blank">ahmedkhaleel2004/gitdiagram</a>
+                         <span class="lang-icon lang-TypeScript">TypeScript</span><span class="lang-icon lang-Python">Python</span>
+                     </h3>
+                     <p class="description">
+                         <i>Free, simple, fast interactive diagrams for any GitHub repository</i><br/>
+                         <span>适用于任何 GitHub 仓库的免费、简洁、快速交互式图表</span>
+                     </p>
+                     <table class="repo-stats">
+                         <tr><th>Star 数</th><th>本周 Star 增加数</th><th>总上榜次数</th></tr>
+                         <tr><td class="stats-value">8.3k ⭐</td><td class="stats-value stars-increase">+4363</td><td class="stats-value">1次</td></tr>
+                     </table>
+                     <p class="ai-summary mt-3 fragment fade-up">
+                         <strong>AI 速读:</strong> AI 驱动的 GitHub 仓库可视化工具，将代码库结构生成交互式图表 (Mermaid.js)，快速理解项目结构、文件关系，提升代码导航与协作效率，支持私有库和自托管。
+                     </p>
+                 </section>
+
+                 <section class="repo-card">
+                     <h3>
+                         <a href="https://github.com/punkpeye/awesome-mcp-servers" target="_blank">punkpeye/awesome-mcp-servers</a>
+                         <span class="lang-icon lang-Resource">Resource</span>
+                     </h3>
+                     <p class="description">
+                         <i>A collection of MCP servers.</i><br/>
+                         <span>一组MCP服务器。</span>
+                     </p>
+                     <table class="repo-stats">
+                         <tr><th>Star 数</th><th>本周 Star 增加数</th><th>总上榜次数</th></tr>
+                         <tr><td class="stats-value">31.9k ⭐</td><td class="stats-value stars-increase">+12589</td><td class="stats-value">1次</td></tr>
+                     </table>
+                     <p class="ai-summary mt-3 fragment fade-up">
+                         <strong>AI 速读:</strong> Model Context Protocol (MCP) 服务器实现的资源集合库。提供标准化的 AI 模型与外部资源（文件、API、数据库等）交互方案，覆盖多种场景，降低 AI 应用对接外部系统的复杂度。<strong>本周增长最猛！</strong>
+                     </p>
+                 </section>
+
+                  <section class="repo-card">
+                      <h3>
+                          <a href="https://github.com/nvm-sh/nvm" target="_blank">nvm-sh/nvm</a>
+                          <span class="lang-icon lang-Shell">Shell</span>
+                      </h3>
+                      <p class="description">
+                          <i>Node Version Manager - POSIX-compliant bash script to manage multiple active node.js versions</i><br/>
+                          <span>Node版本管理器：一个符合POSIX标准的bash脚本，用于管理多个活动的Node.js版本</span>
+                      </p>
+                      <table class="repo-stats">
+                          <tr><th>Star 数</th><th>本周 Star 增加数</th><th>总上榜次数</th></tr>
+                          <tr><td class="stats-value">83.8k ⭐</td><td class="stats-value stars-increase">+749</td><td class="stats-value">1次</td></tr>
+                      </table>
+                      <p class="ai-summary mt-3 fragment fade-up">
+                          <strong>AI 速读:</strong> 轻量级命令行工具，用于高效管理多个 Node.js 版本。解决版本冲突，支持项目级自动适配，跨平台兼容，提升开发效率和环境一致性，Node.js 开发必备。
+                      </p>
+                  </section>
+
+                  <section class="repo-card">
+                      <h3>
+                          <a href="https://github.com/unclecode/crawl4ai" target="_blank">unclecode/crawl4ai</a>
+                          <span class="lang-icon lang-Python">Python</span>
+                      </h3>
+                      <p class="description">
+                          <i>🚀🤖 Crawl4AI: Open-source LLM Friendly Web Crawler & Scraper.</i><br/>
+                          <span>🚀🤖 Crawl4AI：面向大语言模型的开源网络爬虫与抓取工具。</span>
+                      </p>
+                      <table class="repo-stats">
+                          <tr><th>Star 数</th><th>本周 Star 增加数</th><th>总上榜次数</th></tr>
+                          <tr><td class="stats-value">37.5k ⭐</td><td class="stats-value stars-increase">+2912</td><td class="stats-value">1次</td></tr>
+                      </table>
+                      <p class="ai-summary mt-3 fragment fade-up">
+                          <strong>AI 速读:</strong> 专为 LLM 设计的开源网络爬虫，解决 AI 训练数据获取难题。支持动态网页抓取、智能反爬、自动化数据清洗，直接输出 LLM 友好格式，是 AI 数据基建的关键工具。
+                      </p>
+                  </section>
+
+                  <section class="repo-card">
+                       <h3>
+                           <a href="https://github.com/tulir/whatsmeow" target="_blank">tulir/whatsmeow</a>
+                           <span class="lang-icon lang-Go">Go</span>
+                       </h3>
+                       <p class="description">
+                           <i>Go library for the WhatsApp web multidevice API</i><br/>
+                           <span>用于WhatsApp Web多设备API的Go语言库</span>
+                       </p>
+                       <table class="repo-stats">
+                           <tr><th>Star 数</th><th>本周 Star 增加数</th><th>总上榜次数</th></tr>
+                           <tr><td class="stats-value">3.3k ⭐</td><td class="stats-value stars-increase">+669</td><td class="stats-value">1次</td></tr>
+                       </table>
+                       <p class="ai-summary mt-3 fragment fade-up">
+                           <strong>AI 速读:</strong> Go 语言实现的 WhatsApp Web 多设备 API 库。封装协议和加密，提供消息收发、群组管理等功能，用于构建聊天机器人、消息中转等，性能高，适合高并发场景。
+                       </p>
+                   </section>
+
+                   <section class="repo-card">
+                       <h3>
+                           <a href="https://github.com/yetone/avante.nvim" target="_blank">yetone/avante.nvim</a>
+                           <span class="lang-icon lang-Lua">Lua</span><span class="lang-icon lang-Rust">Rust</span><span class="lang-icon lang-Python">Python</span>
+                       </h3>
+                       <p class="description">
+                           <i>Use your Neovim like using Cursor AI IDE!</i><br/>
+                           <span>像使用Cursor AI IDE一样使用你的Neovim！</span>
+                       </p>
+                       <table class="repo-stats">
+                           <tr><th>Star 数</th><th>本周 Star 增加数</th><th>总上榜次数</th></tr>
+                           <tr><td class="stats-value">12.3k ⭐</td><td class="stats-value stars-increase">+524</td><td class="stats-value">1次</td></tr>
+                       </table>
+                       <p class="ai-summary mt-3 fragment fade-up">
+                           <strong>AI 速读:</strong> Neovim 的 AI 驱动开发插件。通过自然语言交互和智能代码建议，提供类似 Cursor AI IDE 的体验，支持代码优化、调试、重构，提升 Neovim 开发效率。<strong>本周涨幅冠军！</strong>
+                       </p>
+                   </section>
+
+                    <section class="repo-card">
+                       <h3>
+                           <a href="https://github.com/jlowin/fastmcp" target="_blank">jlowin/fastmcp</a>
+                           <span class="lang-icon lang-Python">Python</span>
+                       </h3>
+                       <p class="description">
+                           <i>The fast, Pythonic way to build Model Context Protocol servers 🚀</i><br/>
+                           <span>快速、Pythonic 的模型上下文协议服务器构建方式 🚀</span>
+                       </p>
+                       <table class="repo-stats">
+                           <tr><th>Star 数</th><th>本周 Star 增加数</th><th>总上榜次数</th></tr>
+                           <tr><td class="stats-value">3.8k ⭐</td><td class="stats-value stars-increase">+1703</td><td class="stats-value">1次</td></tr>
+                       </table>
+                       <p class="ai-summary mt-3 fragment fade-up">
+                           <strong>AI 速读:</strong> 用于快速构建 MCP 服务器的 Python 库。简化 LLM 与外部数据/工具的集成，通过简洁接口和装饰器降低开发门槛。（注意：已迁移至官方 MCP Python SDK）
+                       </p>
+                   </section>
+
+                   <section class="repo-card">
+                        <h3>
+                            <a href="https://github.com/PatrickJS/awesome-cursorrules" target="_blank">PatrickJS/awesome-cursorrules</a>
+                            <span class="lang-icon lang-Resource">Resource</span>
+                        </h3>
+                        <p class="description">
+                            <i>📄 A curated list of awesome .cursorrules files</i><br/>
+                            <span>精选的 .cursorrules 文件列表</span>
+                        </p>
+                        <table class="repo-stats">
+                            <tr><th>Star 数</th><th>本周 Star 增加数</th><th>总上榜次数</th></tr>
+                            <tr><td class="stats-value">20.4k ⭐</td><td class="stats-value stars-increase">+1905</td><td class="stats-value">1次</td></tr>
+                        </table>
+                        <p class="ai-summary mt-3 fragment fade-up">
+                            <strong>AI 速读:</strong> 为 Cursor AI 编辑器提供的 <code>.cursorrules</code> 规则文件集合。通过预定义规则定制 AI 代码生成行为，适配不同技术栈和编码规范，提升代码一致性与开发效率。
+                        </p>
+                    </section>
+
+                    <section class="repo-card">
+                        <h3>
+                            <a href="https://github.com/Flowseal/zapret-discord-youtube" target="_blank">Flowseal/zapret-discord-youtube</a>
+                            <span class="lang-icon lang-Batchfile">Batchfile</span>
+                        </h3>
+                        <p class="description">
+                            <i>(No official description)</i><br/>
+                            <span>(无官方描述) - 自动化网络绕过工具</span>
+                        </p>
+                        <table class="repo-stats">
+                            <tr><th>Star 数</th><th>本周 Star 增加数</th><th>总上榜次数</th></tr>
+                            <tr><td class="stats-value">11.8k ⭐</td><td class="stats-value stars-increase">+403</td><td class="stats-value">1次</td></tr>
+                        </table>
+                        <p class="ai-summary mt-3 fragment fade-up">
+                            <strong>AI 速读:</strong> Windows 系统的自动化网络绕过工具，专用于突破 Discord 和 YouTube 访问封锁。结合 WinDivert 技术和批处理脚本，一键式操作，简化绕过流程。
+                        </p>
+                    </section>
+
+                     <section class="repo-card">
+                        <h3>
+                            <a href="https://github.com/mark3labs/mcp-go" target="_blank">mark3labs/mcp-go</a>
+                            <span class="lang-icon lang-Go">Go</span>
+                        </h3>
+                        <p class="description">
+                            <i>A Go implementation of the Model Context Protocol (MCP), enabling seamless integration between LLM applications and external data sources and tools.</i><br/>
+                            <span>Go语言实现的模型上下文协议（MCP），支持LLM应用与外部数据源及工具的无缝集成。</span>
+                        </p>
+                        <table class="repo-stats">
+                            <tr><th>Star 数</th><th>本周 Star 增加数</th><th>总上榜次数</th></tr>
+                            <tr><td class="stats-value">2.3k ⭐</td><td class="stats-value stars-increase">+629</td><td class="stats-value">1次</td></tr>
+                        </table>
+                        <p class="ai-summary mt-3 fragment fade-up">
+                            <strong>AI 速读:</strong> Go 语言实现的 MCP 开源库。标准化接口，简化 LLM 应用与外部数据/工具的集成，自动处理底层通信，让开发者聚焦业务逻辑。
+                        </p>
+                    </section>
+
+                    <section class="repo-card">
+                         <h3>
+                             <a href="https://github.com/koreader/koreader" target="_blank">koreader/koreader</a>
+                             <span class="lang-icon lang-Lua">Lua</span><span class="lang-icon lang-Shell">Shell</span>
+                         </h3>
+                         <p class="description">
+                             <i>An ebook reader application supporting PDF, DjVu, EPUB, FB2 and many more formats...</i><br/>
+                             <span>一款支持多种格式的电子书阅读器应用，适用于多种电子墨水屏及安卓设备。</span>
+                         </p>
+                         <table class="repo-stats">
+                             <tr><th>Star 数</th><th>本周 Star 增加数</th><th>总上榜次数</th></tr>
+                             <tr><td class="stats-value">19.8k ⭐</td><td class="stats-value stars-increase">+758</td><td class="stats-value">1次</td></tr>
+                         </table>
+                         <p class="ai-summary mt-3 fragment fade-up">
+                             <strong>AI 速读:</strong> 专为电子墨水屏优化的开源阅读器。提供流畅阅读体验，支持PDF/DjVu重排、词典查询、多种格式，高度可定制，是 e-ink 设备首选。
+                         </p>
+                     </section>
+
+                     <section class="repo-card">
+                         <h3>
+                             <a href="https://github.com/rustdesk/rustdesk" target="_blank">rustdesk/rustdesk</a>
+                             <span class="lang-icon lang-Rust">Rust</span><span class="lang-icon lang-Dart">Dart</span>
+                         </h3>
+                         <p class="description">
+                             <i>An open-source remote desktop application designed for self-hosting, as an alternative to TeamViewer.</i><br/>
+                             <span>一款专为自托管设计的开源远程桌面应用，可替代TeamViewer。</span>
+                         </p>
+                         <table class="repo-stats">
+                             <tr><th>Star 数</th><th>本周 Star 增加数</th><th>总上榜次数</th></tr>
+                             <tr><td class="stats-value">86.3k ⭐</td><td class="stats-value stars-increase">+1279</td><td class="stats-value">1次</td></tr>
+                         </table>
+                         <p class="ai-summary mt-3 fragment fade-up">
+                             <strong>AI 速读:</strong> 基于 Rust 的开源远程桌面工具，提供自主可控的远程访问方案。支持自托管、端到端加密、跨平台，注重安全与隐私。
+                         </p>
+                     </section>
+
+                     <section class="repo-card">
+                         <h3>
+                             <a href="https://github.com/elie222/inbox-zero" target="_blank">elie222/inbox-zero</a>
+                             <span class="lang-icon lang-TypeScript">TypeScript</span>
+                         </h3>
+                         <p class="description">
+                             <i>AI personal assistant for email. Open source app to help you reach inbox zero fast.</i><br/>
+                             <span>邮件AI助手。开源应用，助您快速实现零收件箱。</span>
+                         </p>
+                         <table class="repo-stats">
+                              <tr><th>Star 数</th><th>本周 Star 增加数</th><th>总上榜次数</th></tr>
+                              <tr><td class="stats-value">5.1k ⭐</td><td class="stats-value stars-increase">+1331</td><td class="stats-value">1次</td></tr>
+                         </table>
+                         <p class="ai-summary mt-3 fragment fade-up">
+                             <strong>AI 速读:</strong> 开源 AI 邮件管理工具，通过自动化与智能化清空收件箱。支持多 LLM，提供智能分类、回复、批量退订等功能，提升邮件处理效率。
+                         </p>
+                     </section>
+
+            </section>
+
+            <!-- Conclusion Slide -->
+            <section id="conclusion-slide" data-background-image="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" data-background-opacity="0.5" data-background-color="#1e3a8a">
+                <h2 class="text-white">总结：效率革命已至！</h2>
+                <p class="text-gray-200 text-xl mt-4 center">
+                    AI 工具链与标准化协议正在深度融合，<br/>重塑开发流程与协作模式。<br/>
+                    <span class="fragment fade-up text-yellow-300 font-semibold">拥抱变化，把握 AI 时代的效率红利！</span>
+                </p>
+
+                <div class="footer-content">
+                     <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                     <img src="../../asserts/wx.jpg" alt="微信二维码">
+                </div>
+                 <aside class="notes">结束语，强调效率革命的到来，鼓励拥抱变化。</aside>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Core Framework JS -->
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <!-- Optional Plugins -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: true,
+            center: true,
+            slideNumber: 'c/t',
+            transition: 'slide', // 'slide', 'fade', 'convex' etc.
+            transitionSpeed: 'default',
+            backgroundTransition: 'fade',
+            width: "95%",
+	        height: "95%",
+            // parallaxBackgroundImage: 'https://example.com/background.jpg', // Optional parallax background
+            // parallaxBackgroundSize: '2100px 900px', // Optional parallax background size
+
+        });
+
+        // Optional: Initialize Mermaid if needed
+        // mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+</html>
