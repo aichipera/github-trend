@@ -1,0 +1,639 @@
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>GitHub热门趋势分析 - AI工具革命</title>
+
+    <!-- Core Framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <!-- Theme: Using white and customizing -->
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet" id="theme">
+
+    <!-- Extension Dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        /* Base Font Settings */
+        body {
+            font-family: "Noto Sans SC", Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            background-color: #f8f9fa; /* Light background */
+            color: #343a40; /* Darker text for readability */
+        }
+
+        /* Revealjs Customization */
+        .reveal {
+            font-size: 16px; /* Base size, rem units below will scale relative to this */
+        }
+
+        .reveal .slides section {
+            text-align: left;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        .reveal .slides section.cover,
+        .reveal .slides section.conclusion {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 90vh; /* Ensure full viewport feel */
+        }
+
+        /* Font Hierarchy & Styling */
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: "Noto Serif SC", serif;
+            color: #212529; /* Slightly darker for headings */
+            margin-bottom: 0.75em;
+            font-weight: 600;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .reveal h1 { font-size: 2.8rem; line-height: 1.2; text-align: center; }
+        .reveal h2 { font-size: 2.2rem; } /* Section titles */
+        .reveal h3 { font-size: 1.8rem; color: #0056b3; } /* Sub-headings */
+        .reveal h4 { font-size: 1.5rem; color: #495057; } /* Repo titles */
+
+        .reveal p, .reveal li {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            font-weight: 400;
+            color: #495057; /* Slightly lighter than headings */
+        }
+
+        .reveal strong {
+            color: #0056b3; /* Primary color for emphasis */
+            font-weight: 600;
+        }
+
+        .reveal a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .reveal a:hover {
+            color: #0056b3;
+        }
+
+        /* Cover & Conclusion Specific Styles */
+        .reveal .cover h1 {
+             background: linear-gradient(90deg, #007bff, #6f42c1); /* Gradient effect */
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.3em;
+        }
+
+        .reveal .cover .subtitle {
+            font-size: 1.3rem;
+            color: #6c757d;
+            margin-top: 0;
+            margin-bottom: 1em;
+            font-weight: 400;
+        }
+        .reveal .cover .speaker-info {
+            font-size: 1rem;
+            color: #6c757d;
+            margin-top: 2em;
+        }
+
+
+        /* Footer for Link & QR */
+        .footer-info {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: flex-end;
+            gap: 15px; /* Space between link and QR */
+            font-size: 0.8rem;
+        }
+        .footer-info a {
+            color: #6c757d;
+            font-weight: 500;
+        }
+        .footer-info img {
+            width: 80px;
+            height: 80px;
+            display: block;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+
+
+        /* Content Slides */
+        .reveal .slides section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .reveal .slides section li {
+            margin-bottom: 0.8em;
+            padding-left: 1.5em;
+            position: relative;
+        }
+        .reveal .slides section li::before {
+            content: "\f138"; /* Font Awesome check circle or similar */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: #007bff;
+            position: absolute;
+            left: 0;
+            top: 4px; /* Adjust vertical alignment */
+            font-size: 1em;
+        }
+
+        .reveal .fragment.highlight-blue { /* Custom fragment style */
+           color: #007bff;
+           font-weight: bold;
+        }
+
+        /* Table Styling */
+        .reveal table {
+            width: 100%;
+            margin-top: 1em;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .reveal th, .reveal td {
+            border: 1px solid #dee2e6;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        .reveal th {
+            background-color: #e9ecef;
+            font-weight: 600;
+            color: #495057;
+        }
+        .reveal td:last-child {
+           font-weight: bold;
+           color: #28a745; /* Green for star increase */
+        }
+
+
+        /* Icon Usage */
+        .reveal .fa {
+            margin-right: 8px;
+            color: #007bff;
+        }
+        .reveal h3 .fa, .reveal h4 .fa {
+             color: inherit; /* Inherit color from heading */
+        }
+
+        /* Backgrounds */
+        .reveal .slides section[data-background-gradient] {
+             background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        }
+        .reveal .slides section.bg-dark {
+             background-color: #343a40;
+             color: #f8f9fa;
+        }
+         .reveal .slides section.bg-dark h1,
+         .reveal .slides section.bg-dark h2,
+         .reveal .slides section.bg-dark h3,
+         .reveal .slides section.bg-dark h4 { color: #fff; }
+         .reveal .slides section.bg-dark p,
+         .reveal .slides section.bg-dark li { color: #ced4da; }
+         .reveal .slides section.bg-dark strong { color: #61dafb; } /* Bright color for emphasis on dark bg */
+         .reveal .slides section.bg-dark a { color: #90caf9; }
+         .reveal .slides section.bg-dark a:hover { color: #61dafb; }
+         .reveal .slides section.bg-dark li::before { color: #61dafb; }
+         .reveal .slides section.bg-dark td:last-child { color: #a5d6a7; } /* Lighter green */
+
+
+        /* Add a subtle border or shadow to slides for definition */
+        .reveal .slides > section {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 20px; /* Add space between slides in overview */
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .reveal h1 { font-size: 2.2rem; }
+            .reveal h2 { font-size: 1.8rem; }
+            .reveal h3 { font-size: 1.5rem; }
+            .reveal p, .reveal li { font-size: 1rem; }
+            .footer-info { flex-direction: column; align-items: flex-end; gap: 5px; }
+            .footer-info img { width: 60px; height: 60px; }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Cover Slide -->
+            <section class="cover" data-background-gradient>
+                <h1>AI工具革命席卷GitHub！</h1>
+                <p class="subtitle">Go语言再登顶，实时数据库引爆开发者圈层</p>
+                <p><strong>GitHub热门仓库日报</strong></p>
+                <p class="text-sm text-gray-500 mt-2">观测时间: 2025-04-10 21:40:39</p>
+                <p class="speaker-info mt-12">分享者: AIChipEra</p>
+
+                <div class="footer-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="WeChat QR Code">
+                </div>
+            </section>
+
+            <!-- Disclaimer -->
+            <section data-background-color="#fff8e1">
+                <h3 class="text-orange-700"><i class="fas fa-exclamation-triangle"></i> 重要提示</h3>
+                <p class="text-lg text-gray-700">以下内容仅供项目介绍和学习交流使用，<strong>不构成任何投资建议</strong>。</p>
+                <p class="text-gray-600">请注意独立思考，谨慎甄别信息！</p>
+            </section>
+
+            <!-- Daily Highlights -->
+            <section data-background-gradient>
+                <h2><i class="fas fa-newspaper"></i> 日报要点速览</h2>
+                 <p class="fragment fade-in"> <i class="fas fa-star text-yellow-500"></i> 微软开源项目单日<strong>暴涨600+星</strong>！</p>
+                 <p class="fragment fade-in"> <i class="fas fa-robot text-blue-500"></i> AI工程化工具链<strong>全面爆发</strong>，Go语言蝉联云原生王者。</p>
+                 <p class="fragment fade-in"> <i class="fas fa-database text-purple-500"></i> 实时同步时空数据库<strong>引爆关注</strong> (单日+340星)。</p>
+                 <p class="fragment fade-in"> <i class="fas fa-code text-green-500"></i> 从视频翻译到无代码平台，开发者正<strong>重构协作未来</strong>。</p>
+                 <p class="fragment fade-in"> <i class="fas fa-rocket text-red-500"></i> Python+CUDA加速，TypeScript+大模型，技术变革<strong>降低AI门槛</strong>，毫秒级响应成新常态。</p>
+                 <p class="mt-6 fragment fade-up"> <i class="fas fa-question-circle"></i> 哪些项目将定义下一个开发时代？ <strong>直击技术前沿！</strong></p>
+            </section>
+
+            <!-- Overall Trend Analysis Title -->
+             <section data-background-color="#e7f5ff">
+                <h2><i class="fas fa-chart-line"></i> GitHub 今日整体趋势分析</h2>
+                <p>深入洞察技术风向标</p>
+            </section>
+
+            <!-- Trend Analysis - Part 1: Focus Areas -->
+            <section>
+                 <h3><i class="fas fa-bullseye"></i> 一、技术领域与主题聚焦</h3>
+                 <ul>
+                     <li class="fragment"><strong>AI工程化持续主导:</strong> 机器学习课程 (<code>ml-course</code>), 大模型应用框架 (<code>Dify</code>), 视频翻译工具 (<code>KrillinAI</code>) 热度高。</li>
+                     <li class="fragment"><strong>开发者工具优化:</strong> 无代码/低代码 (<code>Maxun</code>, <code>firecrawl</code>), 数据处理平台 (<code>MarkItDown</code>) 受追捧，提升效率是关键。</li>
+                     <li class="fragment"><strong>云原生架构深化:</strong> 高性能Web服务器 (<code>Caddy</code>), Go云服务库 (<code>google-cloud-go</code>), 轻量框架 (<code>Gin</code>) 稳定增长。</li>
+                     <li class="fragment"><strong><span class="text-red-600 font-bold">新热点 - 实时协作:</span></strong> 分布式实时数据库 (<code>SpacetimeDB</code>) 爆发式增长，预示低延迟场景突破。</li>
+                 </ul>
+            </section>
+
+            <!-- Trend Analysis - Part 2: Languages & Stacks -->
+            <section>
+                <h3><i class="fas fa-code"></i> 二、编程语言与技术栈</h3>
+                <ul>
+                    <li class="fragment"><strong>Go:</strong> 性能与云原生主导 (<code>Caddy</code>, <code>Gin</code>, <code>google-cloud-go</code>)。</li>
+                    <li class="fragment"><strong>Python:</strong> AI工具链 (<code>CUDA-Python</code>, <code>MarkItDown</code>) 与教育核心。</li>
+                    <li class="fragment"><strong>TypeScript:</strong> 无代码工具 (<code>Maxun</code>) 与LLM平台 (<code>Dify</code>) 首选。</li>
+                    <li class="fragment"><strong>Rust:</strong> 在 <code>SpacetimeDB</code> 中展现高性能潜力。</li>
+                    <li class="fragment"><strong>Jupyter Notebook:</strong> 实践导向教育内容 (<code>ml-course</code>, <code>llm-cookbook</code>) 仍具吸引力。</li>
+                    <li class="fragment"><strong>趋势:</strong> 多语言协作 (Python+CUDA) 与技术融合 (Dify RAG+代理)。</li>
+                </ul>
+            </section>
+
+             <!-- Trend Analysis - Part 3: Needs & Directions -->
+            <section>
+                 <h3><i class="fas fa-compass"></i> 三、技术需求与发展方向</h3>
+                 <ul>
+                     <li class="fragment"><strong>易用性追求 <i class="fas fa-magic"></i>:</strong> 无代码工具、AI框架简化开发流程。</li>
+                     <li class="fragment"><strong>实时性需求 <i class="fas fa-stopwatch"></i>:</strong> <code>SpacetimeDB</code> (毫秒同步), <code>KrillinAI</code> (视频自动化) 反映迫切需求。</li>
+                     <li class="fragment"><strong>云原生与边缘结合 <i class="fas fa-cloud"></i><i class="fas fa-server"></i>:</strong> <code>Caddy</code>, <code>Gin</code> 预示边缘服务优化。</li>
+                     <li class="fragment"><strong>AI与传统场景融合 <i class="fas fa-handshake"></i>:</strong> AI工具从实验性走向生产级应用 (视频本地化, 文档结构化)。</li>
+                 </ul>
+            </section>
+
+             <!-- Trend Analysis - Part 4: Changes & Comparison -->
+            <section>
+                 <h3><i class="fas fa-exchange-alt"></i> 四、项目变化与趋势对比</h3>
+                 <ul>
+                     <li class="fragment"><strong>AI教育类激增:</strong> 微软AI代理课程、LLM教程反映系统学习需求。</li>
+                     <li class="fragment"><strong>工具类持续高增长:</strong> <code>firecrawl</code>, <code>Maxun</code> 显示自动化刚需。</li>
+                     <li class="fragment"><strong><span class="text-red-600 font-bold">SpacetimeDB 爆发:</span></strong> 单日+340星，印证分布式实时技术走向主流。</li>
+                     <li class="fragment"><strong>传统云服务库放缓:</strong> <code>google-cloud-go</code> 增长减慢，市场或趋成熟。</li>
+                 </ul>
+            </section>
+
+             <!-- Trend Analysis - Part 5: Future Hotspots -->
+            <section>
+                 <h3><i class="fas fa-fire"></i> 五、未来技术热点预测</h3>
+                 <ol>
+                     <li class="fragment">轻量化AI模型部署工具 (边缘AI)。</li>
+                     <li class="fragment">实时协作系统标准化 (CRDT, IoT, 游戏)。</li>
+                     <li class="fragment">LLM与传统行业深度整合 (场景化落地)。</li>
+                     <li class="fragment">云原生与边缘计算协同 (服务网格)。</li>
+                 </ol>
+            </section>
+
+             <!-- Trend Analysis - Part 6: Uniqueness -->
+            <section>
+                 <h3><i class="fas fa-lightbulb"></i> 六、今日趋势独特性 ("Aha Moment"!)</h3>
+                 <ul>
+                     <li class="fragment"><strong>开源生态的教育赋能:</strong> 微软、Yandex等通过开源课程形成“工具+教育”闭环。</li>
+                     <li class="fragment"><strong>技术栈垂直整合:</strong> <code>Dify</code> (RAG+代理+模型管理) 成为典型。</li>
+                     <li class="fragment"><strong>语言生态互补:</strong> Python (AI逻辑) + Go (服务层) 模式流行。</li>
+                     <li class="fragment"><strong>合规与安全纳入核心:</strong> <code>Maxun</code> 加密设计反映对数据治理重视提升。</li>
+                 </ul>
+                 <p class="mt-4 fragment"><strong>核心驱动力：</strong> 技术趋势从“探索”转向“场景落地”，开发者工具与AI工程化是关键。</p>
+            </section>
+
+
+            <!-- Dual-Day Comparison Title -->
+            <section data-background-color="#f0f4f8">
+                 <h2><i class="fas fa-calendar-alt"></i> 热门项目双日维度对比</h2>
+                 <p>洞察热度变化与新晋力量</p>
+            </section>
+
+            <!-- Dual-Day Analysis -->
+             <section>
+                 <h3><i class="fas fa-chart-bar"></i> 双日对比分析要点</h3>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                     <div class="fragment">
+                         <h4 class="text-blue-600">热度变化趋势 <i class="fas fa-thermometer-half"></i></h4>
+                         <p>整体热度攀升，9个新晋项目，无下降趋势。</p>
+                         <p>微软 <code>markitdown</code> <strong>+611星 (8.3%)</strong> 领跑，AI工具与教育类激增。</p>
+                     </div>
+                     <div class="fragment">
+                         <h4 class="text-green-600">新项目特点 <i class="fas fa-project-diagram"></i></h4>
+                         <p>聚焦：云原生, AI工具, 实时数据。</p>
+                         <p><strong>Go</strong> (Caddy, KrillinAI, Gin), <strong>TypeScript</strong> (Maxun, Dify) 主导。</p>
+                         <p><code>SpacetimeDB</code> (时空数据库) 首次登榜，实时数据需求增长。</p>
+                         <p>微软/NVIDIA入局强化AI基建布局。</p>
+                     </div>
+                     <div class="fragment">
+                          <h4 class="text-purple-600">编程语言分布 <i class="fas fa-language"></i></h4>
+                          <p><strong>赢家:</strong> Go (+3), Rust (+1), TypeScript (+1)。</p>
+                          <p><strong>下滑:</strong> Python, C++, HTML (项目流失)。</p>
+                          <p>Go受益于云工具与AI框架；Rust渗透系统级项目；TS受益于全栈与AI前端。</p>
+                     </div>
+                     <div class="fragment">
+                          <h4 class="text-red-600">显著变化关注 <i class="fas fa-eye"></i></h4>
+                          <p><code>markitdown</code> (+611星) 或重构文档协作。</p>
+                          <p><code>SpacetimeDB</code> 暗示时空数据实时处理需求激增。</p>
+                          <p>TypeScript项目跃升，预示Web端AI应用融合。</p>
+                          <p>Go在新项目中优势明显，云原生工具链标准化加速。</p>
+                     </div>
+                 </div>
+             </section>
+
+            <!-- Hotspot Changes -->
+            <section>
+                <h2><i class="fas fa-map-marker-alt"></i> 热点变化追踪</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                    <div>
+                        <h3 class="text-green-600"><i class="fas fa-arrow-up"></i> 新增热点</h3>
+                        <ul class="text-sm list-none p-0">
+                            <li>microsoft/ai-agents-for-beginners</li>
+                            <li>caddyserver/caddy</li>
+                            <li>getmaxun/maxun</li>
+                            <li>langgenius/dify</li>
+                            <li>clockworklabs/spacetimedb</li>
+                            <li>mendableai/firecrawl</li>
+                            <li>krillinai/krillinai</li>
+                            <li>nvidia/cuda-python</li>
+                            <li>gin-gonic/gin</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-red-600"><i class="fas fa-arrow-down"></i> 减退热点</h3>
+                        <ul class="text-sm list-none p-0">
+                            <li>protocolbuffers/protobuf</li>
+                            <li>lc044/wechatmsg</li>
+                            <li>supabase-community/supabase-mcp</li>
+                            <li>swiftlang/swift</li>
+                            <li>patchy631/ai-engineering-hub</li>
+                            <li>simplifyjobs/summer2025-internships</li>
+                            <li>activepieces/activepieces</li>
+                            <li>jiji262/douyin-downloader</li>
+                            <li>ripienaar/free-for-dev</li>
+                            <li>hkuds/lightrag</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-blue-600"><i class="fas fa-fire"></i> 持续热门</h3>
+                        <ul class="text-sm list-none p-0">
+                            <li>datawhalechina/llm-cookbook (3天)</li>
+                            <li>microsoft/markitdown (5天)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Detailed Repositories Title -->
+             <section data-background-color="#495057" class="bg-dark">
+                 <h2 class="text-white"><i class="fas fa-database"></i> 热门仓库详细解读</h2>
+                 <p class="text-gray-300">深入了解每个明星项目</p>
+            </section>
+
+            <!-- Repo: girafe-ai/ml-course -->
+            <section>
+                <h4><i class="fab fa-python"></i> girafe-ai/ml-course</h4>
+                <p><strong>项目简介:</strong> 开放机器学习课程 (Yandex出品)</p>
+                <table>
+                    <thead><tr><th>语言</th><th>Stars</th><th>连续在榜</th><th>总上榜</th><th>日增 Star</th></tr></thead>
+                    <tbody><tr><td>Jupyter Notebook (99.3%)</td><td>2.7k</td><td>2天</td><td>2次</td><td class="text-green-500">+207</td></tr></tbody>
+                </table>
+                <p class="mt-4"><strong>速读:</strong> 提供系统化机器学习学习路径，结合理论、代码实现与项目实践。结构化教学 (视频+作业+考试)，实践导向 (kNN, SVM实现, ML pipeline)。适合有编程基础者系统学习ML全链条。</p>
+                <p class="text-sm text-gray-600"><strong>增长分析:</strong> 日均114星，第二日激增207星，短期爆发力强，持续性待观察。</p>
+            </section>
+
+            <!-- Repo: caddyserver/caddy -->
+            <section>
+                <h4><i class="fab fa-golang"></i> caddyserver/caddy</h4>
+                <p><strong>项目简介:</strong> 快速、可扩展的多平台 HTTP/3 Web服务器 (自动HTTPS)</p>
+                <table>
+                     <thead><tr><th>语言</th><th>Stars</th><th>连续在榜</th><th>总上榜</th><th>日增 Star</th></tr></thead>
+                     <tbody><tr><td>Go (97.9%)</td><td>63k</td><td>1天</td><td>1次</td><td class="text-green-500">+110</td></tr></tbody>
+                </table>
+                 <p class="mt-4"><strong>速读:</strong> 核心价值在于<strong>自动HTTPS</strong>，简化安全配置。默认加密，自动管理TLS证书。Go语言开发，模块化架构易扩展。配置灵活 (Caddyfile, JSON, API)，支持热更新。跨平台、轻量无依赖，适合微服务和云原生。</p>
+            </section>
+
+             <!-- Repo: clockworklabs/SpacetimeDB -->
+            <section>
+                 <h4><i class="fab fa-rust"></i> clockworklabs/SpacetimeDB</h4>
+                 <p><strong>项目简介:</strong> 光速级多人游戏/实时协作数据库</p>
+                 <table>
+                      <thead><tr><th>语言</th><th>Stars</th><th>连续在榜</th><th>总上榜</th><th>日增 Star</th></tr></thead>
+                      <tbody><tr><td>Rust (88.5%)</td><td>12.6k</td><td>1天</td><td>5次</td><td class="text-green-500">+340</td></tr></tbody>
+                 </table>
+                 <p class="mt-4"><strong>速读:</strong> 解决多用户实时协作的<strong>低延迟数据同步</strong>问题。创新分布式架构 (CRDT增强模型 + Rust高性能)，实现去中心化毫秒级同步。显著简化实时应用开发复杂度，适合在线游戏、协同编辑、IoT等。</p>
+                 <p class="text-sm text-gray-600"><strong>增长分析:</strong> 5天日均增554星，总增4587星，增速显著。当日增340星略低于均值，关注持续性。</p>
+            </section>
+
+            <!-- Repo: krillinai/KrillinAI -->
+            <section>
+                 <h4><i class="fab fa-golang"></i> krillinai/KrillinAI</h4>
+                 <p><strong>项目简介:</strong> AI视频翻译配音工具 (适配抖音、YouTube等)</p>
+                 <table>
+                      <thead><tr><th>语言</th><th>Stars</th><th>连续在榜</th><th>总上榜</th><th>日增 Star</th></tr></thead>
+                      <tbody><tr><td>Go (89.1%)</td><td>1.5k</td><td>1天</td><td>1次</td><td class="text-green-500">+238</td></tr></tbody>
+                 </table>
+                 <p class="mt-4"><strong>速读:</strong> 解决跨平台视频本地化难题。整合语音识别(Whisper)、翻译(LLM)、合成、格式适配，<strong>全流程自动化</strong>。支持56种语言专业翻译，语音克隆。提供桌面/Web/Docker部署，适合内容出海。</p>
+            </section>
+
+             <!-- Repo: microsoft/ai-agents-for-beginners -->
+            <section>
+                 <h4><i class="fab fa-python"></i> microsoft/ai-agents-for-beginners</h4>
+                 <p><strong>项目简介:</strong> 构建AI代理的入门10课 (微软出品)</p>
+                 <table>
+                      <thead><tr><th>语言</th><th>Stars</th><th>连续在榜</th><th>总上榜</th><th>日增 Star</th></tr></thead>
+                      <tbody><tr><td>Jupyter Notebook (95.6%)</td><td>11.7k</td><td>1天</td><td>3次</td><td class="text-green-500">+403</td></tr></tbody>
+                 </table>
+                 <p class="mt-4"><strong>速读:</strong> 面向零基础开发者的系统化课程。解决理论与实践断层，提供完整学习路径。实践导向 (Jupyter Notebook示例)，整合Azure AI、Semantic Kernel。多语言支持，降低AI代理开发门槛。</p>
+                 <p class="text-sm text-gray-600"><strong>增长分析:</strong> 3天日均增412星，总增6694星，当日增403星，增长稳定。</p>
+            </section>
+
+             <!-- Repo: NVIDIA/cuda-python -->
+            <section>
+                 <h4><i class="fab fa-python"></i> NVIDIA/cuda-python</h4>
+                 <p><strong>项目简介:</strong> CUDA Python: 性能与生产力兼得 (NVIDIA出品)</p>
+                 <table>
+                      <thead><tr><th>语言</th><th>Stars</th><th>连续在榜</th><th>总上榜</th><th>日增 Star</th></tr></thead>
+                      <tbody><tr><td>Python (76.7%)</td><td>1.8k</td><td>1天</td><td>2次</td><td class="text-green-500">+219</td></tr></tbody>
+                 </table>
+                 <p class="mt-4"><strong>速读:</strong> 为Python开发者打造的GPU加速工具集。通过Python接口降低CUDA编程门槛，保持高性能。模块化设计 (cuda.core, cuda.bindings)，结合Numba JIT编译加速。平衡开发效率与性能，适合科研、AI训练。</p>
+                 <p class="text-sm text-gray-600"><strong>增长分析:</strong> 2天日均134.5星，最后一天新增219星，远超均值，短期上榜提振显著。</p>
+            </section>
+
+            <!-- Repo: datawhalechina/llm-cookbook -->
+            <section>
+                 <h4><i class="fab fa-python"></i> datawhalechina/llm-cookbook</h4>
+                 <p><strong>项目简介:</strong> 面向开发者的 LLM 入门教程 (吴恩达大模型课中文版)</p>
+                 <table>
+                      <thead><tr><th>语言</th><th>Stars</th><th>连续在榜</th><th>总上榜</th><th>日增 Star</th></tr></thead>
+                      <tbody><tr><td>Jupyter Notebook (99.4%)</td><td>18.2k</td><td>3天</td><td>4次</td><td class="text-green-500">+372</td></tr></tbody>
+                 </table>
+                 <p class="mt-4"><strong>速读:</strong> 基于吴恩达11门课，提供中文翻译、代码复现与优化。解决语言障碍、资源分散问题。结构化课程体系 (必修+选修)，覆盖Prompt工程、LangChain等。整合工具链，适合国内开发者入门LLM。</p>
+                 <p class="text-sm text-gray-600"><strong>增长分析:</strong> 4天日均增314星，总增1389星，今日新增372星超均值，增长势头强劲。</p>
+            </section>
+
+             <!-- Repo: getmaxun/maxun -->
+            <section>
+                 <h4><i class="fab fa-node-js"></i> getmaxun/maxun</h4>
+                 <p><strong>项目简介:</strong> 开源无代码网络数据提取平台 (网站->API/表格)</p>
+                 <table>
+                      <thead><tr><th>语言</th><th>Stars</th><th>连续在榜</th><th>总上榜</th><th>日增 Star</th></tr></thead>
+                      <tbody><tr><td>TypeScript (95.4%)</td><td>10.8k</td><td>1天</td><td>2次</td><td class="text-green-500">+385</td></tr></tbody>
+                 </table>
+                 <p class="mt-4"><strong>速读:</strong> 通过图形化界面和机器人，<strong>无需编程</strong>即可提取网页数据。解决传统抓取开发复杂、维护成本高问题。核心优势：无代码易用性、自动化能力 (定时/触发)。技术栈：TS, Node, PG, Redis, Playwright。适合电商监控、市场调研。</p>
+                 <p class="text-sm text-gray-600"><strong>增长分析:</strong> 2天日均增275星，最后1天新增385星，增长势头强劲，持续性待观察。</p>
+            </section>
+
+             <!-- Repo: googleapis/google-cloud-go -->
+            <section>
+                 <h4><i class="fab fa-golang"></i> googleapis/google-cloud-go</h4>
+                 <p><strong>项目简介:</strong> Google Cloud 的 Go 语言客户端库</p>
+                 <table>
+                      <thead><tr><th>语言</th><th>Stars</th><th>连续在榜</th><th>总上榜</th><th>日增 Star</th></tr></thead>
+                      <tbody><tr><td>Go (99.6%)</td><td>4k</td><td>2天</td><td>2次</td><td class="text-green-500">+101</td></tr></tbody>
+                 </table>
+                 <p class="mt-4"><strong>速读:</strong> 提供标准化集成GCP服务的Go方案。模块化包体系，封装云服务API。核心优势：<strong>智能权限管理</strong> (ADC，环境自适应认证)。覆盖GCP全栈服务，适合快速构建云原生应用的Go后端团队。</p>
+                 <p class="text-sm text-gray-600"><strong>增长分析:</strong> 2天日均增59.5星，今日新增101星，增速显著提升，具备潜力。</p>
+            </section>
+
+             <!-- Repo: mendableai/firecrawl -->
+            <section>
+                 <h4><i class="fab fa-node-js"></i> mendableai/firecrawl</h4>
+                 <p><strong>项目简介:</strong> 网站->LLM友好Markdown/结构化数据 (单一API)</p>
+                 <table>
+                      <thead><tr><th>语言</th><th>Stars</th><th>连续在榜</th><th>总上榜</th><th>日增 Star</th></tr></thead>
+                      <tbody><tr><td>TypeScript (91.2%)</td><td>34.8k</td><td>1天</td><td>2次</td><td class="text-green-500">+168</td></tr></tbody>
+                 </table>
+                 <p class="mt-4"><strong>速读:</strong> 通过API实现网页数据<strong>自动化提取与结构化</strong>。解决爬取配置复杂、手动解析痛点。核心特性：零配置智能解析，可扩展API，高性能架构(TS)。适合构建知识库、训练AI、竞品监测。</p>
+                 <p class="text-sm text-gray-600"><strong>增长分析:</strong> 2天爆发式增长，日均209.5星，近期新增降至168星，短期高爆发后动能趋缓。</p>
+            </section>
+
+            <!-- Repo: microsoft/markitdown -->
+            <section>
+                 <h4><i class="fab fa-python"></i> microsoft/markitdown</h4>
+                 <p><strong>项目简介:</strong> 文件和办公文档 -> Markdown转换Python工具 (微软出品)</p>
+                 <table>
+                      <thead><tr><th>语言</th><th>Stars</th><th>连续在榜</th><th>总上榜</th><th>日增 Star</th></tr></thead>
+                      <tbody><tr><td>Python (99.4%)</td><td>47.6k</td><td>5天</td><td>6次</td><td class="text-green-500">+639</td></tr></tbody>
+                 </table>
+                 <p class="mt-4"><strong>速读:</strong> 专注将多格式文件转为<strong>结构化Markdown</strong>，为LLM/文本分析提供数据预处理。解决非结构化文档解析难问题，保留关键结构。核心优势：智能结构化，跨格式兼容 (>20种)，灵活架构 (按需依赖)。适合批量处理非结构化数据AI项目。</p>
+                 <p class="text-sm text-gray-600"><strong>增长分析:</strong> 6天日均986星，爆发力强，总增6912星。今日增量639星略放缓，趋势待观察。</p>
+            </section>
+
+            <!-- Repo: langgenius/dify -->
+             <section>
+                 <h4><i class="fab fa-node-js"></i> langgenius/dify</h4>
+                 <p><strong>项目简介:</strong> 开源LLM应用开发平台 (工作流, RAG, Agent, 部署)</p>
+                 <table>
+                      <thead><tr><th>语言</th><th>Stars</th><th>连续在榜</th><th>总上榜</th><th>日增 Star</th></tr></thead>
+                      <tbody><tr><td>TypeScript (56.6%)</td><td>90.5k</td><td>1天</td><td>2次</td><td class="text-green-500">+285</td></tr></tbody>
+                 </table>
+                 <p class="mt-4"><strong>速读:</strong> 解决AI应用开发流程复杂、部署门槛高问题。整合<strong>代理AI工作流</strong>、RAG管道、模型管理、可观测性。核心优势：代理驱动复杂流程自动化，RAG深度集成，模块化与灵活性。显著缩短LLM应用开发周期。</p>
+                  <p class="text-sm text-gray-600"><strong>增长分析:</strong> 2天获3285星，日均433.5，当日新增285，增速放缓。持续性待观察。</p>
+             </section>
+
+            <!-- Repo: gin-gonic/gin -->
+             <section>
+                 <h4><i class="fab fa-golang"></i> gin-gonic/gin</h4>
+                 <p><strong>项目简介:</strong> Go语言HTTP Web框架 (高性能)</p>
+                 <table>
+                      <thead><tr><th>语言</th><th>Stars</th><th>连续在榜</th><th>总上榜</th><th>日增 Star</th></tr></thead>
+                      <tbody><tr><td>Go (99.5%)</td><td>81.6k</td><td>1天</td><td>2次</td><td class="text-green-500">+113</td></tr></tbody>
+                 </table>
+                  <p class="mt-4"><strong>速读:</strong> 专为高并发场景设计的高性能Go Web框架。核心优势：<strong>极速处理能力</strong> (零内存分配路由, Trie树)，性能优异。简洁API，功能强大 (中间件, JSON验证, 路由分组)。适合RESTful API、微服务网关等高流量服务。</p>
+                  <p class="text-sm text-gray-600"><strong>增长分析:</strong> 2天日均79星，最后1日激增113星，短期爆发力强，热度攀升。</p>
+             </section>
+
+
+            <!-- Conclusion Slide -->
+            <section class="conclusion" data-background-gradient>
+                <h2 style="color: #343a40;">洞察趋势，把握未来</h2>
+                <p style="color: #495057; font-size: 1.4rem;">技术浪潮已至，拥抱AI与高效开发！</p>
+                <p class="mt-8 text-lg">感谢观看</p>
+
+                <div class="footer-info mt-12">
+                     <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                     <img src="../../asserts/wx.jpg" alt="WeChat QR Code">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Core Framework JS -->
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <!-- Extension Dependencies JS -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <script>
+        // More info about initialization & config:
+        // - https://revealjs.com/config/
+        // - https://revealjs.com/api/
+        Reveal.initialize({
+            hash: true, // Add slide number to URL hash
+            controls: true, // Display controls in the bottom right corner
+            progress: true, // Display a presentation progress bar
+            center: true, // Vertical centering
+            slideNumber: 'c/t', // Display slide number (current/total)
+
+            // Transition style
+            transition: 'fade', // none/fade/slide/convex/concave/zoom
+
+            // Transition speed
+            transitionSpeed: 'fast', // default/fast/slow
+
+            // Parallax background options
+            // parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+            // parallaxBackgroundSize: '', // CSS syntax, e.g. "2100px 900px"
+            // parallaxBackgroundHorizontal: null,
+            // parallaxBackgroundVertical: null,
+
+            // Optional libraries used to extend reveal.js
+            dependencies: [
+                // Markdown support (if you want to use markdown sections)
+                // { src: 'https://cdn.jsdelivr.net/npm/reveal.js@4.3.0/plugin/markdown/markdown.min.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                // { src: 'https://cdn.jsdelivr.net/npm/reveal.js@4.3.0/plugin/highlight/highlight.min.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: 'https://cdn.jsdelivr.net/npm/reveal.js@4.3.0/plugin/notes/notes.min.js', async: true }, // Speaker notes
+                { src: 'https://cdn.jsdelivr.net/npm/reveal.js@4.3.0/plugin/zoom/zoom.min.js', async: true }, // Zoom in and out with Alt+click
+            ]
+        });
+
+        // Initialize Mermaid for diagrams (if needed)
+        // mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+</html>
