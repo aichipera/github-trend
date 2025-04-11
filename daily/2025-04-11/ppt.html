@@ -1,0 +1,661 @@
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>GitHub热门仓库日报 | AI狂飙突进！开发者们的新战场</title>
+
+    <!-- Core framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" id="theme" rel="stylesheet">
+
+    <!-- Extended dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        /* Import Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+        :root {
+            --r-main-font-size: 1.1rem;
+            --r-heading1-size: 2.8rem;
+            --r-heading2-size: 2.0rem;
+            --r-heading3-size: 1.5rem;
+            --r-heading4-size: 1.2rem;
+            --r-block-margin: 20px;
+            --r-link-color: #007BFF;
+            --r-link-color-hover: #0056b3;
+            --r-background-color: #f8f9fa; /* Light background */
+            --r-main-color: #212529; /* Dark text */
+            --r-heading-color: #0056b3; /* Darker blue for titles */
+        }
+
+        body {
+          /* Fallback stack as requested, with Noto Sans SC preferred */
+          font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+          color: var(--r-main-color);
+          background-color: var(--r-background-color);
+        }
+
+        .reveal {
+            font-size: var(--r-main-font-size);
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+          /* Noto Serif SC for titles, with fallbacks */
+          font-family: 'Noto Serif SC', 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, serif;
+          color: var(--r-heading-color);
+          font-weight: 600;
+          text-align: left;
+          margin-bottom: 0.7em;
+        }
+
+        .reveal h1 { font-size: var(--r-heading1-size); }
+        .reveal h2 { font-size: var(--r-heading2-size); }
+        .reveal h3 { font-size: var(--r-heading3-size); }
+        .reveal h4 { font-size: var(--r-heading4-size); }
+
+        .reveal p, .reveal li, .reveal td, .reveal th {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            font-size: 1.1rem; /* Slightly larger body text */
+            line-height: 1.6;
+            text-align: left;
+        }
+        .reveal small {
+            font-size: 0.8em;
+            color: #6c757d;
+        }
+        .reveal ul, .reveal ol {
+            margin-left: 1.5em;
+        }
+        .reveal li {
+            margin-bottom: 0.5em;
+        }
+
+        /* Custom link/QR code container */
+        .footer-info {
+          position: fixed;
+          bottom: 25px;
+          right: 25px;
+          font-size: 0.8rem;
+          text-align: right;
+          z-index: 10;
+          color: #495057;
+        }
+        .footer-info img {
+          width: 80px;
+          height: 80px;
+          margin-top: 5px;
+          display: block;
+          margin-left: auto;
+        }
+        .footer-info a {
+          color: var(--r-link-color);
+          text-decoration: none;
+        }
+        .footer-info a:hover {
+          text-decoration: underline;
+        }
+
+        /* Modern aesthetic touches */
+        .reveal section {
+            padding: 40px !important; /* More padding */
+            text-align: left; /* Default align left */
+            box-sizing: border-box;
+        }
+        .reveal .slide-background-content {
+            /* Example: subtle gradient */
+             /* background: linear-gradient(135deg, #ffffff 0%, #eef2f7 100%); */
+        }
+        .reveal .slide-title {
+            border-left: 5px solid var(--r-link-color);
+            padding-left: 15px;
+            margin-bottom: 40px !important;
+        }
+        .reveal .slide-center-title h1,
+        .reveal .slide-center-title h2 {
+            text-align: center;
+            border-left: none;
+            padding-left: 0;
+        }
+
+        /* Icon styling */
+        .reveal i.fa-fw { /* Fixed width for alignment */
+            width: 1.28571429em;
+            text-align: center;
+            margin-right: 5px;
+        }
+        .reveal .fa-star { color: #FFC107; }
+        .reveal .fa-code-branch { color: #6c757d; }
+        .reveal .fa-eye { color: #17A2B8; }
+        .reveal .fa-exclamation-circle { color: #DC3545; }
+        .reveal .fa-code-pull-request { color: #6F42C1; }
+        .reveal .fa-box-open { color: #FD7E14; }
+        .reveal .fa-users { color: #28A745; }
+        .reveal .fa-calendar-alt { color: #007BFF; }
+        .reveal .fa-hashtag { color: #007BFF; }
+        .reveal .fa-arrow-up { color: #28A745; }
+        .reveal .fa-arrow-down { color: #DC3545; }
+        .reveal .fa-fire { color: #FD7E14; }
+        .reveal .fa-language { color: #6f42c1; }
+        .reveal .fa-chart-line { color: #20c997; }
+        .reveal .fa-info-circle { color: #17a2b8; }
+        .reveal .fa-book-open { color: #fd7e14; }
+        .reveal .fa-lightbulb { color: #ffc107; }
+
+        /* Table styling */
+        .reveal table {
+            width: 100%;
+            margin-top: 1em;
+            border-collapse: collapse;
+            font-size: 0.95em; /* Slightly smaller table text */
+        }
+        .reveal th, .reveal td {
+            border: 1px solid #dee2e6;
+            padding: 0.6em 0.8em;
+            text-align: left;
+            vertical-align: top;
+        }
+        .reveal th {
+            background-color: #e9ecef;
+            font-weight: 500; /* Medium weight for table headers */
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        .reveal td code {
+            font-size: 0.9em;
+            background-color: #e9ecef;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        /* Custom highlight / Emphasis */
+        .reveal strong, .reveal b {
+            font-weight: 600;
+            color: #17a2b8; /* Teal highlight */
+        }
+        .highlight {
+            background: linear-gradient(to top, rgba(0, 123, 255, 0.15) 50%, transparent 50%);
+            padding: 0.1em 0;
+            font-weight: 500;
+        }
+        .reveal code {
+            background-color: rgba(0,0,0,0.05);
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        .reveal pre code {
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        /* Fragment fade-in + slightly slide up */
+        .reveal .fragment.fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all .5s ease-out !important;
+        }
+        .reveal .fragment.fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Specific Slide Backgrounds (Example) */
+        .reveal .title-slide .slide-background-content {
+            background: #0056b3; /* Dark blue background for title */
+            /* background: linear-gradient(135deg, #007BFF 0%, #0056b3 100%); */
+        }
+        .reveal .title-slide h1, .reveal .title-slide h2, .reveal .title-slide p {
+            color: #ffffff; /* White text on title */
+        }
+        .reveal .title-slide h1 { font-weight: 700; }
+         .reveal .title-slide h2 { font-weight: 400; opacity: 0.9; }
+        .reveal .title-slide .speaker-info { color: #ced4da; }
+
+        .reveal .end-slide .slide-background-content {
+            background: #0056b3;
+            /* background: linear-gradient(135deg, #0056b3 0%, #003f7f 100%); */
+        }
+         .reveal .end-slide h2, .reveal .end-slide p {
+            color: #ffffff;
+            text-align: center;
+        }
+
+         .repo-lang-icon {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            border-radius: 50%;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        .lang-Python { background-color: #3572A5; }
+        .lang-Go { background-color: #00ADD8; }
+        .lang-Jupyter-Notebook { background-color: #DA5B0B; }
+        .lang-TypeScript { background-color: #3178C6; }
+        .lang-HTML { background-color: #E34F26; }
+        .lang-Other { background-color: #CCCCCC; }
+
+    </style>
+
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Title Slide -->
+            <section class="title-slide slide-center-title">
+                <small class="text-gray-300">GitHub热门仓库日报 (2025-04-11 22:19:04)</small>
+                <h1 class="mt-4">AI狂飙突进！开发者们的新战场</h1>
+                <h2 class="mt-2">从算法到落地，谁能抢占先机？</h2>
+                <p class="speaker-info mt-10 text-lg">演讲者: AIChipEra</p>
+                <p class="mt-4 text-sm text-yellow-300"><em>*以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！*</em></p>
+                <div class="footer-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+            <!-- Daily Highlights -->
+            <section>
+                <h2 class="slide-title"><i class="fas fa-lightbulb fa-fw"></i>日报要点</h2>
+                <p class="fragment fade-up">GitHub 最新趋势：<strong>AI 仍是焦点</strong>，但风向已变！</p>
+                <p class="fragment fade-up">开发者重心转移：从 <span class="highlight">纯算法研究</span> 涌向 <span class="highlight">AI 工程化</span> 与 <span class="highlight">应用落地</span>。</p>
+                <p class="fragment fade-up">语言趋势：<strong>Python</strong> 强势依旧，<strong>TypeScript</strong> 紧随其后，Go 略显疲态。</p>
+                <p class="fragment fade-up">关键信号：Dify、微软 AI Agents 教程等预示 <strong>AI 平民化时代</strong>到来。</p>
+                <p class="fragment fade-up">核心需求：<span class="highlight">快速开发 AI 应用</span>、<span class="highlight">智能视频处理</span>、<span class="highlight">便捷云服务</span>。</p>
+                <p class="fragment fade-up mt-6"> <i class="fas fa-rocket fa-fw"></i> 解锁报告，把握 AI 时代新风口！</p>
+            </section>
+
+            <!-- Trending Project Analysis -->
+            <section>
+                <section>
+                    <h2 class="slide-title"><i class="fas fa-chart-line fa-fw"></i>热门项目趋势分析</h2>
+                    <h3 class="text-blue-600">今日整体趋势</h3>
+                    <p class="fragment fade-up"><strong>AI 主导</strong>：绝大多数热门项目围绕 AI，覆盖多元细分方向。</p>
+                    <p class="fragment fade-up"><strong>语言格局</strong>：
+                        <ul>
+                            <li class="fragment fade-up"><span class="highlight">Python</span>：AI 开发首选，数据与模型优势明显。</li>
+                            <li class="fragment fade-up"><span class="highlight">TypeScript</span>：Web 应用、聊天机器人领域表现亮眼。</li>
+                            <li class="fragment fade-up"><strong>Go</strong>：AI 基础设施、云原生应用占一席之地。</li>
+                            <li class="fragment fade-up"><strong>Jupyter Notebook</strong>：AI 探索、原型设计、教学演示广泛应用。</li>
+                        </ul>
+                    </p>
+                    <p class="fragment fade-up"><strong>技术需求焦点</strong>：
+                         <span class="highlight">AI 应用快速开发部署</span> (Dify, MS AI Agents Course), <span class="highlight">智能视频处理</span> (KrillinAI), <span class="highlight">便捷云服务</span> (Google Cloud Go Libs)。
+                    </p>
+                    <p class="fragment fade-up"><strong>核心转变</strong>：重心从 <span class="highlight">算法研究</span> 转向 <span class="highlight">AI 工程化</span> 与 <span class="highlight">应用落地</span>。</p>
+                     <p class="fragment fade-up"><strong>今日特色</strong>：<span class="highlight">对简化 AI 应用开发流程的强烈需求</span>，AI 技术走向普及化。</p>
+                </section>
+                <section>
+                     <h2 class="slide-title"><i class="fas fa-chart-line fa-fw"></i>热门项目趋势分析</h2>
+                     <h3 class="text-blue-600">热门项目双日维度对比</h3>
+                     <p class="fragment fade-up"><strong>整体态势</strong>：稳中有升，新晋项目多，社区活跃度高，<strong class="text-green-600">上升项目远多于下降项目</strong>。</p>
+                     <p class="fragment fade-up"><strong>新晋领域</strong>：集中在 <span class="highlight">Python</span>, <span class="highlight">Jupyter Notebook</span>, <span class="highlight">HTML</span>，反映数据处理、AI 应用、前端资源需求。</p>
+                      <p class="fragment fade-up"><strong>新晋代表</strong>：<code>douyin-downloader</code> (实用工具), <code>ai-engineering-hub</code>, <code>amazon-nova-samples</code>, <code>GenAI-Showcase</code> (GenAI & 云服务)。</p>
+                     <p class="fragment fade-up"><strong>语言变化</strong>：<strong class="text-red-600">Go</strong> 下降值得关注；HTML, Jupyter Notebook 上升与新项目相关。</p>
+                     <p class="fragment fade-up"><strong>显著增长项目</strong>：
+                        <ul>
+                           <li class="fragment fade-up"><i class="fas fa-arrow-up fa-fw text-green-500"></i> <code>krillinai/KrillinAI</code>：涨幅显著，相关领域或技术受关注。</li>
+                           <li class="fragment fade-up"><i class="fas fa-arrow-up fa-fw text-green-500"></i> <code>microsoft/ai-agents-for-beginners</code> & <code>langgenius/dify</code>：AI 方向持续火热。</li>
+                        </ul>
+                     </p>
+                </section>
+                 <section>
+                     <h2 class="slide-title"><i class="fas fa-fire fa-fw"></i>热点变化</h2>
+                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                         <div class="fragment fade-up">
+                             <h4 class="text-green-600"><i class="fas fa-plus-circle fa-fw"></i> 新增热点</h4>
+                             <ul class="text-sm list-disc ml-5">
+                                 <li>yeongpin/cursor-free-vip</li>
+                                 <li>ripienaar/free-for-dev</li>
+                                 <li>vercel/ai-chatbot</li>
+                                 <li>jiji262/douyin-downloader</li>
+                                 <li>mongodb-developer/genai-showcase</li>
+                                 <li>aws-samples/amazon-nova-samples</li>
+                                 <li>patchy631/ai-engineering-hub</li>
+                             </ul>
+                         </div>
+                         <div class="fragment fade-up">
+                             <h4 class="text-red-600"><i class="fas fa-minus-circle fa-fw"></i> 减退热点</h4>
+                             <ul class="text-sm list-disc ml-5">
+                                 <li>mendableai/firecrawl</li>
+                                 <li>girafe-ai/ml-course</li>
+                                 <li>gin-gonic/gin</li>
+                                 <li>microsoft/markitdown</li>
+                                 <li>getmaxun/maxun</li>
+                                 <li>datawhalechina/llm-cookbook</li>
+                                 <li>clockworklabs/spacetimedb</li>
+                                 <li>nvidia/cuda-python</li>
+                                 <li>caddyserver/caddy</li>
+                             </ul>
+                         </div>
+                         <div class="fragment fade-up">
+                             <h4 class="text-blue-600"><i class="fas fa-sync-alt fa-fw"></i> 持续热门</h4>
+                              <ul class="text-sm list-disc ml-5">
+                                 <li>googleapis/google-cloud-go (3天)</li>
+                                  <li><span class="text-gray-500">(其他可能因单日变化未列出)</span></li>
+                             </ul>
+                         </div>
+                     </div>
+                 </section>
+            </section>
+
+             <!-- Separator Slide -->
+            <section data-background-color="#e9ecef">
+                <h2 class="text-center text-gray-700">详细仓库数据分析</h2>
+            </section>
+
+            <!-- Repository: jiji262/douyin-downloader -->
+            <section>
+                <h3 class="slide-title"><i class="fab fa-tiktok fa-fw"></i> jiji262/douyin-downloader</h3>
+                <p class="text-gray-600 text-sm mb-4">抖音批量下载工具，去水印，支持视频、图集、合集、音乐(原声)。免费！</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="text-blue-600 mb-2"><i class="fas fa-info-circle fa-fw"></i> 基本信息</h4>
+                        <table>
+                            <tr><th><i class="fas fa-star fa-fw"></i> Stars</th><td>3.2k (今日 +78)</td></tr>
+                            <tr><th><i class="fas fa-code-branch fa-fw"></i> Forks</th><td>453</td></tr>
+                            <tr><th><i class="fas fa-language fa-fw"></i> 语言</th><td><span class="repo-lang-icon lang-Python"></span> Python (100%)</td></tr>
+                            <tr><th><i class="fas fa-calendar-alt fa-fw"></i> 总上榜</th><td>3次</td></tr>
+                        </table>
+                        <h4 class="text-blue-600 mt-4 mb-2"><i class="fas fa-chart-line fa-fw"></i> 增长分析</h4>
+                        <p class="text-sm">上榜3天增长迅速，平均日增 143.7 Star，总增长 708 Star。今日新增 78 Star，受欢迎程度持续上升。</p>
+                    </div>
+                    <div>
+                        <h4 class="text-blue-600 mb-2"><i class="fas fa-book-open fa-fw"></i> 项目速读</h4>
+                        <p class="text-sm">Python编写的抖音批量下载利器，支持多种内容<strong class="highlight">去水印下载</strong>。采用<strong class="highlight">多线程并发</strong>，支持增量更新和数据持久化。为用户提供了简单、高效保存和管理抖音内容的<strong class="highlight">免费开源</strong>解决方案。</p>
+                        <p class="text-xs mt-2 text-red-600">*请遵守使用条款，合理使用。*</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Repository: yeongpin/cursor-free-vip -->
+            <section>
+                 <h3 class="slide-title"><i class="fas fa-magic fa-fw"></i> yeongpin/cursor-free-vip</h3>
+                 <p class="text-gray-600 text-sm mb-4">[支持0.48.x] 自动注册Cursor AI、重置机器ID，免费体验Pro功能。</p>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="text-blue-600 mb-2"><i class="fas fa-info-circle fa-fw"></i> 基本信息</h4>
+                        <table>
+                            <tr><th><i class="fas fa-star fa-fw"></i> Stars</th><td>9.7k (今日 +1236)</td></tr>
+                            <tr><th><i class="fas fa-code-branch fa-fw"></i> Forks</th><td>1.2k</td></tr>
+                            <tr><th><i class="fas fa-language fa-fw"></i> 语言</th><td><span class="repo-lang-icon lang-Python"></span> Python (92.2%) + PowerShell, Shell...</td></tr>
+                            <tr><th><i class="fas fa-calendar-alt fa-fw"></i> 总上榜</th><td>1次 (新晋!)</td></tr>
+                        </table>
+                        <h4 class="text-blue-600 mt-4 mb-2"><i class="fas fa-chart-line fa-fw"></i> 增长分析</h4>
+                        <p class="text-sm">首次上榜即<strong class="highlight">暴增 1236 Star</strong>，热度极高，显示出对绕过 Cursor AI 限制的强烈需求。</p>
+                    </div>
+                     <div>
+                         <h4 class="text-blue-600 mb-2"><i class="fas fa-book-open fa-fw"></i> 项目速读</h4>
+                         <p class="text-sm">Python 自动化工具，解决 Cursor AI 试用受限问题。通过<strong class="highlight">自动注册、重置机器 ID</strong>，绕过免费试用限制。支持<strong class="highlight">多平台</strong> (Win/Mac/Linux)，提供简便安装脚本。为希望免费体验 Pro 功能的用户提供方案。</p>
+                         <p class="text-xs mt-2 text-red-600">*使用 CC BY-NC-ND 4.0 协议，禁止商用和修改，使用者需承担风险并遵守软件条款。*</p>
+                     </div>
+                 </div>
+            </section>
+
+             <!-- Repository: krillinai/KrillinAI -->
+            <section>
+                 <h3 class="slide-title"><i class="fas fa-video fa-fw"></i> krillinai/KrillinAI</h3>
+                 <p class="text-gray-600 text-sm mb-4">基于大模型的视频翻译和配音工具，一键式部署，适用于 YouTube、TikTok 等。</p>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                     <div>
+                        <h4 class="text-blue-600 mb-2"><i class="fas fa-info-circle fa-fw"></i> 基本信息</h4>
+                        <table>
+                            <tr><th><i class="fas fa-star fa-fw"></i> Stars</th><td>2.2k (今日 +678)</td></tr>
+                            <tr><th><i class="fas fa-code-branch fa-fw"></i> Forks</th><td>172</td></tr>
+                            <tr><th><i class="fas fa-language fa-fw"></i> 语言</th><td><span class="repo-lang-icon lang-Go"></span> Go (89.1%) + HTML</td></tr>
+                            <tr><th><i class="fas fa-calendar-alt fa-fw"></i> 连续在榜</th><td>2天</td></tr>
+                        </table>
+                        <h4 class="text-blue-600 mt-4 mb-2"><i class="fas fa-chart-line fa-fw"></i> 增长分析</h4>
+                        <p class="text-sm">上榜2天，次日新增 <strong class="highlight">678 Star</strong>，远超日均 (458)，增长势头强劲，热度持续攀升。</p>
+                     </div>
+                     <div>
+                        <h4 class="text-blue-600 mb-2"><i class="fas fa-book-open fa-fw"></i> 项目速读</h4>
+                        <p class="text-sm">AI 视频翻译配音工具，解决跨语言传播痛点。集成 Whisper (语音识别), LLM (翻译), CosyVoice (配音)，提供<strong class="highlight">一键式视频本地化</strong>方案。核心优势在于<strong class="highlight">自动化、智能化</strong>，整合复杂流程，支持专业级翻译和<strong class="highlight">声音克隆</strong>。适用于拓展海外市场、提升内容效率的创作者。</p>
+                     </div>
+                 </div>
+            </section>
+
+            <!-- Repository: patchy631/ai-engineering-hub -->
+            <section>
+                 <h3 class="slide-title"><i class="fas fa-cogs fa-fw"></i> patchy631/ai-engineering-hub</h3>
+                 <p class="text-gray-600 text-sm mb-4">关于 LLM、RAG 及真实世界 AI Agent 应用的深度教程。</p>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                     <div>
+                         <h4 class="text-blue-600 mb-2"><i class="fas fa-info-circle fa-fw"></i> 基本信息</h4>
+                        <table>
+                            <tr><th><i class="fas fa-star fa-fw"></i> Stars</th><td>7.7k (今日 +172)</td></tr>
+                            <tr><th><i class="fas fa-code-branch fa-fw"></i> Forks</th><td>1.3k</td></tr>
+                            <tr><th><i class="fas fa-language fa-fw"></i> 语言</th><td><span class="repo-lang-icon lang-Jupyter-Notebook"></span> Jupyter Notebook (98.3%) + Python</td></tr>
+                            <tr><th><i class="fas fa-calendar-alt fa-fw"></i> 总上榜</th><td>5次</td></tr>
+                        </table>
+                        <h4 class="text-blue-600 mt-4 mb-2"><i class="fas fa-chart-line fa-fw"></i> 增长分析</h4>
+                        <p class="text-sm">上榜5天增长迅速 (总增 2637 Star，日均 279)，吸引力高。今日新增 172 Star，增长势头有所<strong class="highlight">减缓</strong>。</p>
+                     </div>
+                     <div>
+                        <h4 class="text-blue-600 mb-2"><i class="fas fa-book-open fa-fw"></i> 项目速读</h4>
+                        <p class="text-sm">专注 AI 工程实践的<strong class="highlight">实战教程库</strong>，深入讲解 LLMs, RAGs, AI Agent 应用。提供<strong class="highlight">即学即用的代码示例</strong>，侧重实践。紧跟技术潮流，聚焦热门领域，鼓励社区协作。适合希望快速掌握 AI 工程技术、寻找落地灵感的开发者。</p>
+                     </div>
+                 </div>
+            </section>
+
+             <!-- Repository: vercel/ai-chatbot -->
+            <section>
+                 <h3 class="slide-title"><i class="fas fa-comments fa-fw"></i> vercel/ai-chatbot</h3>
+                 <p class="text-gray-600 text-sm mb-4">由 Vercel 构建的功能齐全、可定制的 Next.js AI 聊天机器人。</p>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="text-blue-600 mb-2"><i class="fas fa-info-circle fa-fw"></i> 基本信息</h4>
+                        <table>
+                            <tr><th><i class="fas fa-star fa-fw"></i> Stars</th><td>14.7k (今日 +56)</td></tr>
+                            <tr><th><i class="fas fa-code-branch fa-fw"></i> Forks</th><td>3.9k</td></tr>
+                            <tr><th><i class="fas fa-language fa-fw"></i> 语言</th><td><span class="repo-lang-icon lang-TypeScript"></span> TypeScript (96%) + JS, CSS</td></tr>
+                            <tr><th><i class="fas fa-calendar-alt fa-fw"></i> 总上榜</th><td>1次 (新晋!)</td></tr>
+                        </table>
+                        <h4 class="text-blue-600 mt-4 mb-2"><i class="fas fa-chart-line fa-fw"></i> 增长分析</h4>
+                        <p class="text-sm">首次上榜，新增 56 Star。作为 Vercel 出品的项目，拥有较高基础 Star 数，今日增长平稳。</p>
+                    </div>
+                    <div>
+                        <h4 class="text-blue-600 mb-2"><i class="fas fa-book-open fa-fw"></i> 项目速读</h4>
+                        <p class="text-sm">基于 Next.js 14 的全功能 AI 聊天机器人<strong class="highlight">脚手架</strong>，高度可定制。集成 Vercel AI SDK, shadcn/ui 等。优势：<strong class="highlight">现代 Web 体验</strong> (App Router), <strong class="highlight">简化 LLM 交互</strong> (AI SDK), <strong class="highlight">开箱即用数据持久化</strong> (Neon + Vercel Blob)。提供功能完备、易于扩展的起点，适合快速构建部署智能对话应用。</p>
+                    </div>
+                 </div>
+            </section>
+
+             <!-- Repository: googleapis/google-cloud-go -->
+            <section>
+                 <h3 class="slide-title"><i class="fab fa-google fa-fw"></i> googleapis/google-cloud-go</h3>
+                 <p class="text-gray-600 text-sm mb-4">用于 Go 的 Google Cloud 客户端库。</p>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                     <div>
+                        <h4 class="text-blue-600 mb-2"><i class="fas fa-info-circle fa-fw"></i> 基本信息</h4>
+                        <table>
+                            <tr><th><i class="fas fa-star fa-fw"></i> Stars</th><td>4.1k (今日 +63)</td></tr>
+                            <tr><th><i class="fas fa-code-branch fa-fw"></i> Forks</th><td>1.4k</td></tr>
+                            <tr><th><i class="fas fa-language fa-fw"></i> 语言</th><td><span class="repo-lang-icon lang-Go"></span> Go (99.6%)</td></tr>
+                            <tr><th><i class="fas fa-calendar-alt fa-fw"></i> 连续在榜</th><td>3天</td></tr>
+                        </table>
+                         <h4 class="text-blue-600 mt-4 mb-2"><i class="fas fa-chart-line fa-fw"></i> 增长分析</h4>
+                        <p class="text-sm">连续在榜3天，日均增长 60.7 Star。今日新增 63 Star，增长<strong class="highlight">稳定</strong>。作为基础库，持续受到关注。</p>
+                    </div>
+                    <div>
+                         <h4 class="text-blue-600 mb-2"><i class="fas fa-book-open fa-fw"></i> 项目速读</h4>
+                        <p class="text-sm">GCP 服务的 Go 语言桥梁，提供<strong class="highlight">简洁易用</strong>的 Go 风格 API 工具箱。亮点：<strong class="highlight">无缝身份验证</strong>、<strong class="highlight">模块化设计</strong> (按需引入)、Google 官方维护 (质量与更新保障)。是使用 Go 构建 GCP 云原生应用的<strong class="highlight">可信赖基石</strong>。</p>
+                    </div>
+                 </div>
+            </section>
+
+            <!-- Repository: aws-samples/amazon-nova-samples -->
+            <section>
+                 <h3 class="slide-title"><i class="fab fa-aws fa-fw"></i> aws-samples/amazon-nova-samples</h3>
+                 <p class="text-gray-600 text-sm mb-4">Amazon Bedrock 上的 Amazon Nova 模型示例代码。</p>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                     <div>
+                         <h4 class="text-blue-600 mb-2"><i class="fas fa-info-circle fa-fw"></i> 基本信息</h4>
+                        <table>
+                            <tr><th><i class="fas fa-star fa-fw"></i> Stars</th><td>176 (今日 +13)</td></tr>
+                            <tr><th><i class="fas fa-code-branch fa-fw"></i> Forks</th><td>79</td></tr>
+                            <tr><th><i class="fas fa-language fa-fw"></i> 语言</th><td><span class="repo-lang-icon lang-Jupyter-Notebook"></span> Jupyter Notebook (76.9%) + Python, TS...</td></tr>
+                            <tr><th><i class="fas fa-calendar-alt fa-fw"></i> 总上榜</th><td>1次 (新晋!)</td></tr>
+                        </table>
+                        <h4 class="text-blue-600 mt-4 mb-2"><i class="fas fa-chart-line fa-fw"></i> 增长分析</h4>
+                        <p class="text-sm">首次上榜，新增 13 Star。作为 AWS 官方示例，属于特定领域资源，增长相对平缓。</p>
+                     </div>
+                     <div>
+                         <h4 class="text-blue-600 mb-2"><i class="fas fa-book-open fa-fw"></i> 项目速读</h4>
+                        <p class="text-sm">通往 Amazon Bedrock 上 <strong class="highlight">Amazon Nova 模型</strong>的快捷通道。通过 Jupyter Notebook 示例和详尽 README，<strong class="highlight">降低 AI 模型使用门槛</strong>。核心价值在于让开发者快速将云端 AI 能力融入应用。MIT-0 许可证，鼓励社区贡献。</p>
+                        <p class="text-xs mt-2 text-red-600">*注意 AWS IAM 权限配置。*</p>
+                     </div>
+                 </div>
+            </section>
+
+             <!-- Repository: microsoft/ai-agents-for-beginners -->
+            <section>
+                 <h3 class="slide-title"><i class="fab fa-microsoft fa-fw"></i> microsoft/ai-agents-for-beginners</h3>
+                 <p class="text-gray-600 text-sm mb-4">构建 AI Agent 入门的 10 个要点课程。</p>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                     <div>
+                        <h4 class="text-blue-600 mb-2"><i class="fas fa-info-circle fa-fw"></i> 基本信息</h4>
+                        <table>
+                            <tr><th><i class="fas fa-star fa-fw"></i> Stars</th><td>12.4k (今日 +643)</td></tr>
+                            <tr><th><i class="fas fa-code-branch fa-fw"></i> Forks</th><td>3.1k</td></tr>
+                            <tr><th><i class="fas fa-language fa-fw"></i> 语言</th><td><span class="repo-lang-icon lang-Jupyter-Notebook"></span> Jupyter Notebook (94.8%) + Python</td></tr>
+                            <tr><th><i class="fas fa-calendar-alt fa-fw"></i> 总上榜</th><td>4次</td></tr>
+                        </table>
+                        <h4 class="text-blue-600 mt-4 mb-2"><i class="fas fa-chart-line fa-fw"></i> 增长分析</h4>
+                        <p class="text-sm">上榜4天表现惊人 (总增 7353 Star，日均 470)。今日仍<strong class="highlight">新增 643 Star</strong>，增长势头强劲，关注度极高。</p>
+                     </div>
+                     <div>
+                         <h4 class="text-blue-600 mb-2"><i class="fas fa-book-open fa-fw"></i> 项目速读</h4>
+                        <p class="text-sm">微软开源的面向<strong class="highlight">零基础</strong>学习者的 AI Agent 入门课程。通过 10 个 lesson 结构化引导，<strong class="highlight">降低开发门槛</strong>。亮点：<strong class="highlight">动手实践性强</strong> (代码示例 + Azure AI Foundry), 引入<strong class="highlight">前沿框架</strong> (Semantic Kernel, AutoGen)。为希望快速入门 AI Agent 开发的开发者提供宝贵资源。</p>
+                     </div>
+                 </div>
+            </section>
+
+             <!-- Repository: ripienaar/free-for-dev -->
+            <section>
+                 <h3 class="slide-title"><i class="fas fa-gift fa-fw"></i> ripienaar/free-for-dev</h3>
+                 <p class="text-gray-600 text-sm mb-4">提供免费层的 SaaS、PaaS 和 IaaS 服务列表，对 DevOps 和 Infradev 有价值。</p>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                     <div>
+                         <h4 class="text-blue-600 mb-2"><i class="fas fa-info-circle fa-fw"></i> 基本信息</h4>
+                        <table>
+                            <tr><th><i class="fas fa-star fa-fw"></i> Stars</th><td>94.3k (今日 +123)</td></tr>
+                            <tr><th><i class="fas fa-code-branch fa-fw"></i> Forks</th><td>10.2k</td></tr>
+                            <tr><th><i class="fas fa-language fa-fw"></i> 语言</th><td><span class="repo-lang-icon lang-HTML"></span> HTML (100%)</td></tr>
+                            <tr><th><i class="fas fa-calendar-alt fa-fw"></i> 总上榜</th><td>2次</td></tr>
+                        </table>
+                        <h4 class="text-blue-600 mt-4 mb-2"><i class="fas fa-chart-line fa-fw"></i> 增长分析</h4>
+                        <p class="text-sm">上榜2天，日均新增 223 Star。今日新增 123 Star，增长相对<strong class="highlight">稳定</strong>。作为一个长期维护的资源列表，持续吸引开发者。</p>
+                     </div>
+                     <div>
+                        <h4 class="text-blue-600 mb-2"><i class="fas fa-book-open fa-fw"></i> 项目速读</h4>
+                        <p class="text-sm">开发者<strong class="highlight">免费云资源寻宝图</strong>，搜罗各类服务的免费套餐。解决寻找免费资源的难题。亮点：<strong class="highlight">社区驱动</strong> (千人贡献), <strong class="highlight">专注基础设施</strong>, 时效性强，只收录提供<strong class="highlight">至少一年免费层级</strong>的"即服务"产品。降低开发成本，是开发者和初创公司的福利。</p>
+                     </div>
+                 </div>
+            </section>
+
+             <!-- Repository: langgenius/dify -->
+            <section>
+                 <h3 class="slide-title"><i class="fas fa-cubes fa-fw"></i> langgenius/dify</h3>
+                 <p class="text-gray-600 text-sm mb-4">开源 LLM 应用开发平台，集 AI 工作流、RAG、Agent、模型管理、可观测性于一体。</p>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                         <h4 class="text-blue-600 mb-2"><i class="fas fa-info-circle fa-fw"></i> 基本信息</h4>
+                        <table>
+                            <tr><th><i class="fas fa-star fa-fw"></i> Stars</th><td>91k (今日 +500)</td></tr>
+                            <tr><th><i class="fas fa-code-branch fa-fw"></i> Forks</th><td>13.6k</td></tr>
+                            <tr><th><i class="fas fa-language fa-fw"></i> 语言</th><td><span class="repo-lang-icon lang-TypeScript"></span> TypeScript (56.6%) + Python, JS...</td></tr>
+                            <tr><th><i class="fas fa-calendar-alt fa-fw"></i> 连续在榜</th><td>2天</td></tr>
+                        </table>
+                         <h4 class="text-blue-600 mt-4 mb-2"><i class="fas fa-chart-line fa-fw"></i> 增长分析</h4>
+                        <p class="text-sm">上榜3天增长迅猛 (总增 3781 Star，日均 455.7)。今日<strong class="highlight">新增 500 Star</strong>，势头强劲，极受欢迎。</p>
+                    </div>
+                     <div>
+                         <h4 class="text-blue-600 mb-2"><i class="fas fa-book-open fa-fw"></i> 项目速读</h4>
+                        <p class="text-sm">开源 LLM 应用开发平台，如同 AI 应用的“乐高”工厂。解决 AI 应用构建部署的复杂性。优势：<strong class="highlight">集成性</strong> (工作流、RAG、Agent 等) 和 <strong class="highlight">易用性</strong> (直观界面)。大幅<strong class="highlight">缩短开发周期</strong>，降低技术门槛。适合快速迭代、验证 AI 应用想法的团队。</p>
+                     </div>
+                 </div>
+            </section>
+
+             <!-- Repository: mongodb-developer/GenAI-Showcase -->
+            <section>
+                 <h3 class="slide-title"><i class="fas fa-database fa-fw"></i> mongodb-developer/GenAI-Showcase</h3>
+                 <p class="text-gray-600 text-sm mb-4">GenAI 食谱：展示如何利用 MongoDB 构建 GenAI 应用。</p>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                         <h4 class="text-blue-600 mb-2"><i class="fas fa-info-circle fa-fw"></i> 基本信息</h4>
+                        <table>
+                            <tr><th><i class="fas fa-star fa-fw"></i> Stars</th><td>3.4k (今日 +51)</td></tr>
+                            <tr><th><i class="fas fa-code-branch fa-fw"></i> Forks</th><td>578</td></tr>
+                            <tr><th><i class="fas fa-language fa-fw"></i> 语言</th><td><span class="repo-lang-icon lang-Jupyter-Notebook"></span> Jupyter Notebook (96.6%) + TS, Py...</td></tr>
+                            <tr><th><i class="fas fa-calendar-alt fa-fw"></i> 总上榜</th><td>3次</td></tr>
+                        </table>
+                        <h4 class="text-blue-600 mt-4 mb-2"><i class="fas fa-chart-line fa-fw"></i> 增长分析</h4>
+                        <p class="text-sm">上榜3天内快速增长 (总增 >1000 Star，日均 192.7)。今日新增 51 Star，增长势头<strong class="highlight">显著减缓</strong>。</p>
+                    </div>
+                    <div>
+                        <h4 class="text-blue-600 mb-2"><i class="fas fa-book-open fa-fw"></i> 项目速读</h4>
+                        <p class="text-sm">GenAI “烹饪书”/案例集，展示 MongoDB 在 GenAI 领域的应用。专注解决 <strong class="highlight">RAG</strong> 和 <strong class="highlight">AI Agents</strong> 实际问题。将 MongoDB 作为<strong class="highlight">向量数据库、运营数据中心、记忆存储</strong>。提供丰富示例，降低 GenAI 应用入门门槛。适合希望将 MongoDB 融入 GenAI 工作流的开发者。</p>
+                    </div>
+                 </div>
+            </section>
+
+            <!-- End Slide -->
+            <section class="end-slide slide-center-title">
+                <h2 class="mt-20">感谢观看</h2>
+                <p class="mt-4">关注我们，获取更多前沿技术动态！</p>
+                 <div class="footer-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Core framework -->
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <!-- Extended dependencies -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <!-- Mermaid requires revealjs plugin, or manual init -->
+    <!-- <script src="path/to/reveal.js/plugin/markdown/markdown.js"></script> -->
+    <!-- <script src="path/to/reveal.js/plugin/highlight/highlight.js"></script> -->
+    <!-- <script src="path/to/reveal.js/plugin/notes/notes.js"></script> -->
+
+    <script>
+        // More info about initialization & config:
+        // - https://revealjs.com/initialization/
+        // - https://revealjs.com/config/
+        Reveal.initialize({
+            hash: true, // Enables deep linking slide
+            history: true, // Enables browser history management
+            controls: true, // Display controls in the bottom right corner
+            progress: true, // Display a presentation progress bar
+            slideNumber: 'c/t', // Display the page number of the current slide
+            center: true, // Vertical centering
+            transition: 'slide', // Transition style: none/fade/slide/convex/concave/zoom
+            transitionSpeed: 'default', // Transition speed: default/fast/slow
+            backgroundTransition: 'fade', // Background transition style
+
+            // Optional libraries that can be loaded if needed
+            // dependencies: [
+            //  { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            //  { src: 'plugin/highlight/highlight.js', async: true },
+            //  { src: 'plugin/notes/notes.js', async: true }
+            // ]
+        });
+
+        // Optional: Initialize Mermaid if you use mermaid diagrams
+        // mermaid.initialize({ startOnLoad: true });
+        // Reveal.addEventListener( 'ready', event => {
+        //     mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+        // });
+    </script>
+
+</body>
+</html>
