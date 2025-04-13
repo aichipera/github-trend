@@ -106,14 +106,14 @@ Neovim插件`avante.nvim`以+515星成涨幅冠军，显示编辑器生态持续
 # 本周每日Github热点项目分析
 
 | 时间  | 链接 |
-| ----  | ---- |
-| 周一  | TODO_URL |
-| 周二  | TODO_URL |
-| 周三  | TODO_URL |
-| 周四  | TODO_URL |
-| 周五  | TODO_URL |
-| 周六  | TODO_URL |
-| 周日  | TODO_URL |
+| --- | --------- |
+| 周一  | [GitHub开发者工具与AI基建双爆发，MCP协议成标准化新焦点(20250331-日报)](https://mp.weixin.qq.com/s?__biz=MzkyMzg3NTc1OQ==&mid=2247485948&idx=1&sn=5bbe08d0eab9d9675ed87cd70d8c5b1e&scene=21#wechat_redirect)          |
+| 周二  | [GitHub 热点观察：AI 开发工具大爆发，效率工具更个性，开源基建让你掌控数据(20250401-日报)](https://mp.weixin.qq.com/s?__biz=MzkyMzg3NTc1OQ==&mid=2247485998&idx=1&sn=6779893dc385ce89c29ec531e64a8fad&scene=21#wechat_redirect) |
+| 周三  | [GitHub热门洞察：AI赋能开发井喷，效率工具定制化，开源基建夯实数据主权(20250402-日报)](https://mp.weixin.qq.com/s?__biz=MzkyMzg3NTc1OQ==&mid=2247486019&idx=1&sn=1cea3e4c27e2c05922367cce85ee4d3a&scene=21#wechat_redirect)    |
+| 周四  | [AI工具火了！Rust也在崛起！开发者们正用这些技术重新定义效率(20250403-日报)](https://mp.weixin.qq.com/s?__biz=MzkyMzg3NTc1OQ==&mid=2247486027&idx=1&sn=3811779c7a1ab11ba937ccf108109fc0&scene=21#wechat_redirect)          |
+| 周五  | [GitHub爆款项目揭秘：AI炼丹炉、效率神器、数据可视化，下一个风口已现！(20250404-日报)](https://mp.weixin.qq.com/s?__biz=MzkyMzg3NTc1OQ==&mid=2247486035&idx=1&sn=82f40dc923fc9cf7322baf83ef622d7e&scene=21#wechat_redirect)    |
+| 周六  | 太忙，忘了 |
+| 周日  | [LLM 火了！今天 GitHub 上这些项目值得关注，机会可能就在里面！(20250406-日报)](https://mp.weixin.qq.com/s?__biz=MzkyMzg3NTc1OQ==&mid=2247486042&idx=1&sn=4de6820fc78dbf4ac5906da9252147c7&scene=21#wechat_redirect)      |
 
 
 # 详细仓库数据
