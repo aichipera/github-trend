@@ -1,0 +1,483 @@
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GitHub爆火项目揭秘：AI“绕过限制”与“本地化”成新宠</title>
+
+    <!-- Core Framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet" id="theme">
+
+    <!-- Extension Dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --r-main-font: 'Noto Sans SC', Tahoma,  "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: 'Noto Serif SC', serif;
+            --r-heading-color: #333;
+            --r-main-color: #333;
+            --r-link-color: #1E90FF; /* Dodger Blue */
+            --r-link-color-hover: #4682B4; /* Steel Blue */
+            --r-background-color: #f8f9fa; /* Light Gray */
+            --primary-accent-color: #0D6EFD; /* Bootstrap Blue */
+            --secondary-accent-color: #198754; /* Bootstrap Green */
+        }
+
+        body {
+            font-family: var(--r-main-font);
+        }
+
+        .reveal {
+            font-size: 16px; /* Base font size, rem units below will scale relative to this */
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--r-heading-color);
+            font-weight: 600;
+        }
+
+        .reveal h1 { font-size: 2.8rem; margin-bottom: 20px; }
+        .reveal h2 { font-size: 2.2rem; margin-bottom: 15px; }
+        .reveal h3 { font-size: 1.8rem; margin-bottom: 10px; }
+        .reveal p, .reveal li, .reveal td, .reveal th {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--r-main-color);
+        }
+        .reveal strong { font-weight: 600; color: var(--primary-accent-color); }
+
+        .reveal a {
+            color: var(--r-link-color);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .reveal a:hover {
+            color: var(--r-link-color-hover);
+            text-decoration: underline;
+        }
+
+        .reveal section img {
+            margin: 15px 0px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 0px solid #ddd; /* Removed border */
+            box-shadow: none; /* Removed shadow */
+            max-width: 95%;
+            max-height: 50vh; /* Limit image height */
+        }
+        .reveal section img.plain {
+             border: 0;
+             box-shadow: none;
+        }
+
+        /* Custom Styles for Aha Moment */
+        .reveal .slides {
+            text-align: left; /* Default align left */
+        }
+        .reveal .slides section {
+            padding: 20px 5%; /* Add padding */
+            box-sizing: border-box;
+        }
+
+        .reveal .slides section.center {
+            text-align: center;
+        }
+
+        .reveal .slide-title {
+            border-left: 5px solid var(--primary-accent-color);
+            padding-left: 15px;
+            margin-bottom: 30px !important;
+        }
+
+        .reveal .highlight {
+            color: var(--primary-accent-color);
+            font-weight: bold;
+        }
+
+        .reveal ul, .reveal ol {
+            margin-left: 1.5em;
+            margin-bottom: 1em;
+        }
+
+        .reveal li {
+            margin-bottom: 0.5em;
+        }
+
+        .reveal i.fa, .reveal i.fas, .reveal i.fab {
+            margin-right: 8px;
+            color: var(--secondary-accent-color); /* Green for icons */
+        }
+
+        /* Footer for Link and QR Code */
+        .footer-info {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            font-size: 0.7rem;
+            z-index: 10;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .footer-info img {
+            width: 50px; /* Adjust size as needed */
+            height: 50px;
+            margin: 0 0 0 10px !important; /* Override general img margin */
+            border: none !important;
+            box-shadow: none !important;
+        }
+         .footer-info a {
+             color: var(--r-link-color) !important;
+             font-weight: 500;
+         }
+         .footer-info a:hover {
+             color: var(--r-link-color-hover) !important;
+         }
+
+        /* Table Styling */
+        .reveal table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .reveal th, .reveal td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        .reveal th {
+            background-color: #f2f2f2;
+            font-weight: 600;
+            font-family: var(--r-heading-font);
+        }
+        .reveal tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Fragments for gradual reveal */
+        .reveal .fragment {
+            opacity: 0;
+            visibility: hidden;
+            transition: all .3s ease-in-out;
+        }
+        .reveal .fragment.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Backgrounds */
+        .bg-gradient-light {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+        .bg-gradient-blue {
+             background: linear-gradient(135deg, #e7f0fd 0%, #d0e0f8 100%);
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Cover Slide -->
+            <section data-background-gradient="radial-gradient(ellipse at center, rgba(255,255,255,0.8) 0%,rgba(220,230,255,0.7) 100%), url('https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80')" data-background-size="cover" data-background-position="center center">
+                <h1 class="text-4xl font-bold text-gray-800" style="font-family: var(--r-heading-font); color: #1a2a4d;">GitHub爆火项目揭秘</h1>
+                <h3 class="text-2xl text-gray-600 mt-4" style="font-family: var(--r-main-font); color: #3b4f76;">AI“绕过限制”与“本地化”成新宠，开发者狂欢！</h3>
+                <p class="mt-10 text-lg text-gray-500">
+                    主讲人：AIChipEra <br>
+                    <span class="text-sm">观测时间: 2025-04-14 20:52:55</span>
+                </p>
+                <div class="footer-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">Star us on GitHub!</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+            <!-- Disclaimer -->
+            <section>
+                <h2 class="slide-title"><i class="fas fa-exclamation-triangle text-yellow-500"></i>重要提示</h2>
+                <blockquote class="border-l-4 border-yellow-400 pl-4 italic text-gray-700">
+                    以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！
+                </blockquote>
+            </section>
+
+             <!-- Daily Highlights -->
+            <section class="bg-gradient-light">
+                <h2 class="slide-title"><i class="fas fa-lightbulb"></i>日报要点</h2>
+                <p class="fragment">告别付费束缚，拥抱数据自由！GitHub最新趋势报告新鲜出炉，揭示了开发者们对<strong class="highlight">AI工具</strong>的狂热追求。</p>
+                <p class="fragment">破解软件限制的<strong class="highlight">黑科技项目</strong>，让你免费畅享VIP功能，引发关于软件许可的深刻思考。</p>
+                <p class="fragment"><strong class="highlight">本地部署AI助手</strong>成为新潮流，用户对隐私安全的重视达到空前高度。</p>
+                <p class="fragment">更有AI金融、文档翻译、数字人技术等<strong class="highlight">多元化项目</strong>涌现，Python依旧强势领跑。</p>
+                <p class="fragment mt-4 text-lg">想知道未来技术风向标？想了解AI如何革新你的工作生活？速速点击，一起探索GitHub上的宝藏项目，解锁效率提升的秘密武器！</p>
+            </section>
+
+            <!-- Trend Analysis Section -->
+            <section>
+                 <h2 class="slide-title"><i class="fas fa-chart-line"></i>热门项目趋势分析</h2>
+
+                 <!-- Vertical Slide 1: Overall Trend -->
+                 <section>
+                     <h3 class="font-semibold text-xl mb-4"><i class="fas fa-binoculars"></i>今日整体趋势</h3>
+                     <p class="fragment">今日GitHub最受关注的技术领域呈现<strong class="highlight">多元化</strong>趋势：AI自动化、音视频本地化、AI金融、文档翻译、数字人、会议助手、网络安全、LSP配置、AI Agent、加密货币交易机器人、动手编程学习等均表现活跃。</p>
+                     <p class="fragment"><strong class="highlight">Python</strong> 依旧强势，主导AI、金融、安全等领域。Go在音视频本地化、C/C++在数字人/会议助手、Lua在Neovim配置中各有优势。Jupyter Notebook作为学习载体表现出色。</p>
+                     <p class="fragment">反映了用户对<strong class="highlight">自动化、智能化、便捷化</strong>工具的强烈需求，指向<strong class="highlight">提升效率、降低门槛、增强安全、拓展AI应用</strong>的共同方向。</p>
+                     <p class="fragment">与以往相比，AI应用场景<strong class="highlight">更丰富</strong>，同时对<strong class="highlight">个人隐私和数据安全</strong>关注度提高，<strong class="highlight">本地部署</strong>AI工具受青睐。</p>
+                     <p class="fragment">未来热点：<strong class="highlight">更易用、智能、安全的AI工具</strong>，以及<strong class="highlight">快速掌握新技术的学习资源</strong>。AI与本地化结合（如本地AI助手）将获更多关注。</p>
+                     <p class="fragment">今日特有趋势：关注<strong class="highlight">“绕过限制”</strong>（如Cursor-free-vip）和<strong class="highlight">“本地化”</strong>（如HeyGem.ai, Meetily），体现了用户在追求便利的同时，更关注自身权益和信息安全。</p>
+                 </section>
+
+                 <!-- Vertical Slide 2: Bi-Daily Comparison -->
+                 <section>
+                     <h3 class="font-semibold text-xl mb-4"><i class="fas fa-exchange-alt"></i>热门项目双日维度对比分析</h3>
+                     <p class="fragment">整体活跃度<strong class="highlight">略有上升</strong>，新晋项目稳定，上升趋势项目多于持平或下降项目。</p>
+                     <p class="fragment">新晋项目亮点：
+                         <ul>
+                             <li><code class="bg-gray-200 px-1 rounded">BabelDOC</code> (Python): AI文档生成</li>
+                             <li><code class="bg-gray-200 px-1 rounded">NetExec</code> (Python): 网络安全</li>
+                             <li><code class="bg-gray-200 px-1 rounded">HeyGem.ai</code> (C): 特定AI应用潜力</li>
+                             <li><code class="bg-gray-200 px-1 rounded">nvim-lspconfig</code> (Lua): Neovim生态</li>
+                             <li><code class="bg-gray-200 px-1 rounded">build-your-own-x</code> (Markdown): 实践教程受欢迎</li>
+                         </ul>
+                     </p>
+                     <p class="fragment">语言热度变化：TypeScript/Ruby<i class="fas fa-arrow-down text-red-500"></i>，C/Markdown<i class="fas fa-arrow-up text-green-500"></i>，C++<i class="fas fa-arrow-down text-red-500"></i>。</p>
+                     <p class="fragment">显著增长项目 (<strong class="highlight">AI相关</strong>)：
+                         <ul>
+                            <li><code class="bg-gray-200 px-1 rounded">yeongpin/cursor-free-vip</code></li>
+                            <li><code class="bg-gray-200 px-1 rounded">krillinai/KrillinAI</code></li>
+                            <li><code class="bg-gray-200 px-1 rounded">microsoft/ai-agents-for-beginners</code></li>
+                         </ul>
+                         预示AI领域持续升温，开发者对工具和学习资源需求强烈。
+                     </p>
+                 </section>
+
+                 <!-- Vertical Slide 3: Hotspot Changes -->
+                 <section>
+                     <h3 class="font-semibold text-xl mb-4"><i class="fas fa-fire"></i>热点变化</h3>
+                     <ul class="list-disc space-y-2">
+                         <li class="fragment"><strong class="text-green-600"><i class="fas fa-plus-circle"></i> 新增热点:</strong> <code class="bg-gray-200 px-1 rounded">neovim/nvim-lspconfig</code>, <code class="bg-gray-200 px-1 rounded">pennyw0rth/netexec</code>, <code class="bg-gray-200 px-1 rounded">guijiai/heygem.ai</code>, <code class="bg-gray-200 px-1 rounded">funstory-ai/babeldoc</code>, <code class="bg-gray-200 px-1 rounded">codecrafters-io/build-your-own-x</code></li>
+                         <li class="fragment"><strong class="text-red-600"><i class="fas fa-minus-circle"></i> 减退热点:</strong> <code class="bg-gray-200 px-1 rounded">colinhacks/zod</code>, <code class="bg-gray-200 px-1 rounded">maybe-finance/maybe</code>, <code class="bg-gray-200 px-1 rounded">vercel/ai-chatbot</code>, <code class="bg-gray-200 px-1 rounded">stanfordnlp/dspy</code>, <code class="bg-gray-200 px-1 rounded">ocornut/imgui</code>, <code class="bg-gray-200 px-1 rounded">automatic1111/stable-diffusion-webui</code>, <code class="bg-gray-200 px-1 rounded">nvim-lua/kickstart.nvim</code></li>
+                         <li class="fragment"><strong class="text-blue-600"><i class="fas fa-sync-alt"></i> 持续热门:</strong> <code class="bg-gray-200 px-1 rounded">yeongpin/cursor-free-vip</code> (4天), <code class="bg-gray-200 px-1 rounded">krillinai/KrillinAI</code> (5天), <code class="bg-gray-200 px-1 rounded">microsoft/ai-agents-for-beginners</code> (5天)</li>
+                     </ul>
+                 </section>
+            </section>
+
+            <!-- Detailed Repositories Intro -->
+            <section class="center bg-gradient-blue">
+                <h2 class="slide-title"><i class="fas fa-database"></i>详细仓库数据</h2>
+                <p>深入了解今日热门的 GitHub 项目</p>
+            </section>
+
+            <!-- Repo 1: cursor-free-vip -->
+            <section>
+                 <h2 class="text-2xl mb-3"><a href="https://github.com/yeongpin/cursor-free-vip" target="_blank"><i class="fab fa-python"></i> yeongpin/cursor-free-vip</a></h2>
+                 <p class="text-sm italic mb-4">自动注册/登录 & 绕过 Cursor AI 限制，免费使用 Pro 功能。</p>
+                 <table>
+                     <thead><tr><th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                     <tbody><tr><td><a href="https://github.com/yeongpin/cursor-free-vip" target="_blank">yeongpin/cursor-free-vip</a></td><td>Python</td><td>14556 <i class="fas fa-star text-yellow-500"></i></td><td>4天</td><td>4次</td><td>2591 <i class="fas fa-arrow-up text-green-500"></i></td></tr></tbody>
+                 </table>
+                 <h3 class="text-lg font-semibold mt-4"><i class="fas fa-book-reader"></i> 项目速读</h3>
+                 <p>Python 自动化工具，通过自动注册、重置机器ID等方式<strong class="highlight">突破 Cursor AI 免费试用限制</strong>，让用户免费体验Pro功能。亮点在于<strong class="highlight">自动化能力</strong>和跨平台支持（Win/macOS/Linux）。<strong class="highlight">仅供学习研究</strong>，注意遵守软件使用条款。</p>
+                 <h3 class="text-lg font-semibold mt-2"><i class="fas fa-chart-bar"></i> 增长分析</h3>
+                 <p>4天内<strong class="highlight">+4809 Star</strong> (日均1549.2)，今日<strong class="highlight">+2591 Star</strong>，增长势头强劲，热度可能持续攀升。</p>
+            </section>
+
+            <!-- Repo 2: KrillinAI -->
+            <section>
+                 <h2 class="text-2xl mb-3"><a href="https://github.com/krillinai/KrillinAI" target="_blank"><i class="fab fa-golang"></i> krillinai/KrillinAI</a></h2>
+                 <p class="text-sm italic mb-4">基于LLM的视频翻译和配音工具，提供专业级翻译和一键式部署。</p>
+                 <table>
+                     <thead><tr><th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                     <tbody><tr><td><a href="https://github.com/krillinai/KrillinAI" target="_blank">krillinai/KrillinAI</a></td><td>Go</td><td>3783 <i class="fas fa-star text-yellow-500"></i></td><td>5天</td><td>5次</td><td>679 <i class="fas fa-arrow-up text-green-500"></i></td></tr></tbody>
+                 </table>
+                 <h3 class="text-lg font-semibold mt-4"><i class="fas fa-book-reader"></i> 项目速读</h3>
+                 <p>AI驱动的音视频翻译配音利器，利用LLM和语音技术简化视频本地化流程。核心优势是<strong class="highlight">专业级翻译</strong>、便捷的<strong class="highlight">全流程部署</strong>（智能分段、术语替换、声音克隆）。降低多语言视频制作门槛，释放内容价值。</p>
+                 <h3 class="text-lg font-semibold mt-2"><i class="fas fa-chart-bar"></i> 增长分析</h3>
+                 <p>5天内<strong class="highlight">+2290 Star</strong> (日均508.2)，今日<strong class="highlight">+679 Star</strong>，增长仍在加速。</p>
+            </section>
+
+            <!-- Repo 3: ai-hedge-fund -->
+             <section>
+                 <h2 class="text-2xl mb-3"><a href="https://github.com/virattt/ai-hedge-fund" target="_blank"><i class="fab fa-python"></i> virattt/ai-hedge-fund</a></h2>
+                 <p class="text-sm italic mb-4">用 AI 模拟对冲基金团队运作的实验性项目。</p>
+                 <table>
+                     <thead><tr><th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                     <tbody><tr><td><a href="https://github.com/virattt/ai-hedge-fund" target="_blank">virattt/ai-hedge-fund</a></td><td>Python</td><td>21431 <i class="fas fa-star text-yellow-500"></i></td><td>2天</td><td>4次</td><td>360 <i class="fas fa-arrow-up text-green-500"></i></td></tr></tbody>
+                 </table>
+                 <h3 class="text-lg font-semibold mt-4"><i class="fas fa-book-reader"></i> 项目速读</h3>
+                 <p>构建由多个<strong class="highlight">AI Agent（模拟不同投资风格）组成的“投资团队”</strong>，进行市场分析预测。亮点在于<strong class="highlight">多样化Agent设计</strong>和<strong class="highlight">协同决策机制</strong>，提供回测工具。探索AI在金融领域潜力，提供量化交易学习平台。<strong class="highlight">仅供学习研究</strong>，非投资建议。</p>
+                 <h3 class="text-lg font-semibold mt-2"><i class="fas fa-chart-bar"></i> 增长分析</h3>
+                 <p>4天内<strong class="highlight">+5681 Star</strong> (日均335)，增长速度极高。今日<strong class="highlight">+360 Star</strong>，热度虽可能过峰值，但仍保持较高关注度。</p>
+            </section>
+
+            <!-- Repo 4: BabelDOC -->
+            <section>
+                 <h2 class="text-2xl mb-3"><a href="https://github.com/funstory-ai/BabelDOC" target="_blank"><i class="fab fa-python"></i> funstory-ai/BabelDOC</a></h2>
+                 <p class="text-sm italic mb-4">又一个文档翻译器，专注于PDF论文双语对照阅读。</p>
+                 <table>
+                     <thead><tr><th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                     <tbody><tr><td><a href="https://github.com/funstory-ai/BabelDOC" target="_blank">funstory-ai/BabelDOC</a></td><td>Python</td><td>2158 <i class="fas fa-star text-yellow-500"></i></td><td>1天</td><td>4次</td><td>161 <i class="fas fa-arrow-up text-green-500"></i></td></tr></tbody>
+                 </table>
+                 <h3 class="text-lg font-semibold mt-4"><i class="fas fa-book-reader"></i> 项目速读</h3>
+                 <p>文档翻译利器，尤其适合科研人员阅读英文论文。核心功能是生成<strong class="highlight">PDF双语对照版本</strong>。优势在于<strong class="highlight">灵活性</strong>（命令行/嵌入）、<strong class="highlight">可扩展性</strong>（支持多种翻译服务如OpenAI）、能<strong class="highlight">分割合并大文档</strong>。提升阅读效率和理解深度。</p>
+                 <h3 class="text-lg font-semibold mt-2"><i class="fas fa-chart-bar"></i> 增长分析</h3>
+                 <p>实际上榜4天，<strong class="highlight">+1345 Star</strong> (日均162.8)，增长势头强劲，受欢迎程度高。</p>
+            </section>
+
+             <!-- Repo 5: HeyGem.ai -->
+             <section>
+                 <h2 class="text-2xl mb-3"><a href="https://github.com/GuijiAI/HeyGem.ai" target="_blank"><i class="fas fa-microchip"></i> GuijiAI/HeyGem.ai</a></h2>
+                 <p class="text-sm italic mb-4">开源、本地部署的 Heygen 替代方案，用于数字人视频制作。</p>
+                 <table>
+                     <thead><tr><th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                     <tbody><tr><td><a href="https://github.com/GuijiAI/HeyGem.ai" target="_blank">GuijiAI/HeyGem.ai</a></td><td>C</td><td>6662 <i class="fas fa-star text-yellow-500"></i></td><td>1天</td><td>2次</td><td>172 <i class="fas fa-arrow-up text-green-500"></i></td></tr></tbody>
+                 </table>
+                 <h3 class="text-lg font-semibold mt-4"><i class="fas fa-book-reader"></i> 项目速读</h3>
+                 <p>提供<strong class="highlight">本地部署</strong>的数字人视频制作方案，保护用户隐私。核心优势在于<strong class="highlight">高精度克隆技术</strong>（外貌、声音、表情）和<strong class="highlight">自然流畅</strong>的生成效果。支持多语言、开源免费，降低使用门槛。提供商业API服务。适合注重隐私、需高度定制化的用户。</p>
+                 <h3 class="text-lg font-semibold mt-2"><i class="fas fa-chart-bar"></i> 增长分析</h3>
+                 <p>实际上榜2天，<strong class="highlight">+321 Star</strong> (日均163)，日增Star稳定且较高，项目吸引力强，可能处于快速增长期。</p>
+            </section>
+
+             <!-- Repo 6: meeting-minutes -->
+             <section>
+                 <h2 class="text-2xl mb-3"><a href="https://github.com/Zackriya-Solutions/meeting-minutes" target="_blank"><i class="fas fa-file-alt"></i> Zackriya-Solutions/meeting-minutes</a></h2>
+                 <p class="text-sm italic mb-4">免费开源、可自托管、本地运行的AI实时会议记录和纪要总结生成器。</p>
+                 <table>
+                     <thead><tr><th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                     <tbody><tr><td><a href="https://github.com/Zackriya-Solutions/meeting-minutes" target="_blank">Zackriya-Solutions/meeting-minutes</a></td><td>C++</td><td>2399 <i class="fas fa-star text-yellow-500"></i></td><td>2天</td><td>2次</td><td>518 <i class="fas fa-arrow-up text-green-500"></i></td></tr></tbody>
+                 </table>
+                 <h3 class="text-lg font-semibold mt-4"><i class="fas fa-book-reader"></i> 项目速读</h3>
+                 <p>Meetily是一款注重隐私的开源AI会议助手。通过<strong class="highlight">本地运行的AI模型</strong>，实时转录会议内容并自动生成摘要。最大亮点是<strong class="highlight">数据本地处理</strong>，保障安全，避免API费用。适合重视数据安全、追求高效会议记录的团队。</p>
+                 <h3 class="text-lg font-semibold mt-2"><i class="fas fa-chart-bar"></i> 增长分析</h3>
+                 <p>上榜2天，<strong class="highlight">+518 Star</strong> (日均325)，首日即获大量关注，增长迅猛，潜力高。</p>
+            </section>
+
+            <!-- Repo 7: NetExec -->
+             <section>
+                 <h2 class="text-2xl mb-3"><a href="https://github.com/Pennyw0rth/NetExec" target="_blank"><i class="fab fa-python"></i> Pennyw0rth/NetExec</a></h2>
+                 <p class="text-sm italic mb-4">社区驱动的网络执行工具，源自 CrackMapExec。</p>
+                 <table>
+                     <thead><tr><th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                     <tbody><tr><td><a href="https://github.com/Pennyw0rth/NetExec" target="_blank">Pennyw0rth/NetExec</a></td><td>Python</td><td>3804 <i class="fas fa-star text-yellow-500"></i></td><td>1天</td><td>1次</td><td>31 <i class="fas fa-arrow-up text-green-500"></i></td></tr></tbody>
+                 </table>
+                 <h3 class="text-lg font-semibold mt-4"><i class="fas fa-book-reader"></i> 项目速读</h3>
+                 <p>为安全专业人员提供强大的网络安全评估能力。核心优势是<strong class="highlight">开源特性</strong>和<strong class="highlight">活跃的社区支持</strong>，可自由定制扩展，定期更新。帮助用户理解和加固网络环境。适合需进行网络安全审计、渗透测试的安全团队。</p>
+                 <!-- No growth analysis provided in source for this one, inferred from low daily increase -->
+                 <h3 class="text-lg font-semibold mt-2"><i class="fas fa-chart-bar"></i> 增长分析</h3>
+                 <p>首次上榜，今日新增 <strong class="highlight">31 Star</strong>。虽然新增不多，但作为 CrackMapExec 的继任者，具有一定的基础关注度。</p>
+            </section>
+
+            <!-- Repo 8: nvim-lspconfig -->
+             <section>
+                 <h2 class="text-2xl mb-3"><a href="https://github.com/neovim/nvim-lspconfig" target="_blank"><i class="fas fa-code"></i> neovim/nvim-lspconfig</a></h2>
+                 <p class="text-sm italic mb-4">Nvim LSP (Language Server Protocol) 快速启动配置集合。</p>
+                 <table>
+                     <thead><tr><th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                     <tbody><tr><td><a href="https://github.com/neovim/nvim-lspconfig" target="_blank">neovim/nvim-lspconfig</a></td><td>Lua</td><td>11568 <i class="fas fa-star text-yellow-500"></i></td><td>1天</td><td>1次</td><td>11 <i class="fas fa-arrow-up text-green-500"></i></td></tr></tbody>
+                 </table>
+                 <h3 class="text-lg font-semibold mt-4"><i class="fas fa-book-reader"></i> 项目速读</h3>
+                 <p>Neovim的LSP<strong class="highlight">“即插即用”配置中心</strong>，提供各种LSP服务器的预配置蓝图，简化配置流程。核心优势是<strong class="highlight">社区驱动的配置集合</strong>，覆盖广、质量可靠，易于定制。降低LSP使用门槛，提升Neovim编码效率。</p>
+                 <h3 class="text-lg font-semibold mt-2"><i class="fas fa-chart-bar"></i> 增长分析</h3>
+                 <p>首次上榜，今日新增 <strong class="highlight">11 Star</strong>。作为 Neovim 生态的基础设施，其增长通常稳定而非爆发式。</p>
+            </section>
+
+            <!-- Repo 9: ai-agents-for-beginners -->
+            <section>
+                 <h2 class="text-2xl mb-3"><a href="https://github.com/microsoft/ai-agents-for-beginners" target="_blank"><i class="fas fa-robot"></i> microsoft/ai-agents-for-beginners</a></h2>
+                 <p class="text-sm italic mb-4">微软出品：构建AI Agent入门的10个实践课程。</p>
+                 <table>
+                     <thead><tr><th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                     <tbody><tr><td><a href="https://github.com/microsoft/ai-agents-for-beginners" target="_blank">microsoft/ai-agents-for-beginners</a></td><td>Jupyter Notebook</td><td>14114 <i class="fas fa-star text-yellow-500"></i></td><td>5天</td><td>7次</td><td>688 <i class="fas fa-arrow-up text-green-500"></i></td></tr></tbody>
+                 </table>
+                 <h3 class="text-lg font-semibold mt-4"><i class="fas fa-book-reader"></i> 项目速读</h3>
+                 <p>为AI Agent初学者打造的<strong class="highlight">入门教程</strong>。通过10节课程揭秘AI Agent构建，提供多语言支持。结合<strong class="highlight">Azure AI Foundry</strong>和<strong class="highlight">GitHub Model Catalogs</strong>，实践Azure AI Agent Service, Semantic Kernel, AutoGen等框架。适合渴望掌握构建智能Agent技能的学习者。</p>
+                 <h3 class="text-lg font-semibold mt-2"><i class="fas fa-chart-bar"></i> 增长分析</h3>
+                 <p>7天内<strong class="highlight">+9059 Star</strong> (日均521.3)，增长迅速。今日<strong class="highlight">+688 Star</strong>，增长势头依然强劲。</p>
+            </section>
+
+             <!-- Repo 10: freqtrade -->
+             <section>
+                 <h2 class="text-2xl mb-3"><a href="https://github.com/freqtrade/freqtrade" target="_blank"><i class="fab fa-python"></i> freqtrade/freqtrade</a></h2>
+                 <p class="text-sm italic mb-4">免费开源的加密货币交易机器人。</p>
+                 <table>
+                     <thead><tr><th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                     <tbody><tr><td><a href="https://github.com/freqtrade/freqtrade" target="_blank">freqtrade/freqtrade</a></td><td>Python</td><td>38125 <i class="fas fa-star text-yellow-500"></i></td><td>2天</td><td>2次</td><td>230 <i class="fas fa-arrow-up text-green-500"></i></td></tr></tbody>
+                 </table>
+                 <h3 class="text-lg font-semibold mt-4"><i class="fas fa-book-reader"></i> 项目速读</h3>
+                 <p>基于 Python 的开源加密货币交易机器人，实现<strong class="highlight">自动化交易</strong>。提供策略回测、优化、实盘交易、风险管理全流程。亮点是<strong class="highlight">高度灵活性</strong>和<strong class="highlight">可定制性</strong>，可用Python编写策略，并借助<strong class="highlight">FreqAI (机器学习)</strong>进行优化。适合有一定编程和交易经验的用户。</p>
+                 <h3 class="text-lg font-semibold mt-2"><i class="fas fa-chart-bar"></i> 增长分析</h3>
+                 <p>上榜2天，<strong class="highlight">+223 Star</strong> (日均127.5)。今日<strong class="highlight">+230 Star</strong>，短期增长势头良好。</p>
+            </section>
+
+            <!-- Repo 11: build-your-own-x -->
+            <section>
+                 <h2 class="text-2xl mb-3"><a href="https://github.com/codecrafters-io/build-your-own-x" target="_blank"><i class="fas fa-pencil-ruler"></i> codecrafters-io/build-your-own-x</a></h2>
+                 <p class="text-sm italic mb-4">通过从零开始重新创建你最喜欢的技术来掌握编程。</p>
+                 <table>
+                     <thead><tr><th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                     <tbody><tr><td><a href="https://github.com/codecrafters-io/build-your-own-x" target="_blank">codecrafters-io/build-your-own-x</a></td><td>Markdown</td><td>370934 <i class="fas fa-star text-yellow-500"></i></td><td>1天</td><td>5次</td><td>277 <i class="fas fa-arrow-up text-green-500"></i></td></tr></tbody>
+                 </table>
+                 <h3 class="text-lg font-semibold mt-4"><i class="fas fa-book-reader"></i> 项目速读</h3>
+                 <p>提供一系列详尽教程，引导开发者<strong class="highlight">从零构建各种软件</strong>（操作系统、数据库、Web服务器等）。核心价值在于<strong class="highlight">“做中学”</strong>的理念，在实践中深刻理解技术原理。提供清晰学习路径，提升编程能力。适合希望通过实践深入理解技术的开发者。</p>
+                 <h3 class="text-lg font-semibold mt-2"><i class="fas fa-chart-bar"></i> 增长分析</h3>
+                 <p>实际上榜5天，<strong class="highlight">+18866 Star</strong> (日均845)，增长速度极高。今日仍有 <strong class="highlight">+277 Star</strong>，具有持续吸引力。</p>
+            </section>
+
+            <!-- End Slide -->
+            <section class="center bg-gradient-light">
+                <h2 class="text-3xl font-bold" style="font-family: var(--r-heading-font);">感谢观看</h2>
+                <p class="mt-4 text-lg">关注我们，获取更多 GitHub 趋势与 AI 前沿资讯！</p>
+                <i class="fas fa-hand-point-right fa-2x mt-6 mb-2 text-blue-500 animate-pulse"></i>
+                <div class="footer-info" style="position: static; display: inline-flex; margin-top: 20px; background: transparent;"> <!-- Make footer static and centered -->
+                     <a href="https://github.com/aichipera/github-trend" target="_blank">Star us on GitHub!</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code" class="plain">
+                </div>
+            </section>
+
+        </div>
+        <!-- Footer outside slides div for consistency? Reveal handles positioning. Let's keep it inside slides for per-slide logic -->
+        <!-- <div class="footer-info"> -->
+            <!-- Content handled per slide -->
+        <!-- </div> -->
+    </div>
+
+    <!-- Core Framework Script -->
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <!-- Extension Dependencies Script -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <script>
+        // More info about initialization & config:
+        // - https://revealjs.com/config/
+        // - https://revealjs.com/api/
+        Reveal.initialize({
+            hash: true, // Adds slide number hash to URL
+            history: true, // Enables browser history management
+            center: true, // Vertical centering
+            slideNumber: 'c/t', // Display the page number of the current slide (c) and the total number of slides (t)
+            transition: 'fade', // Transition style
+            transitionSpeed: 'fast', // Transition speed
+            // Learn about plugins: https://revealjs.com/plugins/
+            plugins: [] // Add plugins here if needed
+        });
+
+        // Initialize Mermaid if you use it
+        // mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+
+</html>
