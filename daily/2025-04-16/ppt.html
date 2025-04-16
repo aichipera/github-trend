@@ -1,0 +1,746 @@
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>GitHub热门趋势分析 - AI金融、跨平台应用井喷</title>
+
+    <meta name="description" content="GitHub热门趋势分析报告，探索AI金融、跨平台应用、效率工具和Rust社区的最新动态。">
+    <meta name="author" content="AIChipEra">
+
+    <!-- Core Framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <!-- Theme - Using white theme as a base and customizing -->
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet" id="theme">
+
+    <!-- Extension Dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Custom Styles for "Aha Moment" Feel -->
+    <style>
+        :root {
+            --r-main-font: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: 'Noto Serif SC', serif;
+            --r-heading-color: #1F2937; /* Dark Gray */
+            --r-main-color: #374151; /* Medium Gray */
+            --r-link-color: #3B82F6; /* Blue */
+            --r-link-color-hover: #2563EB;
+            --r-background-color: #F9FAFB; /* Very Light Gray/White */
+
+            --aha-primary-color: #3B82F6; /* Blue */
+            --aha-secondary-color: #10B981; /* Green */
+            --aha-accent-color: #F59E0B; /* Amber */
+        }
+
+        body {
+            font-family: var(--r-main-font);
+        }
+
+        .reveal {
+            font-size: 20px; /* Base font size for scaling */
+        }
+
+        .reveal .slides section,
+        .reveal .slides section>section {
+            padding: 20px; /* Default padding */
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--r-heading-color);
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .reveal h1 { font-size: 2.8rem; margin-bottom: 20px; }
+        .reveal h2 { font-size: 2.2rem; margin-bottom: 15px; }
+        .reveal h3 { font-size: 1.8rem; margin-bottom: 10px; }
+        .reveal h4 { font-size: 1.5rem; margin-bottom: 8px; }
+        .reveal p, .reveal li {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--r-main-color);
+        }
+        .reveal strong {
+             font-weight: 600;
+             color: var(--aha-primary-color);
+        }
+
+        .reveal a {
+            color: var(--r-link-color);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .reveal a:hover {
+            color: var(--r-link-color-hover);
+            text-decoration: underline;
+        }
+
+        /* Aha Moment Styling */
+        .reveal .slides section.aha-gradient-bg {
+            background: linear-gradient(135deg, var(--aha-primary-color) 0%, var(--aha-secondary-color) 100%);
+            color: white;
+        }
+        .reveal .slides section.aha-gradient-bg h1,
+        .reveal .slides section.aha-gradient-bg h2,
+        .reveal .slides section.aha-gradient-bg h3,
+        .reveal .slides section.aha-gradient-bg p,
+        .reveal .slides section.aha-gradient-bg li {
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        .reveal .slides section.aha-gradient-bg a {
+             color: var(--aha-accent-color);
+        }
+         .reveal .slides section.aha-gradient-bg a:hover {
+             color: #FBBF24; /* Lighter Amber */
+         }
+
+        .reveal .slides section.cover-slide {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 90vh; /* Ensure it takes full height */
+            background-size: cover;
+            background-position: center;
+            /* Add a subtle overlay */
+            background-color: rgba(255, 255, 255, 0.8);
+            background-blend-mode: overlay;
+        }
+
+        .reveal .slides section.cover-slide h1 {
+            font-size: 3.5rem;
+            color: var(--r-heading-color);
+            margin-bottom: 0.5em;
+        }
+         .reveal .slides section.cover-slide h2 {
+            font-size: 1.8rem;
+            color: var(--r-main-color);
+            font-family: var(--r-main-font); /* Subtitle uses main font */
+            font-weight: 400;
+            margin-bottom: 1.5em;
+        }
+        .reveal .slides section.cover-slide .speaker {
+            font-size: 1.2rem;
+            color: var(--r-main-color);
+            margin-top: 2em;
+        }
+
+        /* Custom background for specific sections */
+         .reveal .slides section[data-background-gradient] {
+              background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+         }
+         .reveal .slides section.section-title {
+             background: linear-gradient(to right, var(--aha-primary-color), var(--aha-secondary-color));
+             color: white;
+         }
+        .reveal .slides section.section-title h2 {
+            color: white;
+        }
+
+        /* Footer for link and QR code */
+        .slide-footer {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            font-size: 0.7rem;
+            color: #6B7280; /* Gray-500 */
+        }
+        .slide-footer a {
+            color: #6B7280;
+            margin-right: 10px;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+         .slide-footer a:hover {
+            color: var(--r-link-color);
+         }
+        .slide-footer img {
+            width: 50px; /* Adjust size as needed */
+            height: 50px;
+        }
+
+        /* Card style for repository details */
+        .repo-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 20px;
+            text-align: left;
+            border-left: 5px solid var(--aha-primary-color);
+        }
+         .repo-card h3 {
+            color: var(--aha-primary-color);
+            margin-top: 0;
+            margin-bottom: 15px;
+         }
+         .repo-card .repo-meta {
+             display: flex;
+             flex-wrap: wrap;
+             gap: 15px;
+             margin-bottom: 15px;
+             font-size: 0.9rem;
+             color: #4B5563; /* Gray-600 */
+         }
+         .repo-card .repo-meta span {
+             display: inline-flex;
+             align-items: center;
+         }
+          .repo-card .repo-meta i {
+              margin-right: 5px;
+              color: var(--aha-secondary-color);
+          }
+         .repo-card .lang-bar {
+            height: 8px;
+            background-color: #E5E7EB; /* Gray-200 */
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+         }
+         .repo-card .lang-bar div {
+            height: 100%;
+            background-color: var(--aha-secondary-color);
+         }
+         .repo-card p {
+             font-size: 1rem;
+             line-height: 1.6;
+         }
+
+        /* Enhance list items */
+        .reveal ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .reveal li {
+            position: relative;
+            padding-left: 1.5em;
+            margin-bottom: 0.8em;
+        }
+        .reveal li::before {
+            content: "\f138"; /* Font Awesome check-circle or similar */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 0.15em;
+            color: var(--aha-secondary-color);
+            font-size: 0.9em;
+        }
+
+        .reveal .fragment.fade-in-then-semi-out {
+            opacity: 0;
+            transition: all .2s ease-in-out;
+            will-change: opacity;
+        }
+        .reveal .fragment.fade-in-then-semi-out.visible:not(.current-fragment) {
+            opacity: 0.5; /* Fade out slightly when not current */
+        }
+         .reveal .fragment.fade-in-then-semi-out.current-fragment {
+             opacity: 1;
+         }
+
+        /* Mermaid diagram styling */
+        .mermaid {
+             text-align: center;
+             margin-top: 20px;
+             margin-bottom: 20px;
+         }
+
+        /* Ensure high contrast */
+        .reveal .slides section {
+             color: var(--r-main-color); /* Default text color */
+        }
+         .reveal .slides section[data-background-color] {
+             /* Logic to adjust text color based on background might be needed if using dark backgrounds often */
+             /* Example: section[data-background-color="#1F2937"] { color: white; } */
+         }
+
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Cover Slide -->
+            <section class="cover-slide" data-background-image="https://source.unsplash.com/random/1600x900?technology,abstract" data-background-opacity="0.6">
+                <h1 class="text-shadow-md">GitHub 热门趋势分析</h1>
+                <h2 class="font-light">开发者狂喜！AI金融、跨平台应用井喷</h2>
+                <p class="speaker mt-12 text-gray-600">演讲者: AIChipEra</p>
+                <div class="slide-footer">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        <i class="fab fa-github"></i> github.com/aichipera/github-trend
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+            <!-- Disclaimer -->
+            <section data-background-gradient>
+                <h2><i class="fas fa-exclamation-triangle text-yellow-500 mr-2"></i>重要提示</h2>
+                <p class="text-sm text-gray-600 mt-4">
+                    Github热门仓库**日报**观测时间为 <strong>2025-04-16 20:53:09</strong>
+                </p>
+                <blockquote class="mt-4 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 italic">
+                    以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！
+                </blockquote>
+            </section>
+
+            <!-- Main Title / Aha Moment Intro -->
+            <section class="aha-gradient-bg text-center">
+                <h1 class="text-4xl font-bold tracking-tight">开发者狂喜！</h1>
+                 <p class="mt-4 text-2xl fragment fade-in-then-semi-out">AI金融、跨平台应用井喷</p>
+                 <p class="mt-2 text-2xl fragment fade-in-then-semi-out">效率工具成新宠</p>
+                 <p class="mt-2 text-2xl fragment fade-in-then-semi-out">Rust社区强势崛起！</p>
+                 <p class="mt-8 text-lg fragment"> <i class="fas fa-lightbulb mr-2 text-yellow-300"></i> 带你一览 GitHub 热门项目，掌握技术前沿动态！</p>
+            </section>
+
+            <!-- Daily Highlights -->
+            <section data-background-gradient>
+                 <h2><i class="far fa-newspaper mr-2 text-blue-500"></i>日报要点</h2>
+                 <h3 class="text-2xl mt-4">开发者狂喜！AI金融、跨平台应用井喷，效率工具成新宠，Rust社区强势崛起！</h3>
+                 <p class="mt-4 text-gray-700">还在为复杂的代码抓耳挠腮？GitHub最新趋势告诉你，开发者们已经找到了新方向！AI不再是空中楼阁，金融投资、会议记录都能搞定！Dioxus等跨平台框架让你一套代码跑遍天下，效率工具更是层出不穷，解放你的双手。更有Rust社区异军突起，性能与安全兼得！</p>
+                 <p class="mt-4 fragment text-blue-600 font-semibold">速速点击，深入了解！ <i class="fas fa-arrow-right ml-1"></i></p>
+            </section>
+
+             <!-- Trend Analysis Section -->
+            <section>
+                <section class="section-title">
+                    <h2><i class="fas fa-chart-line mr-2"></i>热门项目趋势分析</h2>
+                </section>
+
+                <section data-background-gradient>
+                    <h3><i class="fas fa-binoculars mr-2"></i>今日整体趋势</h3>
+                    <ul>
+                        <li class="fragment fade-in-then-semi-out"><strong>AI 应用深化:</strong> 不再局限于理论，加速渗透金融、办公、数据查询等领域。</li>
+                        <li class="fragment fade-in-then-semi-out"><strong>效率工具升温:</strong> 开发者追求简化流程、降低门槛的工具与框架。</li>
+                        <li class="fragment fade-in-then-semi-out"><strong>跨平台受青睐:</strong> 一套代码覆盖多端，降低开发与维护成本。</li>
+                        <li class="fragment fade-in-then-semi-out"><strong>语言生态:</strong>
+                            <span class="inline-block bg-blue-100 text-blue-800 px-2 py-1 rounded mr-1">Python (AI/数据)</span>
+                            <span class="inline-block bg-red-100 text-red-800 px-2 py-1 rounded mr-1">Rust (高性能/安全)</span>
+                            <span class="inline-block bg-purple-100 text-purple-800 px-2 py-1 rounded">TypeScript (前端/大型项目)</span>
+                        </li>
+                        <li class="fragment fade-in-then-semi-out"><strong>关注点转变:</strong> 从底层技术（容器化、微服务）转向基于基础设施构建智能高效应用。</li>
+                     </ul>
+                 </section>
+
+                <section data-background-gradient>
+                     <h3><i class="fas fa-glasses mr-2"></i>趋势洞察与预测</h3>
+                     <ul>
+                        <li class="fragment fade-in-then-semi-out"><strong>实用性驱动:</strong> AI应用更贴近实际需求 (会议记录、金融分析)。</li>
+                        <li class="fragment fade-in-then-semi-out"><strong>易用性至上:</strong> 简化开发、降低门槛的工具持续涌现。</li>
+                        <li class="fragment fade-in-then-semi-out text-indigo-600"><strong>下一波热点预测:</strong>
+                            <ul class="ml-6 mt-2 text-sm">
+                                <li><i class="fas fa-shield-alt mr-1 text-green-500"></i> 本地化 AI 应用 (隐私保护)</li>
+                                <li><i class="fas fa-magic mr-1 text-purple-500"></i> 低代码/无代码平台</li>
+                                <li><i class="fab fa-chrome mr-1 text-orange-500"></i> WebAssembly 跨平台方案</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+
+                <section data-background-gradient>
+                    <h3><i class="fas fa-exchange-alt mr-2"></i>热门项目双日维度对比</h3>
+                     <ul>
+                        <li class="fragment fade-in-then-semi-out"><strong>新陈代谢活跃:</strong> <span class="text-green-600 font-semibold">新增项目数量显著</span>，社区创新活力持续。</li>
+                        <li class="fragment fade-in-then-semi-out"><strong>上升趋势主导:</strong> 市场对特定解决方案兴趣增强。</li>
+                        <li class="fragment fade-in-then-semi-out"><strong>新晋项目多元:</strong> 覆盖跨平台、项目管理、金融、数据库等。</li>
+                         <li class="fragment fade-in-then-semi-out"><strong>语言分布变化:</strong> <span class="text-green-500">Java, Dart, C++, Lua, Rust <i class="fas fa-arrow-up"></i></span> vs <span class="text-red-500">Go, MDX, C, TS <i class="fas fa-arrow-down"></i></span>。Rust 社区活跃。</li>
+                        <li class="fragment fade-in-then-semi-out"><strong>涨幅聚焦:</strong> AI投资策略 (ai-hedge-fund), 实用指南 (HowToCook) 需求强烈。</li>
+                    </ul>
+                </section>
+
+                <section data-background-gradient>
+                     <h3><i class="fas fa-fire mr-2 text-red-500"></i>热点变化</h3>
+                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 text-sm">
+                        <div class="bg-green-100 p-3 rounded">
+                            <h4 class="font-semibold text-green-800 mb-2"><i class="fas fa-plus-circle mr-1"></i>新增热点</h4>
+                            <ul class="list-none p-0">
+                                <li class="before:content-['\2728'] before:mr-1 before:text-yellow-500">scylladb/scylladb</li>
+                                <li class="before:content-['\2728'] before:mr-1 before:text-yellow-500">openbb-finance/openbb</li>
+                                <li class="before:content-['\2728'] before:mr-1 before:text-yellow-500">dioxuslabs/dioxus</li>
+                                <li class="before:content-['\2728'] before:mr-1 before:text-yellow-500">neovim/nvim-lspconfig</li>
+                                <li class="before:content-['\2728'] before:mr-1 before:text-yellow-500">opf/openproject</li>
+                                <!-- Add more if needed -->
+                            </ul>
+                        </div>
+                        <div class="bg-red-100 p-3 rounded">
+                            <h4 class="font-semibold text-red-800 mb-2"><i class="fas fa-minus-circle mr-1"></i>减退热点</h4>
+                             <ul class="list-none p-0">
+                                <li class="before:content-['\1F4A8'] before:mr-1">gofr-dev/gofr</li>
+                                <li class="before:content-['\1F4A8'] before:mr-1">nautechsystems/nautilus_trader</li>
+                                <li class="before:content-['\1F4A8'] before:mr-1">krillinai/krillinai</li>
+                                <li class="before:content-['\1F4A8'] before:mr-1">jlevy/og-equity-compensation</li>
+                                <li class="before:content-['\1F4A8'] before:mr-1">netdata/netdata</li>
+                                <!-- Add more if needed -->
+                            </ul>
+                        </div>
+                        <div class="bg-blue-100 p-3 rounded">
+                             <h4 class="font-semibold text-blue-800 mb-2"><i class="fas fa-sync-alt mr-1"></i>持续热门</h4>
+                             <ul class="list-none p-0">
+                                <li class="before:content-['\1F525'] before:mr-1">virattt/ai-hedge-fund (4天)</li>
+                                <li class="before:content-['\1F525'] before:mr-1">yeongpin/cursor-free-vip (6天)</li>
+                                <li class="before:content-['\1F525'] before:mr-1">Zackriya-Solutions/meeting-minutes (4天)</li>
+                            </ul>
+                        </div>
+                     </div>
+                </section>
+            </section>
+
+             <!-- Detailed Repository Data Section -->
+            <section>
+                <section class="section-title">
+                    <h2><i class="fas fa-database mr-2"></i>详细仓库数据</h2>
+                </section>
+
+                <!-- Template for Repo Slides -->
+                <section>
+                     <div class="repo-card">
+                         <h3><i class="fab fa-python mr-2"></i> virattt/ai-hedge-fund</h3>
+                         <p class="text-sm text-gray-500 mb-3">AI对冲基金团队</p>
+                         <div class="repo-meta">
+                             <span><i class="fas fa-star"></i> 23.5k</span>
+                             <span><i class="fas fa-code-branch"></i> 4.1k</span>
+                             <span><i class="fas fa-eye"></i> 360</span>
+                             <span><i class="fas fa-plus-circle text-green-500"></i> 636 (今日)</span>
+                              <span><i class="fas fa-history text-blue-500"></i> 连续4天 / 总6次</span>
+                         </div>
+                         <div class="lang-bar"><div style="width: 100%; background-color: #3572A5;"></div></div> <!-- Python Color -->
+                         <p><strong>速读:</strong> <span class="fragment">AI驱动的投资模拟平台，模拟15位投资大师风格。</span> <span class="fragment">多智能体系统，教育研究目的，非实盘交易。</span> <span class="fragment">提供量化爱好者、学生学习AI金融应用的绝佳平台。</span></p>
+                         <p class="text-xs mt-2 text-gray-600"><strong>增长:</strong> 强劲增长，日均392 Star，今日636 Star，动能活跃。</p>
+                     </div>
+                </section>
+
+                <section>
+                     <div class="repo-card" style="border-left-color: #89e051;"> <!-- Dockerfile Color -->
+                         <h3><i class="fab fa-docker mr-2"></i> Anduin2017/HowToCook</h3>
+                         <p class="text-sm text-gray-500 mb-3">程序员居家烹饪指南（仅限简体中文）。</p>
+                         <div class="repo-meta">
+                              <span><i class="fas fa-star"></i> 71.9k</span>
+                              <span><i class="fas fa-code-branch"></i> 9k</span>
+                              <span><i class="fas fa-eye"></i> 408</span>
+                              <span><i class="fas fa-plus-circle text-green-500"></i> 550 (今日)</span>
+                              <span><i class="fas fa-history text-blue-500"></i> 连续2天 / 总2次</span>
+                         </div>
+                         <div class="lang-bar"><div style="width: 100%; background-color: #384d54;"></div></div> <!-- Dockerfile Color -->
+                         <p><strong>速读:</strong> <span class="fragment">像写代码一样写菜谱，结构化Markdown格式。</span> <span class="fragment">解决传统菜谱描述不清问题，社区驱动。</span> <span class="fragment">提供Docker镜像，方便部署，体验“编码式”烹饪。</span></p>
+                         <p class="text-xs mt-2 text-gray-600"><strong>增长:</strong> 上榜2天增长迅速，日均380 Star，第二天550 Star，势头强劲。</p>
+                     </div>
+                 </section>
+
+                <section>
+                     <div class="repo-card" style="border-left-color: #00B4AB;"> <!-- Dart Color -->
+                         <h3><i class="fas fa-book-reader mr-2"></i> Anxcye/anx-reader</h3>
+                          <p class="text-sm text-gray-500 mb-3">凭借强大的AI功能和对多种电子书格式的支持，它使阅读更智能、更专注。</p>
+                         <div class="repo-meta">
+                              <span><i class="fas fa-star"></i> 3.9k</span>
+                              <span><i class="fas fa-code-branch"></i> 205</span>
+                              <span><i class="fas fa-eye"></i> 20</span>
+                              <span><i class="fas fa-plus-circle text-green-500"></i> 286 (今日)</span>
+                              <span><i class="fas fa-history text-blue-500"></i> 首次上榜</span>
+                         </div>
+                         <div class="lang-bar">
+                             <div style="width: 87.7%; background-color: #00B4AB;" title="Dart 87.7%"></div>
+                             <div style="width: 5.0%; background-color: #000080;" title="Inno Setup 5.0%"></div>
+                             <div style="width: 3.1%; background-color: #f34b7d;" title="C++ 3.1%"></div>
+                             <!-- Other languages omitted for brevity -->
+                         </div>
+                         <p><strong>速读:</strong> <span class="fragment">集成AI能力的跨平台(Flutter)电子书阅读器。</span> <span class="fragment">智能总结、记忆位置、定制化界面、笔记系统。</span> <span class="fragment">提供阅读分析报告，提升效率和专注力。</span></p>
+                         <!-- No growth analysis provided for 1 day -->
+                     </div>
+                </section>
+
+                <section>
+                     <div class="repo-card">
+                         <h3><i class="fas fa-database mr-2"></i> vanna-ai/vanna</h3>
+                          <p class="text-sm text-gray-500 mb-3">🤖 与你的SQL数据库聊天 📊。使用RAG 🔄 通过LLM实现准确的文本到SQL生成。</p>
+                         <div class="repo-meta">
+                             <span><i class="fas fa-star"></i> 15.8k</span>
+                             <span><i class="fas fa-code-branch"></i> 1.4k</span>
+                             <span><i class="fas fa-eye"></i> 117</span>
+                             <span><i class="fas fa-plus-circle text-green-500"></i> 154 (今日)</span>
+                             <span><i class="fas fa-history text-blue-500"></i> 连续2天 / 总2次</span>
+                         </div>
+                         <div class="lang-bar"><div style="width: 100%; background-color: #3572A5;"></div></div> <!-- Python Color -->
+                         <p><strong>速读:</strong> <span class="fragment">开源Python框架，用自然语言查询SQL数据库。</span> <span class="fragment">利用RAG技术，自动生成SQL，兼容多种LLM和数据库。</span> <span class="fragment">降低数据分析门槛，实现"让数据触手可及"。</span></p>
+                         <p class="text-xs mt-2 text-gray-600"><strong>增长:</strong> 上榜2天增长可观 (日均185 Star)，趋势待观察。</p>
+                     </div>
+                </section>
+
+                 <section>
+                    <div class="repo-card" style="border-left-color: #3178c6;"> <!-- TypeScript Color -->
+                         <h3><i class="fas fa-file-alt mr-2"></i> fuma-nama/fumadocs</h3>
+                         <p class="text-sm text-gray-500 mb-3">基于 Next.js 的优秀文档框架。</p>
+                         <div class="repo-meta">
+                             <span><i class="fas fa-star"></i> 4.7k</span>
+                             <span><i class="fas fa-code-branch"></i> 262</span>
+                             <span><i class="fas fa-eye"></i> 10</span>
+                             <span><i class="fas fa-plus-circle text-green-500"></i> 276 (今日)</span>
+                             <span><i class="fas fa-history text-blue-500"></i> 连续2天 / 总2次</span>
+                        </div>
+                        <div class="lang-bar">
+                            <div style="width: 72.8%; background-color: #3178c6;" title="TypeScript 72.8%"></div>
+                            <div style="width: 23.9%; background-color: #fcb32c;" title="MDX 23.9%"></div>
+                            <!-- Other languages omitted -->
+                        </div>
+                        <p><strong>速读:</strong> <span class="fragment">基于Next.js的高效文档框架。</span> <span class="fragment">利用SSR/SSG优化性能和SEO，架构清晰，组件复用。</span> <span class="fragment">ESM Only，适合追求快速迭代和专业文档站点的团队。</span></p>
+                         <p class="text-xs mt-2 text-gray-600"><strong>增长:</strong> 上榜2天增长良好 (日均221 Star)，势头较好。</p>
+                     </div>
+                </section>
+
+                 <section>
+                    <div class="repo-card" style="border-left-color: #dea584;"> <!-- Rust Color -->
+                         <h3><i class="fas fa-cubes mr-2"></i> DioxusLabs/dioxus</h3>
+                         <p class="text-sm text-gray-500 mb-3">适用于 Web、桌面、移动等平台的 Fullstack 应用框架。</p>
+                         <div class="repo-meta">
+                             <span><i class="fas fa-star"></i> 26.6k</span>
+                             <span><i class="fas fa-code-branch"></i> 1.1k</span>
+                             <span><i class="fas fa-eye"></i> 136</span>
+                             <span><i class="fas fa-plus-circle text-green-500"></i> 33 (今日)</span>
+                             <span><i class="fas fa-history text-blue-500"></i> 首次上榜</span>
+                         </div>
+                         <div class="lang-bar">
+                             <div style="width: 91.5%; background-color: #dea584;" title="Rust 91.5%"></div>
+                              <!-- Other languages omitted -->
+                         </div>
+                         <p><strong>速读:</strong> <span class="fragment">Rust 全栈框架，一套代码构建多平台应用。</span> <span class="fragment">类React组件化，状态管理，类型安全路由。</span> <span class="fragment">Renderer-agnostic 架构，注重性能 (.avif, .wasm 压缩)。</span></p>
+                         <!-- No growth analysis provided for 1 day -->
+                    </div>
+                </section>
+
+                 <section>
+                     <div class="repo-card" style="border-left-color: #701516;"> <!-- Ruby Color -->
+                         <h3><i class="fas fa-tasks mr-2"></i> opf/openproject</h3>
+                         <p class="text-sm text-gray-500 mb-3">OpenProject 是领先的开源项目管理软件。</p>
+                         <div class="repo-meta">
+                            <span><i class="fas fa-star"></i> 10.5k</span>
+                            <span><i class="fas fa-code-branch"></i> 2.5k</span>
+                            <span><i class="fas fa-eye"></i> 254</span>
+                            <span><i class="fas fa-plus-circle text-green-500"></i> 24 (今日)</span>
+                            <span><i class="fas fa-history text-blue-500"></i> 首次上榜</span>
+                         </div>
+                        <div class="lang-bar">
+                             <div style="width: 76.9%; background-color: #701516;" title="Ruby 76.9%"></div>
+                             <div style="width: 12.8%; background-color: #3178c6;" title="TypeScript 12.8%"></div>
+                              <!-- Other languages omitted -->
+                        </div>
+                        <p><strong>速读:</strong> <span class="fragment">强大的开源项目管理平台，赋能团队协作。</span> <span class="fragment">覆盖需求、任务、进度、成本全流程。</span> <span class="fragment">与GitHub无缝集成，适用多种项目场景。</span></p>
+                         <!-- No growth analysis provided for 1 day -->
+                     </div>
+                 </section>
+
+                 <section>
+                     <div class="repo-card">
+                         <h3><i class="fas fa-magic mr-2"></i> yeongpin/cursor-free-vip</h3>
+                         <p class="text-sm text-gray-500 mb-3">[支持0.48.x]（重置Cursor AI机器ID & 绕过更高Token限制）...</p>
+                          <div class="repo-meta">
+                             <span><i class="fas fa-star"></i> 17.8k</span>
+                             <span><i class="fas fa-code-branch"></i> 2.1k</span>
+                             <span><i class="fas fa-eye"></i> 100</span>
+                             <span><i class="fas fa-plus-circle text-green-500"></i> 2208 (今日)</span>
+                             <span><i class="fas fa-history text-blue-500"></i> 连续6天 / 总6次</span>
+                         </div>
+                         <div class="lang-bar">
+                              <div style="width: 88.3%; background-color: #3572A5;" title="Python 88.3%"></div>
+                              <div style="width: 6.1%; background-color: #012456;" title="PowerShell 6.1%"></div>
+                               <!-- Other languages omitted -->
+                         </div>
+                         <p><strong>速读:</strong> <span class="fragment">Python项目，解决Cursor编辑器试用期限制。</span> <span class="fragment">自动重置机器ID，允许继续免费体验Pro功能 (学习研究目的)。</span> <span class="fragment">跨平台，脚本自动化，注意合规使用。</span></p>
+                         <p class="text-xs mt-2 text-gray-600"><strong>增长:</strong> 6天增长迅速 (日均1828 Star)，今日达2208 Star，热度高涨。</p>
+                     </div>
+                </section>
+
+                 <section>
+                    <div class="repo-card" style="border-left-color: #f34b7d;"> <!-- C++ Color -->
+                         <h3><i class="fas fa-microphone-alt mr-2"></i> Zackriya-Solutions/meeting-minutes</h3>
+                         <p class="text-sm text-gray-500 mb-3">免费开源、可自托管的AI实时会议记录和总结生成器...</p>
+                         <div class="repo-meta">
+                             <span><i class="fas fa-star"></i> 3.2k</span>
+                             <span><i class="fas fa-code-branch"></i> 226</span>
+                             <span><i class="fas fa-eye"></i> 31</span>
+                             <span><i class="fas fa-plus-circle text-green-500"></i> 443 (今日)</span>
+                             <span><i class="fas fa-history text-blue-500"></i> 连续4天 / 总4次</span>
+                         </div>
+                         <div class="lang-bar">
+                              <div style="width: 49.5%; background-color: #f34b7d;" title="C++ 49.5%"></div>
+                              <div style="width: 17.1%; background-color: #3178c6;" title="TypeScript 17.1%"></div>
+                              <div style="width: 14.5%; background-color: #dea584;" title="Rust 14.5%"></div>
+                               <!-- Other languages omitted -->
+                         </div>
+                         <p><strong>速读:</strong> <span class="fragment">开源AI会议助手 (Meetily)，本地运行。</span> <span class="fragment">实时转录和生成摘要，保护隐私，成本效益高。</span> <span class="fragment">C++构建，支持macOS/Win，离线工作。</span></p>
+                         <p class="text-xs mt-2 text-gray-600"><strong>增长:</strong> 上榜4天增长强劲 (日均402 Star)，今日443 Star，热度不减。</p>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="repo-card" style="border-left-color: #DA5B0B;"> <!-- Jupyter Notebook Color -->
+                         <h3><i class="fas fa-brain mr-2"></i> NirDiamant/RAG_Techniques</h3>
+                         <p class="text-sm text-gray-500 mb-3">展示检索增强生成（RAG）系统的高级技术。</p>
+                          <div class="repo-meta">
+                             <span><i class="fas fa-star"></i> 14.3k</span>
+                             <span><i class="fas fa-code-branch"></i> 1.5k</span>
+                             <span><i class="fas fa-eye"></i> 175</span>
+                             <span><i class="fas fa-plus-circle text-green-500"></i> 227 (今日)</span>
+                             <span><i class="fas fa-history text-blue-500"></i> 首次上榜</span>
+                         </div>
+                         <div class="lang-bar">
+                             <div style="width: 93.5%; background-color: #DA5B0B;" title="Jupyter Notebook 93.5%"></div>
+                             <div style="width: 6.5%; background-color: #3572A5;" title="Python 6.5%"></div>
+                         </div>
+                         <p><strong>速读:</strong> <span class="fragment">RAG技术演进路线图和教程集合。</span> <span class="fragment">通过Jupyter Notebook展示查询转换、上下文压缩等高级技巧。</span> <span class="fragment">结合LangChain/LlamaIndex，提供实用代码，提升RAG性能。</span></p>
+                         <!-- No growth analysis provided for 1 day -->
+                     </div>
+                </section>
+
+                <section>
+                     <div class="repo-card">
+                         <h3><i class="fas fa-chart-pie mr-2"></i> OpenBB-finance/OpenBB</h3>
+                         <p class="text-sm text-gray-500 mb-3">人人可享，随处可用的投资研究。</p>
+                         <div class="repo-meta">
+                            <span><i class="fas fa-star"></i> 40.7k</span>
+                             <span><i class="fas fa-code-branch"></i> 3.6k</span>
+                             <span><i class="fas fa-eye"></i> 319</span>
+                             <span><i class="fas fa-plus-circle text-green-500"></i> 113 (今日)</span>
+                             <span><i class="fas fa-history text-blue-500"></i> 非连续上榜 / 总6次</span>
+                         </div>
+                        <div class="lang-bar"><div style="width: 100%; background-color: #3572A5;"></div></div> <!-- Python Color -->
+                        <p><strong>速读:</strong> <span class="fragment">开源金融研究平台，打破数据壁垒。</span> <span class="fragment">免费获取多市场数据，AI驱动分析。</span> <span class="fragment">开源可扩展，赋能个人投资者和研究机构。</span></p>
+                         <p class="text-xs mt-2 text-gray-600"><strong>增长:</strong> 上榜6天日均增长显著 (255 Star)，社区关注度持续上升。</p>
+                     </div>
+                </section>
+
+                 <section>
+                    <div class="repo-card" style="border-left-color: #a91e50;"> <!-- YAML-like color -->
+                         <h3><i class="fas fa-cogs mr-2"></i> svcvit/Awesome-Dify-Workflow</h3>
+                          <p class="text-sm text-gray-500 mb-3">分享一些好用的 Dify DSL 工作流程...</p>
+                         <div class="repo-meta">
+                             <span><i class="fas fa-star"></i> 5.9k</span>
+                             <span><i class="fas fa-code-branch"></i> 585</span>
+                             <span><i class="fas fa-eye"></i> 74</span>
+                             <span><i class="fas fa-plus-circle text-green-500"></i> 89 (今日)</span>
+                             <span><i class="fas fa-history text-blue-500"></i> 连续2天 / 总2次</span>
+                         </div>
+                         <!-- No language bar as it's primarily config files -->
+                         <p><strong>速读:</strong> <span class="fragment">Dify工作流百宝箱，汇集实用案例。</span> <span class="fragment">展示并行任务、Agent等新特性，YAML定义。</span> <span class="fragment">降低Dify使用门槛，促进社区知识共享。</span></p>
+                         <p class="text-xs mt-2 text-gray-600"><strong>增长:</strong> 上榜2天增长迅速 (日均70 Star)，今日89 Star，势头良好。</p>
+                     </div>
+                 </section>
+
+                 <section>
+                     <div class="repo-card" style="border-left-color: #b07219;"> <!-- Java Color -->
+                         <h3><i class="fas fa-project-diagram mr-2"></i> kestra-io/kestra</h3>
+                          <p class="text-sm text-gray-500 mb-3">⚡ 工作流自动化平台。编排调度任意代码，500+插件...</p>
+                         <div class="repo-meta">
+                            <span><i class="fas fa-star"></i> 17k</span>
+                             <span><i class="fas fa-code-branch"></i> 1.4k</span>
+                             <span><i class="fas fa-eye"></i> 136</span>
+                             <span><i class="fas fa-plus-circle text-green-500"></i> 60 (今日)</span>
+                             <span><i class="fas fa-history text-blue-500"></i> 首次上榜</span>
+                        </div>
+                         <div class="lang-bar">
+                             <div style="width: 72.3%; background-color: #b07219;" title="Java 72.3%"></div>
+                             <div style="width: 20.9%; background-color: #41b883;" title="Vue 20.9%"></div>
+                             <!-- Other languages omitted -->
+                         </div>
+                        <p><strong>速读:</strong> <span class="fragment">开源工作流自动化平台 (Java)，替代Airflow/Zapier。</span> <span class="fragment">YAML声明式定义，Git版本控制，事件驱动。</span> <span class="fragment">500+插件，直观UI，适合数据工程和复杂集成。</span></p>
+                        <!-- No growth analysis provided for 1 day -->
+                     </div>
+                 </section>
+
+                <section>
+                    <div class="repo-card" style="border-left-color: #000080;"> <!-- Lua Color -->
+                         <h3><i class="fas fa-plug mr-2"></i> neovim/nvim-lspconfig</h3>
+                          <p class="text-sm text-gray-500 mb-3">Nvim LSP 快速启动配置</p>
+                         <div class="repo-meta">
+                            <span><i class="fas fa-star"></i> 11.6k</span>
+                             <span><i class="fas fa-code-branch"></i> 2.2k</span>
+                             <span><i class="fas fa-eye"></i> 78</span>
+                             <span><i class="fas fa-plus-circle text-green-500"></i> 16 (今日)</span>
+                             <span><i class="fas fa-history text-blue-500"></i> 非连续上榜 / 总2次</span>
+                         </div>
+                         <div class="lang-bar"><div style="width: 99.9%; background-color: #000080;"></div></div> <!-- Lua Color -->
+                        <p><strong>速读:</strong> <span class="fragment">Neovim的LSP功能加速器，预配置集合。</span> <span class="fragment">简化LSP客户端配置，几行代码启用补全、跳转等。</span> <span class="fragment">社区驱动，Neovim开发者必备利器。</span></p>
+                         <p class="text-xs mt-2 text-gray-600"><strong>增长:</strong> 上榜2天增长平稳 (日均13.5 Star)，需持续观察。</p>
+                     </div>
+                 </section>
+
+                 <section>
+                    <div class="repo-card" style="border-left-color: #f34b7d;"> <!-- C++ Color -->
+                        <h3><i class="fas fa-hdd mr-2"></i> scylladb/scylladb</h3>
+                         <p class="text-sm text-gray-500 mb-3">使用Seastar框架的NoSQL数据存储，兼容Cassandra/DynamoDB。</p>
+                        <div class="repo-meta">
+                            <span><i class="fas fa-star"></i> 14.3k</span>
+                            <span><i class="fas fa-code-branch"></i> 1.4k</span>
+                            <span><i class="fas fa-eye"></i> 338</span>
+                            <span><i class="fas fa-plus-circle text-green-500"></i> 9 (今日)</span>
+                            <span><i class="fas fa-history text-blue-500"></i> 首次上榜</span>
+                        </div>
+                        <div class="lang-bar">
+                              <div style="width: 76.5%; background-color: #f34b7d;" title="C++ 76.5%"></div>
+                              <div style="width: 22.2%; background-color: #3572A5;" title="Python 22.2%"></div>
+                              <!-- Other languages omitted -->
+                        </div>
+                        <p><strong>速读:</strong> <span class="fragment">高性能NoSQL数据库，兼容Cassandra/DynamoDB API。</span> <span class="fragment">基于Seastar框架，共享无架构，高吞吐低延迟。</span> <span class="fragment">适合实时分析、IoT等场景，提供Docker简化构建。</span></p>
+                         <!-- No growth analysis provided for 1 day -->
+                    </div>
+                </section>
+            </section>
+
+            <!-- Final Slide -->
+            <section class="aha-gradient-bg text-center">
+                <h2><i class="fas fa-check-circle mr-2"></i>总结与展望</h2>
+                <p class="mt-6 text-xl">AI 应用落地加速，开发者效率持续提升，跨平台与高性能成为新焦点。</p>
+                <p class="mt-4 text-lg">保持关注，拥抱变化！</p>
+                <p class="mt-12 text-xl font-semibold">感谢观看！</p>
+                <div class="slide-footer" style="color: rgba(255, 255, 255, 0.7);">
+                     <a href="https://github.com/aichipera/github-trend" target="_blank" style="color: rgba(255, 255, 255, 0.7); margin-right: 10px;">
+                         <i class="fab fa-github"></i> github.com/aichipera/github-trend
+                     </a>
+                     <img src="../../asserts/wx.jpg" alt="QR Code">
+                 </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Core Framework Script -->
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <!-- Mermaid Script -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <script>
+        // More info about initialization & config:
+        // - https://revealjs.com/initialization/
+        // - https://revealjs.com/config/
+        Reveal.initialize({
+            hash: true, // Add slide number to URL hash
+            history: true, // Enable browser history integration
+            center: true, // Vertical centering
+            progress: true, // Display progress bar
+            slideNumber: 'c/t', // Show slide number as 'current/total'
+            transition: 'slide', // Transition style: none/fade/slide/convex/concave/zoom
+            backgroundTransition: 'fade', // Background transition style
+
+            // Optional extensions can be added here if needed (e.g., markdown, highlight, notes)
+            plugins: [ /* RevealMarkdown, RevealHighlight, RevealNotes */ ]
+        });
+
+         // Initialize Mermaid diagrams if used
+         mermaid.initialize({ startOnLoad: true });
+
+    </script>
+</body>
+</html>
