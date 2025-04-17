@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HowToCook : 金菲士 制作指南</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+        }
+
+        /* Image Transitions */
+        #recipe-main-image {
+            transition: height 0.5s ease-in-out;
+        }
+        .image-thumbnail { height: 12rem; /* 192px */ }
+        .image-expanded { height: 24rem; /* 384px */ } /* Target height for expansion */
+
+        /* Image Nav Controls Visibility */
+        .image-nav-hidden {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+        }
+        .image-nav-visible {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Steps Container Transitions */
+        .steps-hidden {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            margin-top: 0;
+            transition: max-height 0.6s ease-in-out, opacity 0.4s ease-in, margin-top 0.6s ease-in-out;
+        }
+        .steps-visible {
+            max-height: 2000px; /* Arbitrary large value */
+            opacity: 1;
+            margin-top: 1rem; /* Apply margin when visible */
+            transition: max-height 0.6s ease-in-out, opacity 0.6s ease-out 0.1s, margin-top 0.6s ease-in-out;
+        }
+
+        /* Accordion Panel Transitions */
+        .accordion-panel {
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, padding-top 0.5s ease-in-out, padding-bottom 0.5s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        /* No need for accordion-panel-open class if using inline styles */
+
+        /* Accordion Icon Rotation */
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+        .rotate-180 {
+            transform: rotate(180deg);
+        }
+
+        /* Custom Checkbox Styles */
+        .step-checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            height: 1.25rem; /* h-5 */
+            width: 1.25rem; /* w-5 */
+            min-width: 1.25rem;
+            border-radius: 0.25rem; /* rounded */
+            border: 1px solid; /* Defined by text color */
+            position: relative;
+            cursor: pointer;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 0.5rem; /* mr-2 */
+            flex-shrink: 0;
+        }
+        .step-checkbox:checked {
+            background-color: currentColor; /* Use text color */
+            border-color: currentColor; /* Use text color */
+        }
+        .step-checkbox:checked::after {
+            content: '✔';
+            font-size: 0.9rem;
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            line-height: 1;
+        }
+
+        /* Checklist Label Styling */
+        .step-label {
+            display: inline-block;
+            vertical-align: middle;
+            transition: color 0.3s ease, text-decoration 0.3s ease;
+        }
+        .step-label.checked {
+            text-decoration: line-through;
+            color: #9ca3af; /* text-gray-400 */
+        }
+        .step-item {
+            display: flex;
+            align-items: flex-start; /* Align checkbox with start of text */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex justify-center items-start min-h-screen py-10 font-nunito">
+
+    <div class="max-w-sm bg-white rounded-3xl shadow-lg overflow-hidden w-full">
+
+        <!-- Image Section -->
+        <div id="recipe-image-container" class="relative">
+            <!-- Visual Back Button -->
+            <div class="absolute top-3 left-3 bg-white/70 rounded-full p-1.5 cursor-pointer z-10">
+                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-700">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                </svg>
+            </div>
+
+            <img id="recipe-main-image"
+                 src="https://cook.aiursoft.cn/dishes/drink/%E9%87%91%E8%8F%B2%E5%A3%AB/gin-fizz.jpg"
+                 alt="金菲士成品"
+                 class="w-full object-cover rounded-t-3xl image-thumbnail cursor-pointer"
+                 style="height: 12rem;"
+                 aria-expanded="false"
+                 aria-controls="image-nav-controls">
+
+            <!-- Image Navigation Controls -->
+            <div id="image-nav-controls" class="absolute inset-x-0 bottom-3 flex justify-center items-center space-x-16 image-nav-hidden z-10">
+                 <button id="image-prev-btn" class="bg-white/70 rounded-full p-2 shadow-md hover:bg-white transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-700">
+                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                     </svg>
+                 </button>
+                 <span id="inline-image-counter" class="text-sm font-semibold bg-white/70 text-gray-800 px-2.5 py-1 rounded-full shadow-md">1 / 1</span>
+                 <button id="image-next-btn" class="bg-white/70 rounded-full p-2 shadow-md hover:bg-white transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-700">
+                         <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                     </svg>
+                 </button>
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="p-5 pb-6">
+
+            <!-- Title/Info Section -->
+            <div class="flex justify-between items-start mb-3">
+                <div>
+                    <h1 class="text-xl font-bold text-gray-800">金菲士的做法</h1>
+                    <p class="text-xs text-red-600 mt-1">饮酒有害健康，未成年人禁止饮酒</p>
+                    <!-- Optional Introductory Paragraph could go here -->
+                </div>
+                <!-- Favorite Button -->
+                <button class="text-gray-300 hover:text-red-500 transition duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.218l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="flex space-x-4 mb-4">
+                <div class="flex-1 bg-yellow-50 rounded-lg p-3 text-center">
+                    <p class="text-xs text-yellow-600 font-semibold mb-1">难度</p>
+                    <p class="text-sm font-bold text-yellow-800">★★☆☆☆</p> <!-- Displaying rating visually -->
+                </div>
+                <div class="flex-1 bg-green-50 rounded-lg p-3 text-center">
+                    <p class="text-xs text-green-600 font-semibold mb-1">份量</p>
+                    <p class="text-sm font-bold text-green-800">约 350ml</p>
+                </div>
+                <!-- Add more stats blocks here if needed -->
+            </div>
+
+            <!-- Ingredients Section -->
+            <div class="mb-4">
+                <h2 class="text-lg font-semibold text-gray-700 mb-3">必备原料和工具 (一杯分量)</h2>
+                <div class="grid grid-cols-3 gap-3 mb-3">
+                    <!-- Ingredient Items -->
+                    <div class="bg-gray-100 rounded-lg p-2 flex flex-col items-center justify-center text-center min-h-[80px]">
+                        <span class="text-xl mb-1">🍸</span>
+                        <p class="text-xs font-semibold text-gray-700">金酒</p>
+                        <p class="text-xs text-gray-500">30-40ml</p>
+                    </div>
+                     <div class="bg-gray-100 rounded-lg p-2 flex flex-col items-center justify-center text-center min-h-[80px]">
+                        <span class="text-xl mb-1">💧</span>
+                        <p class="text-xs font-semibold text-gray-700">苏打水</p>
+                        <p class="text-xs text-gray-500">1 罐</p>
+                    </div>
+                     <div class="bg-gray-100 rounded-lg p-2 flex flex-col items-center justify-center text-center min-h-[80px]">
+                        <span class="text-xl mb-1">🍋</span>
+                        <p class="text-xs font-semibold text-gray-700">柠檬</p>
+                        <p class="text-xs text-gray-500">1 个</p>
+                    </div>
+                     <div class="bg-gray-100 rounded-lg p-2 flex flex-col items-center justify-center text-center min-h-[80px]">
+                        <span class="text-xl mb-1">🍯</span>
+                        <p class="text-xs font-semibold text-gray-700">糖浆</p>
+                        <p class="text-xs text-gray-500">30-40g</p>
+                    </div>
+                     <div class="bg-gray-100 rounded-lg p-2 flex flex-col items-center justify-center text-center min-h-[80px]">
+                        <span class="text-xl mb-1">🧊</span>
+                        <p class="text-xs font-semibold text-gray-700">冰块</p>
+                        <p class="text-xs text-gray-500">100g</p>
+                    </div>
+                     <div class="bg-gray-100 rounded-lg p-2 flex flex-col items-center justify-center text-center min-h-[80px]">
+                        <span class="text-xl mb-1">🌿</span>
+                        <p class="text-xs font-semibold text-gray-700">绿叶</p>
+                        <p class="text-xs text-gray-500">(可选)</p>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500 mb-1"><strong>糖浆说明:</strong> 使用 1:1 蔗糖糖浆。</p>
+                <p class="text-xs text-gray-500"><strong>必备工具:</strong> 手动压汁器, 雪克瓶 (可选)。</p>
+            </div>
+
+            <!-- View Steps Button -->
+            <button id="view-steps-btn" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-full flex items-center justify-center transition duration-200" aria-expanded="false" aria-controls="recipe-steps-container">
+                <svg id="btn-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-2 transition-transform duration-300">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                </svg>
+                <span id="btn-text">查看步骤</span>
+            </button>
+
+            <!-- Steps Section (Accordion + Checklist) -->
+            <div id="recipe-steps-container" class="steps-hidden">
+                <!-- Phase 1: Lemon Preparation -->
+                <div class="mt-4 border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="accordion-header w-full flex justify-between items-center p-3 bg-blue-50 text-blue-800 hover:bg-blue-100 transition duration-200 focus:outline-none" aria-expanded="false">
+                        <span class="font-semibold text-sm">阶段一: 柠檬的处理</span>
+                        <svg class="accordion-icon w-5 h-5 text-blue-600 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                        </svg>
+                    </button>
+                    <div class="accordion-panel bg-white px-4 text-blue-800">
+                        <ol class="list-none space-y-3 text-sm text-gray-700">
+                            <li class="step-item">
+                                <input type="checkbox" id="step1-1" class="step-checkbox text-blue-600 border-blue-300">
+                                <label for="step1-1" class="step-label">将柠檬对半切 (刀垂直于头尾连线)，从一半中切取一片柠檬备用 🔪。</label>
+                            </li>
+                            <li class="step-item">
+                                <input type="checkbox" id="step1-2" class="step-checkbox text-blue-600 border-blue-300">
+                                <label for="step1-2" class="step-label">再次将剩余柠檬对半切，将得到的 4 角柠檬用压汁器压出柠檬汁备用 🍋💧。</label>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Phase 2: Mixing (No Shaker) -->
+                <div class="mt-3 border border-gray-200 rounded-lg overflow-hidden">
+                     <button class="accordion-header w-full flex justify-between items-center p-3 bg-purple-50 text-purple-800 hover:bg-purple-100 transition duration-200 focus:outline-none" aria-expanded="false">
+                        <span class="font-semibold text-sm">阶段二: 正式调配 (无雪克瓶)</span>
+                         <svg class="accordion-icon w-5 h-5 text-purple-600 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                        </svg>
+                    </button>
+                    <div class="accordion-panel bg-white px-4 text-purple-800">
+                        <ol class="list-none space-y-3 text-sm text-gray-700">
+                            <li class="step-item">
+                                <input type="checkbox" id="step2-1" class="step-checkbox text-purple-600 border-purple-300">
+                                <label for="step2-1" class="step-label">选一个容量 350-400ml 的透明玻璃杯 🥛。</label>
+                            </li>
+                            <li class="step-item">
+                                <input type="checkbox" id="step2-2" class="step-checkbox text-purple-600 border-purple-300">
+                                <label for="step2-2" class="step-label">将 100g 冰块放入杯底 🧊。</label>
+                            </li>
+                            <li class="step-item">
+                                <input type="checkbox" id="step2-3" class="step-checkbox text-purple-600 border-purple-300">
+                                <label for="step2-3" class="step-label">倒入 30-40ml 金酒 🍸。</label>
+                            </li>
+                            <li class="step-item">
+                                <input type="checkbox" id="step2-4" class="step-checkbox text-purple-600 border-purple-300">
+                                <label for="step2-4" class="step-label">倒入 20ml 柠檬汁 (喜酸可多加) 🍋💧。</label>
+                            </li>
+                            <li class="step-item">
+                                <input type="checkbox" id="step2-5" class="step-checkbox text-purple-600 border-purple-300">
+                                <label for="step2-5" class="step-label">倒入 30-40g 蔗糖糖浆 🍯。</label>
+                            </li>
+                            <li class="step-item">
+                                <input type="checkbox" id="step2-6" class="step-checkbox text-purple-600 border-purple-300">
+                                <label for="step2-6" class="step-label">用勺子搅拌均匀 🥄。</label>
+                            </li>
+                            <li class="step-item">
+                                <input type="checkbox" id="step2-7" class="step-checkbox text-purple-600 border-purple-300">
+                                <label for="step2-7" class="step-label">放置好备用的柠檬片 🍋。</label>
+                            </li>
+                             <li class="step-item">
+                                <input type="checkbox" id="step2-8" class="step-checkbox text-purple-600 border-purple-300">
+                                <label for="step2-8" class="step-label">缓慢沿杯壁注入苏打水至满杯 (勿倒在冰上) 💧➡️。</label>
+                            </li>
+                             <li class="step-item">
+                                <input type="checkbox" id="step2-9" class="step-checkbox text-purple-600 border-purple-300">
+                                <label for="step2-9" class="step-label">用勺子轻柔上下提拉搅拌 (勿旋转) 🥄↕️。</label>
+                            </li>
+                            <li class="step-item">
+                                <input type="checkbox" id="step2-10" class="step-checkbox text-purple-600 border-purple-300">
+                                <label for="step2-10" class="step-label">放上装饰绿叶 (可选) 🌿。</label>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
+                 <!-- Phase 3: Mixing (With Shaker) -->
+                <div class="mt-3 border border-gray-200 rounded-lg overflow-hidden">
+                     <button class="accordion-header w-full flex justify-between items-center p-3 bg-indigo-50 text-indigo-800 hover:bg-indigo-100 transition duration-200 focus:outline-none" aria-expanded="false">
+                        <span class="font-semibold text-sm">阶段三: 使用雪克瓶 (可选)</span>
+                         <svg class="accordion-icon w-5 h-5 text-indigo-600 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                        </svg>
+                    </button>
+                    <div class="accordion-panel bg-white px-4 text-indigo-800">
+                         <p class="text-xs text-gray-600 mb-3 italic">使用雪克瓶会替换"正式调配"中的步骤 2-6。</p>
+                        <ol class="list-none space-y-3 text-sm text-gray-700">
+                            <li class="step-item">
+                                <input type="checkbox" id="step3-1" class="step-checkbox text-indigo-600 border-indigo-300">
+                                <label for="step3-1" class="step-label">将冰块、金酒、柠檬汁、糖浆倒入雪克瓶 🧊🍸🍋💧🍯。</label>
+                            </li>
+                            <li class="step-item">
+                                <input type="checkbox" id="step3-2" class="step-checkbox text-indigo-600 border-indigo-300">
+                                <label for="step3-2" class="step-label">盖紧盖子，用力摇晃均匀 (Shake!) 💪❄️。</label>
+                            </li>
+                            <li class="step-item">
+                                <input type="checkbox" id="step3-3" class="step-checkbox text-indigo-600 border-indigo-300">
+                                <label for="step3-3" class="step-label">将摇匀的液体倒入杯中 (可过滤碎冰，按需加新冰) ➡️🥛。</label>
+                            </li>
+                            <li class="step-item">
+                                <input type="checkbox" id="step3-4" class="step-checkbox text-indigo-600 border-indigo-300">
+                                <label for="step3-4" class="step-label">继续"正式调配"中的步骤 7-10 (加柠檬片、苏打水、轻搅、装饰) 🍋💧🥄🌿。</label>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Configuration ---
+            const imageUrls = [
+                "https://cook.aiursoft.cn/dishes/drink/%E9%87%91%E8%8F%B2%E5%A3%AB/gin-fizz.jpg"
+                // Add more image URLs here if available
+            ];
+            const imageExpandedHeight = '24rem'; // e.g., '24rem'
+            const imageThumbnailHeight = '12rem'; // e.g., '12rem'
+            const accordionPadding = '1rem'; // e.g., '1rem' for padding-top/bottom
+
+            // --- Element References ---
+            const imageContainer = document.getElementById('recipe-image-container');
+            const mainImage = document.getElementById('recipe-main-image');
+            const imageNavControls = document.getElementById('image-nav-controls');
+            const prevBtn = document.getElementById('image-prev-btn');
+            const nextBtn = document.getElementById('image-next-btn');
+            const imageCounter = document.getElementById('inline-image-counter');
+            const viewStepsBtn = document.getElementById('view-steps-btn');
+            const stepsContainer = document.getElementById('recipe-steps-container');
+            const btnIcon = document.getElementById('btn-icon');
+            const btnText = document.getElementById('btn-text');
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            const checkboxes = document.querySelectorAll('.step-checkbox');
+
+            // --- State ---
+            let currentImageIndex = 0;
+            let isImageExpanded = false; // Track image expansion state
+
+            // --- Helper Functions ---
+            const elementExists = (...elements) => elements.every(el => el !== null);
+
+            const updateImageNavVisibility = () => {
+                if (!elementExists(imageNavControls)) return;
+                const showNav = isImageExpanded && imageUrls.length > 1;
+                imageNavControls.classList.toggle('image-nav-visible', showNav);
+                imageNavControls.classList.toggle('image-nav-hidden', !showNav);
+            };
+
+            const updateImage = () => {
+                if (!elementExists(mainImage, imageCounter)) return;
+                mainImage.src = imageUrls[currentImageIndex];
+                imageCounter.textContent = `${currentImageIndex + 1} / ${imageUrls.length}`;
+                if (prevBtn) prevBtn.disabled = imageUrls.length <= 1;
+                if (nextBtn) nextBtn.disabled = imageUrls.length <= 1;
+            };
+
+            const closeAllAccordions = (exceptHeader = null) => {
+                accordionHeaders.forEach(header => {
+                    if (header === exceptHeader) return;
+                    const panel = header.nextElementSibling;
+                    const icon = header.querySelector('.accordion-icon');
+                    if (panel && panel.classList.contains('accordion-panel') && panel.style.maxHeight && panel.style.maxHeight !== '0px') {
+                        // Start closing animation
+                        panel.style.maxHeight = panel.scrollHeight + 'px'; // Ensure it has a value to animate from
+                        requestAnimationFrame(() => {
+                            panel.style.maxHeight = '0';
+                            panel.style.opacity = '0';
+                            panel.style.paddingTop = '0';
+                            panel.style.paddingBottom = '0';
+                        });
+                        header.setAttribute('aria-expanded', 'false');
+                        if (icon) icon.classList.remove('rotate-180');
+
+                        // Clean up inline style after transition
+                        panel.addEventListener('transitionend', () => {
+                             if (panel.style.maxHeight === '0px') { // Only remove if fully closed
+                                panel.style.maxHeight = '';
+                             }
+                        }, { once: true });
+                    }
+                });
+            };
+
+            // --- Event Listeners ---
+
+            // Image Expansion
+            if (elementExists(mainImage)) {
+                mainImage.addEventListener('click', () => {
+                    isImageExpanded = !isImageExpanded;
+                    mainImage.style.height = isImageExpanded ? imageExpandedHeight : imageThumbnailHeight;
+                    // Using classes mainly for state tracking if needed elsewhere, height is inline
+                    mainImage.classList.toggle('image-expanded', isImageExpanded);
+                    mainImage.classList.toggle('image-thumbnail', !isImageExpanded);
+                    mainImage.setAttribute('aria-expanded', isImageExpanded.toString());
+                    updateImageNavVisibility();
+                });
+            }
+
+            // Image Navigation
+            if (elementExists(prevBtn, nextBtn, imageCounter)) {
+                prevBtn.addEventListener('click', (event) => {
+                    event.stopPropagation(); // Prevent image expand/collapse
+                    if (imageUrls.length <= 1) return;
+                    currentImageIndex = (currentImageIndex - 1 + imageUrls.length) % imageUrls.length;
+                    updateImage();
+                });
+
+                nextBtn.addEventListener('click', (event) => {
+                    event.stopPropagation(); // Prevent image expand/collapse
+                    if (imageUrls.length <= 1) return;
+                    currentImageIndex = (currentImageIndex + 1) % imageUrls.length;
+                    updateImage();
+                });
+            }
+
+            // View/Hide Steps Button
+            if (elementExists(viewStepsBtn, stepsContainer, btnIcon, btnText)) {
+                viewStepsBtn.addEventListener('click', () => {
+                    const isOpening = stepsContainer.classList.contains('steps-hidden');
+                    stepsContainer.classList.toggle('steps-hidden', !isOpening);
+                    stepsContainer.classList.toggle('steps-visible', isOpening);
+                    viewStepsBtn.setAttribute('aria-expanded', isOpening.toString());
+                    btnIcon.classList.toggle('rotate-180', isOpening);
+                    btnText.textContent = isOpening ? '隐藏步骤' : '查看步骤';
+
+                    if (!isOpening) {
+                        closeAllAccordions(); // Close all accordions when hiding steps
+                    }
+                });
+            }
+
+            // Accordion Panels
+            accordionHeaders.forEach(header => {
+                const panel = header.nextElementSibling;
+                const icon = header.querySelector('.accordion-icon');
+
+                if (!elementExists(panel, icon) || !panel.classList.contains('accordion-panel')) return;
+
+                header.addEventListener('click', () => {
+                    const isOpening = header.getAttribute('aria-expanded') === 'false';
+
+                    if (isOpening) {
+                         closeAllAccordions(header); // Close others before opening
+
+                        // Set padding before calculating scrollHeight
+                        panel.style.paddingTop = accordionPadding;
+                        panel.style.paddingBottom = accordionPadding;
+
+                        // Use rAF for accurate timing after styles applied
+                        requestAnimationFrame(() => {
+                             // Set maxHeight to scrollHeight for expansion
+                             panel.style.maxHeight = panel.scrollHeight + 'px';
+                             panel.style.opacity = '1';
+                        });
+
+                        header.setAttribute('aria-expanded', 'true');
+                        icon.classList.add('rotate-180');
+
+                        // After transition, set maxHeight to 'auto' for content reflow
+                        panel.addEventListener('transitionend', function onTransitionEnd() {
+                            if (panel.style.maxHeight !== '0px') { // Check if it was an opening transition
+                                panel.style.maxHeight = 'auto';
+                                panel.removeEventListener('transitionend', onTransitionEnd);
+                            }
+                        });
+
+                    } else {
+                         // Set maxHeight explicitly from scrollHeight before shrinking
+                         // (Handles case where it was 'auto')
+                        panel.style.maxHeight = panel.scrollHeight + 'px';
+
+                        requestAnimationFrame(() => {
+                            // Animate closed
+                            panel.style.maxHeight = '0';
+                            panel.style.opacity = '0';
+                            panel.style.paddingTop = '0';
+                            panel.style.paddingBottom = '0';
+                        });
+
+                        header.setAttribute('aria-expanded', 'false');
+                        icon.classList.remove('rotate-180');
+
+                        // After transition, remove inline maxHeight for clean state
+                         panel.addEventListener('transitionend', function onTransitionEnd() {
+                             if (panel.style.maxHeight === '0px') { // Only remove if fully closed
+                                panel.style.maxHeight = ''; // Remove inline style
+                                panel.removeEventListener('transitionend', onTransitionEnd);
+                             }
+                        });
+                    }
+                });
+            });
+
+            // Checklist Items
+            checkboxes.forEach(checkbox => {
+                const label = checkbox.nextElementSibling;
+                if (label && label.tagName === 'LABEL') {
+                    checkbox.addEventListener('change', () => {
+                        label.classList.toggle('checked', checkbox.checked);
+                    });
+                     // Ensure initial state is reflected if page reloads with checked boxes
+                    label.classList.toggle('checked', checkbox.checked);
+                }
+            });
+
+            // --- Initial Setup ---
+            updateImage(); // Set initial image and counter
+            updateImageNavVisibility(); // Hide nav initially if needed
+
+        });
+    </script>
+
+</body>
+</html>

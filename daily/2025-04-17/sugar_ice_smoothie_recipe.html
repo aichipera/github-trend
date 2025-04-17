@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HowToCook : 砂糖椰子冰沙 制作指南</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f3f4f6; /* Light gray background for context */
+        }
+
+        /* Accordion Panel: Transition and initial state */
+        .accordion-panel {
+            transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, padding-top 0.5s ease-in-out, padding-bottom 0.5s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            padding-top: 0;
+            padding-bottom: 0;
+            /* Keep side padding consistent or transition it too if needed */
+            padding-left: 1rem; /* p-4 */
+            padding-right: 1rem; /* p-4 */
+        }
+
+        /* Accordion Panel: Open state (opacity/visibility handled by JS) */
+        .accordion-panel-open {
+             opacity: 1;
+             /* Padding top/bottom applied via JS during expansion */
+             /* max-height applied via JS */
+        }
+
+        /* Steps Container: Transition and states */
+        .steps-hidden {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            margin-top: 0 !important;
+            transition: max-height 0.6s ease-in-out, opacity 0.6s ease-in-out, margin-top 0.6s ease-in-out;
+        }
+        .steps-visible {
+             /* Sufficiently large fixed value for transition target */
+             max-height: 2000px; /* Increased further */
+             opacity: 1;
+             margin-top: 1rem; /* mt-4 */
+             /* Transition properties same as .steps-hidden */
+              transition: max-height 0.6s ease-in-out, opacity 0.6s ease-in-out, margin-top 0.6s ease-in-out;
+        }
+
+        /* Checklist styling */
+        .step-label.checked {
+            text-decoration: line-through;
+            color: #9ca3af; /* Tailwind gray-400 */
+        }
+
+        /* Image Navigation visibility */
+        .image-nav-hidden { opacity: 0; pointer-events: none; }
+        .image-nav-visible { opacity: 1; pointer-events: auto; }
+
+        /* Explicit image height classes */
+        .image-thumbnail { height: 12rem; /* h-48 */ }
+        .image-expanded { height: 24rem; /* h-96 */ }
+
+        /* Checkbox styling */
+        .step-checkbox:checked { background-color: currentColor; border-color: currentColor; }
+        .step-checkbox {
+           appearance: none; -webkit-appearance: none; height: 1.125rem; width: 1.125rem;
+           border-width: 1px; border-color: #9ca3af; border-radius: 0.25rem; display: inline-block;
+           position: relative; margin-right: 0.5rem; flex-shrink: 0; cursor: pointer;
+           vertical-align: middle; margin-top: 2px;
+        }
+        .step-checkbox:checked::before {
+           content: '✓'; font-size: 0.875rem; color: white; position: absolute;
+           top: 50%; left: 50%; transform: translate(-50%, -50%); line-height: 1;
+        }
+        .step-checkbox:focus {
+            outline: 2px solid transparent; outline-offset: 2px;
+            --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+            --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+            box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+        }
+        .focus\:ring-blue-500:focus { --tw-ring-color: #3b82f6; }
+        .focus\:ring-offset-0:focus { --tw-ring-offset-width: 0px; }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center py-8">
+
+    <div class="max-w-sm bg-white rounded-3xl shadow-lg overflow-hidden">
+        <!-- 1. Image Section -->
+        <div id="recipe-image-container" class="relative">
+            <img id="recipe-main-image"
+                 src="https://cook.aiursoft.cn/dishes/drink/%E7%A0%82%E7%B3%96%E6%A4%B0%E5%AD%90%E5%86%B0%E6%B2%99/%E7%A0%82%E7%B3%96%E6%A4%B0%E5%AD%90%E5%86%B0%E6%B2%99-1.jpg"
+                 alt="砂糖椰子冰沙"
+                 class="w-full object-cover cursor-pointer transition-all duration-500 ease-in-out rounded-t-3xl image-thumbnail"
+                 style="height: 12rem;" aria-expanded="false" role="button" tabindex="0">
+
+            <div class="absolute top-4 left-4 bg-black/30 backdrop-blur-sm p-2 rounded-full cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+            </div>
+
+            <div id="image-nav-controls" class="absolute inset-0 flex justify-between items-center px-4 image-nav-hidden transition-opacity duration-300">
+                <button id="image-prev-btn" class="bg-white/70 backdrop-blur-sm p-2 rounded-full shadow-md hover:bg-white/90 transition disabled:opacity-50" aria-label="Previous image"> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-700" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" /> </svg> </button>
+                <button id="image-next-btn" class="bg-white/70 backdrop-blur-sm p-2 rounded-full shadow-md hover:bg-white/90 transition disabled:opacity-50" aria-label="Next image"> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-700" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" /> </svg> </button>
+                <div id="inline-image-counter" class="absolute bottom-2 left-1/2 -translate-x-1/2 bg-white/70 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-medium text-gray-800 shadow-md"> 1 / 1 </div>
+            </div>
+        </div>
+
+        <!-- 2. Content Area -->
+        <div class="p-5 pb-6">
+            <!-- Title/Info -->
+            <div class="flex justify-between items-start mb-2">
+                <div> <h2 class="text-xl font-bold text-gray-800">砂糖椰子冰沙</h2> <p class="text-sm text-gray-500">快速方便的自制冰沙</p> </div>
+                <button class="text-gray-400 hover:text-red-500 transition p-1 -mr-1" aria-label="Add to favorites"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"> <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /> </svg> </button>
+            </div>
+            <p class="text-xs text-gray-600 mb-4 leading-relaxed"> 砂糖椰子冰沙是一种制作极其快速方便的饮料，若原料选择得当则口感丰富。然而制作时动静较大💥，适合白天在家制作以作为下午茶。 </p>
+
+            <!-- Stats -->
+            <div class="flex space-x-4 mb-5">
+                <div class="flex-1 bg-yellow-50 rounded-lg p-3 text-center"> <p class="text-xs font-semibold text-yellow-800 uppercase tracking-wide">预估烹饪难度</p> <p class="text-lg font-bold text-yellow-900 mt-1">★<span class="text-gray-300">☆☆</span></p> </div>
+                <div class="flex-1 bg-green-50 rounded-lg p-3 text-center"> <p class="text-xs font-semibold text-green-800 uppercase tracking-wide">准备+制作时间</p> <p class="text-lg font-bold text-green-900 mt-1 leading-tight">~10h🥶+5min🔨</p> <p class="text-[10px] text-green-700">(冷冻+制作)</p> </div>
+            </div>
+
+            <!-- Ingredients -->
+            <div>
+                <h3 class="text-base font-semibold text-gray-700 mb-3">必备原料和工具 (约300g成品)</h3>
+                <div class="grid grid-cols-3 gap-3 mb-3">
+                    <div class="bg-blue-50 rounded-lg p-2 flex flex-col items-center justify-center text-center min-h-[80px]"> <span class="text-2xl mb-1">🥥</span> <span class="text-xs font-medium text-gray-700">瓶装椰汁</span> <span class="text-[10px] text-gray-500">500ml瓶(倒掉200ml)</span> </div>
+                    <div class="bg-yellow-50 rounded-lg p-2 flex flex-col items-center justify-center text-center min-h-[80px]"> <span class="text-2xl mb-1">🟫</span> <span class="text-xs font-medium text-gray-700">咖啡调糖</span> <span class="text-[10px] text-gray-500">10g (粗粒)</span> </div>
+                    <div class="bg-orange-50 rounded-lg p-2 flex flex-col items-center justify-center text-center min-h-[80px]"> <span class="text-2xl mb-1">🌰</span> <span class="text-xs font-medium text-gray-700">坚果碎</span> <span class="text-[10px] text-gray-500">(可选)</span> </div>
+                </div>
+                <p class="text-xs text-gray-600 mt-3 px-1"> <span class="font-semibold">提示:</span> 瓶装椰汁建议选用<span class="font-semibold">瓶口较大</span>的，方便操作和倒出。 </p>
+                <p class="text-xs text-gray-600 mt-1 px-1"> <span class="font-semibold">工具:</span> 冰箱冷冻区🧊、坚硬表面 (用于敲打🔨) </p>
+            </div>
+
+            <!-- Steps Toggle Button -->
+            <button id="view-steps-btn" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-full flex items-center justify-center space-x-2 transition duration-300 mt-5" aria-expanded="false" aria-controls="recipe-steps-container">
+                 <span id="btn-icon" class="transition-transform duration-300"> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /> </svg> </span>
+                 <span id="btn-text">查看步骤</span>
+            </button>
+
+             <!-- Steps Section (Accordion + Checklist) -->
+            <div id="recipe-steps-container" class="steps-hidden space-y-2">
+                <div class="border border-gray-200 rounded-lg overflow-hidden bg-white">
+                    <button class="accordion-header w-full flex justify-between items-center p-3 text-left font-semibold text-blue-800 bg-blue-50 hover:bg-blue-100 transition duration-200" aria-expanded="false">
+                        <span>操作步骤 🧊🔨🥥</span>
+                        <svg class="accordion-icon shrink-0 h-5 w-5 text-blue-600 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /> </svg>
+                    </button>
+                    <div class="accordion-panel bg-white">
+                        <!-- Padding structure defined in CSS, content here -->
+                        <ol class="list-none space-y-3">
+                             <li class="flex items-start"> <input type="checkbox" id="step1-1" class="step-checkbox text-blue-600 focus:ring-blue-500 focus:ring-offset-0"> <label for="step1-1" class="step-label text-sm text-gray-700 transition-all duration-200 cursor-pointer"> 🧴➡️ 打开一瓶 <span class="font-semibold">500ml</span> 椰汁，倒掉约 <span class="font-semibold">200ml</span> (留下约300ml)，然后立刻<span class="font-semibold">拧紧瓶盖</span>。 </label> </li>
+                             <li class="flex items-start"> <input type="checkbox" id="step1-2" class="step-checkbox text-blue-600 focus:ring-blue-500 focus:ring-offset-0"> <label for="step1-2" class="step-label text-sm text-gray-700 transition-all duration-200 cursor-pointer"> 🥶🧊 将这瓶椰汁放入冰箱冷冻区，冷冻 <span class="font-semibold">10小时以上</span>。(<span class="text-red-600">注意:</span> 不宜冷冻超过7天，防变质)。 </label> </li>
+                             <li class="flex items-start"> <input type="checkbox" id="step1-3" class="step-checkbox text-blue-600 focus:ring-blue-500 focus:ring-offset-0"> <label for="step1-3" class="step-label text-sm text-gray-700 transition-all duration-200 cursor-pointer"> ✅🧊 冷冻后取出，<span class="font-semibold">确认</span> 瓶中椰汁已<span class="font-semibold">彻底冻结</span>成冰块。 </label> </li>
+                             <li class="flex items-start"> <input type="checkbox" id="step1-4" class="step-checkbox text-blue-600 focus:ring-blue-500 focus:ring-offset-0"> <label for="step1-4" class="step-label text-sm text-gray-700 transition-all duration-200 cursor-pointer"> 💥🔨 找到一个<span class="font-semibold">坚硬表面</span>(如墙角、椅背、桌角)，<span class="text-red-600">确保不会损坏表面</span>，然后<span class="font-semibold">用力抽打</span>瓶身底部或侧面。 </label> </li>
+                             <li class="flex items-start"> <input type="checkbox" id="step1-5" class="step-checkbox text-blue-600 focus:ring-blue-500 focus:ring-offset-0"> <label for="step1-5" class="step-label text-sm text-gray-700 transition-all duration-200 cursor-pointer"> ⏳🔨 继续抽打，直到感觉瓶内冻结的椰汁已变成<span class="font-semibold">松散的冰沙状态</span> (摇晃瓶子能听到沙沙声)。 </label> </li>
+                             <li class="flex items-start"> <input type="checkbox" id="step1-6" class="step-checkbox text-blue-600 focus:ring-blue-500 focus:ring-offset-0"> <label for="step1-6" class="step-label text-sm text-gray-700 transition-all duration-200 cursor-pointer"> 🍨➡️ 打开瓶盖，将制作好的椰子冰沙倒入碗或杯中。 </label> </li>
+                             <li class="flex items-start"> <input type="checkbox" id="step1-7" class="step-checkbox text-blue-600 focus:ring-blue-500 focus:ring-offset-0"> <label for="step1-7" class="step-label text-sm text-gray-700 transition-all duration-200 cursor-pointer"> ✨🧂 在冰沙表面均匀撒上 <span class="font-semibold">10g 咖啡调糖</span> (或用量自定) 或 <span class="font-semibold">坚果碎</span> (可选)。 </label> </li>
+                             <li class="flex items-start"> <input type="checkbox" id="step1-8" class="step-checkbox text-blue-600 focus:ring-blue-500 focus:ring-offset-0"> <label for="step1-8" class="step-label text-sm text-gray-700 transition-all duration-200 cursor-pointer"> 🎉🥳 完成！即刻享用这份简单粗暴又美味的自制冰沙！🥥🧊✨ </label> </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End Content Area -->
+    </div> <!-- End Card -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Image Gallery (Logic unchanged, assumed correct) ---
+            const recipeImage = document.getElementById('recipe-main-image');
+            const imageNavControls = document.getElementById('image-nav-controls');
+            const prevBtn = document.getElementById('image-prev-btn');
+            const nextBtn = document.getElementById('image-next-btn');
+            const counter = document.getElementById('inline-image-counter');
+            const recipeImageUrls = [
+                'https://cook.aiursoft.cn/dishes/drink/%E7%A0%82%E7%B3%96%E6%A4%B0%E5%AD%90%E5%86%B0%E6%B2%99/%E7%A0%82%E7%B3%96%E6%A4%B0%E5%AD%90%E5%86%B0%E6%B2%99-1.jpg'
+            ];
+            let currentImageIndex = 0;
+            const totalImages = recipeImageUrls.length;
+            const hasMultipleImages = totalImages > 1;
+
+            function updateImageCounter() { if (counter) counter.textContent = `${currentImageIndex + 1} / ${totalImages}`; }
+            function showImage(index) { /* ... (implementation as before) ... */ }
+            if (recipeImage) updateImageCounter();
+            if (prevBtn) prevBtn.disabled = true;
+            if (nextBtn) nextBtn.disabled = !hasMultipleImages;
+            if (recipeImage) {
+                recipeImage.addEventListener('click', () => { /* ... (implementation as before) ... */ });
+                recipeImage.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); recipeImage.click(); } });
+            }
+            if (hasMultipleImages) {
+                 if (prevBtn) prevBtn.addEventListener('click', (event) => { /* ... */ });
+                 if (nextBtn) nextBtn.addEventListener('click', (event) => { /* ... */ });
+            } else {
+                if (imageNavControls) { imageNavControls.classList.add('image-nav-hidden'); imageNavControls.classList.remove('image-nav-visible'); }
+            }
+
+            // --- Steps Toggle ---
+            const viewStepsBtn = document.getElementById('view-steps-btn');
+            const stepsContainer = document.getElementById('recipe-steps-container');
+            const btnText = document.getElementById('btn-text');
+            const btnIcon = document.getElementById('btn-icon');
+
+            if (viewStepsBtn && stepsContainer && btnText && btnIcon) {
+                viewStepsBtn.addEventListener('click', () => {
+                    const isHidden = stepsContainer.classList.contains('steps-hidden');
+                    if (isHidden) {
+                        // Expand Steps Container
+                        stepsContainer.classList.remove('steps-hidden');
+                        stepsContainer.classList.add('steps-visible'); // Use class with large max-height
+                        viewStepsBtn.setAttribute('aria-expanded', 'true');
+                        btnText.textContent = '隐藏步骤';
+                        btnIcon.style.transform = 'rotate(180deg)';
+                    } else {
+                        // Collapse Steps Container
+                        stepsContainer.style.maxHeight = stepsContainer.scrollHeight + 'px'; // Get current height before collapsing
+                         requestAnimationFrame(() => { // Allow repaint before setting to 0
+                            stepsContainer.style.maxHeight = '0px';
+                         });
+                        stepsContainer.classList.remove('steps-visible');
+                        stepsContainer.classList.add('steps-hidden');
+                        viewStepsBtn.setAttribute('aria-expanded', 'false');
+                        btnText.textContent = '查看步骤';
+                        btnIcon.style.transform = 'rotate(0deg)';
+                        closeAllAccordions(); // Close internal accordions too
+                         // Clean up inline style after transition
+                         stepsContainer.addEventListener('transitionend', () => {
+                            if (stepsContainer.classList.contains('steps-hidden')) {
+                                stepsContainer.style.maxHeight = '';
+                            }
+                         }, { once: true });
+                    }
+                });
+                viewStepsBtn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); viewStepsBtn.click(); } });
+            }
+
+             // --- Accordion ---
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+            // Function to close all accordion panels except the one specified
+            function closeAllAccordions(exceptThisHeader = null) {
+                 accordionHeaders.forEach(header => {
+                    if (header !== exceptThisHeader) {
+                        const panel = header.nextElementSibling;
+                        const icon = header.querySelector('.accordion-icon');
+                        if (panel && panel.classList.contains('accordion-panel') && panel.classList.contains('accordion-panel-open')) {
+                            panel.style.maxHeight = '0px'; // Start collapsing
+                            panel.classList.remove('accordion-panel-open');
+                            // Reset padding via CSS transition (or explicitly set to 0 here if needed)
+                            panel.style.paddingTop = '0';
+                            panel.style.paddingBottom = '0';
+                            header.setAttribute('aria-expanded', 'false');
+                            if (icon) icon.style.transform = 'rotate(0deg)';
+
+                            // Clean up inline style after transition
+                             panel.addEventListener('transitionend', () => {
+                                if (!panel.classList.contains('accordion-panel-open')) {
+                                    panel.style.maxHeight = '';
+                                }
+                             }, { once: true });
+                        }
+                    }
+                });
+            }
+
+             // Add click listener to each accordion header
+             accordionHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const panel = header.nextElementSibling;
+                    const icon = header.querySelector('.accordion-icon');
+
+                    if (!panel || !panel.classList.contains('accordion-panel')) return;
+
+                    const isCurrentlyOpen = panel.classList.contains('accordion-panel-open');
+
+                    // Close others first
+                    closeAllAccordions(header);
+
+                    if (isCurrentlyOpen) {
+                        // --- Close the clicked panel ---
+                        panel.style.maxHeight = panel.scrollHeight + 'px'; // Set to current height
+                        requestAnimationFrame(() => { // Allow repaint
+                             panel.style.maxHeight = '0px'; // Then animate to 0
+                        });
+                        panel.classList.remove('accordion-panel-open');
+                        panel.style.paddingTop = '0'; // Animate padding
+                        panel.style.paddingBottom = '0';
+                        header.setAttribute('aria-expanded', 'false');
+                        if (icon) icon.style.transform = 'rotate(0deg)';
+
+                        // Clean up inline style after transition
+                         panel.addEventListener('transitionend', () => {
+                             if (!panel.classList.contains('accordion-panel-open')) {
+                                panel.style.maxHeight = '';
+                             }
+                         }, { once: true });
+
+                    } else {
+                        // --- Open the clicked panel ---
+                        panel.classList.add('accordion-panel-open');
+                        header.setAttribute('aria-expanded', 'true');
+                        if (icon) icon.style.transform = 'rotate(180deg)';
+
+                        // Set padding *before* calculating scrollHeight
+                        panel.style.paddingTop = '0.75rem'; // pt-3 (from <ol> styling)
+                        panel.style.paddingBottom = '1rem'; // p-4 (from <ol> styling)
+
+                         // Force reflow/repaint before calculating scrollHeight
+                        requestAnimationFrame(() => {
+                            const targetHeight = panel.scrollHeight;
+                            panel.style.maxHeight = targetHeight + 'px';
+
+                            // Optional: Set to 'auto' after transition completes for dynamic content
+                            panel.addEventListener('transitionend', function handler() {
+                                if (panel.style.maxHeight !== '0px') { // Ensure it's not closing
+                                    panel.style.maxHeight = 'auto';
+                                }
+                                panel.removeEventListener('transitionend', handler);
+                            }, { once: true });
+                        });
+                    }
+                });
+                header.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); header.click(); } });
+            });
+
+            // --- Checklist ---
+            const checkboxes = document.querySelectorAll('.step-checkbox');
+            checkboxes.forEach(checkbox => {
+                const label = checkbox.labels ? checkbox.labels[0] : checkbox.closest('li')?.querySelector('.step-label');
+                if (label) { if (checkbox.checked) label.classList.add('checked'); else label.classList.remove('checked'); }
+                checkbox.addEventListener('change', () => {
+                    const label = checkbox.labels ? checkbox.labels[0] : checkbox.closest('li')?.querySelector('.step-label');
+                    if (label) { if (checkbox.checked) label.classList.add('checked'); else label.classList.remove('checked'); }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
