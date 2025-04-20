@@ -1,0 +1,792 @@
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub最新风向标：AI效率工具崛起</title>
+
+    <!-- Core Reveal.js -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" id="theme" rel="stylesheet">
+
+    <!-- Extensions & Styling -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --r-main-font: "Noto Sans SC", Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: "Noto Serif SC", "Noto Sans SC", Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, serif;
+            --r-heading-font-weight: 600;
+            --r-block-margin: 20px;
+            --r-link-color: #2a76dd;
+            --r-link-color-hover: #6ca0e8;
+            --r-background-color: #f8f9fa; /* Light gray background */
+            --r-main-color: #333; /* Darker text for readability */
+            --r-heading-color: #1a202c; /* Even darker headings */
+
+            /* Custom Aha Moment Palette */
+            --aha-primary: #0077cc; /* A professional blue */
+            --aha-secondary: #4fd1c5; /* Teal accent */
+            --aha-gradient-start: #e0f2fe; /* Light blue */
+            --aha-gradient-end: #d1fae5; /* Light green/teal */
+            --aha-highlight-bg: rgba(79, 209, 197, 0.1); /* Subtle teal highlight */
+        }
+
+        .reveal {
+            font-family: var(--r-main-font);
+            font-size: 1rem; /* Base size */
+            color: var(--r-main-color);
+        }
+
+        .reveal ::selection {
+             color: #fff;
+             background: var(--aha-secondary);
+             text-shadow: none;
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--r-heading-color);
+            font-weight: var(--r-heading-font-weight);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .reveal h1 { font-size: 2.8rem; }
+        .reveal h2 { font-size: 2.1rem; } /* Main slide titles */
+        .reveal h3 { font-size: 1.6rem; } /* Subtitles */
+        .reveal h4 { font-size: 1.2rem; } /* Section heads within slide */
+        .reveal p, .reveal li { font-size: 1.05rem; line-height: 1.6; }
+        .reveal strong { color: var(--aha-primary); font-weight: 500; }
+
+        .reveal small {
+            font-size: 0.7em;
+            color: #777;
+            display: block;
+            margin-top: 0.5em;
+        }
+
+        .reveal .slides section,
+        .reveal .slides section > section {
+             padding: 20px 5%; /* Add more horizontal padding */
+             box-sizing: border-box;
+        }
+
+        /* Aha Moment Styling */
+        .aha-gradient-bg {
+             background: linear-gradient(135deg, var(--aha-gradient-start) 0%, var(--aha-gradient-end) 100%);
+        }
+        .aha-highlight {
+             background-color: var(--aha-highlight-bg);
+             padding: 0.2em 0.4em;
+             border-radius: 4px;
+             display: inline-block;
+        }
+         .aha-icon {
+             color: var(--aha-secondary);
+             margin-right: 0.3em;
+        }
+
+
+        /* Custom Layouts & Components */
+        .slide-footer {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            font-size: 0.6em;
+            color: #888;
+            display: flex;
+            align-items: center;
+            gap: 15px; /* Space between link and QR code */
+        }
+        .slide-footer img {
+            width: 60px; /* Adjust QR code size */
+            height: 60px;
+        }
+         .slide-footer a {
+             color: #555;
+             text-decoration: none;
+         }
+        .slide-footer a:hover {
+             color: var(--r-link-color);
+         }
+
+        .repo-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            padding: 25px;
+            margin-top: 20px;
+            text-align: left;
+            border-left: 5px solid var(--aha-primary);
+        }
+        .repo-card h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: var(--aha-primary);
+            font-size: 1.4rem;
+        }
+        .repo-card h3 a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .repo-card h3 a:hover {
+            text-decoration: underline;
+        }
+        .repo-card h4 { /* Subtitle/简介 */
+             font-size: 1.1rem;
+             color: #555;
+             margin-bottom: 15px;
+             font-weight: 400;
+             font-family: var(--r-main-font); /* Use sans-serif for subtitle */
+        }
+
+        .repo-stats {
+             display: flex;
+             flex-wrap: wrap;
+             gap: 15px;
+             margin-bottom: 15px;
+             font-size: 0.9rem;
+             color: #444;
+        }
+         .repo-stats span {
+             display: inline-flex;
+             align-items: center;
+             gap: 5px;
+             background-color: #f0f0f0;
+             padding: 5px 10px;
+             border-radius: 15px;
+         }
+          .repo-stats .fa-star { color: #f Sacc16; } /* Yellow Star */
+          .repo-stats .fa-code-branch { color: #6e5494; } /* Purple Fork */
+          .repo-stats .fa-eye { color: #0366d6; } /* Blue Watch */
+          .repo-stats .fa-triangle-exclamation { color: #d73a49; } /* Red Issue */
+          .repo-stats .fa-code-pull-request { color: #28a745; } /* Green PR */
+          .repo-stats .fa-tag { color: #6f42c1; } /* Purple Release */
+          .repo-stats .fa-pen { color: #586069; } /* Gray Commit */
+          .repo-stats .fa-scroll { color: #f69d50; } /* Orange License */
+          .repo-stats .fa-users { color: #24292e; } /* Dark Users */
+
+
+        .repo-content h5 { /* Section titles like "项目速读" */
+            font-size: 1.15rem;
+            color: var(--r-heading-color);
+            margin-top: 20px;
+            margin-bottom: 8px;
+            border-bottom: 2px solid var(--aha-secondary);
+            padding-bottom: 4px;
+            display: inline-block;
+        }
+         .repo-content p {
+             font-size: 1rem;
+             line-height: 1.65;
+             color: #333;
+         }
+        .repo-lang {
+             font-size: 0.85em;
+             color: #666;
+             margin-top: 15px;
+        }
+        .repo-lang strong {
+            color: #333; /* Make lang names darker */
+            font-weight: 500;
+        }
+
+        /* Tailwind overrides/enhancements if needed */
+        .text-aha-primary { color: var(--aha-primary); }
+        .text-aha-secondary { color: var(--aha-secondary); }
+
+        /* Ensure lists have reasonable spacing */
+        .reveal ul, .reveal ol {
+            margin-left: 1.5em; /* Indentation */
+             margin-bottom: var(--r-block-margin);
+        }
+        .reveal li {
+            margin-bottom: 0.5em; /* Space between list items */
+        }
+
+        /* Specific Slide Adjustments */
+        #title-slide {
+            text-align: left;
+            padding-top: 10%; /* Push content down slightly */
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%" opacity="0.05"><defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgb(0,119,204);stop-opacity:1" /><stop offset="100%" style="stop-color:rgb(79,209,197);stop-opacity:1" /></linearGradient></defs><rect width="100" height="100" fill="url(%23grad1)"/></svg>'), var(--r-background-color); /* Subtle gradient overlay */
+            background-size: cover; /* Cover entire slide */
+        }
+        #title-slide h1 {
+             font-size: 3rem; /* Larger title */
+             color: var(--aha-primary);
+             margin-bottom: 0.5em;
+         }
+         #title-slide h3 { /* Subtitle */
+             font-size: 1.7rem;
+             color: #4a5568; /* Slightly muted subtitle */
+             margin-bottom: 1.5em;
+             font-weight: 400;
+              font-family: var(--r-main-font);
+         }
+          #title-slide .speaker-info {
+              font-size: 1.1rem;
+              color: #555;
+              margin-top: 2em;
+          }
+         #title-slide .disclaimer {
+             margin-top: 2em;
+             font-style: italic;
+             font-size: 0.8em;
+             color: #777;
+         }
+
+        #end-slide {
+             background: linear-gradient(135deg, var(--aha-primary) 0%, var(--aha-secondary) 100%);
+             color: white;
+        }
+         #end-slide h2 {
+             color: white;
+             font-size: 2.5rem;
+             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+         }
+         #end-slide p {
+             color: #e0f2fe;
+             font-size: 1.2rem;
+         }
+         #end-slide .slide-footer {
+             color: #eee;
+         }
+          #end-slide .slide-footer a {
+             color: #fff;
+         }
+          #end-slide .slide-footer a:hover {
+             color: #d1fae5;
+         }
+
+
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover -->
+            <section id="title-slide" data-background-color="#f8f9fa">
+                <h1 class="text-4xl font-bold mb-4">GitHub最新风向标</h1>
+                <h3 class="text-2xl mb-6 font-light">AI效率工具崛起，程序员的下一波掘金点！</h3>
+
+                <p class="speaker-info">演讲者: <strong>AIChipEra</strong></p>
+                <p class="text-sm text-gray-600 mt-2">观测时间: 2025-04-20 20:46:34</p>
+
+                <p class="disclaimer">
+                    **以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！**
+                </p>
+
+                <div class="slide-footer">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend <i class="fab fa-github"></i></a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+            <!-- Slide 2: 日报要点 -->
+            <section>
+                <h2><i class="fas fa-lightbulb aha-icon"></i>日报要点</h2>
+                <ul class="list-disc pl-6 mt-4">
+                    <li class="fragment" data-fragment-index="1">还在追最新AI模型？<strong class="text-aha-primary">AI效率工具</strong>才是新王道！</li>
+                    <li class="fragment" data-fragment-index="2">语言格局：<strong>Python</strong>坚挺，<strong>C++</strong> & <strong>TypeScript</strong>紧随。</li>
+                    <li class="fragment" data-fragment-index="3">技术刚需：<strong>LLM应用提速</strong>、简化开发流程。</li>
+                    <li class="fragment" data-fragment-index="4">核心关注：如何<strong class="text-aha-secondary">低成本、快落地</strong> AI项目？</li>
+                    <li class="fragment" data-fragment-index="5">未来潜力：边缘AI、AI安全、AI辅助开发。</li>
+                    <li class="fragment" data-fragment-index="6"><span class="aha-highlight">洞察先机，掌握提效秘籍，才能弯道超车！</span></li>
+                </ul>
+            </section>
+
+            <!-- Slide 3: 整体趋势 -->
+            <section>
+                <h2>热门项目趋势分析</h2>
+                <h3><i class="fas fa-chart-line aha-icon"></i>今日整体趋势：AI火热，效率工具崭露头角</h3>
+                <p class="fragment" data-fragment-index="1"><strong>AI 仍是焦点：</strong> 大语言模型（LLM）相关项目持续火热。</p>
+                <p class="fragment" data-fragment-index="2"><strong>效率工具崛起：</strong> <span class="aha-highlight">提升AI应用效率</span>、<span class="aha-highlight">简化开发流程</span>的需求快速增长。</p>
+                 <p class="fragment" data-fragment-index="3"><strong>务实导向：</strong> 更注重解决<strong class="text-aha-primary">实际问题</strong>，而非单纯技术展示。</p>
+                 <p class="fragment" data-fragment-index="4"><strong>技术走向：</strong> AI技术从概念验证 <i class="fas fa-arrow-right mx-2"></i> <strong class="text-aha-secondary">规模化应用</strong>。 </p>
+            </section>
+
+            <!-- Slide 4: 语言与技术栈 -->
+            <section>
+                <h2>技术风向：语言与栈</h2>
+                 <div class="grid grid-cols-2 gap-8 mt-6">
+                     <div>
+                         <h4 class="text-lg font-semibold mb-3"><i class="fas fa-code mr-2 text-aha-primary"></i>编程语言分布</h4>
+                         <ul class="list-disc pl-5">
+                            <li class="fragment"><strong>Python <i class="fab fa-python text-yellow-500"></i>:</strong> 持续主导 (数据科学, AI应用)</li>
+                            <li class="fragment"><strong>C++ <i class="fas fa-microchip text-blue-600"></i>:</strong> 性能优化, 底层系统</li>
+                            <li class="fragment"><strong>TypeScript <i class="fab fa-js-square text-blue-400"></i>:</strong> Web应用开发增长</li>
+                            <li class="fragment"><strong>Go <i class="fab fa-golang text-cyan-500"></i>:</strong> 云原生, 基础设施</li>
+                        </ul>
+                     </div>
+                     <div>
+                         <h4 class="text-lg font-semibold mb-3"><i class="fas fa-cogs mr-2 text-aha-secondary"></i>热门技术栈</h4>
+                         <ul class="list-disc pl-5">
+                            <li class="fragment"><strong>LLM 相关:</strong> <span class="aha-highlight">RAG</span>, <span class="aha-highlight">AI Agents</span></li>
+                            <li class="fragment"><strong>效率工具:</strong> MCP服务器, 格式转换</li>
+                            <li class="fragment"><strong>开发简化:</strong> 无代码/低代码平台</li>
+                            <li class="fragment"><strong>性能优化:</strong> 高性能计算</li>
+                         </ul>
+                     </div>
+                 </div>
+            </section>
+
+            <!-- Slide 5: 核心需求与未来展望 -->
+            <section>
+                 <h2>核心需求与未来展望</h2>
+                 <div class="grid grid-cols-2 gap-8 mt-6">
+                     <div>
+                         <h4 class="text-lg font-semibold mb-3"><i class="fas fa-bullseye mr-2 text-aha-primary"></i>核心技术需求</h4>
+                         <ul class="list-disc pl-5">
+                             <li class="fragment"><i class="fas fa-rocket aha-icon"></i>提升 <strong>LLM 应用效率</strong> (成本, 速度)</li>
+                             <li class="fragment"><i class="fas fa-magic mr-1 aha-icon"></i>简化 <strong>开发流程</strong> (低代码, 自动化)</li>
+                             <li class="fragment"><i class="fas fa-tachometer-alt aha-icon"></i><strong>高性能计算</strong> & 系统优化</li>
+                             <li class="fragment"><i class="fas fa-cubes aha-icon"></i>高扩展、低延迟 <strong>Web3</strong> 基础设施</li>
+                         </ul>
+                     </div>
+                     <div>
+                         <h4 class="text-lg font-semibold mb-3"><i class="fas fa-binoculars mr-2 text-aha-secondary"></i>下一波技术热点</h4>
+                         <ul class="list-disc pl-5">
+                             <li class="fragment"><i class="fas fa-mobile-alt aha-icon"></i><strong>边缘 AI</strong> (端侧高效运行)</li>
+                             <li class="fragment"><i class="fas fa-shield-alt aha-icon"></i><strong>AI 安全与隐私</strong></li>
+                             <li class="fragment"><i class="fas fa-laptop-code aha-icon"></i><strong>AI 辅助开发</strong> (代码生成, Bug修复)</li>
+                         </ul>
+                     </div>
+                 </div>
+            </section>
+
+             <!-- Slide 6: 双日对比 -->
+            <section>
+                <h2>热门项目趋势分析</h2>
+                <h3><i class="fas fa-exchange-alt aha-icon"></i>双日维度对比：活跃度提升，Python亮眼</h3>
+                <ul class="list-disc pl-6 mt-4">
+                    <li class="fragment">整体活跃度<strong class="text-green-600">略有提升</strong> (新晋/上升 > 下降)。</li>
+                    <li class="fragment">新晋项目集中于 <strong class="text-aha-primary">Python</strong> 领域 (PDF处理, LLM, 工具)。</li>
+                    <li class="fragment">语言趋势：<strong class="text-green-600">Python <i class="fas fa-arrow-up"></i></strong>，JavaScript/TypeScript <i class="fas fa-arrow-down text-red-500"></i>。</li>
+                    <li class="fragment">关注亮点：
+                        <ul class="list-circle pl-6">
+                            <li><code>Anduin2017/HowToCook</code> <i class="fas fa-fire text-orange-500"></i> 涨幅惊人。</li>
+                            <li><code>microsoft/BitNet</code> <i class="fas fa-microchip text-blue-600"></i> 技术突破引关注。</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+             <!-- Slide 7: 热点变化 -->
+            <section>
+                 <h2><i class="fas fa-fire-alt aha-icon"></i>热点动态</h2>
+                 <div class="grid grid-cols-3 gap-6 mt-6 text-sm">
+                     <div class="fragment bg-green-50 p-4 rounded-lg shadow">
+                         <h4 class="font-semibold text-green-700 mb-2"><i class="fas fa-plus-circle mr-1"></i>新增热点</h4>
+                         <ul class="list-none pl-0">
+                            <li>wandb/openui</li>
+                            <li>ashvardanian/less_slow.cpp</li>
+                            <li>shubhamsaboo/awesome-llm-apps</li>
+                            <li>yt-dlp/yt-dlp</li>
+                            <li>Byaidu/pdfmathtranslate</li>
+                            <li>microsoft/markitdown</li>
+                         </ul>
+                     </div>
+                     <div class="fragment bg-red-50 p-4 rounded-lg shadow">
+                         <h4 class="font-semibold text-red-700 mb-2"><i class="fas fa-minus-circle mr-1"></i>减退热点</h4>
+                         <ul class="list-none pl-0">
+                             <li>browserbase/stagehand</li>
+                             <li>jwasham/coding-interview-university</li>
+                             <li>docmost/docmost</li>
+                             <li>sigmahq/sigma</li>
+                             <li>kamranahmedse/developer-roadmap</li>
+                             <li>wanglin2/mind-map</li>
+                             <li>nirdiamant/rag_techniques</li>
+                         </ul>
+                     </div>
+                      <div class="fragment bg-blue-50 p-4 rounded-lg shadow">
+                         <h4 class="font-semibold text-blue-700 mb-2"><i class="fas fa-sync-alt mr-1"></i>持续热门</h4>
+                         <ul class="list-none pl-0">
+                             <li>microsoft/BitNet <span class="text-xs">(4天)</span></li>
+                             <li>Anduin2017/HowToCook <span class="text-xs">(6天)</span></li>
+                             <li>jlowin/fastmcp <span class="text-xs">(3天)</span></li>
+                             <li>1Panel-dev/1Panel <span class="text-xs">(3天)</span></li>
+                             <li>nocobase/nocobase <span class="text-xs">(3天)</span></li>
+                             <li>linera-io/linera-protocol <span class="text-xs">(3天)</span></li>
+                         </ul>
+                     </div>
+                 </div>
+            </section>
+
+            <!-- Slide 8: 详细仓库数据 Intro -->
+            <section>
+                <h2><i class="fas fa-database aha-icon"></i>详细仓库数据</h2>
+                <p class="mt-4">接下来，我们将深入了解几个今日热门的 GitHub 仓库。</p>
+            </section>
+
+            <!-- Repo Slides Start -->
+
+            <section class="repo-card">
+                <h3><a href="https://github.com/microsoft/BitNet" target="_blank"><i class="fab fa-microsoft"></i> microsoft/BitNet</a></h3>
+                <h4>1 比特 LLM 官方推理框架</h4>
+                <div class="repo-stats">
+                    <span><i class="fas fa-star"></i>14.6k</span>
+                    <span><i class="fas fa-code-branch"></i>1k</span>
+                    <span><i class="fas fa-eye"></i>145</span>
+                    <span><i class="fas fa-triangle-exclamation"></i>49</span>
+                    <span><i class="fas fa-code-pull-request"></i>16</span>
+                    <span><i class="fas fa-code"></i> C++</span>
+                    <span><i class="fas fa-calendar-alt"></i> 4天</span>
+                    <span><i class="fas fa-medal"></i> 4次</span>
+                    <span><i class="fas fa-arrow-up"></i> 627</span>
+                </div>
+                 <div class="repo-lang"><strong>编程语言占比:</strong> <strong>C++</strong> 52.7%, <strong>Python</strong> 46.5%, Other 0.8%</div>
+                <div class="repo-content">
+                     <h5>项目速读</h5>
+                     <p>BitNet 是微软为 <strong class="text-aha-primary">1-bit 大语言模型</strong> 设计的高效推理框架，专攻 CPU 运行。通过优化内核，在 ARM/x86 CPU 上实现显著加速 (<span class="aha-highlight">高达 5.07x</span>) 和能耗降低 (<span class="aha-highlight">高达 70%</span>)。核心优势是高性能低功耗，使单 CPU 运行百亿参数模型成为可能。基于 llama.cpp，易集成，是探索超低比特 LLM 潜力的理想工具。</p>
+                     <h5>增长分析</h5>
+                     <p>短短4天获 1342 Star (日均 356.5)，增长迅猛。今日新增 627 Star，势头强劲，热度持续攀升。</p>
+                </div>
+            </section>
+
+            <section class="repo-card">
+                <h3><a href="https://github.com/Byaidu/PDFMathTranslate" target="_blank"><i class="fas fa-file-pdf"></i> Byaidu/PDFMathTranslate</a></h3>
+                <h4>PDF科研论文翻译，完整保留排版</h4>
+                <div class="repo-stats">
+                     <span><i class="fas fa-star"></i>20.6k</span>
+                     <span><i class="fas fa-code-branch"></i>1.8k</span>
+                     <span><i class="fas fa-eye"></i>84</span>
+                     <span><i class="fas fa-triangle-exclamation"></i>97</span>
+                     <span><i class="fas fa-code-pull-request"></i>5</span>
+                     <span><i class="fas fa-code"></i> Python</span>
+                     <span><i class="fas fa-calendar-alt"></i> 1天</span>
+                     <span><i class="fas fa-medal"></i> 1次</span>
+                     <span><i class="fas fa-arrow-up"></i> 71</span>
+                </div>
+                 <div class="repo-lang"><strong>编程语言占比:</strong> <strong>Python</strong> 98.8%, Other 1.2%</div>
+                <div class="repo-content">
+                    <h5>项目速读</h5>
+                    <p>科研人员的“巴别塔翻译器”，解决科学论文翻译痛点：<strong class="text-aha-primary">准确翻译术语公式</strong> + <strong class="text-aha-secondary">完整保留排版</strong> (含公式、图表)。利用 AI 解析结构，集成多翻译引擎 (Google/DeepL/Ollama/OpenAI)，实现 PDF 全文双语对照翻译。提供 CLI/GUI/Docker/Zotero 支持，极大提升外文文献阅读效率，尤其适合处理复杂公式论文。</p>
+                    <!-- <h5>增长分析</h5> <p>首次上榜，当日新增71 Star，展现出一定的关注度。</p> -->
+                 </div>
+            </section>
+
+            <section class="repo-card">
+                 <h3><a href="https://github.com/public-apis/public-apis" target="_blank"><i class="fas fa-list-alt"></i> public-apis/public-apis</a></h3>
+                 <h4>免费API列表</h4>
+                 <div class="repo-stats">
+                     <span><i class="fas fa-star"></i>336k</span>
+                     <span><i class="fas fa-code-branch"></i>35.6k</span>
+                     <span><i class="fas fa-eye"></i>4.3k</span>
+                     <span><i class="fas fa-triangle-exclamation"></i>2</span>
+                     <span><i class="fas fa-code-pull-request"></i>440</span>
+                     <span><i class="fas fa-code"></i> Python</span>
+                     <span><i class="fas fa-calendar-alt"></i> 2天</span>
+                     <span><i class="fas fa-medal"></i> 6次</span>
+                     <span><i class="fas fa-arrow-up"></i> 467</span>
+                 </div>
+                  <div class="repo-lang"><strong>编程语言占比:</strong> <strong>Python</strong> 96.8%, Shell 3.2%</div>
+                 <div class="repo-content">
+                     <h5>项目速读</h5>
+                     <p>堪称“API 百宝箱”，汇集海量<strong class="text-aha-primary">免费公共 API 资源</strong>，为开发者导航。省去搜索验证时间，快速查找并集成所需 API (天气、加密货币等)。核心优势是<span class="aha-highlight">社区维护的广泛目录</span>和<span class="aha-highlight">Postman 集成</span>。极大降低 API 接入难度，提升开发效率，激发创新，尤其适合快速原型、学习和小型项目。</p>
+                     <h5>增长分析</h5>
+                     <p>6天内获 6291 Star (日均 550.2)，增长迅猛。今日新增 467 Star，虽略低于平均，整体势头依然强劲。</p>
+                 </div>
+            </section>
+
+             <section class="repo-card">
+                 <h3><a href="https://github.com/Anduin2017/HowToCook" target="_blank"><i class="fas fa-utensils"></i> Anduin2017/HowToCook</a></h3>
+                 <h4>程序员居家烹饪指南</h4>
+                 <div class="repo-stats">
+                     <span><i class="fas fa-star"></i>78.2k</span>
+                     <span><i class="fas fa-code-branch"></i>9.4k</span>
+                     <span><i class="fas fa-eye"></i>424</span>
+                     <span><i class="fas fa-triangle-exclamation"></i>411</span>
+                     <span><i class="fas fa-code-pull-request"></i>20</span>
+                     <span><i class="fas fa-code"></i> Dockerfile</span>
+                     <span><i class="fas fa-calendar-alt"></i> 6天</span>
+                     <span><i class="fas fa-medal"></i> 6次</span>
+                     <span><i class="fas fa-arrow-up"></i> 876</span>
+                 </div>
+                  <div class="repo-lang"><strong>编程语言占比:</strong> <strong>Dockerfile</strong> 100.0%</div>
+                 <div class="repo-content">
+                     <h5>项目速读</h5>
+                     <p>一本<strong class="text-aha-primary">代码化的食谱</strong>，专为程序员设计。用<span class="aha-highlight">精准、量化</span>的语言重构菜谱，步骤清晰如调试代码。社区驱动，鼓励贡献，构建完善的菜谱库。优势在于<strong class="text-aha-secondary">清晰度、可复用性</strong>，以及 Docker 便捷部署。难度分级，适合厨房小白循序渐进。告别外卖，降低烹饪门槛。</p>
+                     <h5>增长分析</h5>
+                     <p>6天内增长 7276 Star (日均 1255.5)，增长极其迅速。今日新增 876 Star，虽略低于平均，整体仍保持强劲增长势头。</p>
+                 </div>
+            </section>
+
+             <section class="repo-card">
+                 <h3><a href="https://github.com/Shubhamsaboo/awesome-llm-apps" target="_blank"><i class="fas fa-brain"></i> Shubhamsaboo/awesome-llm-apps</a></h3>
+                 <h4>优秀的 LLM 应用集合 (含 Agents 和 RAG)</h4>
+                 <div class="repo-stats">
+                     <span><i class="fas fa-star"></i>28.7k</span>
+                     <span><i class="fas fa-code-branch"></i>3.2k</span>
+                     <span><i class="fas fa-eye"></i>342</span>
+                     <span><i class="fas fa-triangle-exclamation"></i>4</span>
+                     <span><i class="fas fa-code-pull-request"></i>3</span>
+                     <span><i class="fas fa-code"></i> Python</span>
+                     <span><i class="fas fa-calendar-alt"></i> 1天</span>
+                     <span><i class="fas fa-medal"></i> 9次</span>
+                     <span><i class="fas fa-arrow-up"></i> 146</span>
+                 </div>
+                  <div class="repo-lang"><strong>编程语言占比:</strong> <strong>Python</strong> 100.0%</div>
+                 <div class="repo-content">
+                     <h5>项目速读</h5>
+                     <p>精选的 LLM 应用案例库，<strong class="text-aha-primary">LLM 应用的灵感中心</strong>。展示如何结合 OpenAI/Anthropic/Gemini 及开源模型，利用 <span class="aha-highlight">AI Agents</span> 和 <span class="aha-highlight">RAG</span> 构建智能应用 (如代码助手、邮件处理)。重点展示 RAG (知识获取/生成) 和 Agents (自主任务执行) 的应用。促进 LLM 应用开源生态，加速 AI 技术落地。</p>
+                     <h5>增长分析</h5>
+                     <p>上榜9天增长 8387 Star (日均 499.1)，增长迅速。当前日增 146 Star，虽有下降，整体势头仍强劲，项目吸引力高。</p>
+                 </div>
+            </section>
+
+            <section class="repo-card">
+                 <h3><a href="https://github.com/jlowin/fastmcp" target="_blank"><i class="fas fa-shipping-fast"></i> jlowin/fastmcp</a></h3>
+                 <h4>🚀 构建 MCP 服务器和客户端的快速 Pythonic 方式</h4>
+                 <div class="repo-stats">
+                     <span><i class="fas fa-star"></i>6.3k</span>
+                     <span><i class="fas fa-code-branch"></i>328</span>
+                     <span><i class="fas fa-eye"></i>34</span>
+                     <span><i class="fas fa-triangle-exclamation"></i>42</span>
+                     <span><i class="fas fa-code-pull-request"></i>1</span>
+                     <span><i class="fas fa-code"></i> Python</span>
+                     <span><i class="fas fa-calendar-alt"></i> 3天</span>
+                     <span><i class="fas fa-medal"></i> 7次</span>
+                     <span><i class="fas fa-arrow-up"></i> 341</span>
+                 </div>
+                  <div class="repo-lang"><strong>编程语言占比:</strong> <strong>Python</strong> 100.0%</div>
+                 <div class="repo-content">
+                     <h5>项目速读</h5>
+                     <p>为 LLM 量身定制的“高速公路”，简化构建 <strong class="text-aha-primary">MCP (Model Context Protocol)</strong> 服务器/客户端。让 LLM 应用便捷获取外部数据/工具 (如调用 API, 计算)。用 <span class="aha-highlight">Pythonic 简洁</span> 告别底层协议细节。核心优势是 <strong class="text-aha-secondary">快</strong> 和 <strong class="text-aha-secondary">易</strong>，通过高级接口和自动化减少代码量，加速开发。“即插即用”模块，赋予 LLM 连接外部世界的能力。</p>
+                     <h5>增长分析</h5>
+                     <p>上榜7天增长 4235 Star (日均 275)，增长势头强劲。显示出极高的关注度和吸引力。</p>
+                 </div>
+            </section>
+
+             <section class="repo-card">
+                 <h3><a href="https://github.com/1Panel-dev/1Panel" target="_blank"><i class="fas fa-server"></i> 1Panel-dev/1Panel</a></h3>
+                 <h4>🔥 现代化 Linux 服务器运维管理面板</h4>
+                 <div class="repo-stats">
+                     <span><i class="fas fa-star"></i>27.5k</span>
+                     <span><i class="fas fa-code-branch"></i>2.4k</span>
+                     <span><i class="fas fa-eye"></i>182</span>
+                     <span><i class="fas fa-triangle-exclamation"></i>626</span>
+                     <span><i class="fas fa-code-pull-request"></i>1</span>
+                     <span><i class="fas fa-code"></i> Go</span>
+                     <span><i class="fas fa-calendar-alt"></i> 3天</span>
+                     <span><i class="fas fa-medal"></i> 3次</span>
+                     <span><i class="fas fa-arrow-up"></i> 213</span>
+                 </div>
+                  <div class="repo-lang"><strong>编程语言占比:</strong> <strong>Go</strong> 62.2%, Vue 37.8%</div>
+                 <div class="repo-content">
+                     <h5>项目速读</h5>
+                     <p>Linux 服务器的“瑞士军刀”，将复杂管理转化为<strong class="text-aha-primary">直观易用的 Web 界面</strong>。轻松管理网站、文件、容器、数据库乃至 LLM 应用。集成<span class="aha-highlight">应用商店</span> (一键安装/更新)，<span class="aha-highlight">容器化技术</span>隔离风险，引入<span class="aha-highlight">MCP Server</span> (自然语言操控)。降低服务器管理门槛，适合个人开发者、小团队快速部署。</p>
+                     <h5>增长分析</h5>
+                     <p>上榜3天增长 585 Star (日均 288.3)，增长显著。今日新增 213 Star，略有下降，可能预示增长放缓，需观察。</p>
+                 </div>
+            </section>
+
+             <section class="repo-card">
+                 <h3><a href="https://github.com/nocobase/nocobase" target="_blank"><i class="fas fa-puzzle-piece"></i> nocobase/nocobase</a></h3>
+                 <h4>可扩展性优先的开源无代码/低代码平台</h4>
+                 <div class="repo-stats">
+                     <span><i class="fas fa-star"></i>14.7k</span>
+                     <span><i class="fas fa-code-branch"></i>1.6k</span>
+                     <span><i class="fas fa-eye"></i>143</span>
+                     <span><i class="fas fa-triangle-exclamation"></i>65</span>
+                     <span><i class="fas fa-code-pull-request"></i>69</span>
+                     <span><i class="fas fa-code"></i> TypeScript</span>
+                     <span><i class="fas fa-calendar-alt"></i> 3天</span>
+                     <span><i class="fas fa-medal"></i> 3次</span>
+                     <span><i class="fas fa-arrow-up"></i> 229</span>
+                 </div>
+                  <div class="repo-lang"><strong>编程语言占比:</strong> <strong>TypeScript</strong> 99.0%, JavaScript 1.0%, ...</div>
+                 <div class="repo-content">
+                     <h5>项目速读</h5>
+                     <p>炙手可热的开源<strong class="text-aha-primary">无代码/低代码平台</strong>，赋能用户高效构建业务应用。可视化简化开发，非技术人员亦可参与。核心是<span class="aha-highlight">数据模型驱动架构</span> (数据与 UI 解耦，多视图)，<span class="aha-highlight">所见即所得</span>配置，<span class="aha-highlight">强大插件机制</span>。提供灵活、易扩展、私有可控的平台，适合快速验证、简化内部系统开发，降低成本，加速数字化。</p>
+                     <h5>增长分析</h5>
+                     <p>上榜三天增长 338 Star (日均 112.7)。最后一天新增 229 Star，增长势头强劲，吸引大量关注。</p>
+                 </div>
+            </section>
+
+            <section class="repo-card">
+                 <h3><a href="https://github.com/yt-dlp/yt-dlp" target="_blank"><i class="fas fa-download"></i> yt-dlp/yt-dlp</a></h3>
+                 <h4>功能丰富的命令行音/视频下载器</h4>
+                 <div class="repo-stats">
+                     <span><i class="fas fa-star"></i>108k</span>
+                     <span><i class="fas fa-code-branch"></i>8.5k</span>
+                     <span><i class="fas fa-eye"></i>594</span>
+                     <span><i class="fas fa-triangle-exclamation"></i>1.6k</span>
+                     <span><i class="fas fa-code-pull-request"></i>334</span>
+                     <span><i class="fas fa-code"></i> Python</span>
+                     <span><i class="fas fa-calendar-alt"></i> 1天</span>
+                     <span><i class="fas fa-medal"></i> 2次</span>
+                     <span><i class="fas fa-arrow-up"></i> 108</span>
+                 </div>
+                  <div class="repo-lang"><strong>编程语言占比:</strong> <strong>Python</strong> 99.9%, Other 0.1%</div>
+                 <div class="repo-content">
+                     <h5>项目速读</h5>
+                     <p>强大的<strong class="text-aha-primary">命令行音视频下载利器</strong>，解决从海量平台便捷获取内容难题。youtube-dl 的增强版，<span class="aha-highlight">稳定性</span>和<span class="aha-highlight">功能扩展</span>更优。核心技术是<strong class="text-aha-secondary">广泛的网站支持</strong>和<strong class="text-aha-secondary">高度可配置性</strong>。通过命令行或配置文件精细控制下载。价值在于便捷、灵活，适合开发者、爱好者及自动化场景。Unlicense 自由使用。</p>
+                     <h5>增长分析</h5>
+                     <p>上榜2天内总Star增长3214 (日均111.0)，增长爆发。虽统计周期长，增长主要集中在上榜期间，项目吸引力极高。</p>
+                 </div>
+            </section>
+
+            <section class="repo-card">
+                 <h3><a href="https://github.com/microsoft/markitdown" target="_blank"><i class="fab fa-markdown"></i> microsoft/markitdown</a></h3>
+                 <h4>将文件和 Office 文档转换为 Markdown 的 Python 工具</h4>
+                 <div class="repo-stats">
+                     <span><i class="fas fa-star"></i>50k</span>
+                     <span><i class="fas fa-code-branch"></i>2.4k</span>
+                     <span><i class="fas fa-eye"></i>170</span>
+                     <span><i class="fas fa-triangle-exclamation"></i>169</span>
+                     <span><i class="fas fa-code-pull-request"></i>44</span>
+                     <span><i class="fas fa-code"></i> Python</span>
+                     <span><i class="fas fa-calendar-alt"></i> 1天</span>
+                     <span><i class="fas fa-medal"></i> 7次</span>
+                     <span><i class="fas fa-arrow-up"></i> 489</span>
+                 </div>
+                 <div class="repo-lang"><strong>编程语言占比:</strong> <strong>Python</strong> 99.4%, Dockerfile 0.6%</div>
+                 <div class="repo-content">
+                     <h5>项目速读</h5>
+                     <p>Python 工具，专注将各类文件转为 <strong class="text-aha-primary">LLM 友好的 Markdown</strong>。如同文档转换瑞士军刀，目标是提取<span class="aha-highlight">核心结构和内容</span> (标题, 列表, 表格)，而非像素级还原。平衡易用性和可扩展性 (插件支持)。核心价值是为 LLM 应用铺路，提升模型理解文档能力，尤其适合<strong class="text-aha-secondary">批量处理</strong>和<strong class="text-aha-secondary">注重 token 效率</strong>的场景。集成 MCP Server，连接文档与 AI 世界。</p>
+                     <h5>增长分析</h5>
+                     <p>上榜7天增长超 9000 Star (日均 915.7)，增长迅速。今日新增近 500 Star，势头依然强劲。</p>
+                 </div>
+             </section>
+
+             <section class="repo-card">
+                 <h3><a href="https://github.com/elie222/inbox-zero" target="_blank"><i class="fas fa-envelope-open-text"></i> elie222/inbox-zero</a></h3>
+                 <h4>AI 邮件助手，助你快速清空收件箱</h4>
+                 <div class="repo-stats">
+                     <span><i class="fas fa-star"></i>6.2k</span>
+                     <span><i class="fas fa-code-branch"></i>656</span>
+                     <span><i class="fas fa-eye"></i>20</span>
+                     <span><i class="fas fa-triangle-exclamation"></i>57</span>
+                     <span><i class="fas fa-code-pull-request"></i>16</span>
+                     <span><i class="fas fa-code"></i> TypeScript</span>
+                     <span><i class="fas fa-calendar-alt"></i> 2天</span>
+                     <span><i class="fas fa-medal"></i> 5次</span>
+                     <span><i class="fas fa-arrow-up"></i> 228</span>
+                 </div>
+                  <div class="repo-lang"><strong>编程语言占比:</strong> <strong>TypeScript</strong> 92.6%, MDX 6.5%, Other 0.9%</div>
+                 <div class="repo-content">
+                     <h5>项目速读</h5>
+                     <p>基于 AI 的<strong class="text-aha-primary">开源邮件助手</strong>，目标“邮件清零”。融合 AI 与邮件客户端，通过<span class="aha-highlight">智能分类</span>、<span class="aha-highlight">回复追踪</span>、<span class="aha-highlight">批量退订</span>提升效率。可<strong class="text-aha-secondary">自定义 AI 助手</strong>执行指令 (回复, 归档, Webhook)。基于 Next.js 等现代技术栈，解决邮件过载难题。适合希望拥有可定制、智能邮件助手的用户。</p>
+                     <h5>增长分析</h5>
+                     <p>上榜5天增长 1434 Star (日均 286.8)，增长强劲。今日新增 228 Star，依然可观，社区兴趣浓厚。</p>
+                 </div>
+             </section>
+
+             <section class="repo-card">
+                 <h3><a href="https://github.com/ashvardanian/less_slow.cpp" target="_blank"><i class="fas fa-fighter-jet"></i> ashvardanian/less_slow.cpp</a></h3>
+                 <h4>实践 "Less Slow" C++ 编码技巧</h4>
+                 <div class="repo-stats">
+                     <span><i class="fas fa-star"></i>1.2k</span>
+                     <span><i class="fas fa-code-branch"></i>48</span>
+                     <span><i class="fas fa-eye"></i>17</span>
+                     <span><i class="fas fa-triangle-exclamation"></i>10</span>
+                     <span><i class="fas fa-code-pull-request"></i>1</span>
+                     <span><i class="fas fa-code"></i> C++</span>
+                     <span><i class="fas fa-calendar-alt"></i> 1天</span>
+                     <span><i class="fas fa-medal"></i> 1次</span>
+                     <span><i class="fas fa-arrow-up"></i> 140</span>
+                 </div>
+                  <div class="repo-lang"><strong>编程语言占比:</strong> <strong>C++</strong> 73.0%, Assembly 15.7%, Cuda 7.3%, ...</div>
+                 <div class="repo-content">
+                     <h5>项目速读</h5>
+                     <p>C++ <strong class="text-aha-primary">性能优化实验场</strong>，打破性能认知误区。通过基准测试揭示 C++/CUDA/汇编瓶颈，展示<span class="aha-highlight">SIMD</span>、<span class="aha-highlight">协程</span>、<span class="aha-highlight">用户空间 IO</span>等优化技巧。提供大量<strong class="text-aha-secondary">可运行对比案例</strong> (矩阵乘法, JSON, Regex)。关注易忽视细节 (高效随机数, 超编译器优化算法)。引导面向性能设计思维，适合高性能计算、游戏开发等领域。</p>
+                      <!-- <h5>增长分析</h5> <p>首次上榜，当日新增 140 Star，展现出不错的初始关注度。</p> -->
+                 </div>
+             </section>
+
+            <section class="repo-card">
+                <h3><a href="https://github.com/wandb/openui" target="_blank"><i class="fas fa-magic"></i> wandb/openui</a></h3>
+                <h4>用想象力描述 UI，实时渲染</h4>
+                <div class="repo-stats">
+                    <span><i class="fas fa-star"></i>20.4k</span>
+                    <span><i class="fas fa-code-branch"></i>1.9k</span>
+                    <span><i class="fas fa-eye"></i>141</span>
+                    <span><i class="fas fa-triangle-exclamation"></i>61</span>
+                    <span><i class="fas fa-code-pull-request"></i>7</span>
+                    <span><i class="fas fa-code"></i> TypeScript</span>
+                    <span><i class="fas fa-calendar-alt"></i> 1天</span>
+                    <span><i class="fas fa-medal"></i> 1次</span>
+                    <span><i class="fas fa-arrow-up"></i> 37</span>
+                </div>
+                 <div class="repo-lang"><strong>编程语言占比:</strong> <strong>TypeScript</strong> 48.3%, HTML 31.3%, Python 19.0%, ...</div>
+                <div class="repo-content">
+                    <h5>项目速读</h5>
+                    <p>将 UI 开发从编码变为<strong class="text-aha-primary">充满想象力的创作</strong>。只需描述界面，即可<span class="aha-highlight">即时生成预览</span>。强大格式转换能力 (HTML -> React/Svelte 等)，提升跨平台效率。核心竞争力是<strong class="text-aha-secondary">开源</strong>和<strong class="text-aha-secondary">多模型支持</strong> (集成 LiteLLM，支持 OpenAI/Groq/Gemini/Claude 及本地 Ollama)。v0 开源替代方案，适合快速原型设计和 UI 方案尝试。</p>
+                    <!-- <h5>增长分析</h5> <p>首次上榜，当日新增 37 Star，需要更多时间观察其增长潜力。</p> -->
+                 </div>
+             </section>
+
+            <section class="repo-card">
+                 <h3><a href="https://github.com/linera-io/linera-protocol" target="_blank"><i class="fas fa-link"></i> linera-io/linera-protocol</a></h3>
+                 <h4>Linera 协议主存储库 (高性能 Web3 基础设施)</h4>
+                 <div class="repo-stats">
+                     <span><i class="fas fa-star"></i>24k</span>
+                     <span><i class="fas fa-code-branch"></i>1.5k</span>
+                     <span><i class="fas fa-eye"></i>134</span>
+                     <span><i class="fas fa-triangle-exclamation"></i>464</span>
+                     <span><i class="fas fa-code-pull-request"></i>48</span>
+                     <span><i class="fas fa-code"></i> Rust</span>
+                     <span><i class="fas fa-calendar-alt"></i> 3天</span>
+                     <span><i class="fas fa-medal"></i> 3次</span>
+                     <span><i class="fas fa-arrow-up"></i> 460</span>
+                 </div>
+                  <div class="repo-lang"><strong>编程语言占比:</strong> <strong>Rust</strong> 98.2%, Vue 0.8%, TypeScript 0.4%, ...</div>
+                 <div class="repo-content">
+                     <h5>项目速读</h5>
+                     <p>构建<strong class="text-aha-primary">高扩展性、低延迟 Web3 基础设施</strong>。通过创新<span class="aha-highlight">微链架构</span>和优化共识，解决传统区块链并发/确认瓶颈。模块化 Rust 代码库，注重<strong class="text-aha-secondary">性能和安全性</strong>。提供完整 SDK，方便构建 Linera 应用。潜力在于解决区块链扩展性，适合高吞吐量、低延迟场景 (DEX, 链游, 实时交互 Web3)。</p>
+                     <h5>增长分析</h5>
+                     <p>上榜3天总增长 1269 Star (日均 1155.3)，增长迅速。今日新增 460 Star，增长势头可能放缓，需关注。</p>
+                 </div>
+            </section>
+
+            <!-- Repo Slides End -->
+
+
+            <!-- Slide End -->
+            <section id="end-slide">
+                <h2>抓住机遇，即刻行动！</h2>
+                <p class="mt-6">AI 效率工具浪潮已至，把握趋势，提升自我，共创未来。</p>
+                 <p class="mt-8">演讲者: <strong>AIChipEra</strong></p>
+                <div class="slide-footer">
+                     <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend <i class="fab fa-github"></i></a>
+                     <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <!-- Optional Reveal plugins -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.0/plugin/markdown/markdown.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.0/plugin/highlight/highlight.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.0/plugin/notes/notes.min.js"></script> -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <script>
+        Reveal.initialize({
+            hash: true, // Enables deep linking to slides
+            center: false, // Content aligned to the top
+            progress: true, // Display progress bar
+            history: true, // Push to browser history
+            controls: true, // Display controls
+            slideNumber: 'c/t', // Show slide number (current/total)
+            transition: 'convex', // Aha! A slightly more dynamic transition
+            backgroundTransition: 'fade', // Smooth background changes
+
+            // Optional plugins configuration
+            // plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+
+        // Basic Mermaid initialization (if you decide to add Mermaid charts later)
+        // mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+</html>
