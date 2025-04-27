@@ -1,0 +1,632 @@
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 狂飙突进！GitHub 最新趋势揭秘</title>
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet" id="theme">
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* 基础字体设置 */
+        body, .reveal {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            background-color: #f8f9fa; /* 淡灰色背景 */
+            color: #343a40; /* 深灰色文字 */
+        }
+
+        /* 标题字体 */
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: 'Noto Serif SC', serif;
+            color: #0d6efd; /* 蓝色标题 */
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .reveal h1 { font-size: 2.8rem; }
+        .reveal h2 { font-size: 2.2rem; margin-bottom: 30px; }
+        .reveal h3 { font-size: 1.8rem; margin-bottom: 20px; }
+        .reveal p, .reveal li { font-size: 1.1rem; line-height: 1.6; }
+        .reveal section img {
+             border: none; box-shadow: none; max-height: 400px;
+        }
+
+
+        /* Aha Moment 风格 - 使用渐变和强调色 */
+        .reveal .slides section {
+            box-sizing: border-box;
+            padding: 40px;
+        }
+        .reveal .slide-background-content {
+             /* 默认背景可以稍作调整 */
+             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        /* 封面和尾页特定样式 */
+        .cover-slide, .end-slide {
+             text-align: center;
+        }
+         .cover-slide .slide-background-content,
+         .end-slide .slide-background-content {
+             background: linear-gradient(135deg, #6f42c1 0%, #0d6efd 100%); /* 紫蓝渐变 */
+             color: white;
+         }
+        .cover-slide h1, .cover-slide h2, .cover-slide p,
+        .end-slide h1, .end-slide h2, .end-slide p {
+             color: white;
+             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .cover-slide h1 { font-size: 3.5rem; font-weight: 700; }
+        .cover-slide h2 { font-size: 1.8rem; font-weight: 400; margin-top: 20px; opacity: 0.9;}
+        .cover-slide p, .end-slide p { font-size: 1rem; margin-top: 40px; }
+
+        /* 强调色 */
+        .reveal strong, .reveal b {
+            color: #fd7e14; /* 橙色强调 */
+            font-weight: 600;
+        }
+        .reveal a {
+            color: #0d6efd; /* 蓝色链接 */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .reveal a:hover {
+            color: #0a58ca; /* 深蓝色悬停 */
+            text-decoration: underline;
+        }
+
+        /* 图标样式 */
+        .reveal .fa {
+            color: #6f42c1; /* 紫色图标 */
+            margin-right: 8px;
+        }
+        .reveal li .fa {
+             font-size: 1em; /* 让列表图标大小合适 */
+        }
+
+
+        /* 布局与留白 */
+        .reveal .slides > section > section { /* 垂直幻灯片内边距 */
+            padding: 20px;
+        }
+        .reveal .container { max-width: 960px; margin: 0 auto; } /* 内容宽度限制 */
+
+        /* 表格样式 */
+        .reveal table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .reveal th, .reveal td {
+            border: 1px solid #dee2e6;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        .reveal th {
+            background-color: #e9ecef; /* 表头浅灰 */
+            font-weight: 600;
+            font-family: 'Noto Serif SC', serif;
+        }
+        .reveal tr:nth-child(even) {
+            background-color: #f8f9fa; /* 偶数行背景 */
+        }
+
+        /* 代码块 */
+        .reveal pre code {
+            max-height: 400px;
+            background-color: #282c34; /* 深色代码背景 */
+            color: #abb2bf; /* 代码颜色 */
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 0.9rem;
+        }
+
+        /* Fragment 动画 */
+        .reveal .fragment {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease-in-out;
+        }
+        .reveal .fragment.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .reveal .fragment.fade-up {
+            transform: translateY(20px);
+        }
+        .reveal .fragment.fade-up.visible {
+             transform: translateY(0);
+        }
+
+        /* 脚注 (二维码和链接) */
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 15px; /* 间距 */
+             color: inherit; /* 继承父元素颜色，方便覆盖 */
+        }
+        .footer img {
+            width: 70px; /* 二维码大小 */
+            height: 70px;
+            border: none;
+            box-shadow: none;
+        }
+        .footer a {
+             color: inherit; /* 继承父元素颜色 */
+             text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* 特定幻灯片的背景 */
+        .section-title-slide .slide-background-content {
+            background: linear-gradient(135deg, #198754 0%, #20c997 100%); /* 绿蓝渐变 */
+            color: white;
+        }
+        .section-title-slide h2 {
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .data-slide .slide-background-content {
+            background: linear-gradient(135deg, #e9ecef 0%, #ced4da 100%); /* 浅灰渐变 */
+        }
+
+        /* 列表样式优化 */
+        .reveal ul {
+            list-style: none; /* 移除默认点 */
+            padding-left: 0;
+        }
+         .reveal ul li {
+             padding-left: 1.5em; /* 添加缩进 */
+             position: relative;
+             margin-bottom: 10px;
+         }
+         .reveal ul li::before {
+            content: "\f138"; /* Font Awesome 圆点 */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: #fd7e14; /* 橙色圆点 */
+            font-size: 0.8em;
+            top: 0.3em;
+         }
+
+         /* 双栏布局 */
+        .two-columns {
+            display: flex;
+            gap: 30px;
+        }
+        .two-columns > div {
+            flex: 1;
+        }
+
+         /* 三栏布局 */
+        .three-columns {
+            display: flex;
+            gap: 20px;
+        }
+        .three-columns > div {
+            flex: 1;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+        }
+        .three-columns h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #6f42c1; /* 紫色小标题 */
+        }
+         .three-columns ul { padding-left: 5px; }
+         .three-columns ul li::before { display: none; } /* 移除三栏内列表默认样式 */
+         .three-columns ul li { padding-left: 0; margin-bottom: 5px; font-size: 0.95rem;}
+         .three-columns ul li i { margin-right: 5px; }
+
+
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Cover Slide -->
+            <section class="cover-slide">
+                <h1>AI 狂飙突进！<br>GitHub 最新趋势揭秘</h1>
+                <h2>智能体、安全攻防、知识管理全面爆发！</h2>
+                <p>分享者：AIChipEra</p>
+                <p style="font-size: 0.9rem; opacity: 0.8;">观测时间: 2025-04-27 20:47:17</p>
+                 <div class="footer" style="color: white;">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="关注我们">
+                </div>
+            </section>
+
+            <!-- Disclaimer -->
+            <section data-background-color="#fff3cd" data-background-transition="zoom">
+                 <h3 style="color: #664d03;"><i class="fas fa-exclamation-triangle"></i> 免责声明</h3>
+                 <p style="color: #664d03;"><strong>以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</strong></p>
+            </section>
+
+            <!-- Daily Highlights -->
+            <section>
+                <h2><i class="fas fa-lightbulb"></i> 日报要点</h2>
+                 <ul>
+                     <li class="fragment fade-up"><i class="fas fa-brain"></i><strong>AI 智能体</strong>渗透各行各业，从编程辅助到通用助手。</li>
+                     <li class="fragment fade-up"><i class="fas fa-shield-alt"></i><strong>信息安全</strong>攻防战激烈，隐私保护技术受关注。</li>
+                     <li class="fragment fade-up"><i class="fas fa-book-open"></i><strong>个人知识管理</strong>迎来智能化革命，效率工具涌现。</li>
+                     <li class="fragment fade-up"><i class="fas fa-robot"></i>未来热点：<strong>具身智能、AI 安全、隐私计算</strong>。</li>
+                     <li class="fragment fade-up"><i class="fas fa-unlock-alt"></i>解锁 GitHub 财富密码，<strong>抢占技术先机</strong>！</li>
+                 </ul>
+            </section>
+
+            <!-- Hot Project Trend Analysis Section -->
+            <section class="section-title-slide">
+                <h2><i class="fas fa-chart-line"></i> 热门项目趋势分析</h2>
+            </section>
+
+            <!-- Overall Today -->
+            <section>
+                <h3><i class="fas fa-tachometer-alt"></i> 今日整体趋势</h3>
+                 <div class="two-columns">
+                    <div>
+                        <p><strong>鲜明主题：</strong></p>
+                        <ul>
+                            <li class="fragment"><i class="fas fa-robot"></i> AI 智能体 (Agents)</li>
+                            <li class="fragment"><i class="fas fa-graduation-cap"></i> AI 入门学习</li>
+                            <li class="fragment"><i class="fas fa-user-secret"></i> 信息安全</li>
+                            <li class="fragment"><i class="fas fa-cogs"></i> 系统优化</li>
+                            <li class="fragment"><i class="fas fa-folder-open"></i> 个人知识管理</li>
+                        </ul>
+                        <p class="fragment"><strong>编程语言分布：</strong></p>
+                         <p class="fragment" style="font-size: 1rem;">
+                             <i class="fab fa-python" style="color:#3776AB;"></i> Python (AI主力) |
+                             <i class="fab fa-js-square" style="color:#F7DF1E;"></i> TypeScript (前端/Agent) |
+                             <i class="fab fa-rust" style="color:#DEA584;"></i> Rust (性能) |
+                             <i class="fab fa-java" style="color:#B07219;"></i> Java (企业级) |
+                             C# | Markdown
+                         </p>
+                    </div>
+                     <div>
+                         <p><strong>关键洞察：</strong></p>
+                         <ul>
+                            <li class="fragment fade-up"><i class="fas fa-rocket"></i> <strong>AI 智能体爆发：</strong> 从对话到行动，追求通用与定制。</li>
+                            <li class="fragment fade-up"><i class="fas fa-chalkboard-teacher"></i> <strong>AI 教育平民化：</strong> 技术普及，学习需求增长。</li>
+                            <li class="fragment fade-up"><i class="fas fa-lock"></i> <strong>安全与隐私：</strong> 攻防持续，本地处理受青睐。</li>
+                            <li class="fragment fade-up"><i class="fas fa-bolt"></i> <strong>效率提升：</strong> 系统与环境定制化需求高。</li>
+                             <li class="fragment fade-up"><i class="fas fa-lightbulb"></i> <strong>知识管理智能化：</strong> AI 赋能个人知识利用。</li>
+                         </ul>
+                        <p class="fragment fade-up"><strong>未来热点预测：</strong> 具身智能 | AI 安全攻防 | 隐私计算</p>
+                         <p class="fragment fade-up"><strong>今日特点：</strong> 高度关注 <strong>AI 智能体构建</strong> 及 <strong>AI 在多领域广泛应用</strong>。</p>
+                     </div>
+                 </div>
+
+            </section>
+
+            <!-- Two-Day Comparison -->
+            <section>
+                 <h3><i class="fas fa-exchange-alt"></i> 热门项目双日维度对比分析</h3>
+                 <div class="two-columns">
+                     <div>
+                         <p><i class="fas fa-arrow-up" style="color: green;"></i> 整体活跃度 <strong>上升</strong>：</p>
+                         <ul>
+                             <li>新增 <strong>11</strong> 个项目</li>
+                             <li><strong>5</strong> 个项目排名显著提升</li>
+                         </ul>
+                         <p><i class="fas fa-fire" style="color: red;"></i> 值得关注的增长：</p>
+                         <ul>
+                             <li>kortix-ai/suna (AI基础设施)</li>
+                             <li>trimstray/the-book-of-secret-knowledge (知识库)</li>
+                         </ul>
+                     </div>
+                     <div>
+                         <p><i class="fas fa-code"></i> 新晋项目技术栈：</p>
+                         <ul>
+                             <li><i class="fab fa-js-square" style="color:#F7DF1E;"></i> TypeScript: Rowboat, exa-mcp-server</li>
+                             <li><i class="fab fa-java" style="color:#B07219;"></i> Java: Stirling-PDF</li>
+                             <li><i class="fab fa-rust" style="color:#DEA584;"></i> Rust: burn</li>
+                             <li><i class="fab fa-markdown" style="color:#083fa1;"></i> Markdown: build-your-own-x</li>
+                             <li><i class="fab fa-python" style="color:#3776AB;"></i> Python: Agent-S, ChatGPT_DAN</li>
+                             <li><i class="fab fa-apple" style="color:#A2AAAD;"></i> Swift: AeroSpace (macOS)</li>
+                             <li><i class="fab fa-windows" style="color:#0078D4;"></i> PowerShell: Win11Debloat (Windows)</li>
+                            <li><i class="fas fa-terminal" style="color:#4D4D4D;"></i> C++: microsoft/terminal</li>
+                         </ul>
+                         <p><i class="fas fa-chart-pie"></i> 语言趋势： <span style="color: green;"><i class="fas fa-arrow-up"></i> C++, C#, Markdown, Rust, Java, PowerShell, Swift</span> | <span style="color: red;"><i class="fas fa-arrow-down"></i> Python, Go, Unknown, TypeScript</span></p>
+                     </div>
+                 </div>
+
+            </section>
+
+            <!-- Hotspot Changes -->
+            <section>
+                 <h3><i class="fas fa-map-marker-alt"></i> 热点变化</h3>
+                 <div class="three-columns">
+                     <div>
+                         <h4><i class="fas fa-plus-circle" style="color: green;"></i> 新增热点</h4>
+                         <ul>
+                             <li><i class="fab fa-rust"></i> tracel-ai/burn</li>
+                             <li><i class="fas fa-terminal"></i> microsoft/terminal</li>
+                             <li><i class="fab fa-java"></i> stirling-tools/stirling-pdf</li>
+                              <li><i class="fab fa-python"></i> simular-ai/agent-s</li>
+                              <li><i class="fab fa-markdown"></i> codecrafters-io/build-your-own-x</li>
+                              <li><i class="fab fa-python"></i> 0xk1h0/chatgpt_dan</li>
+                              <li><i class="fab fa-js-square"></i> rowboatlabs/rowboat</li>
+                              <li><i class="fab fa-apple"></i> nikitabobko/aerospace</li>
+                              <li><i class="fab fa-csharp"></i> 2dust/v2rayn</li>
+                              <li><i class="fab fa-js-square"></i> exa-labs/exa-mcp-server</li>
+                              <li><i class="fab fa-windows"></i> raphire/win11debloat</li>
+                         </ul>
+                     </div>
+                     <div>
+                         <h4><i class="fas fa-minus-circle" style="color: orange;"></i> 减退热点</h4>
+                          <ul>
+                              <li>jujumilk3/leaked-system-prompts</li>
+                              <li>ruanyf/weekly</li>
+                              <li>fastrepl/hyprnote</li>
+                              <li>rvc-boss/gpt-sovits</li>
+                              <li>skypilot-org/skypilot</li>
+                              <li>langgenius/dify</li>
+                              <li>aquasecurity/trivy</li>
+                              <li>ocrmypdf/ocrmypdf</li>
+                              <li>amruthpillai/reactive-resume</li>
+                          </ul>
+                     </div>
+                     <div>
+                         <h4><i class="fas fa-fire" style="color: red;"></i> 持续热门</h4>
+                         <ul>
+                            <li><i class="fab fa-python"></i> getzep/graphiti (3天)</li>
+                             <li><i class="fab fa-python"></i> microsoft/generative-ai-for-beginners (4天)</li>
+                             <li><i class="fab fa-python"></i> khoj-ai/khoj (4天)</li>
+                             <li><i class="fab fa-js-square"></i> kortix-ai/suna (4天)</li>
+                         </ul>
+                     </div>
+                 </div>
+            </section>
+
+             <!-- Detailed Repository Data Section -->
+            <section class="section-title-slide">
+                 <h2><i class="fas fa-database"></i> 详细仓库数据</h2>
+            </section>
+
+            <!-- Project Slides -->
+            <section class="data-slide">
+                 <section>
+                     <h3><i class="fab fa-python"></i> <a href="https://github.com/getzep/graphiti" target="_blank">getzep/graphiti</a></h3>
+                     <p><strong>简介:</strong> 为AI Agent构建实时知识图谱</p>
+                      <table>
+                          <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                          <tbody><tr><td>Python (99.4%)</td><td>5.8k ⭐</td><td>3次</td><td>3次</td><td><span style="color: green;">+514</span></td></tr></tbody>
+                      </table>
+                      <p class="fragment"><strong>速读:</strong> <i class="fas fa-brain"></i> 打造“活的”知识图谱，实时增量更新，支持动态环境下的持续学习和推理。 <i class="fas fa-clock"></i> 时序特性支持时间点推理。 <i class="fas fa-search"></i> 混合检索技术 (语义、关键词、图) 提升效率与准确性。</p>
+                      <p class="fragment"><strong>增长分析:</strong> 3天增近1k Star，日均 <strong>517</strong>，增长势头稳定。</p>
+                 </section>
+                 <section>
+                     <h3><i class="fab fa-python"></i> <a href="https://github.com/microsoft/generative-ai-for-beginners" target="_blank">microsoft/generative-ai-for-beginners</a></h3>
+                     <p><strong>简介:</strong> 21 节课入门生成式 AI 构建 (<a href="https://microsoft.github.io/generative-ai-for-beginners/" target="_blank">课程链接</a>)</p>
+                      <table>
+                          <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                           <tbody><tr><td>Jupyter Notebook (86.4%), Python (8.2%)</td><td>80.2k ⭐</td><td>4次</td><td>9次</td><td><span style="color: green;">+271</span></td></tr></tbody>
+                      </table>
+                      <p class="fragment"><strong>速读:</strong> <i class="fas fa-graduation-cap"></i> 入门级生成式 AI 学习平台，含21课。 <i class="fas fa-code"></i> 理论与实践结合，提供 Python & TypeScript 示例。 <i class="fas fa-cloud"></i> 紧贴 Azure OpenAI, GitHub Marketplace 等前沿技术。</p>
+                      <p class="fragment"><strong>增长分析:</strong> 9天增4.5k Star，日均 <strong>243</strong>，今日新增 <strong>271</strong>，持续高热度。</p>
+                 </section>
+                 <section>
+                     <h3><i class="fab fa-js-square"></i> <a href="https://github.com/rowboatlabs/rowboat" target="_blank">rowboatlabs/rowboat</a></h3>
+                     <p><strong>简介:</strong> AI驱动的多智能体构建器</p>
+                      <table>
+                          <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                           <tbody><tr><td>TypeScript (80.5%), Python (18.1%)</td><td>1.7k ⭐</td><td>1次</td><td>1次</td><td><span style="color: green;">+499</span> (新)</td></tr></tbody>
+                      </table>
+                      <p class="fragment"><strong>速读:</strong> <i class="fas fa-magic"></i> AI 驱动，自然语言快速生成智能体工作流。 <i class="fas fa-plug"></i> 兼容现有 MCP 服务器，复用工具。 <i class="fas fa-project-diagram"></i> HTTP API & Python SDK 提供灵活集成。</p>
+                      <p class="fragment"><strong>价值:</strong> 降低开发门槛，加速智能体应用开发与迭代。</p>
+                 </section>
+                 <section>
+                     <h3><i class="fab fa-java"></i> <a href="https://github.com/Stirling-Tools/Stirling-PDF" target="_blank">Stirling-Tools/Stirling-PDF</a></h3>
+                     <p><strong>简介:</strong> 本地部署的Web应用程序，执行各种PDF操作</p>
+                      <table>
+                          <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                           <tbody><tr><td>Java (52.5%), HTML (21.0%), JS (16.9%)</td><td>56.8k ⭐</td><td>1次</td><td>2次</td><td><span style="color: green;">+168</span></td></tr></tbody>
+                      </table>
+                      <p class="fragment"><strong>速读:</strong> <i class="fas fa-lock"></i> 本地部署，保障数据隐私安全。 <i class="fas fa-toolbox"></i> PDF 瑞士军刀，支持 50+ 操作 (分割、合并、OCR、水印等)。 <i class="fas fa-docker"></i> Docker 部署，易于使用，提供 API。</p>
+                      <p class="fragment"><strong>增长分析:</strong> 2天增 <strong>287</strong> Star，日均 <strong>134</strong>，今日新增 <strong>168</strong>，增长势头强劲。</p>
+                 </section>
+                 <section>
+                      <h3><i class="fab fa-rust"></i> <a href="https://github.com/tracel-ai/burn" target="_blank">tracel-ai/burn</a></h3>
+                      <p><strong>简介:</strong> 新一代深度学习框架，兼顾灵活性、效率和可移植性</p>
+                       <table>
+                           <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                           <tbody><tr><td>Rust (97.1%), Python (2.9%)</td><td>10.6k ⭐</td><td>1次</td><td>2次</td><td><span style="color: green;">+139</span></td></tr></tbody>
+                       </table>
+                       <p class="fragment"><strong>速读:</strong> <i class="fas fa-cogs"></i> Rust 编写，统一 Backend trait 支持多后端 (CUDA, ROCm, Metal)。 <i class="fas fa-bolt"></i> 极致性能优化 (内核融合, 异步执行, 内存管理)。 <i class="fas fa-code-branch"></i> 线程安全，便于多设备训练，可扩展。</p>
+                       <p class="fragment"><strong>增长分析:</strong> 2天增 <strong>209</strong> Star，日均 <strong>96</strong>，今日新增 <strong>139</strong>，增长势头显著上升。</p>
+                  </section>
+                  <section>
+                      <h3><i class="fas fa-book"></i> <a href="https://github.com/trimstray/the-book-of-secret-knowledge" target="_blank">trimstray/the-book-of-secret-knowledge</a></h3>
+                      <p><strong>简介:</strong> 精选的资源集合 (列表、手册、速查表、博客、技巧、工具等)</p>
+                       <table>
+                           <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                           <tbody><tr><td>(N/A)</td><td>167k ⭐</td><td>2次</td><td>2次</td><td><span style="color: red;">+1399</span></td></tr></tbody>
+                       </table>
+                       <p class="fragment"><strong>速读:</strong> <i class="fas fa-archive"></i> IT 从业者“武功秘籍”，汇集实用资源。 <i class="fas fa-search"></i> 知识库，快速导航解决问题。 <i class="fas fa-users"></i> 开放协作，持续更新，MIT 许可证。</p>
+                       <p class="fragment"><strong>增长分析:</strong> 2天增长近 <strong>2.6k</strong> Star，日均近 <strong>1300</strong>，今日新增近 <strong>1.4k</strong>，爆发式增长。</p>
+                  </section>
+                 <section>
+                     <h3><i class="fas fa-ghost"></i> <a href="https://github.com/0xk1h0/ChatGPT_DAN" target="_blank">0xk1h0/ChatGPT_DAN</a></h3>
+                     <p><strong>简介:</strong> ChatGPT DAN，越狱提示词</p>
+                      <table>
+                          <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                           <tbody><tr><td>(N/A)</td><td>7.5k ⭐</td><td>1次</td><td>1次</td><td><span style="color: green;">+219</span> (新)</td></tr></tbody>
+                      </table>
+                      <p class="fragment"><strong>速读:</strong> <i class="fas fa-key"></i> 提供 "越狱" 提示词 (如 DAN 模式) 突破 ChatGPT 限制。 <i class="fas fa-theater-masks"></i> 通过角色扮演和规则设定，诱导生成无约束回答。 <i class="fas fa-exclamation-triangle"></i> 探索 AI 边界，但也可能生成不当内容，需注意风险。</p>
+                      <p class="fragment"><strong>价值:</strong> 适用于研究 AI 模型行为模式和潜在安全问题。</p>
+                 </section>
+                <section>
+                      <h3><i class="fab fa-markdown"></i> <a href="https://github.com/codecrafters-io/build-your-own-x" target="_blank">codecrafters-io/build-your-own-x</a></h3>
+                      <p><strong>简介:</strong> 从零开始重新创建你最喜欢的技术，从而掌握编程。</p>
+                       <table>
+                           <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                            <tbody><tr><td>Markdown (100.0%)</td><td>375k ⭐</td><td>1次</td><td>7次</td><td><span style="color: green;">+240</span></td></tr></tbody>
+                       </table>
+                       <p class="fragment"><strong>速读:</strong> <i class="fas fa-hammer"></i> “手撸”各类技术栈提升编程技能。 <i class="fas fa-lightbulb"></i> “做中学”，将抽象概念转化为实践任务 (如渲染器、区块链、编程语言)。 <i class="fas fa-book-reader"></i> 涵盖语言广，资源丰富，适合渴望精通特定领域的开发者。</p>
+                       <p class="fragment"><strong>增长分析:</strong> 7次上榜，累计增长近 <strong>23k</strong> Star，日均近 <strong>700</strong>，今日仍有新增，热度持续。</p>
+                  </section>
+                  <section>
+                      <h3><i class="fab fa-python"></i> <a href="https://github.com/simular-ai/Agent-S" target="_blank">simular-ai/Agent-S</a></h3>
+                      <p><strong>简介:</strong> Agent S：一个像人类一样使用计算机的开放式自主代理框架</p>
+                       <table>
+                           <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                           <tbody><tr><td>Python (100.0%)</td><td>2.7k ⭐</td><td>1次</td><td>1次</td><td><span style="color: green;">+101</span> (新)</td></tr></tbody>
+                       </table>
+                       <p class="fragment"><strong>速读:</strong> <i class="fas fa-desktop"></i> 模拟人类与计算机交互，让 AI 自主执行电脑任务。 <i class="fas fa-trophy"></i> 通用性与专业性兼备，基准测试表现优越。 <i class="fas fa-eye"></i> 集成视觉模型和 LLM，理解屏幕并生成操作指令。</p>
+                       <p class="fragment"><strong>注意:</strong> <i class="fas fa-shield-alt"></i> 代理可直接控制计算机，注意安全风险。开源，潜力巨大。</p>
+                  </section>
+                  <section>
+                       <h3><i class="fab fa-csharp"></i> <a href="https://github.com/2dust/v2rayN" target="_blank">2dust/v2rayN</a></h3>
+                       <p><strong>简介:</strong> 支持 Xray、sing-box 及其他协议的 Windows、Linux 和 macOS GUI 客户端。</p>
+                        <table>
+                            <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                            <tbody><tr><td>C# (98.9%), Shell (1.1%)</td><td>78.8k ⭐</td><td>1次</td><td>1次</td><td><span style="color: green;">+77</span> (新)</td></tr></tbody>
+                        </table>
+                        <p class="fragment"><strong>速读:</strong> <i class="fas fa-window-maximize"></i> 跨平台图形化代理客户端 (Win, Linux, macOS)。 <i class="fas fa-magic"></i> 简化 Xray, sing-box 等代理工具配置，降低使用门槛。 <i class="fas fa-network-wired"></i> 支持多种代理核心，适应不同网络需求。</p>
+                       <p class="fragment"><strong>价值:</strong> 为追求便捷的用户提供易用的代理管理方案。</p>
+                   </section>
+                   <section>
+                       <h3><i class="fab fa-js-square"></i> <a href="https://github.com/exa-labs/exa-mcp-server" target="_blank">exa-labs/exa-mcp-server</a></h3>
+                       <p><strong>简介:</strong> Claude 可以使用 MCP (模型上下文协议) 执行网页搜索 | Exa。</p>
+                        <table>
+                            <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                            <tbody><tr><td>TypeScript (85.6%), JS (11.7%)</td><td>1.2k ⭐</td><td>1次</td><td>1次</td><td><span style="color: green;">+115</span> (新)</td></tr></tbody>
+                        </table>
+                        <p class="fragment"><strong>速读:</strong> <i class="fas fa-link"></i> 赋能 AI 助手 Claude 网络搜索能力。 <i class="fas fa-search"></i> 利用 Exa AI Search API 实现实时信息检索。 <i class="fas fa-shield-alt"></i> 基于 Node.js 和 MCP，安全、受控地调用搜索工具。</p>
+                        <p class="fragment"><strong>价值:</strong> 连接 AI 推理与实时网络数据，拓展 Claude 应用场景 (市场调研、新闻分析等)。</p>
+                   </section>
+                   <section>
+                       <h3><i class="fab fa-python"></i> <a href="https://github.com/khoj-ai/khoj" target="_blank">khoj-ai/khoj</a></h3>
+                       <p><strong>简介:</strong> 你的AI第二大脑。可自托管。从网络或你的文档中获取答案。构建自定义代理...</p>
+                        <table>
+                            <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                            <tbody><tr><td>Python (50.4%), TypeScript (37.8%)</td><td>29.6k ⭐</td><td>4次</td><td>7次</td><td><span style="color: green;">+229</span></td></tr></tbody>
+                        </table>
+                        <p class="fragment"><strong>速读:</strong> <i class="fas fa-brain"></i> 开源个人 AI 第二大脑，解决信息过载。 <i class="fas fa-plug"></i> 连接多种 LLM (在线/本地)，整合个人数据。 <i class="fas fa-robot"></i> 智能问答、搜索、自动化研究、自定义 Agent。 <i class="fas fa-lock"></i> 开源自托管，保障隐私。</p>
+                        <p class="fragment"><strong>增长分析:</strong> 7天增 <strong>2.5k+</strong> Star，日均 <strong>261</strong>，今日新增 <strong>229</strong>，持续高热度。</p>
+                   </section>
+                  <section>
+                       <h3><i class="fab fa-apple"></i> <a href="https://github.com/nikitabobko/AeroSpace" target="_blank">nikitabobko/AeroSpace</a></h3>
+                       <p><strong>简介:</strong> AeroSpace 是一个类似 i3 的 macOS 平台平铺窗口管理器。</p>
+                        <table>
+                            <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                            <tbody><tr><td>Swift (95.4%), Shell (3.8%)</td><td>11.8k ⭐</td><td>1次</td><td>1次</td><td><span style="color: green;">+37</span> (新)</td></tr></tbody>
+                        </table>
+                        <p class="fragment"><strong>速读:</strong> <i class="fas fa-th-large"></i> macOS 类 i3 平铺窗口管理器，提升效率。 <i class="fas fa-desktop"></i> 模拟 i3 树状管理，自有虚拟工作区，无需禁用 SIP。 <i class="fas fa-file-code"></i> 纯文本配置，CLI 优先，易于 dotfiles 管理。</p>
+                       <p class="fragment"><strong>价值:</strong> 为 macOS 追求效率的开发者提供高效、务实的窗口管理方案。</p>
+                   </section>
+                   <section>
+                        <h3><i class="fab fa-windows"></i> <a href="https://github.com/Raphire/Win11Debloat" target="_blank">Raphire/Win11Debloat</a></h3>
+                        <p><strong>简介:</strong> 简单易用的PowerShell脚本，用于移除Windows预装应用、禁用遥测等。</p>
+                         <table>
+                             <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                             <tbody><tr><td>PowerShell (99.8%)</td><td>19.2k ⭐</td><td>1次</td><td>1次</td><td><span style="color: green;">+72</span> (新)</td></tr></tbody>
+                         </table>
+                         <p class="fragment"><strong>速读:</strong> <i class="fas fa-wind"></i> PowerShell 脚本解决 Windows 臃肿问题。 <i class="fas fa-trash-alt"></i> 自动化移除预装应用 (Bloatware)、禁用遥测、精简设置。 <i class="fas fa-sliders-h"></i> 易用且可定制，提供预设方案，多数更改可撤销。</p>
+                        <p class="fragment"><strong>注意:</strong> <i class="fas fa-exclamation-triangle"></i> 存在一定风险，建议使用前备份数据。</p>
+                    </section>
+                    <section>
+                         <h3><i class="fas fa-terminal"></i> <a href="https://github.com/microsoft/terminal" target="_blank">microsoft/terminal</a></h3>
+                         <p><strong>简介:</strong> 全新的 Windows 终端和原始 Windows 控制台主机，齐聚一堂！</p>
+                          <table>
+                              <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                              <tbody><tr><td>C++ (92.2%), C# (4.1%)</td><td>97.8k ⭐</td><td>1次</td><td>1次</td><td><span style="color: green;">+19</span> (新)</td></tr></tbody>
+                          </table>
+                          <p class="fragment"><strong>速读:</strong> <i class="fas fa-desktop"></i> 新一代 Windows 终端，现代化、高效交互体验。 <i class="fas fa-columns"></i> 选项卡式管理、富文本渲染、全局化支持。 <i class="fas fa-palette"></i> 高度可定制主题样式。</p>
+                         <p class="fragment"><strong>价值:</strong> 提升 Windows 命令行操作效率和舒适度，开源持续进化。</p>
+                     </section>
+                    <section>
+                         <h3><i class="fab fa-js-square"></i> <a href="https://github.com/kortix-ai/suna" target="_blank">kortix-ai/suna</a></h3>
+                         <p><strong>简介:</strong> Suna - 开源通用人工智能代理</p>
+                          <table>
+                              <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                              <tbody><tr><td>TypeScript (63.0%), Python (31.3%)</td><td>7.6k ⭐</td><td>4次</td><td>4次</td><td><span style="color: red;">+1304</span></td></tr></tbody>
+                          </table>
+                          <p class="fragment"><strong>速读:</strong> <i class="fas fa-robot"></i> 开源通用 AI 助手，自然语言完成任务。 <i class="fas fa-tools"></i> 强大工具集成和自动化能力 (浏览网页、文件管理、执行命令等)。 <i class="fas fa-chart-line"></i> 优化工作流程，解决实际问题 (对手分析、数据处理)。</p>
+                          <p class="fragment"><strong>增长分析:</strong> 4天增 <strong>4.7k+</strong> Star，日均 <strong>1212</strong>，今日新增 <strong>1304</strong>，热度极高，增长强劲。</p>
+                      </section>
+
+            </section>
+
+
+            <!-- End Slide -->
+            <section class="end-slide">
+                <h2>感谢观看</h2>
+                <p>保持关注，探索AI前沿！</p>
+                <p>演讲者：AIChipEra</p>
+                 <div class="footer" style="color: white;">
+                     <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                     <img src="../../asserts/wx.jpg" alt="关注我们">
+                 </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js"></script>
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            center: true,
+            margin: 0.04,
+            minScale: 0.2,
+	        maxScale: 1.5,
+            controls: true, // 显示控制箭头
+            progress: true, // 显示进度条
+            history: true, // 启用浏览器历史记录
+            keyboard: true, // 启用键盘快捷键
+            overview: true, // 启用概览模式 (Esc)
+            touch: true, // 启用触摸支持
+            loop: false, // 是否循环播放
+            rtl: false, // 是否从右到左显示
+            shuffle: false, // 是否随机播放幻灯片顺序
+            fragments: true, // 启用片段 (逐步显示元素)
+            embedded: false, // 是否嵌入模式
+            help: true, // 按 ? 显示帮助信息
+            showNotes: false, // 是否显示演讲者备注 (需要 speaker-notes 插件)
+            autoPlayMedia: null, // 自动播放媒体
+            autoSlide: 0, // 自动换片时间 (毫秒)，0 为禁用
+            autoSlideStoppable: true, // 用户交互时停止自动换片
+            mouseWheel: false, // 是否用鼠标滚轮换片
+            hideInactiveCursor: true, // 空闲时隐藏鼠标指针
+            hideCursorTime: 5000, // 隐藏鼠标指针的空闲时间
+
+            // 过渡效果
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            transitionSpeed: 'default', // default/fast/slow
+            backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+
+            // 插件
+            plugins: [ RevealMarkdown, RevealHighlight ]
+        });
+
+        // 初始化 Mermaid
+        mermaid.initialize({ startOnLoad:true });
+        Reveal.addEventListener('ready', function( event ) {
+             // 确保 Mermaid 在 Reveal.js 加载后渲染
+             mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+        });
+         Reveal.addEventListener('slidechanged', function( event ) {
+             // 切换幻灯片时重新渲染 Mermaid 图表，以防布局问题
+             mermaid.init(undefined, event.currentSlide.querySelectorAll('.mermaid'));
+         });
+
+    </script>
+</body>
+</html>
