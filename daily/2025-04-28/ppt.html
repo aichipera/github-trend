@@ -1,0 +1,757 @@
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>GitHub热门仓库日报 (2025-04-28)</title>
+
+    <!-- Core Framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <!-- Theme -->
+    <!-- Using white theme as a base, but overriding heavily with Tailwind -->
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet" id="theme">
+
+    <!-- Extensions & Utilities -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --r-main-font: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: 'Noto Serif SC', 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font-weight: 600;
+            --r-heading-text-transform: none; /* Keep Chinese characters as they are */
+            --r-block-margin: 20px;
+            --r-link-color: #14B8A6; /* Teal */
+            --r-link-color-hover: #0F766E; /* Darker Teal */
+            --r-selection-background-color: #8B5CF6; /* Purple */
+        }
+
+        body {
+          font-family: var(--r-main-font);
+        }
+
+        .reveal {
+            font-family: var(--r-main-font);
+            font-size: 1.1rem; /* Slightly larger base font size */
+            font-weight: 400;
+            color: #333; /* Default dark text */
+        }
+
+        .reveal ::selection {
+            color: #fff;
+            background: var(--r-selection-background-color);
+            text-shadow: none;
+        }
+
+        .reveal .slides section,
+        .reveal .slides section > section {
+            line-height: 1.4;
+            font-weight: inherit;
+            /* Remove default reveal.js padding to use Tailwind spacing */
+            padding: 20px 20px;
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            margin: 0 0 25px 0;
+            color: #1F2937; /* Dark Gray */
+            font-family: var(--r-heading-font);
+            font-weight: var(--r-heading-font-weight);
+            line-height: 1.2;
+            letter-spacing: normal;
+            text-transform: var(--r-heading-text-transform);
+            text-shadow: none;
+            word-wrap: break-word;
+        }
+
+        .reveal h1 { font-size: 2.8rem; } /* ~45px */
+        .reveal h2 { font-size: 2rem; } /* ~32px */
+        .reveal h3 { font-size: 1.6rem; } /* ~26px */
+        .reveal h4 { font-size: 1.2rem; } /* ~19px */
+
+        .reveal p {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .reveal ul, .reveal ol {
+            margin-left: 1.5em;
+            margin-bottom: 15px;
+        }
+        .reveal li {
+             margin-bottom: 8px;
+        }
+
+        .reveal a {
+            color: var(--r-link-color);
+            text-decoration: none;
+            transition: color .15s ease;
+        }
+
+        .reveal a:hover {
+            color: var(--r-link-color-hover);
+            text-shadow: none;
+            border: none;
+        }
+
+        .reveal strong {
+            font-weight: 500;
+            color: #8B5CF6; /* Purple for emphasis */
+        }
+
+        /* Custom Slide Styles */
+        .slide-gradient-bg {
+            background: linear-gradient(135deg, #6EE7B7 0%, #8B5CF6 100%); /* Teal to Purple gradient */
+            color: white;
+        }
+        .slide-gradient-bg h1,
+        .slide-gradient-bg h2,
+        .slide-gradient-bg h3,
+        .slide-gradient-bg h4,
+        .slide-gradient-bg p,
+        .slide-gradient-bg li,
+        .slide-gradient-bg strong,
+        .slide-gradient-bg a {
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        .slide-gradient-bg a {
+            text-decoration: underline;
+        }
+        .slide-gradient-bg a:hover {
+            color: #F3F4F6; /* Lighter color on hover */
+        }
+
+        .slide-dark-bg {
+            background-color: #1F2937; /* Dark Gray */
+            color: #F3F4F6; /* Light Gray text */
+        }
+        .slide-dark-bg h1,
+        .slide-dark-bg h2,
+        .slide-dark-bg h3,
+        .slide-dark-bg h4 {
+            color: #fff; /* White headings */
+        }
+        .slide-dark-bg a {
+            color: #6EE7B7; /* Light Teal links */
+        }
+        .slide-dark-bg a:hover {
+            color: #34D399; /* Brighter Teal */
+        }
+        .slide-dark-bg strong {
+             color: #A78BFA; /* Lighter Purple */
+        }
+
+
+        /* Footer for Link and QR */
+        .footer-link {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.7rem;
+            color: #9CA3AF; /* Gray-400 */
+            display: flex;
+            align-items: center;
+            gap: 15px; /* Space between link and QR */
+        }
+        .footer-link a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .footer-link a:hover {
+            color: var(--r-link-color);
+        }
+        .footer-link img {
+            width: 60px; /* Adjust QR code size as needed */
+            height: 60px;
+            display: block;
+        }
+        .slide-gradient-bg .footer-link,
+        .slide-dark-bg .footer-link {
+            color: #D1D5DB; /* Lighter gray on dark/gradient backgrounds */
+        }
+        .slide-gradient-bg .footer-link a:hover,
+        .slide-dark-bg .footer-link a:hover {
+             color: #fff;
+        }
+
+        /* Repo Table Styling */
+        .repo-table {
+            font-size: 0.9rem;
+            width: 100%;
+            margin-top: 20px;
+            text-align: left;
+            border-collapse: collapse;
+        }
+        .repo-table th, .repo-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #E5E7EB; /* Gray-200 */
+        }
+        .repo-table th {
+            font-weight: 500;
+            color: #4B5563; /* Gray-600 */
+        }
+        .repo-table i {
+            margin-right: 5px;
+            color: #9CA3AF; /* Gray-400 */
+        }
+        .repo-table .star-increase {
+             color: #10B981; /* Green */
+             font-weight: 500;
+        }
+
+        /* Specific element styling */
+        .text-teal { color: #14B8A6; }
+        .text-purple { color: #8B5CF6; }
+        .text-yellow { color: #F59E0B; } /* For stars */
+        .text-blue { color: #3B82F6; } /* For forks */
+        .text-red { color: #EF4444; } /* For issues */
+
+        /* Center content vertically and horizontally */
+        .center-content {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+          text-align: center;
+        }
+
+        /* Reduce text width for better readability on wide screens */
+        .content-width {
+           max-width: 800px;
+           margin-left: auto;
+           margin-right: auto;
+        }
+
+    </style>
+
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover -->
+            <section data-background-gradient="linear-gradient(135deg, #1F2937 0%, #4B5563 100%)" class="slide-dark-bg">
+                 <div class="center-content">
+                    <h1 class="text-5xl font-bold text-white" style="font-family: var(--r-heading-font);">GitHub热门仓库日报</h1>
+                    <p class="text-xl text-gray-300 mt-4">AI狂飙突进！开发者的新玩具，你跟上了吗？</p>
+                    <p class="text-lg text-gray-400 mt-10">
+                        <i class="fas fa-user mr-2"></i>演讲者: AIChipEra
+                    </p>
+                    <p class="text-md text-gray-500 mt-2">
+                         <i class="fas fa-clock mr-2"></i>观测时间: 2025-04-28 19:38:35
+                    </p>
+                </div>
+                <div class="footer-link">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                       <i class="fab fa-github"></i> github.com/aichipera/github-trend
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="WeChat QR Code">
+                </div>
+            </section>
+
+            <!-- Slide 2: Disclaimer -->
+            <section>
+                <h3 class="text-purple"><i class="fas fa-exclamation-triangle mr-2"></i>重要提示</h3>
+                 <div class="content-width text-left bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded" role="alert">
+                    <p class="font-bold">请注意:</p>
+                    <p>以下内容仅供项目介绍和学习交流使用，<strong>不构成任何投资建议</strong>。</p>
+                    <p>请注意甄别信息，理性判断。</p>
+                 </div>
+            </section>
+
+            <!-- Slide 3: Main Title -->
+            <section data-background-color="#f8fafc">
+                <h2 class="text-purple">AI狂飙突进！</h2>
+                <h3 class="fragment text-gray-700">实时换脸、3D生成…</h3>
+                <p class="fragment text-gray-600 mt-4">开发者的新玩具，你跟上了吗？</p>
+                <p class="fragment text-gray-500 text-sm mt-10">深入解读 GitHub 最新 AI 趋势</p>
+            </section>
+
+            <!-- Slide 4: 日报要点 -->
+            <section>
+                <h2><i class="fas fa-lightbulb mr-2 text-yellow"></i>日报要点</h2>
+                <div class="content-width text-left">
+                    <ul class="list-disc space-y-3">
+                        <li class="fragment"><strong>AI 触手可及:</strong> 不再遥远，已成实用工具 (Deepfake, 3D生成)。</li>
+                        <li class="fragment"><strong>AI Agents 崛起:</strong> 开发者涌入，构建更智能、自主的代理。</li>
+                        <li class="fragment"><strong>主流语言:</strong> Python & TypeScript 仍是 AI 弄潮儿的首选。</li>
+                        <li class="fragment"><strong>安全与伦理凸显:</strong> AI 安全、内容审查边界成为新焦点。</li>
+                        <li class="fragment"><strong>核心议题:</strong> 如何用 AI 武装自己？如何识别潜在风险？</li>
+                    </ul>
+                    <p class="fragment mt-6 text-center text-teal font-semibold">👇 下面，我们深入分析热门项目趋势！</p>
+                </div>
+            </section>
+
+            <!-- Slide 5: 热门项目趋势分析 Title -->
+            <section class="slide-dark-bg">
+                <h2 class="text-white"><i class="fas fa-chart-line mr-2"></i>热门项目趋势分析</h2>
+            </section>
+
+            <!-- Slide 6: 今日整体趋势 -->
+            <section>
+                <h3><i class="fas fa-fire mr-2 text-red-500"></i>今日整体趋势</h3>
+                 <div class="content-width text-left text-gray-800">
+                     <p><strong class="text-teal">AI工具普及化</strong> 与 <strong class="text-teal">AI Agents崛起</strong> 成为焦点。</p>
+                    <ul class="list-disc space-y-2 mt-3">
+                         <li class="fragment"><strong>技术领域:</strong> 生成式AI、AI Agents 主导，实时换脸、3D生成、通用助手、LLM平台受关注。</li>
+                         <li class="fragment"><strong>编程语言:</strong> <i class="fab fa-python text-blue-500"></i> Python (AI核心) & <span class="inline-flex items-center font-bold text-sm px-1 rounded" style="color: #3178C6; background-color: #E0EFFF;">TS</span> TypeScript (Web/Agent) 领跑，JS 亦有应用。</li>
+                         <li class="fragment"><strong>技术栈:</strong> LLM + 数据库 (Neo4j) + 云服务 (Azure) + APIs。</li>
+                         <li class="fragment"><strong>需求方向:</strong> AI落地加速、个性化定制需求增长、关注透明性与可控性。</li>
+                         <li class="fragment"><strong class="text-purple">新特点:</strong> 更侧重 AI Agents 构建 (如 Suna, Rowboat)，探索模型风险 (如 ChatGPT DAN)，多智能体平台崭露头角。</li>
+                         <li class="fragment"><strong class="text-yellow">未来热点预测:</strong> AI安全伦理、行业深度应用、AI与边缘/IoT融合。</li>
+                    </ul>
+                </div>
+            </section>
+
+             <!-- Slide 7: 双日对比 -->
+            <section>
+                 <h3><i class="fas fa-exchange-alt mr-2 text-blue-500"></i>热门项目双日维度对比</h3>
+                 <div class="content-width text-left text-gray-800">
+                    <p>昨日 GitHub 热度<strong class="text-green-500">整体向上</strong>（新晋8 / 上升8 / 下降0）。</p>
+                    <ul class="list-disc space-y-2 mt-3">
+                         <li class="fragment"><strong>新晋焦点:</strong> <i class="fas fa-robot mr-1 text-purple"></i> AI 应用与工具 (Deep-Live-Cam, Hunyuan3D-2, dify)。</li>
+                         <li class="fragment"><strong>前端/可视化:</strong> <i class="fas fa-desktop mr-1 text-blue-500"></i> drawdb, lobe-chat, multipleWindow3dScene 预示创新。</li>
+                         <li class="fragment"><strong>语言趋势:</strong> <span class="inline-flex items-center font-bold text-sm px-1 rounded" style="color: #F0DB4F; background-color: #323330;">JS</span> (+2) & <span class="inline-flex items-center font-bold text-sm px-1 rounded" style="color: #3178C6; background-color: #E0EFFF;">TS</span> (+1) 强势，后端语言占比略降。</li>
+                         <li class="fragment"><strong>高涨幅项目:</strong> <i class="fas fa-database mr-1 text-gray-600"></i> `getzep/graphiti` (图数据库)。</li>
+                         <li class="fragment"><strong>持续热门:</strong> <i class="fas fa-book mr-1 text-orange-500"></i> `codecrafters-io/build-your-own-x` (底层技术学习)。</li>
+                    </ul>
+                </div>
+            </section>
+
+             <!-- Slide 8: 热点变化 -->
+            <section>
+                <h3><i class="fas fa-sync-alt mr-2 text-purple"></i>热点变化</h3>
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 content-width text-sm">
+                    <div class="bg-green-100 p-4 rounded shadow">
+                        <h4 class="text-green-700 font-semibold mb-2"><i class="fas fa-plus-circle mr-1"></i>新增热点</h4>
+                        <ul class="list-disc list-inside space-y-1 text-green-800">
+                             <li>hacksider/deep-live-cam</li>
+                             <li>tencent/hunyuan3d-2</li>
+                             <li>langgenius/dify</li>
+                             <li>bgstaal/multiplewindow3dscene</li>
+                             <li>patchy631/ai-engineering-hub</li>
+                             <li>drawdb-io/drawdb</li>
+                             <li>lobehub/lobe-chat</li>
+                             <li>jujumilk3/leaked-system-prompts</li>
+                        </ul>
+                    </div>
+                     <div class="bg-red-100 p-4 rounded shadow">
+                         <h4 class="text-red-700 font-semibold mb-2"><i class="fas fa-minus-circle mr-1"></i>减退热点</h4>
+                         <ul class="list-disc list-inside space-y-1 text-red-800">
+                             <li>microsoft/terminal</li>
+                             <li>khoj-ai/khoj</li>
+                             <li>stirling-tools/stirling-pdf</li>
+                             <li>2dust/v2rayn</li>
+                             <li>exa-labs/exa-mcp-server</li>
+                             <li>tracel-ai/burn</li>
+                             <li>simular-ai/agent-s</li>
+                             <li>raphire/win11debloat</li>
+                         </ul>
+                     </div>
+                     <div class="bg-blue-100 p-4 rounded shadow">
+                         <h4 class="text-blue-700 font-semibold mb-2"><i class="fas fa-history mr-1"></i>持续热门</h4>
+                         <ul class="list-disc list-inside space-y-1 text-blue-800">
+                             <li>getzep/graphiti (4天)</li>
+                             <li>microsoft/generative-ai-for-beginners (5天)</li>
+                             <li>kortix-ai/suna (5天)</li>
+                             <li>trimstray/the-book-of-secret-knowledge (3天)</li>
+                         </ul>
+                     </div>
+                </div>
+            </section>
+
+            <!-- Slide 9: 详细仓库数据 Title -->
+            <section class="slide-gradient-bg">
+                 <div class="center-content">
+                    <h2 class="text-white"><i class="fas fa-database mr-2"></i>详细仓库数据解读</h2>
+                    <p class="text-lg text-gray-100 mt-3">深入了解每个热门项目</p>
+                 </div>
+            </section>
+
+            <!-- Repo Slides (Using Vertical Slides) -->
+
+            <!-- Repo: hacksider/Deep-Live-Cam -->
+            <section>
+                <section data-background-color="#f9fafb">
+                     <h3 class="text-teal">hacksider/Deep-Live-Cam</h3>
+                     <p class="text-gray-600 text-lg mb-4">单图实现实时换脸和一键视频deepfake</p>
+                     <table class="repo-table content-width">
+                         <thead>
+                             <tr><th><i class="fas fa-code"></i> 语言</th><th><i class="fas fa-star text-yellow"></i> Stars</th><th><i class="fas fa-calendar-alt"></i> 连续在榜</th><th><i class="fas fa-trophy"></i> 总上榜</th><th><i class="fas fa-arrow-up text-green-500"></i> 今日新增</th></tr>
+                         </thead>
+                         <tbody>
+                              <tr><td><i class="fab fa-python"></i> Python</td><td>51.1k</td><td>1次</td><td>6次</td><td class="star-increase">+173</td></tr>
+                         </tbody>
+                     </table>
+                     <p class="text-xs text-gray-500 mt-2 content-width">Forks: 7.6k | Watchers: 329 | Issues: 29 | PRs: 1 | License: AGPL-3.0</p>
+                </section>
+                <section>
+                    <h4><i class="fas fa-rocket mr-2 text-purple"></i>项目速读 (Aha!)</h4>
+                    <div class="content-width text-left text-sm">
+                         <p><strong>核心价值:</strong> 仅需 <strong class="text-teal">单张照片</strong> 即可实现 <strong class="text-teal">实时换脸</strong> 与视频 Deepfake，极大降低技术门槛。</p>
+                         <p><strong>亮点:</strong> 实时处理、预构建版本易上手、支持多人换脸、强调负责任使用与伦理。</p>
+                         <p><strong>应用场景:</strong> 表情包制作、直播、在线社交互动。</p>
+                         <p class="fragment mt-3 text-gray-600">💡 瞬间将静态照片变为动态视频中的主角，展现了 AI 生成内容的惊人潜力与易用性。</p>
+                    </div>
+                </section>
+                 <section>
+                    <h4><i class="fas fa-chart-bar mr-2 text-blue-500"></i>增长分析</h4>
+                    <div class="content-width text-left text-sm">
+                         <p>上榜 <strong>6</strong> 天，总增长 <strong class="text-green-600">6261</strong> Stars。</p>
+                         <p>平均日增 <strong class="text-green-600">~544</strong> Stars。</p>
+                         <p>今日新增 <strong class="text-green-600">173</strong> Stars，虽略低于平均，但<strong class="text-teal">增长势头强劲</strong>。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Repo: getzep/graphiti -->
+            <section>
+                <section data-background-color="#f9fafb">
+                     <h3 class="text-teal">getzep/graphiti</h3>
+                     <p class="text-gray-600 text-lg mb-4">为AI Agent构建实时知识图谱</p>
+                     <table class="repo-table content-width">
+                         <thead>
+                             <tr><th><i class="fas fa-code"></i> 语言</th><th><i class="fas fa-star text-yellow"></i> Stars</th><th><i class="fas fa-calendar-alt"></i> 连续在榜</th><th><i class="fas fa-trophy"></i> 总上榜</th><th><i class="fas fa-arrow-up text-green-500"></i> 今日新增</th></tr>
+                         </thead>
+                         <tbody>
+                              <tr><td><i class="fab fa-python"></i> Python</td><td>7.1k</td><td>4次</td><td>4次</td><td class="star-increase">+461</td></tr>
+                         </tbody>
+                     </table>
+                      <p class="text-xs text-gray-500 mt-2 content-width">Forks: 461 | Watchers: 45 | Issues: 17 | PRs: 5 | License: Apache-2.0</p>
+                </section>
+                <section>
+                    <h4><i class="fas fa-rocket mr-2 text-purple"></i>项目速读 (Aha!)</h4>
+                    <div class="content-width text-left text-sm">
+                        <p><strong>核心价值:</strong> 解决 AI Agent 在 <strong class="text-teal">动态环境</strong> 中信息更新滞后的问题，超越传统 RAG。</p>
+                        <p><strong>亮点:</strong> <strong class="text-teal">实时增量更新</strong>、双时态数据模型（追踪历史）、高效混合检索、无需 LLM 总结。</p>
+                        <p><strong>技术栈:</strong> 使用 Neo4j 作为后端。</p>
+                         <p class="fragment mt-3 text-gray-600">💡 让 AI Agent 拥有 <strong class="text-purple">实时记忆和推理能力</strong>，能理解并适应不断变化的世界，是构建真正智能代理的关键一步。</p>
+                    </div>
+                </section>
+                 <section>
+                    <h4><i class="fas fa-chart-bar mr-2 text-blue-500"></i>增长分析</h4>
+                     <div class="content-width text-left text-sm">
+                         <p>上榜 <strong>4</strong> 天，总增长 <strong class="text-green-600">2311</strong> Stars。</p>
+                         <p>平均日增 <strong class="text-green-600">~503</strong> Stars，<strong class="text-teal">增长迅猛</strong>。</p>
+                         <p>今日新增 <strong class="text-green-600">461</strong> Stars，热度持续。</p>
+                    </div>
+                </section>
+            </section>
+
+             <!-- Repo: jujumilk3/leaked-system-prompts -->
+            <section>
+                <section data-background-color="#f9fafb">
+                     <h3 class="text-teal">jujumilk3/leaked-system-prompts</h3>
+                     <p class="text-gray-600 text-lg mb-4">泄露的系统提示语集锦</p>
+                     <table class="repo-table content-width">
+                         <thead>
+                             <tr><th><i class="fas fa-code"></i> 语言</th><th><i class="fas fa-star text-yellow"></i> Stars</th><th><i class="fas fa-calendar-alt"></i> 连续在榜</th><th><i class="fas fa-trophy"></i> 总上榜</th><th><i class="fas fa-arrow-up text-green-500"></i> 今日新增</th></tr>
+                         </thead>
+                         <tbody>
+                              <tr><td>N/A</td><td>4.5k</td><td>1次</td><td>4次</td><td class="star-increase">+483</td></tr>
+                         </tbody>
+                     </table>
+                     <p class="text-xs text-gray-500 mt-2 content-width">Forks: 522 | Watchers: 77 | Issues: 5 | PRs: 4 | License: N/A</p>
+                </section>
+                <section>
+                    <h4><i class="fas fa-rocket mr-2 text-purple"></i>项目速读 (Aha!)</h4>
+                    <div class="content-width text-left text-sm">
+                        <p><strong>核心价值:</strong> 汇集 <strong class="text-teal">泄露的 AI 系统提示词</strong>，揭示顶尖 LLM (Claude, ChatGPT) 的内部指令和设计。</p>
+                         <p><strong>用途:</strong> 研究 AI 安全、伦理、潜在漏洞、偏见，理解 Prompt 工程。</p>
+                         <p><strong>结构:</strong> Markdown 文件组织，按模型和日期归档。</p>
+                         <p class="fragment mt-3 text-gray-600">💡 如同 <strong class="text-purple">窥探 AI "大脑" 的钥匙</strong>，提供了理解、分析甚至“破解”大模型的独特视角，但也需 <strong class="text-red-500">谨慎使用</strong>。</p>
+                    </div>
+                </section>
+                 <section>
+                     <h4><i class="fas fa-chart-bar mr-2 text-blue-500"></i>增长分析</h4>
+                     <div class="content-width text-left text-sm">
+                         <p>上榜 <strong>4</strong> 天，总增长 <strong class="text-green-600">1894</strong> Stars。</p>
+                         <p>平均日增 <strong class="text-green-600">~278</strong> Stars。</p>
+                         <p>今日新增 <strong class="text-green-600">483</strong> Stars，<strong class="text-teal">热度仍在快速上升</strong>。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- ... Add other repositories following the same structure ... -->
+             <!-- Repo: drawdb-io/drawdb -->
+            <section>
+                 <section data-background-color="#f9fafb">
+                     <h3 class="text-teal">drawdb-io/drawdb</h3>
+                     <p class="text-gray-600 text-lg mb-4">免费、简易、直观的在线数据库图表编辑器和SQL生成器</p>
+                     <table class="repo-table content-width">
+                         <thead>
+                              <tr><th><i class="fas fa-code"></i> 语言</th><th><i class="fas fa-star text-yellow"></i> Stars</th><th><i class="fas fa-calendar-alt"></i> 连续在榜</th><th><i class="fas fa-trophy"></i> 总上榜</th><th><i class="fas fa-arrow-up text-green-500"></i> 今日新增</th></tr>
+                         </thead>
+                         <tbody>
+                              <tr><td><span class="inline-flex items-center font-bold text-sm px-1 rounded" style="color: #F0DB4F; background-color: #323330;">JS</span> JavaScript</td><td>28.9k</td><td>1次</td><td>5次</td><td class="star-increase">+391</td></tr>
+                         </tbody>
+                     </table>
+                     <p class="text-xs text-gray-500 mt-2 content-width">Forks: 2k | Watchers: 118 | Issues: 74 | PRs: 13 | License: AGPL-3.0</p>
+                 </section>
+                 <section>
+                     <h4><i class="fas fa-rocket mr-2 text-purple"></i>项目速读 (Aha!)</h4>
+                     <div class="content-width text-left text-sm">
+                         <p><strong>核心价值:</strong> 提供 <strong class="text-teal">轻量、易用、在线</strong> 的数据库模式可视化设计工具，<strong class="text-teal">无需安装/注册</strong>。</p>
+                         <p><strong>亮点:</strong> 浏览器直接使用、生成 SQL 脚本、支持团队协作（在线特性）、可选服务端组件。</p>
+                         <p><strong>解决痛点:</strong> 简化数据库设计流程，降低门槛，提升开发效率。</p>
+                         <p class="fragment mt-3 text-gray-600">💡 像在线画图一样 <strong class="text-purple">轻松设计数据库</strong>，极大提升了原型设计和早期开发的效率。</p>
+                     </div>
+                 </section>
+                 <section>
+                     <h4><i class="fas fa-chart-bar mr-2 text-blue-500"></i>增长分析</h4>
+                      <div class="content-width text-left text-sm">
+                         <p>上榜 <strong>5</strong> 天，总增长 <strong class="text-green-600">1731</strong> Stars。</p>
+                         <p>平均日增 <strong class="text-green-600">~219</strong> Stars。</p>
+                         <p>今日新增 <strong class="text-green-600">391</strong> Stars，<strong class="text-teal">增长势头显著</strong>。</p>
+                    </div>
+                 </section>
+             </section>
+
+            <!-- Repo: microsoft/generative-ai-for-beginners -->
+            <section>
+                 <section data-background-color="#f9fafb">
+                     <h3 class="text-teal">microsoft/generative-ai-for-beginners</h3>
+                     <p class="text-gray-600 text-lg mb-4">21课时，开始使用生成式AI构建应用</p>
+                      <table class="repo-table content-width">
+                         <thead>
+                              <tr><th><i class="fas fa-code"></i> 语言</th><th><i class="fas fa-star text-yellow"></i> Stars</th><th><i class="fas fa-calendar-alt"></i> 连续在榜</th><th><i class="fas fa-trophy"></i> 总上榜</th><th><i class="fas fa-arrow-up text-green-500"></i> 今日新增</th></tr>
+                         </thead>
+                         <tbody>
+                              <tr><td><i class="fas fa-book-open"></i> Jupyter Notebook</td><td>80.6k</td><td>5次</td><td>10次</td><td class="star-increase">+277</td></tr>
+                         </tbody>
+                     </table>
+                     <p class="text-xs text-gray-500 mt-2 content-width">Forks: 41.5k | Watchers: 730 | Issues: 7 | PRs: 12 | License: MIT</p>
+                 </section>
+                 <section>
+                     <h4><i class="fas fa-rocket mr-2 text-purple"></i>项目速读 (Aha!)</h4>
+                     <div class="content-width text-left text-sm">
+                         <p><strong>核心价值:</strong> 微软出品的 <strong class="text-teal">面向初学者的生成式 AI 系统入门课程</strong>，降低学习门槛。</p>
+                         <p><strong>亮点:</strong> <strong class="text-teal">21 节精心设计的课程</strong>、理论与实践结合、<i class="fab fa-python"></i> Python & <span class="inline-flex items-center font-bold text-sm px-1 rounded" style="color: #3178C6; background-color: #E0EFFF;">TS</span> 双语示例、覆盖 LLM 原理/Prompt 工程等关键知识、提供可运行代码。</p>
+                         <p><strong>平台支持:</strong> Azure OpenAI, GitHub Model Catalog, OpenAI API。</p>
+                         <p class="fragment mt-3 text-gray-600">💡 提供了一条 <strong class="text-purple">系统化、实践性强</strong> 的路径，让任何人都能快速上手构建自己的 AI 应用。</p>
+                     </div>
+                 </section>
+                 <section>
+                      <h4><i class="fas fa-chart-bar mr-2 text-blue-500"></i>增长分析</h4>
+                     <div class="content-width text-left text-sm">
+                         <p>上榜 <strong>10</strong> 天，总增长 <strong class="text-green-600">4930</strong> Stars。</p>
+                         <p>平均日增 <strong class="text-green-600">~246</strong> Stars。</p>
+                         <p>今日新增 <strong class="text-green-600">277</strong> Stars，<strong class="text-teal">增长势头依然强劲</strong>。</p>
+                    </div>
+                 </section>
+             </section>
+
+             <!-- Add more Repo Slides following the template -->
+             <!-- Example for Tencent/Hunyuan3D-2 -->
+             <section>
+                 <section data-background-color="#f9fafb">
+                     <h3 class="text-teal">Tencent/Hunyuan3D-2</h3>
+                     <p class="text-gray-600 text-lg mb-4">基于大规模混元3D扩散模型的高分辨率3D资产生成</p>
+                     <table class="repo-table content-width">
+                         <thead>
+                             <tr><th><i class="fas fa-code"></i> 语言</th><th><i class="fas fa-star text-yellow"></i> Stars</th><th><i class="fas fa-calendar-alt"></i> 连续在榜</th><th><i class="fas fa-trophy"></i> 总上榜</th><th><i class="fas fa-arrow-up text-green-500"></i> 今日新增</th></tr>
+                         </thead>
+                         <tbody>
+                             <tr><td><i class="fab fa-python"></i> Python</td><td>8.8k</td><td>1次</td><td>1次</td><td class="star-increase">+61</td></tr>
+                         </tbody>
+                     </table>
+                     <p class="text-xs text-gray-500 mt-2 content-width">Forks: 754 | Watchers: 104 | Issues: 122 | PRs: 3 | License: N/A</p>
+                 </section>
+                 <section>
+                     <h4><i class="fas fa-rocket mr-2 text-purple"></i>项目速读 (Aha!)</h4>
+                     <div class="content-width text-left text-sm">
+                         <p><strong>核心价值:</strong> 利用扩散模型 <strong class="text-teal">从图像快速生成高质量、高分辨率纹理的 3D 模型</strong>。</p>
+                         <p><strong>亮点:</strong> 几何与纹理 <strong class="text-teal">解耦生成</strong> (DiT+Paint)，提升效率与灵活性；效果优于同类模型；提供 Studio 平台和 Blender 插件。</p>
+                         <p><strong>应用场景:</strong> 游戏开发、影视制作、工业设计。</p>
+                         <p class="fragment mt-3 text-gray-600">💡 仿佛拥有了 <strong class="text-purple">点石成金</strong> 的能力，将 2D 图像瞬间转化为精美的 3D 资产，大幅降低 3D 创作门槛。</p>
+                     </div>
+                 </section>
+                 <!-- No growth analysis for 1-day entry -->
+             </section>
+
+            <!-- Add kortix-ai/suna, trimstray/the-book-of-secret-knowledge, etc. -->
+
+            <!-- Slide: Last -->
+            <section class="slide-dark-bg">
+                <div class="center-content">
+                    <h2 class="text-white">感谢观看</h2>
+                    <p class="text-gray-300 mt-4">持续关注 AI 前沿动态！</p>
+                    <p class="mt-10 text-teal font-semibold">
+                        <i class="fas fa-star mr-2"></i> Star & Follow Us!
+                    </p>
+                </div>
+                <div class="footer-link">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        <i class="fab fa-github"></i> github.com/aichipera/github-trend
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="WeChat QR Code">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Core Framework -->
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <!-- Optional Plugins -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js"></script>
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js"></script>
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js"></script>
+    <!-- Mermaid for diagrams (if needed later) -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <script>
+        // More info about initialization & config:
+        // - https://revealjs.com/initialization/
+        // - https://revealjs.com/config/
+        Reveal.initialize({
+            hash: true, // Enable deep linking slide navigation
+            center: true, // Vertical centering
+            margin: 0.04, // Factor of page height
+            minScale: 0.2, // Min scaling factor
+            maxScale: 1.5, // Max scaling factor
+
+            // Display controls in the bottom right corner
+            controls: true,
+            // Help the user learn the controls by providing hints, for example by
+            // bouncing the down arrow when they first encounter a vertical slide
+            controlsTutorial: true,
+            // Determines where controls appear, "edges" or "bottom-right"
+            controlsLayout: 'bottom-right',
+            // Visibility rule for controls:
+            // - 'focussed': Only show controls when the viewport is focussed
+            // - 'hover': Only show controls when the mouse is over the viewport
+            // - 'always': Always show controls
+            controlsBackArrows: 'faded', // 'faded', 'hidden' or 'visible'
+
+            // Display a presentation progress bar
+            progress: true,
+
+            // Display the page number of the current slide
+            slideNumber: 'c/t', // 'c/t', 'c', 'h.v', 'h/v'
+
+             // Add the current slide number to the URL hash so that reloading the
+             // page/copying the URL will return you to the same slide
+            hash: true,
+
+             // Push each slide change to the browser history. Implies `hash: true`
+            history: true,
+
+            // Enable keyboard shortcuts for navigation
+            keyboard: true,
+
+            // Enable the slide overview mode
+            overview: true,
+
+             // Vertical centering of slides
+            center: true,
+
+            // Enables touch navigation on devices with touch input
+            touch: true,
+
+            // Loop the presentation
+            loop: false,
+
+            // Change the presentation direction to be right-to-left
+            rtl: false,
+
+             // Changes the behavior of our navigation directions.
+             // "default"
+             // Left/right arrow keys step between horizontal slides, up/down
+             // arrow keys step between vertical slides. Space key steps through
+             // all slides (both horizontal and vertical).
+             // "linear"
+             // Removes the up/down arrows. Left/right arrows step through all
+             // slides (both horizontal and vertical).
+             // "grid"
+             // When this is enabled, stepping left/right from a vertical stack
+             // to an adjacent vertical stack will land you at the same vertical
+             // index.
+            navigationMode: 'default',
+
+            // Randomizes the order of slides each time the presentation loads
+            shuffle: false,
+
+            // Turns fragments on and off globally
+            fragments: true,
+
+            // Flags whether to include the current fragment in the URL,
+            // so that reloading brings you to the same fragment position
+            fragmentInURL: true,
+
+            // Flags if the presentation is running in an embedded mode,
+            // i.e. contained within a limited portion of the screen
+            embedded: false,
+
+            // Flags if we should show a help overlay when the questionmark
+            // key is pressed
+            help: true,
+
+            // Flags if speaker notes should be visible to all viewers
+            showNotes: false,
+
+             // Global override for autolaying embedded media (video/audio/iframe)
+             // - null: Media will only autoplay if data-autoplay is present
+             // - true: All media will autoplay, regardless of individual setting
+             // - false: No media will autoplay, regardless of individual setting
+            autoPlayMedia: null,
+
+             // Global override for preloading lazy-loaded iframes
+             // - null: Iframes load when they become visible (lazy)
+             // - true: Iframes load immediately when the presentation starts
+             // - false: Iframes load when the presentation starts, excluding those marked as data-src
+            preloadIframes: null,
+
+             // Number of milliseconds between automatically advancing slides
+             // (0 disables default auto-sliding behavior)
+             autoSlide: 0,
+             // Stop auto-sliding after user input
+            autoSlideStoppable: true,
+             // Use this method for navigation when auto-sliding
+            autoSlideMethod: null, // Reveal.navigateNext,
+
+            // Enable slide navigation via mouse wheel
+            mouseWheel: false,
+
+             // Hides the address bar on mobile devices
+            hideAddressBar: true,
+
+             // Opens links in an iframe preview overlay
+             // Add `data-preview-link` and `data-preview-link="false"` to customise each link
+             // individually
+            previewLinks: false,
+
+            // Transition style
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+            // Transition speed
+            transitionSpeed: 'default', // default/fast/slow
+
+             // Transition style for full page slide backgrounds
+            backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+
+            // Number of slides away from the current that are visible
+            viewDistance: 3,
+
+             // Number of slides away from the current that should be preloaded
+            preloadAudio: false, // deprecated: use data-preload attribute instead
+
+             // The display mode that will be used to show slides
+            display: 'block',
+
+
+            // Plugins
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>
