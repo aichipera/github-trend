@@ -1,0 +1,722 @@
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI工具爆发！这些技术正在重新定义开发边界</title>
+
+    <!-- Core Reveal.js -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet" id="theme">
+
+    <!-- Extensions -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Base font settings */
+        body {
+            font-family: "Noto Sans SC", Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            font-weight: 400; /* Default to regular weight */
+        }
+
+        /* Reveal.js overrides and custom styles */
+        .reveal {
+            font-size: 1.1rem; /* Base font size ~17.6px if base is 16px */
+        }
+
+        .reveal ::selection {
+             background: #3b82f6; /* Tailwind blue-500 */
+             color: white;
+        }
+
+        /* Title styles (Serif) */
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            font-family: "Noto Serif SC", serif;
+            font-weight: 600; /* Bold Serif */
+            color: #1e3a8a; /* Tailwind blue-800 */
+            margin-bottom: 0.8em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .reveal h1 { font-size: 2.8rem; } /* ~44.8px */
+        .reveal h2 { font-size: 2.0rem; } /* ~32px */
+        .reveal h3 { font-size: 1.5rem; } /* ~24px */
+        .reveal .subtitle { font-size: 1.6rem; color: #3b82f6; /* blue-500 */ font-weight: 500; margin-top: -0.5em; margin-bottom: 1em; }
+        .reveal p, .reveal li {
+            font-size: 1.1rem; /* ~17.6px */
+            line-height: 1.6;
+            color: #374151; /* gray-700 */
+        }
+        .reveal ul, .reveal ol {
+            margin-left: 1.5em;
+            margin-bottom: 1em;
+        }
+        .reveal li {
+            margin-bottom: 0.5em;
+        }
+        .reveal strong {
+            color: #1d4ed8; /* blue-700 */
+            font-weight: 600;
+        }
+        .reveal a {
+            color: #2563eb; /* blue-600 */
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .reveal a:hover {
+            color: #1e3a8a; /* blue-800 */
+            text-decoration: underline;
+        }
+
+        /* Custom background for title slide */
+        .title-slide {
+            background: linear-gradient(135deg, #e0f2fe 0%, #dcfce7 100%); /* light blue to light green */
+        }
+        .end-slide {
+            background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%); /* light blue to light indigo */
+        }
+
+        /* Bottom right corner container */
+        .bottom-right-corner {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px; /* Space between link and QR code */
+            z-index: 10; /* Ensure it's above background */
+        }
+        .bottom-right-corner img {
+            width: 80px;
+            height: 80px;
+            display: block;
+        }
+        .bottom-right-corner a {
+            font-size: 0.8rem;
+            color: #6b7280; /* gray-500 */
+            text-decoration: none;
+        }
+        .bottom-right-corner a:hover {
+            color: #1f2937; /* gray-800 */
+        }
+
+        /* Table styling */
+        .reveal table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+            font-size: 0.9rem;
+        }
+        .reveal th, .reveal td {
+            border: 1px solid #d1d5db; /* gray-300 */
+            padding: 0.5em 0.75em;
+            text-align: left;
+        }
+        .reveal th {
+            background-color: #f3f4f6; /* gray-100 */
+            font-weight: 600;
+             font-family: "Noto Sans SC", sans-serif; /* Keep table headers sans-serif */
+        }
+        .reveal tr:nth-child(even) {
+            background-color: #f9fafb; /* gray-50 */
+        }
+
+        /* Icon list styling */
+        .reveal ul.icon-list li {
+            list-style: none;
+            padding-left: 1.8em;
+            position: relative;
+        }
+        .reveal ul.icon-list li::before {
+            content: "\f138"; /* Font Awesome check circle or similar */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: #3b82f6; /* blue-500 */
+            position: absolute;
+            left: 0;
+            top: 0.1em;
+        }
+
+        /* Enhance fragments for visual appeal */
+        .reveal .fragment.fade-in-then-semi-out {
+            opacity: 0;
+            transition: opacity .3s ease-in-out;
+        }
+        .reveal .fragment.fade-in-then-semi-out.visible {
+            opacity: 1;
+        }
+        .reveal .fragment.fade-in-then-semi-out.current-fragment ~ .fragment.fade-in-then-semi-out.visible {
+             opacity: 0.3;
+        }
+
+        /* Small text utility */
+        .text-sm { font-size: 0.9rem; color: #6b7280; /* gray-500 */ }
+        .text-xs { font-size: 0.75rem; color: #6b7280; /* gray-500 */ }
+
+        /* Gradient text example */
+        .gradient-text {
+            background: -webkit-linear-gradient(45deg, #2563eb, #1e3a8a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Custom section backgrounds */
+        .section-bg-light-blue { data-background-color: #f0f9ff; }
+        .section-bg-light-green { data-background-color: #f0fdf4; }
+        .section-bg-light-gray { data-background-color: #f9fafb; }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover Slide -->
+            <section class="title-slide text-center">
+                <h1 class="gradient-text">AI工具爆发！</h1>
+                <h3 class="subtitle">这些技术正在重新定义开发边界，开发者都在抢学什么？</h3>
+                <p class="mt-8">演讲者：<strong>AIChipEra</strong></p>
+                <p class="text-sm mt-4">Github热门仓库日报观测时间：2025-04-29 20:57:46</p>
+                <aside class="notes">
+                    开场白，吸引注意力。强调AI工具的爆发趋势。
+                </aside>
+                <div class="bottom-right-corner">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">Star on GitHub</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+            <!-- Slide 2: Disclaimer -->
+            <section data-background-color="#fffbeb"> <!-- Light yellow background -->
+                <h2><i class="fas fa-exclamation-triangle mr-2 text-yellow-500"></i>免责声明</h2>
+                <p class="text-lg text-gray-700">以下内容仅供项目介绍和学习使用，</p>
+                <p class="text-lg text-red-600 font-semibold">不构成任何投资建议，请注意甄别！</p>
+            </section>
+
+            <!-- Slide 3: Daily Highlights -->
+            <section class="section-bg-light-blue">
+                <h2><i class="fas fa-lightbulb mr-2 text-yellow-400"></i>日报要点速览</h2>
+                <ul class="list-disc ml-8 text-left text-lg space-y-3 mt-6">
+                    <li class="fragment fade-in-then-semi-out"><strong>生成式AI、开源工具、实时交互技术</strong> 引爆开发者圈！ <i class="fas fa-fire text-red-500"></i></li>
+                    <li class="fragment fade-in-then-semi-out"><strong>Python</strong> 主导深度伪造与提示工程；<strong>Rust</strong> 打造高性能支付系统；<strong>C++</strong> 探索轻量浏览器内核。</li>
+                    <li class="fragment fade-in-then-semi-out"><strong>开源生态</strong> 驱动技术普惠化，但 <strong>伦理合规</strong> 与 <strong>实时性</strong> 成新焦点。</li>
+                    <li class="fragment fade-in-then-semi-out">从虚拟直播换脸 <i class="fas fa-video"></i> 到高并发支付 <i class="fas fa-credit-card"></i>：创新与责任如何平衡？</li>
+                    <li class="fragment fade-in-then-semi-out">下一轮风口在哪？开发者在押注哪些赛道？<i class="fas fa-chart-line"></i></li>
+                </ul>
+                <aside class="notes">
+                    快速概括今天的主要看点，制造悬念。
+                </aside>
+            </section>
+
+            <!-- Slide 4: Trend Analysis Section -->
+            <section class="section-bg-light-green">
+                 <h2><i class="fas fa-chart-bar mr-2"></i> 热门项目趋势分析</h2>
+                 <p>深入解读 GitHub 今日趋势背后的技术变革。</p>
+
+                <!-- Nested Vertical Slides for Analysis -->
+                <section>
+                    <h3><i class="fas fa-binoculars mr-2"></i> 一、最受关注的技术领域</h3>
+                     <ul class="icon-list mt-4 text-left">
+                         <li class="fragment"><strong>生成式AI应用优化</strong> (深度伪造, 提示工程, AI课程)</li>
+                         <li class="fragment"><strong>开源工具普惠化</strong> (跨平台渲染, 独立浏览器)</li>
+                         <li class="fragment"><strong>实时交互技术 & 隐私安全</strong> (实时换脸, 支付系统, 沙箱)</li>
+                     </ul>
+                     <p class="fragment mt-4">反映了降低AI门槛、技术自主可控、平衡创新的核心诉求。</p>
+                </section>
+
+                <section>
+                    <h3><i class="fas fa-code mr-2"></i> 二、编程语言与技术栈</h3>
+                     <ul class="icon-list mt-4 text-left">
+                         <li class="fragment"><strong>Python (5个):</strong> AI 与工具开发主导</li>
+                         <li class="fragment"><strong>JS/TS:</strong> Web 交互核心 (Three.js, React)</li>
+                         <li class="fragment"><strong>Rust:</strong> 高性能基础设施 (支付系统)</li>
+                         <li class="fragment"><strong>C++/C:</strong> 底层系统开发 (浏览器, 编译器)</li>
+                         <li class="fragment"><strong>开源生态:</strong> 70%+ 宽松协议，社区协作驱动</li>
+                     </ul>
+                </section>
+
+                <section>
+                     <h3><i class="fas fa-rocket mr-2"></i> 三、技术需求与发展方向</h3>
+                     <ol class="list-decimal ml-8 text-left space-y-2">
+                         <li class="fragment"><strong>实时性与低延迟:</strong> "毫秒级响应" 追求 (GPU加速, Rust优化)</li>
+                         <li class="fragment"><strong>开源工具场景化落地:</strong> 技术普惠 (教育, 支付, 浏览器)</li>
+                         <li class="fragment"><strong>伦理与合规边界探索:</strong> 技术与责任平衡 (内容过滤, 合规提示)</li>
+                         <li class="fragment"><strong>跨平台与轻量化部署:</strong> "零摩擦落地" 需求 (一键部署, WSL适配)</li>
+                     </ol>
+                </section>
+
+                <section>
+                     <h3><i class="fas fa-exchange-alt mr-2"></i> 四、技术趋势变化对比</h3>
+                     <ul class="icon-list mt-4 text-left">
+                         <li class="fragment"><strong>AI领域:</strong> 从模型优化 <i class="fas fa-arrow-right"></i> <strong>场景化应用</strong> (直播换脸, 支付集成)</li>
+                         <li class="fragment"><strong>基础设施层:</strong> 开源从补充 <i class="fas fa-arrow-right"></i> <strong>核心驱动力</strong> (支付, 浏览器)</li>
+                         <li class="fragment"><strong>交互技术:</strong> 实时交互需求激增 (多窗口同步, GUI自动化) <i class="fas fa-arrow-right"></i> 前端与AI深度整合</li>
+                     </ul>
+                </section>
+
+                <section>
+                     <h3><i class="fas fa-bullseye mr-2"></i> 五、下一波技术热点预测</h3>
+                      <ul class="icon-list mt-4 text-left">
+                         <li class="fragment"><strong>多模态实时交互工具</strong> (虚拟场景编辑器)</li>
+                         <li class="fragment"><strong>边缘计算与AI融合</strong> (低延迟, 轻量化模型, Rust+ONNX)</li>
+                         <li class="fragment"><strong>合规性技术框架</strong> (内置伦理约束的AI工具链)</li>
+                         <li class="fragment"><strong>开源基础设施标准化</strong> (支付、浏览器协议规范)</li>
+                     </ul>
+                </section>
+
+                 <section>
+                     <h3><i class="fas fa-star mr-2"></i> 六、今日趋势独特点</h3>
+                      <ul class="icon-list mt-4 text-left">
+                         <li class="fragment"><strong>技术普惠性强化:</strong> "零基础到落地"全链路 (教育+工具项目)</li>
+                         <li class="fragment"><strong>伦理与技术显性结合:</strong> 主动标注合规边界，开发者警觉性提高</li>
+                         <li class="fragment"><strong>跨领域协同趋势:</strong> 多技术栈融合创新 (视觉+搜索+GUI)</li>
+                     </ul>
+                      <p class="fragment mt-6 font-semibold text-blue-700">总结：技术下沉，伦理上浮。开源+AI重塑普惠路径，实时性、合规性、跨平台成核心考量。</p>
+                 </section>
+            </section>
+
+             <!-- Slide 5: Dual Day Comparison -->
+            <section class="section-bg-light-gray">
+                 <h2><i class="fas fa-calendar-alt mr-2"></i> 热门项目双日维度对比</h2>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4 text-left">
+                     <div class="fragment fade-left">
+                         <h3 class="text-lg font-semibold text-blue-700"><i class="fas fa-thermometer-half mr-1"></i> 热度变化趋势</h3>
+                         <ul class="list-disc ml-5 text-sm space-y-1">
+                            <li>整体热度 <strong class="text-green-600">显著上升 <i class="fas fa-arrow-up"></i></strong></li>
+                            <li><strong>6个</strong> 新晋项目，<strong>7个</strong> 上升项目</li>
+                            <li><strong class="text-red-600">无</strong> 项目热度下降</li>
+                            <li>Top涨幅: <strong>Deep-Live-Cam (+1439 <i class="fas fa-star text-yellow-500"></i>)</strong></li>
+                            <li>高话题性: leaked-system-prompts (+11.3%)</li>
+                         </ul>
+                     </div>
+                      <div class="fragment fade-right">
+                         <h3 class="text-lg font-semibold text-blue-700"><i class="fas fa-puzzle-piece mr-1"></i> 新项目特点</h3>
+                         <ul class="list-disc ml-5 text-sm space-y-1">
+                            <li>聚焦 <strong>实践</strong> 与 <strong>垂直领域</strong></li>
+                            <li><strong>LadybirdBrowser (C++):</strong> 轻量浏览器内核</li>
+                            <li><strong>Hyperswitch (Rust):</strong> 高可靠支付网关</li>
+                             <li><strong>Python-100-Days & Agent-S:</strong> AI+教育全链路</li>
+                         </ul>
+                     </div>
+                      <div class="fragment fade-left">
+                         <h3 class="text-lg font-semibold text-blue-700"><i class="fas fa-laptop-code mr-1"></i> 编程语言分布变化</h3>
+                         <ul class="list-disc ml-5 text-sm space-y-1">
+                            <li>底层语言回升: <strong>C++, Rust 各+1</strong> (高性能需求)</li>
+                            <li>前端框架退潮: <strong>JS/TS 合计 -4</strong></li>
+                            <li><strong>Python</strong> 稳定 (AI工具)</li>
+                            <li><strong>Swift</strong> 小幅回落</li>
+                         </ul>
+                     </div>
+                     <div class="fragment fade-right">
+                         <h3 class="text-lg font-semibold text-blue-700"><i class="fas fa-eye mr-1"></i> 值得关注的变化</h3>
+                         <ul class="list-disc ml-5 text-sm space-y-1">
+                             <li><strong>系统安全与隐私争议:</strong> leaked-system-prompts 暴露对AI透明度担忧</li>
+                             <li><strong>语言生态转向:</strong> C++/Rust 在关键基础设施渗透加速 <i class="fas fa-shield-alt"></i><i class="fas fa-tachometer-alt"></i> (安全+性能)</li>
+                         </ul>
+                     </div>
+                 </div>
+                 <p class="text-xs mt-4 text-gray-500">（注：数据基于GitHub趋势算法，涨幅百分比为假设示例）</p>
+            </section>
+
+            <!-- Slide 6: Hotspot Changes -->
+            <section class="section-bg-light-blue">
+                <h2><i class="fas fa-retweet mr-2"></i> 热点变化追踪</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6 text-left">
+                    <div>
+                        <h3 class="text-lg font-semibold text-green-600"><i class="fas fa-plus-circle mr-1"></i> 新增热点</h3>
+                        <ul class="text-sm space-y-1 mt-2">
+                            <li>simular-ai/agent-s</li>
+                            <li>juspay/hyperswitch</li>
+                            <li>jackfrued/python-100-days</li>
+                            <li>ladybirdbrowser/ladybird</li>
+                            <li>carykh/jes</li>
+                            <li>practical-tutorials/project-based-learning</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-red-600"><i class="fas fa-minus-circle mr-1"></i> 减退热点</h3>
+                         <ul class="text-sm space-y-1 mt-2">
+                            <li>trimstray/the-book-of-secret-knowledge</li>
+                            <li>langgenius/dify</li>
+                            <li>rowboatlabs/rowboat</li>
+                            <li>kortix-ai/suna</li>
+                             <li>... (共9个)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-blue-600"><i class="fas fa-sync-alt mr-1"></i> 持续热门</h3>
+                         <ul class="text-sm space-y-1 mt-2">
+                            <li>0xk1h0/ChatGPT_DAN (3天)</li>
+                            <li>microsoft/generative-ai-for-beginners (6天)</li>
+                            <li>codecrafters-io/build-your-own-x (3天)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7: Detailed Repositories Introduction -->
+            <section data-background-color="#fdf4ff"> <!-- Light purple background -->
+                <h2><i class="fab fa-github mr-2"></i> 详细仓库数据解读</h2>
+                <p>深入了解今日 Top 热门项目。</p>
+            </section>
+
+            <!-- Repository Slides (Vertical) -->
+            <section>
+                <!-- Repo 1: Deep-Live-Cam -->
+                <section class="section-bg-light-gray">
+                    <h3><i class="fab fa-python mr-1 text-blue-500"></i> hacksider/Deep-Live-Cam</h3>
+                    <p class="text-base font-medium">仅需单张图片的实时换脸与一键式视频深度伪造</p>
+                    <div class="grid grid-cols-2 gap-4 mt-4 text-sm text-left">
+                        <div>
+                            <strong>核心价值:</strong> 简化换脸技术，大众可用；兼顾性能与伦理。
+                            <br><strong>关键技术:</strong> GFPGAN/ONNX实时推理, GPU/Apple Silicon加速, 表情优化, 内容过滤。
+                            <br><strong>应用场景:</strong> 艺术创作, 虚拟直播, 影视娱乐, 虚拟试穿。
+                        </div>
+                        <div>
+                            <table>
+                                <tr><th>语言</th><th>Stars</th><th>日增</th><th>在榜</th></tr>
+                                <tr><td>Python</td><td>52.6k ⭐</td><td>+380 <span class="text-gray-500">(↓)</span></td><td>2次 (总7次)</td></tr>
+                            </table>
+                             <p class="text-xs mt-1"><strong>增长分析:</strong> 7日均增520星，总增7828星强势，今日增速放缓，关注持续性。</p>
+                        </div>
+                    </div>
+                     <p class="text-xs mt-2 text-red-600"><strong>注意:</strong> 需严格遵守法律与道德规范。</p>
+                </section>
+
+                <!-- Repo 2: multipleWindow3dScene -->
+                <section class="section-bg-light-gray">
+                    <h3><i class="fab fa-js-square mr-1 text-yellow-500"></i> bgstaal/multipleWindow3dScene</h3>
+                    <p class="text-base font-medium">使用three.js和localStorage在多窗口间同步3D场景</p>
+                     <div class="grid grid-cols-2 gap-4 mt-4 text-sm text-left">
+                        <div>
+                            <strong>核心价值:</strong> 轻量级解决跨窗口3D协同展示与状态保持。
+                            <br><strong>关键技术:</strong> localStorage数据中转, WindowManager生命周期管理, Three.js渲染。
+                            <br><strong>应用场景:</strong> 教育演示, 协同设计, 分布式数字孪生。
+                        </div>
+                        <div>
+                             <table>
+                                <tr><th>语言</th><th>Stars</th><th>日增</th><th>在榜</th></tr>
+                                <tr><td>JavaScript</td><td>17.8k ⭐</td><td>+227 <span class="text-green-600">(↑)</span></td><td>2次 (总2次)</td></tr>
+                            </table>
+                             <p class="text-xs mt-1"><strong>增长分析:</strong> 2日内爆发力强，日均增240星，增速陡峭，观察长期稳定性。</p>
+                        </div>
+                    </div>
+                     <p class="text-xs mt-2 text-gray-500"><strong>特点:</strong> 纯前端，零依赖，MIT协议。受localStorage容量限制。</p>
+                </section>
+
+                 <!-- Repo 3: ChatGPT_DAN -->
+                <section class="section-bg-light-gray">
+                    <h3><i class="fas fa-terminal mr-1 text-gray-600"></i> 0xk1h0/ChatGPT_DAN</h3>
+                    <p class="text-base font-medium">ChatGPT DAN，越狱提示 (Jailbreak Prompts)</p>
+                     <div class="grid grid-cols-2 gap-4 mt-4 text-sm text-left">
+                        <div>
+                            <strong>核心价值:</strong> 通过提示工程突破ChatGPT限制，探索模型边界。
+                            <br><strong>关键技术:</strong> "DAN"绕过框架, 分层提示模板, 动态响应适配, 语义混淆。
+                            <br><strong>应用场景:</strong> AI研究, 提示工程策略探索, 需要突破内容限制的开发。
+                        </div>
+                        <div>
+                             <table>
+                                <tr><th>语言</th><th>Stars</th><th>日增</th><th>在榜</th></tr>
+                                <tr><td>(N/A)</td><td>8.4k ⭐</td><td>+544 <span class="text-green-600">(↑↑)</span></td><td>3次 (总3次)</td></tr>
+                            </table>
+                             <p class="text-xs mt-1"><strong>增长分析:</strong> 3日均增434.7星，当日新增远超均值，增长加速。</p>
+                        </div>
+                    </div>
+                    <p class="text-xs mt-2 text-red-600"><strong>注意:</strong> 使用场景需确保合规性。</p>
+                </section>
+
+                <!-- Repo 4: generative-ai-for-beginners -->
+                <section class="section-bg-light-gray">
+                     <h3><i class="fab fa-python mr-1 text-blue-500"></i> microsoft/generative-ai-for-beginners</h3>
+                     <p class="text-base font-medium">微软官方生成式AI入门课程 (21课)</p>
+                      <div class="grid grid-cols-2 gap-4 mt-4 text-sm text-left">
+                         <div>
+                             <strong>核心价值:</strong> 系统化学习路径，降低GenAI开发门槛，连接理论与应用。
+                             <br><strong>关键技术:</strong> Jupyter Notebook, 模块化课程 (理论+实践), 多语言支持 (Py/TS/.NET), Azure OpenAI/GitHub模型集成, 伦理指导。
+                             <br><strong>应用场景:</strong> 开发者入门, 企业培训, 个人技能拓展。
+                         </div>
+                         <div>
+                              <table>
+                                 <tr><th>语言</th><th>Stars</th><th>日增</th><th>在榜</th></tr>
+                                 <tr><td>Jupyter Notebook</td><td>81.1k ⭐</td><td>+427 <span class="text-green-600">(↑)</span></td><td>6次 (总11次)</td></tr>
+                             </table>
+                              <p class="text-xs mt-1"><strong>增长分析:</strong> 11日均增276星，总增5374星，近日增速显著提升，稳健上升。</p>
+                         </div>
+                     </div>
+                      <p class="text-xs mt-2 text-blue-600"><strong>特点:</strong> MIT协议, 活跃社群, 工程化思维重构学习路径。</p>
+                 </section>
+
+                <!-- Repo 5: project-based-learning -->
+                <section class="section-bg-light-gray">
+                     <h3><i class="fas fa-book-open mr-1 text-purple-600"></i> practical-tutorials/project-based-learning</h3>
+                     <p class="text-base font-medium">精选项目教程列表 (Project-Based Learning)</p>
+                      <div class="grid grid-cols-2 gap-4 mt-4 text-sm text-left">
+                         <div>
+                             <strong>核心价值:</strong> 通过真实项目实践掌握编程技能，连接理论与应用。
+                             <br><strong>涵盖领域:</strong> 操作系统, 编译器, 网络协议栈, 3D渲染器等 (20+语言)。
+                             <br><strong>特点:</strong> "边做边学"结构化设计, 分步指南, 社区驱动更新。
+                         </div>
+                         <div>
+                              <table>
+                                 <tr><th>语言</th><th>Stars</th><th>日增</th><th>在榜</th></tr>
+                                 <tr><td>(N/A)</td><td>226k ⭐</td><td>+179 <span class="text-green-600">(新)</span></td><td>1次 (总1次)</td></tr>
+                             </table>
+                         </div>
+                     </div>
+                      <p class="text-xs mt-2 text-gray-500"><strong>适合人群:</strong> 希望突破理论瓶颈、深入底层原理的开发者。部分项目要求较高。</p>
+                 </section>
+
+                 <!-- Repo 6: LadybirdBrowser -->
+                 <section class="section-bg-light-gray">
+                     <h3><i class="fas fa-code mr-1 text-red-700"></i> LadybirdBrowser/ladybird</h3>
+                     <p class="text-base font-medium">真正的独立浏览器 (Independent Browser)</p>
+                      <div class="grid grid-cols-2 gap-4 mt-4 text-sm text-left">
+                         <div>
+                             <strong>核心价值:</strong> 摆脱主流内核依赖，提供独立、安全、高效的浏览体验。
+                             <br><strong>关键技术:</strong> C++, 多进程架构, 沙箱技术, 复用SerenityOS组件 (LibWeb/LibJS)。
+                             <br><strong>特点:</strong> 跨平台 (Linux/macOS/WSL2), BSD协议, 模块化, 开发者向 (预Alpha)。
+                         </div>
+                         <div>
+                              <table>
+                                 <tr><th>语言</th><th>Stars</th><th>日增</th><th>在榜</th></tr>
+                                 <tr><td>C++</td><td>37.7k ⭐</td><td>+83 <span class="text-green-600">(新)</span></td><td>1次 (总2次)</td></tr>
+                             </table>
+                              <p class="text-xs mt-1"><strong>增长分析:</strong> 上榜2日总增835星，日均78.5，短期爆发力突出。</p>
+                         </div>
+                     </div>
+                      <p class="text-xs mt-2 text-blue-600"><strong>价值:</strong> 提供独立透明的浏览器技术方案，适合安全研究、底层实现探索。</p>
+                 </section>
+
+                  <!-- Repo 7: Python-100-Days -->
+                 <section class="section-bg-light-gray">
+                     <h3><i class="fab fa-python mr-1 text-blue-500"></i> jackfrued/Python-100-Days</h3>
+                     <p class="text-base font-medium">Python - 100天从新手到大师</p>
+                      <div class="grid grid-cols-2 gap-4 mt-4 text-sm text-left">
+                         <div>
+                             <strong>核心价值:</strong> 系统化Python学习路径，覆盖基础到实战全流程。
+                             <br><strong>涵盖内容:</strong> 基础语法, Web开发, 数据库, 数据分析, 爬虫, 机器学习入门。
+                             <br><strong>特点:</strong> Jupyter Notebook载体, 分阶段教学, 实战案例, 配套资源丰富 (视频/社群)。
+                         </div>
+                         <div>
+                              <table>
+                                 <tr><th>语言</th><th>Stars</th><th>日增</th><th>在榜</th></tr>
+                                 <tr><td>Jupyter Notebook</td><td>165k ⭐</td><td>+111 <span class="text-green-600">(新)</span></td><td>1次 (总1次)</td></tr>
+                             </table>
+                         </div>
+                     </div>
+                      <p class="text-xs mt-2 text-blue-600"><strong>适合人群:</strong> 系统学习Python的初学者与进阶开发者。整合零散知识为落地路径。</p>
+                 </section>
+
+                 <!-- Repo 8: hyperswitch -->
+                 <section class="section-bg-light-gray">
+                     <h3><i class="fas fa-shield-alt mr-1 text-orange-600"></i> juspay/hyperswitch</h3>
+                     <p class="text-base font-medium">开源支付交换系统 (Rust)</p>
+                      <div class="grid grid-cols-2 gap-4 mt-4 text-sm text-left">
+                         <div>
+                             <strong>核心价值:</strong> 解决支付系统复杂、昂贵、难扩展痛点，统一接口，智能路由。
+                             <br><strong>关键技术:</strong> Rust (高性能/并发), 模块化架构, 跨平台SDK, 无代码配置。
+                             <br><strong>特点:</strong> Apache-2.0协议, 支持多支付方式, 降低技术复杂度与运维成本。
+                         </div>
+                         <div>
+                              <table>
+                                 <tr><th>语言</th><th>Stars</th><th>日增</th><th>在榜</th></tr>
+                                 <tr><td>Rust</td><td>16.3k ⭐</td><td>+307 <span class="text-green-600">(新)</span></td><td>1次 (总5次)</td></tr>
+                             </table>
+                             <p class="text-xs mt-1"><strong>增长分析:</strong> 5日均增299星，总增2174，当日超均值，势头良好。</p>
+                         </div>
+                     </div>
+                      <p class="text-xs mt-2 text-blue-600"><strong>适合场景:</strong> 需处理复杂支付 (多地区/高并发/风控) 的中大型商户。</p>
+                 </section>
+
+                 <!-- Repo 9: Agent-S -->
+                 <section class="section-bg-light-gray">
+                     <h3><i class="fas fa-robot mr-1 text-purple-500"></i> simular-ai/Agent-S</h3>
+                     <p class="text-base font-medium">像人一样操作计算机的开放智能体框架</p>
+                      <div class="grid grid-cols-2 gap-4 mt-4 text-sm text-left">
+                         <div>
+                             <strong>核心价值:</strong> 使AI代理能理解指令、分析屏幕、执行GUI操作。
+                             <br><strong>关键技术:</strong> 视觉+语言模型协同, 多模型兼容 (Claude/UI-TARS), 跨平台 (Mac/Win/Linux), 集成搜索引擎。
+                             <br><strong>特点:</strong> Apache-2.0协议, 基准测试性能领先, 推动CUA标准化。
+                         </div>
+                         <div>
+                              <table>
+                                 <tr><th>语言</th><th>Stars</th><th>日增</th><th>在榜</th></tr>
+                                 <tr><td>Python</td><td>3.1k ⭐</td><td>+262 <span class="text-green-600">(新)</span></td><td>1次 (总2次)</td></tr>
+                             </table>
+                             <p class="text-xs mt-1"><strong>增长分析:</strong> 2日均增181.5星，总增378，尾端爆发显著，热度快速上升。</p>
+                         </div>
+                     </div>
+                     <p class="text-xs mt-2 text-blue-600"><strong>应用:</strong> 自动化流程优化, AI研究, 跨平台计算机操作。需谨慎配置。</p>
+                 </section>
+
+                 <!-- Repo 10: build-your-own-x -->
+                <section class="section-bg-light-gray">
+                     <h3><i class="fas fa-tools mr-1 text-gray-700"></i> codecrafters-io/build-your-own-x</h3>
+                     <p class="text-base font-medium">通过从头复现你最喜爱的技术来掌握编程</p>
+                      <div class="grid grid-cols-2 gap-4 mt-4 text-sm text-left">
+                         <div>
+                             <strong>核心价值:</strong> "动手实践"深入理解技术底层原理。
+                             <br><strong>涵盖技术:</strong> 3D渲染器, 区块链, OS, 编译器, 数据库等 (20+种)。
+                             <br><strong>特点:</strong> 多语言实现 (C++/Py/Go), 循序渐进路径, 暴露底层细节。
+                         </div>
+                         <div>
+                              <table>
+                                 <tr><th>语言</th><th>Stars</th><th>日增</th><th>在榜</th></tr>
+                                 <tr><td>Markdown</td><td>376k ⭐</td><td>+908 <span class="text-green-600">(↑↑)</span></td><td>3次 (总9次)</td></tr>
+                             </table>
+                              <p class="text-xs mt-1"><strong>增长分析:</strong> 9日均增741星，总增24k+，近期单日突破908，爆发力突出。</p>
+                         </div>
+                     </div>
+                     <p class="text-xs mt-2 text-blue-600"><strong>适合人群:</strong> 技术爱好者与专业开发者，突破技术瓶颈，准备面试。</p>
+                 </section>
+
+                  <!-- Repo 11: jes -->
+                 <section class="section-bg-light-gray">
+                     <h3><i class="fas fa-dna mr-1 text-pink-500"></i> carykh/jes</h3>
+                     <p class="text-base font-medium">果冻进化模拟器 (Jelly Evolution Simulator)</p>
+                      <div class="grid grid-cols-2 gap-4 mt-4 text-sm text-left">
+                         <div>
+                             <strong>核心价值:</strong> 可视化展示生物进化机制 (自然选择, 突变, 适应)。
+                             <br><strong>关键技术:</strong> Python, 轻量级交互设计, 性能优化, 参数配置。
+                             <br><strong>特点:</strong> 交互式控制 (快捷键, 时间轴), 开放代码结构。
+                         </div>
+                         <div>
+                              <table>
+                                 <tr><th>语言</th><th>Stars</th><th>日增</th><th>在榜</th></tr>
+                                 <tr><td>Python</td><td>55 ⭐</td><td>+7 <span class="text-green-600">(新)</span></td><td>1次 (总1次)</td></tr>
+                             </table>
+                         </div>
+                     </div>
+                      <p class="text-xs mt-2 text-blue-600"><strong>应用:</strong> 教育演示 (进化论), 个人技术探索, 生物模拟算法实践。实验性质。</p>
+                 </section>
+
+                 <!-- Repo 12: leaked-system-prompts -->
+                <section class="section-bg-light-gray">
+                     <h3><i class="fas fa-file-alt mr-1 text-yellow-600"></i> jujumilk3/leaked-system-prompts</h3>
+                     <p class="text-base font-medium">泄露系统提示合集 (Leaked System Prompts)</p>
+                      <div class="grid grid-cols-2 gap-4 mt-4 text-sm text-left">
+                         <div>
+                             <strong>核心价值:</strong> 收集公开主流AI模型系统提示词，观察"幕后规则"。
+                             <br><strong>涵盖模型:</strong> Claude, ChatGPT, Gemini等 (70+份, 2022-2025)。
+                             <br><strong>特点:</strong> 系统性分类 (厂商/模型/版本), 追溯技术演进, 推动AI透明化。
+                         </div>
+                         <div>
+                              <table>
+                                 <tr><th>语言</th><th>Stars</th><th>日增</th><th>在榜</th></tr>
+                                 <tr><td>(N/A)</td><td>5k ⭐</td><td>+251 <span class="text-yellow-600">(~)</span></td><td>2次 (总5次)</td></tr>
+                             </table>
+                             <p class="text-xs mt-1"><strong>增长分析:</strong> 5日均增272星，累计增2432，今日增速稳定。</p>
+                         </div>
+                     </div>
+                     <p class="text-xs mt-2 text-red-600"><strong>价值与风险:</strong> 提供研究材料与开发参考，但直接复用需评估合规性。</p>
+                 </section>
+
+                 <!-- Repo 13: lobe-chat -->
+                 <section class="section-bg-light-gray">
+                     <h3><i class="fas fa-comments mr-1 text-cyan-500"></i> lobehub/lobe-chat</h3>
+                     <p class="text-base font-medium">开源、现代设计的AI聊天框架</p>
+                      <div class="grid grid-cols-2 gap-4 mt-4 text-sm text-left">
+                         <div>
+                             <strong>核心价值:</strong> 一键部署私有化聊天应用，支持多模型/多模态。
+                             <br><strong>关键技术:</strong> TypeScript, React前端, Node.js后端, 多LLM支持, 插件系统, RAG, Docker部署。
+                             <br><strong>特点:</strong> Apache-2.0协议, 现代UI, 知识库管理, 语音合成。
+                         </div>
+                         <div>
+                              <table>
+                                 <tr><th>语言</th><th>Stars</th><th>日增</th><th>在榜</th></tr>
+                                 <tr><td>TypeScript</td><td>59.7k ⭐</td><td>+84 <span class="text-green-600">(↑)</span></td><td>2次 (总2次)</td></tr>
+                             </table>
+                              <p class="text-xs mt-1"><strong>增长分析:</strong> 2日均增72.5星，总增275，次日增速提升。</p>
+                         </div>
+                     </div>
+                      <p class="text-xs mt-2 text-blue-600"><strong>应用:</strong> 私有化部署 (教育/客服/企业知识管理)，快速落地AI对话系统。</p>
+                 </section>
+            </section>
+
+
+            <!-- Slide Last: Conclusion / Call to Action -->
+            <section class="end-slide text-center">
+                <h2 class="gradient-text">保持关注，持续学习！</h2>
+                <p class="mt-6 text-lg">AI 与开源浪潮正以前所未有的速度重塑未来，</p>
+                <p class="text-lg">拥抱变化，探索前沿。</p>
+
+                <p class="mt-10 text-md">感谢观看！</p>
+                 <p class="text-sm">演讲者：AIChipEra</p>
+
+                <div class="bottom-right-corner">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">Star us on GitHub!</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+                 <aside class="notes">
+                    总结，呼吁大家保持学习和关注。感谢。
+                 </aside>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Core Reveal.js -->
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <!-- Mermaid for diagrams (if needed later) -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <script>
+        // More info about initialization & config:
+        // - https://revealjs.com/initialization/
+        // - https://revealjs.com/config/
+        Reveal.initialize({
+            hash: true, // Enables deep linking to slides
+            center: true, // Vertical centering
+            margin: 0.04, // Percentage of page height
+            width: "95%", // Presentation width
+            height: "100%", // Presentation height
+            minScale: 0.2, // Minimum scaling factor
+            maxScale: 1.5, // Maximum scaling factor
+
+            // Presentation size - Use defaults or specify
+             // width: 960,
+             // height: 700,
+
+            // Transitions
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            transitionSpeed: 'default', // default/fast/slow
+            backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                 // You might add plugins here if needed, e.g., notes, markdown, highlight
+                 // { src: 'plugin/markdown/markdown.js' },
+                 // { src: 'plugin/notes/notes.js', async: true },
+                 // { src: 'plugin/highlight/highlight.js', async: true }
+            ],
+
+            // Other options
+            controls: true, // Display controls in the bottom right corner
+            progress: true, // Display a presentation progress bar
+            history: true, // Push each slide change to the browser history
+            keyboard: true, // Enable keyboard shortcuts for navigation
+            overview: true, // Enable slide overview (press 'esc')
+            touch: true, // Enables touch navigation on devices
+            loop: false, // Loop the presentation
+            rtl: false, // Right-to-left presentation support
+            autoSlide: 0, // Stop auto-sliding
+            mouseWheel: false, // Enable navigation using the mouse wheel
+            previewLinks: false, // Open links in an iframe preview overlay
+            slideNumber: 'c/t', // Display slide number (e.g., "1/10")
+            showNotes: false // Show speaker notes? (can be toggled with 's')
+        });
+
+         // Initialize Mermaid if needed (add .mermaid class to code blocks)
+         // mermaid.initialize({ startOnLoad: true });
+    </script>
+
+</body>
+</html>
