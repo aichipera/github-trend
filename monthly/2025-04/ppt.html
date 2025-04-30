@@ -1,0 +1,698 @@
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI长出“手脚”？GitHub热榜揭秘大模型迈向自主智能体 - GitHub热门仓库月报</title>
+
+    <!-- Core Framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" id="theme" rel="stylesheet">
+
+    <!-- Extension Dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Custom Styles for Aha Moment Design --- */
+        :root {
+            --r-main-font: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: 'Noto Serif SC', serif;
+            --r-heading-text-transform: none; /* Keep Chinese titles as is */
+            --r-heading-font-weight: 600;
+            --r-main-font-size: 32px; /* Base size for scaling */
+            --r-link-color: #2a76dd;
+            --r-link-color-hover: #5a9eee;
+            --r-background-color: #f8f9fa; /* Light gray background */
+            --r-main-color: #333; /* Main text color */
+            --r-heading-color: #1a2a4a; /* Dark blue for headings */
+
+            --aha-primary-color: #4a90e2; /* A modern blue */
+            --aha-secondary-color: #50e3c2; /* A vibrant teal/mint */
+            --aha-accent-color: #f5a623; /* A warm orange accent */
+            --aha-dark-text: #2c3e50;
+            --aha-light-text: #f8f9fa;
+        }
+
+        .reveal {
+            font-family: var(--r-main-font);
+            font-size: var(--r-main-font-size);
+            font-weight: 300;
+            color: var(--r-main-color);
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--r-heading-color);
+            font-weight: var(--r-heading-font-weight);
+            text-transform: var(--r-heading-text-transform);
+        }
+
+        .reveal h1 { font-size: 2.8em; }
+        .reveal h2 { font-size: 1.8em; margin-bottom: 0.8em; }
+        .reveal h3 { font-size: 1.4em; margin-bottom: 0.6em;}
+        .reveal p, .reveal li { font-size: 0.9em; line-height: 1.6; }
+        .reveal strong { font-weight: 500; color: var(--aha-primary-color); }
+
+        /* Aha Moment Styling */
+        .reveal .slides section:not([data-background-color]) {
+           /* Default background if none is set */
+        }
+
+        .reveal .slides section.title-slide {
+            /* background: linear-gradient(135deg, var(--aha-primary-color) 0%, var(--aha-secondary-color) 100%); */
+            background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+            color: var(--aha-light-text);
+            text-align: left;
+        }
+        .reveal .slides section.title-slide h1,
+        .reveal .slides section.title-slide h2,
+        .reveal .slides section.title-slide p {
+            color: var(--aha-light-text);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        .reveal .slides section.title-slide h1 {
+             font-size: 3em;
+             margin-bottom: 0.3em;
+        }
+        .reveal .slides section.title-slide h2 {
+             font-size: 1.5em;
+             font-weight: 400;
+             font-family: var(--r-main-font); /* Subtitle using sans-serif */
+             opacity: 0.9;
+             margin-bottom: 1em;
+        }
+         .reveal .slides section.title-slide p.speaker {
+             font-size: 1em;
+             margin-top: 2em;
+             font-weight: 500;
+         }
+
+        .reveal .slides section.summary-slide {
+            background-color: #eef4ff; /* Light blue background */
+        }
+
+        .reveal .slides section.analysis-slide {
+             background-color: #f0f0f0; /* Slightly different gray */
+        }
+
+        .reveal .slides section.repo-slide {
+             background-color: #ffffff; /* White for repo details */
+             border-left: 5px solid var(--aha-secondary-color);
+             padding-left: 30px;
+        }
+        .reveal .slides section.repo-slide h3 {
+             color: var(--aha-primary-color);
+        }
+
+         .reveal .slides section.final-slide {
+            background: linear-gradient(135deg, #182848 0%, #4b6cb7 100%);
+            color: var(--aha-light-text);
+        }
+        .reveal .slides section.final-slide h2 {
+            color: var(--aha-light-text);
+        }
+
+        /* Footer for Link & QR */
+        .footer-info {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            font-size: 0.5em; /* Smaller font size */
+            z-index: 10; /* Ensure it's above background elements */
+            background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: #333; /* Dark text for readability on light background */
+            text-shadow: none; /* Remove text shadow from parent slide */
+        }
+         .footer-info img {
+            width: 50px; /* Adjust QR code size */
+            height: 50px;
+            margin-left: 10px;
+        }
+        .footer-info a {
+            color: var(--r-link-color);
+            text-decoration: none;
+        }
+         .footer-info a:hover {
+            color: var(--r-link-color-hover);
+        }
+
+        /* Table Styling */
+        .reveal table {
+            margin: auto;
+            border-collapse: collapse;
+            border-spacing: 0;
+            margin-top: 1em;
+            margin-bottom: 1em;
+            font-size: 0.8em;
+        }
+        .reveal table th {
+            background-color: var(--aha-primary-color);
+            color: var(--aha-light-text);
+            font-weight: 500;
+            padding: 0.5em 1em;
+        }
+        .reveal table td {
+            border: 1px solid #ddd;
+            padding: 0.5em 1em;
+            text-align: left;
+        }
+        .reveal table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Icon Styling */
+        .reveal .fas, .reveal .fab {
+            margin-right: 0.3em;
+            color: var(--aha-secondary-color);
+        }
+        .reveal .repo-slide .fas, .reveal .repo-slide .fab {
+             color: var(--aha-primary-color);
+        }
+
+        /* Code Block Styling */
+        .reveal pre code {
+            font-size: 0.7em;
+            line-height: 1.4;
+            max-height: 400px; /* Limit height */
+            background-color: #2d2d2d; /* Dark background for code */
+            color: #f0f0f0;
+            border-radius: 5px;
+            padding: 1em;
+        }
+
+        /* Fragment Styling */
+        .reveal .fragment.highlight-current-blue {
+	        opacity: 0.3;
+	        transition: all .3s ease;
+        }
+        .reveal .fragment.highlight-current-blue.current-fragment {
+	        opacity: 1;
+	        color: var(--aha-primary-color);
+        }
+
+         /* Smaller text for notes */
+        .reveal small {
+            font-size: 0.6em;
+            opacity: 0.8;
+            display: block;
+            margin-top: 1em;
+        }
+        .reveal .warning {
+             color: #e74c3c;
+             font-weight: 500;
+        }
+
+    </style>
+
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Title -->
+            <section class="title-slide text-left">
+                <h1>AI长出“手脚”？</h1>
+                <h2>GitHub热榜揭秘大模型迈向自主智能体</h2>
+                <p class="mt-8 opacity-90">GitHub热门仓库月报 (观测时间: 2025-04-30 22:13:51)</p>
+                <p class="speaker mt-16">演讲者: AIChipEra</p>
+                 <small class="warning mt-8">以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</small>
+
+                <div class="footer-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+            <!-- Slide 2: Monthly Summary -->
+            <section class="summary-slide">
+                <h2><i class="fas fa-lightbulb"></i> 月报要点：AI Agent 集体爆发</h2>
+                <p class="fragment fade-in">GitHub热榜揭示惊人趋势：AI智能体（Agent）正集体爆发！</p>
+                <p class="fragment fade-in">大模型不再只是纸上谈兵，正通过<strong class="text-blue-600">新协议</strong>连通真实世界，变得更<strong class="text-blue-600">自主</strong>，能自己跑任务。</p>
+                <p class="fragment fade-in">这标志着AI从模型转向<strong class="text-blue-600">应用与生态构建</strong>。</p>
+                <p class="fragment fade-in">预示其迈向独立完成复杂工作的新阶段——AI的“<strong class="text-blue-600">手脚</strong>”正在长成！</p>
+                <p class="fragment fade-in mt-8 text-lg text-center text-gray-700">
+                    <i class="fas fa-brain text-blue-500"></i> 模型 <i class="fas fa-arrow-right mx-2 text-gray-500"></i> <i class="fas fa-cogs text-green-500"></i> 应用 <i class="fas fa-arrow-right mx-2 text-gray-500"></i> <i class="fas fa-network-wired text-purple-500"></i> 生态
+                </p>
+            </section>
+
+            <!-- Slide 3: Trend Analysis -->
+            <section class="analysis-slide">
+                 <h2><i class="fas fa-chart-line"></i> 热门项目趋势分析</h2>
+
+                 <section>
+                     <h3>本月整体趋势：聚焦应用与生态</h3>
+                     <ul>
+                         <li class="fragment"><strong>焦点：</strong> AI，特别是LLM的应用生态 & AI Agents (近半数项目相关)</li>
+                         <li class="fragment"><strong>技术栈：</strong>
+                            <span class="fragment highlight-current-blue"> <i class="fab fa-python text-yellow-500"></i> Python (主导AI工具/Agent)</span>,
+                            <span class="fragment highlight-current-blue"> <i class="fab fa-js text-yellow-400"></i> TypeScript (自动化平台)</span>,
+                            <span class="fragment highlight-current-blue"> <i class="fab fa-golang text-cyan-500"></i> Go (MCP协议)</span>,
+                            <span class="fragment highlight-current-blue"> <i class="fas fa-c text-blue-400"></i> C++ (本地AI)</span>
+                         </li>
+                         <li class="fragment"><strong>核心需求：</strong></li>
+                             <ul class="ml-6">
+                                <li class="fragment">LLM与外部交互 (MCP, MarkItDown)</li>
+                                <li class="fragment">AI Agent框架与学习 (Agent S, Beginners Guide, Graphiti)</li>
+                                <li class="fragment">实用AI工具 (Meeting Minutes, Cursor Free)</li>
+                                <li class="fragment">模型理解与绕过 (Leaked Prompts, Cursor Free)</li>
+                            </ul>
+                         <li class="fragment mt-4"><strong>转变：</strong> 从基础模型 <i class="fas fa-arrow-right mx-2 text-gray-500"></i> <strong class="text-green-600">应用层 & 生态构建 (Agent兴起)</strong></li>
+                         <li class="fragment"><strong>预测：</strong> 成熟Agent框架、多模态端到端平台、行业深度整合方案</li>
+                         <li class="fragment"><strong>独特之处：</strong> MCP协议与AI Agent集群式爆发</li>
+                     </ul>
+                 </section>
+
+                 <section>
+                     <h3>热门项目双月维度对比分析</h3>
+                      <p class="fragment">今日榜单 <strong class="text-red-500">新鲜血液涌入</strong> 是主要特征。</p>
+                      <ul>
+                          <li class="fragment"><strong class="text-blue-600">11个</strong> 新项目上榜 (VS 昨日仅1个维持上升)</li>
+                          <li class="fragment">新增领域：AI Agent开发、自动化工具、MCP协议应用等</li>
+                          <li class="fragment">语言分布变化：JS/Python项目相对减少，<strong class="text-purple-500">未识别语言</strong>项目增加</li>
+                          <li class="fragment"><strong class="text-orange-500">n8n-io/n8n</strong> 爆发式增长: <span class="text-green-600">+14830 Stars (+20.4%)</span> in a day</li>
+                      </ul>
+                      <p class="fragment mt-4">显示社区关注点快速迭代，对新工具和框架需求强烈。</p>
+                 </section>
+
+                 <section>
+                    <h3><i class="fas fa-fire"></i> 热点变化</h3>
+                    <div class="flex justify-around">
+                        <div class="fragment">
+                            <h4 class="text-green-600"><i class="fas fa-arrow-up"></i> 新增热点</h4>
+                            <ul class="text-sm list-disc list-inside">
+                                <li>getzep/graphiti</li>
+                                <li>microsoft/markitdown</li>
+                                <li>yeongpin/cursor-free-vip</li>
+                                <li>jlowin/fastmcp</li>
+                                <li>jujumilk3/leaked-system-prompts</li>
+                                <li>cveproject/cvelistv5</li>
+                                <li>simular-ai/agent-s</li>
+                                <li>zackriya-solutions/meeting-minutes</li>
+                                <li>microsoft/ai-agents-for-beginners</li>
+                                <li>mark3labs/mcp-go</li>
+                                <li>punkpeye/awesome-mcp-servers</li>
+                            </ul>
+                        </div>
+                         <div class="fragment">
+                            <h4 class="text-red-600"><i class="fas fa-arrow-down"></i> 减退热点</h4>
+                             <ul class="text-sm list-disc list-inside">
+                                <li>codephiliax/chat2db</li>
+                                <li>glanceapp/glance</li>
+                                <li>mem0ai/mem0</li>
+                                <li>ladybirdbrowser/ladybird</li>
+                                <li>virattt/ai-hedge-fund</li>
+                                <li>lastmile-ai/mcp-agent</li>
+                                <li>huggingface/lerobot</li>
+                                <li>patchy631/ai-engineering-hub</li>
+                                <li>gorhill/ublock</li>
+                                <li>langgenius/dify</li>
+                                <li>patrickjs/awesome-cursorrules</li>
+                                <li>geekan/metagpt</li>
+                                <li>codecrafters-io/build-your-own-x</li>
+                                <li>shubhamsaboo/awesome-llm-apps</li>
+                             </ul>
+                         </div>
+                    </div>
+                 </section>
+
+                <section>
+                    <h3><i class="fas fa-code"></i> 编程语言分布</h3>
+                    <ul class="list-disc list-inside">
+                         <li class="fragment"><strong><i class="fab fa-python text-yellow-500"></i> Python:</strong> 5个项目 (41.7%) - AI 主力</li>
+                         <li class="fragment"><strong><i class="fas fa-question-circle text-gray-500"></i> Unknown:</strong> 3个项目 (25.0%) - 新兴或未标注</li>
+                         <li class="fragment"><strong><i class="fab fa-js text-yellow-400"></i> TypeScript:</strong> 1个项目 (8.3%) - 自动化平台</li>
+                         <li class="fragment"><strong><i class="fab fa-golang text-cyan-500"></i> Go:</strong> 1个项目 (8.3%) - MCP协议</li>
+                         <li class="fragment"><strong><i class="fab fa-python text-yellow-500"></i> Jupyter Notebook:</strong> 1个项目 (8.3%) - 教程/实验</li>
+                         <li class="fragment"><strong><i class="fas fa-c text-blue-400"></i> C++:</strong> 1个项目 (8.3%) - 本地高性能应用</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3><i class="fas fa-star"></i> Star 分布</h3>
+                     <ul class="list-disc list-inside">
+                         <li class="fragment"><strong>1k-5k:</strong> 4个项目 (33.3%) - 新秀潜力</li>
+                         <li class="fragment"><strong>5k-10k:</strong> 3个项目 (25.0%) - 社区关注</li>
+                         <li class="fragment"><strong>10k-50k:</strong> 3个项目 (25.0%) - 热门成熟</li>
+                         <li class="fragment"><strong>50k以上:</strong> 2个项目 (16.7%) - 超级明星</li>
+                     </ul>
+                </section>
+
+                <section data-auto-animate>
+                    <h3><i class="fas fa-trophy"></i> 热门项目排名 (Top 10)</h3>
+                    <ol class="text-sm leading-relaxed">
+                        <li class="fragment" data-fragment-index="1"><strong>[n8n-io/n8n]</strong> (⭐87.6k) - Fair-code workflow automation + AI.</li>
+                        <li class="fragment" data-fragment-index="2"><strong>[microsoft/markitdown]</strong> (⭐55.3k) - Convert files/docs to Markdown for LLMs.</li>
+                        <li class="fragment" data-fragment-index="3"><strong>[punkpeye/awesome-mcp-servers]</strong> (⭐45.1k) - Collection of MCP servers.</li>
+                        <li class="fragment" data-fragment-index="4"><strong>[yeongpin/cursor-free-vip]</strong> (⭐22.8k) - Bypass Cursor AI trial limits.</li>
+                        <li class="fragment" data-fragment-index="5"><strong>[microsoft/ai-agents-for-beginners]</strong> (⭐17.8k) - 10 Lessons for building AI Agents.</li>
+                        <li class="fragment" data-fragment-index="6"><strong>[jlowin/fastmcp]</strong> (⭐8.1k) - Fast Pythonic MCP server/client builder.</li>
+                        <li class="fragment" data-fragment-index="7"><strong>[getzep/graphiti]</strong> (⭐7.5k) - Real-Time Knowledge Graphs for AI Agents.</li>
+                        <li class="fragment" data-fragment-index="8"><strong>[jujumilk3/leaked-system-prompts]</strong> (⭐5.4k) - Collection of leaked LLM system prompts.</li>
+                        <li class="fragment" data-fragment-index="9"><strong>[Zackriya-Solutions/meeting-minutes]</strong> (⭐4.9k) - Local AI meeting note taker/summarizer.</li>
+                        <li class="fragment" data-fragment-index="10"><strong>[mark3labs/mcp-go]</strong> (⭐4.3k) - Go implementation of Model Context Protocol (MCP).</li>
+                    </ol>
+                 </section>
+            </section>
+
+            <!-- Slide 4: Weekly Analysis Links -->
+            <section>
+                <h2><i class="fas fa-calendar-week"></i> 本月每周Github热点项目分析</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>时间</th>
+                            <th>链接</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>第一周</td>
+                            <td><a href="#">TODO_URL</a></td>
+                        </tr>
+                        <tr>
+                            <td>第二周</td>
+                            <td><a href="#">TODO_URL</a></td>
+                        </tr>
+                        <tr>
+                            <td>第三周</td>
+                             <td><a href="#">TODO_URL</a></td>
+                        </tr>
+                        <tr>
+                            <td>第四周</td>
+                            <td><a href="#">TODO_URL</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="mt-4 text-sm"> (链接将在后续报告中补充)</p>
+            </section>
+
+            <!-- Slide 5: Detailed Repositories -->
+            <section>
+                <h2><i class="fas fa-database"></i> 详细仓库数据</h2>
+
+                <!-- Repo 1: cursor-free-vip -->
+                <section class="repo-slide" data-auto-animate>
+                    <h3 data-id="repo-title"><a href="https://github.com/yeongpin/cursor-free-vip" target="_blank">yeongpin/cursor-free-vip</a></h3>
+                     <p class="text-sm mb-4">
+                        <span class="mr-4"><i class="fab fa-python"></i> Python</span>
+                        <span class="mr-4"><i class="fas fa-star"></i> 22.8k</span>
+                        <span class="mr-4"><i class="fas fa-chart-line"></i> 1次连续</span>
+                        <span class="mr-4"><i class="fas fa-history"></i> 1次总上榜</span>
+                        <span class="text-green-600"><i class="fas fa-arrow-up"></i> +18078</span>
+                    </p>
+                    <p class="font-semibold">项目简介:</p>
+                    <p class="text-sm"> [支持 0.49.x] (重置 Cursor AI 机器ID & 绕过更高令牌限制) Cursor Ai 自动重置机器ID，免费升级使用Pro功能。</p>
+                </section>
+                <section class="repo-slide" data-auto-animate>
+                    <h3 data-id="repo-title"><a href="https://github.com/yeongpin/cursor-free-vip" target="_blank">yeongpin/cursor-free-vip</a></h3>
+                    <p class="font-semibold">项目速读:</p>
+                    <p class="text-sm">通过<strong class="text-blue-600">自动重置本地机器ID</strong>和配置，绕过 Cursor AI 免费试用次数限制，免费享受 Pro 特性。支持 Win/macOS/Linux。核心价值在于为学习研究提供<strong class="text-green-600">免费途径</strong>应对试用限制。请遵守非商业学习研究条款及 CC BY-NC-ND 4.0 许可证，<strong class="text-red-500">使用需自担风险</strong>。</p>
+                    <p class="text-xs mt-2"><strong>语言占比:</strong> Python 93.6%, PowerShell 3.3%, Shell 2.7%, Batchfile 0.4%</p>
+                     <p class="text-xs"><strong>Stats:</strong> Forks: 2.8k | Issues: 305 | Releases: 68 | Commits: 564 | Contributors: 39</p>
+                </section>
+
+                <!-- Repo 2: cvelistV5 -->
+                <section class="repo-slide" data-auto-animate>
+                     <h3 data-id="repo-title"><a href="https://github.com/CVEProject/cvelistV5" target="_blank">CVEProject/cvelistV5</a></h3>
+                     <p class="text-sm mb-4">
+                         <span class="mr-4"><i class="fas fa-question-circle"></i> Unknown</span>
+                         <span class="mr-4"><i class="fas fa-star"></i> 1.9k</span>
+                         <span class="mr-4"><i class="fas fa-chart-line"></i> 1次连续</span>
+                         <span class="mr-4"><i class="fas fa-history"></i> 1次总上榜</span>
+                         <span class="text-green-600"><i class="fas fa-arrow-up"></i> +968</span>
+                     </p>
+                     <p class="font-semibold">项目简介:</p>
+                     <p class="text-sm">以 CVE JSON 5 格式的官方 CVE 列表的 CVE 缓存。</p>
+                </section>
+                <section class="repo-slide" data-auto-animate>
+                     <h3 data-id="repo-title"><a href="https://github.com/CVEProject/cvelistV5" target="_blank">CVEProject/cvelistV5</a></h3>
+                    <p class="font-semibold">项目速读:</p>
+                    <p class="text-sm">官方 CVE 列表 V5 数据仓库，提供<strong class="text-blue-600">权威、最新、标准化 (JSON 5)</strong> 的漏洞信息。核心优势：数据格式统一、更新频率极高（约7分钟）、获取便捷 (git/ZIP)。可能包含增值信息（如 KEV）。是构建安全工具、漏洞库、威胁情报系统的<strong class="text-green-600">基石</strong>。使用需注意解析不同容器信息并遵循 CVE Program 条款。</p>
+                    <p class="text-xs mt-2"><strong>Stats:</strong> Forks: 444 | Issues: 19 | Releases: 5,000+ | Commits: 47k+ | Contributors: 5</p>
+                </section>
+
+                <!-- Repo 3: leaked-system-prompts -->
+                <section class="repo-slide" data-auto-animate>
+                     <h3 data-id="repo-title"><a href="https://github.com/jujumilk3/leaked-system-prompts" target="_blank">jujumilk3/leaked-system-prompts</a></h3>
+                     <p class="text-sm mb-4">
+                         <span class="mr-4"><i class="fas fa-question-circle"></i> Unknown</span>
+                         <span class="mr-4"><i class="fas fa-star"></i> 5.4k</span>
+                         <span class="mr-4"><i class="fas fa-chart-line"></i> 1次连续</span>
+                         <span class="mr-4"><i class="fas fa-history"></i> 1次总上榜</span>
+                         <span class="text-green-600"><i class="fas fa-arrow-up"></i> +2977</span>
+                     </p>
+                     <p class="font-semibold">项目简介:</p>
+                     <p class="text-sm">泄露的系统提示词收集。</p>
+                 </section>
+                 <section class="repo-slide" data-auto-animate>
+                     <h3 data-id="repo-title"><a href="https://github.com/jujumilk3/leaked-system-prompts" target="_blank">jujumilk3/leaked-system-prompts</a></h3>
+                    <p class="font-semibold">项目速读:</p>
+                    <p class="text-sm">专门收集和存放各种 LLM 及 AI 产品<strong class="text-blue-600">系统级提示 (System Prompts)</strong> 的资源库。汇集了 Claude, Gemini, ChatGPT, Copilot, Grok 等主流模型的内部指令。核心价值：提供集中、易访问的平台，查阅通常不公开的关键信息。优势：<strong class="text-green-600">内容广泛、便捷</strong>，为了解 AI 工作原理、提示工程、评估偏见、研究安全机制提供重要参考。</p>
+                     <p class="text-xs mt-2"><strong>Stats:</strong> Forks: 602 | Issues: 5 | Commits: 143 | Contributors: 19</p>
+                 </section>
+
+                <!-- Repo 4: n8n -->
+                <section class="repo-slide" data-auto-animate>
+                     <h3 data-id="repo-title"><a href="https://github.com/n8n-io/n8n" target="_blank">n8n-io/n8n</a></h3>
+                     <p class="text-sm mb-4">
+                         <span class="mr-4"><i class="fab fa-js"></i> TypeScript</span>
+                         <span class="mr-4"><i class="fas fa-star"></i> 87.6k</span>
+                         <span class="mr-4"><i class="fas fa-chart-line"></i> 1次连续</span>
+                         <span class="mr-4"><i class="fas fa-history"></i> 2次总上榜</span>
+                         <span class="text-green-600"><i class="fas fa-arrow-up"></i> +15098</span>
+                         <span class="ml-2 text-red-500 font-semibold">(爆发增长!)</span>
+                     </p>
+                     <p class="font-semibold">项目简介:</p>
+                     <p class="text-sm">Fair-code 工作流自动化平台，具有原生 AI 能力。结合可视化构建与自定义代码，支持自托管或云部署，提供 400+ 集成。</p>
+                 </section>
+                 <section class="repo-slide" data-auto-animate>
+                     <h3 data-id="repo-title"><a href="https://github.com/n8n-io/n8n" target="_blank">n8n-io/n8n</a></h3>
+                    <p class="font-semibold">项目速读:</p>
+                    <p class="text-sm">面向技术团队的<strong class="text-blue-600">工作流自动化平台</strong>，弥合无代码与代码鸿沟。通过可视化界面连接 400+ 服务，可嵌入 JS/Python 代码。核心优势：<strong class="text-green-600">强大集成</strong>、内置 LangChain AI 功能、"fair-code" 模式提供完全控制权（可自托管保隐私）。适合需高度定制、数据控制并结合 AI 的企业级自动化场景。</p>
+                     <p class="text-xs mt-2"><strong>语言占比:</strong> TypeScript 90.0%, Vue 8.1%, SCSS 1.2%, JavaScript 0.4%, etc.</p>
+                     <p class="text-xs"><strong>Stats:</strong> Forks: 23.8k | Issues: 395 | Releases: 327 | Commits: 13.8k | Contributors: 477</p>
+                     <p class="text-xs text-gray-600"><strong>增长分析：</strong> 月增超1.4万星，日均新增超1.2万，呈集中爆发特征。</p>
+                 </section>
+
+                <!-- Repo 5: fastmcp -->
+                 <section class="repo-slide" data-auto-animate>
+                     <h3 data-id="repo-title"><a href="https://github.com/jlowin/fastmcp" target="_blank">jlowin/fastmcp</a></h3>
+                     <p class="text-sm mb-4">
+                         <span class="mr-4"><i class="fab fa-python"></i> Python</span>
+                         <span class="mr-4"><i class="fas fa-star"></i> 8.1k</span>
+                         <span class="mr-4"><i class="fas fa-chart-line"></i> 1次连续</span>
+                         <span class="mr-4"><i class="fas fa-history"></i> 1次总上榜</span>
+                         <span class="text-green-600"><i class="fas fa-arrow-up"></i> +5957</span>
+                     </p>
+                     <p class="font-semibold">项目简介:</p>
+                     <p class="text-sm">快速、Pythonic 地构建 MCP 服务器和客户端。</p>
+                 </section>
+                 <section class="repo-slide" data-auto-animate>
+                     <h3 data-id="repo-title"><a href="https://github.com/jlowin/fastmcp" target="_blank">jlowin/fastmcp</a></h3>
+                    <p class="font-semibold">项目速读:</p>
+                    <p class="text-sm">高效且符合 Python 习惯的库，用于<strong class="text-blue-600">极速构建 LLM 的 Model Context Protocol (MCP) 服务器与客户端</strong>。通过简洁接口与装饰器，轻松将 Python 函数转为 LLM 可调用工具/资源，<strong class="text-green-600">显著降低开发门槛</strong>。核心价值：优雅、标准化地解决 LLM 如何高效利用外部能力，是连接 LLM 与现实功能的强大桥梁。</p>
+                     <p class="text-xs mt-2"><strong>语言占比:</strong> Python 100.0%</p>
+                     <p class="text-xs"><strong>Stats:</strong> Forks: 423 | Issues: 41 | Releases: 21 | Commits: 484 | Contributors: 18 | License: Apache-2.0</p>
+                 </section>
+
+                <!-- Repo 6: awesome-mcp-servers -->
+                <section class="repo-slide" data-auto-animate>
+                     <h3 data-id="repo-title"><a href="https://github.com/punkpeye/awesome-mcp-servers" target="_blank">punkpeye/awesome-mcp-servers</a></h3>
+                     <p class="text-sm mb-4">
+                         <span class="mr-4"><i class="fas fa-question-circle"></i> Unknown</span>
+                         <span class="mr-4"><i class="fas fa-star"></i> 45.1k</span>
+                         <span class="mr-4"><i class="fas fa-chart-line"></i> 1次连续</span>
+                         <span class="mr-4"><i class="fas fa-history"></i> 1次总上榜</span>
+                         <span class="text-green-600"><i class="fas fa-arrow-up"></i> +26197</span>
+                         <span class="ml-2 text-red-500 font-semibold">(爆发增长!)</span>
+                     </p>
+                     <p class="font-semibold">项目简介:</p>
+                     <p class="text-sm">一组MCP服务器。</p>
+                 </section>
+                 <section class="repo-slide" data-auto-animate>
+                     <h3 data-id="repo-title"><a href="https://github.com/punkpeye/awesome-mcp-servers" target="_blank">punkpeye/awesome-mcp-servers</a></h3>
+                    <p class="font-semibold">项目速读:</p>
+                    <p class="text-sm">精选列表，收集 <strong class="text-blue-600">Model Context Protocol (MCP) 服务器实现</strong>。MCP 规范 AI 模型与外部资源的安全交互。核心价值：提供<strong class="text-green-600">集中式资源库</strong>，助开发者发现和选择 MCP 服务器，扩展 AI 处理现实世界信息能力。特点：组织清晰（按功能分类），标注明确（语言/环境/OS），查找高效。是使用 MCP 构建 AI 应用的宝贵起点。</p>
+                    <p class="text-xs mt-2"><strong>Stats:</strong> Forks: 3.3k | Issues: 8 | Commits: 1.8k | Contributors: 483 | License: MIT</p>
+                 </section>
+
+                <!-- Repo 7: markitdown -->
+                <section class="repo-slide" data-auto-animate>
+                     <h3 data-id="repo-title"><a href="https://github.com/microsoft/markitdown" target="_blank">microsoft/markitdown</a></h3>
+                     <p class="text-sm mb-4">
+                         <span class="mr-4"><i class="fab fa-python"></i> Python</span>
+                         <span class="mr-4"><i class="fas fa-star"></i> 55.3k</span>
+                         <span class="mr-4"><i class="fas fa-chart-line"></i> 1次连续</span>
+                         <span class="mr-4"><i class="fas fa-history"></i> 1次总上榜</span>
+                         <span class="text-green-600"><i class="fas fa-arrow-up"></i> +13761</span>
+                     </p>
+                     <p class="font-semibold">项目简介:</p>
+                     <p class="text-sm">Python 工具，可将文件和办公文档转换为 Markdown。</p>
+                 </section>
+                 <section class="repo-slide" data-auto-animate>
+                     <h3 data-id="repo-title"><a href="https://github.com/microsoft/markitdown" target="_blank">microsoft/markitdown</a></h3>
+                    <p class="font-semibold">项目速读:</p>
+                    <p class="text-sm">微软推出的 Python 工具，解决 LLM 处理多格式文档难题。能智能地将 PDF, Office, 图片, 音视频等转为<strong class="text-blue-600">结构化 Markdown</strong>。核心优势：不仅提取文本，更<strong class="text-green-600">精准保留文档结构</strong>（标题、列表、表格等），使 LLM 更易理解。是连接多元文档与 LLM 分析能力的强大桥梁，构建智能文档处理流程的利器。</p>
+                     <p class="text-xs mt-2"><strong>语言占比:</strong> Python 99.4%, Dockerfile 0.6%</p>
+                     <p class="text-xs"><strong>Stats:</strong> Forks: 2.8k | Issues: 185 | Releases: 12 | Commits: 265 | Contributors: 56 | License: MIT</p>
+                 </section>
+
+                <!-- Repo 8: graphiti -->
+                <section class="repo-slide" data-auto-animate>
+                     <h3 data-id="repo-title"><a href="https://github.com/getzep/graphiti" target="_blank">getzep/graphiti</a></h3>
+                     <p class="text-sm mb-4">
+                         <span class="mr-4"><i class="fab fa-python"></i> Python</span>
+                         <span class="mr-4"><i class="fas fa-star"></i> 7.5k</span>
+                         <span class="mr-4"><i class="fas fa-chart-line"></i> 1次连续</span>
+                         <span class="mr-4"><i class="fas fa-history"></i> 1次总上榜</span>
+                         <span class="text-green-600"><i class="fas fa-arrow-up"></i> +4608</span>
+                     </p>
+                     <p class="font-semibold">项目简介:</p>
+                     <p class="text-sm">为 AI 智能体构建实时知识图谱。</p>
+                 </section>
+                 <section class="repo-slide" data-auto-animate>
+                     <h3 data-id="repo-title"><a href="https://github.com/getzep/graphiti" target="_blank">getzep/graphiti</a></h3>
+                    <p class="font-semibold">项目速读:</p>
+                    <p class="text-sm">专为 AI 智能体设计的开源框架，用于构建和查询<strong class="text-blue-600">实时、时间感知</strong>的知识图谱。解决传统 RAG 处理动态信息不足的问题，增量集成互动和数据，提供<strong class="text-green-600">永不落后的记忆和推理基础</strong>。凭借双时间模型和高效混合检索，智能体能精确追溯历史、理解关联。是开发需持续交互、理解上下文动态信息 AI 应用的关键技术。</p>
+                    <p class="text-xs mt-2"><strong>语言占比:</strong> Python 99.4%, Other 0.6%</p>
+                    <p class="text-xs"><strong>Stats:</strong> Forks: 503 | Issues: 20 | Releases: 74 | Commits: 322 | Contributors: 16 | License: Apache-2.0</p>
+                 </section>
+
+                <!-- Repo 9: mcp-go -->
+                <section class="repo-slide" data-auto-animate>
+                     <h3 data-id="repo-title"><a href="https://github.com/mark3labs/mcp-go" target="_blank">mark3labs/mcp-go</a></h3>
+                     <p class="text-sm mb-4">
+                         <span class="mr-4"><i class="fab fa-golang"></i> Go</span>
+                         <span class="mr-4"><i class="fas fa-star"></i> 4.3k</span>
+                         <span class="mr-4"><i class="fas fa-chart-line"></i> 1次连续</span>
+                         <span class="mr-4"><i class="fas fa-history"></i> 1次总上榜</span>
+                         <span class="text-green-600"><i class="fas fa-arrow-up"></i> +2707</span>
+                     </p>
+                     <p class="font-semibold">项目简介:</p>
+                     <p class="text-sm">模型上下文协议 (MCP) 的 Go 实现，支持 LLM 应用与外部数据源和工具之间的无缝集成。</p>
+                 </section>
+                 <section class="repo-slide" data-auto-animate>
+                     <h3 data-id="repo-title"><a href="https://github.com/mark3labs/mcp-go" target="_blank">mark3labs/mcp-go</a></h3>
+                    <p class="font-semibold">项目速读:</p>
+                    <p class="text-sm">MCP 的 Go 语言实现，为 LLM 应用构建<strong class="text-blue-600">标准化、安全的桥梁</strong>，访问外部数据/工具（类似 LLM 的 API 网关）。提供高层接口简化开发，快速构建 MCP 服务器，减少样板代码。强调<strong class="text-green-600">快速与简单</strong>。通过 Resources (数据) 和 Tools (功能)，赋予 LLM 获取实时信息、执行操作的能力，扩展 LLM 实用边界。</p>
+                    <p class="text-xs mt-2"><strong>语言占比:</strong> Go 100.0%</p>
+                    <p class="text-xs"><strong>Stats:</strong> Forks: 347 | Issues: 46 | Releases: 34 | Commits: 181 | Contributors: 58 | License: MIT</p>
+                 </section>
+
+                <!-- Repo 10: Agent-S -->
+                <section class="repo-slide" data-auto-animate>
+                     <h3 data-id="repo-title"><a href="https://github.com/simular-ai/Agent-S" target="_blank">simular-ai/Agent-S</a></h3>
+                     <p class="text-sm mb-4">
+                         <span class="mr-4"><i class="fab fa-python"></i> Python</span>
+                         <span class="mr-4"><i class="fas fa-star"></i> 3.4k</span>
+                         <span class="mr-4"><i class="fas fa-chart-line"></i> 1次连续</span>
+                         <span class="mr-4"><i class="fas fa-history"></i> 1次总上榜</span>
+                         <span class="text-green-600"><i class="fas fa-arrow-up"></i> +1808</span>
+                     </p>
+                     <p class="font-semibold">项目简介:</p>
+                     <p class="text-sm">Agent S：一个像人一样使用电脑的开放智能体框架。</p>
+                 </section>
+                 <section class="repo-slide" data-auto-animate>
+                     <h3 data-id="repo-title"><a href="https://github.com/simular-ai/Agent-S" target="_blank">simular-ai/Agent-S</a></h3>
+                    <p class="font-semibold">项目速读:</p>
+                    <p class="text-sm">开源框架，赋予 AI <strong class="text-blue-600">像人一样操作计算机 GUI</strong> 的能力。通过智能代理与计算机交互接口，使 AI 能学习经验，自主执行复杂任务（跨应用操作、搜索等）。核心优势：<strong class="text-green-600">高性能（SOTA）</strong>、灵活框架。结合 LLM (决策)、视觉模型 (定位)、网络检索，实现强大感知行动力。适用于需 AI 自主完成跨应用、多步骤任务场景。<strong class="text-red-500">注意：直接控制用户计算机，使用需审慎</strong>。</p>
+                    <p class="text-xs mt-2"><strong>语言占比:</strong> Python 100.0%</p>
+                    <p class="text-xs"><strong>Stats:</strong> Forks: 351 | Issues: 8 | Releases: 7 | Commits: 227 | Contributors: 12 | License: Apache-2.0</p>
+                 </section>
+
+                 <!-- Repo 11: ai-agents-for-beginners -->
+                 <section class="repo-slide" data-auto-animate>
+                     <h3 data-id="repo-title"><a href="https://github.com/microsoft/ai-agents-for-beginners" target="_blank">microsoft/ai-agents-for-beginners</a></h3>
+                     <p class="text-sm mb-4">
+                         <span class="mr-4"><i class="fab fa-python"></i> Jupyter Notebook</span>
+                         <span class="mr-4"><i class="fas fa-star"></i> 17.8k</span>
+                         <span class="mr-4"><i class="fas fa-chart-line"></i> 1次连续</span>
+                         <span class="mr-4"><i class="fas fa-history"></i> 1次总上榜</span>
+                         <span class="text-green-600"><i class="fas fa-arrow-up"></i> +9022</span>
+                     </p>
+                     <p class="font-semibold">项目简介:</p>
+                     <p class="text-sm">构建 AI 智能体入门的 10 个要点。</p>
+                 </section>
+                 <section class="repo-slide" data-auto-animate>
+                     <h3 data-id="repo-title"><a href="https://github.com/microsoft/ai-agents-for-beginners" target="_blank">microsoft/ai-agents-for-beginners</a></h3>
+                    <p class="font-semibold">项目速读:</p>
+                    <p class="text-sm">微软开源学习项目，提供 <strong class="text-blue-600">10 节课系统教程</strong>，面向初学者指导构建 AI 代理。解决入门者缺乏系统学习路径问题。亮点：<strong class="text-green-600">循序渐进课程设计</strong>、丰富实践代码示例。技术：利用 LLMs，结合 Semantic Kernel 和 AutoGen 等框架。支持多语言（含中文），降低学习门槛。提供清晰、实用的学习路径，极具价值的教育资源。</p>
+                     <p class="text-xs mt-2"><strong>语言占比:</strong> Jupyter Notebook 94.8%, Python 5.1%, Dockerfile 0.1%</p>
+                     <p class="text-xs"><strong>Stats:</strong> Forks: 4.5k | Issues: 7 | Commits: 411 | Contributors: 32 | License: MIT</p>
+                 </section>
+
+                 <!-- Repo 12: meeting-minutes -->
+                <section class="repo-slide" data-auto-animate>
+                     <h3 data-id="repo-title"><a href="https://github.com/Zackriya-Solutions/meeting-minutes" target="_blank">Zackriya-Solutions/meeting-minutes</a></h3>
+                     <p class="text-sm mb-4">
+                         <span class="mr-4"><i class="fas fa-c"></i> C++</span>
+                         <span class="mr-4"><i class="fas fa-star"></i> 4.9k</span>
+                         <span class="mr-4"><i class="fas fa-chart-line"></i> 1次连续</span>
+                         <span class="mr-4"><i class="fas fa-history"></i> 1次总上榜</span>
+                         <span class="text-green-600"><i class="fas fa-arrow-up"></i> +3574</span>
+                     </p>
+                     <p class="font-semibold">项目简介:</p>
+                     <p class="text-sm">一个免费开源、自托管的、基于人工智能的实时会议记录器和会议纪要生成器，可完全在您的本地设备上运行（支持Mac/Win）。</p>
+                 </section>
+                 <section class="repo-slide" data-auto-animate>
+                     <h3 data-id="repo-title"><a href="https://github.com/Zackriya-Solutions/meeting-minutes" target="_blank">Zackriya-Solutions/meeting-minutes</a></h3>
+                    <p class="font-semibold">项目速读:</p>
+                    <p class="text-sm">免费开源 AI 会议助手 (Meetily)，在<strong class="text-blue-600">本地设备 (macOS/Win)</strong> 实现会议自动化记录和总结。实时捕获音频、AI 转录、生成纪要/摘要。核心价值：<strong class="text-green-600">隐私优先</strong>（数据本地处理）。利用 Whisper.cpp 等开源模型，支持本地/云端 LLM 生成摘要。高效、低成本，提升会议效率，适合重视数据安全、寻求自动化记录工具的个人/团队。</p>
+                    <p class="text-xs mt-2"><strong>语言占比:</strong> C++ 49.5%, TypeScript 17.1%, Rust 14.5%, Python 8.3%, Batchfile 3.2%, Shell 3.2%, Other 4.2%</p>
+                     <p class="text-xs"><strong>Stats:</strong> Forks: 337 | Issues: 28 | Commits: 76 | Contributors: 3 | License: MIT</p>
+                 </section>
+            </section>
+
+            <!-- Slide 6: Final Slide -->
+            <section class="final-slide">
+                <h2>感谢观看</h2>
+                <p>关注项目 & 获取最新动态</p>
+                <div class="footer-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <!-- Reveal.js Plugins (Optional) -->
+    <!-- <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js"></script> -->
+    <!-- <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js"></script> -->
+    <!-- <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js"></script> -->
+
+    <script>
+        // More info about initialization & config:
+        // - https://revealjs.com/config/
+        // - https://revealjs.com/initialization/
+        Reveal.initialize({
+            hash: true,
+            center: true,
+            margin: 0.04,
+            transition: 'fade', // 'slide', 'convex', 'fade', 'zoom'
+            backgroundTransition: 'fade',
+            controls: true,
+            progress: true,
+            history: true,
+
+            // Optional plugins
+            // plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+
+        // Initialize Mermaid if needed (not strictly necessary for this content but good practice)
+        // mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+</html>
