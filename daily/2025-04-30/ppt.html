@@ -1,0 +1,851 @@
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>AI风向突变！GitHub热榜：智能体、安全与高效开发成新宠</title>
+
+    <meta name="description" content="GitHub热门仓库日报分析 - 2025-04-30">
+    <meta name="author" content="AIChipEra">
+
+    <!-- Core Framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <!-- Theme -->
+    <!-- Using white theme as base, will override with Tailwind and custom CSS -->
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet" id="theme">
+
+    <!-- Extension Dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        /* Base Font Stack */
+        body {
+          font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+          font-weight: 400; /* Noto Sans SC Regular */
+        }
+
+        /* Reveal.js overrides and custom theme */
+        :root {
+            --r-main-font: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: 'Noto Serif SC', serif;
+            --r-background-color: #f8f9fa; /* Light Gray */
+            --r-main-color: #212529; /* Dark Gray */
+            --r-heading-color: #0A2463; /* Deep Blue */
+            --r-link-color: #3B82F6; /* Tailwind Blue 500 */
+            --r-link-color-hover: #2563EB; /* Tailwind Blue 600 */
+            --r-selection-background-color: #FF8C00; /* Bright Orange Accent */
+            --r-selection-color: #fff;
+            --aha-moment-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Purple Gradient */
+            --aha-moment-text: #ffffff;
+            --repo-bg: #ffffff;
+            --border-color: #e0e0e0;
+        }
+
+        .reveal {
+            font-size: 1rem; /* Base size for 1rem definition */
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--r-heading-color);
+            font-weight: 600; /* Noto Serif SC SemiBold */
+            word-wrap: break-word;
+            hyphens: auto;
+        }
+
+        .reveal h1 { font-size: 2.8rem; }
+        .reveal h2 { font-size: 2.2rem; }
+        .reveal h3 { font-size: 1.8rem; }
+        .reveal h4 { font-size: 1.4rem; text-transform: none; } /* Smaller heading for repo names */
+        .reveal p, .reveal li, .reveal td, .reveal th {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--r-main-color);
+        }
+
+        .reveal blockquote {
+            background: rgba(59, 130, 246, 0.1); /* Light Blue BG */
+            border-left: 5px solid var(--r-link-color);
+            padding: 1rem;
+            font-style: normal;
+        }
+
+        .reveal strong {
+            color: var(--r-link-color); /* Highlight keywords */
+            font-weight: 500; /* Noto Sans SC Medium */
+        }
+
+        /* Custom Slide Backgrounds */
+        .slide-background-content {
+           background-color: var(--r-background-color);
+        }
+        .slide-background-content.cover-bg {
+            background: linear-gradient(45deg, rgba(10, 36, 99, 0.85), rgba(59, 130, 246, 0.85)), url('https://source.unsplash.com/random/1920x1080/?technology,abstract') no-repeat center center;
+            background-size: cover;
+        }
+        .slide-background-content.aha-bg {
+            background: var(--aha-moment-bg);
+        }
+        .slide-background-content.section-break-bg {
+            background: linear-gradient(45deg, #2F4F4F, #66CDAA); /* Dark Slate Gray to Medium Aqua */
+        }
+
+        /* Aha Moment Styling */
+        .aha-moment-slide h2, .aha-moment-slide p {
+            color: var(--aha-moment-text);
+        }
+        .aha-moment-slide h2 {
+            font-size: 2.5rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+         .aha-moment-slide p {
+            font-size: 1.3rem;
+            font-weight: 300; /* Light */
+            max-width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .aha-moment-slide .icon-aha {
+            font-size: 3rem;
+            color: #FFD700; /* Gold */
+            margin-bottom: 1rem;
+            display: block; /* Center icon */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+        /* Layout and Utilities */
+        .footer-link {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.7); /* Light text on dark bg */
+            display: flex;
+            align-items: center;
+            gap: 15px; /* Space between link and QR */
+            text-decoration: none;
+            z-index: 10; /* Ensure it's above background */
+        }
+         .footer-link img {
+            width: 60px;
+            height: 60px;
+         }
+         .footer-link a {
+             color: inherit;
+             text-decoration: none;
+         }
+         .footer-link a:hover {
+             text-decoration: underline;
+         }
+         /* Adjust footer color for light background slides */
+         .reveal[data-background-color="#f8f9fa"] .footer-link,
+         .reveal[data-background-color="#ffffff"] .footer-link {
+            color: rgba(0, 0, 0, 0.5);
+         }
+
+        /* Repo Table Styling */
+        .repo-table {
+            font-size: 0.85rem;
+            width: 100%;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+            border-collapse: collapse;
+        }
+        .repo-table th, .repo-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.4rem 0.6rem;
+            text-align: left;
+        }
+        .repo-table th {
+            background-color: rgba(10, 36, 99, 0.1); /* Light Blue Header */
+            font-weight: 500;
+        }
+
+        /* Repo Card Styling */
+        .repo-card {
+            background-color: var(--repo-bg);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid var(--r-link-color);
+            text-align: left; /* Ensure text aligns left */
+        }
+        .repo-card h4 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: var(--r-heading-color);
+        }
+        .repo-card p {
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+         .repo-card .repo-meta span {
+            display: inline-block;
+            margin-right: 1rem;
+            font-size: 0.85rem;
+            color: #6c757d; /* Gray */
+         }
+         .repo-card .repo-meta i {
+             margin-right: 0.3rem;
+             color: var(--r-link-color);
+         }
+         .repo-card .lang-dist {
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-top: 0.5rem;
+         }
+
+        /* Adjust list spacing */
+        .reveal ul, .reveal ol {
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+        }
+         .reveal li {
+             margin-bottom: 0.5rem;
+         }
+
+        /* Icon list style */
+        .fa-ul {
+            list-style-type: none;
+            padding-left: 2.5em; /* Adjust based on icon size */
+        }
+        .fa-li {
+            left: -2em; /* Position icon */
+            width: 2em;
+            text-align: center;
+        }
+        .fa-ul i {
+           color: var(--r-link-color); /* Use link color for icons */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover -->
+            <section data-background-color="#0A2463" data-background-image="https://source.unsplash.com/random/1920x1080/?abstract,technology,future" data-background-opacity="0.3">
+                 <h1 class="text-white text-shadow-lg">AI风向突变！GitHub热榜：智能体、安全与高效开发成新宠</h1>
+                 <h3 class="text-gray-200 text-shadow-md mt-4">技术趋势与项目速览</h3>
+                 <p class="text-gray-300 mt-8">
+                     观测时间: <strong>2025-04-30 21:47:20</strong><br>
+                     演讲者: <strong>AIChipEra</strong>
+                 </p>
+                 <p class="text-xs text-gray-400 mt-12 italic">
+                     * 以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！ *
+                 </p>
+                 <div class="footer-link">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+            <!-- Slide 2: Aha Moment / 日报要点 -->
+            <section data-background-color="#667eea" data-background-gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)" class="aha-moment-slide text-center">
+                <i class="fas fa-lightbulb icon-aha"></i>
+                <h2>日报要点：灵光一现</h2>
+                <p class="fragment fade-in">
+                    GitHub热榜最新动态揭示：<strong>AI热度空前</strong>，焦点正从大模型转向<strong>实际应用与自主化</strong>。智能体（Agent）项目如雨后春笋般涌现，预示AI将更像人一样行动。同时，<strong>高效推理、AI安全</strong>和优质<strong>学习资源</strong>也备受追捧。抓住这些新风向，你才能跟上技术最前沿！
+                </p>
+            </section>
+
+            <!-- Slide 3: 热门项目趋势分析 - Section Break -->
+            <section data-background-color="#2F4F4F" data-background-gradient="linear-gradient(45deg, #2F4F4F, #66CDAA)">
+                 <h2 class="text-white text-shadow-md">热门项目趋势分析</h2>
+            </section>
+
+            <!-- Slide 4: 热门项目趋势分析 - 整体趋势 -->
+            <section>
+                <h3>今日整体趋势分析</h3>
+                <p class="fragment">从今日GitHub的热门项目列表中，可以清晰地捕捉到当前技术发展的一些关键脉搏。<strong>人工智能</strong>，特别是<strong>大语言模型（LLMs）</strong>和<strong>智能体（Agent）技术</strong>，在今日的GitHub热门项目中占据了绝对的主导地位。</p>
+                 <p class="fragment">这不仅体现在项目数量上，更体现在其高涨的关注度和增长速度上。</p>
+            </section>
+
+            <!-- Slide 5: 热门项目趋势分析 - 关注领域 -->
+            <section>
+                <h4>最受关注的技术领域和主题</h4>
+                <ul class="fa-ul">
+                    <li class="fragment"><span class="fa-li"><i class="fas fa-brain"></i></span><strong>大模型及周边生态 (LLMs & Ecosystem):</strong> 核心模型 (Qwen3), 推理引擎 (vllm), 微调框架 (LLaMA-Factory), 工程教程 (ai-engineering-hub, generative-ai-for-beginners)。关注点转向**高效使用和定制**。</li>
+                    <li class="fragment"><span class="fa-li"><i class="fas fa-robot"></i></span><strong>AI智能体 (AI Agents):</strong> Agent框架 (Qwen-Agent, Agent-S), 探索Agent操作电脑UI。AI正从被动问答向**主动行为演进**。</li>
+                    <li class="fragment"><span class="fa-li"><i class="fas fa-shield-alt"></i></span><strong>AI应用与安全 (AI Applications & Security):</strong> 实时换脸应用 (Deep-Live-Cam), AI代码安全执行环境 (daytona)。重视**落地与风险控制**。</li>
+                    <li class="fragment"><span class="fa-li"><i class="fas fa-cogs"></i></span><strong>基础设施与特定领域:</strong> Rust支付平台 (hyperswitch), 云原生消息队列 (automq), 独立浏览器引擎 (ladybird), 比特币核心 (bitcoin)。体现**技术迭代和深耕**。</li>
+                </ul>
+            </section>
+
+            <!-- Slide 6: 热门项目趋势分析 - 语言与技术栈 -->
+            <section>
+                <h4>主要编程语言分布和技术栈特点</h4>
+                <div class="grid grid-cols-2 gap-8">
+                    <div class="fragment">
+                        <h5><i class="fab fa-python mr-2 text-blue-500"></i>语言分布</h5>
+                        <ul class="fa-ul text-sm">
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span><strong>Python:</strong> 在AI/ML领域占据统治地位。</li>
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span><strong>Rust / C++:</strong> 用于高性能、系统级项目 (hyperswitch, bitcoin, ladybird)。</li>
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span><strong>TypeScript:</strong> 出现在云基础设施相关项目 (daytona)。</li>
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span><strong>Jupyter Notebook:</strong> AI学习和实践的主要载体。</li>
+                        </ul>
+                    </div>
+                    <div class="fragment">
+                        <h5><i class="fas fa-layer-group mr-2 text-purple-500"></i>技术栈特点</h5>
+                        <p class="text-sm">围绕AI展开的多元化：</p>
+                        <ul class="fa-ul text-sm">
+                            <li><span class="fa-li"><i class="fas fa-arrow-down"></i></span>底层模型架构与推理优化。</li>
+                            <li><span class="fa-li"><i class="fas fa-bars"></i></span>中层Agent框架与微调工具。</li>
+                            <li><span class="fa-li"><i class="fas fa-arrow-up"></i></span>上层具体应用与学习资源。</li>
+                            <li><span class="fa-li"><i class="fas fa-atom"></i></span>形成相对完整的**AI生态技术图谱**。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7: 热门项目趋势分析 - 需求与方向 -->
+            <section>
+                <h4>技术需求和发展方向</h4>
+                 <div class="grid grid-cols-2 gap-8">
+                     <div class="fragment">
+                         <h5><i class="fas fa-bullseye mr-2 text-red-500"></i>当前技术需求</h5>
+                         <ul class="fa-ul text-sm">
+                             <li><span class="fa-li"><i class="fas fa-door-open"></i></span><strong>降低AI门槛</strong> (框架, 教程, 工具)</li>
+                             <li><span class="fa-li"><i class="fas fa-tachometer-alt"></i></span><strong>提升AI效能</strong> (推理性能, 成本, 训练效率)</li>
+                             <li><span class="fa-li"><i class="fas fa-expand-arrows-alt"></i></span><strong>增强AI能力边界</strong> (Agent化, 自主执行)</li>
+                             <li><span class="fa-li"><i class="fas fa-lock"></i></span><strong>保障AI安全</strong> (代码执行, 数据安全)</li>
+                             <li><span class="fa-li"><i class="fas fa-sync-alt"></i></span><strong>核心业务现代化</strong> (新技术的应用)</li>
+                         </ul>
+                     </div>
+                     <div class="fragment">
+                         <h5><i class="fas fa-compass mr-2 text-green-500"></i>未来发展方向</h5>
+                         <ul class="fa-ul text-sm">
+                              <li><span class="fa-li"><i class="fas fa-rocket"></i></span>AI走向<strong>大规模应用</strong></li>
+                              <li><span class="fa-li"><i class="fas fa-cogs"></i></span><strong>AI Agent化</strong> 持续深化</li>
+                              <li><span class="fa-li"><i class="fas fa-server"></i></span><strong>AI基础设施</strong> (性能, 安全)</li>
+                              <li><span class="fa-li"><i class="fas fa-graduation-cap"></i></span>更便捷的<strong>AI开发和学习工具</strong></li>
+                         </ul>
+                     </div>
+                 </div>
+            </section>
+
+            <!-- Slide 8: 热门项目趋势分析 - 今日特点与预测 -->
+            <section>
+                <h4>今日特有技术趋势与未来热点预测</h4>
+                 <div class="grid grid-cols-2 gap-8">
+                    <div class="fragment">
+                        <h5><i class="fas fa-star mr-2 text-yellow-500"></i>今日趋势特点</h5>
+                        <p class="text-sm">AI领域的“<strong>全面开花</strong>”与“<strong>纵深发展</strong>”。</p>
+                         <ul class="fa-ul text-sm">
+                             <li><span class="fa-li"><i class="fas fa-link"></i></span>关注从模型到生态、从研究到应用的<strong>完整链条</strong>。</li>
+                             <li><span class="fa-li"><i class="fas fa-lightbulb"></i></span>突出表现：<strong>AI Agent</strong> 和 <strong>AI安全执行环境</strong>。</li>
+                             <li><span class="fa-li"><i class="fas fa-book-open"></i></span><strong>教育资源火爆</strong>，显示社会对掌握 GenAI 技能的迫切需求。</li>
+                         </ul>
+                    </div>
+                     <div class="fragment">
+                         <h5><i class="fas fa-binoculars mr-2 text-indigo-500"></i>下一波技术热点预测</h5>
+                         <ul class="fa-ul text-sm">
+                             <li><span class="fa-li"><i class="fas fa-photo-video"></i></span><strong>多模态Agent</strong></li>
+                             <li><span class="fa-li"><i class="fas fa-balance-scale"></i></span><strong>负责任AI与AI安全基础设施</strong></li>
+                             <li><span class="fa-li"><i class="fas fa-mobile-alt"></i></span><strong>端侧/边缘侧AI部署优化</strong></li>
+                             <li><span class="fa-li"><i class="fas fa-flask"></i></span><strong>AI驱动的科学研究/工业自动化</strong></li>
+                         </ul>
+                     </div>
+                 </div>
+                 <p class="fragment mt-6 text-center italic">一个由AI深度赋能的时代正加速到来。</p>
+            </section>
+
+             <!-- Slide 9: 双日对比分析 -->
+            <section>
+                 <h3>热门项目双日维度对比分析</h3>
+                 <p class="fragment"><strong><i class="fas fa-exchange-alt mr-2"></i>显著特点:</strong> 大量新项目涌入 (<strong>9个</strong>)，热点快速更迭。</p>
+                 <p class="fragment"><strong><i class="fas fa-brain mr-2"></i>主导领域:</strong> 新晋项目中，<strong>人工智能、机器学习和LLM</strong>相关项目占据主导。</p>
+                 <p class="fragment"><strong><i class="fas fa-code mr-2"></i>语言分布:</strong> Python 保持活跃并增加。多种语言项目入榜，显示热点多样性 (Shell, Java, Swift, C++)。JS 和 Markdown 项目减少。</p>
+                 <p class="fragment"><strong><i class="fas fa-chart-line mr-2"></i>关键变化:</strong> <strong>9个新项目</strong>冲榜，更新速度极高。AI项目不仅数量多，涨幅也大。昨日项目未现明显滑落。</p>
+            </section>
+
+            <!-- Slide 10: 热点变化 -->
+            <section>
+                <h3>热点变化追踪</h3>
+                <div class="grid grid-cols-3 gap-6 text-sm">
+                    <div class="fragment bg-green-100 p-4 rounded">
+                        <h5 class="text-green-700 font-semibold"><i class="fas fa-arrow-up mr-1"></i> 新增热点 (9)</h5>
+                        <ul class="list-disc list-inside">
+                             <li>vllm-project/vllm</li>
+                             <li>daytonaio/daytona</li>
+                             <li>bitcoin/bitcoin</li>
+                             <li>qwenlm/qwen3</li>
+                             <li>ml-explore/mlx-swift-examples</li>
+                             <li>qwenlm/qwen-agent</li>
+                             <li>patchy631/ai-engineering-hub</li>
+                             <li>hiyouga/llama-factory</li>
+                             <li>automq/automq</li>
+                        </ul>
+                    </div>
+                     <div class="fragment bg-red-100 p-4 rounded">
+                         <h5 class="text-red-700 font-semibold"><i class="fas fa-arrow-down mr-1"></i> 减退热点 (8)</h5>
+                         <ul class="list-disc list-inside">
+                             <li>jackfrued/python-100-days</li>
+                             <li>jujumilk3/leaked-system-prompts</li>
+                             <li>lobehub/lobe-chat</li>
+                             <li>practical-tutorials/project-based-learning</li>
+                             <li>bgstaal/multiplewindow3dscene</li>
+                             <li>codecrafters-io/build-your-own-x</li>
+                             <li>0xk1h0/chatgpt_dan</li>
+                             <li>carykh/jes</li>
+                         </ul>
+                     </div>
+                     <div class="fragment bg-blue-100 p-4 rounded">
+                         <h5 class="text-blue-700 font-semibold"><i class="fas fa-fire mr-1"></i> 持续热门 (2)</h5>
+                         <ul class="list-disc list-inside">
+                             <li>hacksider/Deep-Live-Cam (3次)</li>
+                             <li>microsoft/generative-ai-for-beginners (7次)</li>
+                         </ul>
+                     </div>
+                </div>
+            </section>
+
+             <!-- Slide 11: 详细仓库数据 - Section Break -->
+            <section data-background-color="#0A2463" data-background-gradient="linear-gradient(45deg, #0A2463, #3B82F6)">
+                 <h2 class="text-white text-shadow-md">详细仓库数据</h2>
+            </section>
+
+            <!-- Slide 12 - Repo 1: Deep-Live-Cam -->
+            <section>
+                <div class="repo-card">
+                    <h4><i class="fab fa-github mr-2"></i> hacksider/Deep-Live-Cam</h4>
+                    <p><strong>项目简介:</strong> 仅凭一张图片实现实时换脸和一键视频深度伪造</p>
+                    <table class="repo-table">
+                        <thead>
+                            <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Python</td><td>54316</td><td>3次</td><td>8次</td><td class="text-green-600 font-bold">+1682</td></tr>
+                        </tbody>
+                    </table>
+                     <div class="repo-meta">
+                        <span><i class="fas fa-star"></i>54.3k</span>
+                        <span><i class="fas fa-code-branch"></i>7.9k</span>
+                        <span><i class="fas fa-eye"></i>348</span>
+                        <span><i class="fas fa-exclamation-circle"></i>40</span>
+                        <span><i class="fas fa-users"></i>39</span>
+                    </div>
+                    <p><strong>项目速读:</strong> 强大的实时AI换脸工具，操作门槛低，支持GPU加速。内置伦理限制，强调负责任使用。高效便捷，价值取决于使用者。</p>
+                    <p><strong>增长分析:</strong> 增长迅猛，期内+9515星 (日均665.6)。今日+1682星，呈加速趋势。8次上榜验证持续热门。</p>
+                    <p class="lang-dist">语言占比: Python 99.9%, Batchfile 0.1%</p>
+                </div>
+            </section>
+
+            <!-- Slide 13 - Repo 2: ai-engineering-hub -->
+            <section>
+                <div class="repo-card">
+                    <h4><i class="fab fa-github mr-2"></i> patchy631/ai-engineering-hub</h4>
+                    <p><strong>项目简介:</strong> 关于 LLM、RAG 和实际 AI 代理应用的深度教程。</p>
+                    <table class="repo-table">
+                         <thead>
+                             <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                         </thead>
+                         <tbody>
+                             <tr><td>Jupyter Notebook</td><td>8553</td><td>1次</td><td>7次</td><td class="text-green-600 font-bold">+185</td></tr>
+                         </tbody>
+                    </table>
+                     <div class="repo-meta">
+                        <span><i class="fas fa-star"></i>8.6k</span>
+                        <span><i class="fas fa-code-branch"></i>1.5k</span>
+                        <span><i class="fas fa-eye"></i>122</span>
+                        <span><i class="fas fa-exclamation-circle"></i>17</span>
+                         <span><i class="fas fa-users"></i>9</span>
+                    </div>
+                    <p><strong>项目速读:</strong> 专注实践的AI工程学习平台，提供LLM、RAG、Agent的深入教程。通过Jupyter Notebook示例，结合理论与代码，助开发者快速掌握AI应用构建技能。系统化、可操作的实战资源，适合动手学习。</p>
+                    <p><strong>增长分析:</strong> 增长良好，总增3521 (日均232)。7次上榜显示高曝光，今日增幅稍低于平均。</p>
+                    <p class="lang-dist">语言占比: Jupyter Notebook 98.2%, Python 1.8%</p>
+                </div>
+            </section>
+
+            <!-- Slide 14 - Repo 3: Qwen-Agent -->
+            <section>
+                <div class="repo-card">
+                     <h4><i class="fab fa-github mr-2"></i> QwenLM/Qwen-Agent</h4>
+                     <p><strong>项目简介:</strong> 基于 Qwen>=2.0 的智能体框架及应用，支持函数调用、代码解释器、RAG 和 Chrome 扩展。</p>
+                    <table class="repo-table">
+                         <thead>
+                             <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                         </thead>
+                         <tbody>
+                             <tr><td>Python</td><td>7280</td><td>1次</td><td>1次</td><td class="text-green-600 font-bold">+191</td></tr>
+                         </tbody>
+                    </table>
+                     <div class="repo-meta">
+                         <span><i class="fas fa-star"></i>7.3k</span>
+                         <span><i class="fas fa-code-branch"></i>634</span>
+                         <span><i class="fas fa-eye"></i>54</span>
+                         <span><i class="fas fa-exclamation-circle"></i>245</span>
+                         <span><i class="fas fa-users"></i>26</span>
+                     </div>
+                    <p><strong>项目速读:</strong> 基于通义千问的强大LLM应用开发框架，助开发者构建能执行任务的智能体(Agent)。核心优势是灵活模块化设计和强大工具调用机制(代码解释器、RAG等)，将大模型从对话伙伴转变为任务执行者。提供了便捷平台将LLM能力落地。</p>
+                    <!-- No growth analysis provided for 1st time entries -->
+                    <p class="lang-dist">语言占比: Python 95.5%, CSS 2.5%, JavaScript 1.5%, HTML 0.5%</p>
+                </div>
+            </section>
+
+            <!-- Slide 15 - Repo 4: Qwen3 -->
+            <section>
+                 <div class="repo-card">
+                     <h4><i class="fab fa-github mr-2"></i> QwenLM/Qwen3</h4>
+                     <p><strong>项目简介:</strong> Qwen3是阿里云Qwen团队开发的大型语言模型系列。</p>
+                     <table class="repo-table">
+                          <thead>
+                              <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                          </thead>
+                          <tbody>
+                              <tr><td>Shell</td><td>19440</td><td>1次</td><td>1次</td><td class="text-green-600 font-bold">+2182</td></tr>
+                          </tbody>
+                     </table>
+                      <div class="repo-meta">
+                          <span><i class="fas fa-star"></i>19.4k</span>
+                          <span><i class="fas fa-code-branch"></i>1.3k</span>
+                          <span><i class="fas fa-eye"></i>124</span>
+                          <span><i class="fas fa-exclamation-circle"></i>29</span>
+                          <span><i class="fas fa-users"></i>38</span>
+                      </div>
+                     <p><strong>项目速读:</strong> 阿里云最新一代LLM系列，能力全面，在数学、代码、Agent任务等方面表现突出。提供不同尺寸模型(含MoE)，支持思考模式切换，适应不同场景。与主流框架集成，方便部署开发。高性能、灵活、易集成，是重要的开源基础模型选项。</p>
+                     <!-- No growth analysis provided for 1st time entries -->
+                     <p class="lang-dist">语言占比: Shell 100.0%</p>
+                 </div>
+             </section>
+
+             <!-- Slide 16 - Repo 5: hyperswitch -->
+             <section>
+                  <div class="repo-card">
+                      <h4><i class="fab fa-github mr-2"></i> juspay/hyperswitch</h4>
+                      <p><strong>项目简介:</strong> 用 Rust 构建的开源支付网关，实现快速、可靠且经济实惠的支付。</p>
+                      <table class="repo-table">
+                           <thead>
+                               <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                           </thead>
+                           <tbody>
+                               <tr><td>Rust</td><td>16635</td><td>2次</td><td>6次</td><td class="text-green-600 font-bold">+275</td></tr>
+                           </tbody>
+                      </table>
+                       <div class="repo-meta">
+                           <span><i class="fas fa-star"></i>16.6k</span>
+                           <span><i class="fas fa-code-branch"></i>1.9k</span>
+                           <span><i class="fas fa-eye"></i>82</span>
+                           <span><i class="fas fa-exclamation-circle"></i>618</span>
+                           <span><i class="fas fa-users"></i>221</span>
+                       </div>
+                      <p><strong>项目速读:</strong> Rust构建的开源支付编排平台。统一接口连接管理全球支付处理商，实现更快、可靠、低成本支付。核心优势是高级支付路由优化(提高成功率)和强大的可视化控制中心。让企业灵活掌控支付基础设施。</p>
+                      <p><strong>增长分析:</strong> 周期内总增2464星，上榜6次，日均增长295星。增长在活跃/上榜期表现强劲爆发力。</p>
+                      <p class="lang-dist">语言占比: Rust 80.6%, JavaScript 18.3%, MDX 0.4%, HTML 0.2%, PLpgSQL 0.2%, Shell 0.2%, Other 0.1%</p>
+                  </div>
+             </section>
+
+            <!-- Slide 17 - Repo 6: daytona -->
+             <section>
+                  <div class="repo-card">
+                      <h4><i class="fab fa-github mr-2"></i> daytonaio/daytona</h4>
+                      <p><strong>项目简介:</strong> Daytona 是一个用于运行 AI 生成代码的安全且弹性的基础设施。</p>
+                      <table class="repo-table">
+                           <thead>
+                               <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                           </thead>
+                           <tbody>
+                               <tr><td>TypeScript</td><td>16873</td><td>1次</td><td>1次</td><td class="text-green-600 font-bold">+741</td></tr>
+                           </tbody>
+                      </table>
+                       <div class="repo-meta">
+                           <span><i class="fas fa-star"></i>16.9k</span>
+                           <span><i class="fas fa-code-branch"></i>1.7k</span>
+                           <span><i class="fas fa-eye"></i>67</span>
+                           <span><i class="fas fa-exclamation-circle"></i>18</span>
+                           <span><i class="fas fa-users"></i>185</span>
+                       </div>
+                      <p><strong>项目速读:</strong> 提供安全弹性的隔离环境("数字沙箱")，专用于运行AI生成或不受信任代码，消除环境风险。核心优势是亚90ms创建隔离沙箱，支持持久化、API控制，兼容标准OCI/Docker镜像。适用于安全执行、测试外部代码场景。</p>
+                       <!-- No growth analysis provided for 1st time entries -->
+                      <p class="lang-dist">语言占比: TypeScript 39.8%, Python 37.2%, JavaScript 12.1%, Go 10.3%, Shell 0.2%, CSS 0.2%, Other 0.2%</p>
+                  </div>
+             </section>
+
+            <!-- Slide 18 - Repo 7: vllm -->
+             <section>
+                  <div class="repo-card">
+                      <h4><i class="fab fa-github mr-2"></i> vllm-project/vllm</h4>
+                      <p><strong>项目简介:</strong> 大型语言模型的高吞吐量、内存高效推理和服务引擎</p>
+                      <table class="repo-table">
+                           <thead>
+                               <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                           </thead>
+                           <tbody>
+                               <tr><td>Python</td><td>46226</td><td>1次</td><td>2次</td><td class="text-green-600 font-bold">+128</td></tr>
+                           </tbody>
+                      </table>
+                       <div class="repo-meta">
+                           <span><i class="fas fa-star"></i>46.2k</span>
+                           <span><i class="fas fa-code-branch"></i>7.2k</span>
+                           <span><i class="fas fa-eye"></i>381</span>
+                           <span><i class="fas fa-exclamation-circle"></i>1.8k</span>
+                           <span><i class="fas fa-users"></i>1,074</span>
+                       </div>
+                      <p><strong>项目速读:</strong> 专为LLM设计的高性能推理服务引擎。解决内存效率低、吞吐量不足痛点。通过PagedAttention内存管理、连续批处理和优化内核，显著提升LLM推理吞吐量和内存利用率，降低成本。兼容主流模型，接口易用，是LLM服务关键技术。</p>
+                      <p><strong>增长分析:</strong> 期内总增1809星(日均197.5)，增长强劲。上榜效应显著，是主要增长驱动力。</p>
+                      <p class="lang-dist">语言占比: Python 84.6%, Cuda 10.2%, C++ 3.7%, C 0.6%, Shell 0.5%, CMake 0.3%, Dockerfile 0.1%</p>
+                  </div>
+             </section>
+
+            <!-- Slide 19 - Repo 8: Agent-S -->
+             <section>
+                  <div class="repo-card">
+                      <h4><i class="fab fa-github mr-2"></i> simular-ai/Agent-S</h4>
+                      <p><strong>项目简介:</strong> Agent S：一个开放的、像人类一样使用计算机的智能体框架</p>
+                       <table class="repo-table">
+                           <thead>
+                               <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                           </thead>
+                           <tbody>
+                               <tr><td>Python</td><td>3437</td><td>2次</td><td>3次</td><td class="text-green-600 font-bold">+318</td></tr>
+                           </tbody>
+                       </table>
+                       <div class="repo-meta">
+                           <span><i class="fas fa-star"></i>3.4k</span>
+                           <span><i class="fas fa-code-branch"></i>350</span>
+                           <span><i class="fas fa-eye"></i>41</span>
+                           <span><i class="fas fa-exclamation-circle"></i>8</span>
+                           <span><i class="fas fa-users"></i>12</span>
+                       </div>
+                      <p><strong>项目速读:</strong> 开源框架，赋予AI智能体像人一样通过操作GUI自主执行复杂任务的能力。创新架构使其在跨平台真实任务基准测试中表现领先。提供构建高性能计算机使用代理的工具，展现AI自主控制潜力。使用需谨慎。</p>
+                       <p><strong>增长分析:</strong> 3次上榜增长显著，日均227。今日+318星，增长呈加速态势。</p>
+                      <p class="lang-dist">语言占比: Python 100.0%</p>
+                  </div>
+             </section>
+
+            <!-- Slide 20 - Repo 9: generative-ai-for-beginners -->
+             <section>
+                  <div class="repo-card">
+                      <h4><i class="fab fa-github mr-2"></i> microsoft/generative-ai-for-beginners</h4>
+                      <p><strong>项目简介:</strong> 21 课：生成式 AI 开发入门 🔗https://microsoft.github.io/generative-ai-for-beginners/</p>
+                       <table class="repo-table">
+                           <thead>
+                               <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                           </thead>
+                           <tbody>
+                               <tr><td>Jupyter Notebook</td><td>81566</td><td>7次</td><td>12次</td><td class="text-green-600 font-bold">+474</td></tr>
+                           </tbody>
+                       </table>
+                       <div class="repo-meta">
+                           <span><i class="fas fa-star"></i>81.6k</span>
+                           <span><i class="fas fa-code-branch"></i>41.9k</span>
+                           <span><i class="fas fa-eye"></i>744</span>
+                           <span><i class="fas fa-exclamation-circle"></i>7</span>
+                           <span><i class="fas fa-users"></i>123</span>
+                       </div>
+                      <p><strong>项目速读:</strong> 微软推出的面向初学者的21节生成式AI系统课程。帮助零基础或入门者快速掌握GenAI应用开发。内容涵盖基础到Prompt Engineering，结合理论与实战(Python/TS)。结构清晰、实践性强，是进入GenAI领域的极佳免费资源。</p>
+                      <p><strong>增长分析:</strong> 增长强劲，期内+5848星(日均292.9)。12次上榜提高曝光度，是持续高增长的重要驱动。</p>
+                      <p class="lang-dist">语言占比: Jupyter Notebook 86.4%, Python 8.2%, JavaScript 2.8%, TypeScript 1.5%, Shell 0.3%, PowerShell 0.3%, Other 0.5%</p>
+                  </div>
+             </section>
+
+             <!-- Slide 21 - Repo 10: ladybird -->
+             <section>
+                  <div class="repo-card">
+                      <h4><i class="fab fa-github mr-2"></i> LadybirdBrowser/ladybird</h4>
+                      <p><strong>项目简介:</strong> 真正的独立浏览器</p>
+                      <table class="repo-table">
+                           <thead>
+                               <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                           </thead>
+                           <tbody>
+                               <tr><td>C++</td><td>37920</td><td>2次</td><td>3次</td><td class="text-green-600 font-bold">+231</td></tr>
+                           </tbody>
+                       </table>
+                       <div class="repo-meta">
+                           <span><i class="fas fa-star"></i>37.9k</span>
+                           <span><i class="fas fa-code-branch"></i>1.6k</span>
+                           <span><i class="fas fa-eye"></i>198</span>
+                           <span><i class="fas fa-exclamation-circle"></i>386</span>
+                           <span><i class="fas fa-users"></i>1,157</span>
+                       </div>
+                      <p><strong>项目速读:</strong> 全新网页浏览器项目，目标是从零构建完整、遵循Web标准、不依赖现有引擎的浏览器。亮点是独立开发引擎和多进程架构(提升健壮性、安全性)。利用SerenityOS核心库。目前为早期开发者预览阶段，为Web技术多样性探索提供机会。</p>
+                       <p><strong>增长分析:</strong> 增长势头良好，总增1064星(日均129.3)。今日+231星增速显著，得益于3次上榜曝光。</p>
+                      <p class="lang-dist">语言占比: C++ 64.8%, HTML 22.2%, JavaScript 11.0%, CMake 0.7%, Objective-C++ 0.5%, Swift 0.3%, Other 0.5%</p>
+                  </div>
+             </section>
+
+             <!-- Slide 22 - Repo 11: mlx-swift-examples -->
+             <section>
+                 <div class="repo-card">
+                      <h4><i class="fab fa-github mr-2"></i> ml-explore/mlx-swift-examples</h4>
+                      <p><strong>项目简介:</strong> MLX Swift 使用示例</p>
+                     <table class="repo-table">
+                          <thead>
+                              <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                          </thead>
+                          <tbody>
+                              <tr><td>Swift</td><td>1707</td><td>1次</td><td>1次</td><td class="text-green-600 font-bold">+4</td></tr>
+                          </tbody>
+                     </table>
+                      <div class="repo-meta">
+                          <span><i class="fas fa-star"></i>1.7k</span>
+                          <span><i class="fas fa-code-branch"></i>213</span>
+                          <span><i class="fas fa-eye"></i>27</span>
+                          <span><i class="fas fa-exclamation-circle"></i>33</span>
+                          <span><i class="fas fa-users"></i>37</span>
+                      </div>
+                     <p><strong>项目速读:</strong> MLX Swift机器学习框架的示例与工具库。助开发者在苹果设备(iOS, macOS等)上用Swift高效进行ML开发。提供LLM文本生成、图像生成、视觉分析等丰富示例，并将核心功能模块化为Swift Package库，方便集成。是苹果生态ML开发的学习资源和启动工具。</p>
+                      <!-- No growth analysis provided for 1st time entries -->
+                     <p class="lang-dist">语言占比: Swift 99.4%, Other 0.6%</p>
+                 </div>
+            </section>
+
+            <!-- Slide 23 - Repo 12: LLaMA-Factory -->
+             <section>
+                 <div class="repo-card">
+                     <h4><i class="fab fa-github mr-2"></i> hiyouga/LLaMA-Factory</h4>
+                     <p><strong>项目简介:</strong> 统一高效微调 100+ LLMs 和 VLMs (ACL 2024)</p>
+                     <table class="repo-table">
+                          <thead>
+                              <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                          </thead>
+                          <tbody>
+                              <tr><td>Python</td><td>47959</td><td>1次</td><td>1次</td><td class="text-green-600 font-bold">+77</td></tr>
+                          </tbody>
+                     </table>
+                      <div class="repo-meta">
+                          <span><i class="fas fa-star"></i>48k</span>
+                          <span><i class="fas fa-code-branch"></i>5.9k</span>
+                          <span><i class="fas fa-eye"></i>257</span>
+                          <span><i class="fas fa-exclamation-circle"></i>419</span>
+                          <span><i class="fas fa-users"></i>175</span>
+                      </div>
+                     <p><strong>项目速读:</strong> 强大易用的LLMs/VLMs统一高效微调框架。解决微调复杂、硬件要求高问题，让用户轻松快速个性化训练超100种模型。功能全面，易用性高，集成LoRA/QLoRA/DPO等技术，支持全量微调，优化训练速度和显存。提供命令行/图形界面。极大降低定制化大模型门槛。</p>
+                      <!-- No growth analysis provided for 1st time entries -->
+                     <p class="lang-dist">语言占比: Python 99.3%, Other 0.7%</p>
+                 </div>
+            </section>
+
+             <!-- Slide 24 - Repo 13: automq -->
+            <section>
+                <div class="repo-card">
+                     <h4><i class="fab fa-github mr-2"></i> AutoMQ/automq</h4>
+                     <p><strong>项目简介:</strong> AutoMQ 是基于 S3 的无状态 Kafka。成本效益提升 10 倍。无跨可用区流量成本。秒级自动伸缩。个位数毫秒延迟。多可用区可用性。</p>
+                    <table class="repo-table">
+                         <thead>
+                             <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                         </thead>
+                         <tbody>
+                             <tr><td>Java</td><td>5923</td><td>1次</td><td>1次</td><td class="text-green-600 font-bold">+43</td></tr>
+                         </tbody>
+                    </table>
+                     <div class="repo-meta">
+                         <span><i class="fas fa-star"></i>5.9k</span>
+                         <span><i class="fas fa-code-branch"></i>399</span>
+                         <span><i class="fas fa-eye"></i>48</span>
+                         <span><i class="fas fa-exclamation-circle"></i>59</span>
+                         <span><i class="fas fa-users"></i>1,182</span>
+                     </div>
+                    <p><strong>项目速读:</strong> 专为云环境设计的Kafka兼容消息队列。创新计算存储分离架构(数据写入S3)，解决传统Kafka云上弹性差、成本高问题。实现无状态Broker，带来10倍成本节约、秒级伸缩，保持低延迟和高可用。高度兼容Kafka，简化迁移。适用于海量数据流、高弹性、关注成本场景。</p>
+                    <!-- No growth analysis provided for 1st time entries -->
+                    <p class="lang-dist">语言占比: Java 80.8%, Scala 16.7%, Python 2.1%, Shell 0.2%, Roff 0.1%, Batchfile 0.1%</p>
+                </div>
+           </section>
+
+             <!-- Slide 25 - Repo 14: bitcoin -->
+            <section>
+                <div class="repo-card">
+                    <h4><i class="fab fa-github mr-2"></i> bitcoin/bitcoin</h4>
+                    <p><strong>项目简介:</strong> 比特币核心 集成/暂存树</p>
+                   <table class="repo-table">
+                        <thead>
+                            <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>C++</td><td>83140</td><td>1次</td><td>1次</td><td class="text-green-600 font-bold">+46</td></tr>
+                        </tbody>
+                   </table>
+                    <div class="repo-meta">
+                        <span><i class="fas fa-star"></i>83.1k</span>
+                        <span><i class="fas fa-code-branch"></i>37.1k</span>
+                        <span><i class="fas fa-eye"></i>4k</span>
+                        <span><i class="fas fa-exclamation-circle"></i>427</span>
+                        <span><i class="fas fa-users"></i>989</span>
+                    </div>
+                   <p><strong>项目速读:</strong> 比特币网络官方核心软件集成与暂存地。作为"全节点"实现，下载并完全验证区块链，维护网络安全、去中心化。提供最高级别隐私和独立性。含可选钱包和GUI。MIT许可，开源透明，开发流程严格。是支撑比特币网络运行的基石软件。</p>
+                    <!-- No growth analysis provided for 1st time entries -->
+                   <p class="lang-dist">语言占比: C++ 65.7%, Python 19.0%, C 11.4%, CMake 1.3%, Shell 0.9%, Makefile 0.5%, Other 1.2%</p>
+               </div>
+           </section>
+
+            <!-- Slide 26: Final Slide -->
+            <section data-background-color="#0A2463" data-background-image="https://source.unsplash.com/random/1920x1080/?space,stars" data-background-opacity="0.4">
+                 <h2 class="text-white text-shadow-lg">感谢观看</h2>
+                 <p class="text-gray-200 mt-6">
+                     持续关注 AI & 技术前沿动态
+                 </p>
+                 <p class="mt-12">
+                     <i class="fas fa-rocket text-4xl text-blue-300 animate-pulse"></i>
+                 </p>
+                 <div class="footer-link">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Core Script -->
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <!-- Mermaid Script (optional, include if needed) -->
+    <!-- <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script> -->
+
+    <script>
+        // More info about initialization & config:
+        // - https://revealjs.com/initialization/
+        // - https://revealjs.com/config/
+        Reveal.initialize({
+            hash: true,          // Enable slide anchors in URL
+            history: true,       // Push each slide change to the browser history
+            center: true,        // Vertical centering
+            progress: true,      // Display the presentation progress bar
+            slideNumber: 'c/t',  // Display the page number of the current slide / total slides
+            transition: 'fade', // Transition style ('none', 'fade', 'slide', 'convex', 'concave', 'zoom')
+            backgroundTransition: 'fade', // Transition style for full page backgrounds
+
+            // Optional libraries
+            // mermaid: {
+            //     theme: 'neutral' // or 'dark', 'forest', 'default'
+            // },
+
+            // Enable fragments
+            fragments: true,
+
+            // Parallax background image
+            // parallaxBackgroundImage: 'https://example.com/background.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Presentation size - Adjust as needed
+            width: 1100,
+            height: 700,
+            margin: 0.04, // Factor of screen size
+            minScale: 0.2,
+            maxScale: 2.0
+        });
+
+         // Optional: Initialize Mermaid if used
+        // if (window.mermaid) {
+        //    mermaid.initialize({ startOnLoad: false });
+        //    Reveal.addEventListener('ready', event => {
+        //         mermaid.run({ nodes: document.querySelectorAll('.mermaid') });
+        //    });
+        //    Reveal.addEventListener('slidechanged', event => {
+        //         if (event.currentSlide.querySelector('.mermaid')) {
+        //              mermaid.run({ nodes: event.currentSlide.querySelectorAll('.mermaid') });
+        //         }
+        //    });
+        //}
+
+    </script>
+</body>
+</html>
