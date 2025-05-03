@@ -1,0 +1,799 @@
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>技术圈最新风向：AI落地与基础精进</title>
+
+    <!-- Core Framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <!-- Theme: Using white and customizing -->
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet" id="theme">
+
+    <!-- Extension Dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom Styles for Aha Moment Design */
+        :root {
+            --r-main-font: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: 'Noto Serif SC', serif;
+            --r-heading-color: #2c3e50; /* Dark Blue-Gray */
+            --r-main-color: #34495e; /* Slightly lighter Blue-Gray */
+            --r-link-color: #3498db; /* Bright Blue */
+            --r-link-color-hover: #2980b9;
+            --r-background-color: #f8f9fa; /* Very Light Gray */
+            --r-heading1-size: 2.8rem;
+            --r-heading2-size: 2.0rem;
+            --r-heading3-size: 1.6rem;
+            --r-heading4-size: 1.2rem;
+            --r-main-font-size: 1.1rem; /* Base text size */
+        }
+
+        body {
+            font-family: var(--r-main-font);
+        }
+
+        .reveal .slides {
+            text-align: left; /* Default align left for content */
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--r-heading-color);
+            text-align: center; /* Center headings */
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .reveal h1 { font-size: var(--r-heading1-size); }
+        .reveal h2 { font-size: var(--r-heading2-size); }
+        .reveal h3 { font-size: var(--r-heading3-size); }
+        .reveal h4 { font-size: var(--r-heading4-size); }
+
+
+        .reveal p, .reveal li {
+            color: var(--r-main-color);
+            font-size: var(--r-main-font-size);
+            line-height: 1.6;
+        }
+        .reveal li {
+            margin-bottom: 0.5em;
+        }
+
+        .reveal a {
+            color: var(--r-link-color);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .reveal a:hover {
+            color: var(--r-link-color-hover);
+            text-decoration: underline;
+        }
+
+        /* Aha Moment Elements */
+        .reveal .slides section {
+            padding: 40px; /* Ensure adequate whitespace */
+        }
+
+        /* Cover and End Slide Styling */
+        #cover-slide, #end-slide {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Example Gradient */
+        }
+        #cover-slide h1, #cover-slide h2, #cover-slide p,
+        #end-slide h2, #end-slide p {
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+         #cover-slide h1 {
+            font-size: 3.2rem;
+         }
+        #cover-slide h2 {
+            font-size: 1.8rem;
+            opacity: 0.9;
+            font-weight: 400;
+            font-family: var(--r-main-font); /* Subtitle uses main font */
+            margin-top: 10px;
+        }
+        #cover-slide .speaker {
+            margin-top: 30px;
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+
+        /* Bottom Right Info Box */
+        .bottom-right-info {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.7rem;
+            z-index: 10;
+        }
+         .bottom-right-info a {
+             color: #2c3e50; /* Dark color for link on light background */
+             margin-right: 10px;
+             text-decoration: none;
+         }
+          .bottom-right-info a:hover {
+             text-decoration: underline;
+         }
+        .bottom-right-info img {
+            width: 50px; /* Adjust size as needed */
+            height: 50px;
+        }
+
+        /* Repo Card Styling */
+        .repo-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .repo-card h3 {
+            font-size: 1.5rem; /* Slightly smaller for repo title */
+            text-align: left;
+            margin-bottom: 10px;
+        }
+         .repo-card h3 i {
+            margin-right: 8px;
+            color: var(--r-link-color);
+         }
+        .repo-card .stats {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+         .repo-card .stats span {
+            margin-right: 15px;
+         }
+        .repo-card .stats i {
+            margin-right: 5px;
+        }
+         .repo-card blockquote {
+            font-style: italic;
+            color: #555;
+            border-left: 3px solid var(--r-link-color);
+            padding-left: 10px;
+            margin: 10px 0;
+         }
+        .repo-card .summary-title {
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            color: var(--r-heading-color);
+        }
+
+        /* Custom list styles for Hot Changes */
+        .hot-changes ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .hot-changes li i {
+            margin-right: 10px;
+            width: 1.2em; /* Align icons */
+            text-align: center;
+        }
+        .fa-arrow-up { color: #2ecc71; } /* Green for new */
+        .fa-arrow-down { color: #e74c3c; } /* Red for fading */
+        .fa-fire { color: #f39c12; } /* Orange for continuing */
+
+        /* Ensure code blocks are readable */
+        .reveal pre code {
+            background-color: #fdf6e3; /* Solarized Light */
+            color: #657b83;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            max-height: 400px; /* Prevent overly long blocks */
+        }
+
+        /* Footer Disclaimer */
+        .disclaimer {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            color: #7f8c8d;
+            text-align: center;
+            width: 90%;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Cover Slide -->
+            <section id="cover-slide">
+                <h1>AI杀疯了？<br>实时换脸、下一代工具...</h1>
+                <h2>揭秘技术圈最新风向！</h2>
+                <p class="speaker">演讲者: AIChipEra</p>
+                <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 5px;">Github热门仓库日报观测时间：2025-05-03 20:49:34</p>
+                <div class="bottom-right-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">Star on GitHub</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+                 <p class="disclaimer">以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</p>
+            </section>
+
+            <!-- 日报要点 -->
+            <section>
+                <h2><i class="fas fa-bullseye"></i> 日报要点速览</h2>
+                 <ul class="text-lg">
+                     <li class="fragment"><strong>AI落地加速：</strong> 实时音视频处理 (<i class="fas fa-video"></i> Deep-Live-Cam)、大模型直连服务 (<i class="fas fa-plug"></i> MCP)、AI 融入邮件 (<i class="fas fa-envelope"></i> Zero) 等应用层项目火爆。</li>
+                     <li class="fragment"><strong>基础建设深耕：</strong> 更快终端 (<i class="fas fa-terminal"></i> Alacritty)、下一代Git (<i class="fab fa-git-alt"></i> jj-vcs)、可靠嵌入式文件系统 (<i class="fas fa-sd-card"></i> littlefs)、自托管VPN (<i class="fas fa-user-shield"></i> Headscale) 等效率与掌控力工具受关注。</li>
+                     <li class="fragment"><strong>学习资源常青：</strong> Python 百日通关 (<i class="fab fa-python"></i>)、系统设计入门 (<i class="fas fa-sitemap"></i>) 等经典教程需求不减。</li>
+                     <li class="fragment"><strong>核心趋势：</strong> 技术创新全面开花，既有<span class="text-blue-600 font-semibold">前沿AI突破</span>，也有<span class="text-green-600 font-semibold">基础效率精进</span>。</li>
+                     <li class="fragment"><strong>开发者关注：</strong> 硬核技术趋势与效率提升神器并重。</li>
+                 </ul>
+            </section>
+
+            <!-- 热门项目趋势分析 -->
+            <section>
+                <h2><i class="fas fa-chart-line"></i> 热门项目趋势分析</h2>
+                <section>
+                    <h3>今日整体趋势：AI应用深化与基建并进</h3>
+                    <p>通过对今日 GitHub 热门项目榜单的观察，技术社区的核心关注点和发展脉络呈现出<span class="text-purple-700 font-semibold">人工智能应用深化</span>、<span class="text-indigo-700 font-semibold">核心开发基建</span>、<span class="text-teal-700 font-semibold">用户端工具创新</span>及<span class="text-orange-700 font-semibold">系统性学习资源</span>并存的图景。</p>
+                </section>
+                <section>
+                    <h4><i class="fas fa-brain"></i> 热点领域：AI 从模型走向应用</h4>
+                     <ul>
+                         <li class="fragment"><strong>AI 智能体平台：</strong> 连接 Agent 与外部工具 (<a href="#/aipotheosis-labs-aci">aci</a>)。</li>
+                         <li class="fragment"><strong>实时视觉AI：</strong> 实时音视频深度伪造 (<a href="#/hacksider-deep-live-cam">Deep-Live-Cam</a>)。</li>
+                         <li class="fragment"><strong>LLM 交互创新：</strong> 大模型直连服务 (<a href="#/cloudflare-mcp-server-cloudflare">mcp-server-cloudflare</a>)。</li>
+                         <li class="fragment"><strong>AI 融入应用：</strong> AI 邮件客户端 (<a href="#/mail-0-zero">Zero</a>)。</li>
+                         <li class="fragment"><strong>趋势：</strong> AI 热点从模型本身向<span class="font-semibold">实际应用</span>、<span class="font-semibold">工具集成</span>和<span class="font-semibold">交互创新</span>深化。</li>
+                     </ul>
+                </section>
+                <section>
+                    <h4><i class="fas fa-cogs"></i> 基础建设与效率工具</h4>
+                    <ul>
+                        <li class="fragment"><strong>底层协议：</strong> 去中心化互操作性 (<a href="#/unionlabs-union">union</a>)。</li>
+                        <li class="fragment"><strong>嵌入式系统：</strong> 微控制器故障安全文件系统 (<a href="#/littlefs-project-littlefs">littlefs</a>)。</li>
+                        <li class="fragment"><strong>版本控制：</strong> Git 兼容的新型 VCS (<a href="#/jj-vcs-jj">jj</a>)。</li>
+                        <li class="fragment"><strong>网络工具：</strong> 自托管 VPN (<a href="#/juanfont-headscale">headscale</a>)。</li>
+                        <li class="fragment"><strong>平台优化：</strong> Windows 优化脚本 (<a href="#/christitustech-winutil">winutil</a>)、高性能终端 (<a href="#/alacritty-alacritty">alacritty</a>)。</li>
+                         <li class="fragment"><strong>核心诉求：</strong> 对系统基础能力、开发效率和自主可控性的持续追求。</li>
+                    </ul>
+                </section>
+                 <section>
+                    <h4><i class="fas fa-book-open"></i> 学习资源持续受捧</h4>
+                     <p class="fragment">经典的 Python 学习教程 (<a href="#/jackfrued-python-100-days">Python-100-Days</a>) 和系统设计入门指南 (<a href="#/donnemartin-system-design-primer">system-design-primer</a>) 持续热门，显示技术基础知识学习的长期需求。</p>
+                </section>
+                 <section>
+                     <h4><i class="fas fa-laptop-code"></i> 技术栈与语言特点</h4>
+                     <p class="fragment"><strong>多元化：</strong> Python (AI, 脚本, 教育), Rust (性能, 安全, 系统), C/C++ (底层, 硬件), TypeScript/Go (Web后端, 云原生)。</p>
+                     <p class="fragment"><strong>趋势：</strong> 无单一语言垄断，根据项目特性选择最合适的技术栈。</p>
+                 </section>
+                 <section>
+                     <h4><i class="fas fa-search-plus"></i> 反映的需求与发展方向</h4>
+                     <p class="fragment"><strong>需求：</strong> AI 高效落地、开发效率提升、去中心化与特定硬件系统构建、数据隐私与用户工具。</p>
+                     <p class="fragment"><strong>方向：</strong> 更智能的 AI Agent 生态、AI 深度融合内容生成与交互、去中心化技术扩展、智能化开发工具链。</p>
+                 </section>
+                 <section>
+                     <h4><i class="fas fa-rocket"></i> 趋势动态与未来展望</h4>
+                     <p class="fragment"><strong>AI 层面：</strong> 应用层和工具平台活跃度提升，实时 AI 媒体处理预示更低延迟形态。</p>
+                     <p class="fragment"><strong>生态演进：</strong> 围绕成熟技术（Git, Tailscale 等）的替代或增强项目持续涌现。</p>
+                     <p class="fragment"><strong>未来热点可能：</strong> AI + 边缘计算/物理世界交互、新型密码学隐私应用、智能化软件开发辅助。</p>
+                 </section>
+                 <section>
+                    <h4><i class="fas fa-lightbulb"></i> 今日趋势独特性：多点开花</h4>
+                    <p class="fragment">既有前沿 AI (Agent 基础设施, 实时媒体生成)，也有底层/特定硬件 (微控制器文件系统, Switch 固件)，更有常青学习资源 (系统设计)。</p>
+                    <p class="fragment">反映了技术社区的<span class="font-semibold text-purple-600">活跃</span>与<span class="font-semibold text-purple-600">广度</span>：颠覆性探索与基础能力精进并行。</p>
+                    <p class="fragment"><span class="text-blue-600 font-semibold">AI 应用边界</span>快速拓宽，<span class="text-green-600 font-semibold">基础软件和学习资源</span>价值依然坚挺。</p>
+                </section>
+            </section>
+
+            <!-- 双日对比 -->
+            <section>
+                <h2><i class="fas fa-exchange-alt"></i> 热门项目双日维度对比</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="fragment bg-green-100 p-4 rounded-lg border border-green-300">
+                        <h4 class="text-green-800 !text-left !text-lg"><i class="fas fa-arrow-trend-up"></i> 整体态势：活跃上升</h4>
+                        <ul>
+                            <li><strong class="text-green-700">13</strong> 个新晋项目</li>
+                            <li><strong class="text-blue-700">7</strong> 个项目持续增长</li>
+                            <li><strong class="text-gray-700">无</strong> 项目显著下降</li>
+                        </ul>
+                    </div>
+                     <div class="fragment bg-blue-100 p-4 rounded-lg border border-blue-300">
+                        <h4 class="text-blue-800 !text-left !text-lg"><i class="fas fa-code-branch"></i> 新晋项目特点</h4>
+                        <ul>
+                            <li>类型丰富：开发者工具、系统工具、基础设施为主</li>
+                            <li>涵盖特定行业：嵌入式、汽车</li>
+                            <li>AI/ML 相关项目涨幅亮眼</li>
+                         </ul>
+                     </div>
+                    <div class="fragment bg-yellow-100 p-4 rounded-lg border border-yellow-300">
+                        <h4 class="text-yellow-800 !text-left !text-lg"><i class="fas fa-language"></i> 语言分布</h4>
+                        <p>技术栈多样，Python, Rust 保持活跃。TypeScript 提及减少。</p>
+                    </div>
+                    <div class="fragment bg-red-100 p-4 rounded-lg border border-red-300">
+                        <h4 class="text-red-800 !text-left !text-lg"><i class="fas fa-star"></i> 显著增长亮点</h4>
+                        <p>Deep-Live-Cam, aci 等项目短时获大量关注，是今日焦点。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 热点变化 -->
+            <section class="hot-changes">
+                 <h2><i class="fas fa-fire-alt"></i> 热点变化追踪</h2>
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <h4><i class="fas fa-arrow-up"></i> 新增热点</h4>
+                        <ul>
+                             <li><i class="fas fa-terminal"></i> alacritty/alacritty</li>
+                             <li><i class="fab fa-git-alt"></i> jj-vcs/jj</li>
+                             <li><i class="fas fa-sd-card"></i> littlefs-project/littlefs</li>
+                             <li><i class="fab fa-python"></i> pydantic/pydantic</li>
+                             <li><i class="fas fa-car"></i> sunnypilot/sunnypilot</li>
+                             <li><i class="fas fa-fish"></i> htr-tech/zphisher</li>
+                             <li><i class="fas fa-user-shield"></i> juanfont/headscale</li>
+                             <li><i class="fas fa-book-reader"></i> koreader/koreader</li>
+                             <li><i class="fab fa-laravel"></i> filamentphp/filament</li>
+                             <li><i class="fab fa-python"></i> jackfrued/python-100-days</li>
+                             <li><i class="fab fa-windows"></i> christitustech/winutil</li>
+                             <li><i class="fas fa-microchip"></i> alibaba/mnn</li>
+                             <li><i class="fas fa-envelope"></i> mail-0/zero</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h4><i class="fas fa-arrow-down"></i> 减退热点</h4>
+                         <ul>
+                             <li><i class="fab fa-discord"></i> flowseal/zapret-discord-youtube</li>
+                             <li><i class="fas fa-credit-card"></i> juspay/hyperswitch</li>
+                             <li><i class="fas fa-water"></i> modsetter/surfsense</li>
+                             <li><i class="fab fa-cloudflare"></i> cloudflare/agents</li>
+                             <li><i class="fab fa-bitcoin"></i> bitcoin/bitcoin</li>
+                             <li><i class="fas fa-eye"></i> langwatch/langwatch</li>
+                             <li><i class="fas fa-robot"></i> therobotstudio/so-arm100</li>
+                             <li><i class="fas fa-robot"></i> qwenlm/qwen-agent</li>
+                             <li><i class="fas fa-brain"></i> open-webui/open-webui</li>
+                             <li><i class="fas fa-desktop"></i> wonderwhy-er/desktopcommandermcp</li>
+                             <li><i class="fas fa-dice"></i> dicedb/dice</li>
+                         </ul>
+                     </div>
+                     <div>
+                        <h4><i class="fas fa-fire"></i> 持续热门</h4>
+                        <ul>
+                            <li><i class="fas fa-video"></i> hacksider/Deep-Live-Cam (6次)</li>
+                            <li><i class="fas fa-sitemap"></i> donnemartin/system-design-primer (4次)</li>
+                             <li><i class="fas fa-plug"></i> unionlabs/union (5次)</li>
+                             <!-- Add others if needed and space allows -->
+                        </ul>
+                    </div>
+                 </div>
+             </section>
+
+            <!-- 分割页：详细仓库数据 -->
+             <section style="background-color: #ecf0f1; text-align: center;">
+                <h2 style="color: var(--r-heading-color);"><i class="fas fa-database"></i> 详细仓库数据解读</h2>
+             </section>
+
+            <!-- Repo: aipotheosis-labs/aci -->
+            <section id="aipotheosis-labs-aci">
+                 <div class="repo-card">
+                    <h3><a href="https://github.com/aipotheosis-labs/aci" target="_blank"><i class="fab fa-github"></i> aipotheosis-labs/aci</a></h3>
+                    <blockquote>开源平台，连接 AI 代理与 600+ 工具，支持多租户认证与权限控制。</blockquote>
+                    <div class="stats">
+                        <span><i class="fas fa-star"></i> 1.7k</span>
+                        <span><i class="fas fa-code-branch"></i> 118</span>
+                        <span><i class="fas fa-code"></i> Python (63%), TypeScript (37%)</span>
+                        <span class="text-green-600 font-semibold"><i class="fas fa-arrow-up"></i> +244 stars today</span>
+                    </div>
+                    <p class="summary-title">项目速读:</p>
+                    <p>ACI.dev 是一个为 AI 智能体设计的开源基础设施平台，帮助 Agent 安全便捷地连接和使用外部工具 (超 600 种)。它解决了多租户认证、权限控制、密钥管理等生产级难题，简化了构建能与现实世界交互的、强大可靠 AI 智能体的过程。与 LLM 无关，提供极大灵活性。</p>
+                 </div>
+            </section>
+
+             <!-- Repo: unionlabs/union -->
+            <section id="unionlabs-union">
+                 <div class="repo-card">
+                    <h3><a href="https://github.com/unionlabs/union" target="_blank"><i class="fab fa-github"></i> unionlabs/union</a></h3>
+                    <blockquote>最小化信任、零知识的跨链桥协议，追求抗审查与高安全性。</blockquote>
+                    <div class="stats">
+                        <span><i class="fas fa-star"></i> 56.5k</span>
+                        <span><i class="fas fa-code-branch"></i> 2.8k</span>
+                        <span><i class="fas fa-code"></i> Rust (85%), Move (4%), TypeScript (4%)</span>
+                         <span class="text-green-600 font-semibold"><i class="fas fa-arrow-up"></i> +375 stars today</span>
+                    </div>
+                    <p class="summary-title">项目速读:</p>
+                    <p>Union 是创新的零知识跨链协议，构建无需信任、高安全、抗审查的链间互操作基础设施。通过共识验证而非可信第三方，实现极致安全性。支持 EVM、Cosmos (IBC) 等多链，赋能资产转移、DeFi、NFT 等跨链应用。是重要的去信任化 Web3 互联层。</p>
+                 </div>
+            </section>
+
+             <!-- Repo: Atmosphere-NX/Atmosphere -->
+            <section id="Atmosphere-NX-Atmosphere">
+                 <div class="repo-card">
+                    <h3><a href="https://github.com/Atmosphere-NX/Atmosphere" target="_blank"><i class="fab fa-github"></i> Atmosphere-NX/Atmosphere</a></h3>
+                    <blockquote>仍在开发中的任天堂 Switch 定制固件 (CFW)。</blockquote>
+                    <div class="stats">
+                        <span><i class="fas fa-star"></i> 15.9k</span>
+                        <span><i class="fas fa-code-branch"></i> 1.3k</span>
+                        <span><i class="fas fa-code"></i> C++ (91%), C (6%)</span>
+                        <span class="text-green-600 font-semibold"><i class="fas fa-arrow-up"></i> +47 stars today</span>
+                    </div>
+                    <p class="summary-title">项目速读:</p>
+                    <p>Atmosphère 是 Switch 的自定义固件，旨在突破官方限制，运行非官方应用、深度定制系统。核心优势是模块化架构 (Fusée, Exosphère, Stratosphère)，分别接管底层与应用层，实现强大功能如 EmuNAND。提供无与伦比的定制能力，是 Switch 社区关键基础设施。</p>
+                 </div>
+            </section>
+
+             <!-- Repo: hacksider/Deep-Live-Cam -->
+            <section id="hacksider-deep-live-cam">
+                 <div class="repo-card">
+                    <h3><a href="https://github.com/hacksider/Deep-Live-Cam" target="_blank"><i class="fab fa-github"></i> hacksider/Deep-Live-Cam</a></h3>
+                    <blockquote>仅需单张图片即可实现实时换脸及一键视频深度合成。</blockquote>
+                    <div class="stats">
+                        <span><i class="fas fa-star"></i> 58.5k</span>
+                        <span><i class="fas fa-code-branch"></i> 8.3k</span>
+                        <span><i class="fas fa-code"></i> Python (99.9%)</span>
+                        <span class="text-red-600 font-semibold"><i class="fas fa-fire"></i> +1524 stars today (持续热门!)</span>
+                    </div>
+                    <p class="summary-title">项目速读:</p>
+                    <p>Deep-Live-Cam 专注于实时视频/摄像头换脸与深度伪造。特点是超高实时性与简便操作 (单图一键换脸)。通过 AI 技术优化 (如嘴部遮罩) 提升自然度，支持多目标替换和多硬件平台优化。是极具潜力的 AI 媒体生产力工具，降低实时 Deepfake 技术门槛。</p>
+                 </div>
+            </section>
+
+            <!-- Repo: cloudflare/mcp-server-cloudflare -->
+            <section id="cloudflare-mcp-server-cloudflare">
+                 <div class="repo-card">
+                    <h3><a href="https://github.com/cloudflare/mcp-server-cloudflare" target="_blank"><i class="fab fa-github"></i> cloudflare/mcp-server-cloudflare</a></h3>
+                    <blockquote>实现 MCP 协议，让 LLM 通过自然语言与 Cloudflare 服务直接对话。</blockquote>
+                    <div class="stats">
+                        <span><i class="fas fa-star"></i> 1.6k</span>
+                        <span><i class="fas fa-code-branch"></i> 125</span>
+                        <span><i class="fas fa-code"></i> TypeScript (84%), JavaScript (6%)</span>
+                         <span class="text-green-600 font-semibold"><i class="fas fa-arrow-up"></i> +69 stars today</span>
+                    </div>
+                    <p class="summary-title">项目速读:</p>
+                    <p>Cloudflare MCP 服务器让 LLM 能通过自然语言与 Cloudflare 服务交互。用户可像聊天一样查询配置、分析数据、获取建议甚至修改配置 (Workers, 流量洞察等)，无需控制台/API。提供创新、高效的交互模式，提升通过“对话”管理 Cloudflare 的便利性。</p>
+                 </div>
+            </section>
+
+             <!-- Repo: aws/aws-sdk-java-v2 -->
+             <section id="aws-aws-sdk-java-v2">
+                 <div class="repo-card">
+                     <h3><a href="https://github.com/aws/aws-sdk-java-v2" target="_blank"><i class="fab fa-github"></i> aws/aws-sdk-java-v2</a></h3>
+                     <blockquote>官方 AWS Java SDK - 版本 2。</blockquote>
+                     <div class="stats">
+                         <span><i class="fas fa-star"></i> 2.4k</span>
+                         <span><i class="fas fa-code-branch"></i> 904</span>
+                         <span><i class="fas fa-code"></i> Java (99.7%)</span>
+                         <span class="text-green-600 font-semibold"><i class="fas fa-arrow-up"></i> +15 stars today</span>
+                     </div>
+                     <p class="summary-title">项目速读:</p>
+                     <p>AWS 官方 Java SDK V2，全面重写，旨在帮助 Java 开发者更便捷、高效地与 AWS 服务交互。核心优势是现代化架构：原生非阻塞 I/O 支持 (提升性能和伸缩性)、高度模块化 (按需引入依赖)、灵活 HTTP 实现插拔、同步/异步接口。是构建高性能 AWS Java 应用的关键工具。</p>
+                 </div>
+             </section>
+
+              <!-- Repo: ChrisTitusTech/winutil -->
+            <section id="christitustech-winutil">
+                 <div class="repo-card">
+                    <h3><a href="https://github.com/ChrisTitusTech/winutil" target="_blank"><i class="fab fa-github"></i> ChrisTitusTech/winutil</a></h3>
+                    <blockquote>Chris Titus Tech 的 Windows 工具 - 安装、优化、修复和更新。</blockquote>
+                    <div class="stats">
+                        <span><i class="fas fa-star"></i> 33.5k</span>
+                        <span><i class="fas fa-code-branch"></i> 1.9k</span>
+                        <span><i class="fas fa-code"></i> PowerShell (99.9%)</span>
+                        <span class="text-green-600 font-semibold"><i class="fas fa-arrow-up"></i> +143 stars today (新晋)</span>
+                    </div>
+                    <p class="summary-title">项目速读:</p>
+                    <p>基于 PowerShell 的 Windows 系统维护与优化工具集。通过简单脚本，高效执行多种任务：快速安装软件、清理系统 (Debloat)、调整设置、修复更新问题。核心是易于运行的 PowerShell 脚本，提供便捷、集中的方式快速配置和优化 Windows，特别适合新系统或批量处理。</p>
+                 </div>
+            </section>
+
+             <!-- Repo: jackfrued/Python-100-Days -->
+            <section id="jackfrued-python-100-days">
+                 <div class="repo-card">
+                    <h3><a href="https://github.com/jackfrued/Python-100-Days" target="_blank"><i class="fab fa-github"></i> jackfrued/Python-100-Days</a></h3>
+                    <blockquote>Python - 100天从新手到大师。</blockquote>
+                    <div class="stats">
+                        <span><i class="fas fa-star"></i> 166k</span>
+                        <span><i class="fas fa-code-branch"></i> 53.7k</span>
+                        <span><i class="fas fa-code"></i> Jupyter Notebook (99.1%)</span>
+                        <span class="text-green-600 font-semibold"><i class="fas fa-arrow-up"></i> +212 stars today (新晋)</span>
+                    </div>
+                    <p class="summary-title">项目速读:</p>
+                    <p>备受推崇的 Python 学习教程，引导零基础学习者通过 100 天系统训练掌握 Python。亮点是结构化、按天划分的学习路径，覆盖基础到数据库、Web、数据分析等领域。强调理论与实践结合，提供丰富示例和案例。是系统入门 Python 的极佳自学资源。</p>
+                 </div>
+            </section>
+
+            <!-- Repo: juanfont/headscale -->
+            <section id="juanfont-headscale">
+                 <div class="repo-card">
+                    <h3><a href="https://github.com/juanfont/headscale" target="_blank"><i class="fab fa-github"></i> juanfont/headscale</a></h3>
+                    <blockquote>Tailscale 控制服务器的开源自托管实现。</blockquote>
+                    <div class="stats">
+                        <span><i class="fas fa-star"></i> 27.6k</span>
+                        <span><i class="fas fa-code-branch"></i> 1.5k</span>
+                        <span><i class="fas fa-code"></i> Go (98.1%)</span>
+                        <span class="text-green-600 font-semibold"><i class="fas fa-arrow-up"></i> +20 stars today (新晋)</span>
+                    </div>
+                    <p class="summary-title">项目速读:</p>
+                    <p>Headscale 是 Tailscale (基于 Wireguard 的 VPN) 的开源、自托管控制服务器。填补了 Tailscale 官方控制端闭源的空缺，让用户能在自己基础设施上完全掌控叠加网络。核心优势是赋予用户对网络基础设施的完全自主权和灵活性，适合追求隐私、自建 VPN 的场景。</p>
+                 </div>
+            </section>
+
+             <!-- Repo: koreader/koreader -->
+            <section id="koreader-koreader">
+                 <div class="repo-card">
+                    <h3><a href="https://github.com/koreader/koreader" target="_blank"><i class="fab fa-github"></i> koreader/koreader</a></h3>
+                    <blockquote>电子书阅读应用，支持多种格式，运行于多种墨水屏及 Android 设备。</blockquote>
+                    <div class="stats">
+                        <span><i class="fas fa-star"></i> 20.9k</span>
+                        <span><i class="fas fa-code-branch"></i> 1.4k</span>
+                        <span><i class="fas fa-code"></i> Lua (97.2%)</span>
+                         <span class="text-green-600 font-semibold"><i class="fas fa-arrow-up"></i> +47 stars today (新晋)</span>
+                    </div>
+                    <p class="summary-title">项目速读:</p>
+                    <p>强大的开源电子书阅读器，专注提升电子墨水屏阅读体验 (也支持 Android/Linux)。旨在打破原生软件限制，提供高度灵活、可定制、性能优异的平台。优势是跨设备兼容性 (Kindle, Kobo 等) 和多格式支持 (PDF, EPUB 等)。针对墨水屏优化，提供极速翻页和高对比度。</p>
+                 </div>
+            </section>
+
+            <!-- Repo: jj-vcs/jj -->
+            <section id="jj-vcs-jj">
+                 <div class="repo-card">
+                    <h3><a href="https://github.com/jj-vcs/jj" target="_blank"><i class="fab fa-github"></i> jj-vcs/jj</a></h3>
+                    <blockquote>兼容 Git 的、既简单又强大的版本控制系统。</blockquote>
+                    <div class="stats">
+                        <span><i class="fas fa-star"></i> 12.9k</span>
+                        <span><i class="fas fa-code-branch"></i> 468</span>
+                        <span><i class="fas fa-code"></i> Rust (99.9%)</span>
+                         <span class="text-green-600 font-semibold"><i class="fas fa-arrow-up"></i> +98 stars today (新晋)</span>
+                    </div>
+                    <p class="summary-title">项目速读:</p>
+                    <p>Jujutsu (jj) 是兼容 Git 的新型 VCS，旨在提供比 Git 更简单、直观、强大的体验。利用 Git 仓库作底层存储，可无缝协同。核心价值在于革新 Git 工作流痛点：无暂存区、完整操作日志与撤销、增强的历史修改和冲突处理。是追求流畅、可控版本管理的强大替代方案。</p>
+                 </div>
+            </section>
+
+             <!-- Repo: Mail-0/Zero -->
+             <section id="mail-0-zero">
+                 <div class="repo-card">
+                     <h3><a href="https://github.com/Mail-0/Zero" target="_blank"><i class="fab fa-github"></i> Mail-0/Zero</a></h3>
+                     <blockquote>首款优先保护隐私和安全的开源 AI 电子邮件应用。</blockquote>
+                     <div class="stats">
+                         <span><i class="fas fa-star"></i> 5.5k</span>
+                         <span><i class="fas fa-code-branch"></i> 455</span>
+                         <span><i class="fas fa-code"></i> TypeScript (98.8%)</span>
+                         <span class="text-green-600 font-semibold"><i class="fas fa-arrow-up"></i> +53 stars today (新晋)</span>
+                     </div>
+                     <p class="summary-title">项目速读:</p>
+                     <p>Zero 是开源 AI 邮件客户端，旨在提供隐私至上、完全掌控数据的现代化替代方案。承诺不追踪、不收集、不售卖数据。利用 LLM 提升邮件处理效率和体验，允许用户自托管实现数据自主。支持统一收件箱。适合重视隐私、希望自建邮件系统并拥抱 AI 的用户。</p>
+                 </div>
+             </section>
+
+            <!-- Repo: donnemartin/system-design-primer -->
+             <section id="donnemartin-system-design-primer">
+                 <div class="repo-card">
+                     <h3><a href="https://github.com/donnemartin/system-design-primer" target="_blank"><i class="fab fa-github"></i> donnemartin/system-design-primer</a></h3>
+                     <blockquote>学习如何设计大规模系统。准备系统设计面试。包含 Anki 抽认卡。</blockquote>
+                     <div class="stats">
+                         <span><i class="fas fa-star"></i> 298k</span>
+                         <span><i class="fas fa-code-branch"></i> 49.5k</span>
+                         <span><i class="fas fa-code"></i> Python (98%)</span>
+                         <span class="text-green-600 font-semibold"><i class="fas fa-arrow-up"></i> +122 stars today</span>
+                     </div>
+                     <p class="summary-title">项目速读:</p>
+                     <p>明星级系统设计学习宝库，帮助工程师系统学习设计大规模、高可用系统，也是备战技术面试的权威指南。优势是结构化内容，梳理了负载均衡、数据库、缓存等知识点，强调原理与权衡取舍。提供 Anki 闪卡辅助记忆。是提升系统设计能力和应对面试的宝贵资源。</p>
+                 </div>
+             </section>
+
+             <!-- Repo: alibaba/MNN -->
+            <section id="alibaba-mnn">
+                 <div class="repo-card">
+                    <h3><a href="https://github.com/alibaba/MNN" target="_blank"><i class="fab fa-github"></i> alibaba/MNN</a></h3>
+                    <blockquote>极速、轻量级的深度学习框架，已在阿里巴巴业务中实践检验。</blockquote>
+                    <div class="stats">
+                        <span><i class="fas fa-star"></i> 10.6k</span>
+                        <span><i class="fas fa-code-branch"></i> 1.8k</span>
+                        <span><i class="fas fa-code"></i> C++ (93%), C (2.5%), Assembly (1.5%)</span>
+                         <span class="text-green-600 font-semibold"><i class="fas fa-arrow-up"></i> +98 stars today (新晋)</span>
+                    </div>
+                    <p class="summary-title">项目速读:</p>
+                    <p>MNN 是阿里开源的高性能、轻量级深度学习框架，核心目标是在端侧 (手机, IoT, PC) 提供极致模型推理速度。体积小巧，不依赖第三方库，通过深度优化 CPU/GPU 提升效率。稳定兼容，支持主流模型，并提供端侧 LLM/图像生成解决方案。适合需在边缘设备高效部署 AI 的场景。</p>
+                 </div>
+            </section>
+
+             <!-- Repo: pydantic/pydantic -->
+             <section id="pydantic-pydantic">
+                 <div class="repo-card">
+                     <h3><a href="https://github.com/pydantic/pydantic" target="_blank"><i class="fab fa-github"></i> pydantic/pydantic</a></h3>
+                     <blockquote>使用 Python 类型提示进行数据校验。</blockquote>
+                     <div class="stats">
+                         <span><i class="fas fa-star"></i> 23.5k</span>
+                         <span><i class="fas fa-code-branch"></i> 2.1k</span>
+                         <span><i class="fas fa-code"></i> Python (99.8%)</span>
+                         <span class="text-green-600 font-semibold"><i class="fas fa-arrow-up"></i> +13 stars today (新晋)</span>
+                     </div>
+                     <p class="summary-title">项目速读:</p>
+                     <p>强大的 Python 库，专注数据验证、解析和设置管理。利用 Python 类型提示，定义数据模型后 Pydantic 自动进行严格校验、解析和类型转换。代码清晰易读，与类型检查工具集成良好，性能出色 (V2含Rust实现)。是构建健壮 Python 应用、进行 API 验证、配置解析的理想选择。</p>
+                 </div>
+             </section>
+
+              <!-- Repo: alacritty/alacritty -->
+            <section id="alacritty-alacritty">
+                 <div class="repo-card">
+                    <h3><a href="https://github.com/alacritty/alacritty" target="_blank"><i class="fab fa-github"></i> alacritty/alacritty</a></h3>
+                    <blockquote>一个跨平台的 OpenGL 终端模拟器。</blockquote>
+                    <div class="stats">
+                        <span><i class="fas fa-star"></i> 58.6k</span>
+                        <span><i class="fas fa-code-branch"></i> 3.1k</span>
+                        <span><i class="fas fa-code"></i> Rust (96.1%)</span>
+                         <span class="text-green-600 font-semibold"><i class="fas fa-arrow-up"></i> +17 stars today (新晋)</span>
+                    </div>
+                    <p class="summary-title">项目速读:</p>
+                    <p>采用 Rust 构建并利用 GPU 加速 (OpenGL) 的跨平台终端模拟器。旨在提供极致流畅、响应迅速的命令行体验，解决传统终端性能瓶颈。秉持简约设计，专注核心功能高效实现，鼓励结合 tmux 等扩展。是追求高效命令行工作流的优选工具。</p>
+                 </div>
+            </section>
+
+             <!-- Repo: filamentphp/filament -->
+             <section id="filamentphp-filament">
+                 <div class="repo-card">
+                     <h3><a href="https://github.com/filamentphp/filament" target="_blank"><i class="fab fa-github"></i> filamentphp/filament</a></h3>
+                     <blockquote>一系列漂亮的用于 Laravel 的全栈组件。您下一个应用程序的完美起点。</blockquote>
+                     <div class="stats">
+                         <span><i class="fas fa-star"></i> 23.1k</span>
+                         <span><i class="fas fa-code-branch"></i> 3.4k</span>
+                         <span><i class="fas fa-code"></i> PHP (83%), Blade (11%), JS (5%)</span>
+                         <span class="text-green-600 font-semibold"><i class="fas fa-arrow-up"></i> +25 stars today (新晋)</span>
+                     </div>
+                     <p class="summary-title">项目速读:</p>
+                     <p>专为 Laravel 打造的全栈组件集合，大幅提升构建 Web 界面效率 (尤其管理后台)。提供精美、模块化组件 (表单/表格构建器)，快速实现 CRUD。基于 Laravel，整合 Livewire, Alpine.js, Tailwind CSS (TALL 栈)，提供流畅动态界面。核心价值在于高度集成和可扩展性。</p>
+                 </div>
+             </section>
+
+            <!-- Repo: htr-tech/zphisher -->
+             <section id="htr-tech-zphisher">
+                 <div class="repo-card">
+                     <h3><a href="https://github.com/htr-tech/zphisher" target="_blank"><i class="fab fa-github"></i> htr-tech/zphisher</a></h3>
+                     <blockquote>自动化钓鱼工具，内置 30+ 模板。(仅用于教育目的！)</blockquote>
+                     <div class="stats">
+                         <span><i class="fas fa-star"></i> 12.6k</span>
+                         <span><i class="fas fa-code-branch"></i> 4.6k</span>
+                         <span><i class="fas fa-code"></i> HTML (90%), CSS (7%), PHP (3%)</span>
+                         <span class="text-green-600 font-semibold"><i class="fas fa-arrow-up"></i> +10 stars today (新晋)</span>
+                     </div>
+                     <p class="summary-title">项目速读:</p>
+                     <p>基于 Bash 的自动化网络钓鱼模拟工具，旨在帮助理解和学习钓鱼原理。内置 30+ 常见服务模板，可快速部署逼真钓鱼网站。优势是自动化和便捷性，简单命令即可搭建，提供隧道选项和 URL 伪装。价值在网络安全教育和合法测试，严禁非法使用。</p>
+                 </div>
+             </section>
+
+            <!-- Repo: littlefs-project/littlefs -->
+            <section id="littlefs-project-littlefs">
+                 <div class="repo-card">
+                    <h3><a href="https://github.com/littlefs-project/littlefs" target="_blank"><i class="fab fa-github"></i> littlefs-project/littlefs</a></h3>
+                    <blockquote>一个专为微控制器设计的小巧的失效保护文件系统。</blockquote>
+                    <div class="stats">
+                        <span><i class="fas fa-star"></i> 5.7k</span>
+                        <span><i class="fas fa-code-branch"></i> 855</span>
+                        <span><i class="fas fa-code"></i> C (68%), Python (31%)</span>
+                         <span class="text-green-600 font-semibold"><i class="fas fa-arrow-up"></i> +118 stars today (新晋)</span>
+                    </div>
+                    <p class="summary-title">项目速读:</p>
+                    <p>专为微控制器打造的微型、故障安全闪存文件系统。解决嵌入式环境闪存数据在断电等情况下的完整性问题。技术优势是出色的电源故障恢复 (写时复制 COW 保证原子性) 和闪存优化 (动态磨损均衡)。内存占用极低。是嵌入式设备可靠文件存储的理想选择。</p>
+                 </div>
+            </section>
+
+            <!-- Repo: sunnypilot/sunnypilot -->
+             <section id="sunnypilot-sunnypilot">
+                 <div class="repo-card">
+                     <h3><a href="https://github.com/sunnypilot/sunnypilot" target="_blank"><i class="fab fa-github"></i> sunnypilot/sunnypilot</a></h3>
+                     <blockquote>一个开源驾驶辅助系统，是 openpilot 的分支。</blockquote>
+                     <div class="stats">
+                         <span><i class="fas fa-star"></i> 1.1k</span>
+                         <span><i class="fas fa-code-branch"></i> 850</span>
+                         <span><i class="fas fa-code"></i> Python (49%), C++ (40%), C (3%)</span>
+                         <span class="text-green-600 font-semibold"><i class="fas fa-arrow-up"></i> +6 stars today (新晋)</span>
+                     </div>
+                     <p class="summary-title">项目速读:</p>
+                     <p>基于 comma.ai openpilot 的分支，为超 300 款车型提供改进和个性化的驾驶辅助体验。通过修改辅助驾驶介入行为，旨在提供独特感受。依托 comma.ai 硬件。价值在于提供可探索、可定制的开源平台。注意：ALPHA 质量，仅供研究，用户自担风险。</p>
+                 </div>
+             </section>
+
+
+            <!-- End Slide -->
+            <section id="end-slide">
+                <h2>感谢观看</h2>
+                <p>了解更多技术趋势，欢迎关注与交流！</p>
+                 <div class="bottom-right-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">Star on GitHub</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Core Framework -->
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <!-- Optional Plugins -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <!-- You might need reveal.js plugins like markdown, highlight, notes etc. Add them here if needed -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.0/plugin/markdown/markdown.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.0/plugin/highlight/highlight.min.js"></script> -->
+
+    <script>
+        // More info about initialization & config:
+        // - https://revealjs.com/initialization/
+        // - https://revealjs.com/config/
+        Reveal.initialize({
+            hash: true, // Add slide hashes to the URL
+            controls: true, // Display controls in the bottom right corner
+            progress: true, // Display a presentation progress bar
+            slideNumber: 'c/t', // Display the page number of the current slide
+            history: true, // Push each slide change to the browser history
+            keyboard: true, // Enable keyboard shortcuts for navigation
+            overview: true, // Enable the slide overview mode
+            center: false, // Vertical centering (false - align top)
+            touch: true, // Enables touch navigation on devices with touch input
+            loop: false, // Loop the presentation
+            rtl: false, // Right-to-left presentation
+            shuffle: false, // Randomizes the order of slides each time the presentation loads
+            fragments: true, // Turns fragments on globally
+            embedded: false, // Flags if the presentation is running in an embedded mode
+            help: true, // Flags if we should show a help overlay when the questionmark key is pressed
+            showNotes: false, // Flags if speaker notes should be visible to all viewers
+            autoPlayMedia: null, // Global override for media playback options
+            autoSlide: 0, // Stop auto-sliding
+            autoSlideStoppable: true, // Stop auto-sliding after user input
+            mouseWheel: false, // Opens links in an iframe preview overlay
+            hideAddressBar: true, // Hides the address bar on mobile devices
+            previewLinks: false, // Opens links in an iframe preview overlay
+            transition: 'slide', // Transition style (none/fade/slide/convex/concave/zoom)
+            transitionSpeed: 'default', // Transition speed (default/fast/slow)
+            backgroundTransition: 'fade', // Transition style for full page backgrounds (none/fade/slide/convex/concave/zoom)
+            viewDistance: 3, // Number of slides away from the current that are visible
+            parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+            parallaxBackgroundSize: '', // CSS syntax, e.g. "2100px 900px"
+            parallaxBackgroundHorizontal: null,
+            parallaxBackgroundVertical: null,
+
+            // Optional Reveal.js plugins
+            plugins: [
+                 // Add plugins here if needed, e.g. RevealMarkdown, RevealHighlight, RevealNotes
+            ]
+        });
+
+         // Initialize Mermaid if used (not used in this example, but kept for reference)
+         // mermaid.initialize({ startOnLoad: false });
+         // Reveal.addEventListener('ready', event => {
+         //     mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+         // });
+         // Reveal.addEventListener( 'slidechanged', event => {
+         //    // Find mermaid diagrams on the current slide
+         //    let diagrams = event.currentSlide.querySelectorAll('.mermaid');
+         //    diagrams.forEach(item => {
+         //       // If it lacks the 'processed' class, initialize it
+         //       if (!item.classList.contains('processed')) {
+         //          mermaid.init(undefined, item);
+         //          item.classList.add('processed'); // Mark as processed
+         //       }
+         //    });
+         // });
+
+    </script>
+</body>
+</html>
