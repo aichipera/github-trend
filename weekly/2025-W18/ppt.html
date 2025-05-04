@@ -1,0 +1,883 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>GitHub热门趋势周报 (2025-05-04)</title>
+
+  <!-- Core Framework -->
+  <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+  <!-- Theme: Using white theme as a base, will override with Tailwind and custom styles -->
+  <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet" id="theme">
+
+  <!-- Extension Dependencies -->
+  <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Base Font Stack */
+    body {
+      font-family: "Noto Sans SC", Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); /* Subtle gradient background */
+    }
+
+    /* RevealJS Customization */
+    .reveal {
+      font-size: 18px; /* Base font size */
+    }
+
+    .reveal ::selection {
+      color: #fff;
+      background: #3b82f6; /* Tailwind blue-500 */
+      text-shadow: none;
+    }
+
+    .reveal .slides {
+      text-align: left; /* Default align left for content */
+    }
+
+    .reveal h1,
+    .reveal h2,
+    .reveal h3,
+    .reveal h4,
+    .reveal h5,
+    .reveal h6 {
+      font-family: "Noto Serif SC", serif;
+      color: #1f2937; /* Tailwind gray-800 */
+      margin-bottom: 0.5em;
+      line-height: 1.2;
+      word-wrap: break-word;
+    }
+
+    .reveal h1 { font-size: 2.8rem; text-align: center; }
+    .reveal h2 { font-size: 2.2rem; }
+    .reveal h3 { font-size: 1.8rem; }
+    .reveal h4 { font-size: 1.4rem; } /* Adjusted for better hierarchy */
+
+    .reveal p,
+    .reveal li,
+    .reveal blockquote {
+      font-family: "Noto Sans SC", sans-serif;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #374151; /* Tailwind gray-700 */
+    }
+
+    .reveal strong {
+        font-weight: 600;
+        color: #1e40af; /* Tailwind blue-800 */
+    }
+
+    .reveal blockquote {
+      border-left: 5px solid #93c5fd; /* Tailwind blue-300 */
+      background: #eff6ff; /* Tailwind blue-50 */
+      padding: 1em;
+      margin: 1em 0;
+      font-style: italic;
+      color: #1f2937; /* Tailwind gray-800 */
+    }
+
+    .reveal section img {
+      margin: 15px 0px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 0px; /* Remove default border */
+      box-shadow: none; /* Remove default shadow */
+      max-height: 50vh; /* Limit image height */
+    }
+    .reveal section img.plain { /* For images without styling */
+        background: none;
+        border: none;
+        box-shadow: none;
+    }
+
+    .reveal a {
+      color: #3b82f6; /* Tailwind blue-500 */
+      text-decoration: none;
+      transition: color .15s ease;
+    }
+
+    .reveal a:hover {
+      color: #1d4ed8; /* Tailwind blue-700 */
+      text-decoration: underline;
+    }
+
+    .reveal ul, .reveal ol {
+      margin-left: 1.5em;
+      margin-bottom: 1em;
+    }
+    .reveal ul li::marker {
+        color: #3b82f6; /* Tailwind blue-500 */
+    }
+    .reveal ol li::marker {
+        color: #3b82f6; /* Tailwind blue-500 */
+        font-weight: bold;
+    }
+
+    /* Footer for Link and QR Code */
+    .footer {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      font-size: 0.7rem;
+      color: #6b7280; /* Tailwind gray-500 */
+      z-index: 10; /* Ensure it's above backgrounds */
+    }
+    .footer img {
+      width: 60px; /* Adjust QR code size */
+      height: 60px;
+      margin-left: 10px;
+      background: none;
+      border: none;
+      box-shadow: none;
+    }
+    .footer a {
+        color: #6b7280; /* Tailwind gray-500 */
+        text-decoration: none;
+    }
+     .footer a:hover {
+        color: #3b82f6; /* Tailwind blue-500 */
+        text-decoration: underline;
+    }
+
+    /* Specific Slide Styles */
+    .slide-center {
+        text-align: center;
+    }
+    .text-accent {
+        color: #2563eb; /* Tailwind blue-600 */
+        font-weight: 600;
+    }
+    .highlight-box {
+        background-color: #fef3c7; /* Tailwind amber-100 */
+        border-left: 4px solid #f59e0b; /* Tailwind amber-500 */
+        padding: 0.8em 1em;
+        margin: 1em 0;
+        border-radius: 4px;
+    }
+     .highlight-box p {
+         color: #78350f; /* Tailwind amber-900 */
+         margin-bottom: 0.5em;
+     }
+     .highlight-box p:last-child {
+         margin-bottom: 0;
+     }
+
+     .repo-stats {
+        font-size: 0.9rem;
+        color: #4b5563; /* Tailwind gray-600 */
+     }
+     .repo-stats i {
+         margin-right: 5px;
+         color: #9ca3af; /* Tailwind gray-400 */
+     }
+     .repo-stats span {
+         margin-right: 15px;
+     }
+
+    /* Mermaid Diagram Styling */
+    .mermaid {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        background-color: #f9fafb; /* Tailwind gray-50 */
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Slide 1: Cover Page -->
+      <section data-background-gradient="linear-gradient(to bottom right, #60a5fa, #3b82f6)">
+          <h1 class="!text-white !text-shadow-lg">AI Agent冲上GitHub热榜！</h1>
+          <h3 class="!text-blue-100 !mt-4 !text-center">让AI能像“活人”一样干活？</h3>
+          <p class="!text-blue-200 !text-center !mt-8">GitHub热门趋势周报 (2025-05-04)</p>
+          <p class="!text-blue-200 !text-center !mt-2">演讲者: AIChipEra</p>
+           <aside class="notes">
+                封面页：主标题醒目，副标题引发思考，点明主题和时间。
+           </aside>
+          <div class="footer">
+            <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+            <img src="../../asserts/wx.jpg" alt="QR Code">
+          </div>
+      </section>
+
+      <!-- Slide 2: Warning -->
+      <section>
+          <h3 class="text-red-600 text-center">免责声明</h3>
+           <div class="highlight-box mt-8 !border-l-red-500 !bg-red-50">
+             <p class="!text-red-800">Github热门仓库周报观测时间为 <strong class="!text-red-900">2025-05-04 21:17:14</strong></p>
+             <p class="!text-red-800">以下内容 <strong class="!text-red-900">仅供项目介绍和学习使用</strong>，<strong class="!text-red-900">不构成任何投资建议</strong>，请注意甄别！</p>
+           </div>
+           <aside class="notes">
+               强调报告时间和免责声明，管理预期。
+           </aside>
+      </section>
+
+      <!-- Slide 3: Weekly Highlights (周报要点) -->
+      <section>
+          <h2>本周技术风向标 <i class="fas fa-compass text-blue-500 ml-2"></i></h2>
+          <ul>
+            <li class="fragment" data-fragment-index="1"> <strong class="text-accent">AI智能体 (AI Agent)</strong> 成最燃热点：自主操作电脑、构建复杂工作流。</li>
+            <li class="fragment" data-fragment-index="2"> 技术界目标：让AI从简单问答进化为 <strong class="text-accent">“数字员工”</strong>，大幅提升效率。</li>
+            <li class="fragment" data-fragment-index="3"> 前沿 <strong class="text-accent">生成式AI</strong> 应用火爆：实时换脸、高精度3D生成引关注。</li>
+            <li class="fragment" data-fragment-index="4"> 开发者工具和学习资源 <strong class="text-accent">热度不减</strong>，反映技术人员求知欲。</li>
+            <li class="fragment" data-fragment-index="5"> <strong class="text-accent">Aha Moment <i class="fas fa-lightbulb text-yellow-400"></i></strong>: 让AI <strong class="text-accent">“自己干活”</strong> 的时代正在加速到来！</li>
+          </ul>
+          <aside class="notes">
+              要点概览，使用分步展示突出关键信息。
+              强调AI Agent是核心，生成式AI应用是亮点，工具和学习是基础。
+              Aha Moment：AI自主工作的时代来临。
+          </aside>
+      </section>
+
+      <!-- Slide 4: Overall Trend Analysis Introduction -->
+       <section data-background-color="#e0f2fe"> <!-- Light Blue Background -->
+          <h2 class="!text-blue-800">本周 GitHub 整体趋势分析 <i class="fas fa-chart-line ml-2"></i></h2>
+           <p class="!text-blue-700">深入解读技术焦点与未来方向</p>
+            <aside class="notes">
+                过渡页，引出详细的趋势分析。
+            </aside>
+      </section>
+
+       <!-- Slide 5: Trend Analysis - AI Focus -->
+      <section>
+          <h3>趋势核心：AI Agent 与生成式 AI</h3>
+          <ul>
+              <li class="fragment"><strong>AI Agent 强劲势头</strong>:
+                  <ul>
+                      <li>通用任务自动化 (Suna)</li>
+                      <li>多智能体工作流 (Rowboat)</li>
+                      <li>模拟人类操作界面 (Agent S)</li>
+                      <li>知识与记忆图谱构建 (Graphiti)</li>
+                  </ul>
+              </li>
+              <li class="fragment"><strong>目标进化</strong>: AI 从问答工具 <i class="fas fa-arrow-right mx-2 text-gray-400"></i> 具自主性的 <strong class="text-accent">“数字员工”</strong> (处理复杂、连续任务)。</li>
+              <li class="fragment"><strong>生成式 AI 应用深化</strong>:
+                  <ul>
+                      <li>实时换脸/深度伪造 (Deep-Live-Cam) - <span class="text-red-500">需关注伦理</span></li>
+                      <li>高分辨率 3D 资产生成 (Hunyuan3D-2)</li>
+                      <li>LLM 系统提示集泄露 (leaked-system-prompts) - 满足研究好奇心</li>
+                  </ul>
+              </li>
+          </ul>
+           <aside class="notes">
+              详细分析AI领域的两大热点：AI Agent和生成式AI，列出代表项目。
+              强调AI角色的转变和生成式AI的具体应用方向。
+          </aside>
+      </section>
+
+      <!-- Slide 6: Trend Analysis - Languages & Tech Stack -->
+      <section>
+          <h3>技术栈与语言分布 <i class="fas fa-code text-purple-500 ml-2"></i></h3>
+           <ul>
+              <li class="fragment"><strong>Python <i class="fab fa-python text-yellow-500"></i></strong>: <strong>主导</strong> AI 和数据领域，生态丰富。</li>
+              <li class="fragment"><strong>TypeScript/JavaScript <i class="fab fa-js text-yellow-400"></i></strong>: 重要于前端、全栈、部分 AI Agent 平台 (Web 应用 & 快速迭代需求)。</li>
+              <li class="fragment"><strong>Rust <i class="fab fa-rust text-orange-600"></i></strong>: 发力于高性能基础设施 (e.g., Hyperswitch - 支付)。</li>
+              <li class="fragment"><strong>C++ <i class="fas fa-c">++</i> / Go <i class="fab fa-golang text-cyan-500"></i></strong>: 底层系统、专业安全工具。</li>
+              <li class="fragment"><strong>Jupyter Notebook <i class="fas fa-book text-orange-500"></i></strong>: 流行于教育和探索性数据工作。</li>
+           </ul>
+           <blockquote class="fragment mt-4">
+              语言选择反映了项目类型：AI密集型选Python，Web和工具选TS/JS，性能敏感选Rust/C++/Go。
+           </blockquote>
+           <aside class="notes">
+              分析主流编程语言在热门项目中的分布和原因。
+           </aside>
+      </section>
+
+       <!-- Slide 7: Trend Analysis - Core Demands & Predictions -->
+       <section>
+           <h3>核心需求与未来热点预测 <i class="fas fa-bullseye text-red-500 ml-2"></i></h3>
+           <h4>当前技术发展需求：</h4>
+           <ul>
+               <li class="fragment">AI 能力 <strong class="text-accent">落地</strong>：从理论走向实际自主化、自动化、复杂任务处理。</li>
+               <li class="fragment">降低 AI <strong class="text-accent">门槛</strong>：通过平台、框架、友好界面普及 AI 应用。</li>
+               <li class="fragment">强化 <strong class="text-accent">基础</strong>设施：高性能、安全、易用的开发工具。</li>
+               <li class="fragment">持续 <strong class="text-accent">学习</strong>需求：AI、Python 等领域学习资源热度不减。</li>
+           </ul>
+           <h4 class="mt-6 fragment">下一波技术热点预测 <i class="fas fa-crystal-ball text-purple-500"></i>:</h4>
+            <ul>
+               <li class="fragment">更<strong class="text-accent">智能/专业化</strong>的 AI Agent (行业应用)。</li>
+               <li class="fragment">AI <strong class="text-accent">可信度、安全、隐私</strong> 技术。</li>
+               <li class="fragment">AI 与<strong class="text-accent">软硬件结合</strong> (OS, 边缘计算, 机器人)。</li>
+               <li class="fragment">更高效易用的<strong class="text-accent">多模态 AI</strong> 开发工具。</li>
+           </ul>
+           <aside class="notes">
+              总结当前的核心需求，并对未来技术热点进行预测。
+              Aha moment: 技术焦点从“大模型本身”转向“如何用好大模型”，特别是通过Agent实现。
+          </aside>
+       </section>
+
+       <!-- Slide 8: Bi-Weekly Comparison Intro -->
+        <section data-background-color="#dbeafe"> <!-- Lighter Blue Background -->
+            <h2 class="!text-blue-900">双周维度对比分析 <i class="fas fa-exchange-alt ml-2"></i></h2>
+            <p class="!text-blue-800">观察近期热度变化与趋势演进</p>
+            <aside class="notes">
+                过渡页，引出双周对比。
+            </aside>
+        </section>
+
+        <!-- Slide 9: Bi-Weekly Comparison Details -->
+        <section>
+            <h3>近期热度显著上升 <i class="fas fa-arrow-trend-up text-green-500"></i></h3>
+            <ul>
+                <li class="fragment">整体趋势： <strong class="text-green-600">显著上升</strong>。</li>
+                <li class="fragment">新增项目： <strong class="text-accent">15个</strong> 新晋热门项目，社区活跃度高。</li>
+                <li class="fragment">项目特点： 新晋项目集中于 <strong class="text-accent">AI/ML</strong> (模型、工具)，开发者工具、基础设施、教育资源亦占一席。</li>
+                <li class="fragment">语言分布： <strong class="text-accent">多种语言同步增长</strong> (Python, TS, Rust, C++, JS, Ruby)。Jupyter Notebook <i class="fas fa-book text-orange-500"></i> 引人关注 (AI学习普及)。</li>
+                 <li class="fragment">显著变化： <strong class="text-accent">AI/ML 项目数量突出</strong>。涨幅最大项目覆盖热点话题 (系统提示) 和持续热门资源。</li>
+            </ul>
+            <blockquote class="fragment mt-4">
+                双周对比印证了AI，特别是AI Agent和相关工具，是当前绝对的热点方向。
+            </blockquote>
+            <aside class="notes">
+              总结双周对比的关键发现：整体上升，AI主导新增，多语言增长。
+            </aside>
+        </section>
+
+       <!-- Slide 10: Hotspot Changes -->
+      <section>
+          <h2>热点变化 <i class="fas fa-fire text-red-500 ml-2"></i></h2>
+          <div class="grid grid-cols-2 gap-8">
+              <div>
+                  <h4 class="text-green-600"> <i class="fas fa-arrow-up"></i> 新增热点 (部分)</h4>
+                  <ul class="text-sm">
+                    <li>aquasecurity/trivy (安全扫描)</li>
+                    <li>hacksider/deep-live-cam (实时换脸)</li>
+                    <li>microsoft/generative-ai-for-beginners (GenAI课程)</li>
+                    <li>rowboatlabs/rowboat (多智能体构建)</li>
+                    <li>kortix-ai/suna (通用AI Agent)</li>
+                    <li>simular-ai/agent-s (操作电脑Agent)</li>
+                    <li>tencent/hunyuan3d-2 (3D生成)</li>
+                    <li>juspay/hyperswitch (支付枢纽)</li>
+                    <li>getzep/graphiti (AI知识图谱)</li>
+                    <li>... (及其他工具与资源)</li>
+                  </ul>
+              </div>
+              <div>
+                  <h4 class="text-gray-500"><i class="fas fa-arrow-down"></i> 减退热点 (部分)</h4>
+                  <ul class="text-sm">
+                     <li>jwasham/coding-interview-university</li>
+                     <li>microsoft/bitnet</li>
+                     <li>allenai/olmocr</li>
+                     <li>bytedance/ui-tars</li>
+                     <li>jumpserver/jumpserver</li>
+                     <li>byaidu/pdfmathtranslate</li>
+                     <li>anthropics/courses</li>
+                     <li>pocketbase/pocketbase</li>
+                     <li>... (及其他)</li>
+                  </ul>
+              </div>
+          </div>
+          <p class="mt-6 text-sm text-gray-600 fragment">注：热点变化反映了社区短期关注焦点的转移。</p>
+          <aside class="notes">
+            清晰列出新增和减退的热点项目，直观展示变化。
+            可以看出AI Agent、生成式AI、安全工具是新增主力。
+          </aside>
+      </section>
+
+       <!-- Slide 11: Language and Star Distribution -->
+      <section>
+          <h2>项目特征分布</h2>
+          <div class="grid grid-cols-2 gap-8 mt-6">
+              <div>
+                  <h3 class="mb-4">编程语言分布 <i class="fas fa-laptop-code text-indigo-500"></i></h3>
+                  <ul>
+                    <li><strong>Python <i class="fab fa-python text-yellow-500"></i></strong>: 5 (27.8%)</li>
+                    <li><strong>TypeScript <i class="fab fa-js text-yellow-400"></i></strong>: 3 (16.7%)</li>
+                    <li><strong>C++ <i class="fas fa-c">++</i></strong>: 2 (11.1%)</li>
+                    <li><strong>Jupyter Notebook <i class="fas fa-book text-orange-500"></i></strong>: 2 (11.1%)</li>
+                    <li><strong>JavaScript <i class="fab fa-js-square text-yellow-400"></i></strong>: 2 (11.1%)</li>
+                     <li><strong>Rust <i class="fab fa-rust text-orange-600"></i></strong>: 1 (5.6%)</li>
+                     <li><strong>Ruby <i class="fas fa-gem text-red-500"></i></strong>: 1 (5.6%)</li>
+                     <li><strong>Go <i class="fab fa-golang text-cyan-500"></i></strong>: 1 (5.6%)</li>
+                     <li>Unknown: 1 (5.6%)</li>
+                  </ul>
+              </div>
+              <div>
+                  <h3 class="mb-4">Star 分布 <i class="fas fa-star text-yellow-400"></i></h3>
+                   <ul>
+                    <li><strong>50k+</strong>: 6 (33.3%) - 成熟热门项目</li>
+                    <li><strong>10k-50k</strong>: 5 (27.8%)</li>
+                    <li><strong>5k-10k</strong>: 4 (22.2%) - 快速增长潜力</li>
+                    <li><strong>1k-5k</strong>: 3 (16.7%) - 新兴潜力项目</li>
+                   </ul>
+              </div>
+          </div>
+           <blockquote class="mt-6 fragment">
+               Python 依然强势，高 Star 项目占据榜单重要位置，新兴项目同样值得关注。
+           </blockquote>
+           <aside class="notes">
+                使用列表清晰展示语言和 Star 数的分布情况。
+                Python的领先地位和大量高Star项目是关键信息。
+           </aside>
+      </section>
+
+      <!-- Slide 12: Top 10 Projects -->
+      <section>
+          <h2>热门项目 Top 10 <i class="fas fa-trophy text-yellow-500 ml-2"></i></h2>
+          <ol class="text-sm leading-relaxed">
+              <li><a href="https://github.com/kamranahmedse/developer-roadmap" target="_blank">kamranahmedse/developer-roadmap</a> - ⭐317k - 开发者成长路线图</li>
+              <li><a href="https://github.com/jackfrued/Python-100-Days" target="_blank">jackfrued/Python-100-Days</a> - ⭐166k - Python 100天学习</li>
+              <li><a href="https://github.com/microsoft/terminal" target="_blank">microsoft/terminal</a> - ⭐98k - 新 Windows 终端</li>
+              <li><a href="https://github.com/microsoft/generative-ai-for-beginners" target="_blank">microsoft/generative-ai-for-beginners</a> - ⭐82k - 生成式 AI 入门课程</li>
+              <li><a href="https://github.com/louislam/uptime-kuma" target="_blank">louislam/uptime-kuma</a> - ⭐69k - 自托管监控工具</li>
+              <li><a href="https://github.com/hacksider/Deep-Live-Cam" target="_blank">hacksider/Deep-Live-Cam</a> - ⭐60k - 实时换脸/深度伪造</li>
+              <li><a href="https://github.com/LadybirdBrowser/ladybird" target="_blank">LadybirdBrowser/ladybird</a> - ⭐38k - 独立 Web 浏览器</li>
+              <li><a href="https://github.com/drawdb-io/drawdb" target="_blank">drawdb-io/drawdb</a> - ⭐30k - 在线数据库设计工具</li>
+              <li><a href="https://github.com/aquasecurity/trivy" target="_blank">aquasecurity/trivy</a> - ⭐26k - 安全扫描器</li>
+              <li><a href="https://github.com/juspay/hyperswitch" target="_blank">juspay/hyperswitch</a> - ⭐18k - 开源支付枢纽</li>
+          </ol>
+          <aside class="notes">
+              列出Top 10项目，包含链接、Star数和简要描述。
+          </aside>
+      </section>
+
+      <!-- Slide 13: Detailed Repositories Intro -->
+       <section data-background-color="#e5e7eb"> <!-- Gray Background -->
+          <h2 class="!text-gray-800">热点项目深度解析 <i class="fas fa-magnifying-glass-chart ml-2"></i></h2>
+          <p class="!text-gray-700">聚焦本周最受关注的明星项目</p>
+          <aside class="notes">
+              过渡页，引出详细的项目介绍。将使用垂直幻灯片展示每个项目。
+          </aside>
+      </section>
+
+       <!-- Slide Group 14: Deep-Live-Cam -->
+       <section>
+           <section>
+                <h3><i class="fab fa-python text-yellow-500 mr-2"></i> hacksider/Deep-Live-Cam</h3>
+                <p>实时换脸和单图一键视频深度伪造</p>
+                <div class="repo-stats mt-4">
+                     <span><i class="fas fa-star"></i>60.1k</span>
+                     <span><i class="fas fa-code-branch"></i>8.4k</span>
+                     <span><i class="fas fa-eye"></i>371</span>
+                     <span class="text-green-600"><i class="fas fa-arrow-up"></i> 8191 (当期新增)</span>
+                     <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Python 99.9%</span>
+                 </div>
+                 <p class="mt-4 text-sm text-red-600">AGPL-3.0 License - 强调道德使用</p>
+                 <i class="fas fa-chevron-down text-gray-400 text-2xl absolute bottom-5 left-1/2 transform -translate-x-1/2"></i>
+                  <aside class="notes">
+                      项目标题页：名称、简介、核心数据、语言、新增、协议。
+                 </aside>
+           </section>
+           <section>
+                <h4>项目速读 <i class="fas fa-bolt text-yellow-500"></i></h4>
+                <blockquote>
+                   Deep-Live-Cam 是强大的 Python 工具，仅凭单图实现实时视频/摄像头换脸 (深度伪造)。极大简化流程，赋能用户轻松创作 AI 内容。
+                   <br/><strong>核心优势</strong>: 高实时性、一键启动、支持多人、独特嘴部遮罩提升自然度。
+                   <br/><strong class="text-red-600">关键要求</strong>: <span class="underline">必须征得同意、明确标注、内置过滤</span>。内容创作者的利器，但需严格遵守伦理法规。
+                </blockquote>
+                 <aside class="notes">
+                    速读部分，提炼核心功能、优势和关键限制。
+                 </aside>
+           </section>
+       </section>
+
+      <!-- Slide Group 15: leaked-system-prompts -->
+      <section>
+          <section>
+              <h3><i class="fas fa-database text-gray-500 mr-2"></i> jujumilk3/leaked-system-prompts</h3>
+              <p>主流 LLM 泄露的系统提示词集</p>
+              <div class="repo-stats mt-4">
+                   <span><i class="fas fa-star"></i>5.9k</span>
+                   <span><i class="fas fa-code-branch"></i>657</span>
+                   <span><i class="fas fa-eye"></i>81</span>
+                   <span class="text-green-600"><i class="fas fa-arrow-up"></i> 2073 (当期新增)</span>
+                   <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">数据集</span>
+               </div>
+               <p class="mt-4 text-sm text-gray-600">License: 未知</p>
+               <i class="fas fa-chevron-down text-gray-400 text-2xl absolute bottom-5 left-1/2 transform -translate-x-1/2"></i>
+                <aside class="notes">
+                    项目标题页：名称、简介、核心数据、类型、新增。
+               </aside>
+          </section>
+          <section>
+              <h4>项目速读 <i class="fas fa-bolt text-yellow-500"></i></h4>
+              <blockquote>
+                 本项目汇集主流 LLM 泄露的系统提示，提供独特窗口洞悉模型如何被引导和塑造。
+                 <br/><strong>核心价值</strong>: 对分析提示工程、理解模型行为、学术研究及优化应用至关重要。已被多篇论文引用。
+                 <br/>是研究 LLM 幕后机制、具高度实践价值的<strong class="text-accent">公开数据集</strong>。
+              </blockquote>
+               <h5 class="mt-4 text-green-700">增长分析 <i class="fas fa-chart-line"></i></h5>
+               <p>周期内 <strong class="text-accent">2次上榜</strong>，当次新增 <strong class="text-accent">2073 Star</strong>，增长势头 <strong class="text-green-600">强劲活跃</strong>。</p>
+               <aside class="notes">
+                  速读和增长分析。强调其作为数据集的研究价值和高增长性。
+               </aside>
+          </section>
+      </section>
+
+       <!-- Slide Group 16: kortix-ai/suna -->
+      <section>
+           <section>
+                <h3><i class="fab fa-teamspeak text-blue-500 mr-2"></i> kortix-ai/suna</h3>
+                <p>Suna - 开源通用型 AI 智能体</p>
+                <div class="repo-stats mt-4">
+                     <span><i class="fas fa-star"></i>9.7k</span>
+                     <span><i class="fas fa-code-branch"></i>1.2k</span>
+                     <span><i class="fas fa-eye"></i>61</span>
+                     <span class="text-green-600"><i class="fas fa-arrow-up"></i> 3427 (当期新增)</span>
+                     <span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">TS 62%</span> <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Py 33%</span>
+                 </div>
+                 <p class="mt-4 text-sm text-gray-600">Apache-2.0 License</p>
+                 <i class="fas fa-chevron-down text-gray-400 text-2xl absolute bottom-5 left-1/2 transform -translate-x-1/2"></i>
+                  <aside class="notes">
+                      Suna：通用型AI Agent，高增长，TS/Py混合。
+                 </aside>
+           </section>
+           <section>
+                <h4>项目速读 <i class="fas fa-bolt text-yellow-500"></i></h4>
+                <blockquote>
+                   Suna 是开源通用 AI 代理，旨在通过<strong class="text-accent">自然对话</strong>助用户完成现实世界复杂任务 (研究, 数据分析, 文件管理, Web 互动)。
+                   <br/><strong>解决痛点</strong>: 传统自动化流程复杂、需专业技能。
+                   <br/><strong>核心优势</strong>:
+                    <ul>
+                        <li>强大工具集成 (浏览器, 文件, Web 抓取, 搜索, CLI)。</li>
+                        <li><strong class="text-accent">安全的执行沙箱</strong> (隔离 Docker 环境)。</li>
+                        <li>完全开源，透明灵活。</li>
+                    </ul>
+                   <br/><strong>价值</strong>: 将复杂数字任务转为<strong class="text-accent">直观对话式交互</strong>，极大降低自动化门槛，提高效率。市场需求强烈。
+                </blockquote>
+                 <aside class="notes">
+                    强调 Suna 的对话式交互、安全沙箱和降低门槛的价值。
+                 </aside>
+           </section>
+      </section>
+
+       <!-- Slide Group 17: LadybirdBrowser/ladybird -->
+       <section>
+            <section>
+                <h3><i class="fas fa-paw text-red-400 mr-2"></i> LadybirdBrowser/ladybird</h3>
+                <p>真正的独立 Web 浏览器</p>
+                 <div class="repo-stats mt-4">
+                     <span><i class="fas fa-star"></i>38.3k</span>
+                     <span><i class="fas fa-code-branch"></i>1.6k</span>
+                     <span><i class="fas fa-eye"></i>201</span>
+                     <span class="text-green-600"><i class="fas fa-arrow-up"></i> 713 (当期新增)</span>
+                     <span class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">C++ 65%</span> <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">HTML 22%</span> <span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">JS 11%</span>
+                 </div>
+                 <p class="mt-4 text-sm text-gray-600">BSD-2-Clause License</p>
+                 <i class="fas fa-chevron-down text-gray-400 text-2xl absolute bottom-5 left-1/2 transform -translate-x-1/2"></i>
+                  <aside class="notes">
+                    Ladybird：独立浏览器引擎，C++为主。
+                 </aside>
+            </section>
+            <section>
+                 <h4>项目速读 <i class="fas fa-bolt text-yellow-500"></i></h4>
+                 <blockquote>
+                    Ladybird 是致力于打造<strong class="text-accent">真正独立引擎</strong>的新浏览器项目。摆脱对 Chromium/Gecko 依赖，自研渲染 (LibWeb) 和 JS 引擎 (LibJS)。
+                    <br/><strong>核心技术</strong>: 基于 SerenityOS 核心库，采用<strong class="text-accent">多进程架构</strong> (渲染/网络/图像解码隔离)，提升健壮性与安全性。
+                    <br/><strong>意义</strong>: 代表构建<strong class="text-accent">不受巨头垄断</strong>的独立浏览器替代方案的努力。目前尚处早期，面向开发者。
+                 </blockquote>
+                  <aside class="notes">
+                    强调其独立性和自研引擎的意义。
+                 </aside>
+            </section>
+       </section>
+
+      <!-- Slide Group 18: rowboatlabs/rowboat -->
+      <section>
+           <section>
+                <h3><i class="fas fa-ship text-cyan-500 mr-2"></i> rowboatlabs/rowboat</h3>
+                <p>AI 驱动的多智能体构建器</p>
+                <div class="repo-stats mt-4">
+                     <span><i class="fas fa-star"></i>2.5k</span>
+                     <span><i class="fas fa-code-branch"></i>184</span>
+                     <span><i class="fas fa-eye"></i>27</span>
+                     <span class="text-green-600"><i class="fas fa-arrow-up"></i> 1096 (当期新增)</span>
+                     <span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">TS 80%</span> <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Py 18%</span>
+                 </div>
+                 <p class="mt-4 text-sm text-gray-600">Apache-2.0 License</p>
+                 <i class="fas fa-chevron-down text-gray-400 text-2xl absolute bottom-5 left-1/2 transform -translate-x-1/2"></i>
+                  <aside class="notes">
+                      Rowboat：多智能体构建平台，AI 驱动，TS/Py。
+                 </aside>
+           </section>
+           <section>
+                <h4>项目速读 <i class="fas fa-bolt text-yellow-500"></i></h4>
+                <blockquote>
+                   Rowboat 是 AI 驱动的多智能体构建平台，旨在<strong class="text-accent">简化加速</strong>复杂智能体工作流创建。
+                   <br/><strong>解决痛点</strong>: 手动搭建多智能体协同工作的复杂性。
+                   <br/><strong>核心亮点</strong>: <strong class="text-accent">智能 AI 副驾驶</strong>功能 - 输入想法/目标，AI 自动生成可执行的多智能体工作流。
+                   <br/><strong>技术基础</strong>: 基于 OpenAI Agents SDK，提供 HTTP API 和 Python SDK 集成。支持外部工具和自定义 LLM。
+                   <br/><strong>价值</strong>: 提供快速构建和迭代多智能体应用方式，显著<strong class="text-accent">降低多智能体开发门槛</strong>。适用于快速原型、自动化流程、智能协作系统。
+                </blockquote>
+                 <aside class="notes">
+                    强调其 AI 副驾驶功能和降低开发门槛的核心价值。
+                 </aside>
+           </section>
+      </section>
+
+      <!-- Slide Group 19: simular-ai/Agent-S -->
+      <section>
+           <section>
+                <h3><i class="fas fa-robot text-purple-500 mr-2"></i> simular-ai/Agent-S</h3>
+                <p>Agent S: 一个像人类一样使用计算机的开放智能体框架</p>
+                 <div class="repo-stats mt-4">
+                     <span><i class="fas fa-star"></i>4.0k</span>
+                     <span><i class="fas fa-code-branch"></i>393</span>
+                     <span><i class="fas fa-eye"></i>47</span>
+                     <span class="text-green-600"><i class="fas fa-arrow-up"></i> 1348 (当期新增)</span>
+                     <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Python 100%</span>
+                 </div>
+                 <p class="mt-4 text-sm text-gray-600">Apache-2.0 License</p>
+                  <p class="mt-4 text-sm text-red-600"> <i class="fas fa-triangle-exclamation"></i> 警告：直接运行代码控制计算机，谨慎使用！</p>
+                 <i class="fas fa-chevron-down text-gray-400 text-2xl absolute bottom-5 left-1/2 transform -translate-x-1/2"></i>
+                  <aside class="notes">
+                      Agent-S：模拟人类操作电脑的Agent，Python，高增长，SOTA性能。注意安全警告。
+                 </aside>
+           </section>
+           <section>
+                <h4>项目速读 <i class="fas fa-bolt text-yellow-500"></i></h4>
+                <blockquote>
+                   Agent S2 是开源框架，构建能像人类用户一样操作计算机的智能体。通过<strong class="text-accent">图形用户界面(GUI)</strong>与计算机自主交互，学习执行复杂电脑任务。
+                   <br/><strong>核心亮点 & 优势</strong>: 在多项电脑使用基准测试 (OSWorld等) 中取得<strong class="text-accent">当前最佳性能 (SOTA)</strong>，显著超越 OpenAI, Anthropic 等。
+                   <br/><strong>技术特点</strong>: 灵活组合式架构 (可配主推理/视觉定位模型)，支持多种 LLM API，可集成网络搜索。
+                   <br/><strong>实际意义</strong>: 极大提升电脑任务的<strong class="text-accent">自动化与智能化</strong>水平。
+                </blockquote>
+                 <aside class="notes">
+                    强调其通过 GUI 交互、SOTA 性能和提升自动化水平的意义。
+                 </aside>
+           </section>
+      </section>
+
+      <!-- Slide Group 20: Tencent/Hunyuan3D-2 -->
+       <section>
+           <section>
+                <h3><i class="fas fa-cubes text-blue-400 mr-2"></i> Tencent/Hunyuan3D-2</h3>
+                <p>利用大规模 Hunyuan3D 扩散模型生成高分辨率 3D 资产</p>
+                <div class="repo-stats mt-4">
+                     <span><i class="fas fa-star"></i>9.3k</span>
+                     <span><i class="fas fa-code-branch"></i>783</span>
+                     <span><i class="fas fa-eye"></i>109</span>
+                     <span class="text-green-600"><i class="fas fa-arrow-up"></i> 565 (当期新增)</span>
+                     <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Py 88%</span> <span class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">C++ 9%</span>
+                 </div>
+                 <p class="mt-4 text-sm text-gray-600">License: 未知 (但提供模型)</p>
+                 <i class="fas fa-chevron-down text-gray-400 text-2xl absolute bottom-5 left-1/2 transform -translate-x-1/2"></i>
+                  <aside class="notes">
+                    腾讯混元3D：高分辨率3D生成，Python/C++。
+                 </aside>
+           </section>
+           <section>
+                <h4>项目速读 <i class="fas fa-bolt text-yellow-500"></i></h4>
+                <blockquote>
+                   腾讯混元3D 2.0 是先进 3D 合成系统，基于大规模扩散模型，高效生成<strong class="text-accent">高分辨率、带纹理</strong>的 3D 资产。
+                   <br/><strong>核心创新</strong>: “形状+纹理”两阶段管线。Hunyuan3D-DiT 生成精细形状，Hunyuan3D-Paint 合成高质量纹理。
+                   <br/><strong>优势</strong>: 在几何细节、纹理质量和一致性上<strong class="text-accent">超越当前主流技术</strong>。提供优化模型提速和纹理增强。
+                   <br/><strong>价值</strong>: 借助开源许可、Blender 插件及官方平台，显著<strong class="text-accent">降低 3D 资产创作编辑门槛</strong>，赋能游戏、动画、设计等领域。
+                </blockquote>
+                 <aside class="notes">
+                    强调其两阶段生成、技术优势和降低门槛的应用价值。
+                 </aside>
+           </section>
+       </section>
+
+        <!-- Slide Group 21: juspay/hyperswitch -->
+      <section>
+           <section>
+                <h3><i class="fab fa-rust text-orange-600 mr-2"></i> juspay/hyperswitch</h3>
+                <p>基于 Rust 开发的开源支付枢纽，旨在实现快速、可靠、低成本的支付</p>
+                 <div class="repo-stats mt-4">
+                     <span><i class="fas fa-star"></i>17.8k</span>
+                     <span><i class="fas fa-code-branch"></i>2.2k</span>
+                     <span><i class="fas fa-eye"></i>85</span>
+                     <span class="text-green-600"><i class="fas fa-arrow-up"></i> 1910 (当期新增)</span>
+                     <span class="bg-orange-100 text-orange-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-orange-900 dark:text-orange-300">Rust 81%</span> <span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">JS 18%</span>
+                 </div>
+                 <p class="mt-4 text-sm text-gray-600">Apache-2.0 License</p>
+                 <i class="fas fa-chevron-down text-gray-400 text-2xl absolute bottom-5 left-1/2 transform -translate-x-1/2"></i>
+                  <aside class="notes">
+                      Hyperswitch：开源支付编排，Rust 构建，高增长。
+                 </aside>
+           </section>
+           <section>
+                <h4>项目速读 <i class="fas fa-bolt text-yellow-500"></i></h4>
+                <blockquote>
+                   Hyperswitch 是基于 Rust 的开源<strong class="text-accent">支付编排平台</strong>，解决对接复杂支付生态难题。提供<strong class="text-accent">统一 API</strong> 接口，轻松集成管理各种支付处理器/方式/服务 (防欺诈, 3DS)。
+                   <br/><strong>核心优势</strong>: 企业级高性能、模块化设计、高可用性、强大的<strong class="text-accent">智能支付路由</strong>和失败重试 (提升成功率、降成本)。
+                   <br/><strong>特点</strong>: 配套 Control Center 可视化界面，无需代码配置管理支付流程。
+                   <br/><strong>价值</strong>: 为追求<strong class="text-accent">灵活、可靠、透明</strong>支付基础设施的企业提供强大选择 (商业开源)。
+                </blockquote>
+                 <aside class="notes">
+                    强调其作为支付编排平台、统一 API、智能路由和可视化管理的价值。
+                 </aside>
+           </section>
+      </section>
+
+        <!-- Slide Group 22: getzep/graphiti -->
+      <section>
+           <section>
+                <h3><i class="fas fa-brain text-pink-500 mr-2"></i> getzep/graphiti</h3>
+                <p>为 AI 智能体构建实时知识图谱</p>
+                 <div class="repo-stats mt-4">
+                     <span><i class="fas fa-star"></i>8.0k</span>
+                     <span><i class="fas fa-code-branch"></i>531</span>
+                     <span><i class="fas fa-eye"></i>47</span>
+                     <span class="text-green-600"><i class="fas fa-arrow-up"></i> 2732 (当期新增)</span>
+                     <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Python 99%</span>
+                 </div>
+                 <p class="mt-4 text-sm text-gray-600">Apache-2.0 License</p>
+                 <i class="fas fa-chevron-down text-gray-400 text-2xl absolute bottom-5 left-1/2 transform -translate-x-1/2"></i>
+                  <aside class="notes">
+                      Graphiti：为 AI Agent 构建知识图谱，Python，高增长。
+                 </aside>
+           </section>
+           <section>
+                <h4>项目速读 <i class="fas fa-bolt text-yellow-500"></i></h4>
+                <blockquote>
+                   Graphiti 是强大开源框架，为 AI Agent 构建<strong class="text-accent">“会思考、记得住”</strong>的实时知识大脑。
+                   <br/><strong>解决痛点</strong>: 传统数据处理局限，为 AI 提供追踪时间、理解上下文的记忆系统。
+                   <br/><strong>核心技术</strong>: 独创<strong class="text-accent">双时态模型</strong>和高效<strong class="text-accent">混合查询</strong>。
+                   <br/><strong>能力</strong>: 让 AI Agent 在海量、实时变化数据中快速查找关键信息，进行复杂推理和自动化任务。
+                   <br/><strong>价值</strong>: 构建下一代智能助手、解决<strong class="text-accent">实时交互</strong>和<strong class="text-accent">历史溯源</strong>难题的理想工具。
+                </blockquote>
+                 <aside class="notes">
+                    强调其为 Agent 提供记忆、双时态模型和混合查询的技术特点，以及解决实时交互和历史溯源的价值。
+                 </aside>
+           </section>
+      </section>
+
+
+      <!-- Slide 23: Other Notable Projects Summary -->
+        <section>
+            <h2>其他值得关注的热门项目</h2>
+             <ul class="text-sm leading-relaxed">
+                <li class="fragment"><strong><i class="fas fa-map-signs text-blue-500 mr-1"></i> kamranahmedse/developer-roadmap</strong> (⭐317k, TS): 社区驱动的技术学习路径图。</li>
+                <li class="fragment"><strong><i class="fas fa-book text-orange-500 mr-1"></i> microsoft/generative-ai-for-beginners</strong> (⭐82k, Jupyter): 微软官方 GenAI 入门课程。</li>
+                 <li class="fragment"><strong><i class="fab fa-python text-yellow-500 mr-1"></i> jackfrued/Python-100-Days</strong> (⭐166k, Jupyter): 广受欢迎的 Python 中文入门教程。</li>
+                <li class="fragment"><strong><i class="fas fa-database text-green-500 mr-1"></i> drawdb-io/drawdb</strong> (⭐30k, JS): 免费在线数据库图表编辑器。</li>
+                <li class="fragment"><strong><i class="fas fa-terminal text-gray-700 mr-1"></i> microsoft/terminal</strong> (⭐98k, C++): 现代化 Windows 终端。</li>
+                 <li class="fragment"><strong><i class="fas fa-heart-pulse text-red-500 mr-1"></i> louislam/uptime-kuma</strong> (⭐69k, JS/Vue): 美观易用的自托管监控工具。</li>
+                <li class="fragment"><strong><i class="fas fa-shield-halved text-cyan-600 mr-1"></i> aquasecurity/trivy</strong> (⭐26k, Go): 全面的开源安全扫描器。</li>
+                 <li class="fragment"><strong><i class="fas fa-location-dot text-purple-500 mr-1"></i> Freika/dawarich</strong> (⭐4.7k, Ruby): 自托管地理位置历史记录应用 (Google Timeline 替代)。</li>
+                <li class="fragment"><strong><i class="fas fa-chart-pie text-green-600 mr-1"></i> ranaroussi/yfinance</strong> (⭐17k, Python): 雅虎财经数据下载库。</li>
+            </ul>
+            <aside class="notes">
+                快速回顾其他上榜的热门项目，突出其核心功能和技术栈。
+            </aside>
+        </section>
+
+
+       <!-- Slide 24: Daily Analysis Links -->
+      <section>
+          <h2>本周每日 Github 热点解读 <i class="fas fa-newspaper text-blue-500 ml-2"></i></h2>
+           <p class="mb-4">回顾本周每一天的技术脉搏 (微信公众号文章):</p>
+          <table class="w-full text-sm">
+              <thead>
+                  <tr class="bg-gray-100">
+                      <th class="px-4 py-2 text-left">日期</th>
+                      <th class="px-4 py-2 text-left">标题精选</th>
+                      <th class="px-4 py-2 text-center">链接</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr><td class="border px-4 py-2">周一 (04/28)</td><td class="border px-4 py-2">AI 猛得不行！实时换脸、3D生成…</td><td class="border px-4 py-2 text-center"><a href="https://mp.weixin.qq.com/s/jvhXpmamuOnjfPug6RYONg" target="_blank">查看 <i class="fas fa-link"></i></a></td></tr>
+                  <tr><td class="border px-4 py-2">周二 (04/29)</td><td class="border px-4 py-2">AI工具火了！深度伪造、开源支付...</td><td class="border px-4 py-2 text-center"><a href="https://mp.weixin.qq.com/s/Rj_LRJcqVj_soWbLTBOtLg" target="_blank">查看 <i class="fas fa-link"></i></a></td></tr>
+                  <tr><td class="border px-4 py-2">周三 (04/30)</td><td class="border px-4 py-2">AI风向突变！智能体、安全成新宠</td><td class="border px-4 py-2 text-center"><a href="https://mp.weixin.qq.com/s/g3SdgpxSlCR_P1vfcpDq6A" target="_blank">查看 <i class="fas fa-link"></i></a></td></tr>
+                   <tr><td class="border px-4 py-2">周四 (05/01)</td><td class="border px-4 py-2">AI圈大变天！开发者关注方向</td><td class="border px-4 py-2 text-center"><a href="https://mp.weixin.qq.com/s/ONYn82GdtvmFg3N5rha1eg" target="_blank">查看 <i class="fas fa-link"></i></a></td></tr>
+                  <tr><td class="border px-4 py-2">周五 (05/02)</td><td class="border px-4 py-2">AI 不再画饼：Agent 开始干活了！</td><td class="border px-4 py-2 text-center"><a href="https://mp.weixin.qq.com/s/dSEfawJrd79ux0WsNCW5zg" target="_blank">查看 <i class="fas fa-link"></i></a></td></tr>
+                  <tr><td class="border px-4 py-2">周六 (05/03)</td><td class="border px-4 py-2">AI杀疯了？实时换脸、下一代工具...</td><td class="border px-4 py-2 text-center"><a href="https://mp.weixin.qq.com/s/hgvc_UHtCGvEBPH8FjgI9g" target="_blank">查看 <i class="fas fa-link"></i></a></td></tr>
+                   <tr><td class="border px-4 py-2">周日 (05/04)</td><td class="border px-4 py-2">技术圈新东西！AI安全沙箱、去中心化基建</td><td class="border px-4 py-2 text-center"><a href="https://mp.weixin.qq.com/s/JIdSlFTG4_dyJht6m5q2oA" target="_blank">查看 <i class="fas fa-link"></i></a></td></tr>
+              </tbody>
+          </table>
+           <aside class="notes">
+               提供每日分析文章的链接列表，方便观众深入了解。
+           </aside>
+      </section>
+
+       <!-- Slide 25: Conclusion & Call to Action -->
+      <section data-background-gradient="linear-gradient(to top left, #60a5fa, #3b82f6)">
+          <h2 class="!text-white !text-shadow-md">总结：抓住 AI Agent 的浪潮 <i class="fas fa-water ml-2"></i></h2>
+          <blockquote class="!bg-blue-50 !border-l-blue-500 !text-blue-900 mt-8">
+            本周 GitHub 热点清晰指向 <strong class="!text-blue-700">AI Agent</strong> 的爆发和 <strong class="!text-blue-700">生成式 AI</strong> 的深化应用。 <br/>
+            让 AI <strong class="!text-blue-700">“自主干活”</strong> 不再是未来概念，而是进行时！ <br/>
+            关注 <strong class="!text-blue-700">Agent 框架、易用性工具、安全与伦理</strong> 将是把握技术红利的关键。
+          </blockquote>
+          <h3 class="!text-blue-100 !mt-12 !text-center">保持关注，持续学习！</h3>
+
+          <div class="footer">
+            <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+            <img src="../../asserts/wx.jpg" alt="QR Code">
+          </div>
+           <aside class="notes">
+              总结核心观点，再次强调AI Agent的重要性。
+              呼吁关注和学习。
+              结尾页包含项目链接和二维码。
+           </aside>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Core Framework Script -->
+  <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+  <!-- Mermaid Script -->
+  <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+  <script>
+    // More info about initialization & config:
+    // - https://revealjs.com/initialization/
+    // - https://revealjs.com/config/
+    Reveal.initialize({
+      hash: true, // Enable slide anchors
+      history: true, // Enable browser history integration
+      center: true, // Vertical centering
+      progress: true, // Display progress bar
+      slideNumber: 'c/t', // Display "current slide / total slides"
+      transition: 'fade', // Transition style: none/fade/slide/convex/concave/zoom
+      backgroundTransition: 'fade', // Background transition style
+
+      // Optional libraries
+      dependencies: [
+         // Add Markdown, Notes, Highlight.js etc. if needed later
+         // { src: 'https://.../plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+         // { src: 'https://.../plugin/notes/notes.js', async: true },
+         // { src: 'https://.../plugin/highlight/highlight.js', async: true }
+      ]
+    });
+
+    // Initialize Mermaid.js after Reveal.js is ready
+    Reveal.on('ready', event => {
+        mermaid.initialize({
+            startOnLoad: false, // We'll initialize manually or let Reveal handle it if needed
+            theme: 'neutral', // Or 'default', 'dark', 'forest'
+             flowchart: {
+                 curve: 'basis' // Smoother lines for flowcharts
+             }
+        });
+         // Find and render all mermaid diagrams
+         document.querySelectorAll('.mermaid').forEach(el => {
+            try {
+                 // Check if already rendered (might happen with slide changes)
+                 if (!el.getAttribute('data-processed')) {
+                     mermaid.render('mermaid-' + Math.random().toString(36).substr(2, 9), el.textContent, (svgCode) => {
+                        el.innerHTML = svgCode;
+                        el.setAttribute('data-processed', 'true');
+                     });
+                 }
+             } catch (e) {
+                 console.error("Mermaid rendering error:", e);
+                 el.innerHTML = "Error rendering diagram.";
+             }
+         });
+    });
+     // Re-render Mermaid on slide change if needed (for dynamically loaded content, etc.)
+     // Reveal.on('slidechanged', event => {
+     //     // Logic to re-render if necessary
+     // });
+
+  </script>
+
+</body>
+</html>
