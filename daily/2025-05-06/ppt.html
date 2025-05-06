@@ -1,0 +1,646 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>技术圈巨震！AI Agent狂飙、效率神器涌现、底层技术重塑！</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet" id="theme">
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --r-main-font: "Noto Sans SC", Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: "Noto Serif SC", serif;
+            --r-main-font-size: 32px; /* Base for 1rem in Reveal */
+            --r-link-color: #2a76dd;
+            --r-link-color-hover: #5797ef;
+            --r-background-color: #f0f2f5; /* Light grayish blue background */
+            --r-main-color: #333;
+            --r-heading-color: #1a237e; /* Deep indigo for headings */
+            --r-heading1-size: 2.8em; /* ~2.8rem based on root font size */
+            --r-heading2-size: 2.0em;
+            --r-heading3-size: 1.6em;
+            --r-heading4-size: 1.2em;
+        }
+
+        body {
+            font-family: var(--r-main-font);
+        }
+
+        .reveal .slides {
+            text-align: left; /* Default to left align for content heavy slides */
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--r-heading-color);
+            text-align: center; /* Center titles */
+            margin-bottom: 0.8em;
+        }
+        .reveal p, .reveal li {
+            font-size: 1em; /* Relative to slide font size */
+            line-height: 1.6;
+            color: #455a64; /* Darker text for better readability */
+        }
+        .reveal strong {
+            color: #0d47a1; /* Slightly darker blue for emphasis */
+        }
+        .reveal a {
+            color: var(--r-link-color);
+        }
+        .reveal a:hover {
+            color: var(--r-link-color-hover);
+        }
+        .reveal section img {
+            margin: 15px auto; /* Center images by default */
+            background: rgba(255,255,255,0.12);
+            border: 0px solid var(--r-main-color);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+        }
+        .reveal section table {
+            width: 100%;
+            margin: 20px auto;
+            font-size: 0.9em;
+            border-collapse: collapse;
+        }
+        .reveal section th, .reveal section td {
+            border: 1px solid #ccc;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        .reveal section th {
+            background-color: #e3f2fd; /* Light blue for table headers */
+            font-weight: bold;
+            color: #0d47a1;
+        }
+
+        .footer-info {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100; /* Ensure it's above other content */
+            font-size: 0.6em; /* Smaller font for footer */
+            text-align: right;
+            color: #777;
+        }
+        .footer-info img {
+            width: 70px;
+            height: 70px;
+            display: block;
+            margin-left: auto;
+            margin-bottom: 5px;
+            border: none;
+            box-shadow: none;
+        }
+        .footer-info a {
+            color: #555;
+            text-decoration: none;
+        }
+        .footer-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Specific slide styles */
+        .cover-slide {
+            background: linear-gradient(135deg, #1c3faa 0%, #306FE8 100%); /* Deep blue to lighter blue gradient */
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .cover-slide h1, .cover-slide h2, .cover-slide p {
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+        .cover-slide h1 {
+            font-size: 3rem;
+        }
+        .cover-slide h2 {
+            font-size: 1.8rem;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        .cover-slide .speaker-info {
+            margin-top: 40px;
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .content-slide {
+            padding: 20px 40px; /* More padding for content slides */
+        }
+        .content-slide h2 {
+           border-bottom: 2px solid var(--r-heading-color);
+           padding-bottom: 0.3em;
+           margin-bottom: 1em;
+        }
+
+        .repo-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .repo-card:hover {
+            transform: translateY(-5px);
+        }
+        .repo-card h3 {
+            font-size: 1.5rem; /* 1.5-2rem for subtitle */
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #1e88e5; /* Brighter blue for repo titles */
+        }
+        .repo-card h3 a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .repo-card h3 a:hover {
+            text-decoration: underline;
+        }
+        .repo-card .meta-info {
+            font-size: 0.85em;
+            color: #546e7a;
+            margin-bottom: 15px;
+        }
+        .repo-card .meta-info i {
+            margin-right: 5px;
+            color: #78909c;
+        }
+        .repo-card .meta-info span {
+            margin-right: 15px;
+        }
+        .repo-card .lang-distro {
+            font-size: 0.8em;
+            color: #757575;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+        .repo-card .description {
+            font-size: 1rem; /* 1-1.2rem for body text */
+            margin-bottom: 15px;
+        }
+        .repo-card .analysis {
+            font-size: 0.9em;
+            background-color: #e3f2fd;
+            padding: 10px;
+            border-radius: 4px;
+            border-left: 3px solid #2196f3;
+        }
+
+        .aha-highlight {
+            color: #ff6f00; /* Bright orange for "Aha" moments or key takeaways */
+            font-weight: bold;
+        }
+
+        .fa-icon-list li {
+            list-style-type: none;
+            margin-bottom: 0.5em;
+        }
+        .fa-icon-list i {
+            margin-right: 10px;
+            color: var(--r-link-color);
+            width: 20px; /* Align icons */
+        }
+
+        .quote-slide {
+            background-color: #e8eaf6; /* Light lavender background */
+            border-left: 5px solid var(--r-heading-color);
+            padding: 30px;
+        }
+        .quote-slide p {
+            font-style: italic;
+            font-size: 1.2em;
+            color: #3949ab; /* Indigo text */
+        }
+        .quote-slide footer {
+            text-align: right;
+            font-size: 0.9em;
+            color: #5c6bc0;
+        }
+        .last-slide {
+            background: linear-gradient(135deg, #000428 0%, #004e92 100%); /* Dark blue gradient */
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .last-slide h2, .last-slide p {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <section class="cover-slide">
+                <h1>技术圈巨震！</h1>
+                <h2>AI Agent狂飙、效率神器涌现、底层技术重塑！</h2>
+                <p class="speaker-info">演讲者：AIChipEra</p>
+                <p style="font-size:0.8em; opacity: 0.7; margin-top:10px;">GitHub热门仓库日报观测时间: 2025-05-06 20:55:53</p>
+                <div class="footer-info">
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+            <section class="content-slide">
+                <h2><i class="fas fa-bullseye"></i> 日报要点</h2>
+                <p class="fragment">技术风向变了！别再只盯着大模型，现在最火的是<span class="aha-highlight">“AI Agent”智能体</span>，正从概念走向实际应用，融入你的开发工具，甚至帮你生成媒体内容。</p>
+                <p class="fragment">开发者对效率的追求从未停止，新VCS、效率神器、信息聚合工具层出不穷。</p>
+                <p class="fragment">底层技术也在悄悄革新，从容器运行时到去信任化Web3桥梁，Rust等硬核语言崛起。</p>
+                <p class="fragment">本期趋势榜新项目涌现，不仅有酷炫AI应用，更有默默提升效率、重塑基础的<span class="aha-highlight">“硬核”力量</span>。</p>
+                <p class="fragment">想知未来技术方向？解放双手工具？<strong style="font-size: 1.2em;">看这！</strong></p>
+            </section>
+
+            <section>
+                <section class="content-slide">
+                    <h2><i class="fas fa-chart-line"></i> 热门项目趋势分析</h2>
+                    <h3>今日整体趋势</h3>
+                    <p class="fragment">今日GitHub热门项目榜单呈现出<strong class="aha-highlight">多元化</strong>且深具<strong class="aha-highlight">前瞻性</strong>的技术图景。</p>
+                    <ul class="fa-icon-list">
+                        <li class="fragment"><i class="fas fa-robot"></i><strong>AI领域：</strong>从模型研究转向实际应用和系统构建，特别是“智能体”（Agents）框架和生产力工具。</li>
+                        <li class="fragment"><i class="fas fa-tools"></i><strong>开发者生产力：</strong>综合性工具集、核心开发基础设施创新（如新VCS）、信息聚合与知识分享工具持续热门。</li>
+                        <li class="fragment"><i class="fas fa-cogs"></i><strong>基础设施与平台：</strong>成熟容器运行时保持基石地位，AI与云原生结合是新方向。Web3去信任化跨链桥高增长。</li>
+                        <li class="fragment"><i class="fas fa-code"></i><strong>技术栈：</strong>Python (AI/脚本), TypeScript (Web/跨平台/工具), Go (基础设施/高性能服务), Rust (安全/性能/系统级) 影响力扩大。</li>
+                    </ul>
+                </section>
+                <section class="content-slide">
+                    <h3>今日整体趋势 (续)</h3>
+                    <p class="fragment">今日榜单特点：除了AI和效率提升，还出现对核心互联网基础设施（独立浏览器引擎）和Web3关键组件（去信任化跨链桥）的<strong class="aha-highlight">“重塑”或创新尝试</strong>。</p>
+                    <p class="fragment">展望未来：</p>
+                    <ul class="fa-icon-list">
+                       <li class="fragment"><i class="fas fa-brain"></i>AI能力进一步“下沉”并融入基础工具和操作系统。</li>
+                       <li class="fragment"><i class="fas fa-shield-alt"></i>数据主权、隐私和安全性推动更多去中心化、自托管项目。</li>
+                       <li class="fragment"><i class="fas fa-fire-alt"></i>Rust等高性能、安全语言在关键系统组件中应用深化。</li>
+                    </ul>
+                    <p class="fragment">总而言之，今日趋势勾勒出技术社区在追求<strong class="aha-highlight">智能自动化、极致开发效率、基础设施创新</strong>以及<strong class="aha-highlight">安全去中心化</strong>方面的努力方向。</p>
+                </section>
+                <section class="content-slide">
+                    <h3>热门项目双日维度对比分析</h3>
+                    <p class="fragment">本次 GitHub 趋势榜显示出<strong class="aha-highlight">活跃度显著提升</strong>。新晋项目多达<strong class="aha-highlight">十个</strong>，同时有<strong class="aha-highlight">六个</strong>现有项目呈上升态势，无项目明显下滑。</p>
+                    <p class="fragment">新上榜项目类型丰富：开发者效率工具、基础设施、学习资源、跨平台框架、自动化工具等。</p>
+                    <p class="fragment">编程语言分布：TypeScript活跃度增加，Go 和 Rust 保持存在感，Python 和 Java 项目数量略减，C# 有所上升。</p>
+                    <p class="fragment">部分项目增长显著，如 "Deep-Live-Cam"，可能代表特定技术领域的<strong class="aha-highlight">突发热点</strong>或病毒式传播。</p>
+                </section>
+            </section>
+
+            <section class="content-slide">
+                <h2><i class="fas fa-exchange-alt"></i> 热点变化</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="fragment">
+                        <h4 class="text-green-600"><i class="fas fa-arrow-trend-up"></i> 新增热点</h4>
+                        <ul class="fa-icon-list text-sm">
+                            <li><i class="fas fa-graduation-cap"></i> huggingface/agents-course</li>
+                            <li><i class="fas fa-project-diagram"></i> n8n-io/n8n</li>
+                            <li><i class="fas fa-users-cog"></i> awslabs/agent-squad</li>
+                            <li><i class="fab fa-docker"></i> containerd/containerd</li>
+                            <li><i class="fas fa-gift"></i> 521xueweihan/hellogithub</li>
+                            <li><i class="fab fa-react"></i> expo/expo</li>
+                            <li><i class="fas fa-toolbox"></i> microsoft/powertoys</li>
+                            <li><i class="fas fa-code-branch"></i> jj-vcs/jj</li>
+                            <li><i class="fas fa-newspaper"></i> ruanyf/weekly</li>
+                            <li><i class="fas fa-eye"></i> glanceapp/glance</li>
+                        </ul>
+                    </div>
+                    <div class="fragment">
+                        <h4 class="text-red-600"><i class="fas fa-arrow-trend-down"></i> 减退热点</h4>
+                        <ul class="fa-icon-list text-sm">
+                            <li><i class="fab fa-playstation"></i> atmosphere-nx/atmosphere</li>
+                            <li><i class="fas fa-home"></i> home-assistant/core</li>
+                            <li><i class="fas fa-car"></i> sunnypilot/sunnypilot</li>
+                            <li><i class="fas fa-network-wired"></i> juanfont/headscale</li>
+                            <li><i class="fas fa-file-pdf"></i> stirling-tools/stirling-pdf</li>
+                            <li><i class="fas fa-drafting-compass"></i> donnemartin/system-design-primer</li>
+                            <li><i class="fas fa-coffee"></i> iluwatar/java-design-patterns</li>
+                            <li><i class="fas fa-robot"></i> commaai/openpilot</li>
+                            <li><i class="fas fa-brain"></i> shubhamsaboo/awesome-llm-apps</li>
+                            <li><i class="fas fa-book-open"></i> ebookfoundation/free-programming-books</li>
+                            <li><i class="fas fa-chalkboard-teacher"></i> microsoft/ai-agents-for-beginners</li>
+                            <li><i class="fas fa-magic"></i> aipotheosis-labs/aci</li>
+                        </ul>
+                    </div>
+                    <div class="fragment">
+                        <h4 class="text-blue-600"><i class="fas fa-fire"></i> 持续热门</h4>
+                        <ul class="fa-icon-list text-sm">
+                            <li><i class="fab fa-firefox-browser"></i> LadybirdBrowser/ladybird (3次)</li>
+                            <li><i class="fas fa-link"></i> unionlabs/union (5次)</li>
+                            <li><i class="fas fa-camera-retro"></i> hacksider/Deep-Live-Cam (9次)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-slide">
+                <h2><i class="fas fa-database"></i> 详细仓库数据</h2>
+                <p class="text-center text-gray-600 italic">滑动下方查看各热门项目详情 <i class="fas fa-arrow-down"></i></p>
+            </section>
+
+            <!-- Repository Details Start -->
+            <section>
+                <section class="repo-card">
+                    <h3><a href="https://github.com/GoogleCloudPlatform/kubectl-ai" target="_blank"><i class="fab fa-google"></i> GoogleCloudPlatform/kubectl-ai</a></h3>
+                    <p class="description"><strong>项目简介:</strong> AI驱动的Kubernetes助手</p>
+                    <div class="meta-info">
+                        <span><i class="fas fa-star"></i> 1125</span>
+                        <span><i class="fas fa-code-branch"></i> 91</span>
+                        <span><i class="fas fa-eye"></i> 13</span>
+                        <span><i class="fas fa-info-circle"></i> 14 Issues</span>
+                        <span><i class="fas fa-arrow-up"></i> 486 (当日Star)</span>
+                    </div>
+                    <div class="lang-distro"><strong>编程语言占比:</strong> Go 85.6%, Shell 13.8%, Other 0.6%</div>
+                    <p class="fragment"><strong>项目速读:</strong> kubectl-ai 是一个终端中的AI驱动Kubernetes助手。它简化Kubernetes集群交互，支持自然语言查询和操作，支持多种LLM，大幅降低Kubernetes使用门槛，提升DevOps效率。</p>
+                    <p class="analysis fragment"><strong>增长分析：</strong> 短周期内（2天）两次上榜，增长势头强劲，今日新增486 Star，反映项目吸引力快速提升。</p>
+                </section>
+
+                <section class="repo-card">
+                    <h3><a href="https://github.com/LadybirdBrowser/ladybird" target="_blank"><i class="fab fa-firefox-browser"></i> LadybirdBrowser/ladybird</a></h3>
+                    <p class="description"><strong>项目简介:</strong> 真正的独立网页浏览器</p>
+                     <div class="meta-info">
+                        <span><i class="fas fa-star"></i> 39133</span>
+                        <span><i class="fas fa-code-branch"></i> 1.6k</span>
+                        <span><i class="fas fa-eye"></i> 208</span>
+                        <span><i class="fas fa-info-circle"></i> 397 Issues</span>
+                        <span><i class="fas fa-arrow-up"></i> 516 (当日Star)</span>
+                    </div>
+                    <div class="lang-distro"><strong>编程语言占比:</strong> C++ 64.7%, HTML 22.3%, JavaScript 11.0%, CMake 0.7%, Objective-C++ 0.5%, Swift 0.3%, Other 0.5%</div>
+                    <p class="fragment"><strong>项目速读:</strong> Ladybird 是一个从零开始构建全新网页引擎 LibWeb 的独立浏览器。核心优势是自主研发引擎和先进多进程架构，提升安全性和稳定性。目前处于 pre-alpha 阶段。</p>
+                    <p class="analysis fragment"><strong>增长分析：</strong> 总星标增长2277，平均每次上榜新增193.8。6次上榜，增长稳定且活跃。今日新增516星，显示增长趋势正在加速。</p>
+                </section>
+
+                <section class="repo-card">
+                    <h3><a href="https://github.com/521xueweihan/HelloGitHub" target="_blank"><i class="fas fa-gift"></i> 521xueweihan/HelloGitHub</a></h3>
+                    <p class="description"><strong>项目简介:</strong> 分享 GitHub 上有趣、入门级的开源项目。</p>
+                    <div class="meta-info">
+                        <span><i class="fas fa-star"></i> 104757</span>
+                        <span><i class="fas fa-code-branch"></i> 9.9k</span>
+                        <span><i class="fas fa-eye"></i> 3.3k</span>
+                        <span><i class="fas fa-info-circle"></i> 220 Issues</span>
+                        <span><i class="fas fa-arrow-up"></i> 799 (当日Star)</span>
+                    </div>
+                    <div class="lang-distro"><strong>编程语言占比:</strong> Python 100.0%</div>
+                    <p class="fragment"><strong>项目速读:</strong> HelloGitHub 每月精选推荐“有趣”、“入门级”的开源项目、工具和资源，连接初学者与开源世界，降低探索门槛，是感受开源魅力的理想起点。</p>
+                    <p class="analysis fragment"><strong>增长分析：</strong> 近3天总增长1451 Star，平均每次上榜增590.5。今日增799，显示在有限曝光下，增长速度快且近期势头强劲。</p>
+                </section>
+                
+                <section class="repo-card">
+                    <h3><a href="https://github.com/awslabs/agent-squad" target="_blank"><i class="fab fa-aws"></i> awslabs/agent-squad</a></h3>
+                    <p class="description"><strong>项目简介:</strong> 灵活而强大的框架，用于管理多个AI智能体并处理复杂的对话。</p>
+                     <div class="meta-info">
+                        <span><i class="fas fa-star"></i> 4972</span>
+                        <span><i class="fas fa-code-branch"></i> 417</span>
+                        <span><i class="fas fa-eye"></i> 45</span>
+                        <span><i class="fas fa-info-circle"></i> 40 Issues</span>
+                        <span><i class="fas fa-arrow-up"></i> 85 (当日Star)</span>
+                    </div>
+                    <div class="lang-distro"><strong>编程语言占比:</strong> Python 58.6%, TypeScript 41.4%</div>
+                    <p class="fragment"><strong>项目速读:</strong> Agent Squad 是一个用于构建处理复杂多轮对话AI应用的开源框架。它能高效协调管理多个AI智能体，智能路由任务，并引入SupervisorAgent概念增强团队协作能力。</p>
+                </section>
+
+                <section class="repo-card">
+                    <h3><a href="https://github.com/unionlabs/union" target="_blank"><i class="fas fa-link"></i> unionlabs/union</a></h3>
+                    <p class="description"><strong>项目简介:</strong> 去信任化零知识跨链协议，旨在实现抗审查性、极高的安全性以及在去中心化金融中的应用。</p>
+                     <div class="meta-info">
+                        <span><i class="fas fa-star"></i> 58117</span>
+                        <span><i class="fas fa-code-branch"></i> 2.9k</span>
+                        <span><i class="fas fa-eye"></i> 1.3k</span>
+                        <span><i class="fas fa-info-circle"></i> 257 Issues</span>
+                        <span><i class="fas fa-arrow-up"></i> 583 (当日Star)</span>
+                    </div>
+                    <div class="lang-distro"><strong>编程语言占比:</strong> Rust 84.5%, TypeScript 4.0%, Move 4.0%, Solidity 2.4%, Svelte 1.7%, Nix 1.5%, Other 1.9%</div>
+                    <p class="fragment"><strong>项目速读:</strong> Union 是一个无需信任、零知识的跨链桥协议，专注于解决不同区块链网络间安全、去中心化的消息和资产传递。核心优势在于基于零知识证明和“共识验证”的极致去信任化设计。</p>
+                    <p class="analysis fragment"><strong>增长分析：</strong> 上榜8次，总Star增长6903，平均每次带来约447 Star。频繁上榜是主要驱动力，近期增长势头良好。</p>
+                </section>
+
+                <section class="repo-card">
+                    <h3><a href="https://github.com/hacksider/Deep-Live-Cam" target="_blank"><i class="fas fa-camera-retro"></i> hacksider/Deep-Live-Cam</a></h3>
+                    <p class="description"><strong>项目简介:</strong> 仅需单张图片即可实现实时换脸和一键视频深度伪造</p>
+                    <div class="meta-info">
+                        <span><i class="fas fa-star"></i> 63742</span>
+                        <span><i class="fas fa-code-branch"></i> 8.8k</span>
+                        <span><i class="fas fa-eye"></i> 385</span>
+                        <span><i class="fas fa-info-circle"></i> 57 Issues</span>
+                        <span><i class="fas fa-arrow-up"></i> 1960 (当日Star)</span>
+                    </div>
+                    <div class="lang-distro"><strong>编程语言占比:</strong> Python 99.9%, Batchfile 0.1%</div>
+                    <p class="fragment"><strong>项目速读:</strong> Deep-Live-Cam 是一个开源实时深度伪造工具，用于视频和直播流中人脸替换。亮点在于实时性和低门槛，仅需单张源图即可实现高性能实时换脸，支持多种硬件加速。</p>
+                    <p class="analysis fragment"><strong>增长分析：</strong> 频繁上榜14次，1.5月增星1.9万，每次增千余，近期加速，增长势头强劲。</p>
+                </section>
+
+                <section class="repo-card">
+                    <h3><a href="https://github.com/glanceapp/glance" target="_blank"><i class="fas fa-eye"></i> glanceapp/glance</a></h3>
+                    <p class="description"><strong>项目简介:</strong> 一个自托管的仪表盘，将所有信息流汇集到一处。</p>
+                    <div class="meta-info">
+                        <span><i class="fas fa-star"></i> 23407</span>
+                        <span><i class="fas fa-code-branch"></i> 882</span>
+                        <span><i class="fas fa-eye"></i> 55</span>
+                        <span><i class="fas fa-info-circle"></i> 124 Issues</span>
+                        <span><i class="fas fa-arrow-up"></i> 219 (当日Star)</span>
+                    </div>
+                    <div class="lang-distro"><strong>编程语言占比:</strong> Go 56.4%, HTML 17.8%, CSS 13.8%, JavaScript 11.9%, Dockerfile 0.1%</div>
+                    <p class="fragment"><strong>项目速读:</strong> Glance 是一个开源自托管个人信息仪表盘，聚合各类信息源（RSS、新闻、天气等）到可定制页面。基于Go语言，快速轻量，部署简便，适合追求个性化和信息效率的技术用户。</p>
+                    <p class="analysis fragment"><strong>增长分析：</strong> 上榜7次，平均每次带来超1000星增长，总增长超1.1万星。今日增长219星，低于上榜时平均水平，增长可能有所放缓。</p>
+                </section>
+
+                <section class="repo-card">
+                    <h3><a href="https://github.com/containerd/containerd" target="_blank"><i class="fab fa-docker"></i> containerd/containerd</a></h3>
+                    <p class="description"><strong>项目简介:</strong> 开放、可靠的容器运行时</p>
+                    <div class="meta-info">
+                        <span><i class="fas fa-star"></i> 18377</span>
+                        <span><i class="fas fa-code-branch"></i> 3.5k</span>
+                        <span><i class="fas fa-eye"></i> 338</span>
+                        <span><i class="fas fa-info-circle"></i> 252 Issues</span>
+                        <span><i class="fas fa-arrow-up"></i> 7 (当日Star)</span>
+                    </div>
+                    <div class="lang-distro"><strong>编程语言占比:</strong> Go 97.4%, Shell 1.9%, Other 0.7%</div>
+                    <p class="fragment"><strong>项目速读:</strong> containerd 是一个开放可靠的容器运行时守护进程，管理容器完整生命周期（镜像处理、存储、执行监控）。CNCF毕业项目，简洁健壮，跨平台，是Kubernetes等编排系统的核心运行时。</p>
+                </section>
+
+                <section class="repo-card">
+                    <h3><a href="https://github.com/n8n-io/n8n" target="_blank"><i class="fas fa-project-diagram"></i> n8n-io/n8n</a></h3>
+                    <p class="description"><strong>项目简介:</strong> 公平代码工作流程自动化平台，具备原生AI能力。结合可视化构建与自定义代码，支持自托管或云端部署，400多个集成。</p>
+                    <div class="meta-info">
+                        <span><i class="fas fa-star"></i> 89348</span>
+                        <span><i class="fas fa-code-branch"></i> 24.5k</span>
+                        <span><i class="fas fa-eye"></i> 591</span>
+                        <span><i class="fas fa-info-circle"></i> 421 Issues</span>
+                        <span><i class="fas fa-arrow-up"></i> 333 (当日Star)</span>
+                    </div>
+                    <div class="lang-distro"><strong>编程语言占比:</strong> TypeScript 90.0%, Vue 8.1%, SCSS 1.2%, JavaScript 0.4%, Handlebars 0.2%, HTML 0.1%</div>
+                    <p class="fragment"><strong>项目速读:</strong> n8n 是专为技术团队设计的工作流自动化平台，结合可视化构建与代码灵活性。超400种集成和原生AI能力，支持自托管，满足数据主权和定制化需求。</p>
+                    <p class="analysis fragment"><strong>增长分析：</strong> 上榜5次，总Star增长高达23641，平均每次带来541星标。尽管上榜频率不高，但在少数曝光期增长强劲。</p>
+                </section>
+                
+                <section class="repo-card">
+                    <h3><a href="https://github.com/koreader/koreader" target="_blank"><i class="fas fa-book-reader"></i> koreader/koreader</a></h3>
+                    <p class="description"><strong>项目简介:</strong> 支持 PDF, DjVu, EPUB, FB2 等多种格式的电子书阅读应用，适用于 Cervantes, Kindle, Kobo, PocketBook 和 Android 设备</p>
+                    <div class="meta-info">
+                        <span><i class="fas fa-star"></i> 21191</span>
+                        <span><i class="fas fa-code-branch"></i> 1.4k</span>
+                        <span><i class="fas fa-eye"></i> 328</span>
+                        <span><i class="fas fa-info-circle"></i> 888 Issues</span>
+                        <span><i class="fas fa-arrow-up"></i> 192 (当日Star)</span>
+                    </div>
+                    <div class="lang-distro"><strong>编程语言占比:</strong> Lua 97.2%, Shell 2.2%, Other 0.6%</div>
+                    <p class="fragment"><strong>项目速读:</strong> KOReader 是一款专为电子墨水屏设备打造的强大开源阅读软件。提供比原生系统更灵活、功能更丰富的阅读体验，支持多种格式，尤其擅长优化扫描版PDF。</p>
+                    <p class="analysis fragment"><strong>增长分析：</strong> 约一个月内总增长1637 Star。4次上榜是主要增长驱动力，平均每次贡献约166 Star。今日新增192，近期仍保持活跃增长。</p>
+                </section>
+
+                <section class="repo-card">
+                    <h3><a href="https://github.com/huggingface/agents-course" target="_blank"><i class="fas fa-graduation-cap"></i> huggingface/agents-course</a></h3>
+                    <p class="description"><strong>项目简介:</strong> 本存储库包含 Hugging Face Agents 课程。</p>
+                     <div class="meta-info">
+                        <span><i class="fas fa-star"></i> 17355</span>
+                        <span><i class="fas fa-code-branch"></i> 1.1k</span>
+                        <span><i class="fas fa-eye"></i> 139</span>
+                        <span><i class="fas fa-info-circle"></i> 40 Issues</span>
+                        <span><i class="fas fa-arrow-up"></i> 69 (当日Star)</span>
+                    </div>
+                    <div class="lang-distro"><strong>编程语言占比:</strong> Jupyter Notebook 81.0%, MDX 18.8%, Python 0.2%</div>
+                    <p class="fragment"><strong>项目速读:</strong> Hugging Face Agent 课程是一个免费在线学习资源，系统教授如何用LLM构建AI Agent。内容全面实践性强，覆盖基础概念、主流框架（LangGraph, LlamaIndex）、Agentic RAG等前沿话题。</p>
+                </section>
+
+                <section class="repo-card">
+                    <h3><a href="https://github.com/jj-vcs/jj" target="_blank"><i class="fas fa-code-branch"></i> jj-vcs/jj</a></h3>
+                    <p class="description"><strong>项目简介:</strong> 一个既简单又强大的 Git 兼容版本控制系统</p>
+                    <div class="meta-info">
+                        <span><i class="fas fa-star"></i> 13755</span>
+                        <span><i class="fas fa-code-branch"></i> 491</span>
+                        <span><i class="fas fa-eye"></i> 73</span>
+                        <span><i class="fas fa-info-circle"></i> 460 Issues</span>
+                        <span><i class="fas fa-arrow-up"></i> 270 (当日Star)</span>
+                    </div>
+                    <div class="lang-distro"><strong>编程语言占比:</strong> Rust 99.9%, Nix 0.1%</div>
+                    <p class="fragment"><strong>项目速读:</strong> Jujutsu (jj) 是一个与Git高度兼容的创新VCS，旨在简化易用性和历史修改。核心亮点是“提交即工作副本”模型，取代暂存区和stash。提供完整操作日志、强大自动变基和冲突处理。</p>
+                    <p class="analysis fragment"><strong>增长分析：</strong> 上榜3次，平均每次增星244，最新日增270，增长稳定并略有加速。</p>
+                </section>
+
+                <section class="repo-card">
+                    <h3><a href="https://github.com/CapSoftware/Cap" target="_blank"><i class="fas fa-video"></i> CapSoftware/Cap</a></h3>
+                    <p class="description"><strong>项目简介:</strong> Loom 的开源替代品。精美的可分享屏幕录制。</p>
+                    <div class="meta-info">
+                        <span><i class="fas fa-star"></i> 8649</span>
+                        <span><i class="fas fa-code-branch"></i> 480</span>
+                        <span><i class="fas fa-eye"></i> 32</span>
+                        <span><i class="fas fa-info-circle"></i> 114 Issues</span>
+                        <span><i class="fas fa-arrow-up"></i> 500 (当日Star)</span>
+                    </div>
+                    <div class="lang-distro"><strong>编程语言占比:</strong> TypeScript 63.8%, Rust 30.4%, MDX 2.0%, JavaScript 1.7%, WGSL 0.8%, CSS 0.7%, Other 0.6%</div>
+                    <p class="fragment"><strong>项目速读:</strong> Cap 是一个开源 Loom 替代品，专注提供美观、易分享的屏幕录制和视频消息服务。支持跨平台（macOS, Windows, Web），计划支持自托管。采用 Rust, Tauri, Next.js, TypeScript 等技术。</p>
+                    <p class="analysis fragment"><strong>增长分析：</strong> 短短2天内上榜2次，增长势头强劲。平均每次上榜带来约300星标增长，最新上榜新增500星标，显示较高活跃度和持续上升趋势。</p>
+                </section>
+
+                <section class="repo-card">
+                    <h3><a href="https://github.com/expo/expo" target="_blank"><i class="fab fa-react"></i> expo/expo</a></h3>
+                    <p class="description"><strong>项目简介:</strong> 使用 React 构建通用原生应用的开源框架。Expo 运行于 Android、iOS 和 Web。</p>
+                     <div class="meta-info">
+                        <span><i class="fas fa-star"></i> 39717</span>
+                        <span><i class="fas fa-code-branch"></i> 6.8k</span>
+                        <span><i class="fas fa-eye"></i> 320</span>
+                        <span><i class="fas fa-info-circle"></i> 471 Issues</span>
+                        <span><i class="fas fa-arrow-up"></i> 48 (当日Star)</span>
+                    </div>
+                    <div class="lang-distro"><strong>编程语言占比:</strong> TypeScript 41.7%, JavaScript 24.9%, Kotlin 12.9%, Swift 8.7%, Objective-C 4.7%, Java 2.7%, Other 4.4%</div>
+                    <p class="fragment"><strong>项目速读:</strong> Expo 是一个用 React 和 JavaScript 构建通用原生应用（Android, iOS, Web）的开源框架。它极大简化跨平台开发复杂性，提供 Expo SDK、CLI、Router 和 Expo Go 应用，以及EAS服务支持。</p>
+                </section>
+
+                <section class="repo-card">
+                    <h3><a href="https://github.com/microsoft/PowerToys" target="_blank"><i class="fab fa-windows"></i> microsoft/PowerToys</a></h3>
+                    <p class="description"><strong>项目简介:</strong> 提升工作效率的 Windows 系统工具</p>
+                    <div class="meta-info">
+                        <span><i class="fas fa-star"></i> 118055</span>
+                        <span><i class="fas fa-code-branch"></i> 7k</span>
+                        <span><i class="fas fa-eye"></i> 1.2k</span>
+                        <span><i class="fas fa-info-circle"></i> 5k+ Issues</span>
+                        <span><i class="fas fa-arrow-up"></i> 39 (当日Star)</span>
+                    </div>
+                    <div class="lang-distro"><strong>编程语言占比:</strong> C# 63.9%, C++ 33.7%, C 1.1%, PowerShell 1.0%, JavaScript 0.1%, HTML 0.1%, Other 0.1%</div>
+                    <p class="fragment"><strong>项目速读:</strong> 微软 PowerToys 是一套专为 Windows 高级用户打造的系统效率工具集。通过模块化实用程序解决窗口布局、快速启动、文件操作等痛点，提升工作效率。</p>
+                </section>
+
+                <section class="repo-card">
+                    <h3><a href="https://github.com/ruanyf/weekly" target="_blank"><i class="fas fa-newspaper"></i> ruanyf/weekly</a></h3>
+                    <p class="description"><strong>项目简介:</strong> 科技爱好者周刊，每周五发布</p>
+                     <div class="meta-info">
+                        <span><i class="fas fa-star"></i> 57492</span>
+                        <span><i class="fas fa-code-branch"></i> 3.2k</span>
+                        <span><i class="fas fa-eye"></i> 2.5k</span>
+                        <span><i class="fas fa-info-circle"></i> 5k+ Issues</span>
+                        <span><i class="fas fa-arrow-up"></i> 633 (当日Star)</span>
+                    </div>
+                    <p class="fragment"><strong>项目速读:</strong> ruanyf/weekly 是一个科技信息精选周刊，每周五发布，筛选呈现当周值得关注的技术文章、工具和资源。核心优势是持续高质量精选、完整历史存档和便捷检索。</p>
+                    <p class="analysis fragment"><strong>增长分析：</strong> 近11天总增长3098 Star，主要归功于两次上榜。今日633 Star新增量表明最新一次上榜效应显著。增长呈上榜事件驱动的爆发式特征。</p>
+                </section>
+            </section>
+            <!-- Repository Details End -->
+
+            <section class="quote-slide">
+                <p>"技术的浪潮奔涌不息，唯有持续学习与拥抱变化，方能立于潮头。"</p>
+                <footer>- AIChipEra</footer>
+                <div class="footer-info">
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+            <section class="last-slide">
+                <h2>感谢聆听！</h2>
+                <p>关注我们，获取更多前沿技术动态。</p>
+                <p class="fragment" style="margin-top: 30px;">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-2xl hover:underline" style="color: #64b5f6;">
+                        <i class="fab fa-github"></i> Star我们 on GitHub!
+                    </a>
+                </p>
+                <div class="footer-info" style="color: #aaa;">
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra QR Code" style="filter: grayscale(50%) contrast(150%);">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" style="color: #bbb;">github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            center: true,
+            width: 1100, // Adjusted width for better content fit
+            height: 700,
+            margin: 0.04,
+            controls: true,
+            progress: true,
+            history: true,
+            slideNumber: 'c/t',
+            transition: 'slide', // 'slide', 'fade', 'convex', 'concave', 'zoom'
+            backgroundTransition: 'fade',
+            // fragments: true, // Already default
+            // dependencies: [ // For Markdown, etc. if needed
+            //  { src: 'plugin/markdown/marked.js' },
+            //  { src: 'plugin/markdown/markdown.js' },
+            //  { src: 'plugin/notes/notes.js', async: true },
+            //  { src: 'plugin/highlight/highlight.js', async: true }
+            // ]
+        });
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+</html>
