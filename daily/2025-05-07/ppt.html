@@ -1,0 +1,595 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>技术前沿揭秘：AI Agent浪潮如何重塑开发？</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet" id="theme">
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --r-main-font: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: 'Noto Serif SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, serif;
+            --r-link-color: #2a76dd;
+            --r-link-color-hover: #5599ff;
+            --r-background-color: #f0f2f5; /* Light gray background */
+            --r-main-color: #333;
+            --r-heading-color: #1a237e; /* Deep indigo for headings */
+
+            --aha-primary-color: #3f51b5; /* Indigo */
+            --aha-secondary-color: #1976d2; /* Blue */
+            --aha-accent-color: #00bcd4; /* Cyan */
+            --aha-text-light: #ffffff;
+            --aha-text-dark: #212121;
+            --aha-bg-gradient-start: #4e54c8;
+            --aha-bg-gradient-end: #8f94fb;
+        }
+
+        body {
+            font-family: var(--r-main-font);
+            background-color: var(--r-background-color);
+        }
+
+        .reveal {
+            font-family: var(--r-main-font);
+            color: var(--r-main-color);
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--r-heading-color);
+            font-weight: 600; /* Bolder headings */
+        }
+
+        .reveal h1 { font-size: 2.8rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.1); }
+        .reveal h2 { font-size: 2.2rem; }
+        .reveal h3 { font-size: 1.8rem; }
+        .reveal p, .reveal li {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .reveal section {
+            padding: 20px; /* Default padding for sections */
+        }
+
+        .reveal section img {
+            border-radius: 8px; /* Slightly rounded images */
+        }
+        
+        .footer-info {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.6em !important; /* Smaller font size for footer */
+            color: var(--aha-text-light); /* Light text for dark backgrounds */
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 10;
+        }
+        .footer-info-dark-text { /* For light backgrounds */
+             color: var(--aha-text-dark);
+        }
+
+        .footer-info img {
+            width: 50px; /* Smaller QR code */
+            height: 50px;
+            border-radius: 4px;
+        }
+        .footer-info a {
+            color: inherit !important; /* Inherit color from parent */
+            text-decoration: none;
+        }
+         .footer-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Cover slide style */
+        .cover-slide {
+            background: linear-gradient(135deg, var(--aha-bg-gradient-start) 0%, var(--aha-bg-gradient-end) 100%);
+            color: var(--aha-text-light);
+            text-align: center;
+        }
+        .cover-slide h1, .cover-slide h2, .cover-slide p {
+            color: var(--aha-text-light);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .cover-slide h1 {
+            font-size: 3.5rem; /* Larger title for cover */
+            margin-bottom: 0.5em;
+        }
+        .cover-slide h2 {
+            font-size: 1.8rem; /* Subtitle */
+            font-style: italic;
+            opacity: 0.9;
+            margin-bottom: 1em;
+        }
+        .cover-slide .speaker {
+            font-size: 1.2rem;
+            margin-top: 2em;
+            opacity: 0.8;
+        }
+
+        /* Content slide enhancements */
+        .content-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08), 0 6px 6px rgba(0,0,0,0.05);
+            padding: 25px 35px !important; /* More padding inside cards */
+            margin-bottom: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12), 0 8px 8px rgba(0,0,0,0.08);
+        }
+        .content-card h3 {
+            color: var(--aha-primary-color);
+            border-bottom: 2px solid var(--aha-accent-color);
+            padding-bottom: 0.3em;
+            margin-bottom: 0.7em;
+        }
+
+        /* Custom list style for key points */
+        .key-points li {
+            padding-left: 1.5em;
+            position: relative;
+            margin-bottom: 0.5em;
+        }
+        .key-points li::before {
+            content: "\f00c"; /* Font Awesome check icon */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--aha-accent-color);
+            position: absolute;
+            left: 0;
+            top: 5px; /* Adjust vertical alignment */
+        }
+
+        /* Project details table styling */
+        .project-table {
+            width: 100%;
+            margin-top: 1em;
+            border-collapse: collapse; /* Use collapse for cleaner lines */
+            font-size: 0.9rem;
+        }
+        .project-table th, .project-table td {
+            border: 1px solid #e0e0e0; /* Lighter borders */
+            padding: 0.6em 0.8em;
+            text-align: left;
+        }
+        .project-table th {
+            background-color: #f7f9fc; /* Light background for headers */
+            color: var(--aha-secondary-color);
+            font-weight: 500;
+        }
+        .project-table td strong {
+            color: var(--aha-primary-color);
+        }
+        .project-table i {
+            margin-right: 0.3em;
+            color: var(--aha-accent-color);
+        }
+        
+        /* Styling for language percentages */
+        .lang-distro {
+            margin-top: 0.5em;
+            font-size: 0.85em;
+            color: #555;
+        }
+        .lang-distro span {
+            display: inline-block;
+            margin-right: 10px;
+            padding: 2px 6px;
+            background-color: #eef2f7;
+            border-radius: 4px;
+        }
+
+        /* Heat points section */
+        .heat-points-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .heat-point-category {
+            padding: 15px;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+        }
+        .heat-point-category h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5em;
+            display: flex;
+            align-items: center;
+        }
+        .heat-point-category h4 i {
+            margin-right: 0.5em;
+            font-size: 1.2em;
+        }
+        .heat-point-category ul { list-style: none; padding-left: 0; }
+        .heat-point-category li { 
+            padding: 0.3em 0; 
+            border-bottom: 1px dashed #eee;
+            font-size: 0.95rem;
+        }
+        .heat-point-category li:last-child { border-bottom: none; }
+        .heat-added h4 { color: #4caf50; /* Green */ }
+        .heat-removed h4 { color: #f44336; /* Red */ }
+        .heat-ongoing h4 { color: #2196f3; /* Blue */ }
+
+        /* Final slide for "Aha" */
+        .aha-moment-slide {
+            background: radial-gradient(circle, var(--aha-accent-color) 0%, var(--aha-secondary-color) 70%, var(--aha-primary-color) 100%);
+            color: var(--aha-text-light);
+        }
+        .aha-moment-slide h1, .aha-moment-slide p {
+            color: var(--aha-text-light);
+        }
+        .aha-moment-slide h1 {
+            font-size: 3rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+        }
+        .aha-moment-slide p {
+            font-size: 1.5rem;
+            margin-top: 1em;
+        }
+        .fragment.custom-fade-in {
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .fragment.custom-fade-in.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover -->
+            <section class="cover-slide" data-transition="zoom">
+                <h1>技术前沿揭秘：<br>AI Agent浪潮如何重塑开发？</h1>
+                <h2>Github热门仓库日报 (2025-05-07)</h2>
+                <p class="speaker">演讲者: AIChipEra</p>
+                <aside class="notes">
+                    开场白，点明主题：AI Agent带来的变革。
+                </aside>
+                <div class="footer-info">
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend <i class="fab fa-github"></i></a>
+                </div>
+            </section>
+
+            <!-- Slide 2: Disclaimer -->
+            <section class="content-card" data-transition="slide-in fade-out">
+                <h3><i class="fas fa-exclamation-triangle" style="color: #f57c00;"></i> 重要声明</h3>
+                <p class="text-gray-700 leading-relaxed">
+                    本次日报观测时间为 <strong class="text-indigo-600">2025-05-07 20:56:56</strong>。
+                </p>
+                <p class="mt-4 text-red-600 font-semibold text-lg">
+                    <i class="fas fa-info-circle"></i> 以下内容仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！
+                </p>
+                <aside class="notes">
+                    强调信息的时效性和免责声明。
+                </aside>
+            </section>
+
+            <!-- Slide 3: 日报要点 -->
+            <section data-transition="convex">
+                <div class="content-card">
+                    <h3><i class="fas fa-lightbulb" style="color: #ffc107;"></i> 日报要点：AI Agent的崛起</h3>
+                    <ul class="key-points">
+                        <li class="fragment" data-fragment-index="1">AI Agent技术爆发，开发者迎来前所未有的变革。</li>
+                        <li class="fragment" data-fragment-index="2">从强大Agent框架到巨头入门课程，Agent技术加速落地与普及。</li>
+                        <li class="fragment" data-fragment-index="3">AI能力深度渗透日常开发运维，复杂操作变简单，效率倍增。</li>
+                        <li class="fragment" data-fragment-index="4"><strong>核心观点：</strong>AI不再仅是工具，而是能主动参与甚至引领开发流程的关键引擎。</li>
+                        <li class="fragment" data-fragment-index="5"><strong>行动号召：</strong>掌握AI Agent构建与应用，是开发者新时代保持竞争力的必修课。</li>
+                    </ul>
+                </div>
+                <aside class="notes">
+                    概括今日AI Agent的主要趋势和对开发者的影响。
+                </aside>
+            </section>
+
+            <!-- Slide 4: 热门项目趋势分析 - 今日整体趋势 -->
+            <section data-transition="fade-in slide-out">
+                <div class="content-card">
+                    <h3><i class="fas fa-chart-line" style="color: var(--aha-secondary-color);"></i> 今日整体趋势分析</h3>
+                    <p class="fragment"><strong>核心主题：</strong>AI Agent工具、框架与学习资源引领潮流 (CrewAI, ai-agents-for-beginners, Cline)。</p>
+                    <p class="fragment"><strong>融合趋势：</strong>AI融入现有开发运维流程 (kubectl-ai, MoneyPrinterTurbo, n8n)。</p>
+                    <p class="fragment"><strong>开发者工具：</strong>高效开发体验持续受关注 (Beekeeper Studio, Void)。</p>
+                    <p class="fragment"><strong>编程语言：</strong>Python (AI/ML), TypeScript/JavaScript (Web/Tools) 主导，Go, Rust 在特定领域活跃。</p>
+                    <p class="fragment"><strong>演变：</strong>AI Agent更系统化、工程化；开发者工具AI化。</p>
+                    <p class="fragment"><strong>展望：</strong>垂直化Agent应用，Agent安全与评估成热点，AI与Web3/多模态结合。 </p>
+                </div>
+                <aside class="notes">
+                    分析今日GitHub热门项目的整体技术走向和特点。
+                </aside>
+            </section>
+
+            <!-- Slide 5: 热门项目双日维度对比分析 -->
+            <section data-transition="slide">
+                 <div class="content-card">
+                    <h3><i class="fas fa-exchange-alt" style="color: var(--aha-accent-color);"></i> 双日热门项目对比</h3>
+                    <ul class="key-points">
+                        <li class="fragment"><strong>热度变化：</strong><span class="text-green-500 font-semibold">整体积极</span>，11个新晋项目，5个上升，无下降。</li>
+                        <li class="fragment"><strong>新项目特点：</strong>AI相关 (AI Agents指南, CrewAI)、TypeScript开发工具与编辑器、跨平台框架、后端游戏服务器。</li>
+                        <li class="fragment"><strong>语言分布变化：</strong>TypeScript增长与新工具吻合，Kotlin因跨平台框架增加。</li>
+                        <li class="fragment"><strong>显著变化：</strong><code class="bg-gray-200 px-1 rounded">GoogleCloudPlatform/kubectl-ai</code> <strong class="text-red-500">爆炸性增长</strong> <i class="fas fa-fire"></i>，预示AI与K8s结合是热点。高换手率 (11个新项目)值得关注。</li>
+                    </ul>
+                </div>
+                <aside class="notes">
+                    对比昨日数据，分析热度、新项目和语言变化。
+                </aside>
+            </section>
+
+            <!-- Slide 6: 热点变化 -->
+            <section data-transition="concave">
+                <h2><i class="fas fa-fire-alt" style="color: #e53935;"></i> 热点变化追踪</h2>
+                <div class="heat-points-grid mt-8">
+                    <div class="heat-point-category heat-added fragment">
+                        <h4><i class="fas fa-plus-circle"></i> 新增热点</h4>
+                        <ul>
+                            <li>beekeeper-studio</li>
+                            <li>voideditor/void</li>
+                            <li>evroon/bracket</li>
+                            <li>cline/cline</li>
+                            <li>jetbrains/compose-multiplatform</li>
+                            <li>harry0703/moneyprinterturbo</li>
+                            <li>linera-io/linera-protocol</li>
+                            <li>crewaiinc/crewai</li>
+                            <li>microsoft/ai-agents-for-beginners</li>
+                            <li>yuaotian/go-cursor-help</li>
+                            <li>heroiclabs/nakama</li>
+                        </ul>
+                    </div>
+                    <div class="heat-point-category heat-removed fragment">
+                        <h4><i class="fas fa-minus-circle"></i> 减退热点</h4>
+                        <ul>
+                            <li>jj-vcs/jj</li>
+                            <li>koreader/koreader</li>
+                            <li>hacksider/deep-live-cam</li>
+                            <li>glanceapp/glance</li>
+                            <li>unionlabs/union</li>
+                            <li>containerd/containerd</li>
+                            <li>capsoftware/cap</li>
+                            <li>microsoft/powertoys</li>
+                            <li>expo/expo</li>
+                            <li>awslabs/agent-squad</li>
+                            <li>521xueweihan/hellogithub</li>
+                        </ul>
+                    </div>
+                    <div class="heat-point-category heat-ongoing fragment">
+                        <h4><i class="fas fa-sync-alt"></i> 持续热门</h4>
+                        <ul>
+                            <li>GoogleCloudPlatform/kubectl-ai (3次)</li>
+                            <li>LadybirdBrowser/ladybird (4次)</li>
+                        </ul>
+                    </div>
+                </div>
+                 <aside class="notes">
+                    展示新增、减退和持续的热门项目。
+                </aside>
+            </section>
+            
+            <!-- Project Detail Slides -->
+            <section>
+                <h2><i class="fas fa-microchip"></i> 热门项目详解</h2>
+                <!-- kubectl-ai -->
+                <section class="content-card" data-background-gradient="linear-gradient(to bottom right, #eceff1, #cfd8dc)">
+                    <h3><i class="fas fa-dharmachakra" style="color:#34A853;"></i> GoogleCloudPlatform/kubectl-ai</h3>
+                    <p class="text-sm text-gray-600">AI 驱动的 Kubernetes 助手</p>
+                    <table class="project-table">
+                        <thead><tr><th><i class="fas fa-info-circle"></i>属性</th><th><i class="fas fa-database"></i>数据</th></tr></thead>
+                        <tbody>
+                            <tr><td><i class="fas fa-code"></i>开发语言</td><td>Go (86.5%), Shell (12.6%)</td></tr>
+                            <tr><td><i class="fas fa-star"></i>Star 数</td><td>2622 (今日 +1518)</td></tr>
+                            <tr><td><i class="fas fa-stream"></i>连续在榜</td><td>3次</td></tr>
+                            <tr><td><i class="fas fa-trophy"></i>总上榜次数</td><td>3次</td></tr>
+                        </tbody>
+                    </table>
+                    <h4 class="mt-4 text-base font-semibold text-gray-700">项目速读：</h4>
+                    <p class="text-sm text-gray-600">允许用户使用自然语言与K8s集群交互，支持Gemini, OpenAI, Ollama。极大简化K8s操作，提升效率，降低门槛。</p>
+                    <h4 class="mt-3 text-base font-semibold text-gray-700">增长分析：</h4>
+                    <p class="text-sm text-gray-600">3天内3次上榜，增长活跃。总增1994 Star，今日新增1518，势头强劲，有加速迹象。</p>
+                </section>
+
+                <!-- LadybirdBrowser/ladybird -->
+                <section class="content-card" data-background-gradient="linear-gradient(to bottom right, #e3f2fd, #bbdefb)">
+                    <h3><i class="fas fa-search" style="color:#FFC107;"></i> LadybirdBrowser/ladybird</h3>
+                    <p class="text-sm text-gray-600">真正的独立浏览器，构建全新Web标准引擎。</p>
+                     <table class="project-table">
+                        <thead><tr><th><i class="fas fa-info-circle"></i>属性</th><th><i class="fas fa-database"></i>数据</th></tr></thead>
+                        <tbody>
+                            <tr><td><i class="fas fa-code"></i>开发语言</td><td>C++ (64.7%), HTML (22.3%), JS (11.0%)</td></tr>
+                            <tr><td><i class="fas fa-star"></i>Star 数</td><td>40229 (今日 +1118)</td></tr>
+                            <tr><td><i class="fas fa-stream"></i>连续在榜</td><td>4次</td></tr>
+                            <tr><td><i class="fas fa-trophy"></i>总上榜次数</td><td>7次</td></tr>
+                        </tbody>
+                    </table>
+                    <h4 class="mt-4 text-base font-semibold text-gray-700">项目速读：</h4>
+                    <p class="text-sm text-gray-600">目标构建完全独立、基于全新Web引擎的浏览器。采用多进程架构，提升安全性与鲁棒性。复用SerenityOS核心库。</p>
+                    <h4 class="mt-3 text-base font-semibold text-gray-700">增长分析：</h4>
+                    <p class="text-sm text-gray-600">七次上榜，持续受关注。总增长3373星。近期增速加快，今日新增1118星，远超平均。</p>
+                </section>
+
+                <!-- microsoft/ai-agents-for-beginners -->
+                <section class="content-card" data-background-gradient="linear-gradient(to bottom right, #f3e5f5, #e1bee7)">
+                    <h3><i class="fab fa-microsoft" style="color:#0078D4;"></i> microsoft/ai-agents-for-beginners</h3>
+                    <p class="text-sm text-gray-600">AI智能体构建入门10讲 (微软出品)</p>
+                     <table class="project-table">
+                        <thead><tr><th><i class="fas fa-info-circle"></i>属性</th><th><i class="fas fa-database"></i>数据</th></tr></thead>
+                        <tbody>
+                            <tr><td><i class="fas fa-code"></i>开发语言</td><td>Jupyter Notebook (94.8%), Python (5.1%)</td></tr>
+                            <tr><td><i class="fas fa-star"></i>Star 数</td><td>19651 (今日 +810)</td></tr>
+                            <tr><td><i class="fas fa-stream"></i>连续在榜</td><td>1次</td></tr>
+                            <tr><td><i class="fas fa-trophy"></i>总上榜次数</td><td>10次</td></tr>
+                        </tbody>
+                    </table>
+                    <h4 class="mt-4 text-base font-semibold text-gray-700">项目速读：</h4>
+                    <p class="text-sm text-gray-600">面向初学者的AI Agent开源课程。10节课，Jupyter Notebook示例，支持多语言。基于Semantic Kernel, AutoGen。</p>
+                    <h4 class="mt-3 text-base font-semibold text-gray-700">增长分析：</h4>
+                    <p class="text-sm text-gray-600">频繁上榜10次，总Star增长14596。当日新增810 Star高于平均值，保持强劲且有加速增长趋势。</p>
+                </section>
+                
+                <!-- ruanyf/weekly -->
+                <section class="content-card" data-background-gradient="linear-gradient(to bottom right, #e0f2f1, #b2dfdb)">
+                    <h3><i class="fas fa-newspaper" style="color:#009688;"></i> ruanyf/weekly</h3>
+                    <p class="text-sm text-gray-600">科技爱好者周刊，每周五发布</p>
+                     <table class="project-table">
+                        <thead><tr><th><i class="fas fa-info-circle"></i>属性</th><th><i class="fas fa-database"></i>数据</th></tr></thead>
+                        <tbody>
+                            <tr><td><i class="fas fa-star"></i>Star 数</td><td>58734 (今日 +1241)</td></tr>
+                            <tr><td><i class="fas fa-stream"></i>连续在榜</td><td>2次</td></tr>
+                            <tr><td><i class="fas fa-trophy"></i>总上榜次数</td><td>3次</td></tr>
+                        </tbody>
+                    </table>
+                    <h4 class="mt-4 text-base font-semibold text-gray-700">项目速读：</h4>
+                    <p class="text-sm text-gray-600">精选科技动态、文章、工具和观点。Markdown存储，易于检索，形成庞大知识库。鼓励投稿，含程序员招聘区。</p>
+                    <h4 class="mt-3 text-base font-semibold text-gray-700">增长分析：</h4>
+                    <p class="text-sm text-gray-600">短周期上榜3次，高曝光。平均每次上榜贡献约637星，总星增长4340。今日新增1241星，远超平均，增长强劲且加速。</p>
+                </section>
+
+                <!-- n8n-io/n8n -->
+                <section class="content-card" data-background-gradient="linear-gradient(to bottom right, #fff3e0, #ffe0b2)">
+                    <h3><i class="fas fa-cogs" style="color:#FB8C00;"></i> n8n-io/n8n</h3>
+                    <p class="text-sm text-gray-600">具有原生AI能力的公平代码工作流自动化平台。</p>
+                     <table class="project-table">
+                        <thead><tr><th><i class="fas fa-info-circle"></i>属性</th><th><i class="fas fa-database"></i>数据</th></tr></thead>
+                        <tbody>
+                            <tr><td><i class="fas fa-code"></i>开发语言</td><td>TypeScript (90.0%), Vue (8.1%)</td></tr>
+                            <tr><td><i class="fas fa-star"></i>Star 数</td><td>89937 (今日 +603)</td></tr>
+                            <tr><td><i class="fas fa-stream"></i>连续在榜</td><td>2次</td></tr>
+                            <tr><td><i class="fas fa-trophy"></i>总上榜次数</td><td>6次</td></tr>
+                        </tbody>
+                    </table>
+                    <h4 class="mt-4 text-base font-semibold text-gray-700">项目速读：</h4>
+                    <p class="text-sm text-gray-600">结合无代码可视化与自定义代码(JS/Python)。连接400+应用，自动化流程。灵活、内置AI、支持自托管、庞大集成生态。</p>
+                    <h4 class="mt-3 text-base font-semibold text-gray-700">增长分析：</h4>
+                    <p class="text-sm text-gray-600">总增长24230 Star，增速显著。今日新增603 Star，持续且超越平均上榜水平的强劲势头。持续高关注和活跃。</p>
+                </section>
+                
+                 <!-- Additional projects as vertical slides for brevity or separate sections -->
+                <section>
+                    <h3><i class="fas fa-ellipsis-h"></i>更多热门项目一览</h3>
+                    <!-- crewAIInc/crewAI -->
+                    <section class="content-card my-4" data-background-color="#fafafa">
+                        <h4><i class="fas fa-users-cog" style="color:#673ab7;"></i> crewAIInc/crewAI (Python)</h4>
+                        <p class="text-sm text-gray-600">编排扮演角色的自主AI智能体框架。轻量、快速、灵活，用于构建多智能体系统。 Star: 31.1k (+61)</p>
+                    </section>
+                    <!-- voideditor/void -->
+                    <section class="content-card my-4" data-background-color="#fafafa">
+                        <h4><i class="fas fa-code-branch" style="color:#2196f3;"></i> voideditor/void (TypeScript)</h4>
+                        <p class="text-sm text-gray-600">开源代码编辑器，Cursor的开源替代方案。基于VS Code，社区驱动。 Star: 12.5k (+152)</p>
+                    </section>
+                     <!-- evroon/bracket -->
+                    <section class="content-card my-4" data-background-color="#fafafa">
+                        <h4><i class="fas fa-trophy" style="color:#ff9800;"></i> evroon/bracket (Python, TS)</h4>
+                        <p class="text-sm text-gray-600">自托管赛事系统。支持单败、循环、瑞士轮，多阶段赛事结构。 Star: 724 (+30)</p>
+                    </section>
+                </section>
+                
+                <section>
+                    <h3><i class="fas fa-ellipsis-h"></i>更多热门项目一览 (续)</h3>
+                    <!-- yuaotian/go-cursor-help -->
+                    <section class="content-card my-4" data-background-color="#fafafa">
+                        <h4><i class="fas fa-mouse-pointer" style="color:#e91e63;"></i> yuaotian/go-cursor-help (Shell, Python)</h4>
+                        <p class="text-sm text-gray-600">解决Cursor免费试用上限提示。跨平台脚本，重置试用状态。 Star: 20.7k (+94)</p>
+                    </section>
+                    <!-- beekeeper-studio/beekeeper-studio -->
+                    <section class="content-card my-4" data-background-color="#fafafa">
+                        <h4><i class="fas fa-database" style="color:#03a9f4;"></i> beekeeper-studio (TypeScript, Vue)</h4>
+                        <p class="text-sm text-gray-600">现代易用SQL客户端，支持多种数据库。Linux, MacOS, Windows。 Star: 18.7k (+19)</p>
+                    </section>
+                    <!-- JetBrains/compose-multiplatform -->
+                    <section class="content-card my-4" data-background-color="#fafafa">
+                        <h4><i class="fab fa-kickstarter-k" style="color:#795548;"></i> JetBrains/compose-multiplatform (Kotlin)</h4>
+                        <p class="text-sm text-gray-600">基于Kotlin的现代UI框架，构建跨平台高性能美观UI。 Star: 17.2k (+21)</p>
+                    </section>
+                </section>
+
+                <section>
+                     <h3><i class="fas fa-ellipsis-h"></i>更多热门项目一览 (再续)</h3>
+                    <!-- harry0703/MoneyPrinterTurbo -->
+                    <section class="content-card my-4" data-background-color="#fafafa">
+                        <h4><i class="fas fa-video" style="color:#4caf50;"></i> harry0703/MoneyPrinterTurbo (Python)</h4>
+                        <p class="text-sm text-gray-600">利用AI大模型，一键生成高清短视频。全自动化，低门槛。 Star: 27k (+147)</p>
+                    </section>
+                     <!-- linera-io/linera-protocol -->
+                    <section class="content-card my-4" data-background-color="#fafafa">
+                        <h4><i class="fas fa-link" style="color:#607d8b;"></i> linera-io/linera-protocol (Rust)</h4>
+                        <p class="text-sm text-gray-600">高性能、低延迟的下一代Web3区块链基础设施。 Star: 26.1k (+178)</p>
+                    </section>
+                     <!-- huggingface/agents-course -->
+                    <section class="content-card my-4" data-background-color="#fafafa">
+                        <h4><i class="fas fa-graduation-cap" style="color:#ffeb3b; filter: brightness(0.8);"></i> huggingface/agents-course (Jupyter)</h4>
+                        <p class="text-sm text-gray-600">Hugging Face Agents课程。系统教授AI Agent构建，基于主流框架。 Star: 17.7k (+355)</p>
+                    </section>
+                </section>
+                 <section>
+                     <h3><i class="fas fa-ellipsis-h"></i>更多热门项目一览 (终)</h3>
+                     <!-- cline/cline -->
+                    <section class="content-card my-4" data-background-color="#fafafa">
+                        <h4><i class="fas fa-terminal" style="color:#9c27b0;"></i> cline/cline (TypeScript)</h4>
+                        <p class="text-sm text-gray-600">集成在IDE中的自主编程代理。创建/编辑文件、执行命令，人工审批。 Star: 42.8k (+107)</p>
+                    </section>
+                     <!-- heroiclabs/nakama -->
+                    <section class="content-card my-4" data-background-color="#fafafa">
+                        <h4><i class="fas fa-gamepad" style="color:#d32f2f;"></i> heroiclabs/nakama (Go)</h4>
+                        <p class="text-sm text-gray-600">社交和实时游戏及应用的分布式服务器。可扩展，支持Lua, JS/TS, Go。 Star: 10.1k (+219)</p>
+                    </section>
+                </section>
+            </section>
+
+
+            <!-- Slide: Aha Moment / Conclusion -->
+            <section class="aha-moment-slide" data-transition="zoom-in fade-out">
+                <h1 class="fragment custom-fade-in" data-fragment-index="1">灵光一现!</h1>
+                <p class="fragment custom-fade-in" data-fragment-index="2">AI Agent 正从<strong class="font-bold">辅助工具</strong>进化为<strong class="font-bold">智能伙伴</strong>，</p>
+                <p class="fragment custom-fade-in" data-fragment-index="3">赋能开发者<strong class="font-bold">重塑未来</strong>的软件开发模式。</p>
+                <p class="fragment custom-fade-in mt-12" data-fragment-index="4" style="font-size:1.8rem;">拥抱变革，成为AI时代的<strong class="font-bold">引领者</strong>！</p>
+                <aside class="notes">
+                    总结陈词，强调AI Agent带来的深远影响和机遇。
+                    这是一个"Aha moment"的尝试，通过视觉和文字激发共鸣。
+                </aside>
+                 <div class="footer-info">
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend <i class="fab fa-github"></i></a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            history: true,
+            center: true,
+            progress: true,
+            slideNumber: 'c/t', // c: current slide, t: total slides
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+            // Optional libraries used to extend reveal.js
+            // dependencies: [
+            //  { src: 'https://cdn.jsdelivr.net/npm/reveal.js-plugins@latest/menu/menu.js' }
+            // ],
+            // plugins: [ RevealMenu ]
+        });
+        // Mermaid initialization if you plan to use it within markdown or directly
+        // mermaid.initialize({ startOnLoad: true, theme: 'neutral' }); 
+        // For Reveal.js with Mermaid, often better to init after Reveal is ready or use a plugin
+    </script>
+</body>
+</html>
