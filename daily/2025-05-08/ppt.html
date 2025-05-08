@@ -1,0 +1,617 @@
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Github热门仓库日报 | 技术前沿动态</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet" id="theme">
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --aha-primary-color: #3B82F6; /* Blue 500 */
+            --aha-secondary-color: #10B981; /* Emerald 500 */
+            --aha-text-dark: #1F2937; /* Gray 800 */
+            --aha-text-light: #F9FAFB; /* Gray 50 */
+            --aha-bg-light: #FFFFFF;
+            --aha-bg-dark-subtle: #F3F4F6; /* Gray 100 */
+        }
+
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--aha-text-dark);
+        }
+
+        .reveal .slides {
+            text-align: left;
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--aha-primary-color);
+            font-weight: 700;
+        }
+
+        .reveal h1 { font-size: 2.8rem; margin-bottom: 20px; line-height: 1.2; }
+        .reveal h2 { font-size: 2.2rem; margin-bottom: 15px; line-height: 1.2; }
+        .reveal h3 { font-size: 1.8rem; margin-bottom: 10px; }
+        .reveal p, .reveal li {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #374151; /* Gray 700 */
+        }
+        .reveal section > ul { margin-left: 1.5em; }
+        .reveal section > ul > li { margin-bottom: 0.5em; }
+
+        .reveal .slide-background-content {
+            /* filter: brightness(0.9); */
+        }
+        
+        .cover-slide {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100%;
+        }
+
+        .cover-slide h1 {
+            font-size: 3.5rem;
+            color: var(--aha-text-light);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .cover-slide .subtitle {
+            font-size: 1.8rem;
+            color: var(--aha-text-light);
+            font-family: 'Noto Sans SC', sans-serif;
+            margin-top: 10px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        .cover-slide .speaker-info {
+            font-size: 1.2rem;
+            color: #E5E7EB; /* Gray 200 */
+            margin-top: 30px;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+
+        .footer-info {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            text-align: right;
+            z-index: 10;
+        }
+        .footer-info img {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .footer-info a {
+            font-size: 0.8rem;
+            color: var(--aha-text-dark);
+            text-decoration: none;
+            display: block;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        .footer-info a:hover {
+            color: var(--aha-secondary-color);
+        }
+        .dark-slide .footer-info a {
+             color: var(--aha-text-light);
+        }
+         .dark-slide .footer-info a:hover {
+             color: var(--aha-secondary-color);
+        }
+
+        .highlight {
+            color: var(--aha-secondary-color);
+            font-weight: 600;
+        }
+
+        .section-title-slide h2 {
+            font-size: 3rem;
+            text-align: center;
+            color: var(--aha-text-light);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .repo-card {
+            background-color: var(--aha-bg-dark-subtle);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .repo-card h3 {
+            color: var(--aha-primary-color);
+            margin-top:0;
+        }
+        .repo-card h3 a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .repo-card h3 a:hover {
+            text-decoration: underline;
+        }
+        .repo-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+        .repo-stats span {
+            background-color: #E5E7EB; /* Gray 200 */
+            padding: 5px 10px;
+            border-radius: 4px;
+            color: #4B5563; /* Gray 600 */
+        }
+        .repo-stats span .fas {
+            margin-right: 5px;
+            color: var(--aha-secondary-color);
+        }
+        .lang-bar-container {
+            display: flex;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .lang-bar-segment {
+            height: 100%;
+        }
+        .lang-legend {
+            font-size: 0.8rem;
+            color: #6B7280; /* Gray 500 */
+        }
+
+        .custom-bullet li::marker {
+            color: var(--aha-secondary-color);
+        }
+        .custom-bullet li {
+            padding-left: 10px;
+        }
+
+        /* RevealJS Progress Bar Customization */
+        .reveal .progress {
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--aha-secondary-color); /* Progress bar fill color */
+            height: 5px;
+        }
+        
+        /* Aha moment card style for key insights */
+        .aha-insight-card {
+            background: linear-gradient(135deg, var(--aha-primary-color) 0%, var(--aha-secondary-color) 100%);
+            color: var(--aha-text-light);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            margin-top: 20px;
+        }
+        .aha-insight-card h3 {
+            color: var(--aha-text-light);
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.6rem;
+        }
+        .aha-insight-card p, .aha-insight-card li {
+            color: var(--aha-text-light);
+            font-size: 1.05rem;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Cover Slide -->
+            <section class="cover-slide dark-slide" data-background-image="https://source.unsplash.com/random/1600x900/?technology,abstract" data-background-opacity="0.6" data-background-color="#1f2937">
+                <h1>技术圈炸锅！AI不再高冷，直冲你的日常工作！</h1>
+                <p class="subtitle">GitHub热门仓库日报 - 趋势与洞察</p>
+                <p class="speaker-info">演讲者: AIChipEra<br>观测时间: 2025-05-08 20:55:13</p>
+                <div class="footer-info">
+                    <img src="../../asserts/wx.jpg" alt="微信公众号二维码">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        <i class="fab fa-github"></i> github.com/aichipera/github-trend
+                    </a>
+                </div>
+            </section>
+
+            <!-- Disclaimer -->
+            <section>
+                <h2><i class="fas fa-exclamation-triangle text-yellow-500"></i> 免责声明</h2>
+                <p class="text-lg text-gray-600">以下内容仅供项目介绍和学习使用，<span class="font-semibold text-red-600">不构成任何投资建议</span>，请注意甄别！</p>
+                <p class="mt-4 text-md text-gray-500">所有数据和分析均基于公开的 GitHub 信息，并结合 AI 生成的摘要。</p>
+            </section>
+
+            <!-- 日报要点 -->
+            <section data-background-color="#F3F4F6">
+                <h2><i class="fas fa-lightbulb text-yellow-400"></i> 日报要点: AI 工具化浪潮</h2>
+                <div class="aha-insight-card">
+                    <h3>AI 正武装到你的开发全流程！</h3>
+                    <ul class="list-disc pl-6 space-y-2 mt-4">
+                        <li><span class="highlight">实用AI工具</span>渗透开发方方面面：自动编码、智能云管、一键视频、端侧AI。</li>
+                        <li>追求<span class="highlight">极致效率</span>：新一代编辑器、信息精选工具涌现。</li>
+                        <li>这波技术浪潮将<span class="highlight">重塑工作方式</span>，不容错过！</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 热门项目趋势分析 -->
+            <section>
+                <h2><i class="fas fa-chart-line"></i> 热门项目趋势分析</h2>
+                <section>
+                    <h3>今日整体趋势: AI 应用与生产力工具齐飞</h3>
+                    <ul class="custom-bullet">
+                        <li><strong class="text-blue-600">AI应用深化：</strong> 从云原生管理 (kubectl-ai) 到多Agent框架 (agent-squad)，再到边缘设备AI伴侣 (xiaozhi-esp32) 和视频生成 (MoneyPrinterTurbo)。</li>
+                        <li class="fragment">AI技术<span class="highlight">加速落地</span>，向低门槛、定制化、高效能发展。</li>
+                        <li class="fragment"><strong class="text-green-600">开发者工具精进：</strong> Python主导AI，Go用于云原生，Rust/C++追求极致性能 (Ladybird, Zed)。</li>
+                        <li class="fragment">关注需求：简化复杂系统、提升内容效率、AI泛在化、极致开发体验、信息整合。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>未来技术热点展望</h3>
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="fragment p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                            <h4 class="text-blue-700 font-semibold"><i class="fas fa-robot"></i> AI Agent 深化与协作</h4>
+                            <p class="text-sm text-gray-700">更智能、端到端的Agent及协作平台。</p>
+                        </div>
+                        <div class="fragment p-4 bg-green-50 border border-green-200 rounded-lg">
+                            <h4 class="text-green-700 font-semibold"><i class="fas fa-photo-video"></i> 多模态AI应用爆发</h4>
+                            <p class="text-sm text-gray-700">深度融合文本、语音、图像、视频的AI应用。</p>
+                        </div>
+                        <div class="fragment p-4 bg-indigo-50 border border-indigo-200 rounded-lg">
+                            <h4 class="text-indigo-700 font-semibold"><i class="fas fa-microchip"></i> 边缘与本地化AI普及</h4>
+                            <p class="text-sm text-gray-700">个人设备上的高性能、低延迟AI。</p>
+                        </div>
+                        <div class="fragment p-4 bg-purple-50 border border-purple-200 rounded-lg">
+                            <h4 class="text-purple-700 font-semibold"><i class="fas fa-cogs"></i> AI辅助软件工程全周期</h4>
+                            <p class="text-sm text-gray-700">AI深入代码设计、测试、部署、运维。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+            
+            <section data-background-color="#F3F4F6">
+                <h3>热门项目双日维度对比</h3>
+                <ul class="custom-bullet">
+                    <li><span class="highlight">9个新项目</span>入榜，<span class="highlight">5个项目</span>热度持续上升。</li>
+                    <li>AI/ML框架与应用、开发工具、实用程序占据多数。</li>
+                    <li><span class="text-red-500 font-bold">GoogleCloudPlatform/kubectl-ai</span> 增长强劲 (+47.6%)。</li>
+                    <li>社区活跃，技术热点竞争激烈但整体向上。</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3><i class="fas fa-fire"></i> 热点变化速览</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="p-4 bg-green-50 rounded-lg shadow">
+                        <h4 class="text-green-600 font-semibold"><i class="fas fa-arrow-trend-up"></i> 新增热点</h4>
+                        <p class="text-sm text-gray-700">nvidia/nemo, awslabs/agent-squad, 521xueweihan/hellogithub, rzane/docker2exe, zed-industries/zed, modsetter/surfsense, 78/xiaozhi-esp32, lazyvim/lazyvim, blaizzy/mlx-audio</p>
+                    </div>
+                    <div class="p-4 bg-red-50 rounded-lg shadow">
+                        <h4 class="text-red-600 font-semibold"><i class="fas fa-arrow-trend-down"></i> 减退热点</h4>
+                        <p class="text-sm text-gray-700">microsoft/ai-agents-for-beginners, crewaiinc/crewai, cline/cline, yuaotian/go-cursor-help, n8n-io/n8n, heroiclabs/nakama, beekeeper-studio/beekeeper-studio, evroon/bracket, jetbrains/compose-multiplatform, huggingface/agents-course, linera-io/linera-protocol</p>
+                    </div>
+                    <div class="p-4 bg-blue-50 rounded-lg shadow">
+                        <h4 class="text-blue-600 font-semibold"><i class="fas fa-retweet"></i> 持续热门</h4>
+                        <p class="text-sm text-gray-700">GoogleCloudPlatform/kubectl-ai (4次), ruanyf/weekly (3次), LadybirdBrowser/ladybird (5次)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Title: 详细仓库数据 -->
+            <section class="section-title-slide" data-background-gradient="linear-gradient(135deg, #2c3e50 0%, #3498db 100%)">
+                <h2><i class="fas fa-database"></i> 详细仓库数据解读</h2>
+            </section>
+
+            <!-- GoogleCloudPlatform/kubectl-ai -->
+            <section>
+                <div class="repo-card">
+                    <h3><a href="https://github.com/GoogleCloudPlatform/kubectl-ai" target="_blank"><i class="fab fa-google"></i> GoogleCloudPlatform/kubectl-ai</a></h3>
+                    <p class="text-sm text-gray-600">AI 驱动的 Kubernetes 助手，用自然语言与K8s交互。</p>
+                    <div class="repo-stats">
+                        <span><i class="fas fa-star"></i> 3.9k</span>
+                        <span><i class="fas fa-code-branch"></i> 251</span>
+                        <span><i class="fas fa-fire"></i> 4次在榜</span>
+                        <span><i class="fas fa-arrow-up"></i> 1278 新增</span>
+                        <span><i class="fab fa-golang"></i> Go</span>
+                    </div>
+                    <p class="font-semibold text-gray-700 mt-2">项目速读:</p>
+                    <p class="text-sm">将AI能力整合到Kubernetes终端，允许通过自然语言管理集群。支持多种AI模型 (Gemini, OpenAI, Ollama)，极大简化K8s操作，降低使用门槛。</p>
+                    <p class="font-semibold text-gray-700 mt-1">增长分析:</p>
+                    <p class="text-sm text-green-600">增长强劲，今日新增1278星远超平均，加速趋势明显。</p>
+                </div>
+            </section>
+
+            <!-- awslabs/agent-squad -->
+            <section>
+                <div class="repo-card">
+                    <h3><a href="https://github.com/awslabs/agent-squad" target="_blank"><i class="fab fa-aws"></i> awslabs/agent-squad</a></h3>
+                    <p class="text-sm text-gray-600">管理多个AI代理处理复杂对话的灵活框架。</p>
+                    <div class="repo-stats">
+                        <span><i class="fas fa-star"></i> 5.3k</span>
+                        <span><i class="fas fa-code-branch"></i> 441</span>
+                        <span><i class="fas fa-fire"></i> 2次在榜</span>
+                        <span><i class="fas fa-arrow-up"></i> 231 新增</span>
+                        <span><i class="fab fa-python"></i> Python/TS</span>
+                    </div>
+                    <p class="font-semibold text-gray-700 mt-2">项目速读:</p>
+                    <p class="text-sm">通过智能意图分类器动态路由用户输入到最合适的AI Agent，维护跨Agent对话上下文，支持团队协作，高效构建先进AI系统。</p>
+                    <p class="font-semibold text-gray-700 mt-1">增长分析:</p>
+                    <p class="text-sm text-green-600">近期增长呈加速趋势，今日新增231星。</p>
+                </div>
+            </section>
+
+            <!-- 78/xiaozhi-esp32 -->
+            <section>
+                <div class="repo-card">
+                    <h3><a href="https://github.com/78/xiaozhi-esp32" target="_blank"><i class="fas fa-microchip"></i> 78/xiaozhi-esp32</a></h3>
+                    <p class="text-sm text-gray-600">打造你的专属AI朋友，基于ESP32的语音AI伴侣。</p>
+                    <div class="repo-stats">
+                        <span><i class="fas fa-star"></i> 12.6k</span>
+                        <span><i class="fas fa-code-branch"></i> 2.5k</span>
+                        <span><i class="fas fa-fire"></i> 1次在榜</span>
+                        <span><i class="fas fa-arrow-up"></i> 47 新增</span>
+                        <span>C++/C/Python</span>
+                    </div>
+                    <p class="font-semibold text-gray-700 mt-2">项目速读:</p>
+                    <p class="text-sm">在低成本ESP32硬件上实现语音交互AI聊天伴侣。集成离线唤醒、多语言识别、大模型对接、TTS，提供完整边缘AI硬件方案和实践平台。</p>
+                </div>
+            </section>
+
+            <!-- ruanyf/weekly -->
+            <section>
+                <div class="repo-card">
+                    <h3><a href="https://github.com/ruanyf/weekly" target="_blank"><i class="fas fa-newspaper"></i> ruanyf/weekly</a></h3>
+                    <p class="text-sm text-gray-600">科技爱好者周刊，每周五发布精选科技资讯。</p>
+                    <div class="repo-stats">
+                        <span><i class="fas fa-star"></i> 59.9k</span>
+                        <span><i class="fas fa-code-branch"></i> 3.3k</span>
+                        <span><i class="fas fa-fire"></i> 4次在榜</span>
+                        <span><i class="fas fa-arrow-up"></i> 1137 新增</span>
+                        <span>Markdown</span>
+                    </div>
+                    <p class="font-semibold text-gray-700 mt-2">项目速读:</p>
+                    <p class="text-sm">定期精选科技文章、工具和资源，帮助读者高效了解技术前沿。内容开源，支持社区投稿，提供宝贵的学习交流平台。</p>
+                    <p class="font-semibold text-gray-700 mt-1">增长分析:</p>
+                    <p class="text-sm text-green-600">上榜效应强劲，当次新增1137星远超平均，近期增长加速。</p>
+                </div>
+            </section>
+            
+            <!-- 521xueweihan/HelloGitHub -->
+            <section>
+                <div class="repo-card">
+                    <h3><a href="https://github.com/521xueweihan/HelloGitHub" target="_blank"><i class="fas fa-hands-helping"></i> 521xueweihan/HelloGitHub</a></h3>
+                    <p class="text-sm text-gray-600">分享 GitHub 上有趣、入门级的开源项目。</p>
+                    <div class="repo-stats">
+                        <span><i class="fas fa-star"></i> 107k</span>
+                        <span><i class="fas fa-code-branch"></i> 10k</span>
+                        <span><i class="fas fa-fire"></i> 3次在榜</span>
+                        <span><i class="fas fa-arrow-up"></i> 1158 新增</span>
+                        <span><i class="fab fa-python"></i> Python</span>
+                    </div>
+                    <p class="font-semibold text-gray-700 mt-2">项目速读:</p>
+                    <p class="text-sm">为编程新手和爱好者精选开源项目，降低接触开源门槛。每月推荐易于理解、富有创意或实用价值的项目，激发学习兴趣。</p>
+                    <p class="font-semibold text-gray-700 mt-1">增长分析:</p>
+                    <p class="text-sm text-green-600">增长强劲，与高曝光度相关，今日新增1158星。</p>
+                </div>
+            </section>
+
+            <!-- zed-industries/zed -->
+            <section>
+                <div class="repo-card">
+                    <h3><a href="https://github.com/zed-industries/zed" target="_blank"><i class="fas fa-bolt"></i> zed-industries/zed</a></h3>
+                    <p class="text-sm text-gray-600">高性能、多人协作的代码编辑器，来自Atom和Tree-sitter开发者。</p>
+                    <div class="repo-stats">
+                        <span><i class="fas fa-star"></i> 58.4k</span>
+                        <span><i class="fas fa-code-branch"></i> 4.1k</span>
+                        <span><i class="fas fa-fire"></i> 2次在榜</span>
+                        <span><i class="fas fa-arrow-up"></i> 134 新增</span>
+                        <span><i class="fab fa-rust"></i> Rust</span>
+                    </div>
+                    <p class="font-semibold text-gray-700 mt-2">项目速读:</p>
+                    <p class="text-sm">采用Rust构建，追求极致性能和实时协作。为个人提供流畅编辑体验，为团队提供便捷远程协作，展现未来主力编辑器潜力。</p>
+                    <p class="font-semibold text-gray-700 mt-1">增长分析:</p>
+                    <p class="text-sm text-green-600">上榜能强力驱动Star增长，今日新增134星。</p>
+                </div>
+            </section>
+
+            <!-- MODSetter/SurfSense -->
+            <section>
+                <div class="repo-card">
+                    <h3><a href="https://github.com/MODSetter/SurfSense" target="_blank"><i class="fas fa-brain"></i> MODSetter/SurfSense</a></h3>
+                    <p class="text-sm text-gray-600">开源AI研究助手，连接内外部知识源，类NotebookLM/Perplexity。</p>
+                    <div class="repo-stats">
+                        <span><i class="fas fa-star"></i> 3k</span>
+                        <span><i class="fas fa-code-branch"></i> 214</span>
+                        <span><i class="fas fa-fire"></i> 3次在榜</span>
+                        <span><i class="fas fa-arrow-up"></i> 293 新增</span>
+                        <span>TypeScript/Python</span>
+                    </div>
+                    <p class="font-semibold text-gray-700 mt-2">项目速读:</p>
+                    <p class="text-sm">整合个人知识库与外部信息源（搜索引擎、Slack、Notion等），提供统一搜索、分析和问答平台。采用RAG技术，支持自托管和本地LLM。</p>
+                    <p class="font-semibold text-gray-700 mt-1">增长分析:</p>
+                    <p class="text-sm text-green-600">增长势头加强，近期日增长（293星）高于平均。</p>
+                </div>
+            </section>
+            
+            <!-- LadybirdBrowser/ladybird -->
+            <section>
+                <div class="repo-card">
+                    <h3><a href="https://github.com/LadybirdBrowser/ladybird" target="_blank"><i class="fas fa-globe"></i> LadybirdBrowser/ladybird</a></h3>
+                    <p class="text-sm text-gray-600">真正独立的网页浏览器，从头构建渲染和JS引擎。</p>
+                    <div class="repo-stats">
+                        <span><i class="fas fa-star"></i> 41.2k</span>
+                        <span><i class="fas fa-code-branch"></i> 1.7k</span>
+                        <span><i class="fas fa-fire"></i> 8次在榜</span>
+                        <span><i class="fas fa-arrow-up"></i> 990 新增</span>
+                        <span>C++/HTML/JS</span>
+                    </div>
+                    <p class="font-semibold text-gray-700 mt-2">项目速读:</p>
+                    <p class="text-sm">不依赖现有主流引擎，全新构建。注重安全和稳定性，多进程架构。虽处早期，但为浏览器引擎市场提供宝贵替代探索方向。</p>
+                     <p class="font-semibold text-gray-700 mt-1">增长分析:</p>
+                    <p class="text-sm text-green-600">最新增长990星远超平均，显示增长加速趋势。</p>
+                </div>
+            </section>
+
+            <!-- Blaizzy/mlx-audio -->
+            <section>
+                <div class="repo-card">
+                    <h3><a href="https://github.com/Blaizzy/mlx-audio" target="_blank"><i class="fas fa-volume-up"></i> Blaizzy/mlx-audio</a></h3>
+                    <p class="text-sm text-gray-600">基于Apple MLX的TTS/STT/STS库，高效语音分析。</p>
+                    <div class="repo-stats">
+                        <span><i class="fas fa-star"></i> 962</span>
+                        <span><i class="fas fa-code-branch"></i> 79</span>
+                        <span><i class="fas fa-fire"></i> 1次在榜</span>
+                        <span><i class="fas fa-arrow-up"></i> 93 新增</span>
+                        <span><i class="fab fa-python"></i> Python</span>
+                    </div>
+                    <p class="font-semibold text-gray-700 mt-2">项目速读:</p>
+                    <p class="text-sm">利用Apple Silicon硬件加速，实现高性能文本转语音和语音转语音。提供快速推理、多语言支持、语速调节及多种接口，是Apple平台本地化语音处理强力工具。</p>
+                </div>
+            </section>
+
+            <!-- harry0703/MoneyPrinterTurbo -->
+            <section>
+                <div class="repo-card">
+                    <h3><a href="https://github.com/harry0703/MoneyPrinterTurbo" target="_blank"><i class="fas fa-video"></i> harry0703/MoneyPrinterTurbo</a></h3>
+                    <p class="text-sm text-gray-600">利用AI大模型，一键生成短视频。</p>
+                    <div class="repo-stats">
+                        <span><i class="fas fa-star"></i> 27.6k</span>
+                        <span><i class="fas fa-code-branch"></i> 4.1k</span>
+                        <span><i class="fas fa-fire"></i> 2次在榜</span>
+                        <span><i class="fas fa-arrow-up"></i> 613 新增</span>
+                        <span><i class="fab fa-python"></i> Python</span>
+                    </div>
+                    <p class="font-semibold text-gray-700 mt-2">项目速读:</p>
+                    <p class="text-sm">全自动化短视频生成器。用户提供主题，自动完成文案、素材、配音、字幕、BGM和合成。极大解放生产力，降低视频创作门槛。</p>
+                    <p class="font-semibold text-gray-700 mt-1">增长分析:</p>
+                    <p class="text-sm text-green-600">增长势头强劲，今日新增高达613星，呈加速趋势。</p>
+                </div>
+            </section>
+
+            <!-- voideditor/void -->
+            <section>
+                <div class="repo-card">
+                    <h3><a href="https://github.com/voideditor/void" target="_blank"><i class="fas fa-code"></i> voideditor/void</a></h3>
+                    <p class="text-sm text-gray-600">开源的Cursor替代品，基于VS Code。</p>
+                    <div class="repo-stats">
+                        <span><i class="fas fa-star"></i> 12.9k</span>
+                        <span><i class="fas fa-code-branch"></i> 824</span>
+                        <span><i class="fas fa-fire"></i> 2次在榜</span>
+                        <span><i class="fas fa-arrow-up"></i> 431 新增</span>
+                        <span>TypeScript</span>
+                    </div>
+                    <p class="font-semibold text-gray-700 mt-2">项目速读:</p>
+                    <p class="text-sm">直接分叉自VS Code，继承其强大功能。核心在于开源，提供透明性、可定制性和社区驱动潜力。适合寻求VS Code基础的开源开发工具用户。</p>
+                    <p class="font-semibold text-gray-700 mt-1">增长分析:</p>
+                    <p class="text-sm text-green-600">稳定曝光驱动显著星标增长，本日新增431星，趋势积极。</p>
+                </div>
+            </section>
+
+            <!-- LazyVim/LazyVim -->
+            <section>
+                <div class="repo-card">
+                    <h3><a href="https://github.com/LazyVim/LazyVim" target="_blank"><i class="fas fa-moon"></i> LazyVim/LazyVim</a></h3>
+                    <p class="text-sm text-gray-600">Neovim 懒人配置，快速打造功能齐全的IDE。</p>
+                    <div class="repo-stats">
+                        <span><i class="fas fa-star"></i> 20.5k</span>
+                        <span><i class="fas fa-code-branch"></i> 1.4k</span>
+                        <span><i class="fas fa-fire"></i> 1次在榜</span>
+                        <span><i class="fas fa-arrow-up"></i> 30 新增</span>
+                        <span>Lua</span>
+                    </div>
+                     <p class="font-semibold text-gray-700 mt-2">项目速读:</p>
+                    <p class="text-sm">Neovim配置框架，集成lazy.nvim插件管理器，提供优化默认配置和常用插件。高度灵活，易于个性化定制，让开发者快速投入编码。</p>
+                </div>
+            </section>
+
+            <!-- NVIDIA/NeMo -->
+            <section>
+                <div class="repo-card">
+                    <h3><a href="https://github.com/NVIDIA/NeMo" target="_blank"><i class="fab fa-nvidia"></i> NVIDIA/NeMo</a></h3>
+                    <p class="text-sm text-gray-600">可扩展生成式AI框架，用于大语言模型、多模态和语音AI。</p>
+                    <div class="repo-stats">
+                        <span><i class="fas fa-star"></i> 13.9k</span>
+                        <span><i class="fas fa-code-branch"></i> 2.8k</span>
+                        <span><i class="fas fa-fire"></i> 1次在榜</span>
+                        <span><i class="fas fa-arrow-up"></i> 34 新增</span>
+                        <span><i class="fab fa-python"></i> Python/Jupyter</span>
+                    </div>
+                    <p class="font-semibold text-gray-700 mt-2">项目速读:</p>
+                    <p class="text-sm">赋能研究员和开发者高效构建、训练、部署前沿AI模型。模块化设计，广泛模型兼容，针对NVIDIA GPU深度优化，加速AI创新与落地。</p>
+                </div>
+            </section>
+
+            <!-- rzane/docker2exe -->
+            <section>
+                <div class="repo-card">
+                    <h3><a href="https://github.com/rzane/docker2exe" target="_blank"><i class="fab fa-docker"></i> rzane/docker2exe</a></h3>
+                    <p class="text-sm text-gray-600">将 Docker 镜像转换为可执行文件。</p>
+                    <div class="repo-stats">
+                        <span><i class="fas fa-star"></i> 1k</span>
+                        <span><i class="fas fa-code-branch"></i> 46</span>
+                        <span><i class="fas fa-fire"></i> 1次在榜</span>
+                        <span><i class="fas fa-arrow-up"></i> 288 新增</span>
+                        <span><i class="fab fa-golang"></i> Go</span>
+                    </div>
+                     <p class="font-semibold text-gray-700 mt-2">项目速读:</p>
+                    <p class="text-sm">Go编写的命令行工具，将Docker镜像转为独立可执行文件。自动处理依赖，可自动拉取或嵌入镜像数据，简化Docker化应用分发和运行。</p>
+                </div>
+            </section>
+
+            <!-- Conclusion Slide -->
+            <section class="cover-slide dark-slide" data-background-image="https://source.unsplash.com/random/1600x900/?abstract,code" data-background-opacity="0.7" data-background-color="#1f2937">
+                <h1>感谢关注！</h1>
+                <p class="subtitle">保持学习，拥抱变化，AI时代大有可为！</p>
+                <p class="speaker-info mt-8">Stay tuned for more insights from AIChipEra.</p>
+                <div class="footer-info">
+                    <img src="../../asserts/wx.jpg" alt="微信公众号二维码">
+                     <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        <i class="fab fa-github"></i> github.com/aichipera/github-trend
+                    </a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            center: true,
+            margin: 0.04,
+            controls: true,
+            progress: true,
+            slideNumber: 'c/t',
+            history: true,
+            keyboard: true,
+            overview: true,
+            transition: 'slide', // "none", "fade", "slide", "convex", "concave", "zoom"
+            transitionSpeed: 'default', // "default", "fast", "slow"
+            backgroundTransition: 'fade', // "default", "none", "fade", "slide", "convex", "concave", "zoom"
+            // Optional libraries used to extend reveal.js
+            // dependencies: [
+            //  { src: 'plugin/markdown/marked.js' },
+            //  { src: 'plugin/markdown/markdown.js' },
+            //  { src: 'plugin/notes/notes.js', async: true },
+            //  { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+            // ]
+        });
+        mermaid.initialize({ startOnLoad:true });
+    </script>
+</body>
+</html>
