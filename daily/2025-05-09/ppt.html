@@ -1,0 +1,572 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI杀入开发腹地！程序员的效率神器大换血？ - GitHub热门趋势解读</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet" id="theme">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        :root {
+            --r-main-font: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: 'Noto Serif SC', 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, serif;
+            --r-link-color: #007bff;
+            --r-heading-color: #2c3e50; 
+            --r-main-color: #333;
+            --r-background-color: #f8f9fa; /* Light gray background */
+            
+            --aha-primary-color: #3498db; /* A modern blue */
+            --aha-secondary-color: #2ecc71; /* A vibrant green */
+            --aha-accent-color: #f39c12; /* A warm orange for highlights */
+            --aha-text-dark: #2c3e50;
+            --aha-text-light: #ecf0f1;
+        }
+
+        body {
+            font-family: var(--r-main-font);
+            color: var(--aha-text-dark);
+        }
+
+        .reveal .slides {
+            text-align: left; /* Default to left align for content */
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--aha-primary-color);
+            margin-bottom: 0.5em;
+        }
+
+        .reveal h1 { font-size: 2.8em; line-height: 1.2; }
+        .reveal h2 { font-size: 2.0em; line-height: 1.2; }
+        .reveal h3 { font-size: 1.5em; line-height: 1.3; }
+        .reveal p, .reveal li { 
+            font-size: 1.1em; 
+            line-height: 1.6;
+            color: #555;
+        }
+        .reveal small { font-size: 0.7em; }
+
+        .reveal section img.qr-code {
+            width: 60px;
+            height: 60px;
+            border: none;
+            box-shadow: none;
+            margin-left: 10px;
+        }
+        .reveal .footer-info {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.6em;
+            color: #7f8c8d;
+            display: flex;
+            align-items: center;
+        }
+        .reveal .footer-info a {
+            color: var(--aha-primary-color);
+            text-decoration: none;
+        }
+        .reveal .footer-info a:hover {
+            text-decoration: underline;
+        }
+
+        .cover-slide {
+            text-align: center;
+            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%); /* Tailwind blue gradient */
+        }
+        .cover-slide h1, .cover-slide h2, .cover-slide p {
+            color: var(--aha-text-light);
+        }
+        .cover-slide h1 {
+             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .section-title-slide h1 {
+            text-align: center;
+            color: var(--aha-accent-color);
+            border-bottom: 3px solid var(--aha-accent-color);
+            padding-bottom: 0.3em;
+        }
+        
+        .highlight {
+            color: var(--aha-accent-color);
+            font-weight: 600; /* Noto Sans SC 600 */
+        }
+
+        .reveal table {
+            font-size: 0.8em;
+            width: 100%;
+            margin-top: 1em;
+            margin-bottom: 1em;
+            border-collapse: collapse;
+        }
+        .reveal th, .reveal td {
+            border: 1px solid #ddd;
+            padding: 0.5em 0.75em;
+        }
+        .reveal th {
+            background-color: #ecf0f1; /* Light gray for table headers */
+            color: var(--aha-text-dark);
+            font-weight: 500; /* Noto Sans SC 500 */
+        }
+        .reveal td a {
+            color: var(--r-link-color);
+        }
+
+        .icon-list li {
+            list-style: none;
+            padding-left: 1.5em;
+            position: relative;
+            margin-bottom: 0.5em;
+        }
+        .icon-list li i {
+            position: absolute;
+            left: 0;
+            top: 0.3em;
+            color: var(--aha-secondary-color);
+        }
+        .repo-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 1.5em;
+        }
+        .repo-card h3 a {
+            color: var(--aha-primary-color);
+        }
+        .repo-card .repo-meta span {
+            margin-right: 15px;
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+        .repo-card .repo-meta i {
+            margin-right: 5px;
+        }
+         .repo-desc {
+            font-size: 0.95em;
+            color: #555;
+            margin-bottom: 0.8em;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Cover Slide -->
+            <section class="cover-slide" data-transition="zoom">
+                <h1 class="text-5xl font-bold">AI杀入开发腹地！</h1>
+                <h2 class="text-3xl mt-4 mb-8">程序员的效率神器大换血？</h2>
+                <p class="text-xl">GitHub 热门趋势解读 (2025-05-09)</p>
+                <p class="mt-12 text-lg">演讲者：AIChipEra</p>
+                <div class="footer-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend <i class="fab fa-github"></i></a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code" class="qr-code">
+                </div>
+            </section>
+
+            <!-- Introduction: 日报要点 -->
+            <section data-transition="slide-in fade-out">
+                <h2><i class="fas fa-newspaper text-yellow-500"></i> 日报要点</h2>
+                <p class="mt-4">
+                    最新榜单揭示了技术前沿的剧变！AI不再遥远，正以前所未有的速度渗透到开发流程中，从简化复杂运维、加速内容生成，到增强你的编程工具。
+                </p>
+                <p class="fragment mt-2">
+                    同时，开发者对极致效率和性能的追求催生了一系列强大的新工具，它们正彻底改变我们构建软件的方式。Python、Rust、Go、TypeScript等语言各显神通，共同塑造着未来的技术栈。
+                </p>
+                <p class="fragment mt-2">
+                    这份趋势报告不仅告诉你哪些项目<span class="highlight">一夜暴增、备受追捧</span>，更帮你把握住<span class="highlight">下一个技术浪潮的关键</span>。想知道哪些效率神器能让你事半功倍？哪些技术方向你必须关注？<span class="highlight">答案就在这里。</span>
+                </p>
+            </section>
+
+            <!-- 热门项目趋势分析 -->
+            <section>
+                <section class="section-title-slide" data-transition="convex">
+                    <h1><i class="fas fa-chart-line text-blue-500"></i> 热门项目趋势分析</h1>
+                </section>
+                <section>
+                    <h3><i class="fas fa-fire text-red-500"></i> 今日整体趋势</h3>
+                    <p>今日GitHub热门项目榜单清晰描绘了当前技术发展的核心方向：<span class="highlight">人工智能的广泛落地</span>是主旋律。</p>
+                    <ul class="mt-2 text-sm">
+                        <li class="fragment"><i class="fas fa-brain text-pink-500 mr-2"></i>AI应用深化：Kubernetes操作简化 (kubectl-ai)、短视频创作 (MoneyPrinterTurbo)、科学文档翻译 (PDFMathTranslate)。</li>
+                        <li class="fragment"><i class="fas fa-tools text-gray-600 mr-2"></i>AI赋能开发工具：AI增强代码编辑器 (Void)。</li>
+                        <li class="fragment"><i class="fas fa-cogs text-green-500 mr-2"></i>开发者工具持续活跃：高性能编辑器 (Zed)，便捷Neovim配置 (mason.nvim)，企业级UI库 (Element Plus)。</li>
+                        <li class="fragment"><i class="fas fa-code text-purple-500 mr-2"></i>语言趋势：Python (AI主导)，Rust & Go (性能)，TypeScript (前端/工具链)。</li>
+                    </ul>
+                    <p class="fragment mt-3">核心需求：<span class="highlight">效率、简化、性能</span>。AI正从实验室走向生产力工具，解决实际问题。</p>
+                </section>
+                <section>
+                    <h3><i class="fas fa-exchange-alt text-teal-500"></i> 热门项目双日维度对比</h3>
+                     <p>今日与昨日对比，GitHub热门项目列表<span class="highlight">更新迭代明显</span>：</p>
+                    <ul class="mt-2 text-sm icon-list">
+                        <li class="fragment"><i class="fas fa-plus-circle"></i><strong>8个新项目</strong>跻身，社区活跃度高。</li>
+                        <li class="fragment"><i class="fas fa-arrow-trend-up"></i>保留项目中，<strong>7个持续上升</strong>，无显著下降。</li>
+                        <li class="fragment"><i class="fas fa-code"></i>新晋项目语言：<span class="highlight">Python</span> (AI/视频处理) 主导，Rust (UI), TypeScript (前端), Lua (Neovim), Go (游戏后端) 亦有斩获。</li>
+                        <li class="fragment"><i class="fas fa-star"></i><strong>显著变化</strong>: <code>voideditor/void</code> 星标增长<span class="highlight">异常迅猛</span>，远超其他。</li>
+                        <li class="fragment"><i class="fas fa-robot"></i>AI相关项目的<span class="highlight">持续活跃和增长</span>是重要趋势。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fas fa-bolt text-yellow-400"></i> 热点变化</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 text-sm">
+                        <div class="fragment bg-green-50 p-3 rounded-lg shadow">
+                            <h4 class="font-semibold text-green-600"><i class="fas fa-concierge-bell"></i> 新增热点</h4>
+                            <ul class="list-disc list-inside ml-2 mt-1">
+                                <li>heroiclabs/nakama</li>
+                                <li>longbridge/gpui-component</li>
+                                <li>element-plus/element-plus</li>
+                                <li>lightricks/comfyui-ltxvideo</li>
+                                <li>mason-org/mason.nvim</li>
+                                <li>byaidu/pdfmathtranslate</li>
+                                <li>lightricks/ltx-video</li>
+                                <li>ultralytics/ultralytics</li>
+                            </ul>
+                        </div>
+                        <div class="fragment bg-red-50 p-3 rounded-lg shadow">
+                            <h4 class="font-semibold text-red-600"><i class="fas fa-temperature-low"></i> 减退热点</h4>
+                             <ul class="list-disc list-inside ml-2 mt-1">
+                                <li>78/xiaozhi-esp32</li>
+                                <li>modsetter/surfsense</li>
+                                <li>awslabs/agent-squad</li>
+                                <!-- Add more if needed -->
+                            </ul>
+                        </div>
+                        <div class="fragment bg-blue-50 p-3 rounded-lg shadow">
+                            <h4 class="font-semibold text-blue-600"><i class="fas fa-fire-alt"></i> 持续热门</h4>
+                            <ul class="list-disc list-inside ml-2 mt-1">
+                               <li>harry0703/MoneyPrinterTurbo (3次)</li>
+                               <li>GoogleCloudPlatform/kubectl-ai (5次)</li>
+                               <li>voideditor/void (3次)</li>
+                               <li>ruanyf/weekly (4次)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- 详细仓库数据 -->
+            <section>
+                <section class="section-title-slide" data-transition="convex">
+                     <h1><i class="fas fa-database text-indigo-500"></i> 详细仓库数据</h1>
+                </section>
+
+                <section data-transition="slide">
+                    <div class="repo-card">
+                        <h3><a href="https://github.com/longbridge/gpui-component" target="_blank"><i class="fab fa-rust"></i> longbridge/gpui-component</a></h3>
+                        <p class="repo-desc">基于GPUI构建优秀桌面应用程序的UI组件</p>
+                        <div class="repo-meta">
+                            <span><i class="fas fa-star"></i>1.5k</span>
+                            <span><i class="fas fa-code-branch"></i>80</span>
+                            <span><i class="fas fa-fire"></i>1次在榜</span>
+                            <span><i class="fas fa-plus-circle"></i>302 (今日)</span>
+                            <span><i class="fas fa-code"></i>Rust</span>
+                        </div>
+                        <h4 class="text-base font-semibold mt-3 mb-1"><i class="fas fa-bolt text-yellow-500"></i> 项目速读</h4>
+                        <p class="text-sm">GPUI Component 是专为 GPUI 框架设计的桌面UI组件库，提供40+跨平台、现代风格组件。融合原生与shadcn/ui灵感，易用、可主题化，并对大数据列表/表格做了性能优化（虚拟化）。旨在助开发者高效构建GPUI桌面应用。</p>
+                    </div>
+                </section>
+
+                <section data-transition="slide">
+                     <div class="repo-card">
+                        <h3><a href="https://github.com/harry0703/MoneyPrinterTurbo" target="_blank"><i class="fab fa-python"></i> harry0703/MoneyPrinterTurbo</a></h3>
+                        <p class="repo-desc">利用AI大模型，一键生成高清短视频</p>
+                        <div class="repo-meta">
+                            <span><i class="fas fa-star"></i>28k</span>
+                            <span><i class="fas fa-code-branch"></i>4.1k</span>
+                            <span><i class="fas fa-fire"></i>3次在榜</span>
+                            <span><i class="fas fa-plus-circle"></i>610 (今日)</span>
+                            <span><i class="fas fa-code"></i>Python</span>
+                        </div>
+                        <h4 class="text-base font-semibold mt-3 mb-1"><i class="fas fa-bolt text-yellow-500"></i> 项目速读</h4>
+                        <p class="text-sm">MoneyPrinterTurbo 利用 AI 大模型全自动生成高清短视频。用户提供主题/关键词，即可完成文案、素材、字幕、配音、合成全流程。支持多尺寸、多语言、多主流AI模型，提供WebUI和API，极大提升视频内容生产效率。</p>
+                        <h5 class="text-xs font-semibold mt-2 mb-1 text-gray-600"><i class="fas fa-chart-line"></i> 增长分析</h5>
+                        <p class="text-xs text-gray-500">3天内连续上榜3次，今日新增610星，增长势头强劲，广受关注。</p>
+                    </div>
+                </section>
+
+                <section data-transition="slide">
+                    <div class="repo-card">
+                        <h3><a href="https://github.com/GoogleCloudPlatform/kubectl-ai" target="_blank"><i class="fab fa-go-wordmark"></i> GoogleCloudPlatform/kubectl-ai</a></h3>
+                        <p class="repo-desc">AI赋能的Kubernetes助手</p>
+                        <div class="repo-meta">
+                             <span><i class="fas fa-star"></i>4.3k</span>
+                             <span><i class="fas fa-code-branch"></i>287</span>
+                             <span><i class="fas fa-fire"></i>5次在榜</span>
+                             <span><i class="fas fa-plus-circle"></i>1268 (今日)</span>
+                             <span><i class="fas fa-code"></i>Go</span>
+                        </div>
+                        <h4 class="text-base font-semibold mt-3 mb-1"><i class="fas fa-bolt text-yellow-500"></i> 项目速读</h4>
+                        <p class="text-sm">kubectl-ai 允许用户通过自然语言与Kubernetes集群交互。它能理解日常提问，智能转为kubectl命令执行，并返回结果及解释。支持多种LLM（包括本地模型），提供会话模式和kubectl插件能力，降低K8s门槛，提高操作效率。</p>
+                        <h5 class="text-xs font-semibold mt-2 mb-1 text-gray-600"><i class="fas fa-chart-line"></i> 增长分析</h5>
+                        <p class="text-xs text-gray-500">5天内连续上榜5次，平均每日新增近千星。今日新增1268星，呈加速上升趋势。</p>
+                    </div>
+                </section>
+                
+                <section data-transition="slide">
+                    <div class="repo-card">
+                        <h3><a href="https://github.com/NVIDIA/NeMo" target="_blank"><i class="fab fa-python"></i> NVIDIA/NeMo</a></h3>
+                        <p class="repo-desc">可扩展的生成式AI框架 (LLM, 多模态, 语音AI)</p>
+                        <div class="repo-meta">
+                             <span><i class="fas fa-star"></i>14.1k</span>
+                             <span><i class="fas fa-code-branch"></i>2.8k</span>
+                             <span><i class="fas fa-fire"></i>2次在榜</span>
+                             <span><i class="fas fa-plus-circle"></i>50 (今日)</span>
+                             <span><i class="fas fa-code"></i>Python</span>
+                        </div>
+                        <h4 class="text-base font-semibold mt-3 mb-1"><i class="fas fa-bolt text-yellow-500"></i> 项目速读</h4>
+                        <p class="text-sm">NVIDIA NeMo 是一个生成式AI框架，专注LLM、多模态和语音AI。加速从数据处理到部署全流程，擅长构建前沿模型。高度优化NVIDIA GPU性能，支持大规模分布式训练，提供丰富模型架构和高效工具。</p>
+                        <h5 class="text-xs font-semibold mt-2 mb-1 text-gray-600"><i class="fas fa-chart-line"></i> 增长分析</h5>
+                        <p class="text-xs text-gray-500">两天两次上榜，今日新增50星，高于平均，增长势头良好。</p>
+                    </div>
+                </section>
+
+                <section data-transition="slide">
+                    <div class="repo-card">
+                        <h3><a href="https://github.com/voideditor/void" target="_blank"><i class="fab fa-js-square"></i> voideditor/void</a> <span class="text-xs">(TypeScript)</span></h3>
+                        <p class="repo-desc">AI增强的开源代码编辑器，Cursor替代品</p>
+                        <div class="repo-meta">
+                             <span><i class="fas fa-star"></i>14.8k</span>
+                             <span><i class="fas fa-code-branch"></i>875</span>
+                             <span><i class="fas fa-fire"></i>3次在榜</span>
+                             <span><i class="fas fa-plus-circle"></i>434 (今日)</span>
+                             <span><i class="fas fa-code"></i>TypeScript</span>
+                        </div>
+                        <h4 class="text-base font-semibold mt-3 mb-1"><i class="fas fa-bolt text-yellow-500"></i> 项目速读</h4>
+                        <p class="text-sm">Void 是基于VS Code的开源AI代码编辑器，定位为Cursor替代品。核心优势是强大AI代理功能，可在整个代码库应用AI。支持任何AI模型（包括本地），强调隐私保护（不保留数据），提供代码变更历史检查点和可视化。</p>
+                        <h5 class="text-xs font-semibold mt-2 mb-1 text-gray-600"><i class="fas fa-chart-line"></i> 增长分析</h5>
+                        <p class="text-xs text-gray-500">3天内3次上榜，今日新增434星，增长稳定且强劲，热度高。</p>
+                    </div>
+                </section>
+                
+                <section data-transition="slide">
+                    <div class="repo-card">
+                        <h3><a href="https://github.com/Byaidu/PDFMathTranslate" target="_blank"><i class="fab fa-python"></i> Byaidu/PDFMathTranslate</a></h3>
+                        <p class="repo-desc">保留排版的PDF科学论文翻译工具</p>
+                        <div class="repo-meta">
+                             <span><i class="fas fa-star"></i>22.9k</span>
+                             <span><i class="fas fa-code-branch"></i>2k</span>
+                             <span><i class="fas fa-fire"></i>4次在榜</span>
+                             <span><i class="fas fa-plus-circle"></i>162 (今日)</span>
+                             <span><i class="fas fa-code"></i>Python</span>
+                        </div>
+                        <h4 class="text-base font-semibold mt-3 mb-1"><i class="fas fa-bolt text-yellow-500"></i> 项目速读</h4>
+                        <p class="text-sm">PDFMathTranslate 专注于翻译科学PDF，核心价值是完整保留原文复杂排版、公式、图表。集成多种翻译服务 (Google, DeepL, OpenAI等)，支持多语言，提供CLI/GUI/Docker/Zotero插件等多种使用方式。</p>
+                        <h5 class="text-xs font-semibold mt-2 mb-1 text-gray-600"><i class="fas fa-chart-line"></i> 增长分析</h5>
+                        <p class="text-xs text-gray-500">4次上榜平均带来245星增长，今日新增162星，增长仍在继续。</p>
+                    </div>
+                </section>
+
+                <section data-transition="slide">
+                    <div class="repo-card">
+                        <h3><a href="https://github.com/ultralytics/ultralytics" target="_blank"><i class="fab fa-python"></i> ultralytics/ultralytics</a></h3>
+                        <p class="repo-desc">Ultralytics YOLO (YOLOv8, YOLOv11) 计算机视觉工具集</p>
+                        <div class="repo-meta">
+                             <span><i class="fas fa-star"></i>40.4k</span>
+                             <span><i class="fas fa-code-branch"></i>7.8k</span>
+                             <span><i class="fas fa-fire"></i>1次在榜</span>
+                             <span><i class="fas fa-plus-circle"></i>62 (今日)</span>
+                             <span><i class="fas fa-code"></i>Python</span>
+                        </div>
+                        <h4 class="text-base font-semibold mt-3 mb-1"><i class="fas fa-bolt text-yellow-500"></i> 项目速读</h4>
+                        <p class="text-sm">Ultralytics 是基于PyTorch的计算机视觉工具集，核心是高性能YOLO模型。支持目标检测、实例分割、目标跟踪、姿态估计等。模型速度快、精度高，提供简洁CLI和Python API。集成了YOLOv8等最新技术。</p>
+                    </div>
+                </section>
+
+                 <section data-transition="slide">
+                    <div class="repo-card">
+                        <h3><a href="https://github.com/ruanyf/weekly" target="_blank"><i class="fas fa-book-open"></i> ruanyf/weekly</a></h3>
+                        <p class="repo-desc">科技爱好者周刊，每周五发布</p>
+                        <div class="repo-meta">
+                             <span><i class="fas fa-star"></i>60.5k</span>
+                             <span><i class="fas fa-code-branch"></i>3.3k</span>
+                             <span><i class="fas fa-fire"></i>5次在榜</span>
+                             <span><i class="fas fa-plus-circle"></i>1125 (今日)</span>
+                             <span><i class="fas fa-code"></i>-</span>
+                        </div>
+                        <h4 class="text-base font-semibold mt-3 mb-1"><i class="fas fa-bolt text-yellow-500"></i> 项目速读</h4>
+                        <p class="text-sm">阮一峰的“科技爱好者周刊”，每周五更新，筛选聚合高质量文章、新颖软件及实用资源。内容精华，形成可查阅的科技史库，并拓展社区投稿和招聘信息。是掌握前沿科技动态的优质平台。</p>
+                        <h5 class="text-xs font-semibold mt-2 mb-1 text-gray-600"><i class="fas fa-chart-line"></i> 增长分析</h5>
+                        <p class="text-xs text-gray-500">5次上榜平均新增835星。今日新增1125星，高于平均，近期增长加速。</p>
+                    </div>
+                </section>
+
+                 <section data-transition="slide">
+                    <div class="repo-card">
+                        <h3><a href="https://github.com/Lightricks/LTX-Video" target="_blank"><i class="fab fa-python"></i> Lightricks/LTX-Video</a></h3>
+                        <p class="repo-desc">官方 LTX-Video 仓库 - 基于Diffusion Transformer的视频生成模型</p>
+                        <div class="repo-meta">
+                             <span><i class="fas fa-star"></i>4.2k</span>
+                             <span><i class="fas fa-code-branch"></i>340</span>
+                             <span><i class="fas fa-fire"></i>1次在榜</span>
+                             <span><i class="fas fa-plus-circle"></i>173 (今日)</span>
+                             <span><i class="fas fa-code"></i>Python</span>
+                        </div>
+                        <h4 class="text-base font-semibold mt-3 mb-1"><i class="fas fa-bolt text-yellow-500"></i> 项目速读</h4>
+                        <p class="text-sm">LTX-Video 是基于Diffusion Transformer (DiT) 架构的视频生成模型。亮点是高质量、高分辨率视频的“实时”生成 (30FPS, 1216x704)。首个将DiT用于实时视频生成的项目，支持文本、图像、关键帧等多种输入模式。</p>
+                    </div>
+                </section>
+
+                <section data-transition="slide">
+                    <div class="repo-card">
+                        <h3><a href="https://github.com/element-plus/element-plus" target="_blank"><i class="fab fa-vuejs"></i> element-plus/element-plus</a> <span class="text-xs">(TypeScript)</span></h3>
+                        <p class="repo-desc">Element 团队打造的 Vue.js 3 UI 库</p>
+                        <div class="repo-meta">
+                             <span><i class="fas fa-star"></i>25.7k</span>
+                             <span><i class="fas fa-code-branch"></i>18.4k</span>
+                             <span><i class="fas fa-fire"></i>1次在榜</span>
+                             <span><i class="fas fa-plus-circle"></i>10 (今日)</span>
+                             <span><i class="fas fa-code"></i>TypeScript, Vue</span>
+                        </div>
+                        <h4 class="text-base font-semibold mt-3 mb-1"><i class="fas fa-bolt text-yellow-500"></i> 项目速读</h4>
+                        <p class="text-sm">Element Plus 是基于Vue 3的企业级开源UI组件库。提供完整、高质量、可定制的UI组件，用于快速构建Web应用 (尤其后台系统)。采用TypeScript，利用Vue 3新特性，提供优秀类型支持。API稳定，支持从Element UI平滑迁移。</p>
+                    </div>
+                </section>
+
+                <section data-transition="slide">
+                    <div class="repo-card">
+                        <h3><a href="https://github.com/zed-industries/zed" target="_blank"><i class="fab fa-rust"></i> zed-industries/zed</a></h3>
+                        <p class="repo-desc">高性能、多人协作代码编辑器，由Atom和Tree-sitter创建者打造</p>
+                        <div class="repo-meta">
+                             <span><i class="fas fa-star"></i>58.7k</span>
+                             <span><i class="fas fa-code-branch"></i>4.1k</span>
+                             <span><i class="fas fa-fire"></i>3次在榜</span>
+                             <span><i class="fas fa-plus-circle"></i>259 (今日)</span>
+                             <span><i class="fas fa-code"></i>Rust</span>
+                        </div>
+                        <h4 class="text-base font-semibold mt-3 mb-1"><i class="fas fa-bolt text-yellow-500"></i> 项目速读</h4>
+                        <p class="text-sm">Zed 是一款追求极致性能和流畅多人协作体验的下一代代码编辑器。基于Rust构建，保证处理大型项目也流畅。内置强大实时多人协作功能。目前主要面向macOS/Linux，Windows/Web版开发中。</p>
+                        <h5 class="text-xs font-semibold mt-2 mb-1 text-gray-600"><i class="fas fa-chart-line"></i> 增长分析</h5>
+                        <p class="text-xs text-gray-500">3次上榜平均带来168星增长，今日新增259星高于平均，潜力良好。</p>
+                    </div>
+                </section>
+
+                <section data-transition="slide">
+                    <div class="repo-card">
+                        <h3><a href="https://github.com/mason-org/mason.nvim" target="_blank"><img src="https://raw.githubusercontent.com/neovim/neovim.github.io/master/logos/neovim-logo-300x87.png" alt="Neovim" style="height:1em; display:inline-block; vertical-align:text-bottom; margin-right:2px;"> mason-org/mason.nvim</a> <span class="text-xs">(Lua)</span></h3>
+                        <p class="repo-desc">Neovim可移植包管理器 (LSP, DAP, linter, formatter)</p>
+                        <div class="repo-meta">
+                             <span><i class="fas fa-star"></i>8.8k</span>
+                             <span><i class="fas fa-code-branch"></i>306</span>
+                             <span><i class="fas fa-fire"></i>1次在榜</span>
+                             <span><i class="fas fa-plus-circle"></i>42 (今日)</span>
+                             <span><i class="fas fa-code"></i>Lua</span>
+                        </div>
+                        <h4 class="text-base font-semibold mt-3 mb-1"><i class="fas fa-bolt text-yellow-500"></i> 项目速读</h4>
+                        <p class="text-sm">mason.nvim 是Neovim的便携包管理器，统一管理LSP服务器、DAP调试器、linter、formatter。支持多操作系统，一键安装、更新、卸载开发辅助工具。自动化工具下载、依赖处理、路径配置，降低Neovim IDE化门槛。</p>
+                    </div>
+                </section>
+
+                <section data-transition="slide">
+                    <div class="repo-card">
+                        <h3><a href="https://github.com/Blaizzy/mlx-audio" target="_blank"><i class="fab fa-apple"></i> Blaizzy/mlx-audio</a> <span class="text-xs">(Python)</span></h3>
+                        <p class="repo-desc">基于Apple MLX框架的TTS/STT/STS库，高效语音分析</p>
+                        <div class="repo-meta">
+                             <span><i class="fas fa-star"></i>1.2k</span>
+                             <span><i class="fas fa-code-branch"></i>91</span>
+                             <span><i class="fas fa-fire"></i>2次在榜</span>
+                             <span><i class="fas fa-plus-circle"></i>101 (今日)</span>
+                             <span><i class="fas fa-code"></i>Python</span>
+                        </div>
+                        <h4 class="text-base font-semibold mt-3 mb-1"><i class="fas fa-bolt text-yellow-500"></i> 项目速读</h4>
+                        <p class="text-sm">MLX-Audio 是基于Apple MLX框架的语音处理库，充分利用Apple Silicon性能。核心功能是高效TTS/STS，提供macOS设备上快速本地化语音合成。支持多语言、语速调整，提供Web界面和REST API。</p>
+                        <h5 class="text-xs font-semibold mt-2 mb-1 text-gray-600"><i class="fas fa-chart-line"></i> 增长分析</h5>
+                        <p class="text-xs text-gray-500">两天两次上榜，日均新增Star稳定在100左右，增长积极。</p>
+                    </div>
+                </section>
+
+                <section data-transition="slide">
+                    <div class="repo-card">
+                        <h3><a href="https://github.com/Lightricks/ComfyUI-LTXVideo" target="_blank"><i class="fab fa-python"></i> Lightricks/ComfyUI-LTXVideo</a></h3>
+                        <p class="repo-desc">LTX-Video 对 ComfyUI 的支持</p>
+                        <div class="repo-meta">
+                             <span><i class="fas fa-star"></i>1.2k</span>
+                             <span><i class="fas fa-code-branch"></i>96</span>
+                             <span><i class="fas fa-fire"></i>1次在榜</span>
+                             <span><i class="fas fa-plus-circle"></i>31 (今日)</span>
+                             <span><i class="fas fa-code"></i>Python</span>
+                        </div>
+                        <h4 class="text-base font-semibold mt-3 mb-1"><i class="fas fa-bolt text-yellow-500"></i> 项目速读</h4>
+                        <p class="text-sm">ComfyUI-LTXVideo 将Lightricks LTXV模型集成到ComfyUI工作流，赋予其强大视频生成/处理能力。支持高效量化版和高质量模型，通过潜空间放大生成高分辨率视频。提供文生/图生视频、帧控制、高级参数调节等功能。</p>
+                    </div>
+                </section>
+
+                <section data-transition="slide">
+                    <div class="repo-card">
+                        <h3><a href="https://github.com/heroiclabs/nakama" target="_blank"><i class="fab fa-go-wordmark"></i> heroiclabs/nakama</a></h3>
+                        <p class="repo-desc">用于社交和实时游戏及应用的分布式服务器</p>
+                        <div class="repo-meta">
+                             <span><i class="fas fa-star"></i>10.5k</span>
+                             <span><i class="fas fa-code-branch"></i>1.2k</span>
+                             <span><i class="fas fa-fire"></i>2次在榜</span>
+                             <span><i class="fas fa-plus-circle"></i>283 (今日)</span>
+                             <span><i class="fas fa-code"></i>Go</span>
+                        </div>
+                        <h4 class="text-base font-semibold mt-3 mb-1"><i class="fas fa-bolt text-yellow-500"></i> 项目速读</h4>
+                        <p class="text-sm">Nakama 是开源分布式后端服务器，专为社交和实时游戏/应用设计。提供用户系统、社交图谱、聊天、多人模式、排行榜等。Go语言构建，确保高扩展性和稳定性，支持多种语言编写自定义逻辑。加速开发，降低维护复杂性。</p>
+                        <h5 class="text-xs font-semibold mt-2 mb-1 text-gray-600"><i class="fas fa-chart-line"></i> 增长分析</h5>
+                        <p class="text-xs text-gray-500">两次上榜平均带来251星增长，今日新增283星，增长势头良好。</p>
+                    </div>
+                </section>
+
+            </section>
+
+            <!-- End Slide -->
+            <section class="cover-slide" data-transition="zoom-in fade-out">
+                <h2 class="text-4xl">感谢您的关注！</h2>
+                <p class="mt-6 text-xl">探索更多GitHub趋势，把握技术未来</p>
+                <i class="fas fa-rocket fa-3x mt-8 animate-bounce"></i>
+                 <div class="footer-info mt-12">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend <i class="fab fa-github"></i></a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code" class="qr-code">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        Reveal.initialize({
+            hash: true,
+            center: true,
+            width: "95%", /* Slightly wider for content */
+            height: "95%",
+            margin: 0.04,
+            minScale: 0.2,
+	        maxScale: 1.5,
+            slideNumber: 'c/t', // Current slide / total slides
+            controls: true,
+            progress: true,
+            history: true,
+            mouseWheel: true,
+            transition: 'slide', // default transition
+            transitionSpeed: 'default', // default, fast, slow
+            backgroundTransition: 'fade', // default, none, fade, slide, convex, concave, zoom
+            dependencies: [
+                // Markdown support. Not used here as HTML is directly generated.
+                // { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.0/plugin/markdown/markdown.min.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                // { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.0/plugin/highlight/highlight.min.js', async: true },
+                { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.0/plugin/notes/notes.min.js', async: true },
+                { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.0/plugin/zoom/zoom.min.js', async: true }
+            ]
+        });
+
+        // Initialize Mermaid.js if you plan to use it
+        // mermaid.initialize({ startOnLoad: true });
+        // Or for Reveal.js integration:
+        // Reveal.addEventListener('ready', function(event) {
+        //     mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+        // });
+    </script>
+</body>
+</html>
