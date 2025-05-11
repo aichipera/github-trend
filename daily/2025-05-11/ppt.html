@@ -1,0 +1,429 @@
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Github热门仓库日报 - AI搞钱、代码提效，普通电脑也能跑大模型？</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet" id="theme">
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --r-main-font: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: 'Noto Serif SC', 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, serif;
+            --r-heading-text-transform: none; /* Keep Chinese characters as is */
+            --r-link-color: #3b82f6; /* Tailwind blue-500 */
+            --r-link-color-hover: #2563eb; /* Tailwind blue-600 */
+            --r-selection-background-color: #fdc44f;
+            --r-main-font-size: 24px; /* Base for 1rem */
+        }
+
+        body {
+            font-family: var(--r-main-font);
+        }
+
+        .reveal .slides section,
+        .reveal .slides section .slide-background {
+            border-radius: 12px; /* Soften edges for a modern feel */
+        }
+        
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: var(--r-heading-font);
+            font-weight: 600; /* Bolder titles */
+            color: #1a202c; /* Darker gray for titles */
+        }
+
+        .reveal h1 { font-size: 2.8rem; margin-bottom: 20px !important; }
+        .reveal h2 { font-size: 2.2rem; margin-bottom: 15px !important; }
+        .reveal h3 { font-size: 1.8rem; margin-bottom: 10px !important; }
+        .reveal p, .reveal li, .reveal td, .reveal th {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #4a5568; /* Medium gray for text */
+        }
+
+        .reveal strong {
+            color: #2d3748; /* Slightly darker for strong text */
+        }
+
+        .reveal blockquote {
+            background: #f7fafc; /* Tailwind gray-100 */
+            border-left: 5px solid #6366f1; /* Tailwind indigo-500 */
+            padding: 15px 20px;
+            font-style: normal;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .reveal blockquote p {
+            font-size: 1rem;
+            color: #4a5568;
+        }
+
+        .reveal table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 90%;
+            font-size: 0.9rem;
+        }
+        .reveal th, .reveal td {
+            border: 1px solid #e2e8f0; /* Tailwind gray-300 */
+            padding: 8px 12px;
+        }
+        .reveal th {
+            background-color: #f1f5f9; /* Tailwind slate-100 */
+            font-weight: 500;
+        }
+        .reveal td {
+            text-align: left;
+        }
+
+        .footer-info {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.8rem;
+            color: #718096; /* Tailwind gray-500 */
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+        }
+        .footer-info img {
+            width: 50px;
+            height: 50px;
+            margin-left: 10px;
+            border-radius: 4px;
+        }
+        .footer-info a {
+            color: #4299e1; /* Tailwind blue-400 */
+            text-decoration: none;
+        }
+        .footer-info a:hover {
+            text-decoration: underline;
+        }
+
+        .cover-slide {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Indigo to Purple gradient */
+            color: white !important;
+        }
+        .cover-slide h1, .cover-slide h2, .cover-slide p, .cover-slide .footer-info, .cover-slide .footer-info a {
+            color: white !important;
+        }
+        .cover-slide .footer-info a:hover {
+            text-decoration: underline;
+        }
+
+        .section-title-slide {
+            background-color: #f0f4f8; /* A light, clean background for section titles */
+        }
+        .section-title-slide h2 {
+            color: #2c5282; /* A deep blue for section titles */
+        }
+        
+        .highlight-text {
+            color: #dd6b20; /* Tailwind orange-600 for emphasis */
+            font-weight: 500;
+        }
+
+        .repo-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .repo-card h3 {
+            color: #4a90e2; /* A nice blue for repo titles */
+        }
+
+        .repo-card .stars { color: #f59e0b; } /* amber-500 */
+        .repo-card .forks { color: #10b981; } /* emerald-500 */
+        .repo-card .lang-icon { margin-right: 5px; }
+
+        /* Custom fragments for smoother appearance */
+        .reveal .slides section .fragment.fade-fast {
+            opacity: 0;
+            display: inline-block; /* or block, depending on element */
+            transition: opacity 0.2s ease-in-out;
+        }
+        .reveal .slides section .fragment.fade-fast.visible {
+            opacity: 1;
+        }
+        .reveal .slides section .fragment.pop-in {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        .reveal .slides section .fragment.pop-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section class="cover-slide text-center">
+                <h1 class="text-5xl font-bold">别掉队！这波技术红利</h1>
+                <h2 class="text-3xl mt-4">AI搞钱、代码提效，普通电脑也能跑大模型？速看！</h2>
+                <p class="mt-8 text-lg">
+                    演讲者：AIChipEra <br>
+                    <span class="text-sm">Github热门仓库日报观测时间: 2025-05-11 20:49:54</span>
+                </p>
+                <div class="footer-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend <i class="fab fa-github"></i></a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+            <section class="section-title-slide">
+                <h2><i class="fas fa-bullseye mr-2"></i>日报要点</h2>
+            </section>
+            <section>
+                <p class="text-left leading-relaxed">最新技术趋势揭示了AI的全新进击方向！人工智能毫无疑问占据C位，但焦点正转向<strong class="highlight-text">落地应用</strong>与<strong class="highlight-text">“普惠化”</strong>。一键生成高清短视频、用AI辅助代码开发、让强大模型在个人电脑流畅运行，这些令人振奋的项目正迅速走红，预示着AI正变得前所未有的易用和高效。同时，高性能开发工具与注重隐私的开源软件也备受追捧。Python依然主导AI，而Rust在性能基建中扮演重要角色。这些趋势共同指向一个未来：技术正变得更智能、更高效，且更贴近个人需求。抓住这些风向标，或许就能搭上下一班技术红利的快车！</p>
+            </section>
+
+            <section>
+                <section class="section-title-slide">
+                    <h2><i class="fas fa-chart-line mr-2"></i>热门项目趋势分析</h2>
+                </section>
+                <section>
+                    <h3>今日整体趋势</h3>
+                    <p class="text-left text-sm leading-normal">今日GitHub热门项目的榜单呈现出几个引人注目的技术趋势。总体来看，<strong class="highlight-text">人工智能</strong>毫无疑问地占据了绝对的核心位置，不仅项目数量多，而且涵盖的应用领域广泛，增长势头强劲。紧随其后的是<strong class="highlight-text">高性能开发工具</strong>和<strong class="highlight-text">隐私优先的开源软件</strong>，显示了开发者对效率、性能和自主控制的持续追求。</p>
+                    <p class="fragment fade-fast text-left text-sm leading-normal">从技术领域来看，AI的应用不再局限于基础模型，而是深入到实际生产和创意流程中。例如，利用AI一键生成高清短视频的项目热度极高，反映了市场对自动化内容创作的迫切需求。同时，AI正在改造开发环境，AI辅助编程将更加普及和深入。</p>
+                    <p class="fragment fade-fast text-left text-sm leading-normal">技术栈方面，<strong class="highlight-text">Python</strong>凭借其在AI/ML领域的生态优势，依然是AI相关项目的首选语言。与此同时，<strong class="highlight-text">Rust</strong>在构建高性能基础设施和应用方面的价值日益凸显。<strong class="highlight-text">TypeScript</strong>则在构建现代Web应用、开发者工具中扮演着重要角色。</p>
+                    <p class="fragment fade-fast text-left text-sm leading-normal">如今的AI热点更加聚焦于如何将强大的模型能力转化为<strong class="highlight-text">实际、易用、能在个人设备上运行</strong>的应用，而不仅仅是云端服务。</p>
+                </section>
+                <section>
+                    <h3>热门项目双日维度对比分析</h3>
+                     <p class="text-left text-sm leading-normal">当前GitHub热门项目榜单表现活跃，整体热度呈现<strong class="highlight-text">上升趋势</strong>，有<strong class="fragment pop-in highlight-text">7个</strong>项目星标数显著增长，且没有项目出现明显下降。这表明入榜项目具备较高的稳定性和持续吸引力。</p>
+                     <p class="fragment fade-fast text-left text-sm leading-normal">当日新晋的<strong class="fragment pop-in highlight-text">6个</strong>项目类型多样，涵盖了人工智能领域的底层运行及应用扩展，同时也包括开发者工具、实用应用和特定技术领域的研究项目。</p>
+                     <p class="fragment fade-fast text-left text-sm leading-normal">编程语言分布微调，<strong class="highlight-text">TypeScript</strong>在本期热门项目中表现突出，数量净增2个，其次是C++和PHP各增加1个，而Python和未知分类项目略有减少。</p>
+                     <p class="fragment fade-fast text-left text-sm leading-normal">在涨幅方面，<code>MoneyPrinterTurbo</code> 和 <code>void</code> 等项目星标数增长强劲。AI视频生成相关的 <code>LTX-Video</code> 系列项目热度持续走高。</p>
+                </section>
+                <section>
+                    <h3>热点变化</h3>
+                    <ul class="text-left text-sm list-disc pl-6">
+                        <li class="fragment fade-fast"><strong class="text-green-600">新增热点 <i class="fas fa-arrow-up"></i></strong>：mail-0/zero, ggml-org/llama.cpp, kamranahmedse/developer-roadmap, lightricks/comfyui-ltxvideo, solidtime-io/solidtime, isledecomp/isle</li>
+                        <li class="fragment fade-fast"><strong class="text-red-600">减退热点 <i class="fas fa-arrow-down"></i></strong>：shane-mason/fieldstation42, peterande/d-fine, punkpeye/awesome-mcp-servers, wolfpld/tracy</li>
+                        <li class="fragment fade-fast"><strong class="text-blue-600">持续热门 <i class="fas fa-fire"></i></strong>：harry0703/MoneyPrinterTurbo(5次), voideditor/void(5次), Lightricks/LTX-Video(3次), longbridge/gpui-component(3次), zed-industries/zed(4次), Blaizzy/mlx-audio(4次)</li>
+                    </ul>
+                     <p class="fragment fade-fast mt-4 text-xs text-gray-500">注：括号内为总上榜次数。</p>
+                </section>
+            </section>
+
+            <section class="section-title-slide">
+                <h2><i class="fas fa-box-open mr-2"></i>详细仓库数据</h2>
+                <p class="text-sm text-gray-600">以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</p>
+            </section>
+
+            <section>
+                <div class="repo-card">
+                    <h3><i class="fab fa-python lang-icon"></i> harry0703/MoneyPrinterTurbo</h3>
+                    <p class="text-xs text-gray-500">利用AI大模型，一键生成高清短视频</p>
+                    <table>
+                        <thead><tr><th>Star 数</th><th>连续在榜</th><th>总上榜</th><th>当日增加</th></tr></thead>
+                        <tbody><tr><td><i class="fas fa-star stars"></i> 29265</td><td>5次</td><td>5次</td><td><span class="text-green-500 font-semibold">+901</span></td></tr></tbody>
+                    </table>
+                    <blockquote class="mt-2"><p>项目速读: MoneyPrinterTurbo 借助 AI 大模型实现一键生成高清短视频。用户只需输入文字或主题，工具就能智能完成文案生成、素材搜集、语音合成、字幕添加等，快速产出视频。核心亮点在于支持多种主流大模型、批量生成、多尺寸适配和Web界面。显著提高内容生产效率。</p></blockquote>
+                    <blockquote class="mt-2"><p>增长分析: 5天内连续上榜5次，日均增长超540 Star，今日新增901 Star，增长势头强劲并呈加速趋势。</p></blockquote>
+                </div>
+            </section>
+
+            <section>
+                <div class="repo-card">
+                    <h3><i class="fab fa-js-square lang-icon" style="color:#f0db4f;"></i> voideditor/void</h3>
+                    <p class="text-xs text-gray-500">基于VS Code的开源AI辅助代码编辑器</p>
+                    <table>
+                        <thead><tr><th>Star 数</th><th>连续在榜</th><th>总上榜</th><th>当日增加</th></tr></thead>
+                        <tbody><tr><td><i class="fas fa-star stars"></i> 16749</td><td>5次</td><td>5次</td><td><span class="text-green-500 font-semibold">+793</span></td></tr></tbody>
+                    </table>
+                    <blockquote class="mt-2"><p>项目速读: Void 是一个基于 VS Code 的开源代码编辑器，旨在成为 Cursor 的开源替代方案。它提供深度集成的 AI 开发环境，允许在整个代码库上运用 AI 代理。关键优势是开源性、AI 集成灵活性（支持本地模型）和用户数据隐私保护。</p></blockquote>
+                    <blockquote class="mt-2"><p>增长分析: 连续5天上榜，增长势头强劲，平均日增600星，总增长4242星，显示持续高热度。</p></blockquote>
+                </div>
+            </section>
+            
+            <section>
+                <div class="repo-card">
+                    <h3><i class="fab fa-python lang-icon"></i> Lightricks/LTX-Video</h3>
+                    <p class="text-xs text-gray-500">官方 LTX-Video 仓库，基于Diffusion Transformer的视频生成模型</p>
+                    <table>
+                        <thead><tr><th>Star 数</th><th>连续在榜</th><th>总上榜</th><th>当日增加</th></tr></thead>
+                        <tbody><tr><td><i class="fas fa-star stars"></i> 4734</td><td>3次</td><td>3次</td><td><span class="text-green-500 font-semibold">+334</span></td></tr></tbody>
+                    </table>
+                    <blockquote class="mt-2"><p>项目速读: LTX-Video 基于 DiT 技术，实现实时视频生成。能以超30帧/秒效率，根据文本、图像等生成高质量视频。涵盖文生视频、图生视频等多种模式，支持 ComfyUI 和 Diffusers 集成，是AI视频生成实用化的重要一步。</p></blockquote>
+                    <blockquote class="mt-2"><p>增长分析: 3天内3次上榜，总增584星。最新一日新增334星，增长势头稳健且呈加速趋势。</p></blockquote>
+                </div>
+            </section>
+
+            <section>
+                <div class="repo-card">
+                    <h3><i class="fas fa-code lang-icon" style="color:#dea584;"></i> longbridge/gpui-component (Rust)</h3>
+                    <p class="text-xs text-gray-500">使用 GPUI 构建出色桌面应用的 UI 组件库</p>
+                    <table>
+                        <thead><tr><th>Star 数</th><th>连续在榜</th><th>总上榜</th><th>当日增加</th></tr></thead>
+                        <tbody><tr><td><i class="fas fa-star stars"></i> 2243</td><td>3次</td><td>3次</td><td><span class="text-green-500 font-semibold">+304</span></td></tr></tbody>
+                    </table>
+                    <blockquote class="mt-2"><p>项目速读: GPUI Component 是基于 Rust 的 GPUI 框架的桌面UI组件库。提供40+ macOS/Windows原生风格与现代设计感组件。核心优势是高性能渲染（虚拟化列表/表格）、简洁 RenderOnce 模式、灵活主题系统和强大布局能力，降低高质量桌面应用开发门槛。</p></blockquote>
+                    <blockquote class="mt-2"><p>增长分析: 3天内上榜3次，总增787星，显示稳定增长势头和高活跃度。</p></blockquote>
+                </div>
+            </section>
+
+            <section>
+                <div class="repo-card">
+                    <h3><i class="fas fa-code lang-icon" style="color:#00599c;"></i> ggml-org/llama.cpp (C++)</h3>
+                    <p class="text-xs text-gray-500">C/C++ 中的 LLM 推理引擎</p>
+                    <table>
+                        <thead><tr><th>Star 数</th><th>连续在榜</th><th>总上榜</th><th>当日增加</th></tr></thead>
+                        <tbody><tr><td><i class="fas fa-star stars"></i> 79575</td><td>1次</td><td>1次</td><td><span class="text-green-500 font-semibold">+92</span></td></tr></tbody>
+                    </table>
+                    <blockquote class="mt-2"><p>项目速读: llama.cpp 是 C/C++ 编写的高性能推理引擎，专注在多种硬件高效运行 LLaMA 等大模型。核心亮点是纯C/C++实现，深度优化多CPU/GPU，支持模型量化。极大降低在个人设备运行大模型的门槛，推动LLM本地化普及。</p></blockquote>
+                </div>
+            </section>
+
+            <section>
+                <div class="repo-card">
+                    <h3><i class="fas fa-code lang-icon" style="color:#00599c;"></i> isledecomp/isle (C++)</h3>
+                    <p class="text-xs text-gray-500">《乐高岛》(1997年) 的功能完整反编译</p>
+                    <table>
+                        <thead><tr><th>Star 数</th><th>连续在榜</th><th>总上榜</th><th>当日增加</th></tr></thead>
+                        <tbody><tr><td><i class="fas fa-star stars"></i> 2851</td><td>1次</td><td>1次</td><td><span class="text-green-500 font-semibold">+59</span></td></tr></tbody>
+                    </table>
+                    <blockquote class="mt-2"><p>项目速读: isledecomp/isle 是对1997年游戏《乐高岛》的完整反编译。目标是将原版二进制逆向还原为可读源代码。已实现核心文件完全反编译，编译后功能与原版一致。为社区理解、模组开发、修复bug及跨平台移植提供了现代基础。</p></blockquote>
+                </div>
+            </section>
+            
+            <section>
+                <div class="repo-card">
+                    <h3><i class="fas fa-code lang-icon" style="color:#dea584;"></i> zed-industries/zed (Rust)</h3>
+                    <p class="text-xs text-gray-500">高性能、多人协作的代码编辑器</p>
+                    <table>
+                        <thead><tr><th>Star 数</th><th>连续在榜</th><th>总上榜</th><th>当日增加</th></tr></thead>
+                        <tbody><tr><td><i class="fas fa-star stars"></i> 59130</td><td>4次</td><td>5次</td><td><span class="text-green-500 font-semibold">+227</span></td></tr></tbody>
+                    </table>
+                    <blockquote class="mt-2"><p>项目速读: Zed 由 Atom 和 Tree-sitter 原班人马打造，追求极致性能和实时多人协作。提供“思如闪电”般的编码体验。目前主支持 macOS/Linux，Windows 开发中，是备受瞩目的下一代编辑器。</p></blockquote>
+                    <blockquote class="mt-2"><p>增长分析: 统计周期内增1406星。5次上榜，平均每次近200星增长。今日新增227星，高于平均，增长势头良好。</p></blockquote>
+                </div>
+            </section>
+
+            <section>
+                <div class="repo-card">
+                     <h3><i class="fab fa-js-square lang-icon" style="color:#f0db4f;"></i> kamranahmedse/developer-roadmap (TypeScript)</h3>
+                    <p class="text-xs text-gray-500">交互式路线图、指南，助开发者职业成长</p>
+                    <table>
+                        <thead><tr><th>Star 数</th><th>连续在榜</th><th>总上榜</th><th>当日增加</th></tr></thead>
+                        <tbody><tr><td><i class="fas fa-star stars"></i> 319011</td><td>1次</td><td>7次</td><td><span class="text-green-500 font-semibold">+375</span></td></tr></tbody>
+                    </table>
+                    <blockquote class="mt-2"><p>项目速读: roadmap.sh 提供社区驱动、持续更新的交互式学习路线图，覆盖多种技术方向。核心价值是为开发者提供系统化学习导航，通过视觉化路线图清晰展示知识点和步骤。对规划职业生涯的开发者是宝贵参考。</p></blockquote>
+                    <blockquote class="mt-2"><p>增长分析: 上榜7次，总增8615星，平均每次317.4星，本次375星，增长态势积极。</p></blockquote>
+                </div>
+            </section>
+
+            <section>
+                <div class="repo-card">
+                     <h3><i class="fab fa-js-square lang-icon" style="color:#f0db4f;"></i> Mail-0/Zero (TypeScript)</h3>
+                    <p class="text-xs text-gray-500">首个将隐私和安全放在首位的开源邮件应用</p>
+                    <table>
+                        <thead><tr><th>Star 数</th><th>连续在榜</th><th>总上榜</th><th>当日增加</th></tr></thead>
+                        <tbody><tr><td><i class="fas fa-star stars"></i> 6709</td><td>1次</td><td>2次</td><td><span class="text-green-500 font-semibold">+314</span></td></tr></tbody>
+                    </table>
+                    <blockquote class="mt-2"><p>项目速读: Zero (Mail-0) 是创新的开源邮件应用，强调隐私和安全。核心优势是自托管能力、统一收件箱整合多账号、AI增强邮件处理和高度可定制界面。为重视隐私和寻求现代邮件管理方案的用户提供选择。</p></blockquote>
+                    <blockquote class="mt-2"><p>增长分析: 短周期2次上榜，Star数激增1165。平均每次上榜贡献约184星，今日新增314星，近期增长势头强劲并加速。</p></blockquote>
+                </div>
+            </section>
+
+            <section>
+                <div class="repo-card">
+                     <h3><i class="fab fa-php lang-icon" style="color:#777BB4;"></i> solidtime-io/solidtime (PHP)</h3>
+                    <p class="text-xs text-gray-500">现代开源时间跟踪应用</p>
+                    <table>
+                        <thead><tr><th>Star 数</th><th>连续在榜</th><th>总上榜</th><th>当日增加</th></tr></thead>
+                        <tbody><tr><td><i class="fas fa-star stars"></i> 6290</td><td>1次</td><td>1次</td><td><span class="text-green-500 font-semibold">+239</span></td></tr></tbody>
+                    </table>
+                    <blockquote class="mt-2"><p>项目速读: solidtime 是为自由职业者和代理机构设计的现代开源时间追踪应用。核心价值在于集成式管理能力：时间记录与项目、任务、客户管理紧密结合，支持灵活计费费率、多组织管理和角色权限控制。可自托管或使用云服务。</p></blockquote>
+                </div>
+            </section>
+
+            <section>
+                <div class="repo-card">
+                     <h3><i class="fab fa-python lang-icon"></i> panaversity/learn-agentic-ai (Jupyter Notebook)</h3>
+                    <p class="text-xs text-gray-500">学习智能体AI，使用DACA设计模式与智能体原生云技术</p>
+                    <table>
+                        <thead><tr><th>Star 数</th><th>连续在榜</th><th>总上榜</th><th>当日增加</th></tr></thead>
+                        <tbody><tr><td><i class="fas fa-star stars"></i> 1644</td><td>2次</td><td>2次</td><td><span class="text-green-500 font-semibold">+207</span></td></tr></tbody>
+                    </table>
+                    <blockquote class="mt-2"><p>项目速读: 该项目基于 DACA 设计模式，教授在资源受限情况下构建大规模、高弹性 Agentic AI 系统。集成 Dapr, Kubernetes, OpenAI Agents SDK 等，提供“AI优先”、“云优先”的可伸缩架构。强调利用开源工具和云服务免费层降低实践门槛。</p></blockquote>
+                    <blockquote class="mt-2"><p>增长分析: 短短两天两次上榜，增长势头强劲。总增长208 Star，今日新增207，增长高度集中且具爆发性。</p></blockquote>
+                </div>
+            </section>
+            
+            <section>
+                <div class="repo-card">
+                    <h3><i class="fab fa-python lang-icon"></i> Lightricks/ComfyUI-LTXVideo</h3>
+                    <p class="text-xs text-gray-500">LTX-Video 对 ComfyUI 的支持</p>
+                    <table>
+                        <thead><tr><th>Star 数</th><th>连续在榜</th><th>总上榜</th><th>当日增加</th></tr></thead>
+                        <tbody><tr><td><i class="fas fa-star stars"></i> 1445</td><td>1次</td><td>2次</td><td><span class="text-green-500 font-semibold">+75</span></td></tr></tbody>
+                    </table>
+                    <blockquote class="mt-2"><p>项目速读: ComfyUI 自定义节点，集成 LTX-Video 模型进行视频生成和处理。核心功能包括图生视频、视频智能插帧。优势在于支持多版本LTX-Video，特别是为消费级显卡优化的量化版本，降低内存需求并提升速度。</p></blockquote>
+                    <blockquote class="mt-2"><p>增长分析: 3天内增长218 Star。两次上榜，显示增长势头持续稳定。今日新增75 Star，高于平均，近期增长势头有所加速。</p></blockquote>
+                </div>
+            </section>
+
+            <section>
+                <div class="repo-card">
+                     <h3><i class="fab fa-python lang-icon"></i> Blaizzy/mlx-audio</h3>
+                    <p class="text-xs text-gray-500">基于Apple MLX框架的TTS, STT, STS库，高效语音分析</p>
+                    <table>
+                        <thead><tr><th>Star 数</th><th>连续在榜</th><th>总上榜</th><th>当日增加</th></tr></thead>
+                        <tbody><tr><td><i class="fas fa-star stars"></i> 1572</td><td>4次</td><td>4次</td><td><span class="text-green-500 font-semibold">+205</span></td></tr></tbody>
+                    </table>
+                    <blockquote class="mt-2"><p>项目速读: MLX-Audio 基于 Apple MLX 框架，为 Apple Silicon 提供高效文本转语音、语音转文本及语音转语音能力。利用 MLX 优势实现快速性能优化语音处理，支持多语言、声音克隆，并提供 Web 界面和 REST API。</p></blockquote>
+                    <blockquote class="mt-2"><p>增长分析: 短期内频繁上榜4次，总Star增长610。平均每次增长143.2。今日新增205，远高于平均，增长势头强劲并呈加速趋势。</p></blockquote>
+                </div>
+            </section>
+
+            <section class="cover-slide text-center">
+                <h2 class="text-4xl">感谢观看！</h2>
+                <p class="mt-6 text-xl">Stay Curious, Keep Learning!</p>
+                <p class="mt-4 text-lg">探索更多技术趋势，与AI一同进步。</p>
+                <div class="footer-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend <i class="fab fa-github"></i></a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            center: true,
+            controls: true,
+            progress: true,
+            slideNumber: 'c/t',
+            history: true,
+            keyboard: true,
+            overview: true,
+            transition: 'slide', // "none", "fade", "slide", "convex", "concave", "zoom"
+            transitionSpeed: 'default', // "default", "fast", "slow"
+            backgroundTransition: 'fade', // "default", "fade", "slide", "convex", "concave", "zoom"
+            dependencies: [
+                 // For syntax highlighting
+                { src: 'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js', async: true },
+            ]
+        });
+        // mermaid.initialize({ startOnLoad: true, theme: 'neutral' }); // If using mermaid charts
+    </script>
+</body>
+</html>
