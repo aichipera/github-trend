@@ -1,0 +1,703 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Github热门仓库Week-19周报解读 - AIChipEra</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" id="theme" rel="stylesheet">
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --r-main-font: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: 'Noto Serif SC', serif;
+            --r-background-color: #1a202c; /* Dark background */
+            --r-main-color: #e2e8f0; /* Light text */
+            --r-heading-color: #f8fafc; /* Brighter for headings */
+            --r-link-color: #60a5fa; /* Accent color for links */
+            --r-link-color-hover: #93c5fd;
+            --r-selection-background-color: #3b82f6;
+        }
+
+        body {
+            font-family: var(--r-main-font);
+        }
+
+        .reveal {
+            font-family: var(--r-main-font);
+            color: var(--r-main-color);
+        }
+
+        .reveal ::selection {
+            color: var(--r-main-color);
+            background: var(--r-selection-background-color);
+            text-shadow: none;
+        }
+
+        .reveal .slides section {
+            text-align: left; /* Default to left align for content heavy slides */
+        }
+        
+        .reveal .slides section.center-text {
+             text-align: center;
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--r-heading-color);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+        .reveal h1 { font-size: 2.8rem; }
+        .reveal h2 { font-size: 2.0rem; }
+        .reveal h3 { font-size: 1.6rem; text-transform: none; }
+        .reveal p, .reveal li { font-size: 1.1rem; line-height: 1.6; }
+
+        .reveal a {
+            color: var(--r-link-color);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .reveal a:hover {
+            color: var(--r-link-color-hover);
+            text-decoration: underline;
+        }
+
+        .reveal table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 90%;
+            font-size: 0.9rem;
+        }
+        .reveal th, .reveal td {
+            border: 1px solid #4a5568; /* Darker border for dark theme */
+            padding: 8px 12px;
+            color: #cbd5e1; /* Lighter gray for table text */
+        }
+        .reveal th {
+            background-color: #2d3748; /* Slightly lighter dark for table headers */
+            font-weight: bold;
+            color: #e2e8f0;
+        }
+
+        .reveal ul, .reveal ol {
+            margin-left: 1.5em;
+        }
+        .reveal ul li, .reveal ol li {
+            margin-bottom: 0.5em;
+        }
+
+        .footer-fixed {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.75rem;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #a0aec0;
+        }
+        .footer-fixed img {
+            width: 60px;
+            height: 60px;
+            border-radius: 4px;
+            background: white; /* White background for QR code visibility */
+            padding: 2px;
+        }
+        .footer-fixed a {
+            color: #a0aec0;
+            text-decoration: none;
+        }
+        .footer-fixed a:hover {
+            color: var(--r-link-color);
+        }
+
+        /* Aha moment specific styles */
+        .aha-gradient-bg {
+             background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+        }
+        .aha-gradient-bg-darker {
+            background: linear-gradient(135deg, #16222A 0%, #3A6073 100%);
+        }
+
+        .highlight-box {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid var(--r-link-color);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .highlight-box p {
+            font-size: 1rem;
+        }
+
+        .icon-list li {
+            list-style-type: none;
+            margin-bottom: 0.8em;
+        }
+        .icon-list li i {
+            margin-right: 10px;
+            color: var(--r-link-color);
+            width: 20px; /* Ensure icons align */
+            text-align: center;
+        }
+
+        .stat-item {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 0.9em;
+            color: #cbd5e1;
+        }
+        .stat-item i {
+            margin-right: 5px;
+            color: #90cdf4; /* Lighter blue for icons */
+        }
+
+        .mermaid {
+            background-color: #2d3748; /* Match dark theme */
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center; /* Center mermaid diagram */
+        }
+        
+        .tag {
+            display: inline-block;
+            background-color: #3182ce; /* Blue tag */
+            color: white;
+            padding: 0.2em 0.6em;
+            margin-right: 0.5em;
+            margin-bottom: 0.5em;
+            border-radius: 0.25rem;
+            font-size: 0.8em;
+        }
+        .tag-rust { background-color: #DEA584; color: #2d3748;}
+        .tag-python { background-color: #FFD43B; color: #2d3748;}
+        .tag-ts { background-color: #007ACC; }
+        .tag-cpp { background-color: #f34b7d; }
+        .tag-go { background-color: #00ADD8; }
+        .tag-html { background-color: #E34F26; }
+        .tag-unknown { background-color: #718096; }
+
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover -->
+            <section class="aha-gradient-bg center-text">
+                <h1 class="text-5xl font-bold mt-8 mb-4" style="color: #fff;">Github热门周报解读</h1>
+                <p class="text-2xl mb-12" style="color: #e0e0e0;">这周技术圈炸了！AI、工具、开源…这些新项目颠覆你的认知</p>
+                <p class="text-lg" style="color: #ccc;">演讲者: AIChipEra</p>
+                <p class="text-sm mt-4" style="color: #ccc;">观测时间: 2025-05-11 21:17:24</p>
+                <div class="footer-fixed">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        <i class="fab fa-github"></i> github.com/aichipera/github-trend
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="二维码">
+                </div>
+            </section>
+
+            <!-- Slide 2: Disclaimer -->
+            <section class="aha-gradient-bg-darker">
+                <h2 class="text-3xl mb-6"><i class="fas fa-exclamation-triangle mr-2"></i>重要声明</h2>
+                <div class="highlight-box">
+                    <p class="text-xl">以下内容仅供项目介绍和学习使用，</p>
+                    <p class="text-xl">不构成任何投资建议，请注意甄别！</p>
+                </div>
+            </section>
+
+            <!-- Slide 3: 周报要点 -->
+            <section>
+                <h2 class="text-3xl mb-6"><i class="fas fa-bullseye mr-2"></i>周报要点</h2>
+                <p class="text-lg leading-relaxed">
+                    本周GitHub热门项目揭示技术圈新趋势：AI已全面融入开发，从工具到应用无处不在。新一代高性能编辑器、版本控制等效率利器，及注重隐私的开源替代方案也强势崛起。榜单高速更新，大量创新涌现。
+                </p>
+                <p class="text-lg leading-relaxed mt-4 fragment">
+                    阅读本文，掌握技术脉搏，抓住<strong class="text-blue-400">AI</strong>、<strong class="text-blue-400">效率</strong>、<strong class="text-blue-400">开源</strong>浪潮机遇，走在技术前沿！
+                </p>
+            </section>
+
+            <!-- Slide 4: 热门项目趋势分析 - 整体趋势 -->
+            <section data-background-color="#222938">
+                <h2 class="text-3xl mb-6"><i class="fas fa-chart-line mr-2"></i>热门项目趋势分析</h2>
+                <h3 class="text-2xl mb-4 text-blue-300">本周整体趋势</h3>
+                <ul class="icon-list text-lg">
+                    <li class="fragment"><i class="fas fa-brain"></i><strong>AI 全方位渗透:</strong> 从基础模型 (NVIDIA NeMo) 到应用 (Deep-Live-Cam, LTX-Video) 及开发辅助 (Void, Daytona, SurfSense)。</li>
+                    <li class="fragment"><i class="fas fa-code"></i><strong>编程语言分布:</strong> Python (AI主力), TypeScript (工具/Web), Rust (高性能系统如 Zed, JJ), C++/Go (底层/特定基础设施)。</li>
+                    <li class="fragment"><i class="fas fa-cogs"></i><strong>开发者生产力革命:</strong> 新一代编辑器 (Zed, Void), 版本控制 (JJ), 基础设施 (Daytona) 涌现。</li>
+                    <li class="fragment"><i class="fas fa-shield-alt"></i><strong>控制权与隐私回归:</strong> 开源替代品 (Ladybird, Cap, SurfSense, Home Assistant) 受热捧。</li>
+                    <li class="fragment"><i class="fas fa-lightbulb"></i><strong>未来热点预测:</strong> AI Native 应用、负责任的 AI 工具、高效本地开发体验、去中心化/自托管方案。</li>
+                </ul>
+            </section>
+
+            <!-- Slide 5: 热门项目趋势分析 - 双周对比 -->
+            <section>
+                <h2 class="text-3xl mb-6"><i class="fas fa-exchange-alt mr-2"></i>热门项目双周维度对比</h2>
+                 <div class="highlight-box">
+                    <p><i class="fas fa-rocket mr-2 text-green-400"></i><strong>高换手率:</strong> 17个新项目入榜，显示社区对新事物强烈探索欲。</p>
+                    <p><i class="fas fa-fire mr-2 text-red-400"></i><strong>AI/ML 与开发工具:</strong> 新晋项目中占比高。</p>
+                    <p><i class="fab fa-python mr-2 text-yellow-400"></i><strong>Python 强势:</strong> 净增4席位，主导地位巩固。</p>
+                    <p><i class="fas fa-star-half-alt mr-2 text-orange-400"></i><strong>集中爆发:</strong> 如 Deep-Live-Cam 星标涨幅惊人。</p>
+                </div>
+            </section>
+
+            <!-- Slide 6: 热门项目趋势分析 - 热点变化 -->
+            <section>
+                <h2 class="text-3xl mb-6"><i class="fas fa-fire-alt mr-2"></i>热点变化</h2>
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-xl mb-3 text-green-400"><i class="fas fa-arrow-up mr-1"></i>新增热点</h3>
+                        <ul class="text-sm leading-snug max-h-60 overflow-y-auto pr-2">
+                            <li>zed-industries/zed</li>
+                            <li>commaai/openpilot</li>
+                            <li>ruanyf/weekly</li>
+                            <li>capsoftware/cap</li>
+                            <li>glanceapp/glance</li>
+                            <li>qwenlm/qwen-agent</li>
+                            <li>voideditor/void</li>
+                            <li>jj-vcs/jj</li>
+                            <li>iperov/deepfacelab</li>
+                            <li>nvidia/nemo</li>
+                            <li>atmosphere-nx/atmosphere</li>
+                            <li>lightricks/ltx-video</li>
+                            <li>myhhub/stock</li>
+                            <li>daytonaio/daytona</li>
+                            <li>ebookfoundation/free-programming-books</li>
+                            <li>home-assistant/core</li>
+                            <li>modsetter/surfsense</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl mb-3 text-red-400"><i class="fas fa-arrow-down mr-1"></i>减退热点</h3>
+                        <ul class="text-sm leading-snug max-h-60 overflow-y-auto pr-2">
+                            <li>juspay/hyperswitch</li>
+                            <li>rowboatlabs/rowboat</li>
+                            <li>kamranahmedse/developer-roadmap</li>
+                            <li>drawdb-io/drawdb</li>
+                            <li>tencent/hunyuan3d-2</li>
+                            <li>simular-ai/agent-s</li>
+                            <li>kortix-ai/suna</li>
+                            <li>microsoft/terminal</li>
+                            <li>getzep/graphiti</li>
+                            <li>freika/dawarich</li>
+                            <li>microsoft/generative-ai-for-beginners</li>
+                            <li>louislam/uptime-kuma</li>
+                            <li>jackfrued/python-100-days</li>
+                            <li>aquasecurity/trivy</li>
+                            <li>jujumilk3/leaked-system-prompts</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7: 热门项目趋势分析 - 编程语言与Star分布 -->
+            <section>
+                <h2 class="text-3xl mb-6"><i class="fas fa-code-branch mr-2"></i>编程语言与 <i class="fas fa-star mr-2"></i>Star 分布</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl mb-3 text-blue-300">编程语言分布</h3>
+                        <div class="mermaid">
+                            pie title 编程语言占比
+                                "Python" : 9
+                                "TypeScript" : 4
+                                "C++" : 2
+                                "Rust" : 2
+                                "Unknown" : 1
+                                "HTML" : 1
+                                "Go" : 1
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl mb-3 text-yellow-300">Star 分布</h3>
+                         <div class="mermaid">
+                            pie title Star数量区间占比
+                                "1k-5k" : 2
+                                "5k-10k" : 3
+                                "10k-50k" : 9
+                                "50k以上" : 6
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 8: 热门项目排名 (Top 10) -->
+            <section>
+                <h2 class="text-3xl mb-6"><i class="fas fa-trophy mr-2"></i>热门项目 Top 10</h2>
+                <ol class="list-decimal text-sm leading-relaxed pl-6">
+                    <li class="mb-1 fragment"><strong><a href="https://github.com/EbookFoundation/free-programming-books" target="_blank">EbookFoundation/free-programming-books</a></strong> - ⭐357039 - 📚 Freely available programming books</li>
+                    <li class="mb-1 fragment"><strong><a href="https://github.com/home-assistant/core" target="_blank">home-assistant/core</a></strong> - ⭐78869 - 🏡 Open source home automation that puts local control and privacy first.</li>
+                    <li class="mb-1 fragment"><strong><a href="https://github.com/hacksider/Deep-Live-Cam" target="_blank">hacksider/Deep-Live-Cam</a></strong> - ⭐66071 - real time face swap and one-click video deepfake with only a single image</li>
+                    <li class="mb-1 fragment"><strong><a href="https://github.com/ruanyf/weekly" target="_blank">ruanyf/weekly</a></strong> - ⭐61305 - 科技爱好者周刊，每周五发布</li>
+                    <li class="mb-1 fragment"><strong><a href="https://github.com/zed-industries/zed" target="_blank">zed-industries/zed</a></strong> - ⭐59135 - Code at the speed of thought – Zed is a high-performance, multiplayer code editor from the creators of Atom and Tree-sitter.</li>
+                    <li class="mb-1 fragment"><strong><a href="https://github.com/commaai/openpilot" target="_blank">commaai/openpilot</a></strong> - ⭐53743 - openpilot is an operating system for robotics. Currently, it upgrades the driver assistance system on 300+ supported cars.</li>
+                    <li class="mb-1 fragment"><strong><a href="https://github.com/LadybirdBrowser/ladybird" target="_blank">LadybirdBrowser/ladybird</a></strong> - ⭐41826 - Truly independent web browser</li>
+                    <li class="mb-1 fragment"><strong><a href="https://github.com/glanceapp/glance" target="_blank">glanceapp/glance</a></strong> - ⭐24014 - A self-hosted dashboard that puts all your feeds in one place</li>
+                    <li class="mb-1 fragment"><strong><a href="https://github.com/daytonaio/daytona" target="_blank">daytonaio/daytona</a></strong> - ⭐20132 - Daytona is a Secure and Elastic Infrastructure for Running AI-Generated Code</li>
+                    <li class="mb-1 fragment"><strong><a href="https://github.com/iperov/DeepFaceLab" target="_blank">iperov/DeepFaceLab</a></strong> - ⭐17831 - DeepFaceLab is the leading software for creating deepfakes.</li>
+                </ol>
+            </section>
+
+            <!-- Slide 9: 每日热点回顾 -->
+            <section>
+                <h2 class="text-3xl mb-6"><i class="fas fa-calendar-alt mr-2"></i>本周每日Github热点回顾</h2>
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr>
+                            <th>时间</th>
+                            <th>链接 (点击跳转微信文章)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>周一</td><td><a href="https://mp.weixin.qq.com/s/8HbZCKbWRJw3CLls2d7Glg" target="_blank">别只看大模型！技术圈正悄悄布局这三大方向(20250505-日报)</a></td></tr>
+                        <tr><td>周二</td><td><a href="https://mp.weixin.qq.com/s/JSGtS_rFmnhWCImzJRrgnQ" target="_blank">技术圈又震了！AI Agent火出圈，效率神器扎堆，底层技术也在大换血！(20250506-日报)</a></td></tr>
+                        <tr><td>周三</td><td><a href="https://mp.weixin.qq.com/s/Tu0ly4qrv1SctHn8g8Z7_Q" target="_blank">AI Agent 这股风，要把开发这碗饭彻底“炒”一遍？(20250507-日报)</a></td></tr>
+                        <tr><td>周四</td><td><a href="https://mp.weixin.qq.com/s/pcRzROECaK3FcQ06sX9doQ" target="_blank">技术圈炸锅！AI不再高冷，直冲你的日常工作！(20250508-日报)</a></td></tr>
+                        <tr><td>周五</td><td><a href="https://mp.weixin.qq.com/s/veYElUFGNfw6Cq5FuoqFDQ" target="_blank">AI杀入开发腹地！程序员的效率神器大换血？(20250509-日报)</a></td></tr>
+                        <tr><td>周六</td><td><a href="https://mp.weixin.qq.com/s/JSpJrWT2XW5OJiLgH_AWSg" target="_blank">本地大模型火了！实时协作这玩法，开发者圈都炸了(20250510-日报)</a></td></tr>
+                        <tr><td>周日</td><td><a href="https://mp.weixin.qq.com/s/WgysUGfAi1ww9aofTsRv_w" target="_blank">别掉队！这波技术红利：AI搞钱、代码提效，普通电脑也能跑大模型？速看！(20250511-日报)</a></td></tr>
+                    </tbody>
+                </table>
+            </section>
+            
+            <!-- Section for Detailed Repositories -->
+            <section>
+                <h2 class="text-4xl text-center"><i class="fas fa-microscope mr-2"></i>详细仓库数据解读</h2>
+                <p class="text-center text-xl mt-4">深入了解本周最受关注的项目 (按右箭头继续 <i class="fas fa-arrow-right"></i>)</p>
+            </section>
+
+            <!-- Individual Project Slides Start -->
+            <section>
+                <h2 class="text-2xl mb-2"><a href="https://github.com/LadybirdBrowser/ladybird" target="_blank"><i class="fab fa-github mr-2"></i>LadybirdBrowser/ladybird</a> <span class="tag tag-cpp">C++</span></h2>
+                <p class="text-gray-400 text-sm mb-3">真正的独立浏览器</p>
+                <div class="mb-3">
+                    <span class="stat-item"><i class="fas fa-star"></i>41.8k</span>
+                    <span class="stat-item"><i class="fas fa-code-branch"></i>1.7k Forks</span>
+                    <span class="stat-item"><i class="fas fa-eye"></i>220 Watchers</span>
+                    <span class="stat-item"><i class="fas fa-plus-circle text-green-400"></i>3605 New Stars</span>
+                </div>
+                <h3 class="text-lg font-semibold mt-4 mb-1">项目速读:</h3>
+                <p class="text-sm leading-relaxed">Ladybird 是一个全新的、真正独立的网页浏览器项目，它不依赖现有的主流浏览器引擎（如 Chromium 或 Gecko），而是从零开始构建自己的渲染和 JavaScript 引擎。该项目大量复用 SerenityOS 的核心库，并采用多进程架构和沙箱隔离来增强稳定性和安全性。Ladybird 的目标是构建一个完整、可用的现代浏览器，目前处于早期开发阶段，主要面向对浏览器技术感兴趣的开发者。</p>
+                <h3 class="text-lg font-semibold mt-3 mb-1">增长分析:</h3>
+                <p class="text-sm leading-relaxed">本周新增星标3605个。统计期内实际上榜2次，表明其持续受到广泛关注，增长势头良好。</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl mb-2"><a href="https://github.com/hacksider/Deep-Live-Cam" target="_blank"><i class="fab fa-github mr-2"></i>hacksider/Deep-Live-Cam</a> <span class="tag tag-python">Python</span></h2>
+                <p class="text-gray-400 text-sm mb-3">仅凭单张图片实现实时换脸和一键视频深度伪造</p>
+                <div class="mb-3">
+                    <span class="stat-item"><i class="fas fa-star"></i>66.1k</span>
+                    <span class="stat-item"><i class="fas fa-code-branch"></i>9.2k Forks</span>
+                    <span class="stat-item"><i class="fas fa-eye"></i>400 Watchers</span>
+                    <span class="stat-item"><i class="fas fa-plus-circle text-green-400"></i>7310 New Stars</span>
+                </div>
+                <h3 class="text-lg font-semibold mt-4 mb-1">项目速读:</h3>
+                <p class="text-sm leading-relaxed">Deep-Live-Cam 是一个基于 Python 的实时换脸及视频深度伪造工具。它最大的亮点在于操作极其简单，仅需单张图片甚至一键，就能将指定人脸实时应用到摄像头输入或视频流上。项目支持多种硬件加速，处理速度快，可用于电影换脸、直播表演等创意及娱乐场景。项目方强调合法合规使用。</p>
+                <h3 class="text-lg font-semibold mt-3 mb-1">增长分析:</h3>
+                <p class="text-sm leading-relaxed">该仓库在8天内上榜2次，期间总计新增7310 Star。平均每次上榜的单日新增星数高达7750.5。频繁高位上榜，显示其增长迅速，社区热度持续高涨。</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl mb-2"><a href="https://github.com/voideditor/void" target="_blank"><i class="fab fa-github mr-2"></i>voideditor/void</a> <span class="tag tag-ts">TypeScript</span></h2>
+                <p class="text-gray-400 text-sm mb-3">开源的 Cursor 编辑器替代品，深度整合AI能力</p>
+                <div class="mb-3">
+                    <span class="stat-item"><i class="fas fa-star"></i>16.8k</span>
+                    <span class="stat-item"><i class="fas fa-code-branch"></i>976 Forks</span>
+                    <span class="stat-item"><i class="fas fa-eye"></i>112 Watchers</span>
+                    <span class="stat-item"><i class="fas fa-plus-circle text-green-400"></i>3891 New Stars</span>
+                </div>
+                <h3 class="text-lg font-semibold mt-4 mb-1">项目速读:</h3>
+                <p class="text-sm leading-relaxed">Void 是一个开源代码编辑器，作为 Cursor 编辑器的有力替代品，其核心价值在于深度整合AI能力，旨在帮助开发者高效地在代码库中运用AI代理。它基于 VS Code 分支开发，提供 AI 代码修改检查点、多 AI 模型支持（包括本地模型）等功能，并注重用户隐私。Void 为追求高效 AI 协作、重视代码变更管理和数据隐私的开发者提供了强大灵活的开发环境。</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl mb-2"><a href="https://github.com/Lightricks/LTX-Video" target="_blank"><i class="fab fa-github mr-2"></i>Lightricks/LTX-Video</a> <span class="tag tag-python">Python</span></h2>
+                <p class="text-gray-400 text-sm mb-3">LTX-Video 官方仓库 - 高效实时视频生成</p>
+                <div class="mb-3">
+                    <span class="stat-item"><i class="fas fa-star"></i>4.7k</span>
+                    <span class="stat-item"><i class="fas fa-code-branch"></i>378 Forks</span>
+                    <span class="stat-item"><i class="fas fa-eye"></i>58 Watchers</span>
+                    <span class="stat-item"><i class="fas fa-plus-circle text-green-400"></i>877 New Stars</span>
+                </div>
+                <h3 class="text-lg font-semibold mt-4 mb-1">项目速读:</h3>
+                <p class="text-sm leading-relaxed">LTX-Video 是 Lightricks 推出的基于 DiT 架构的视频生成模型。最突出的特点是实时生成能力，能在 1216x704 分辨率下以 30 FPS 生成视频，速度快于播放，是首个实现实时性的 DiT 视频模型。支持从文本、图像、关键帧等多种输入生成逼真视频，也能进行视频扩展和风格转换。极大地提升了视频生成的工作流程效率和互动性。</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl mb-2"><a href="https://github.com/MODSetter/SurfSense" target="_blank"><i class="fab fa-github mr-2"></i>MODSetter/SurfSense</a> <span class="tag tag-ts">TypeScript</span></h2>
+                <p class="text-gray-400 text-sm mb-3">NotebookLM / Perplexity / Glean 的开源替代方案，集成多外部数据源</p>
+                <div class="mb-3">
+                    <span class="stat-item"><i class="fas fa-star"></i>3.5k</span>
+                    <span class="stat-item"><i class="fas fa-code-branch"></i>248 Forks</span>
+                    <span class="stat-item"><i class="fas fa-eye"></i>26 Watchers</span>
+                    <span class="stat-item"><i class="fas fa-plus-circle text-green-400"></i>1401 New Stars</span>
+                </div>
+                <h3 class="text-lg font-semibold mt-4 mb-1">项目速读:</h3>
+                <p class="text-sm leading-relaxed">SurfSense 是一个开源 AI 研究助手，通过整合个人文档和连接外部信息源（搜索引擎、Slack、Notion 等），解决信息分散问题。核心优势是采用先进的 RAG 技术（分层和混合搜索），提高信息提取精准度。支持本地部署和本地 LLM，为重视数据隐私的用户提供选项。为需要整合多源信息并进行智能问答的研究人员和知识工作者提供强大解决方案。</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl mb-2"><a href="https://github.com/zed-industries/zed" target="_blank"><i class="fab fa-github mr-2"></i>zed-industries/zed</a> <span class="tag tag-rust">Rust</span></h2>
+                <p class="text-gray-400 text-sm mb-3">随思而码——Zed 是由 Atom 和 Tree-sitter 创建者打造的高性能多人代码编辑器。</p>
+                <div class="mb-3">
+                    <span class="stat-item"><i class="fas fa-star"></i>59.1k</span>
+                    <span class="stat-item"><i class="fas fa-code-branch"></i>4.2k Forks</span>
+                    <span class="stat-item"><i class="fas fa-eye"></i>251 Watchers</span>
+                    <span class="stat-item"><i class="fas fa-plus-circle text-green-400"></i>1120 New Stars</span>
+                </div>
+                <h3 class="text-lg font-semibold mt-4 mb-1">项目速读:</h3>
+                <p class="text-sm leading-relaxed">Zed 是一个高性能、多人协作的代码编辑器，由 Atom 和 Tree-sitter 创建者打造。目标是消除传统编辑器性能瓶颈，实现“以思维的速度编码”并革新团队协作。突出特点是卓越性能和内置无缝多人实时协作。采用 Rust 开发，为流畅编辑和高效团队编程提供基础。目前支持 macOS 和 Linux，计划支持 Windows 和 Web。</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl mb-2"><a href="https://github.com/jj-vcs/jj" target="_blank"><i class="fab fa-github mr-2"></i>jj-vcs/jj</a> <span class="tag tag-rust">Rust</span></h2>
+                <p class="text-gray-400 text-sm mb-3">一个兼容 Git 的、既简单又强大的版本控制系统</p>
+                <div class="mb-3">
+                    <span class="stat-item"><i class="fas fa-star"></i>14.3k</span>
+                    <span class="stat-item"><i class="fas fa-code-branch"></i>498 Forks</span>
+                    <span class="stat-item"><i class="fas fa-eye"></i>76 Watchers</span>
+                    <span class="stat-item"><i class="fas fa-plus-circle text-green-400"></i>1292 New Stars</span>
+                </div>
+                <h3 class="text-lg font-semibold mt-4 mb-1">项目速读:</h3>
+                <p class="text-sm leading-relaxed">JJ 是一个与 Git 兼容但设计更简洁强大的新型版本控制系统。旨在解决 Git 在工作区管理、历史操作和冲突处理上的复杂性。通过将工作目录视为不断更新的提交、提供强大操作日志及撤销功能、智能处理历史重写和冲突传播，简化了开发流程。利用 Git 作后端，确保与现有 Git 工具和平台无缝集成。</p>
+            </section>
+            
+            <section>
+                <h2 class="text-2xl mb-2"><a href="https://github.com/ruanyf/weekly" target="_blank"><i class="fab fa-github mr-2"></i>ruanyf/weekly</a> <span class="tag tag-unknown">Unknown</span></h2>
+                <p class="text-gray-400 text-sm mb-3">科技爱好者周刊，每周五发布</p>
+                <div class="mb-3">
+                    <span class="stat-item"><i class="fas fa-star"></i>61.3k</span>
+                    <span class="stat-item"><i class="fas fa-code-branch"></i>3.3k Forks</span>
+                    <span class="stat-item"><i class="fas fa-eye"></i>2.7k Watchers</span>
+                    <span class="stat-item"><i class="fas fa-plus-circle text-green-400"></i>5533 New Stars</span>
+                </div>
+                <h3 class="text-lg font-semibold mt-4 mb-1">项目速读:</h3>
+                <p class="text-sm leading-relaxed">ruanyf/weekly 是每周五发布的“科技爱好者周刊”，提供精选阅读清单，内容涵盖前沿文章、实用软件和优质资源。特点是持续更新和庞大历史内容库，以 Markdown 格式公开。基于 GitHub，便于维护和搜索。利用 GitHub Issue 提供免费程序员招聘信息。是高质量科技信息策展平台。</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl mb-2"><a href="https://github.com/CapSoftware/Cap" target="_blank"><i class="fab fa-github mr-2"></i>CapSoftware/Cap</a> <span class="tag tag-ts">TypeScript</span></h2>
+                <p class="text-gray-400 text-sm mb-3">开源的 Loom 替代品。美观、可分享的屏幕录制。</p>
+                <div class="mb-3">
+                    <span class="stat-item"><i class="fas fa-star"></i>9.4k</span>
+                    <span class="stat-item"><i class="fas fa-code-branch"></i>513 Forks</span>
+                    <span class="stat-item"><i class="fas fa-eye"></i>33 Watchers</span>
+                    <span class="stat-item"><i class="fas fa-plus-circle text-green-400"></i>1387 New Stars</span>
+                </div>
+                <h3 class="text-lg font-semibold mt-4 mb-1">项目速读:</h3>
+                <p class="text-sm leading-relaxed">Cap 是一款开源 Loom 替代品，专注于流畅、精美的屏幕录制和视频消息创建。用户可快速录制、编辑并分享视频，提高远程沟通效率。基于现代技术栈（Rust, TypeScript, Tauri）构建，提供跨平台桌面客户端。核心吸引力在于开源特性及开发的自托管部署选项，适合重视数据主权、寻求灵活部署的用户。</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl mb-2"><a href="https://github.com/home-assistant/core" target="_blank"><i class="fab fa-github mr-2"></i>home-assistant/core</a> <span class="tag tag-python">Python</span></h2>
+                <p class="text-gray-400 text-sm mb-3">优先本地控制和隐私的开源智能家居。</p>
+                <div class="mb-3">
+                    <span class="stat-item"><i class="fas fa-star"></i>78.9k</span>
+                    <span class="stat-item"><i class="fas fa-code-branch"></i>33.6k Forks</span>
+                    <span class="stat-item"><i class="fas fa-eye"></i>1.3k Watchers</span>
+                    <span class="stat-item"><i class="fas fa-plus-circle text-green-400"></i>463 New Stars</span>
+                </div>
+                <h3 class="text-lg font-semibold mt-4 mb-1">项目速读:</h3>
+                <p class="text-sm leading-relaxed">Home Assistant 是一个开源智能家居自动化平台，整合各种智能设备和服务至统一系统。核心特点是对本地控制和用户隐私的承诺，优先本地通信，数据保留在本地。拥有庞大社区支持和模块化架构，通过丰富“集成”兼容各类设备。适合希望构建自主、安全、可定制智能家居系统的用户。</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl mb-2"><a href="https://github.com/EbookFoundation/free-programming-books" target="_blank"><i class="fab fa-github mr-2"></i>EbookFoundation/free-programming-books</a> <span class="tag tag-html">HTML</span></h2>
+                <p class="text-gray-400 text-sm mb-3">免费的编程书籍</p>
+                <div class="mb-3">
+                    <span class="stat-item"><i class="fas fa-star"></i>357k</span>
+                    <span class="stat-item"><i class="fas fa-code-branch"></i>63.3k Forks</span>
+                    <span class="stat-item"><i class="fas fa-plus-circle text-green-400"></i>1006 New Stars</span>
+                </div>
+                <h3 class="text-lg font-semibold mt-4 mb-1">项目速读:</h3>
+                <p class="text-sm leading-relaxed">free-programming-books 是一个汇集全球海量免费编程学习资源的宝库，帮助学习者轻松找到高质量电子书、课程及资料。核心优势在于资源完全免费、覆盖语言和技术广泛、包含多种自然语言。通过全球社区协作持续维护更新，保证资源丰富时效。内容以列表形式组织，提供网站和搜索功能。</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl mb-2"><a href="https://github.com/QwenLM/Qwen-Agent" target="_blank"><i class="fab fa-github mr-2"></i>QwenLM/Qwen-Agent</a> <span class="tag tag-python">Python</span></h2>
+                <p class="text-gray-400 text-sm mb-3">基于 Qwen>=3.0 构建的智能体框架及应用。</p>
+                <div class="mb-3">
+                    <span class="stat-item"><i class="fas fa-star"></i>8.3k</span>
+                    <span class="stat-item"><i class="fas fa-code-branch"></i>702 Forks</span>
+                    <span class="stat-item"><i class="fas fa-eye"></i>64 Watchers</span>
+                    <span class="stat-item"><i class="fas fa-plus-circle text-green-400"></i>516 New Stars</span>
+                </div>
+                <h3 class="text-lg font-semibold mt-4 mb-1">项目速读:</h3>
+                <p class="text-sm leading-relaxed">Qwen-Agent 是基于通义千问大模型的应用开发框架，助开发者构建能理解复杂指令、利用外部工具、进行多步规划并具备记忆能力的智能 Agent 应用。是 Qwen Chat 后端基础，提供浏览器助手、代码解释器等示例。优势在于模块化设计和对 Qwen 模型高级能力的利用，支持函数调用、多步工具使用。降低开发复杂 LLM Agent 应用门槛。</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl mb-2"><a href="https://github.com/Atmosphere-NX/Atmosphere" target="_blank"><i class="fab fa-github mr-2"></i>Atmosphere-NX/Atmosphere</a> <span class="tag tag-cpp">C++</span></h2>
+                <p class="text-gray-400 text-sm mb-3">Atmosphère 是任天堂 Switch 的一个尚在开发中的定制固件。</p>
+                <div class="mb-3">
+                    <span class="stat-item"><i class="fas fa-star"></i>16.2k</span>
+                    <span class="stat-item"><i class="fas fa-code-branch"></i>1.3k Forks</span>
+                    <span class="stat-item"><i class="fas fa-eye"></i>669 Watchers</span>
+                    <span class="stat-item"><i class="fas fa-plus-circle text-green-400"></i>289 New Stars</span>
+                </div>
+                <h3 class="text-lg font-semibold mt-4 mb-1">项目速读:</h3>
+                <p class="text-sm leading-relaxed">Atmosphère 是任天堂 Switch 游戏机的深度定制固件（CFW），致力于取代和修改原生操作系统，为用户提供运行自制软件、系统修改和应用增强功能的非官方操作环境。核心在于模块化设计和对系统底层组件的介入，通过替换或注入定制组件，打破官方系统限制。支持运行自定义代码、独立虚拟系统（EmuNAND）和丰富系统补丁能力。是 Switch 自制软件生态核心基础设施之一。</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl mb-2"><a href="https://github.com/NVIDIA/NeMo" target="_blank"><i class="fab fa-github mr-2"></i>NVIDIA/NeMo</a> <span class="tag tag-python">Python</span></h2>
+                <p class="text-gray-400 text-sm mb-3">可扩展的生成式AI框架，专为大语言模型、多模态和语音AI研究开发。</p>
+                <div class="mb-3">
+                    <span class="stat-item"><i class="fas fa-star"></i>14.2k</span>
+                    <span class="stat-item"><i class="fas fa-code-branch"></i>2.8k Forks</span>
+                    <span class="stat-item"><i class="fas fa-eye"></i>230 Watchers</span>
+                    <span class="stat-item"><i class="fas fa-plus-circle text-green-400"></i>419 New Stars</span>
+                </div>
+                <h3 class="text-lg font-semibold mt-4 mb-1">项目速读:</h3>
+                <p class="text-sm leading-relaxed">NVIDIA NeMo 是 NVIDIA 开发的可扩展生成式 AI 框架，加速 LLMs、多模态模型、语音 AI (ASR, TTS) 的构建、训练和定制。核心优势是针对 NVIDIA GPU 深度优化，提供卓越性能和大规模分布式训练能力。模块化设计，集成高效数据处理工具 (NeMo Curator)，能集成 Hugging Face 等生态模型。支持训练 Llama 3.1 等前沿模型。降低开发训练大型生成式 AI 模型门槛。</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl mb-2"><a href="https://github.com/daytonaio/daytona" target="_blank"><i class="fab fa-github mr-2"></i>daytonaio/daytona</a> <span class="tag tag-ts">TypeScript</span></h2>
+                <p class="text-gray-400 text-sm mb-3">Daytona 是用于运行人工智能生成代码的安全且弹性基础设施。</p>
+                <div class="mb-3">
+                    <span class="stat-item"><i class="fas fa-star"></i>20.1k</span>
+                    <span class="stat-item"><i class="fas fa-code-branch"></i>2.3k Forks</span>
+                    <span class="stat-item"><i class="fas fa-eye"></i>77 Watchers</span>
+                    <span class="stat-item"><i class="fas fa-plus-circle text-green-400"></i>1470 New Stars</span>
+                </div>
+                <h3 class="text-lg font-semibold mt-4 mb-1">项目速读:</h3>
+                <p class="text-sm leading-relaxed">Daytona 是专为安全、弹性运行 AI 生成代码而设计的开源基础设施。解决直接执行 AI 生成代码的安全隐患，通过提供高度隔离的安全沙箱环境确保代码执行安全。核心优势是亚秒级创建隔离环境，提供丰富 API (文件, Git, LSP) 进行编程控制。兼容标准 OCI/Docker 镜像，沙箱状态可持久保存。降低 AI 代码生成风险，使其更可行安全。</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl mb-2"><a href="https://github.com/commaai/openpilot" target="_blank"><i class="fab fa-github mr-2"></i>commaai/openpilot</a> <span class="tag tag-python">Python</span></h2>
+                <p class="text-gray-400 text-sm mb-3">openpilot 是一个用于机器人技术的操作系统。目前，它在 300 多种支持的车型上升级了驾驶辅助系统。</p>
+                <div class="mb-3">
+                    <span class="stat-item"><i class="fas fa-star"></i>53.7k</span>
+                    <span class="stat-item"><i class="fas fa-code-branch"></i>9.7k Forks</span>
+                    <span class="stat-item"><i class="fas fa-eye"></i>1.3k Watchers</span>
+                    <span class="stat-item"><i class="fas fa-plus-circle text-green-400"></i>450 New Stars</span>
+                </div>
+                <h3 class="text-lg font-semibold mt-4 mb-1">项目速读:</h3>
+                <p class="text-sm leading-relaxed">openpilot 是面向机器人的操作系统，专注于升级和增强超 300 款兼容车型的驾驶辅助系统。旨在通过开源、透明方式为车辆带来更高级别自动驾驶能力（如自动巡航、车道保持）。代码完全开放，支持车型广泛且持续迭代，重视系统安全性。定位为研究开发平台，非消费级产品，需配合 comma.ai 专用硬件。</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl mb-2"><a href="https://github.com/myhhub/stock" target="_blank"><i class="fab fa-github mr-2"></i>myhhub/stock</a> <span class="tag tag-python">Python</span></h2>
+                <p class="text-gray-400 text-sm mb-3">股票数据获取、指标计算、形态识别、选股策略、回测、自动交易。</p>
+                <div class="mb-3">
+                    <span class="stat-item"><i class="fas fa-star"></i>8.8k</span>
+                    <span class="stat-item"><i class="fas fa-code-branch"></i>1.7k Forks</span>
+                    <span class="stat-item"><i class="fas fa-eye"></i>133 Watchers</span>
+                    <span class="stat-item"><i class="fas fa-plus-circle text-green-400"></i>273 New Stars</span>
+                </div>
+                <h3 class="text-lg font-semibold mt-4 mb-1">项目速读:</h3>
+                <p class="text-sm leading-relaxed">这是一个功能全面的股票量化投资辅助平台，助用户自动化完成数据获取到技术分析、策略选股、回测验证全流程。能计算多种指标和筹码分布，识别K线形态，支持丰富条件组合选股。计算高效，部署便捷（Docker镜像<200MB），提供友好Web界面。适用于系统化、数据化股票研究和策略验证，提升分析效率。</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl mb-2"><a href="https://github.com/iperov/DeepFaceLab" target="_blank"><i class="fab fa-github mr-2"></i>iperov/DeepFaceLab</a> <span class="tag tag-python">Python</span></h2>
+                <p class="text-gray-400 text-sm mb-3">DeepFaceLab 是创建深度伪造的领先软件。</p>
+                <div class="mb-3">
+                    <span class="stat-item"><i class="fas fa-star"></i>17.8k</span>
+                    <span class="stat-item"><i class="fas fa-code-branch"></i>449 Forks</span>
+                    <span class="stat-item"><i class="fas fa-eye"></i>34 Watchers</span>
+                    <span class="stat-item"><i class="fas fa-plus-circle text-green-400"></i>224 New Stars</span>
+                </div>
+                <h3 class="text-lg font-semibold mt-4 mb-1">项目速读:</h3>
+                <p class="text-sm leading-relaxed">DeepFaceLab 是一款领先的开源人脸操作软件，主要用于视频和图像的高质量换脸（Deepfake）。也能实现换头和面部年轻化处理。核心优势是基于先进深度学习模型，生成高精度、原生分辨率人脸替换结果。需要强大计算能力（NVIDIA CUDA显卡）。非简单工具，需用户学习复杂工作流程，建议结合专业视频编辑软件后期处理。</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl mb-2"><a href="https://github.com/glanceapp/glance" target="_blank"><i class="fab fa-github mr-2"></i>glanceapp/glance</a> <span class="tag tag-go">Go</span></h2>
+                <p class="text-gray-400 text-sm mb-3">将所有订阅源汇集到一处的自托管仪表盘</p>
+                <div class="mb-3">
+                    <span class="stat-item"><i class="fas fa-star"></i>24k</span>
+                    <span class="stat-item"><i class="fas fa-code-branch"></i>903 Forks</span>
+                    <span class="stat-item"><i class="fas fa-eye"></i>56 Watchers</span>
+                    <span class="stat-item"><i class="fas fa-plus-circle text-green-400"></i>964 New Stars</span>
+                </div>
+                <h3 class="text-lg font-semibold mt-4 mb-1">项目速读:</h3>
+                <p class="text-sm leading-relaxed">Glance 是一个开源、可自行部署的个人信息聚合看板。解决信息分散问题，将 RSS、社交媒体、天气、服务器状态等汇集到单一网页。Go语言构建，后端轻量快速，内存占用低，部署灵活。核心优势是高可定制性：丰富内置和自定义小部件，灵活布局、页面和主题配置。是搭建个性化数字仪表盘的优秀方案。</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl mb-2"><a href="https://github.com/ranaroussi/yfinance" target="_blank"><i class="fab fa-github mr-2"></i>ranaroussi/yfinance</a> <span class="tag tag-python">Python</span></h2>
+                <p class="text-gray-400 text-sm mb-3">从雅虎财经的API下载市场数据</p>
+                <div class="mb-3">
+                    <span class="stat-item"><i class="fas fa-star"></i>17.3k</span>
+                    <span class="stat-item"><i class="fas fa-code-branch"></i>2.7k Forks</span>
+                    <span class="stat-item"><i class="fas fa-eye"></i>251 Watchers</span>
+                    <span class="stat-item"><i class="fas fa-plus-circle text-green-400"></i>348 New Stars</span>
+                </div>
+                <h3 class="text-lg font-semibold mt-4 mb-1">项目速读:</h3>
+                <p class="text-sm leading-relaxed">yfinance 是一个广受欢迎的 Python 库，提供便捷接口从雅虎财经公开 API 获取金融市场数据。开发者和研究人员能以“Pythonic”方式快速获取股票历史价格、实时行情、公司基本面等信息。极大简化 Python 环境下金融数据分析、量化策略回测或个人投资研究的数据准备。非官方项目，数据获取和使用需遵守雅虎服务条款。</p>
+                <h3 class="text-lg font-semibold mt-3 mb-1">增长分析:</h3>
+                <p class="text-sm leading-relaxed">该仓库一周内上榜2次，每次上榜都带来显著Star增长（平均227.5）。总增长301，最近一周新增348，增长势头良好。</p>
+            </section>
+            <!-- Individual Project Slides End -->
+
+            <!-- Slide: Final -->
+            <section class="aha-gradient-bg center-text">
+                <h2 class="text-4xl font-bold mt-12 mb-8" style="color: #fff;">感谢观看！</h2>
+                <p class="text-xl mb-6" style="color: #e0e0e0;">保持关注，洞察技术前沿趋势。</p>
+                <p class="text-lg" style="color: #ccc;">
+                    <i class="fas fa-lightbulb mr-2"></i> 愿你灵光一现，把握未来机遇！
+                </p>
+                <div class="footer-fixed">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        <i class="fab fa-github"></i> Star & Follow @AIChipEra
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="二维码">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            center: true,
+            width: "90%", // Adjust overall width
+            height: "95%", // Adjust overall height
+            margin: 0.04, // Reduce margin
+            minScale: 0.2,
+            maxScale: 1.5,
+            controls: true,
+            progress: true,
+            history: true,
+            slideNumber: 'c/t',
+            transition: 'fade', // 'slide', 'convex', 'concave', 'zoom', 'fade'
+            backgroundTransition: 'fade',
+            // Optional libraries can be added here if their JS files are linked
+            // dependencies: [
+            //  { src: 'plugin/markdown/marked.js' },
+            //  { src: 'plugin/markdown/markdown.js' },
+            //  { src: 'plugin/notes/notes.js', async: true },
+            //  { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+            // ]
+        });
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark', // 'default', 'forest', 'dark', 'neutral'
+            fontFamily: '"Noto Sans SC", "Tahoma", "Arial", sans-serif',
+            pie: {
+                useMaxWidth: false // to better fit in revealjs slides
+            }
+        });
+    </script>
+</body>
+</html>
