@@ -1,0 +1,783 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来AI：懂你、记住你，还能本地跑！</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <!-- 使用自定义主题或调整white主题 -->
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- TailwindCSS for utilities -->
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom Styles */
+        :root {
+            --background-color: #f0f0f0; /* Lighter background */
+            --theme-primary: #007bff; /* Blue */
+            --theme-secondary: #28a745; /* Green */
+            --theme-accent: #ffc107; /* Yellow */
+            --text-color-dark: #343a40; /* Dark grey */
+            --text-color-light: #ffffff; /* White */
+        }
+
+        .reveal {
+            font-family: "Noto Sans SC", Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback",
+                         "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--text-color-dark);
+            background-color: var(--background-color);
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            font-family: "Noto Serif SC", Georgia, "Times New Roman", Times, Simsun, serif;
+            color: var(--text-color-dark);
+            text-transform: none; /* Prevent uppercase */
+        }
+
+        .reveal h1 { font-size: 3rem; } /* Title */
+        .reveal h2 { font-size: 2.5rem; } /* Major Section Header */
+        .reveal h3 { font-size: 2rem; } /* Sub-section Header / Project Title */
+        .reveal h4 { font-size: 1.5rem; } /* Sub-title / Detail Header */
+        .reveal p, .reveal li, .reveal div { font-size: 1.1rem; line-height: 1.6; } /* Body Text */
+        .reveal strong { color: var(--theme-primary); } /* Highlight important text */
+
+        /* Custom background examples */
+        .reveal .slides section.has-dark-background {
+            color: var(--text-color-light);
+            background-color: #343a40;
+        }
+        .reveal .slides section.has-dark-background h1,
+        .reveal .slides section.has-dark-background h2,
+        .reveal .slides section.has-dark-background h3,
+        .reveal .slides section.has-dark-background h4 {
+             color: var(--text-color-light);
+        }
+
+         .reveal .slides section.gradient-background {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-color-light);
+         }
+          .reveal .slides section.gradient-background h1,
+          .reveal .slides section.gradient-background h2,
+          .reveal .slides section.gradient-background h3,
+          .reveal .slides section.gradient-background h4 {
+               color: var(--text-color-light);
+          }
+
+
+        /* Custom classes for layout */
+        .reveal .slide-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 20px;
+        }
+
+        .reveal .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            width: 100%;
+        }
+
+        .reveal .stat-box {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+             color: var(--text-color-dark);
+        }
+
+        .reveal .stat-box .number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--theme-primary);
+        }
+
+        .reveal .stat-box .label {
+            font-size: 1rem;
+            color: #6c757d;
+        }
+
+         .reveal .project-detail-card {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: left;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+             color: var(--text-color-dark);
+         }
+
+         .reveal .project-detail-card h4 {
+            color: var(--theme-primary);
+            margin-top: 0;
+            margin-bottom: 10px;
+         }
+
+         .reveal .project-detail-card p {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 10px;
+         }
+
+         .reveal .project-detail-card .stats {
+            font-size: 0.9rem;
+            color: #6c757d;
+         }
+         .reveal .project-detail-card .stats span {
+             margin-right: 15px;
+         }
+         .reveal .project-detail-card .stats i {
+             margin-right: 5px;
+         }
+
+
+        .reveal .footer-link-qr {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            z-index: 10; /* Ensure it's above other content */
+        }
+
+        .reveal .footer-link-qr img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .reveal .footer-link-qr a {
+            font-size: 0.9rem;
+            color: var(--text-color-dark); /* Adjust color based on background */
+            text-decoration: none;
+        }
+         .reveal .footer-link-qr a:hover {
+             text-decoration: underline;
+         }
+
+         .reveal .slides section.has-dark-background .footer-link-qr a,
+         .reveal .slides section.gradient-background .footer-link-qr a {
+             color: var(--text-color-light);
+         }
+
+        /* AHA Moment Styling Ideas */
+        .reveal .reveal-slide {
+            transition: all 0.6s ease-in-out; /* Smooth transitions */
+        }
+
+        .reveal .fragment {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.4s ease-in-out;
+        }
+        .reveal .fragment.visible {
+            opacity: 1;
+        }
+         /* Optional: different fragment styles */
+         .reveal .fragment.fade-in { opacity: 0; }
+         .reveal .fragment.fade-in.visible { opacity: 1; }
+
+         .reveal .fragment.highlight-primary {
+             opacity: 0.3;
+             transition: opacity 0.4s ease-in-out, color 0.4s ease-in-out;
+             color: inherit;
+         }
+         .reveal .fragment.highlight-primary.visible {
+             opacity: 1;
+             color: var(--theme-primary);
+             font-weight: bold;
+         }
+
+         .reveal .fragment.grow {
+             opacity: 0;
+             transform: scale(0.8);
+             transition: all 0.5s ease-in-out;
+         }
+         .reveal .fragment.grow.visible {
+             opacity: 1;
+             transform: scale(1);
+         }
+
+
+         /* Icons Styling */
+         .reveal .fa, .reveal .fas {
+             color: var(--theme-primary); /* Default icon color */
+         }
+         .reveal .text-green-600 .fa, .reveal .text-green-600 .fas { color: inherit; }
+         .reveal .text-red-600 .fa, .reveal .text-red-600 .fas { color: inherit; }
+
+
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Cover Slide -->
+            <section class="gradient-background">
+                <div class="slide-content text-center">
+                    <h1 class="text-light" data- 케effect="zoom-in">别只盯着大模型！<br>未来AI长这样：</h1>
+                    <h2 class="text-light" data-fragment-effect="fade-in">它要懂你、记住你，还能本地跑！</h2>
+                     <p class="mt-8 text-light text-xl">Github热门仓库日报观测时间: 2025-05-14 22:22:18</p>
+                    <p class="text-light text-lg mt-2">演讲者: AIChipEra</p>
+                </div>
+                 <!-- Footer Link & QR -->
+                <div class="footer-link-qr">
+                    <img src="../../asserts/wx.jpg" alt="微信二维码">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+            <!-- Disclaimer Slide -->
+            <section class="bg-yellow-100">
+                 <div class="slide-content text-center">
+                    <h2 class="text-yellow-800"><i class="fas fa-exclamation-triangle mr-3"></i>重要提示</h2>
+                    <p class="mt-8 text-yellow-900 text-2xl font-semibold">
+                        以下内容仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！
+                    </p>
+                 </div>
+            </section>
+
+            <!-- 日报要点 -->
+            <section>
+                <h2>日报要点：AI的新方向</h2>
+                <div class="flex justify-center items-start h-full pt-10">
+                   <div class="w-2/3 text-left">
+                       <p class="fragment fade-in">
+                           <i class="fas fa-lightbulb text-theme-accent mr-2"></i> AI不再是高深研究，正走向<strong>普惠应用</strong>。
+                       </p>
+                       <p class="fragment fade-in">
+                           <i class="fas fa-user-circle text-theme-primary mr-2"></i> 从"能做什么"到"如何<strong>为你所用</strong>"，强调<strong>个性化</strong>。
+                       </p>
+                        <p class="fragment fade-in">
+                           <i class="fas fa-memory text-theme-secondary mr-2"></i> Agent急需<strong>记忆</strong>与<strong>跨应用数据</strong>整合能力。
+                       </p>
+                        <p class="fragment fade-in">
+                           <i class="fas fa-laptop-house text-purple-600 mr-2"></i> 效率提升是关键：目标是在<strong>本地、个人设备</strong>上运行LLMs。
+                       </p>
+                        <p class="fragment fade-in">
+                           <i class="fas fa-robot text-red-500 mr-2"></i> 出现令人兴奋的应用：<strong>数字分身</strong>、<strong>自动化内容生成</strong>。
+                       </p>
+                       <p class="fragment fade-in">
+                           <i class="fas fa-database text-blue-600 mr-2"></i> 个人数据与隐私成为焦点，强调<strong>本地化处理</strong>。
+                       </p>
+                   </div>
+                </div>
+            </section>
+
+            <!-- 热门项目趋势分析 - 整体概览 -->
+            <section>
+                <h2>热门项目趋势分析 - 整体概览</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                    <div class="fragment fade-in project-detail-card">
+                        <h4><i class="fas fa-brain mr-2"></i> Agent能力跃升</h4>
+                        <p>焦点转向<strong>AI Agent</strong>的应用层深度发展，解决记忆缺失 (Mem0) 和信息孤岛 (Airweave) 痛点。</p>
+                    </div>
+                    <div class="fragment fade-in project-detail-card">
+                        <h4><i class="fas fa-rocket mr-2"></i> 效率与本地化</h4>
+                        <p>让LLMs更"轻"更快，如微软BitNet的超低精度CPU优化，目标是突破高性能计算限制，实现<strong>本地部署</strong>。</p>
+                    </div>
+                     <div class="fragment fade-in project-detail-card">
+                        <h4><i class="fas fa-code mr-2"></i> 多语言生态融合</h4>
+                        <p>Python依旧主导，TypeScript活跃于前端/工具，Java (Spring AI Alibaba) 融入企业应用，C++贡献性能。</p>
+                    </div>
+                    <div class="fragment fade-in project-detail-card">
+                        <h4><i class="fas fa-id-badge mr-2"></i> 个性化与隐私</h4>
+                        <p>强调AI与<strong>个人数据</strong>结合 (WeClone)，构建个性化分身，同时关注隐私保护 (PyWxDump)。</p>
+                    </div>
+                     <div class="fragment fade-in project-detail-card">
+                        <h4><i class="fas fa-magic mr-2"></i> 自动化与创造</h4>
+                        <p>AI用于提升效率和创造力，如自动化短视频生成 (MoneyPrinterTurbo) 和开发者工具 (GitDiagram)。</p>
+                    </div>
+                     <div class="fragment fade-in project-detail-card">
+                         <h4><i class="fas fa-book mr-2"></i> 学习资源热度</h4>
+                         <p>计算机科学学习路径 (OSSU CS) 和LLM实践课程 (llm-course) 持续受欢迎。</p>
+                     </div>
+                </div>
+            </section>
+
+             <!-- 热门项目趋势分析 - 双日维度对比 -->
+            <section>
+                 <h2>趋势对比 - 双日维度简析</h2>
+                 <div class="flex justify-center items-start h-full pt-10">
+                    <div class="w-full text-left">
+                        <p class="fragment fade-in text-xl"><i class="fas fa-arrow-alt-circle-up text-green-600 mr-2"></i> <strong>整体上升</strong>：6个新晋项目，无明显下降，热度活跃。</p>
+                        <p class="fragment fade-in text-xl"><i class="fas fa-star text-yellow-500 mr-2"></i> <strong>星标爆发</strong>：<strong>xming521/WeClone</strong> (+2128)，<strong>MoneyPrinterTurbo</strong> (+546)，<strong>mlabonne/llm-course</strong> (+456) 增长显著。</p>
+                        <p class="fragment fade-in text-xl"><i class="fas fa-code mr-2"></i> <strong>语言分布</strong>：Python项目居多，HTML（资源类）增加，Go/Lua减少。</p>
+                        <p class="fragment fade-in text-xl"><i class="fas fa-fire text-red-600 mr-2"></i> <strong>持续热门</strong>：<strong>MoneyPrinterTurbo</strong> (8次), <strong>i-am-alice/3rd-devs</strong> (3次) 保持强劲势头。</p>
+                         <p class="fragment fade-in text-xl"><i class="fas fa-chart-line text-blue-600 mr-2"></i> <strong>趋势方向</strong>：新晋热点集中在AI/ML (内存、工作流、评估)、学习资源、开发工具。</p>
+                    </div>
+                 </div>
+            </section>
+
+             <!-- 热点变化 -->
+             <section>
+                 <h2>热点变化一览</h2>
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+                     <div class="fragment grow project-detail-card border-t-4 border-green-600">
+                         <h4><i class="fas fa-seedling text-green-600 mr-2"></i> 新增热点</h4>
+                         <ul class="list-disc list-inside text-base">
+                            <li>xaoyaoo/pywxdump <span class="text-gray-500">(微信数据)</span></li>
+                            <li>ossu/computer-science <span class="text-gray-500">(CS路径)</span></li>
+                            <li>mem0ai/mem0 <span class="text-gray-500">(Agent记忆)</span></li>
+                            <li>openai/simple-evals <span class="text-gray-500">(LLM评估)</span></li>
+                            <li>airweave-ai/airweave <span class="text-gray-500">(跨应用搜索)</span></li>
+                            <li>ahmedkhaleel2004/gitdiagram <span class="text-gray-500">(Git可视化)</span></li>
+                         </ul>
+                     </div>
+                     <div class="fragment grow project-detail-card border-t-4 border-red-600">
+                          <h4><i class="fas fa-arrow-alt-circle-down text-red-600 mr-2"></i> 减退热点</h4>
+                          <ul class="list-disc list-inside text-base text-gray-600">
+                             <li>comfyui-ltxvideo, ltx-video <span class="text-gray-500">(视频相关)</span></li>
+                             <li>comet-ml/opik <span class="text-gray-500">(MLOps)</span></li>
+                             <li>nvim-lua/kickstart.nvim <span class="text-gray-500">(Neovim配置)</span></li>
+                             <li>kamranahmedse/developer-roadmap <span class="text-gray-500">(开发路线图)</span></li>
+                             <li>pytorch/torchtitan <span class="text-gray-500">(PyTorch工具)</span></li>
+                             <li>aquasecurity/trivy <span class="text-gray-500">(安全扫描)</span></li>
+                          </ul>
+                     </div>
+                     <div class="fragment grow project-detail-card border-t-4 border-yellow-600">
+                           <h4><i class="fas fa-fire text-yellow-600 mr-2"></i> 持续热门</h4>
+                           <ul class="list-disc list-inside text-base">
+                              <li><strong>harry0703/MoneyPrinterTurbo</strong> <span class="text-gray-500">(8次)</span></li>
+                              <li><strong>i-am-alice/3rd-devs</strong> <span class="text-gray-500">(3次)</span></li>
+                               <!-- Add other consistently hot projects if any -->
+                           </ul>
+                     </div>
+                  </div>
+             </section>
+
+
+            <!-- Detailed Repository Analysis Sections -->
+
+             <!-- microsoft/BitNet -->
+             <section>
+                 <section>
+                     <h3><i class="fab fa-microsoft text-blue-500 mr-2"></i> microsoft/BitNet</h3>
+                     <h4>1比特大语言模型的官方CPU推理框架</h4>
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                         <div class="project-detail-card">
+                             <h4><i class="fas fa-info-circle mr-2"></i> 项目简介</h4>
+                             <p>基于llama.cpp，为1/1.58位LLMs提供CPU推理优化。显著提升ARM/x86性能和能效。</p>
+                             <p class="stats mt-3">
+                                <span><i class="fas fa-star"></i> 19.2k</span>
+                                <span><i class="fas fa-code"></i> C++ 52.5%</span>
+                                <span><i class="fas fa-chart-line"></i> 日增 315</span>
+                             </p>
+                         </div>
+                         <div class="project-detail-card">
+                             <h4><i class="fas fa-lightbulb mr-2"></i> 核心价值 & AHA!</h4>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>突破性效率:</strong> 在CPU上实现数倍加速，大幅降低能耗 (最高6x速, 82%节能)。</p>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>普惠AI:</strong> 让100B+模型在普通电脑流畅运行，推动<strong>本地AI</strong>部署。</p>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>潜力良好:</strong> 近期持续稳健增长。</p>
+                         </div>
+                     </div>
+                 </section>
+             </section>
+
+            <!-- mem0ai/mem0 -->
+            <section>
+                 <section>
+                     <h3><i class="fas fa-memory text-purple-600 mr-2"></i> mem0ai/mem0</h3>
+                     <h4>AI Agent 记忆层解决方案</h4>
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                         <div class="project-detail-card">
+                             <h4><i class="fas fa-info-circle mr-2"></i> 项目简介</h4>
+                             <p>为AI Agent提供先进的记忆管理层，解决长期记忆和个性化问题。</p>
+                              <p>支持多级记忆 (用户/会话)，在LOCOMO基准测试表现出色 (高准确率, 低Token消耗)。</p>
+                             <p class="stats mt-3">
+                                <span><i class="fas fa-star"></i> 29.6k</span>
+                                <span><i class="fas fa-code"></i> Python 58.9%</span>
+                                <span><i class="fas fa-chart-line"></i> 日增 432</span>
+                             </p>
+                         </div>
+                         <div class="project-detail-card">
+                             <h4><i class="fas fa-lightbulb mr-2"></i> 核心价值 & AHA!</h4>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>让Agent“记住你”:</strong> 使Agent具备用户偏好和持续学习能力，构建<strong>个性化助手</strong>。</p>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>提升Agent性能:</strong> 显著提高Agent的交互智能和效率。</p>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>增长潜力:</strong> 上榜次数少但日增可观。</p>
+                         </div>
+                     </div>
+                 </section>
+            </section>
+
+             <!-- airweave-ai/airweave -->
+             <section>
+                 <section>
+                     <h3><i class="fas fa-link text-blue-600 mr-2"></i> airweave-ai/airweave</h3>
+                     <h4>赋能AI Agent跨应用搜索</h4>
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                         <div class="project-detail-card">
+                             <h4><i class="fas fa-info-circle mr-2"></i> 项目简介</h4>
+                             <p>解决Agent访问分散在各种应用 (SaaS, DB, API) 中数据的挑战。</p>
+                              <p>将异构数据源转化为 Agent 可理解的结构化知识，通过统一API访问。</p>
+                             <p class="stats mt-3">
+                                <span><i class="fas fa-star"></i> 1.5k</span>
+                                <span><i class="fas fa-code"></i> Python 64.4%</span>
+                                <span><i class="fas fa-chart-line"></i> 日增 346</span>
+                             </p>
+                         </div>
+                         <div class="project-detail-card">
+                             <h4><i class="fas fa-lightbulb mr-2"></i> 核心价值 & AHA!</h4>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>打破信息孤岛:</strong> Agent能利用用户在邮件、文档、CRM等工具中的全部信息。</p>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>全能助手基础:</strong> 为构建能真正理解并利用用户工作流的智能助手提供了关键。</p>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>新兴热点:</strong> 首次上榜，增长迅速。</p>
+                         </div>
+                     </div>
+                 </section>
+             </section>
+
+            <!-- alibaba/spring-ai-alibaba -->
+            <section>
+                <section>
+                     <h3><i class="fas fa-cubes text-orange-600 mr-2"></i> alibaba/spring-ai-alibaba</h3>
+                     <h4>面向Java开发者的智能体AI框架</h4>
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                         <div class="project-detail-card">
+                             <h4><i class="fas fa-info-circle mr-2"></i> 项目简介</h4>
+                             <p>基于Spring AI，深度集成阿里云通义千问等大模型及云服务。</p>
+                              <p>提供统一API，简化Java应用中生成式AI功能 (聊天, RAG) 实现。</p>
+                             <p class="stats mt-3">
+                                <span><i class="fas fa-star"></i> 3k</span>
+                                <span><i class="fas fa-code"></i> Java 83.6%</span>
+                                <span><i class="fas fa-chart-line"></i> 日增 143</span>
+                             </p>
+                         </div>
+                         <div class="project-detail-card">
+                             <h4><i class="fas fa-lightbulb mr-2"></i> 核心价值 & AHA!</h4>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>AI赋能企业应用:</strong> 让传统Java开发者在熟悉Spring生态中轻松接入AI能力。</p>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>简化开发:</strong> 大幅降低Java应用利用阿里云AI的门槛。</p>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>稳健增长:</strong> 持续上榜，增长势头良好。</p>
+                         </div>
+                     </div>
+                </section>
+            </section>
+
+             <!-- openai/simple-evals -->
+             <section>
+                 <section>
+                     <h3><i class="fas fa-chart-bar text-green-600 mr-2"></i> openai/simple-evals</h3>
+                     <h4>轻量级LLM评估库</h4>
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                         <div class="project-detail-card">
+                             <h4><i class="fas fa-info-circle mr-2"></i> 项目简介</h4>
+                             <p>用更贴近实际的Prompt (zero-shot, CoT) 评估LLMs在标准基准测试 (MMLU, MATH) 的表现。</p>
+                              <p>灵活架构，支持接入不同模型API (OpenAI, Anthropic)。</p>
+                             <p class="stats mt-3">
+                                <span><i class="fas fa-star"></i> 3.1k</span>
+                                <span><i class="fas fa-code"></i> Python 59.3%</span>
+                                <span><i class="fas fa-chart-line"></i> 日增 172</span>
+                             </p>
+                         </div>
+                         <div class="project-detail-card">
+                             <h4><i class="fas fa-lightbulb mr-2"></i> 核心价值 & AHA!</h4>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>透明评估:</strong> 提供标准化框架，帮助理解LLM在关键任务上的真实能力。</p>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>实践导向:</strong> 强调基于Prompt的评估，更符合实际应用场景。</p>
+                               <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>基础工具:</strong> 对研究者和开发者评估模型有实际意义。</p>
+                         </div>
+                     </div>
+                 </section>
+             </section>
+
+            <!-- ossu/computer-science -->
+             <section>
+                 <section>
+                     <h3><i class="fas fa-graduation-cap text-blue-500 mr-2"></i> ossu/computer-science</h3>
+                     <h4>免费计算机科学自学路径</h4>
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                         <div class="project-detail-card">
+                             <h4><i class="fas fa-info-circle mr-2"></i> 项目简介</h4>
+                             <p>整合顶尖大学在线课程，提供一套系统化、媲美本科学位的CS自学体系。</p>
+                              <p>涵盖从基础到高级的完整路径，注重理论实践结合。</p>
+                             <p class="stats mt-3">
+                                <span><i class="fas fa-star"></i> 179k</span>
+                                <span><i class="fas fa-code"></i> HTML 100%</span>
+                                <span><i class="fas fa-chart-line"></i> 日增 109</span>
+                             </p>
+                         </div>
+                         <div class="project-detail-card">
+                             <h4><i class="fas fa-lightbulb mr-2"></i> 核心价值 & AHA!</h4>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>高质量免费教育:</strong> 无需高额学费，获得系统、扎实的CS基础。</p>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>结构严谨:</strong> 遵循专业标准，为自学者指明清晰道路。</p>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>社区支持:</strong> 活跃全球社区提供帮助。</p>
+                         </div>
+                     </div>
+                 </section>
+             </section>
+
+             <!-- harry0703/MoneyPrinterTurbo -->
+             <section>
+                 <section>
+                     <h3><i class="fas fa-video text-red-600 mr-2"></i> harry0703/MoneyPrinterTurbo</h3>
+                     <h4>AI一键生成高清短视频</h4>
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                         <div class="project-detail-card">
+                             <h4><i class="fas fa-info-circle mr-2"></i> 项目简介</h4>
+                             <p>利用AI大模型，自动化短视频创作流程，从主题到视频一键生成。</p>
+                              <p>支持文案、素材、字幕、配音、音乐定制，多种尺寸输出。</p>
+                             <p class="stats mt-3">
+                                <span><i class="fas fa-star"></i> 32.6k</span>
+                                <span><i class="fas fa-code"></i> Python 98.7%</span>
+                                <span><i class="fas fa-chart-line"></i> 日增 546</span>
+                             </p>
+                         </div>
+                         <div class="project-detail-card">
+                             <h4><i class="fas fa-lightbulb mr-2"></i> 核心价值 & AHA!</h4>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>效率革命:</strong> 极大地降低短视频制作门槛和时间成本。</p>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>内容自动化:</strong> 适用于快速响应热点、批量内容生产。</p>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>持续高热:</strong> 连续8次上榜，增长迅猛，潜力巨大。</p>
+                         </div>
+                     </div>
+                 </section>
+             </section>
+
+            <!-- xming521/WeClone -->
+            <section>
+                 <section>
+                     <h3><i class="fas fa-user-astronaut text-purple-600 mr-2"></i> xming521/WeClone</h3>
+                     <h4>从聊天记录创建数字分身</h4>
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                         <div class="project-detail-card">
+                             <h4><i class="fas fa-info-circle mr-2"></i> 项目简介</h4>
+                             <p>利用个人聊天记录微调LLM，创建具备用户语言风格的数字分身。</p>
+                              <p>提供本地训练/部署方案，内置隐私过滤功能。</p>
+                             <p class="stats mt-3">
+                                <span><i class="fas fa-star"></i> 7.1k</span>
+                                <span><i class="fas fa-code"></i> Python 100%</span>
+                                <span><i class="fas fa-chart-line"></i> 日增 2110</span>
+                             </p>
+                         </div>
+                         <div class="project-detail-card">
+                             <h4><i class="fas fa-lightbulb mr-2"></i> 核心价值 & AHA!</h4>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>个性化AI巅峰:</strong> 打造真正懂你、像你的AI分身。</p>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>隐私与安全:</strong> 支持本地私有数据处理，增强用户数据控制权。</p>
+                               <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>现象级增长:</strong> 短期内星标暴增，反映社区对个性化AI的强烈兴趣。</p>
+                         </div>
+                     </div>
+                 </section>
+            </section>
+
+             <!-- i-am-alice/3rd-devs -->
+             <section>
+                 <section>
+                      <h3><i class="fas fa-code-branch text-green-600 mr-2"></i> i-am-alice/3rd-devs</h3>
+                     <h4>AI\devs 3 课程配套代码集</h4>
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                         <div class="project-detail-card">
+                             <h4><i class="fas fa-info-circle mr-2"></i> 项目简介</h4>
+                             <p>基于TypeScript/Node.js/Bun，演示如何用OpenAI等构建实际AI应用。</p>
+                              <p>涵盖对话、记忆、工具集成、数据处理、可观测性等核心实践。</p>
+                             <p class="stats mt-3">
+                                <span><i class="fas fa-star"></i> 385</span>
+                                <span><i class="fas fa-code"></i> TypeScript 96.9%</span>
+                                <span><i class="fas fa-chart-line"></i> 日增 51</span>
+                             </p>
+                         </div>
+                         <div class="project-detail-card">
+                             <h4><i class="fas fa-lightbulb mr-2"></i> 核心价值 & AHA!</h4>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>实践桥梁:</strong> 连接AI理论与实际开发，快速掌握AI应用构建。</p>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>实用资源:</strong> 提供大量可动手实践的代码示例。</p>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>稳定增长:</strong> 连续上榜，增长势头强劲且稳定。</p>
+                         </div>
+                     </div>
+                 </section>
+             </section>
+
+             <!-- ahmedkhaleel2004/gitdiagram -->
+             <section>
+                 <section>
+                      <h3><i class="fas fa-project-diagram text-blue-500 mr-2"></i> ahmedkhaleel2004/gitdiagram</h3>
+                     <h4>GitHub仓库可视化图表工具</h4>
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                         <div class="project-detail-card">
+                             <h4><i class="fas fa-info-circle mr-2"></i> 项目简介</h4>
+                             <p>快速将GitHub仓库代码结构和系统设计转化为交互式可视化图表。</p>
+                              <p>利用AI生成Mermaid图，点击图表组件可跳转源代码。</p>
+                             <p class="stats mt-3">
+                                <span><i class="fas fa-star"></i> 12.1k</span>
+                                <span><i class="fas fa-code"></i> TypeScript 55.5%</span>
+                                <span><i class="fas fa-chart-line"></i> 日增 162</span>
+                             </p>
+                         </div>
+                         <div class="project-detail-card">
+                             <h4><i class="fas fa-lightbulb mr-2"></i> 核心价值 & AHA!</h4>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>代码理解利器:</strong> 大幅提升探索复杂代码库的效率和直观性。</p>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>便捷易用:</strong> 通过替换URL即可使用，无额外安装。</p>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>持续热门:</strong> 总星标增长强劲，上榜次数多。</p>
+                         </div>
+                     </div>
+                 </section>
+             </section>
+
+             <!-- xaoyaoo/PyWxDump -->
+             <section>
+                 <section>
+                      <h3><i class="fab fa-weixin text-green-600 mr-2"></i> xaoyaoo/PyWxDump</h3>
+                     <h4>微信聊天记录导出工具</h4>
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                         <div class="project-detail-card">
+                             <h4><i class="fas fa-info-circle mr-2"></i> 项目简介</h4>
+                             <p>获取微信数据库密钥，解密并本地查看/导出聊天记录 (HTML, CSV等)。</p>
+                              <p>支持多账户、多种微信版本，提供网页界面。</p>
+                             <p class="stats mt-3">
+                                <span><i class="fas fa-star"></i> 7.7k</span>
+                                <span><i class="fas fa-code"></i> Python 100%</span>
+                                <span><i class="fas fa-chart-line"></i> 日增 88</span>
+                             </p>
+                         </div>
+                         <div class="project-detail-card">
+                             <h4><i class="fas fa-lightbulb mr-2"></i> 核心价值 & AHA!</h4>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>数据自主权:</strong> 赋权用户管理和备份个人微信数据。</p>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>AI训练数据源:</strong> 可用于合规的AI训练等用途。</p>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>功能强大:</strong> 深入探索微信数据，需谨慎使用。</p>
+                         </div>
+                     </div>
+                 </section>
+             </section>
+
+             <!-- mlabonne/llm-course -->
+             <section>
+                 <section>
+                      <h3><i class="fas fa-book-open text-red-500 mr-2"></i> mlabonne/llm-course</h3>
+                     <h4>入门LLM课程 (带Colab Notebook)</h4>
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                         <div class="project-detail-card">
+                             <h4><i class="fas fa-info-circle mr-2"></i> 项目简介</h4>
+                             <p>系统化LLM学习课程，覆盖从基础到LLM科学家/工程师所需技能。</p>
+                              <p>核心在于大量可运行的Colab Notebooks，实践微调、量化、合并、评估等。</p>
+                             <p class="stats mt-3">
+                                <span><i class="fas fa-star"></i> 50.9k</span>
+                                <span><i class="fas fa-code"></i> Jupyter Notebook 100%</span>
+                                <span><i class="fas fa-chart-line"></i> 日增 456</span>
+                             </p>
+                         </div>
+                         <div class="project-detail-card">
+                             <h4><i class="fas fa-lightbulb mr-2"></i> 核心价值 & AHA!</h4>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>高实践性学习:</strong> 通过动手操作深入理解LLM。</p>
+                              <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>前沿技术覆盖:</strong> 学习LLM微调、量化等热门技术。</p>
+                               <p><i class="fas fa-check-circle text-green-600 mr-2"></i> <strong>强劲增长:</strong> 尤其是今日，增长势头非常显著。</p>
+                         </div>
+                     </div>
+                 </section>
+             </section>
+
+
+            <!-- Conclusion Slide -->
+             <section class="gradient-background">
+                 <div class="slide-content text-center">
+                     <h2 class="text-light"><i class="fas fa-chart-pie mr-3"></i>总结：AI正在走向...</h2>
+                     <p class="mt-8 text-light text-2xl fragment fade-in-then-semi-out">从高冷通用到<strong>个性化、本地化</strong></p>
+                     <p class="mt-4 text-light text-2xl fragment fade-in-then-semi-out">从模型本身到<strong>应用落地、效率提升</strong></p>
+                     <p class="mt-4 text-light text-2xl fragment fade-in-then-semi-out">Agent能力是关键，<strong>记忆和数据整合</strong>是突破口</p>
+                     <p class="mt-12 text-light text-3xl font-semibold fragment grow">未来AI，将更懂你，更贴近你！</p>
+                 </div>
+             </section>
+
+             <!-- Future Outlook Slide (Optional, combined with Conclusion) -->
+             <!-- <section class="has-dark-background">
+                 <div class="slide-content text-center">
+                      <h2 class="text-light"><i class="fas fa-forward mr-3"></i>展望：下一波技术热点？</h2>
+                       <ul class="list-disc list-inside text-left text-light text-xl mt-8">
+                           <li class="fragment fade-in"><i class="fas fa-magic mr-2"></i> 通用、鲁棒的<strong>多模态Agent</strong></li>
+                           <li class="fragment fade-in"><i class="fas fa-shield-alt mr-2"></i> <strong>隐私计算</strong>与个性化AI深度融合</li>
+                           <li class="fragment fade-in"><i class="fas fa-microchip mr-2"></i> 面向<strong>边缘设备</strong>优化的微型AI模型</li>
+                           <li class="fragment fade-in"><i class="fas fa-flask mr-2"></i> AI在<strong>科学发现</strong>、复杂系统模拟的应用</li>
+                           <li class="fragment fade-in"><i class="fas fa-users mr-2"></i> Agent协作、安全与伦理框架</li>
+                       </ul>
+                 </div>
+             </section> -->
+
+
+            <!-- End Slide -->
+            <section class="bg-white">
+                 <div class="slide-content text-center">
+                     <h2>谢谢观看！</h2>
+                     <h3 class="mt-8">期待您的关注和Star！</h3>
+                 </div>
+                 <!-- Footer Link & QR -->
+                <div class="footer-link-qr">
+                    <img src="../../asserts/wx.jpg" alt="微信二维码">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        // Full list of configuration options available here:
+        // https://revealjs.com/config/
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            transitionSpeed: 'slow', // default/slow/fast
+            backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+            fragmentIn: 'fade-in', // Custom fragment class
+
+            // Parallax background image
+            // parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+            // parallaxBackgroundSize: '', // CSS syntax, e.g. "2100px 900px"
+            // parallaxBackgroundRepeat: '', // CSS syntax
+            // parallaxBackgroundPosition: '', // CSS syntax
+
+            // Learn about plugins: https://revealjs.com/plugins/
+            plugins: [], // Add plugins here if needed, e.g., [ RevealMarkdown, RevealHighlight, RevealNotes ]
+
+            // Mermaid configuration
+             mermaid: {
+                 theme: 'default', // or 'dark', 'forest', 'neutral'
+             }
+        });
+
+         // Basic fragment implementation - can be extended
+        Reveal.on('fragmentshown', function( event ) {
+            // event.fragment = the fragment DOM element
+             console.log('Fragment shown:', event.fragment);
+        });
+
+        Reveal.on('fragmenthidden', function( event ) {
+            // event.fragment = the fragment DOM element
+             console.log('Fragment hidden:', event.fragment);
+        });
+
+         // Add custom fade-in-then-semi-out fragment effect manually or via plugin if needed
+         // This simple example just uses existing fade-in and fades out when the next fragment appears
+         // For true fade-in-then-semi-out, a custom fragment plugin would be better.
+         // The current setup uses a simple fade-in.
+
+    </script>
+
+    <!-- Mermaid plugin (if used) -->
+     <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+      <script>
+         // Configure Mermaid globally if needed before initializing
+         mermaid.initialize({ startOnLoad: false }); // We will render manually or via Reveal plugin
+         // If using a Reveal plugin for Mermaid, initialize Reveal *after* loading mermaid.min.js
+         // and add the plugin to Reveal.initialize plugins list.
+     </script>
+
+
+</body>
+</html>
