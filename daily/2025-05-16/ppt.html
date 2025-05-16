@@ -1,0 +1,855 @@
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>GitHub 热门仓库趋势解读</title>
+
+  <!-- Core framework -->
+  <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+  <!-- Theme: Using a light theme as a base -->
+  <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+
+  <!-- Font Awesome for icons -->
+  <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <!-- Tailwind CSS for utilities -->
+  <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+  <!-- Google Fonts for Noto Serif SC -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Mermaid for diagrams (though not used in this specific content, it's requested) -->
+  <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+  <style>
+    /* Base font stack as requested */
+    body {
+      font-family: "Noto Sans SC", Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback",
+                   "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+    }
+
+    /* Serif font for headings */
+    .reveal h1,
+    .reveal h2,
+    .reveal h3,
+    .reveal h4,
+    .reveal h5,
+    .reveal h6 {
+      font-family: "Noto Serif SC", Georgia, "Times New Roman", Times, serif;
+    }
+
+    /* Font sizes based on requirements */
+    .reveal h1 { font-size: 3rem; } /* Title slide main title */
+    .reveal h2 { font-size: 2.2rem; } /* Section titles, main repo titles */
+    .reveal h3 { font-size: 1.8rem; } /* Sub-titles, repo details titles */
+    .reveal h4 { font-size: 1.5rem; } /* Smaller headings */
+    .reveal p,
+    .reveal li,
+    .reveal table { font-size: 1.1rem; } /* Body text size */
+
+    /* Custom styling for bottom right elements */
+    .bottom-right {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      align-items: flex-end;
+      z-index: 100; /* Ensure it's above other content */
+    }
+
+    .bottom-right img {
+      width: 80px; /* Adjust size as needed */
+      height: 80px;
+      margin-left: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .bottom-right a {
+        color: #333; /* Dark grey link color */
+        text-decoration: none;
+        font-size: 0.9em;
+        margin-left: 20px; /* Space between link and QR */
+        /* Add hover effect if desired */
+        transition: color 0.3s ease;
+    }
+    .bottom-right a:hover {
+        color: #007bff; /* Example hover color */
+    }
+
+    /* Adjustments for whitespace and padding */
+    .reveal section {
+      padding: 40px;
+    }
+
+    .reveal ul {
+        list-style: disc;
+        margin-left: 1.5em;
+    }
+
+    .reveal table {
+        width: 90%;
+        margin: 20px auto;
+        border-collapse: collapse;
+    }
+    .reveal th, .reveal td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    .reveal th {
+        background-color: #f2f2f2;
+    }
+
+    .reveal .r-fit-text { /* Helper class for fitting text */
+        white-space: normal;
+    }
+
+    /* Fragment styles (default reveal.js styles are usually sufficient) */
+    .fragment {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .fragment.visible {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    /* Subtle background for title slide */
+    #title-slide {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+
+    /* Background for detail slides - subtle color or pattern */
+    .detail-slide {
+        background-color: #f9f9f9;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Slide 0: Timestamp and Disclaimer -->
+      <section>
+        <h2>GitHub 热门仓库</h2>
+        <h3>**日报** 观测时间</h3>
+        <p class="text-xl mt-8"><i class="fas fa-clock mr-2"></i> **2025-05-16 20:55:51**</p>
+        <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 text-center">
+          <p class="text-red-600 text-sm">
+            <i class="fas fa-exclamation-triangle mr-1"></i>
+            **以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！**
+          </p>
+        </div>
+      </section>
+
+      <!-- Slide 1: Title Slide -->
+      <section id="title-slide">
+        <h1 class="r-fit-text">免费教材竟成GitHub顶流！</h1>
+        <h2 class="r-fit-text">AI Agent崛起同时，这才是真需求？</h2>
+        <p class="mt-8 text-lg">演讲者: AIChipEra</p>
+
+        <!-- Bottom right elements -->
+        <div class="bottom-right">
+          <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-black">
+            https://github.com/aichipera/github-trend
+          </a>
+          <img src="../../asserts/wx.jpg" alt="微信二维码">
+        </div>
+      </section>
+
+      <!-- Slide 2: 日报要点 -->
+      <section>
+        <h2>日报要点</h2>
+        <p class="mt-8 text-left">
+          今天的GitHub榜单让人大跌眼镜！
+        </p>
+        <ul class="text-left leading-relaxed mt-4">
+          <li class="fragment">前沿的AI智能体（Agent）正在深化探索<br>记忆、交互等能力，预示着AI的下一站；</li>
+          <li class="fragment">但最火的却是一个教育资源项目，<br>它用内容力压技术热点，星标数狂飙。</li>
+          <li class="fragment">这揭示了怎样的技术新趋势？</li>
+          <li class="fragment">未来风向何在？</li>
+          <li class="fragment text-blue-600 font-semibold mt-4">带你解读这份充满意外的技术榜单！</li>
+        </ul>
+      </section>
+
+      <!-- Section: 热门项目趋势分析 -->
+      <section>
+        <section> <!-- Slide 3: 今日整体趋势 (Title) -->
+          <h2>热门项目趋势分析</h2>
+          <h3>今日整体趋势报告</h3>
+          <p class="fragment mt-8 text-left">榜单多元化，新兴技术与解决实际需求并存。</p>
+          <p class="fragment text-blue-600 font-semibold mt-4">AI 持续深入，但教育资源项目异军突起。</p>
+        </section>
+        <section> <!-- Slide 3.1: AI Agent 深入探索 -->
+          <h3>AI Agent 深入探索</h3>
+          <ul class="text-left leading-relaxed mt-8">
+            <li class="fragment"><i class="fas fa-memory text-blue-500 mr-2"></i> Mem0: 解决 AI 的长期记忆和上下文理解（赋予“记忆力”）。</li>
+            <li class="fragment"><i class="fas fa-desktop text-green-500 mr-2"></i> trycua: 虚拟环境中运行 AI Agent 并进行桌面操作。</li>
+            <li class="fragment"><i class="fas fa-link text-purple-500 mr-2"></i> awesome-mcp-servers: AI Agent 如何标准化地与外部世界连接（文件、数据库、API等）。</li>
+            <li class="fragment mt-4">这些表明 AI Agent 正从概念走向落地，开发者积极构建关键能力层和交互接口。</li>
+          </ul>
+        </section>
+        <section> <!-- Slide 3.2: AI 应用多样化与普及 -->
+            <h3>AI 应用的多样化与普及</h3>
+            <ul class="text-left leading-relaxed mt-8">
+                <li class="fragment"><i class="fas fa-user-cog text-teal-500 mr-2"></i> WeClone: 利用 AI 实现个性化（数字分身）。</li>
+                <li class="fragment"><i class="fas fa-code text-orange-500 mr-2"></i> Spring AI Alibaba: 将 AI 能力融入 Java 开发生态。</li>
+                <li class="fragment"><i class="fas fa-chart-line text-red-500 mr-2"></i> ai-hedge-fund: 在特定领域（如金融）的模拟和研究潜力。</li>
+                <li class="fragment mt-4">AI 应用场景越来越广，普及需求日益增加。</li>
+            </ul>
+        </section>
+        <section> <!-- Slide 3.3: 教育资源的意外崛起 -->
+          <h3>教育资源的意外崛起</h3>
+          <p class="fragment text-left mt-8"><i class="fas fa-book text-yellow-600 mr-2"></i> **TapXWorld/ChinaTextbook**：凭借庞大的免费教育资源，星标数爆发式增长。</p>
+          <p class="fragment text-left mt-4"><i class="fas fa-download text-indigo-600 mr-2"></i> happycola233/tchMaterial-parser：另一个下载电子课本的项目。</p>
+          <p class="fragment mt-4">这强烈反映了社会对<span class="text-blue-600 font-semibold">优质教育资源的渴求</span>，以及通过技术手段打破信息壁垒的趋势。</p>
+          <p class="fragment mt-4 font-bold">内容力压技术热点，解决现实痛点是硬道理。</p>
+        </section>
+        <section> <!-- Slide 3.4: 编程语言与技术栈 -->
+            <h3>编程语言与技术栈</h3>
+            <ul class="text-left leading-relaxed mt-8">
+                <li class="fragment"><i class="fas fa-code mr-2"></i> **Python**: AI 和自动化主力。</li>
+                <li class="fragment"><i class="fas fa-code mr-2"></i> **Rust**: 高性能基础设施 (Neon)。</li>
+                <li class="fragment"><i class="fas fa-code mr-2"></i> **TypeScript** / **Java**: Web开发和企业级应用 (n8n, Spring AI Alibaba)。</li>
+                <li class="fragment"><i class="fas fa-code mr-2"></i> **Go**: 开发者工具 (git-bug)。</li>
+                <li class="fragment mt-4">榜单语言构成趋于多元化。</li>
+            </ul>
+        </section>
+        <section> <!-- Slide 3.5: 未来风向预测 -->
+            <h3>未来风向预测</h3>
+            <ul class="text-left leading-relaxed mt-8">
+                <li class="fragment"><i class="fas fa-robot mr-2"></i> **AI Agent 深化应用**: 更智能、自主的个人助手和专业 Agent。</li>
+                <li class="fragment"><i class="fas fa-database mr-2"></i> **基础设施演进**: 无服务器数据库等。</li>
+                <li class="fragment"><i class="fas fa-tools mr-2"></i> **开发者效率提升**: 新工具。</li>
+                <li class="fragment"><i class="fas fa-graduation-cap mr-2"></i> **解决现实痛点**: 特别是教育等民生领域。</li>
+                <li class="fragment mt-4 font-bold text-blue-600">AI 加速实用化，社会价值项目爆发生命力。</li>
+            </ul>
+        </section>
+      </section>
+
+      <!-- Section: 热门项目双日维度对比分析 -->
+      <section>
+        <h2>热门项目双日维度对比分析</h2>
+        <p class="mt-8 text-left">今日榜单整体积极，热度普遍保持或提升。</p>
+        <ul class="text-left leading-relaxed mt-4">
+          <li class="fragment"><i class="fas fa-plus-circle text-green-500 mr-2"></i> 新增项目数 (7个) 与持续上升 (6个) 反映活力。</li>
+          <li class="fragment"><i class="fas fa-arrow-up text-blue-500 mr-2"></i> 无项目星标数下降。</li>
+          <li class="fragment"><i class="fas fa-code mr-2"></i> 新晋项目领域广、语言多。</li>
+          <li class="fragment mt-4 font-bold text-red-600"><i class="fas fa-fire mr-2"></i> 最大亮点: ChinaTextbook 星标爆发式增长 (+4735)。</li>
+          <li class="fragment"><i class="fas fa-chart-line mr-2"></i> WeClone 也获显著关注。</li>
+        </ul>
+      </section>
+
+      <!-- Section: 热点变化 -->
+      <section>
+        <h2>热点变化</h2>
+        <div class="flex mt-8">
+          <div class="w-1/2 pr-4">
+            <h3 class="text-left"><i class="fas fa-plus text-green-500 mr-2"></i> 新增热点</h3>
+            <ul class="text-left leading-relaxed text-sm mt-2">
+              <li class="fragment">n8n-io/n8n</li>
+              <li class="fragment">virattt/ai-hedge-fund</li>
+              <li class="fragment">git-bug/git-bug</li>
+              <li class="fragment">microsoft/PowerToys</li>
+              <li class="fragment">neondatabase/neon</li>
+              <li class="fragment">punkpeye/awesome-mcp-servers</li>
+              <li class="fragment">xaoyaoo/pywxdump</li>
+            </ul>
+          </div>
+          <div class="w-1/2 pl-4">
+            <h3 class="text-left"><i class="fas fa-minus text-red-500 mr-2"></i> 减退热点</h3>
+            <ul class="text-left leading-relaxed text-sm mt-2">
+              <li class="fragment">microsoft/bitnet</li>
+              <li class="fragment">facebookresearch/fairchem</li>
+              <li class="fragment">openai/simple-evals</li>
+              <li class="fragment">airweave-ai/airweave</li>
+              <li class="fragment">overleaf/overleaf</li>
+              <li class="fragment">mlabonne/llm-course</li>
+              <li class="fragment">mikumifa/bilitickerbuy</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-8">
+          <h3 class="text-left"><i class="fas fa-sync-alt text-blue-500 mr-2"></i> 持续热门</h3>
+          <ul class="text-left leading-relaxed text-sm mt-2">
+            <li class="fragment">xming521/WeClone (<span class="font-semibold text-blue-600">4次</span>)</li>
+            <li class="fragment">mem0ai/mem0 (<span class="font-semibold text-blue-600">3次</span>)</li>
+            <li class="fragment">alibaba/spring-ai-alibaba (<span class="font-semibold text-blue-600">4次</span>)</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Section: 详细仓库数据 -->
+      <section>
+        <h2>详细仓库数据</h2>
+        <p class="mt-8">点击向下查看每个热门项目的详细信息</p>
+        <p class="text-sm mt-4 text-gray-600"><i class="fas fa-mouse mr-1"></i> 使用方向键或空格键切换幻灯片</p>
+      </section>
+
+      <!-- Repo Section: TapXWorld/ChinaTextbook -->
+      <section>
+        <section class="detail-slide">
+          <h3><i class="fas fa-book text-yellow-600 mr-2"></i> TapXWorld/ChinaTextbook</h3>
+          <p class="text-gray-600 text-sm">https://github.com/TapXWorld/ChinaTextbook</p>
+          <p class="mt-4 text-left">**项目简介**: {'所有小初高、大学PDF教材。'}</p>
+          <table class="text-sm mt-4">
+              <thead>
+                  <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+              </thead>
+              <tbody>
+                  <tr><td>Roff</td><td>19070</td><td>2次</td><td>2次</td><td>4813</td></tr>
+              </tbody>
+          </table>
+          <p class="text-sm mt-4 text-left">
+            <i class="fas fa-star"></i> Stars: 19.1k | <i class="fas fa-code-branch"></i> Forks: 3.9k | <i class="fas fa-eye"></i> Watchers: 186 | <i class="fas fa-exclamation-circle"></i> Issues: 27 | <i class="fas fa-code-merge"></i> PRs: 3
+          </p>
+          <p class="text-sm text-left">
+            <i class="fas fa-box"></i> Releases: 0 | <i class="fas fa-file-code"></i> Commits: 135 | <i class="fas fa-gavel"></i> License: 未知 | <i class="fas fa-users"></i> Contributors: 2
+          </p>
+          <p class="text-sm text-left mt-2">
+            <i class="fas fa-percentage"></i> 编程语言占比: **Roff** 100.0%
+          </p>
+          <p class="fragment text-blue-600 font-semibold mt-4 text-left">增长分析：两日上榜两次，单次平均新增Star超4400，增长极为迅速，持续高热度。</p>
+        </section>
+        <section class="detail-slide">
+            <h3>TapXWorld/ChinaTextbook: 项目速读</h3>
+            <p class="text-left leading-relaxed text-base mt-4">
+                致力于收集并免费提供中国小初高到大学教育资源（目前聚焦数学）。<br>
+                **核心价值**: 免费、开放、解决获取教材痛点。<br>
+                **优势**: 直接通过 GitHub 获取，提供 PDF 合并工具。<br>
+                **意义**: 促进教育公平，反对资源商业化。极具实用价值和公益属性。
+            </p>
+        </section>
+      </section>
+
+      <!-- Repo Section: xming521/WeClone -->
+      <section>
+        <section class="detail-slide">
+          <h3><i class="fas fa-user-cog text-teal-500 mr-2"></i> xming521/WeClone</h3>
+          <p class="text-gray-600 text-sm">https://github.com/xming521/WeClone</p>
+          <p class="mt-4 text-left">**项目简介**: {'从聊天记录创造数字分身的一站式解决方案💡 使用聊天记录微调大语言模型，让大模型有“那味儿”，并绑定到聊天机器人，实现自己的数字分身。 数字克隆/数字分身/数字永生/LLM/聊天机器人/LoRA'}</p>
+          <table class="text-sm mt-4">
+              <thead>
+                  <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+              </thead>
+              <tbody>
+                  <tr><td>Python</td><td>9386</td><td>4次</td><td>4次</td><td>1347</td></tr>
+              </tbody>
+          </table>
+           <p class="text-sm mt-4 text-left">
+            <i class="fas fa-star"></i> Stars: 9.4k | <i class="fas fa-code-branch"></i> Forks: 731 | <i class="fas fa-eye"></i> Watchers: 50 | <i class="fas fa-exclamation-circle"></i> Issues: 21 | <i class="fas fa-code-merge"></i> PRs: 0
+          </p>
+          <p class="text-sm text-left">
+            <i class="fas fa-box"></i> Releases: 5 | <i class="fas fa-file-code"></i> Commits: 158 | <i class="fas fa-gavel"></i> License: AGPL-3.0 | <i class="fas fa-users"></i> Contributors: 5
+          </p>
+          <p class="text-sm text-left mt-2">
+            <i class="fas fa-percentage"></i> 编程语言占比: **Python** 100.0%
+          </p>
+          <p class="fragment text-blue-600 font-semibold mt-4 text-left">增长分析：4天内4次上榜，总增长4378星，近期日增1347星，频繁上榜驱动强劲且持续的增长。</p>
+        </section>
+         <section class="detail-slide">
+            <h3>xming521/WeClone: 项目速读</h3>
+            <p class="text-left leading-relaxed text-base mt-4">
+                用个人聊天记录创建 AI 数字分身。<br>
+                **核心功能**: 数据导出、隐私处理、LoRA 微调 LLM、绑定聊天机器人。<br>
+                **价值**: 个性化 AI 应用探索，数字记忆留存，注重隐私。<br>
+                **技术**: 一站式解决方案，让 AI 获得独特说话风格。
+            </p>
+        </section>
+      </section>
+
+      <!-- Repo Section: mem0ai/mem0 -->
+      <section>
+        <section class="detail-slide">
+          <h3><i class="fas fa-memory text-blue-500 mr-2"></i> mem0ai/mem0</h3>
+          <p class="text-gray-600 text-sm">https://github.com/mem0ai/mem0</p>
+          <p class="mt-4 text-left">**项目简介**: AI Agent 的记忆；AI Agent 记忆领域的 SOTA；宣布 OpenMemory MCP - 本地和安全的内存管理。</p>
+          <table class="text-sm mt-4">
+              <thead>
+                  <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+              </thead>
+              <tbody>
+                  <tr><td>Python</td><td>30787</td><td>3次</td><td>4次</td><td>598</td></tr>
+              </tbody>
+          </table>
+           <p class="text-sm mt-4 text-left">
+            <i class="fas fa-star"></i> Stars: 30.8k | <i class="fas fa-code-branch"></i> Forks: 3k | <i class="fas fa-eye"></i> Watchers: 166 | <i class="fas fa-exclamation-circle"></i> Issues: 272 | <i class="fas fa-code-merge"></i> PRs: 82
+          </p>
+          <p class="text-sm text-left">
+            <i class="fas fa-box"></i> Releases: 248 | <i class="fas fa-file-code"></i> Commits: 1,570 | <i class="fas fa-gavel"></i> License: Apache-2.0 | <i class="fas fa-users"></i> Contributors: 181
+          </p>
+          <p class="text-sm text-left mt-2">
+            <i class="fas fa-percentage"></i> 编程语言占比: **Python** 58.9%, **TypeScript** 24.0%, **MDX** 9.5%, **Jupyter Notebook** 5.8%
+          </p>
+          <p class="fragment text-blue-600 font-semibold mt-4 text-left">增长分析：增长势头强劲，虽仅上榜4次，每次星标增长显著，近期增速尤佳（598高于平均414.2）。</p>
+        </section>
+         <section class="detail-slide">
+            <h3>mem0ai/mem0: 项目速读</h3>
+            <p class="text-left leading-relaxed text-base mt-4">
+                专为 AI 代理设计的智能记忆层。<br>
+                **解决痛点**: AI 缺乏长期记忆、上下文理解和个性化交互。<br>
+                **核心价值**: 赋予 AI 持久记忆，实现更流畅、个性化交互。<br>
+                **优势**: 卓越性能、高效率（检索准确、速度快、Token消耗低）。<br>
+                **特点**: 多层次记忆管理，易用 SDK/API，支持多种 AI 应用。
+            </p>
+        </section>
+      </section>
+
+      <!-- Repo Section: neondatabase/neon -->
+      <section>
+        <section class="detail-slide">
+          <h3><i class="fas fa-database text-indigo-600 mr-2"></i> neondatabase/neon</h3>
+          <p class="text-gray-600 text-sm">https://github.com/neondatabase/neon</p>
+          <p class="mt-4 text-left">**项目简介**: Neon：Serverless Postgres。我们分离了存储和计算，以提供自动扩缩容、类似代码的数据库分支以及零扩容能力。</p>
+          <table class="text-sm mt-4">
+              <thead>
+                  <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+              </thead>
+              <tbody>
+                  <tr><td>Rust</td><td>17407</td><td>1次</td><td>1次</td><td>95</td></tr>
+              </tbody>
+          </table>
+           <p class="text-sm mt-4 text-left">
+            <i class="fas fa-star"></i> Stars: 17.4k | <i class="fas fa-code-branch"></i> Forks: 592 | <i class="fas fa-eye"></i> Watchers: 114 | <i class="fas fa-exclamation-circle"></i> Issues: 635 | <i class="fas fa-code-merge"></i> PRs: 283
+          </p>
+          <p class="text-sm text-left">
+            <i class="fas fa-box"></i> Releases: 206 | <i class="fas fa-file-code"></i> Commits: 7,905 | <i class="fas fa-gavel"></i> License: Apache-2.0 | <i class="fas fa-users"></i> Contributors: 141
+          </p>
+          <p class="text-sm text-left mt-2">
+            <i class="fas fa-percentage"></i> 编程语言占比: **Rust** 73.5%, **Python** 19.4%, **C** 5.2%
+          </p>
+          <p class="fragment text-blue-600 font-semibold mt-4 text-left">增长分析：今日首次上榜。</p>
+        </section>
+         <section class="detail-slide">
+            <h3>neondatabase/neon: 项目速读</h3>
+            <p class="text-left leading-relaxed text-base mt-4">
+                开源无服务器 PostgreSQL 数据库方案。<br>
+                **核心优势**: 彻底分离存储与计算。<br>
+                **特性**: 像代码一样便捷的数据库分支，高度弹性自动伸缩（支持缩减至零）。<br>
+                **价值**: 开发、测试、灾难恢复高效副本；生产环境显著成本节约和伸缩灵活性。<br>
+                **意义**: 强大的云原生 PostgreSQL 替代品。
+            </p>
+        </section>
+      </section>
+
+      <!-- Repo Section: happycola233/tchMaterial-parser -->
+      <section>
+        <section class="detail-slide">
+          <h3><i class="fas fa-download text-indigo-600 mr-2"></i> happycola233/tchMaterial-parser</h3>
+          <p class="text-gray-600 text-sm">https://github.com/happycola233/tchMaterial-parser</p>
+          <p class="mt-4 text-left">**项目简介**: {'国家中小学智慧教育平台 电子课本下载工具，帮助您从智慧教育平台中获取电子课本的 PDF 文件网址并进行下载，让您更方便地获取课本内容。'}</p>
+          <table class="text-sm mt-4">
+              <thead>
+                  <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+              </thead>
+              <tbody>
+                  <tr><td>Python</td><td>1369</td><td>2次</td><td>2次</td><td>404</td></tr>
+              </tbody>
+          </table>
+           <p class="text-sm mt-4 text-left">
+            <i class="fas fa-star"></i> Stars: 1.4k | <i class="fas fa-code-branch"></i> Forks: 153 | <i class="fas fa-eye"></i> Watchers: 18 | <i class="fas fa-exclamation-circle"></i> Issues: 5 | <i class="fas fa-code-merge"></i> PRs: 0
+          </p>
+          <p class="text-sm text-left">
+            <i class="fas fa-box"></i> Releases: 9 | <i class="fas fa-file-code"></i> Commits: 70 | <i class="fas fa-gavel"></i> License: MIT | <i class="fas fa-users"></i> Contributors: 6
+          </p>
+          <p class="text-sm text-left mt-2">
+            <i class="fas fa-percentage"></i> 编程语言占比: **Python** 100.0%
+          </p>
+          <p class="fragment text-blue-600 font-semibold mt-4 text-left">增长分析：两天内两次上榜，平均每次新增333星，增长势头迅猛，显示持续关注度。</p>
+        </section>
+         <section class="detail-slide">
+            <h3>happycola233/tchMaterial-parser: 项目速读</h3>
+            <p class="text-left leading-relaxed text-base mt-4">
+                从国家中小学智慧教育平台下载电子课本 PDF 的工具。<br>
+                **功能**: 解析网址，批量下载，图形界面。<br>
+                **关键**: 适应平台登录变化，支持 Access Token 获取资源。<br>
+                **价值**: 解决用户便捷下载电子课本的实际需求。
+            </p>
+        </section>
+      </section>
+
+      <!-- Repo Section: git-bug/git-bug -->
+       <section>
+        <section class="detail-slide">
+          <h3><i class="fas fa-bug text-red-600 mr-2"></i> git-bug/git-bug</h3>
+          <p class="text-gray-600 text-sm">https://github.com/git-bug/git-bug</p>
+          <p class="mt-4 text-left">**项目简介**: 嵌入在 Git 中的分布式、离线优先的缺陷跟踪器</p>
+          <table class="text-sm mt-4">
+              <thead>
+                  <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+              </thead>
+              <tbody>
+                  <tr><td>Go</td><td>8795</td><td>1次</td><td>1次</td><td>182</td></tr>
+              </tbody>
+          </table>
+           <p class="text-sm mt-4 text-left">
+            <i class="fas fa-star"></i> Stars: 8.8k | <i class="fas fa-code-branch"></i> Forks: 280 | <i class="fas fa-eye"></i> Watchers: 76 | <i class="fas fa-exclamation-circle"></i> Issues: 120 | <i class="fas fa-code-merge"></i> PRs: 5
+          </p>
+          <p class="text-sm text-left">
+            <i class="fas fa-box"></i> Releases: 12 | <i class="fas fa-file-code"></i> Commits: 2,385 | <i class="fas fa-gavel"></i> License: GPL-3.0 | <i class="fas fa-users"></i> Contributors: 74
+          </p>
+          <p class="text-sm text-left mt-2">
+            <i class="fas fa-percentage"></i> 编程语言占比: **Go** 84.2%, **TypeScript** 10.9%
+          </p>
+          <p class="fragment text-blue-600 font-semibold mt-4 text-left">增长分析：今日首次上榜。</p>
+        </section>
+         <section class="detail-slide">
+            <h3>git-bug/git-bug: 项目速读</h3>
+            <p class="text-left leading-relaxed text-base mt-4">
+                嵌入 Git 的分布式、离线优先缺陷跟踪器。<br>
+                **核心机制**: 问题作为 Git 原生对象存储。<br>
+                **优势**: 天然支持离线工作，继承 Git 分布式/版本化能力，毫秒级列表/搜索。<br>
+                **交互**: 命令行、文本界面、网页。<br>
+                **集成**: 通过桥接器与 GitHub/GitLab 同步。<br>
+                **价值**: 强大、灵活、与开发流程紧密结合的问题管理方案。
+            </p>
+        </section>
+      </section>
+
+      <!-- Repo Section: microsoft/PowerToys -->
+      <section>
+        <section class="detail-slide">
+          <h3><i class="fas fa-windows text-blue-500 mr-2"></i> microsoft/PowerToys</h3>
+          <p class="text-gray-600 text-sm">https://github.com/microsoft/PowerToys</p>
+          <p class="mt-4 text-left">**项目简介**: Windows 系统工具提升工作效率</p>
+          <table class="text-sm mt-4">
+              <thead>
+                  <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+              </thead>
+              <tbody>
+                  <tr><td>C#</td><td>118581</td><td>1次</td><td>2次</td><td>41</td></tr>
+              </tbody>
+          </table>
+           <p class="text-sm mt-4 text-left">
+            <i class="fas fa-star"></i> Stars: 119k | <i class="fas fa-code-branch"></i> Forks: 7k | <i class="fas fa-eye"></i> Watchers: 1.2k | <i class="fas fa-exclamation-circle"></i> Issues: 5k+ | <i class="fas fa-code-merge"></i> PRs: 81
+          </p>
+          <p class="text-sm text-left">
+            <i class="fas fa-box"></i> Releases: 113 | <i class="fas fa-file-code"></i> Commits: 7,966 | <i class="fas fa-gavel"></i> License: MIT | <i class="fas fa-users"></i> Contributors: 540
+          </p>
+          <p class="text-sm text-left mt-2">
+            <i class="fas fa-percentage"></i> 编程语言占比: **C#** 63.9%, **C++** 33.7%
+          </p>
+          <p class="fragment text-blue-600 font-semibold mt-4 text-left">增长分析：10天内总星数增长526，增长势头强劲。上榜2次，每次平均新增40星，表明增长受益于持续关注或少数上榜日曝光。</p>
+        </section>
+         <section class="detail-slide">
+            <h3>microsoft/PowerToys: 项目速读</h3>
+            <p class="text-left leading-relaxed text-base mt-4">
+                微软开发的开源实用工具集，提升 Windows 生产力。<br>
+                **目的**: 为高级用户提供增强功能。<br>
+                **包含**: 高级窗口布局、批量文件重命名、颜色选取等模块化工具。<br>
+                **价值**: 弥补 Windows 原生功能不足，优化用户日常操作。<br>
+                **意义**: 为追求高效、个性化 Windows 体验用户提供强大辅助。
+            </p>
+        </section>
+      </section>
+
+      <!-- Repo Section: n8n-io/n8n -->
+       <section>
+        <section class="detail-slide">
+          <h3><i class="fas fa-project-diagram text-green-600 mr-2"></i> n8n-io/n8n</h3>
+          <p class="text-gray-600 text-sm">https://github.com/n8n-io/n8n</p>
+          <p class="mt-4 text-left">**项目简介**: 公平代码工作流自动化平台，具备原生AI能力。结合可视化构建与自定义代码，支持自托管或云端，集成400+个应用。</p>
+          <table class="text-sm mt-4">
+              <thead>
+                  <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+              </thead>
+              <tbody>
+                  <tr><td>TypeScript</td><td>94339</td><td>1次</td><td>7次</td><td>713</td></tr>
+              </tbody>
+          </table>
+           <p class="text-sm mt-4 text-left">
+            <i class="fas fa-star"></i> Stars: 94.3k | <i class="fas fa-code-branch"></i> Forks: 25.8k | <i class="fas fa-eye"></i> Watchers: 612 | <i class="fas fa-exclamation-circle"></i> Issues: 450 | <i class="fas fa-code-merge"></i> PRs: 336
+          </p>
+          <p class="text-sm text-left">
+            <i class="fas fa-box"></i> Releases: 335 | <i class="fas fa-file-code"></i> Commits: 13,971 | <i class="fas fa-gavel"></i> License: 未知 | <i class="fas fa-users"></i> Contributors: 483
+          </p>
+          <p class="text-sm text-left mt-2">
+            <i class="fas fa-percentage"></i> 编程语言占比: **TypeScript** 90.2%, **Vue** 8.0%
+          </p>
+          <p class="fragment text-blue-600 font-semibold mt-4 text-left">增长分析：约两个月内上榜7次，稳定活跃。平均每次增574.4星，今日新增713，远超平均，增长加速。</p>
+        </section>
+         <section class="detail-slide">
+            <h3>n8n-io/n8n: 项目速读</h3>
+            <p class="text-left leading-relaxed text-base mt-4">
+                面向技术团队的工作流自动化平台。<br>
+                **解决痛点**: 服务集成与流程自动化复杂性，数据控制权。<br>
+                **特点**: 结合可视化构建与代码灵活性，原生 AI 能力，400+ 应用集成。<br>
+                **优势**: 支持自托管，确保数据主权；高度灵活，构建复杂智能化流程。<br>
+                **价值**: 强大且强调自主性的自动化解决方案。
+            </p>
+        </section>
+      </section>
+
+      <!-- Repo Section: trycua/cua -->
+       <section>
+        <section class="detail-slide">
+          <h3><i class="fas fa-desktop text-green-500 mr-2"></i> trycua/cua</h3>
+          <p class="text-gray-600 text-sm">https://github.com/trycua/cua</p>
+          <p class="mt-4 text-left">**项目简介**: c/ua 是用于计算机的 AI 智能体的 Docker 容器。</p>
+          <table class="text-sm mt-4">
+              <thead>
+                  <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+              </thead>
+              <tbody>
+                  <tr><td>Python</td><td>7022</td><td>2次</td><td>2次</td><td>441</td></tr>
+              </tbody>
+          </table>
+           <p class="text-sm mt-4 text-left">
+            <i class="fas fa-star"></i> Stars: 7k | <i class="fas fa-code-branch"></i> Forks: 276 | <i class="fas fa-eye"></i> Watchers: 38 | <i class="fas fa-exclamation-circle"></i> Issues: 43 | <i class="fas fa-code-merge"></i> PRs: 6
+          </p>
+          <p class="text-sm text-left">
+            <i class="fas fa-box"></i> Releases: 121 | <i class="fas fa-file-code"></i> Commits: 571 | <i class="fas fa-gavel"></i> License: MIT | <i class="fas fa-users"></i> Contributors: 18
+          </p>
+          <p class="text-sm text-left mt-2">
+            <i class="fas fa-percentage"></i> 编程语言占比: **Python** 62.5%, **Swift** 30.4%
+          </p>
+          <p class="fragment text-blue-600 font-semibold mt-4 text-left">增长分析：两天内两度上榜，增长强劲。总增420星，最后一天新增441，远超平均，增速显著加快。</p>
+        </section>
+         <section class="detail-slide">
+            <h3>trycua/cua: 项目速读</h3>
+            <p class="text-left leading-relaxed text-base mt-4">
+                为 AI 智能体设计的虚拟机容器，让 AI 在真实 OS GUI 中操作。<br>
+                **解决难题**: AI 如何在图形界面中自由操作电脑。<br>
+                **核心**: 在高性能虚拟机中运行完整系统，提供逼真交互环境。<br>
+                **优势**: 利用底层技术（如针对 Apple Silicon）提供高效性能；全面 Python SDK 和工具集。<br>
+                **价值**: 为开发能执行复杂桌面任务的 AI 智能体提供高效隔离平台。
+            </p>
+        </section>
+      </section>
+
+      <!-- Repo Section: punkpeye/awesome-mcp-servers -->
+       <section>
+        <section class="detail-slide">
+          <h3><i class="fas fa-link text-purple-500 mr-2"></i> punkpeye/awesome-mcp-servers</h3>
+          <p class="text-gray-600 text-sm">https://github.com/punkpeye/awesome-mcp-servers</p>
+          <p class="mt-4 text-left">**项目简介**: 一组 MCP 服务器</p>
+          <table class="text-sm mt-4">
+              <thead>
+                  <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+              </thead>
+              <tbody>
+                  <tr><td>未知</td><td>49307</td><td>1次</td><td>11次</td><td>368</td></tr>
+              </tbody>
+          </table>
+           <p class="text-sm mt-4 text-left">
+            <i class="fas fa-star"></i> Stars: 49.3k | <i class="fas fa-code-branch"></i> Forks: 3.7k | <i class="fas fa-eye"></i> Watchers: 348 | <i class="fas fa-exclamation-circle"></i> Issues: 19 | <i class="fas fa-code-merge"></i> PRs: 60
+          </p>
+          <p class="text-sm text-left">
+            <i class="fas fa-box"></i> Releases: 0 | <i class="fas fa-file-code"></i> Commits: 1,896 | <i class="fas fa-gavel"></i> License: MIT | <i class="fas fa-users"></i> Contributors: 506
+          </p>
+           <p class="text-sm text-left mt-2">
+            <i class="fas fa-percentage"></i> 编程语言占比: 未知
+          </p>
+          <p class="fragment text-blue-600 font-semibold mt-4 text-left">增长分析：增长高度依赖上榜，11次上榜期间平均每次贡献1337星，累积总增超4.2万。增长爆发点集中在上榜日。</p>
+        </section>
+         <section class="detail-slide">
+            <h3>punkpeye/awesome-mcp-servers: 项目速读</h3>
+            <p class="text-left leading-relaxed text-base mt-4">
+                Model Context Protocol (MCP) 服务器精选列表。<br>
+                **目的**: 解决 AI 模型与外部世界交互限制。<br>
+                **提供**: 实现了 MCP 协议的服务器集合，让 AI 安全标准化访问文件、数据库、API 等。<br>
+                **核心价值**: 高度组织性、实用性；服务器按功能分类，详细标注技术属性。<br>
+                **意义**: 推动 MCP 生态成熟，构建深度连接现实世界的 AI 应用的关键资源。
+            </p>
+        </section>
+      </section>
+
+      <!-- Repo Section: alibaba/spring-ai-alibaba -->
+      <section>
+        <section class="detail-slide">
+          <h3><i class="fas fa-code text-orange-500 mr-2"></i> alibaba/spring-ai-alibaba</h3>
+          <p class="text-gray-600 text-sm">https://github.com/alibaba/spring-ai-alibaba</p>
+          <p class="mt-4 text-left">**项目简介**: 面向 Java 开发者的智能体 AI 框架</p>
+          <table class="text-sm mt-4">
+              <thead>
+                  <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+              </thead>
+              <tbody>
+                  <tr><td>Java</td><td>3259</td><td>4次</td><td>8次</td><td>120</td></tr>
+              </tbody>
+          </table>
+           <p class="text-sm mt-4 text-left">
+            <i class="fas fa-star"></i> Stars: 3.3k | <i class="fas fa-code-branch"></i> Forks: 609 | <i class="fas fa-eye"></i> Watchers: 48 | <i class="fas fa-exclamation-circle"></i> Issues: 175 | <i class="fas fa-code-merge"></i> PRs: 20
+          </p>
+          <p class="text-sm text-left">
+            <i class="fas fa-box"></i> Releases: 7 | <i class="fas fa-file-code"></i> Commits: 1,972 | <i class="fas fa-gavel"></i> License: Apache-2.0 | <i class="fas fa-users"></i> Contributors: 86
+          </p>
+          <p class="text-sm text-left mt-2">
+            <i class="fas fa-percentage"></i> 编程语言占比: **Java** 83.6%, **TypeScript** 8.3%
+          </p>
+          <p class="fragment text-blue-600 font-semibold mt-4 text-left">增长分析：统计期内上榜8次，总增1936星，平均每次增142.4星。仓库增长持续且稳定。</p>
+        </section>
+         <section class="detail-slide">
+            <h3>alibaba/spring-ai-alibaba: 项目速读</h3>
+            <p class="text-left leading-relaxed text-base mt-4">
+                专为 Java 开发者打造的 AI 应用开发框架，基于 Spring AI。<br>
+                **目的**: 将阿里云 AI 能力无缝集成到 Spring Boot 应用。<br>
+                **特点**: 提供高级统一 API 抽象，简化 AI-native 应用开发，支持多种 AI 模型，内置 RAG/记忆等。<br>
+                **价值**: 连接 Spring 生态与云端 AI 服务，Java 开发者快速构建智能应用的有力工具。
+            </p>
+        </section>
+      </section>
+
+      <!-- Repo Section: xaoyaoo/PyWxDump -->
+      <section>
+        <section class="detail-slide">
+          <h3><i class="fab fa-weixin text-green-500 mr-2"></i> xaoyaoo/PyWxDump</h3>
+          <p class="text-gray-600 text-sm">https://github.com/xaoyaoo/PyWxDump</p>
+          <p class="mt-4 text-left">**项目简介**: {'获取微信信息；读取数据库，本地查看聊天记录并导出为csv、html等格式用于AI训练，自动回复等。支持多账户信息获取，支持所有微信版本。'}</p>
+          <table class="text-sm mt-4">
+              <thead>
+                  <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+              </thead>
+              <tbody>
+                  <tr><td>Python</td><td>7992</td><td>1次</td><td>2次</td><td>252</td></tr>
+              </tbody>
+          </table>
+           <p class="text-sm mt-4 text-left">
+            <i class="fas fa-star"></i> Stars: 8k | <i class="fas fa-code-branch"></i> Forks: 1.2k | <i class="fas fa-eye"></i> Watchers: 48 | <i class="fas fa-exclamation-circle"></i> Issues: 39 | <i class="fas fa-code-merge"></i> PRs: 1
+          </p>
+          <p class="text-sm text-left">
+            <i class="fas fa-box"></i> Releases: 46 | <i class="fas fa-file-code"></i> Commits: 1,153 | <i class="fas fa-gavel"></i> License: 未知 | <i class="fas fa-users"></i> Contributors: 10
+          </p>
+          <p class="text-sm text-left mt-2">
+            <i class="fas fa-percentage"></i> 编程语言占比: **Python** 100.0%
+          </p>
+          <p class="fragment text-blue-600 font-semibold mt-4 text-left">增长分析：3天内上榜2次，累计增长342星。平均每次增长170星，最新一天增252，远超平均，增速加速。</p>
+        </section>
+         <section class="detail-slide">
+            <h3>xaoyaoo/PyWxDump: 项目速读</h3>
+            <p class="text-left leading-relaxed text-base mt-4">
+                基于 Python 的微信数据获取与聊天记录管理工具。<br>
+                **功能**: 提取账号信息、数据库解密、查看/导出聊天记录（CSV/HTML等）。<br>
+                **特点**: 兼容所有微信版本/多账户，支持本地/网页查看。<br>
+                **价值**: 个人微信数据本地化备份与利用辅助。<br>
+                <span class="text-red-600 font-bold">注意: 仅限个人学习/备份，严禁非法用途！</span>
+            </p>
+        </section>
+      </section>
+
+      <!-- Repo Section: virattt/ai-hedge-fund -->
+      <section>
+        <section class="detail-slide">
+          <h3><i class="fas fa-chart-line text-red-500 mr-2"></i> virattt/ai-hedge-fund</h3>
+          <p class="text-gray-600 text-sm">https://github.com/virattt/ai-hedge-fund</p>
+          <p class="mt-4 text-left">**项目简介**: 人工智能对冲基金团队</p>
+          <table class="text-sm mt-4">
+              <thead>
+                  <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+              </thead>
+              <tbody>
+                  <tr><td>Python</td><td>27648</td><td>1次</td><td>9次</td><td>354</td></tr>
+              </tbody>
+          </table>
+           <p class="text-sm mt-4 text-left">
+            <i class="fas fa-star"></i> Stars: 27.6k | <i class="fas fa-code-branch"></i> Forks: 4.8k | <i class="fas fa-eye"></i> Watchers: 384 | <i class="fas fa-exclamation-circle"></i> Issues: 71 | <i class="fas fa-code-merge"></i> PRs: 36
+          </p>
+          <p class="text-sm text-left">
+            <i class="fas fa-box"></i> Releases: 0 | <i class="fas fa-file-code"></i> Commits: 450 | <i class="fas fa-gavel"></i> License: MIT | <i class="fas fa-users"></i> Contributors: 20
+          </p>
+          <p class="text-sm text-left mt-2">
+            <i class="fas fa-percentage"></i> 编程语言占比: **Python** 72.0%, **TypeScript** 23.2%
+          </p>
+          <p class="fragment text-blue-600 font-semibold mt-4 text-left">增长分析：增长强劲，9次频繁上榜是关键驱动，平均每次增近600星，总增超1.1万。增长爆发点集中在上榜日。</p>
+        </section>
+         <section class="detail-slide">
+            <h3>virattt/ai-hedge-fund: 项目速读</h3>
+            <p class="text-left leading-relaxed text-base mt-4">
+                模拟多 AI 智能体对冲基金的概念验证/教育研究工具。<br>
+                **目标**: 探索 AI、多智能体系统辅助模拟交易决策。<br>
+                **核心技术**: 精巧多智能体架构，模拟不同投资风格/职能 AI Agent。<br>
+                **价值**: 为对 AI/多智能体/量化交易交叉领域感兴趣者提供沙盒环境。<br>
+                <span class="text-red-600 font-bold">注意: 仅限教育/研究，严禁用于实际投资交易！</span>
+            </p>
+        </section>
+      </section>
+
+      <!-- Final Slide -->
+      <section id="final-slide">
+        <h2>感谢观看！</h2>
+        <h3 class="mt-8">发现更多技术趋势与热门项目</h3>
+
+        <!-- Bottom right elements -->
+        <div class="bottom-right">
+          <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-black">
+            https://github.com/aichipera/github-trend
+          </a>
+          <img src="../../asserts/wx.jpg" alt="微信二维码">
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script>
+    // More complete configuration might be needed depending on desired behavior
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+      hash: true,
+      transition: 'slide', // none/fade/slide/convex/concave/zoom
+      transitionSpeed: 'default', // default/fast/slow
+
+      // fragments: true, // Fragments are enabled by default
+
+      // Optional Reveal.js plugins
+      plugins: [ ] // No specific plugins needed for this basic structure
+    });
+
+    // Initialize Mermaid
+    mermaid.initialize({ startOnLoad: true });
+
+    // Function to add bottom-right elements to first and last slide
+    function addBottomRightElements() {
+        const slides = document.querySelectorAll('.reveal .slides section');
+        if (slides.length > 0) {
+            // Create the element structure
+            const bottomRightDiv = document.createElement('div');
+            bottomRightDiv.classList.add('bottom-right');
+
+            const link = document.createElement('a');
+            link.href = 'https://github.com/aichipera/github-trend';
+            link.target = '_blank';
+            link.classList.add('text-black');
+            link.textContent = 'https://github.com/aichipera/github-trend';
+
+            const qrImg = document.createElement('img');
+            qrImg.src = '../../asserts/wx.jpg';
+            qrImg.alt = '微信二维码';
+
+            bottomRightDiv.appendChild(link);
+            bottomRightDiv.appendChild(qrImg);
+
+            // Append to the first slide (if it's not the disclaimer)
+            if (!slides[0].querySelector('h3:contains("观测时间")')) { // Crude check to skip disclaimer
+                 slides[0].appendChild(bottomRightDiv.cloneNode(true));
+            } else if (slides.length > 1) { // Append to the second slide if disclaimer is first
+                 slides[1].appendChild(bottomRightDiv.cloneNode(true));
+            }
+
+
+            // Append to the last slide
+            slides[slides.length - 1].appendChild(bottomRightDiv.cloneNode(true));
+        }
+    }
+
+     // Run the function after Reveal.js is ready and layout might have settled
+    // A timeout can help ensure elements are added after Reveal.js processes the DOM
+    setTimeout(addBottomRightElements, 500); // Adjust delay if needed
+
+    // Re-add on slide change in case Reveal.js somehow removes them
+    // Reveal.on( 'slidechanged', function( event ) {
+    //    addBottomRightElements(); // This might cause duplicates if not careful
+    // });
+
+
+  </script>
+  <!-- Main Reveal.js script -->
+  <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+
+</body>
+</html>
