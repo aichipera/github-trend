@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub热榜趋势分析 - AIChipEra</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/black.min.css" rel="stylesheet" id="theme">
+    <!-- Use black theme as a base for a modern, "aha" feel, then customize -->
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --r-main-font: "Noto Sans SC", Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: "Noto Serif SC", "Noto Sans SC", Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, serif;
+            --r-link-color: #42affa;
+            --r-link-color-hover: #79c6fd;
+            --r-background-color: #1a1a1a; /* Darker background */
+            --r-main-color: #e0e0e0;
+            --r-heading-color: #ffffff;
+            
+            --aha-accent-color: #00aaff; /* A bright, modern blue */
+            --aha-gradient-start: #0077cc;
+            --aha-gradient-end: #00aaff;
+            --aha-secondary-color: #99ddff;
+        }
+
+        body {
+            font-family: var(--r-main-font);
+        }
+
+        .reveal .slides section,
+        .reveal .slides section > section {
+            padding: 20px;
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--r-heading-color);
+            font-weight: 600;
+        }
+        .reveal h1 { font-size: 2.8em; text-shadow: 0 0 10px rgba(0,170,255,0.5); }
+        .reveal h2 { font-size: 2.0em; margin-bottom: 30px; border-bottom: 2px solid var(--aha-accent-color); padding-bottom: 10px;}
+        .reveal h3 { font-size: 1.6em; color: var(--aha-secondary-color); }
+        .reveal p, .reveal li {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--r-main-color);
+        }
+        .reveal strong {
+            color: var(--aha-accent-color);
+        }
+        .reveal ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .reveal ul li::before {
+            content: "\f138"; /* Font Awesome angle-right */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--aha-accent-color);
+            margin-right: 10px;
+            display: inline-block;
+        }
+
+        .reveal .footer-info {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.7em !important;
+            color: #ccc;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+        .reveal .footer-info img {
+            width: 80px;
+            height: 80px;
+            margin-left: 10px;
+        }
+        .reveal .footer-info a {
+            color: var(--aha-secondary-color) !important;
+            text-decoration: none !important;
+        }
+        .reveal .footer-info a:hover {
+            color: var(--r-link-color-hover) !important;
+        }
+
+        .cover-slide {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        .cover-slide h1 {
+            font-size: 3em;
+            background: -webkit-linear-gradient(45deg, var(--aha-gradient-start), var(--aha-gradient-end) 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .cover-slide .subtitle {
+            font-size: 1.5em;
+            color: var(--aha-secondary-color);
+            margin-top: 20px;
+            font-family: var(--r-main-font);
+        }
+        .cover-slide .speaker {
+            font-size: 1.2em;
+            color: #aaa;
+            margin-top: 40px;
+            font-family: var(--r-main-font);
+        }
+        
+        .reveal table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            font-size: 0.9em;
+            width: 90%;
+        }
+        .reveal th, .reveal td {
+            border: 1px solid #555;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        .reveal th {
+            background-color: #2a2a2a;
+            color: var(--aha-accent-color);
+        }
+
+        .repo-card {
+            background-color: rgba(40, 40, 40, 0.8);
+            border-left: 5px solid var(--aha-accent-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .repo-card h3 {
+            font-size: 1.4em !important;
+            margin-top: 0;
+        }
+        .repo-card .stars { color: #ffd700; }
+
+        .highlight-box {
+            background-color: rgba(0, 170, 255, 0.1);
+            border: 1px solid var(--aha-accent-color);
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        .highlight-box p {
+            font-size: 1em !important;
+            margin: 0;
+        }
+
+        /* Custom gradient background for sections */
+        .section-title-slide {
+             background: linear-gradient(135deg, #111 0%, #222 100%);
+        }
+        .aha-gradient-bg {
+            background: linear-gradient(45deg, var(--aha-gradient-start), var(--aha-gradient-end));
+            color: white; /* Ensure text is readable on gradient */
+        }
+        .aha-gradient-bg h1, .aha-gradient-bg h2, .aha-gradient-bg p {
+            color: white !important; /* Override default text colors */
+        }
+       .grid-2-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- SLIDE 1: COVER -->
+            <section class="cover-slide" data-background-gradient="linear-gradient(to bottom right, #0f172a, #1e293b, #334155)">
+                <h1>AI正“渗透”你的代码和生活！</h1>
+                <p class="subtitle">GitHub热榜揭秘数字分身、视频生成等重磅技术</p>
+                <p class="text-lg text-gray-400 mt-4">GitHub热门仓库周报 (观测时间: 2025-05-18 21:55:22)</p>
+                <p class="speaker mt-16">演讲者：AIChipEra</p>
+                <div class="footer-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        <i class="fab fa-github"></i> github.com/aichipera/github-trend
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+            <!-- SLIDE 2: DISCLAIMER -->
+            <section>
+                <h2><i class="fas fa-exclamation-triangle mr-2"></i>重要声明</h2>
+                <div class="highlight-box">
+                    <p class="text-2xl">以下内容仅供项目介绍和学习使用，</p>
+                    <p class="text-2xl mt-2"><strong>不构成任何投资建议，请注意甄别！</strong></p>
+                </div>
+            </section>
+
+            <!-- SLIDE 3: 周报要点 -->
+            <section>
+                <h2><i class="fas fa-bullseye mr-2"></i>周报要点</h2>
+                <p class="fragment">本周技术圈看点十足！GitHub最新榜单揭示，AI热潮正从模型本身深入到具体的应用和开发者工具中。<strong>Python</strong>和<strong>TypeScript</strong>依然是技术前沿的主力语言。</p>
+                <p class="fragment">你能想象用AI轻松生成高清视频，或者打造一个能复制你声音、拥有记忆的数字分身吗？<code>WeClone</code>和<code>MoneyPrinterTurbo</code>等项目让这些变为现实。</p>
+                <p class="fragment">同时，AI正融入开发流程，涌现出AI记忆层、AI编辑器等提升效率的利器。榜单还显示出对数据隐私、本地化部署的关注，以及开发者对免费资源和学习资料的旺盛需求。</p>
+                <p class="fragment">从智能助理到工程化工具，AI正悄悄改变软件开发和我们的数字生活。想抓住这波浪潮？这份深度解读不容错过！</p>
+            </section>
+
+            <!-- SLIDE 4: 热门项目趋势分析 (SECTION TITLE) -->
+            <section class="section-title-slide">
+                <h1 class="text-5xl">热门项目趋势分析</h1>
+                <p class="text-2xl mt-4">洞察技术风向，把握前沿动态</p>
+            </section>
+
+            <!-- SLIDE 5: 本周整体趋势 -->
+            <section>
+                <h2><i class="fas fa-chart-line mr-2"></i>本周整体趋势</h2>
+                <section>
+                    <h3><i class="fas fa-fire mr-1"></i>本周技术热点概览</h3>
+                    <p>本周GitHub热门项目榜单呈现出对人工智能，特别是大语言模型（LLM）的持续狂热追逐，且热点已从基础模型本身转向其应用、集成与周边生态工具。多个高星增长项目聚焦于如何让AI更实用、更个性化、更易于融入现有流程。除了AI，开发者效率工具、基础设施现代化和安全领域依然保持活力。</p>
+                </section>
+                <section>
+                    <h3><i class="fas fa-code mr-1"></i>编程语言与技术栈特点</h3>
+                    <p>从语言分布来看，<strong>Python</strong>和<strong>TypeScript</strong>是本周绝对的主力。Python凭借其在AI/ML领域的传统优势，支撑了数字分身（WeClone）、视频生成（MoneyPrinterTurbo）、AI记忆（mem0）、LLM调试（opik）以及LLM学习资源（llm-course）等多个热门AI项目。</p>
+                    <p class="fragment">TypeScript则在前端、全栈以及构建开发者工具方面大放异彩，驱动了AI编辑器（void）、可视化流程引擎（flowgram.ai）、AI研究代理（SurfSense）、AI助手构建库（CopilotKit）以及桌面应用（youtube-music）等项目。</p>
+                    <p class="fragment">此外，Go语言在安全工具（trivy）领域稳固地位，Java通过Spring AI Alibaba项目展现了其在企业级AI集成中的潜力，Rust在高性能基础设施（neon）中占有一席之地，而C++和Jupyter Notebook则服务于特定领域（游戏反编译、ML教学）。</p>
+                </section>
+                <section>
+                    <h3><i class="fas fa-lightbulb mr-1"></i>技术需求与发展方向洞察</h3>
+                    <ul>
+                        <li class="fragment"><strong>AI的深度个性化与应用落地：</strong> <code>WeClone</code>和<code>MoneyPrinterTurbo</code>展示了利用AI进行个人化表达和自动化内容生成的强大需求。</li>
+                        <li class="fragment"><strong>构建更可靠、更智能的AI系统：</strong> <code>mem0</code>和<code>opik</code>等项目表明，业界正在解决构建复杂AI应用的关键挑战。</li>
+                        <li class="fragment"><strong>AI与开发者工作流的无缝融合：</strong> <code>void</code>、<code>Spring AI Alibaba</code>和<code>CopilotKit</code>强调将AI能力直接嵌入。</li>
+                        <li class="fragment"><strong>数据隐私与本地化处理：</strong> 多个AI项目提及支持本地部署或注重隐私。</li>
+                        <li class="fragment"><strong>简化复杂技术的获取：</strong> <code>llm-course</code>和<code>public-apis</code>体现了开发者对获取、学习和利用技术资源的渴望。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fas fa-rocket mr-1"></i>未来技术热点展望</h3>
+                    <ul>
+                        <li class="fragment"><strong>AI Agent的泛化与深化：</strong> AI将不仅仅是聊天机器人，而是能执行复杂任务的智能代理。</li>
+                        <li class="fragment"><strong>AI驱动的跨模态内容生成与编辑工具：</strong> 更多利用AI自动化处理多媒体内容的工具。</li>
+                        <li class="fragment"><strong>更加成熟的AI工程化工具链：</strong> 用于AI模型开发、部署、监控的工具将变得至关重要。</li>
+                        <li class="fragment"><strong>AI与垂直领域的深度结合：</strong> 诞生大量垂直领域的AI解决方案。</li>
+                        <li class="fragment"><strong>端侧/本地AI的突破：</strong> 更多复杂的AI任务将在本地设备上完成。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fas fa-cogs mr-1"></i>本周趋势特性分析</h3>
+                    <p>本周GitHub热门榜单最突出的特点是AI热潮的<strong>“向下渗透”</strong>与<strong>“向外扩散”</strong>。</p>
+                    <p class="fragment"><strong>“向下渗透”</strong>体现在AI技术正在深入到软件开发的“基础设施”层面（AI记忆层mem0, AI调试评估工具opik）。</p>
+                    <p class="fragment"><strong>“向外扩散”</strong>则体现在AI应用场景的极大丰富和易用性提升（个性化数字分身, 一键生成视频）。</p>
+                    <p class="fragment">此外，多个项目对<strong>本地部署和隐私的强调</strong>，以及通过<strong>开源社区力量</strong>共享知识和资源，也是本周榜单中值得关注的积极信号。</p>
+                </section>
+            </section>
+
+            <!-- SLIDE 6: 双周对比 -->
+            <section>
+                <h2><i class="fas fa-exchange-alt mr-2"></i>热门项目双周维度对比</h2>
+                <section>
+                    <h3>GitHub热门项目趋势观察</h3>
+                    <p>今日GitHub热门项目列表呈现明显的新鲜血液涌入。<strong>新晋项目数量高达13个</strong>，远多于持续上升的2个项目，这表明榜单结构发生了显著变化，热度主要集中在新近发布或受到关注的项目上。</p>
+                    <p class="fragment">新加入的项目涵盖多个领域，其中不乏人工智能和开发者工具类项目，体现了当前的技术热点。在这些新晋项目中，<strong>Python</strong>是使用最广泛的语言，<strong>TypeScript</strong>也占有一定比例。</p>
+                    <p class="fragment">然而，对比整个热门项目列表的语言分布，可以观察到有趣的现象。尽管Python在新项目中频现，但整体而言，热门列表中的Python项目<strong>净减少了4个</strong>。与此同时，TypeScript、Java和Jupyter Notebook项目数量均有小幅净增长。</p>
+                    <p class="fragment highlight-box">总的来说，今日最显著的特点是<strong>大量新项目的涌现彻底刷新了列表</strong>。同时，尽管Python在新项目中表现活跃，但其在整体趋势列表中的净减少是一个值得注意的变化。</p>
+                </section>
+            </section>
+
+            <!-- SLIDE 7: 热点变化 -->
+            <section>
+                <h2><i class="fas fa-fire-alt mr-2"></i>热点变化</h2>
+                <div class="grid-2-col">
+                    <div>
+                        <h3><i class="fas fa-plus-circle text-green-400 mr-1"></i> 新增热点</h3>
+                        <ul class="text-sm">
+                            <li>alibaba/spring-ai-alibaba</li>
+                            <li>copilotkit/copilotkit</li>
+                            <li>comet-ml/opik</li>
+                            <li>public-apis/public-apis</li>
+                            <li>harry0703/moneyprinterturbo</li>
+                            <li>isledecomp/isle</li>
+                            <li>xming521/weclone</li>
+                            <li>th-ch/youtube-music</li>
+                            <li>bytedance/flowgram.ai</li>
+                            <li>aquasecurity/trivy</li>
+                            <li>neondatabase/neon</li>
+                            <li>mem0ai/mem0</li>
+                            <li>mlabonne/llm-course</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3><i class="fas fa-minus-circle text-red-400 mr-1"></i> 减退热点</h3>
+                        <ul class="text-sm">
+                            <li>hacksider/deep-live-cam</li>
+                            <li>atmosphere-nx/atmosphere</li>
+                            <li>ebookfoundation/free-programming-books</li>
+                            <li>commaai/openpilot</li>
+                            <li>ladybirdbrowser/ladybird</li>
+                            <li>zed-industries/zed</li>
+                            <li>qwenlm/qwen-agent</li>
+                            <li>myhhub/stock</li>
+                            <li>iperov/deepfacelab</li>
+                            <li>home-assistant/core</li>
+                            <li>ranaroussi/yfinance</li>
+                            <li>glanceapp/glance</li>
+                            <li>capsoftware/cap</li>
+                            <li>lightricks/ltx-video</li>
+                            <li>nvidia/nemo</li>
+                            <li>daytonaio/daytona</li>
+                            <li>jj-vcs/jj</li>
+                            <li>ruanyf/weekly</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 8: 编程语言与Star分布 -->
+            <section>
+                 <h2><i class="fas fa-balance-scale mr-2"></i>项目分布概览</h2>
+                 <div class="grid-2-col">
+                    <div>
+                        <h3><i class="fas fa-laptop-code mr-1"></i>编程语言分布</h3>
+                        <ul>
+                            <li><strong>Python:</strong> 5个项目 (33.3%)</li>
+                            <li><strong>TypeScript:</strong> 5个项目 (33.3%)</li>
+                            <li>Java: 1个项目 (6.7%)</li>
+                            <li>Jupyter Notebook: 1个项目 (6.7%)</li>
+                            <li>Rust: 1个项目 (6.7%)</li>
+                            <li>C++: 1个项目 (6.7%)</li>
+                            <li>Go: 1个项目 (6.7%)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3><i class="fas fa-star mr-1"></i>Star 分布</h3>
+                         <ul>
+                            <li><strong>10k-50k:</strong> 8个项目 (53.3%)</li>
+                            <li>1k-5k: 4个项目 (26.7%)</li>
+                            <li>50k以上: 2个项目 (13.3%)</li>
+                            <li>5k-10k: 1个项目 (6.7%)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 9: 热门项目排名 -->
+            <section>
+                <h2><i class="fas fa-trophy mr-2"></i>热门项目排名 Top 10</h2>
+                <ol style="font-size: 0.9em; list-style-type: decimal; padding-left: 30px;">
+                    <li class="fragment"><strong>[public-apis/public-apis](https://github.com/public-apis/public-apis)</strong> - ⭐342349 <br><small>A collective list of free APIs</small></li>
+                    <li class="fragment"><strong>[mlabonne/llm-course](https://github.com/mlabonne/llm-course)</strong> - ⭐51704 <br><small>Course to get into Large Language Models (LLMs) with roadmaps and Colab notebooks.</small></li>
+                    <li class="fragment"><strong>[harry0703/MoneyPrinterTurbo](https://github.com/harry0703/MoneyPrinterTurbo)</strong> - ⭐33477 <br><small>利用AI大模型，一键生成高清短视频</small></li>
+                    <li class="fragment"><strong>[mem0ai/mem0](https://github.com/mem0ai/mem0)</strong> - ⭐31270 <br><small>Memory for AI Agents; SOTA in AI Agent Memory</small></li>
+                    <li class="fragment"><strong>[aquasecurity/trivy](https://github.com/aquasecurity/trivy)</strong> - ⭐26707 <br><small>Find vulnerabilities, misconfigurations, secrets, SBOM in containers, Kubernetes, code repositories, clouds and more</small></li>
+                    <li class="fragment"><strong>[th-ch/youtube-music](https://github.com/th-ch/youtube-music)</strong> - ⭐20392 <br><small>YouTube Music Desktop App bundled with custom plugins</small></li>
+                    <li class="fragment"><strong>[voideditor/void](https://github.com/voideditor/void)</strong> - ⭐20352 <br><small>AI-powered code editor (VS Code fork)</small></li>
+                    <li class="fragment"><strong>[CopilotKit/CopilotKit](https://github.com/CopilotKit/CopilotKit)</strong> - ⭐19231 <br><small>React UI + elegant infrastructure for AI Copilots, AI chatbots, and in-app AI agents.</small></li>
+                    <li class="fragment"><strong>[neondatabase/neon](https://github.com/neondatabase/neon)</strong> - ⭐17859 <br><small>Neon: Serverless Postgres.</small></li>
+                    <li class="fragment"><strong>[xming521/WeClone](https://github.com/xming521/WeClone)</strong> - ⭐10270 <br><small>🚀从聊天记录创造数字分身的一站式解决方案</small></li>
+                </ol>
+            </section>
+            
+            <!-- SLIDE 10: 每日热点回顾 (SECTION TITLE) -->
+            <section class="section-title-slide">
+                <h1 class="text-5xl">每日热点回顾</h1>
+                <p class="text-2xl mt-4">一周技术动态，快速概览</p>
+            </section>
+
+            <!-- SLIDE 11: 每日Github热点项目分析 -->
+            <section>
+                <h2><i class="fas fa-calendar-alt mr-2"></i>本周每日Github热点项目分析</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>时间</th>
+                            <th>链接</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>周一</td><td><a href="https://mp.weixin.qq.com/s/zd8ez7S3QHt3wTGDxO9t5Q" target="_blank">代码圈变天了？全自动视频、AI 智能体火出圈，你还不知道？(20250512-日报)</a></td></tr>
+                        <tr><td>周二</td><td><a href="https://mp.weixin.qq.com/s/JfzwFF03rrCFzAOhoJkf0w" target="_blank">Python 占了大半边天！AI 神器一夜火爆，视频创作和企业开发都要变天了(20250513-日报)</a></td></tr>
+                        <tr><td>周三</td><td><a href="https://mp.weixin.qq.com/s/PyyzKuUb7xBEPOA3F9c4NA" target="_blank">别只盯着大模型！未来AI长这样：它要懂你、记住你，还能本地跑！(20250514-日报)</a></td></tr>
+                        <tr><td>周四</td><td><a href="https://mp.weixin.qq.com/s/-P7rlVjF28r3sNtztXzh-A" target="_blank">技术风向标：AI Agent 开始“干活”了，还有个意想不到的“刚需”火爆！(20250515-日报)</a></td></tr>
+                        <tr><td>周五</td><td><a href="https://mp.weixin.qq.com/s/6jQfJidxkOD_tm3BCLD2_Q" target="_blank">AI Agent激战正酣，GitHub日榜第一竟是它！免费教材狂飙星标，揭示了什么趋势？(20250516-日报)</a></td></tr>
+                        <tr><td>周六</td><td><a href="https://mp.weixin.qq.com/s/lSQX23BlNJtjWx7Qu0uG5g" target="_blank">你能“克隆”一个自己？GitHub热榜：AI学会记忆、能操控电脑，还有意外惊喜！(20250517-日报)</a></td></tr>
+                        <tr><td>周日</td><td><a href="https://mp.weixin.qq.com/s/apmhWbPV9HtCZ-790hREyg" target="_blank">处理PDF告别在线上传！GitHub这款“本地神器”彻底火了！(20250518-日报)</a></td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- SLIDE 12: 详细仓库数据 (SECTION TITLE) -->
+            <section class="section-title-slide">
+                <h1 class="text-5xl">详细仓库数据</h1>
+                <p class="text-2xl mt-4">深入解读热门项目</p>
+            </section>
+
+            <!-- Detailed Repo Slides (Example for one, repeat structure) -->
+            <section>
+                <h2><i class="fas fa-database mr-2"></i>详细仓库数据</h2>
+                <section class="repo-card">
+                    <h3><i class="fab fa-python mr-1"></i> <a href="https://github.com/xming521/WeClone" target="_blank">xming521/WeClone</a> <span class="stars">(⭐10.3k)</span></h3>
+                    <p class="text-sm text-gray-400">🚀从聊天记录创造数字分身的一站式解决方案💡 使用聊天记录微调大语言模型，让大模型有“那味儿”</p>
+                    <p class="mt-2"><strong>项目速读:</strong> WeClone 是一个致力于从个人聊天记录创建AI数字分身的一站式解决方案。它解决的核心问题在于如何利用大量个人对话数据微调大型语言模型，使其能够捕捉并模仿用户独有的交流风格。提供从数据导出、预处理、模型微调到部署聊天机器人的完整流程链，并强调本地化处理保护用户隐私。</p>
+                </section>
+                <section class="repo-card">
+                    <h3><i class="fab fa-python mr-1"></i> <a href="https://github.com/harry0703/MoneyPrinterTurbo" target="_blank">harry0703/MoneyPrinterTurbo</a> <span class="stars">(⭐33.5k)</span></h3>
+                    <p class="text-sm text-gray-400">利用AI大模型，一键生成高清短视频</p>
+                    <p class="mt-2"><strong>项目速读:</strong> MoneyPrinterTurbo 是一个利用AI大模型实现高清短视频一键自动生成的开源项目。用户只需提供主题，项目便能智能完成文案撰写、素材搜集、字幕生成、背景音乐搭配等环节。核心亮点在于其AI自动化能力和对多种大模型的支持，提供Web界面和API，支持批量生成。</p>
+                </section>
+            </section>
+            
+            <section>
+                <h2><i class="fas fa-database mr-2"></i>详细仓库数据 (续)</h2>
+                <section class="repo-card">
+                    <h3><i class="fab fa-python mr-1"></i> <a href="https://github.com/mem0ai/mem0" target="_blank">mem0ai/mem0</a> <span class="stars">(⭐31.3k)</span></h3>
+                    <p class="text-sm text-gray-400">AI 代理的记忆；AI 代理记忆领域的 SOTA；发布 OpenMemory MCP - 本地安全的记忆管理。</p>
+                    <p class="mt-2"><strong>项目速读:</strong> Mem0项目是一个专为AI助手和智能体设计的智能记忆层。它解决了AI缺乏长期记忆和个性化能力的问题，使AI能够记住用户偏好、历史对话和上下文信息。核心优势在于卓越的性能和效率，在记忆检索准确率、响应速度及Token使用效率上均有显著提升。</p>
+                </section>
+                 <section class="repo-card">
+                    <h3><i class="fab fa-js-square mr-1"></i> <a href="https://github.com/voideditor/void" target="_blank">voideditor/void</a> <span class="stars">(⭐20.4k)</span></h3>
+                    <p class="text-sm text-gray-400">VS Code 开源码分支, AI 代理能力深度融合到代码编辑与开发流程中 (Cursor 替代品)</p>
+                    <p class="mt-2"><strong>项目速读:</strong> Void 是一个基于 VS Code 代码库的开源分支，旨在成为 Cursor 的有力替代品。核心价值在于将 AI 代理能力深度融合到代码编辑与开发流程中，支持多种 AI 模型（包括本地运行），且不保留用户数据。</p>
+                </section>
+            </section>
+            
+            <section>
+                 <h2><i class="fas fa-database mr-2"></i>详细仓库数据 (续)</h2>
+                <section class="repo-card">
+                    <h3><i class="fab fa-java mr-1"></i> <a href="https://github.com/alibaba/spring-ai-alibaba" target="_blank">alibaba/spring-ai-alibaba</a> <span class="stars">(⭐3.3k)</span></h3>
+                    <p class="text-sm text-gray-400">代理式人工智能框架面向 Java 开发者</p>
+                    <p class="mt-2"><strong>项目速读:</strong> Spring AI Alibaba 是面向 Java 开发者的 AI 应用框架，基于 Spring AI 构建，旨在将阿里云通义千问等大模型能力无缝集成到 Spring Boot 应用中。提供高级抽象和组件，简化构建生成式 AI 应用的过程。</p>
+                </section>
+                 <section class="repo-card">
+                    <h3><i class="fab fa-js-square mr-1"></i> <a href="https://github.com/bytedance/flowgram.ai" target="_blank">bytedance/flowgram.ai</a> <span class="stars">(⭐3.2k)</span></h3>
+                    <p class="text-sm text-gray-400">FlowGram 是一个基于节点的流程构建引擎，支持开发者在固定布局或自由连接布局模式下快速创建工作流。</p>
+                    <p class="mt-2"><strong>项目速读:</strong> FlowGram.AI 是一个可视化流程构建引擎，提供“固定布局”和“自由布局”两种模式。通过精良的交互设计优化构建体验，并探索将AI能力融入流程。采用模块化和 monorepo 架构，便于集成和扩展。</p>
+                </section>
+            </section>
+
+            <section>
+                 <h2><i class="fas fa-database mr-2"></i>详细仓库数据 (续)</h2>
+                <section class="repo-card">
+                    <h3><i class="fab fa-python mr-1"></i> <a href="https://github.com/mlabonne/llm-course" target="_blank">mlabonne/llm-course</a> <span class="stars">(⭐51.7k)</span></h3>
+                    <p class="text-sm text-gray-400">大型语言模型 (LLMs) 入门课程，附带路线图和 Colab notebook。</p>
+                    <p class="mt-2"><strong>项目速读:</strong> 这是一个关于大型语言模型（LLM）的免费、全面的学习资源。提供结构化学习路径和大量可在Google Colab上运行的Jupyter Notebook，手把手教授LLM的关键技术，如高效微调方法、模型合并与量化等。</p>
+                </section>
+                 <section class="repo-card">
+                    <h3><i class="fab fa-python mr-1"></i> <a href="https://github.com/public-apis/public-apis" target="_blank">public-apis/public-apis</a> <span class="stars">(⭐342k)</span></h3>
+                    <p class="text-sm text-gray-400">免费API大全</p>
+                    <p class="mt-2"><strong>项目速读:</strong> Public APIs 项目是一个由社区共同维护的免费公共 API 资源精选列表。汇集了涵盖数十个不同领域的 API，每个 API 都提供了详细的描述、授权方式等信息。项目还提供了一个独立的 API 接口，允许用户通过编程方式获取这份数据。</p>
+                </section>
+            </section>
+            
+            <section>
+                 <h2><i class="fas fa-database mr-2"></i>详细仓库数据 (续)</h2>
+                <section class="repo-card">
+                    <h3><i class="fab fa-python mr-1"></i> <a href="https://github.com/comet-ml/opik" target="_blank">comet-ml/opik</a> <span class="stars">(⭐8.3k)</span></h3>
+                    <p class="text-sm text-gray-400">利用全面的追踪、自动化评估和生产就绪的仪表盘，调试、评估和监控您的 LLM 应用、RAG 系统和智能体工作流程。</p>
+                    <p class="mt-2"><strong>项目速读:</strong> Comet ML 推出的 Opik 是一个开源框架，专注于帮助开发者调试、评估和监控他们的大语言模型（LLM）应用。提供全面的 LLM 调用追踪功能，集成了自动化的评估流程和“LLM 作为评委”指标。</p>
+                </section>
+                 <section class="repo-card">
+                    <h3><i class="fab fa-rust mr-1"></i> <a href="https://github.com/neondatabase/neon" target="_blank">neondatabase/neon</a> <span class="stars">(⭐17.9k)</span></h3>
+                    <p class="text-sm text-gray-400">Neon：无服务器 PostgreSQL。我们将存储和计算分离，以提供自动扩缩容、类代码的数据库分支以及缩容到零。</p>
+                    <p class="mt-2"><strong>项目速读:</strong> Neon 通过解耦 PostgreSQL 的存储和计算层来解决传统数据库在弹性伸缩和资源利用上的局限性。核心创新在于将无状态的计算节点与分布式存储引擎分离，带来自动弹性伸缩（包括缩容至零）和“数据库分支”功能。</p>
+                </section>
+            </section>
+
+            <section>
+                 <h2><i class="fas fa-database mr-2"></i>详细仓库数据 (续)</h2>
+                <section class="repo-card">
+                    <h3><i class="fab fa-js-square mr-1"></i> <a href="https://github.com/MODSetter/SurfSense" target="_blank">MODSetter/SurfSense</a> <span class="stars">(⭐4.3k)</span></h3>
+                    <p class="text-sm text-gray-400">开源替代方案，可替代 NotebookLM / Perplexity / Glean，连接到外部资源。</p>
+                    <p class="mt-2"><strong>项目速读:</strong> SurfSense 是一个开源的 AI 研究代理，通过连接用户的本地文件、各种外部服务及搜索引擎，将分散信息汇聚成统一知识平台。允许用户进行自然语言搜索和研究，并能像聊天一样与内容互动。采用 RAG 技术，支持多种 LLM 和 Embedding 模型，支持自托管。</p>
+                </section>
+                 <section class="repo-card">
+                    <h3><i class="fab fa-js-square mr-1"></i> <a href="https://github.com/th-ch/youtube-music" target="_blank">th-ch/youtube-music</a> <span class="stars">(⭐20.4k)</span></h3>
+                    <p class="text-sm text-gray-400">附带自定义插件的 YouTube Music 桌面应用（并内置广告拦截器/下载器）</p>
+                    <p class="mt-2"><strong>项目速读:</strong> 基于 Electron 框架的 YouTube Music 桌面客户端。核心优势在于高度灵活的自定义插件系统，用户可添加广告拦截、音乐下载、动态主题等功能。提供原生的桌面操作便利性。</p>
+                </section>
+            </section>
+
+            <section>
+                 <h2><i class="fas fa-database mr-2"></i>详细仓库数据 (续)</h2>
+                <section class="repo-card">
+                    <h3><i class="fab fa-js-square mr-1"></i> <a href="https://github.com/CopilotKit/CopilotKit" target="_blank">CopilotKit/CopilotKit</a> <span class="stars">(⭐19.2k)</span></h3>
+                    <p class="text-sm text-gray-400">React UI + 用于 AI 助手、AI 聊天机器人和应用内 AI 代理的优雅基础设施。代理的最后一公里 🪁</p>
+                    <p class="mt-2"><strong>项目速读:</strong> CopilotKit 是一个开源库，用于在 React/Next.js Web 应用中深度集成智能 AI 助手。提供 React Hooks 和组件，赋予 AI 感知应用前端状态和数据的能力，并能调用应用中预定义的功能。</p>
+                </section>
+                 <section class="repo-card">
+                    <h3><i class="fas fa-gamepad mr-1"></i> <a href="https://github.com/isledecomp/isle" target="_blank">isledecomp/isle</a> <span class="stars">(⭐3.0k)</span></h3>
+                    <p class="text-sm text-gray-400">乐高岛 (1997) 的功能完整反编译 (C++)</p>
+                    <p class="mt-2"><strong>项目速读:</strong> 对经典游戏《乐高岛》(1997) 英文 1.1 版本的完整功能性反编译。将原版游戏的核心可执行文件转换为功能完整的 C++ 源代码，编译后即可运行原版游戏。为爱好者和开发者进行研究、创建 Mod、修复缺陷提供了基础。</p>
+                </section>
+            </section>
+            
+            <section>
+                <h2><i class="fas fa-database mr-2"></i>详细仓库数据 (续)</h2>
+                <section class="repo-card">
+                    <h3><i class="fab fa-golang mr-1"></i> <a href="https://github.com/aquasecurity/trivy" target="_blank">aquasecurity/trivy</a> <span class="stars">(⭐26.7k)</span></h3>
+                    <p class="text-sm text-gray-400">在容器、Kubernetes、代码仓库、云环境等中查找漏洞、错误配置、敏感信息、软件物料清单</p>
+                    <p class="mt-2"><strong>项目速读:</strong> Trivy 是一个基于 Go 语言构建的通用安全扫描工具。能够扫描容器镜像、文件系统、Git 仓库、Kubernetes 环境等，检测已知漏洞（CVEs）、错误配置、敏感秘密信息，并生成 SBOM。与 Docker、GitHub Actions 等良好集成。</p>
+                </section>
+            </section>
+
+            <!-- SLIDE: FINAL -->
+            <section class="cover-slide" data-background-gradient="linear-gradient(to bottom right, #0f172a, #1e293b, #334155)">
+                <h1 class="aha-gradient-bg p-4 rounded">感谢聆听！</h1>
+                <p class="subtitle mt-8">期待与您一同探索AI的无限可能</p>
+                <p class="speaker mt-16">AIChipEra</p>
+                <div class="footer-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        <i class="fab fa-github"></i> github.com/aichipera/github-trend (欢迎Star!)
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            center: true,
+            margin: 0.04,
+            transition: 'slide', // "none", "fade", "slide", "convex", "concave", "zoom"
+            backgroundTransition: 'fade', // "none", "fade", "slide", "convex", "concave", "zoom"
+            width: 1100,
+            height: 700,
+            // Learn about plugins: https://revealjs.com/plugins/
+            // plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+        // Optional: Initialize Mermaid if you add mermaid diagrams
+        // mermaid.initialize({ startOnLoad: true, theme: 'dark' }); 
+    </script>
+</body>
+</html>
