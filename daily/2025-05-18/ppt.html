@@ -1,0 +1,1166 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>GitHub 热门仓库日报 - 技术热潮与趋势分析</title>
+
+    <!-- Core framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <!-- Using a slightly modified or custom theme for modern look -->
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet" id="theme">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- Extensions -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Tailwind for utility classes (optional, but can help with layout quickly) -->
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <!-- Google Fonts for Noto Sans SC and Noto Serif SC -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Mermaid for diagrams if needed (not used in this content, but included as per tech spec) -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        /* Custom CSS for styling */
+        :root {
+            --main-bg-color: #f8f9fa; /* Light background */
+            --main-text-color: #212529; /* Dark text */
+            --primary-color: #007bff; /* Primary accent */
+            --secondary-color: #6c757d; /* Secondary color */
+            --highlight-color: #28a745; /* Growth/positive highlight */
+            --reveal-background-color: var(--main-bg-color);
+        }
+
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--main-text-color);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--primary-color); /* Use primary color for titles */
+        }
+
+        .reveal .slides {
+            text-align: left; /* Align text left by default */
+        }
+
+        .reveal section {
+             padding: 40px; /* Add some internal padding */
+             box-sizing: border-box;
+        }
+
+        .reveal h1 { font-size: 3rem; margin-bottom: 0.5em; }
+        .reveal h2 { font-size: 2.5rem; margin-bottom: 0.5em; }
+        .reveal h3 { font-size: 2rem; margin-bottom: 0.5em; }
+        .reveal p, .reveal li { font-size: 1.1rem; line-height: 1.6; }
+        .reveal ul { margin-bottom: 1em; }
+        .reveal li { margin-bottom: 0.5em; }
+
+        /* Specific font size for title/subtitle based on rem guidelines */
+        .reveal h1 { font-size: 3rem; } /* Title */
+        .reveal h2 { font-size: 2rem; } /* Subtitle/Section Title */
+        .reveal h3 { font-size: 1.5rem; } /* Sub-subsection Title */
+        .reveal p, .reveal li, .reveal table { font-size: 1rem; } /* Body text, lists, table cells */
+
+        /* Adjusting font size based on guideline ranges */
+        .reveal h1 { font-size: 2.8rem; } /* Title: 2-3rem */
+        .reveal h2 { font-size: 1.8rem; } /* Subtitle: 1.5-2rem */
+        .reveal p, .reveal li, .reveal table, .reveal th, .reveal td { font-size: 1.1rem; } /* 正文: 1-1.2rem */
+
+
+        .reveal .center-slide {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .reveal .fragment {
+            opacity: 1; /* Start visible */
+            visibility: visible;
+        }
+
+        .reveal .fragment.current {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .reveal .fragment:not(.visible) {
+             opacity: 0;
+             visibility: hidden;
+             transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+
+        /* Custom background for the first slide */
+        .reveal .slides section:first-child {
+            background: linear-gradient(to bottom right, #e0f2f7, #ffffff); /* Subtle gradient */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+         .reveal .slides section:first-child h1 {
+             color: #004085; /* Darker blue for title on light background */
+             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+             font-size: 3.5rem;
+         }
+         .reveal .slides section:first-child p {
+             font-size: 1.5rem;
+             color: #333;
+             margin-top: 1em;
+         }
+        .reveal .slides section:first-child .speaker-info {
+            font-size: 1.2rem;
+            color: #555;
+            margin-top: 2em;
+        }
+
+
+        /* QR code and link overlay */
+        .bottom-right-overlay {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            z-index: 1000; /* Ensure it's above content */
+        }
+
+        .bottom-right-overlay .qr-code {
+            width: 80px; /* Adjust size as needed */
+            height: auto;
+            margin-bottom: 10px;
+            border: 2px solid #fff; /* Optional border */
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .bottom-right-overlay .project-link {
+            font-size: 0.9rem;
+            color: #555; /* Link color */
+            text-decoration: none;
+        }
+         .bottom-right-overlay .project-link:hover {
+             text-decoration: underline;
+         }
+
+        /* Styles for detailed repo slides */
+        .repo-slide h3 {
+            color: var(--main-text-color); /* Repo name in standard text color */
+            border-bottom: 2px solid var(--primary-color); /* Underline */
+            padding-bottom: 5px;
+            margin-bottom: 1em;
+        }
+
+        .repo-stats table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1em;
+            font-size: 0.95em;
+        }
+
+        .repo-stats th, .repo-stats td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .repo-stats th {
+            background-color: #f2f2f2;
+            font-weight: normal;
+        }
+
+        .repo-stats td i {
+             margin-right: 5px;
+             color: var(--primary-color);
+        }
+
+        .repo-description {
+            margin-bottom: 1.5em;
+            padding: 1em;
+            background-color: #e9ecef; /* Light grey background for description */
+            border-radius: 5px;
+            font-style: italic;
+            color: #495057;
+        }
+
+        .repo-section {
+             margin-top: 1.5em;
+        }
+         .repo-section h4 {
+              font-size: 1.3rem;
+              color: var(--secondary-color);
+              margin-bottom: 0.5em;
+         }
+         .repo-section ul {
+              padding-left: 20px;
+         }
+
+        .growth-analysis {
+             color: var(--highlight-color); /* Highlight growth */
+        }
+
+        /* Icon styling */
+        .fa, .fas, .far, .fal, .fad {
+            margin-right: 8px;
+            color: var(--primary-color);
+        }
+
+        /* Custom classes for visual flair */
+        .highlight {
+            color: var(--highlight-color);
+            font-weight: bold;
+        }
+
+        .subtle-gradient-bg {
+             background: linear-gradient(to right, #e0f7fa, #ffffff);
+        }
+
+        .vertical-flex {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100%; /* Ensure it takes full height */
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+
+        <!-- Slide 1: Cover Page -->
+        <section>
+            <div class="center-slide">
+                <h1>GitHub沸腾了！</h1>
+                <h2>这波技术热潮，AI落地、效率工具、隐私崛起！</h2>
+                <p class="speaker-info">演讲者：AIChipEra</p>
+                <p class="mt-4 text-base text-gray-600">
+                    <i class="fas fa-calendar-alt"></i> 日报观测时间: 2025-05-18 21:28:39
+                </p>
+                 <p class="mt-2 text-sm text-red-600">
+                     <i class="fas fa-exclamation-triangle"></i> 以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！
+                 </p>
+            </div>
+             <!-- Bottom Right Overlay for Cover -->
+             <div class="bottom-right-overlay">
+                 <a href="https://github.com/aichipera/github-trend" target="_blank" class="project-link">https://github.com/aichipera/github-trend</a>
+                 <img src="../../asserts/wx.jpg" alt="WeChat QR Code" class="qr-code">
+             </div>
+        </section>
+
+        <!-- Slide 2: 日报要点 -->
+        <section>
+            <h2><i class="fas fa-clipboard-list"></i> 日报要点</h2>
+            <p class="fragment fade-in-up">
+                今天的GitHub热榜，信息量巨大，简直沸腾了！它清晰地描绘了一幅当下技术发展的新蓝图。
+            </p>
+            <p class="fragment fade-in-up">你会看到，<span class="highlight"><i class="fas fa-brain"></i> 前沿的AI技术正在加速走出实验室</span>，涌现大量实用工具，帮助我们更高效地构建和应用智能系统。</p>
+            <p class="fragment fade-in-up">开发者们对于提升效率的追求也从未止步，一系列趁手的<span class="highlight"><i class="fas fa-tools"></i> 工具和资源持续火爆</span>。</p>
+            <p class="fragment fade-in-up">与此同时，一股新的力量正在崛起：那些关注<span class="highlight"><i class="fas fa-lock"></i> 用户隐私、提供本地控制</span>，甚至直接解决教育等现实痛点的项目正以惊人的速度获得关注。</p>
+            <p class="fragment fade-in-up">这份榜单是社区活力的最好证明，也为你揭示了未来技术投资和学习的关键方向：<span class="highlight">拥抱AI应用、精进效率工具、关注数据主权</span>。</p>
+            <p class="fragment fade-in-up">读懂它，你就读懂了技术圈最前沿的脉动！</p>
+        </section>
+
+        <!-- Section: 热门项目趋势分析 (Vertical Slides for sub-sections) -->
+        <section>
+             <section>
+                 <h2><i class="fas fa-chart-line"></i> 热门项目趋势分析</h2>
+                 <h3>今日整体趋势概述</h3>
+                 <p class="fragment fade-in-up">根据今日GitHub上的热门项目列表，我们可以观察到几个显著的技术趋势和领域焦点。</p>
+                 <p class="fragment fade-in-up">AI 应用、开发者效率工具、数据基础设施以及用户隐私/本地控制是今日的核心主题。</p>
+             </section>
+             <section>
+                 <h3><i class="fas fa-rocket"></i> 今日热门技术领域与主题</h3>
+                 <ul>
+                     <li class="fragment fade-in-up"><span class="highlight">人工智能与机器学习 (LLM 应用)</span>：从模型到实用工具（Prompt优化）、数据准备（AI爬虫）、系统构建（AI Hedge Fund, LLM Engineering）。</li>
+                     <li class="fragment fade-in-up"><span class="highlight">开发者生产力工具与基础技术</span>：免费API集合、强大的命令行工具（yt-dlp）、创新的系统工具（Ventoy启动盘）。</li>
+                     <li class="fragment fade-in-up"><span class="highlight">数据基础设施</span>：无服务器Postgres（Neon）、SQLite现代演进（Limbo）。</li>
+                     <li class="fragment fade-in-up"><span class="highlight">隐私、本地控制与特定需求</span>：离线PDF处理（Stirling-PDF）、IoT本地固件（Tasmota）、自托管游戏串流（Sunshine）、教育资源（ChinaTextbook）。</li>
+                 </ul>
+             </section>
+            <section>
+                <h3><i class="fas fa-code"></i> 技术栈与编程语言特点</h3>
+                <ul>
+                    <li class="fragment fade-in-up"><span class="highlight">Python</span>：主导地位，尤其在 AI/ML、数据处理、脚本工具、金融科技。优势在于快速开发和数据生态。</li>
+                    <li class="fragment fade-in-up"><span class="highlight">Rust</span>：在高性能基础设施（Neon, Limbo）和服务端（Sunshine）崭露头角，构建高性能、安全底层应用的潜力被广泛认可。</li>
+                    <li class="fragment fade-in-up">C/C++：活跃于系统底层、嵌入式（Tasmota）和性能敏感应用。</li>
+                    <li class="fragment fade-in-up">TypeScript/JavaScript：桌面应用封装、Web前端工具。</li>
+                    <li class="fragment fade-in-up">Java/Kotlin：特定企业、工具应用及Android领域。</li>
+                    <li class="fragment fade-in-up"><i class="fas fa-book"></i> 特殊情况：个别项目（如 ChinaTextbook）的语言标签反映内容形式，非编程语言，突显GitHub作为资源平台属性。</li>
+                </ul>
+            </section>
+             <section>
+                 <h3><i class="fas fa-lightbulb"></i> 反映的技术需求与发展方向</h3>
+                 <ul>
+                     <li class="fragment fade-in-up">将<span class="highlight">AI能力落地</span>到具体场景，解决问题，提升效率。</li>
+                     <li class="fragment fade-in-up">优化<span class="highlight">开发者工作流程</span>，提供便捷强大工具资源。</li>
+                     <li class="fragment fade-in-up">构建<span class="highlight">弹性、成本效益、现代化数据基础设施</span>。</li>
+                     <li class="fragment fade-in-up">满足用户对<span class="highlight">数据隐私、本地控制、个性化体验</span>的强烈诉求。</li>
+                     <li class="fragment fade-in-up">探索现有技术的<span class="highlight">现代替代方案</span>（如SQLite演进）。</li>
+                 </ul>
+             </section>
+             <section>
+                 <h3><i class="fas fa-signal"></i> 今日特有的技术趋势特点</h3>
+                 <p class="fragment fade-in-up">今日榜单突出的特点在于：</p>
+                 <ul>
+                     <li class="fragment fade-in-up">既有久经考验的<span class="highlight">通用型工具和资源</span>。</li>
+                     <li class="fragment fade-in-up">又有紧随前沿热点且偏向实践的<span class="highlight">AI相关项目</span>。</li>
+                     <li class="fragment fade-in-up">更有展现出惊人增长速度的、直接解决特定群体<span class="highlight">现实痛点的项目</span>（如教育资源共享）。</li>
+                 </ul>
+                 <p class="fragment fade-in-up"><span class="highlight">这种通用工具、前沿应用与特定需求解决方案并存且共同受到追捧的现象，是今日榜单的显著特征。</span></p>
+             </section>
+        </section>
+
+        <!-- Section: 热门项目双日维度对比分析 -->
+        <section>
+             <section>
+                 <h2><i class="fas fa-balance-scale"></i> 热门项目双日维度对比分析</h2>
+                 <h3>热度变化与新项目特点</h3>
+                 <ul>
+                      <li class="fragment fade-in-up">整体热度积极：6个项目上升，0下降，10个新晋。</li>
+                      <li class="fragment fade-in-up">新项目多样化：涵盖命令行、开发辅助、特定应用、嵌入式/系统级等。</li>
+                      <li class="fragment fade-in-up">显示社区兴趣广泛且新项目能快速吸引关注。</li>
+                 </ul>
+             </section>
+             <section>
+                 <h3><i class="fas fa-chart-pie"></i> 编程语言分布变化</h3>
+                 <ul>
+                      <li class="fragment fade-in-up">C、Rust、Kotlin、Java、Jupyter Notebook 席位增加。</li>
+                      <li class="fragment fade-in-up">Python 新晋项目数量多，但在整体榜单中占比略减。</li>
+                      <li class="fragment fade-in-up">TypeScript 和 Shell 减少。</li>
+                      <li class="fragment fade-in-up">变化指向对性能要求的系统级开发（C, Rust）和特定平台开发（Kotlin, Java）关注提升。</li>
+                 </ul>
+             </section>
+            <section>
+                <h3><i class="fas fa-fire"></i> 热点变化概览</h3>
+                <p class="fragment fade-in-up"><span class="highlight"><i class="fas fa-plus-circle"></i> 新增热点：</span> llm_engineering, limbo, yt-dlp, openbb, crawl4ai, tasmota, sunshine, ventoy, stirling-pdf, kernelsu</p>
+                <p class="fragment fade-in-up"><span class="highlight text-red-500"><i class="fas fa-minus-circle"></i> 减退热点：</span> copilotkit, fairchem, mem0, tchmaterial-parser, podkop, weclone, airunner, perfetto, cua, n8n</p>
+                <p class="fragment fade-in-up"><span class="highlight text-green-500"><i class="fas fa-sync-alt"></i> 持续热门：</span> TapXWorld/ChinaTextbook (4次), virattt/ai-hedge-fund (3次), neondatabase/neon (3次)</p>
+                 <p class="fragment fade-in-up">部分既有项目星标涨幅显著，特别是ChinaTextbook和public-apis。</p>
+                 <p class="fragment fade-in-up"><span class="highlight">零下降项目与多新晋项目结合，表明整体吸引力与活力俱佳。</span></p>
+            </section>
+        </section>
+
+        <!-- Section: Detailed Repository Data -->
+        <section class="subtle-gradient-bg">
+            <h2><i class="fas fa-list-alt"></i> 详细仓库数据</h2>
+        </section>
+
+        <!-- Repo 1: public-apis/public-apis -->
+        <section class="repo-slide">
+            <h3 id="public-apis/public-apis"><i class="fas fa-database"></i> public-apis/public-apis</h3>
+            <p class="repo-description fragment fade-in-up">免费 API 汇总</p>
+
+            <div class="repo-stats fragment fade-in-up">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>仓库名称</th>
+                            <th>开发语言</th>
+                            <th>Star 数</th>
+                            <th>当日 Star 增加数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="https://github.com/public-apis/public-apis" target="_blank">public-apis/public-apis</a></td>
+                            <td>Python</td>
+                            <td>342317 ⭐</td>
+                            <td>1528 ⭐ <i class="fas fa-arrow-up text-green-500"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><i class="fas fa-code-branch"></i> Forks: 36.1k | <i class="fas fa-eye"></i> Watchers: 4.3k | <i class="fas fa-bug"></i> Issues: 2 | <i class="fas fa-code-merge"></i> PRs: 460</p>
+                <p><i class="fas fa-file-code"></i> 编程语言占比: Python 96.8%, Shell 3.2%</p>
+            </div>
+
+            <div class="repo-section fragment fade-in-up">
+                <h4><i class="fas fa-book-reader"></i> 项目速读</h4>
+                <ul>
+                    <li>海量免费公共 API 宝库，社区维护，方便查找各类外部数据和服务接口。</li>
+                    <li>广泛性与实用性高，清晰标注认证、HTTPS、CORS 等关键信息。</li>
+                    <li>极具价值的起点资源，尤其适用于寻找免费数据源或集成第三方服务的项目。</li>
+                </ul>
+            </div>
+
+             <div class="repo-section fragment fade-in-up growth-analysis">
+                 <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                 <ul>
+                     <li>约2个月内9次上榜，累计新增12153星，平均每次651星。</li>
+                     <li>今日增1528星，<span class="highlight">增长稳定，近期迅猛</span>。</li>
+                 </ul>
+             </div>
+        </section>
+
+        <!-- Repo 2: TapXWorld/ChinaTextbook -->
+        <section class="repo-slide">
+             <h3 id="TapXWorld/ChinaTextbook"><i class="fas fa-graduation-cap"></i> TapXWorld/ChinaTextbook</h3>
+             <p class="repo-description fragment fade-in-up">{'所有小初高、大学PDF教材。'}</p>
+
+             <div class="repo-stats fragment fade-in-up">
+                 <table>
+                     <thead>
+                     <tr>
+                         <th>仓库名称</th>
+                         <th>开发语言</th>
+                         <th>Star 数</th>
+                         <th>当日 Star 增加数</th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                     <tr>
+                         <td><a href="https://github.com/TapXWorld/ChinaTextbook" target="_blank">TapXWorld/ChinaTextbook</a></td>
+                         <td>Roff</td>
+                         <td>23511 ⭐</td>
+                         <td>2058 ⭐ <i class="fas fa-arrow-up text-green-500"></i></td>
+                     </tr>
+                     </tbody>
+                 </table>
+                 <p><i class="fas fa-code-branch"></i> Forks: 4.6k | <i class="fas fa-eye"></i> Watchers: 205 | <i class="fas fa-bug"></i> Issues: 34 | <i class="fas fa-code-merge"></i> PRs: 8</p>
+                 <p><i class="fas fa-file-code"></i> 编程语言占比: Roff 100.0%</p>
+             </div>
+
+             <div class="repo-section fragment fade-in-up">
+                 <h4><i class="fas fa-book-reader"></i> 项目速读</h4>
+                 <ul>
+                     <li>公益性仓库，汇集中国小初高及大学电子版教材，解决教材获取困难。</li>
+                     <li>免费提供无水印PDF，推动教育公平和知识普惠，极大便利资源受限地区及海外学习者。</li>
+                     <li><span class="highlight">巨大的星标数和快速增长显示了其广泛的社会价值。</span></li>
+                 </ul>
+             </div>
+
+             <div class="repo-section fragment fade-in-up growth-analysis">
+                 <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                 <ul>
+                     <li>连续4天上榜，<span class="highlight">增长势头强劲</span>。</li>
+                     <li>总星数激增9176，平均每次上榜新增逾3300星。</li>
+                     <li>今日新增2058星，虽低于平均，但基于持续上榜表现，整体仍维持<span class="highlight">高速增长</span>。</li>
+                 </ul>
+             </div>
+        </section>
+
+         <!-- Repo 3: th-ch/youtube-music -->
+         <section class="repo-slide">
+             <h3 id="th-ch/youtube-music"><i class="fas fa-music"></i> th-ch/youtube-music</h3>
+             <p class="repo-description fragment fade-in-up">捆绑自定义插件（及内置广告拦截器/下载器）的 YouTube Music 桌面应用</p>
+
+             <div class="repo-stats fragment fade-in-up">
+                 <table>
+                     <thead>
+                     <tr>
+                         <th>仓库名称</th>
+                         <th>开发语言</th>
+                         <th>Star 数</th>
+                         <th>当日 Star 增加数</th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                     <tr>
+                         <td><a href="https://github.com/th-ch/youtube-music" target="_blank">th-ch/youtube-music</a></td>
+                         <td>TypeScript</td>
+                         <td>20384 ⭐</td>
+                         <td>343 ⭐ <i class="fas fa-arrow-up text-green-500"></i></td>
+                     </tr>
+                     </tbody>
+                 </table>
+                 <p><i class="fas fa-code-branch"></i> Forks: 1.1k | <i class="fas fa-eye"></i> Watchers: 123 | <i class="fas fa-bug"></i> Issues: 345 | <i class="fas fa-code-merge"></i> PRs: 31</p>
+                 <p><i class="fas fa-file-code"></i> 编程语言占比: TypeScript 87.9%, JavaScript 6.5%, HTML 3.0%, CSS 2.6%</p>
+             </div>
+
+             <div class="repo-section fragment fade-in-up">
+                 <h4><i class="fas fa-book-reader"></i> 项目速读</h4>
+                 <ul>
+                     <li>基于 Electron 的 YouTube Music 桌面客户端，提供比网页更集成、优化的体验。</li>
+                     <li>核心优势在于强大的可定制性和扩展能力，内置插件系统实现丰富增强功能。</li>
+                     <li>弥补原生网页端不足（广告拦截、下载器、歌词显示、快捷键等），提升便利性和个性化。</li>
+                     <li><span class="highlight">为渴望更强大、灵活、原生感的 YouTube Music 桌面试听体验用户提供优秀替代方案。</span></li>
+                 </ul>
+             </div>
+
+             <div class="repo-section fragment fade-in-up growth-analysis">
+                 <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                 <ul>
+                     <li>实际仅上榜7次，贡献总增8821星 (均次851)，<span class="highlight">增长势头强劲</span>，主要依靠上榜驱动。</li>
+                 </ul>
+             </div>
+         </section>
+
+        <!-- Repo 4: yt-dlp/yt-dlp -->
+        <section class="repo-slide">
+            <h3 id="yt-dlp/yt-dlp"><i class="fas fa-download"></i> yt-dlp/yt-dlp</h3>
+            <p class="repo-description fragment fade-in-up">功能丰富的命令行音视频下载器</p>
+
+            <div class="repo-stats fragment fade-in-up">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>仓库名称</th>
+                        <th>开发语言</th>
+                        <th>Star 数</th>
+                        <th>当日 Star 增加数</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><a href="https://github.com/yt-dlp/yt-dlp" target="_blank">yt-dlp/yt-dlp</a></td>
+                        <td>Python</td>
+                        <td>112162 ⭐</td>
+                        <td>121 ⭐ <i class="fas fa-arrow-up text-green-500"></i></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p><i class="fas fa-code-branch"></i> Forks: 8.8k | <i class="fas fa-eye"></i> Watchers: 600 | <i class="fas fa-bug"></i> Issues: 1.6k | <i class="fas fa-code-merge"></i> PRs: 353</p>
+                <p><i class="fas fa-file-code"></i> 编程语言占比: Python 99.9%</p>
+            </div>
+
+            <div class="repo-section fragment fade-in-up">
+                <h4><i class="fas fa-book-reader"></i> 项目速读</h4>
+                <ul>
+                    <li>强大的命令行工具，从数千网站下载音视频内容，youtube-dl 的积极维护改进版本。</li>
+                    <li>核心优势在于极其丰富灵活的下载选项：控制格式、分辨率、元数据、字幕、后处理。</li>
+                    <li>支持广泛网站，能绕过地理限制，集成 SponsorBlock 等过滤。</li>
+                    <li><span class="highlight">需要批量下载、自动化获取网络媒体或高级定制用户的首选工具。</span></li>
+                </ul>
+            </div>
+
+            <div class="repo-section fragment fade-in-up growth-analysis">
+                <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                <ul>
+                    <li>约两月内稳定上榜5次，总星数强劲增长7170颗，平均每次上榜贡献194颗。</li>
+                    <li>显示仓库持续保持活力，成功吸引大量关注，<span class="highlight">增长势头良好</span>。</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Repo 5: virattt/ai-hedge-fund -->
+        <section class="repo-slide">
+            <h3 id="virattt/ai-hedge-fund"><i class="fas fa-chart-area"></i> virattt/ai-hedge-fund</h3>
+            <p class="repo-description fragment fade-in-up">人工智能对冲基金团队</p>
+
+            <div class="repo-stats fragment fade-in-up">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>仓库名称</th>
+                        <th>开发语言</th>
+                        <th>Star 数</th>
+                        <th>当日 Star 增加数</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><a href="https://github.com/virattt/ai-hedge-fund" target="_blank">virattt/ai-hedge-fund</a></td>
+                        <td>Python</td>
+                        <td>28094 ⭐</td>
+                        <td>254 ⭐ <i class="fas fa-arrow-up text-green-500"></i></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p><i class="fas fa-code-branch"></i> Forks: 4.9k | <i class="fas fa-eye"></i> Watchers: 388 | <i class="fas fa-bug"></i> Issues: 72 | <i class="fas fa-code-merge"></i> PRs: 38</p>
+                <p><i class="fas fa-file-code"></i> 编程语言占比: Python 72.0%, TypeScript 23.2%, Other ~5%</p>
+            </div>
+
+            <div class="repo-section fragment fade-in-up">
+                <h4><i class="fas fa-book-reader"></i> 项目速读</h4>
+                <ul>
+                    <li>基于 AI 模拟股票投资决策的概念验证工具，<span class="highlight">仅供教育和研究使用，非真实交易</span>。</li>
+                    <li>核心亮点：复杂多智能体系统架构，模拟投资团队协同工作，汇聚多维分析。</li>
+                    <li>提供实用回测功能，探索复杂投资策略表现。</li>
+                    <li>极具价值的学习平台，理解多智能体系统和 AI 在金融领域的应用潜力。</li>
+                </ul>
+            </div>
+
+            <div class="repo-section fragment fade-in-up growth-analysis">
+                <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                <ul>
+                    <li>增长势头强劲，总计增长12344 Star。</li>
+                    <li>实际上榜11次，每次上榜平均贡献532.3 Star，表明增长与能见度关联紧密。</li>
+                    <li><span class="highlight">每次被关注都能带来可观星标增长，趋势良好。</span></li>
+                </ul>
+            </div>
+        </section>
+
+         <!-- Repo 6: unclecode/crawl4ai -->
+         <section class="repo-slide">
+             <h3 id="unclecode/crawl4ai"><i class="fas fa-spider"></i> unclecode/crawl4ai</h3>
+             <p class="repo-description fragment fade-in-up">🚀🤖 Crawl4AI: 开源的、对大型语言模型友好的网络爬虫与抓取工具。</p>
+
+             <div class="repo-stats fragment fade-in-up">
+                 <table>
+                     <thead>
+                     <tr>
+                         <th>仓库名称</th>
+                         <th>开发语言</th>
+                         <th>Star 数</th>
+                         <th>当日 Star 增加数</th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                     <tr>
+                         <td><a href="https://github.com/unclecode/crawl4ai" target="_blank">unclecode/crawl4ai</a></td>
+                         <td>Python</td>
+                         <td>43381 ⭐</td>
+                         <td>92 ⭐ <i class="fas fa-arrow-up text-green-500"></i></td>
+                     </tr>
+                     </tbody>
+                 </table>
+                 <p><i class="fas fa-code-branch"></i> Forks: 4k | <i class="fas fa-eye"></i> Watchers: 254 | <i class="fas fa-bug"></i> Issues: 123 | <i class="fas fa-code-merge"></i> PRs: 58</p>
+                 <p><i class="fas fa-file-code"></i> 编程语言占比: Python 99.1%</p>
+             </div>
+
+             <div class="repo-section fragment fade-in-up">
+                 <h4><i class="fas fa-book-reader"></i> 项目速读</h4>
+                 <ul>
+                     <li>为 LLM 和 AI 应用优化的开源网络爬虫抓取工具。</li>
+                     <li>解决从复杂网页提取对 AI 有价值信息并转换为友好格式的问题。</li>
+                     <li>生成简洁、结构良好、适合 RAG/模型训练的 Markdown/结构化数据，智能过滤无关内容。</li>
+                     <li>高性能爬取，灵活浏览器控制，处理动态网页和反爬。</li>
+                     <li>无需 API Key，构建 AI 数据管道、LLM 微调、精准检索的强大基础工具。</li>
+                 </ul>
+             </div>
+
+             <div class="repo-section fragment fade-in-up growth-analysis">
+                 <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                 <ul>
+                     <li>约7周内实现8448星总增长，<span class="highlight">势头强劲</span>。</li>
+                     <li>实际上榜6次，平均每次上榜贡献近400星，显示上榜是关键增长驱动。</li>
+                     <li>近期增长92星。</li>
+                 </ul>
+             </div>
+         </section>
+
+        <!-- Repo 7: ventoy/Ventoy -->
+        <section class="repo-slide">
+            <h3 id="ventoy/Ventoy"><i class="fas fa-usb"></i> ventoy/Ventoy</h3>
+            <p class="repo-description fragment fade-in-up">新的可启动 USB 解决方案</p>
+
+            <div class="repo-stats fragment fade-in-up">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>仓库名称</th>
+                        <th>开发语言</th>
+                        <th>Star 数</th>
+                        <th>当日 Star 增加数</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><a href="https://github.com/ventoy/Ventoy" target="_blank">ventoy/Ventoy</a></td>
+                        <td>C</td>
+                        <td>66696 ⭐</td>
+                        <td>26 ⭐ <i class="fas fa-arrow-up text-green-500"></i></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p><i class="fas fa-code-branch"></i> Forks: 4.3k | <i class="fas fa-eye"></i> Watchers: 677 | <i class="fas fa-bug"></i> Issues: 869 | <i class="fas fa-code-merge"></i> PRs: 80</p>
+                <p><i class="fas fa-file-code"></i> 编程语言占比: C 84.2%, Shell 5.4%, HTML 3.1%, C++ 2.1%, CSS 1.3%, Makefile 1.2%, Other 2.7%</p>
+            </div>
+
+            <div class="repo-section fragment fade-in-up">
+                <h4><i class="fas fa-book-reader"></i> 项目速读</h4>
+                <ul>
+                    <li>开源可启动 USB 方案，彻底改变传统启动盘制作方式。</li>
+                    <li>核心优势：“无需格式化，直接启动”，将镜像文件直接复制到 USB 即可用。</li>
+                    <li>一个驱动器可存多个镜像，启动时菜单选择，极高效率便利性。</li>
+                    <li>支持广泛镜像、多种引导模式（Legacy BIOS/UEFI，安全启动）、各类存储介质，兼容性高。</li>
+                    <li><span class="highlight">系统安装、维护和测试的理想工具，彻底简化启动盘制作流程。</span></li>
+                </ul>
+            </div>
+
+            <div class="repo-section fragment fade-in-up growth-analysis">
+                <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                <ul>
+                    <li>今日新上榜，已有可观星数，增长平稳。</li>
+                </ul>
+            </div>
+        </section>
+
+         <!-- Repo 8: f/awesome-chatgpt-prompts -->
+         <section class="repo-slide">
+             <h3 id="f/awesome-chatgpt-prompts"><i class="fas fa-wand-magic-sparkles"></i> f/awesome-chatgpt-prompts</h3>
+             <p class="repo-description fragment fade-in-up">该仓库包含 ChatGPT 提示词精选，用于更好地使用 ChatGPT 和其他大型语言模型工具。</p>
+
+             <div class="repo-stats fragment fade-in-up">
+                 <table>
+                     <thead>
+                     <tr>
+                         <th>仓库名称</th>
+                         <th>开发语言</th>
+                         <th>Star 数</th>
+                         <th>当日 Star 增加数</th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                     <tr>
+                         <td><a href="https://github.com/f/awesome-chatgpt-prompts" target="_blank">f/awesome-chatgpt-prompts</a></td>
+                         <td>JavaScript</td>
+                         <td>124827 ⭐</td>
+                         <td>253 ⭐ <i class="fas fa-arrow-up text-green-500"></i></td>
+                     </tr>
+                     </tbody>
+                 </table>
+                 <p><i class="fas fa-code-branch"></i> Forks: 16.7k | <i class="fas fa-eye"></i> Watchers: 1.5k | <i class="fas fa-bug"></i> Issues: 0 | <i class="fas fa-code-merge"></i> PRs: 266</p>
+                 <p><i class="fas fa-file-code"></i> 编程语言占比: JavaScript 51.3%, CSS 33.2%, HTML 15.2%</p>
+             </div>
+
+             <div class="repo-section fragment fade-in-up">
+                 <h4><i class="fas fa-book-reader"></i> 项目速读</h4>
+                 <ul>
+                     <li>汇集大量精心挑选的优质 AI 提示词 (“提问秘籍”)，帮助用户引导 AI 生成更精准有用内容。</li>
+                     <li>核心价值在于丰富的提示词库，涵盖多种角色扮演和应用场景，兼容性广。</li>
+                     <li>易于使用的资源集合，社区贡献持续更新壮大。</li>
+                     <li><span class="highlight">希望充分发挥 AI 能力、提升交流效率的用户不可多得的实用工具。</span></li>
+                 </ul>
+             </div>
+
+             <div class="repo-section fragment fade-in-up growth-analysis">
+                 <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                 <ul>
+                     <li>短短两天内成功上榜两次，显示星标增长势头强劲且活跃。</li>
+                     <li>特别是最后一天新增253星，<span class="highlight">增长趋势非常显著并持续</span>。</li>
+                 </ul>
+             </div>
+         </section>
+
+         <!-- Repo 9: neondatabase/neon -->
+         <section class="repo-slide">
+             <h3 id="neondatabase/neon"><i class="fas fa-database"></i> neondatabase/neon</h3>
+             <p class="repo-description fragment fade-in-up">Neon：无服务器 Postgres。我们将存储与计算分离，从而提供自动伸缩、代码式数据库分支以及缩放到零特性。</p>
+
+             <div class="repo-stats fragment fade-in-up">
+                 <table>
+                     <thead>
+                     <tr>
+                         <th>仓库名称</th>
+                         <th>开发语言</th>
+                         <th>Star 数</th>
+                         <th>当日 Star 增加数</th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                     <tr>
+                         <td><a href="https://github.com/neondatabase/neon" target="_blank">neondatabase/neon</a></td>
+                         <td>Rust</td>
+                         <td>17859 ⭐</td>
+                         <td>185 ⭐ <i class="fas fa-arrow-up text-green-500"></i></td>
+                     </tr>
+                     </tbody>
+                 </table>
+                 <p><i class="fas fa-code-branch"></i> Forks: 624 | <i class="fas fa-eye"></i> Watchers: 115 | <i class="fas fa-bug"></i> Issues: 618 | <i class="fas fa-code-merge"></i> PRs: 281</p>
+                 <p><i class="fas fa-file-code"></i> 编程语言占比: Rust 73.6%, Python 19.3%, C 5.2%, Other ~2%</p>
+             </div>
+
+             <div class="repo-section fragment fade-in-up">
+                 <h4><i class="fas fa-book-reader"></i> 项目速读</h4>
+                 <ul>
+                     <li>开源无服务器 PostgreSQL 数据库系统，<span class="highlight">核心创新在于分离计算与存储层</span>。</li>
+                     <li>带来高度弹性伸缩，空闲时缩减至零，优化成本。</li>
+                     <li>兼容标准 PostgreSQL，现有应用无缝迁移。</li>
+                     <li>独创像 Git 那样对数据库进行分支的功能，简化开发、测试、回滚。</li>
+                     <li>适合需要弹性、便捷分支管理、最大化利用 PostgreSQL 生态的开发者。</li>
+                 </ul>
+             </div>
+
+             <div class="repo-section fragment fade-in-up growth-analysis">
+                 <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                 <ul>
+                     <li>短短3天内3次上榜，累计增长452星，平均每次上榜增188星。</li>
+                     <li>最新一天增185星，<span class="highlight">增长趋势稳定且持续，显示广泛关注度。</span></li>
+                 </ul>
+             </div>
+         </section>
+
+         <!-- Repo 10: Stirling-Tools/Stirling-PDF -->
+         <section class="repo-slide">
+             <h3 id="Stirling-Tools/Stirling-PDF"><i class="fas fa-file-pdf"></i> Stirling-Tools/Stirling-PDF</h3>
+             <p class="repo-description fragment fade-in-up">#1 支持对 PDF 文件进行各种操作的本地托管 Web 应用</p>
+
+             <div class="repo-stats fragment fade-in-up">
+                 <table>
+                     <thead>
+                     <tr>
+                         <th>仓库名称</th>
+                         <th>开发语言</th>
+                         <th>Star 数</th>
+                         <th>当日 Star 增加数</th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                     <tr>
+                         <td><a href="https://github.com/Stirling-Tools/Stirling-PDF" target="_blank">Stirling-Tools/Stirling-PDF</a></td>
+                         <td>Java</td>
+                         <td>59199 ⭐</td>
+                         <td>242 ⭐ <i class="fas fa-arrow-up text-green-500"></i></td>
+                     </tr>
+                     </tbody>
+                 </table>
+                 <p><i class="fas fa-code-branch"></i> Forks: 5k | <i class="fas fa-eye"></i> Watchers: 191 | <i class="fas fa-bug"></i> Issues: 229 | <i class="fas fa-code-merge"></i> PRs: 15</p>
+                 <p><i class="fas fa-file-code"></i> 编程语言占比: Java 53.0%, HTML 20.7%, JavaScript 16.7%, CSS 4.0%, Other ~5.6%</p>
+             </div>
+
+             <div class="repo-section fragment fade-in-up">
+                 <h4><i class="fas fa-book-reader"></i> 项目速读</h4>
+                 <ul>
+                     <li>强大的本地托管 PDF 处理网页应用，解决敏感文件上传隐私顾虑。</li>
+                     <li><span class="highlight">所有文件处理在用户本地完成，保障数据安全。</span></li>
+                     <li>功能全面 (合并、分割、转换等超50项)，支持并行处理和自动化 API。</li>
+                     <li>通过 Docker 轻松部署。</li>
+                     <li>注重隐私、需要强大多样化 PDF 处理能力的个人及团队的理想工具。</li>
+                 </ul>
+             </div>
+
+             <div class="repo-section fragment fade-in-up growth-analysis">
+                 <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                 <ul>
+                     <li>统计期内仅上榜4次，每次平均增150星。总增长达2672星，显示非上榜期亦有增长。</li>
+                     <li>今日增242星，增长势头积极。</li>
+                 </ul>
+             </div>
+         </section>
+
+         <!-- Repo 11: OpenBB-finance/OpenBB -->
+         <section class="repo-slide">
+             <h3 id="OpenBB-finance/OpenBB"><i class="fas fa-chart-pie"></i> OpenBB-finance/OpenBB</h3>
+             <p class="repo-description fragment fade-in-up">投资研究：面向所有人，随处随地。</p>
+
+             <div class="repo-stats fragment fade-in-up">
+                 <table>
+                     <thead>
+                     <tr>
+                         <th>仓库名称</th>
+                         <th>开发语言</th>
+                         <th>Star 数</th>
+                         <th>当日 Star 增加数</th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                     <tr>
+                         <td><a href="https://github.com/OpenBB-finance/OpenBB" target="_blank">OpenBB-finance/OpenBB</a></td>
+                         <td>Python</td>
+                         <td>41438 ⭐</td>
+                         <td>24 ⭐ <i class="fas fa-arrow-up text-green-500"></i></td>
+                     </tr>
+                     </tbody>
+                 </table>
+                 <p><i class="fas fa-code-branch"></i> Forks: 3.7k | <i class="fas fa-eye"></i> Watchers: 321 | <i class="fas fa-bug"></i> Issues: 39 | <i class="fas fa-code-merge"></i> PRs: 16</p>
+                 <p><i class="fas fa-file-code"></i> 编程语言占比: Python 100.0%</p>
+             </div>
+
+             <div class="repo-section fragment fade-in-up">
+                 <h4><i class="fas fa-book-reader"></i> 项目速读</h4>
+                 <ul>
+                     <li>首个开源金融数据平台，提供便捷程序化方式获取广泛金融市场数据。</li>
+                     <li>集成数十家数据供应商，解决数据分散、难以统一访问问题。</li>
+                     <li>易用 Python API 和命令行接口，轻松进行金融研究、构建应用、执行自动化策略。</li>
+                     <li>开源性、广泛数据覆盖、灵活接口，<span class="highlight">极大降低金融数据使用门槛，推动金融技术发展。</span></li>
+                 </ul>
+             </div>
+
+             <div class="repo-section fragment fade-in-up growth-analysis">
+                 <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                 <ul>
+                     <li>仓库总星增长4377，主要由7次上榜驱动，平均每次上榜贡献较大，日常增长相对平缓。</li>
+                 </ul>
+             </div>
+         </section>
+
+        <!-- Repo 12: tursodatabase/limbo -->
+        <section class="repo-slide">
+            <h3 id="tursodatabase/limbo"><i class="fas fa-database"></i> tursodatabase/limbo</h3>
+            <p class="repo-description fragment fade-in-up">Limbo 项目旨在构建 SQLite 的现代演进。</p>
+
+            <div class="repo-stats fragment fade-in-up">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>仓库名称</th>
+                        <th>开发语言</th>
+                        <th>Star 数</th>
+                        <th>当日 Star 增加数</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><a href="https://github.com/tursodatabase/limbo" target="_blank">tursodatabase/limbo</a></td>
+                        <td>Rust</td>
+                        <td>10529 ⭐</td>
+                        <td>43 ⭐ <i class="fas fa-arrow-up text-green-500"></i></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p><i class="fas fa-code-branch"></i> Forks: 397 | <i class="fas fa-eye"></i> Watchers: 49 | <i class="fas fa-bug"></i> Issues: 184 | <i class="fas fa-code-merge"></i> PRs: 27</p>
+                <p><i class="fas fa-file-code"></i> 编程语言占比: Rust 82.5%, Tcl 5.8%, Java 4.4%, Python 2.6%, Other ~4.7%</p>
+            </div>
+
+            <div class="repo-section fragment fade-in-up">
+                <h4><i class="fas fa-book-reader"></i> 项目速读</h4>
+                <ul>
+                    <li>Turso 基于 Rust 开发的进程内数据库引擎，目标是 SQLite 的现代演进。</li>
+                    <li>利用 Rust 安全性能和 Linux iouring 实现高性能异步 I/O。</li>
+                    <li>与 SQLite 在 SQL 方言、文件格式、C API 高度兼容，降低迁移难度。</li>
+                    <li>支持多种主流语言绑定，计划集成向量搜索、并发写入等现代特性。</li>
+                    <li><span class="highlight">虽积极开发中，但为寻求高性能、易嵌入、现代功能的轻量级数据库提供潜力新选择。</span></li>
+                </ul>
+            </div>
+
+            <div class="repo-section fragment fade-in-up growth-analysis">
+                <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                <ul>
+                    <li>今日新上榜，已积累可观星数，增长平稳。</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Repo 13: ed-donner/llm_engineering -->
+        <section class="repo-slide">
+            <h3 id="ed-donner/llm_engineering"><i class="fas fa-robot"></i> ed-donner/llm_engineering</h3>
+            <p class="repo-description fragment fade-in-up">我的精通 LLM 工程课程配套仓库</p>
+
+            <div class="repo-stats fragment fade-in-up">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>仓库名称</th>
+                        <th>开发语言</th>
+                        <th>Star 数</th>
+                        <th>当日 Star 增加数</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><a href="https://github.com/ed-donner/llm_engineering" target="_blank">ed-donner/llm_engineering</a></td>
+                        <td>Jupyter Notebook</td>
+                        <td>1561 ⭐</td>
+                        <td>8 ⭐ <i class="fas fa-arrow-up text-green-500"></i></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p><i class="fas fa-code-branch"></i> Forks: 1.7k | <i class="fas fa-eye"></i> Watchers: 73 | <i class="fas fa-bug"></i> Issues: 5 | <i class="fas fa-code-merge"></i> PRs: 66</p>
+                <p><i class="fas fa-file-code"></i> 编程语言占比: Jupyter Notebook 98.3%, Python 1.7%</p>
+            </div>
+
+            <div class="repo-section fragment fade-in-up">
+                <h4><i class="fas fa-book-reader"></i> 项目速读</h4>
+                <ul>
+                    <li>关于掌握 LLM 工程实践的八周结构化学习资源库，通过动手项目将理论转向实际应用。</li>
+                    <li>核心：“边做边学”，构建使用 LLM 的解决方案，包括自主智能体。</li>
+                    <li>优势：灵活性、易用性，支持主流商业 API 及 Ollama 本地运行开源模型。</li>
+                    <li>提供详细环境搭建指南，利用 Colab 解决 GPU 计算需求。</li>
+                    <li><span class="highlight">希望系统提升 LLM 应用开发能力、掌握构建复杂 LLM 系统开发者的实用资源。</span></li>
+                </ul>
+            </div>
+
+            <div class="repo-section fragment fade-in-up growth-analysis">
+                <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                <ul>
+                    <li>今日新上榜，关注度正在增长。</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Repo 14: arendst/Tasmota -->
+        <section class="repo-slide">
+            <h3 id="arendst/Tasmota"><i class="fas fa-wifi"></i> arendst/Tasmota</h3>
+            <p class="repo-description fragment fade-in-up">基于 ESP8266 和 ESP32 设备的替代固件，可通过 webUI 轻松配置，支持 OTA 更新、使用定时器或规则实现自动化、具备可扩展性，并通过 MQTT、HTTP、串口或 KNX 实现完全本地控制。</p>
+
+            <div class="repo-stats fragment fade-in-up">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>仓库名称</th>
+                        <th>开发语言</th>
+                        <th>Star 数</th>
+                        <th>当日 Star 增加数</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><a href="https://github.com/arendst/Tasmota" target="_blank">arendst/Tasmota</a></td>
+                        <td>C</td>
+                        <td>23142 ⭐</td>
+                        <td>5 ⭐ <i class="fas fa-arrow-up text-green-500"></i></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p><i class="fas fa-code-branch"></i> Forks: 4.9k | <i class="fas fa-eye"></i> Watchers: 617 | <i class="fas fa-bug"></i> Issues: 5 | <i class="fas fa-code-merge"></i> PRs: 6</p>
+                <p><i class="fas fa-file-code"></i> 编程语言占比: C 62.3%, C++ 34.2%, Berry 2.2%, Other ~1.3%</p>
+            </div>
+
+            <div class="repo-section fragment fade-in-up">
+                <h4><i class="fas fa-book-reader"></i> 项目速读</h4>
+                <ul>
+                    <li>专为 ESP8266/ESP32 设备的开源替代固件，解决商用智能设备依赖云服务、缺乏本地控制、隐私风险问题。</li>
+                    <li><span class="highlight">将设备控制权完全交还用户。</span></li>
+                    <li>核心优势：简洁 Web UI 配置，方便 OTA 升级，内置规则引擎自动化，全面支持 MQTT/HTTP 实现<span class="highlight">完全本地化控制</span>。</li>
+                    <li><span class="highlight">创客、智能家居爱好者、重视数据隐私用户的灵活可靠平台。</span></li>
+                </ul>
+            </div>
+
+            <div class="repo-section fragment fade-in-up growth-analysis">
+                <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                <ul>
+                    <li>今日新上榜，已有大量星数，是成熟活跃项目。</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Repo 15: LizardByte/Sunshine -->
+        <section class="repo-slide">
+            <h3 id="LizardByte/Sunshine"><i class="fas fa-gamepad"></i> LizardByte/Sunshine</h3>
+            <p class="repo-description fragment fade-in-up">适用于 Moonlight 的自托管游戏串流宿主</p>
+
+            <div class="repo-stats fragment fade-in-up">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>仓库名称</th>
+                        <th>开发语言</th>
+                        <th>Star 数</th>
+                        <th>当日 Star 增加数</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><a href="https://github.com/LizardByte/Sunshine" target="_blank">LizardByte/Sunshine</a></td>
+                        <td>C++</td>
+                        <td>25368 ⭐</td>
+                        <td>39 ⭐ <i class="fas fa-arrow-up text-green-500"></i></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p><i class="fas fa-code-branch"></i> Forks: 1.2k | <i class="fas fa-eye"></i> Watchers: 107 | <i class="fas fa-bug"></i> Issues: 88 | <i class="fas fa-code-merge"></i> PRs: 32</p>
+                <p><i class="fas fa-file-code"></i> 编程语言占比: C++ 79.9%, HTML 4.7%, CMake 4.1%, Vue 3.5%, Other ~7.8%</p>
+            </div>
+
+            <div class="repo-section fragment fade-in-up">
+                <h4><i class="fas fa-book-reader"></i> 项目速读</h4>
+                <ul>
+                    <li>开源自托管游戏串流服务端，搭配 Moonlight 客户端使用。</li>
+                    <li>将个人电脑变成高性能“云游戏主机”，低延迟串流游戏/桌面到各种设备。</li>
+                    <li><span class="highlight">核心优势：广泛支持 AMD, Intel, Nvidia 硬件编码，提升串流效率流畅度。</span></li>
+                    <li>简洁 Web UI 配置管理服务器、应用、客户端。</li>
+                    <li>希望搭建专属游戏串流环境，追求极致性能和完全控制权用户的强大、灵活、免费解决方案。</li>
+                </ul>
+            </div>
+
+            <div class="repo-section fragment fade-in-up growth-analysis">
+                <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                <ul>
+                    <li>今日新上榜，已有可观星数，增长平稳。</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Repo 16: tiann/KernelSU -->
+        <section class="repo-slide">
+            <h3 id="tiann/KernelSU"><i class="fas fa-mobile-alt"></i> tiann/KernelSU</h3>
+            <p class="repo-description fragment fade-in-up">基于内核的 Android root 方案</p>
+
+            <div class="repo-stats fragment fade-in-up">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>仓库名称</th>
+                        <th>开发语言</th>
+                        <th>Star 数</th>
+                        <th>当日 Star 增加数</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><a href="https://github.com/tiann/KernelSU" target="_blank">tiann/KernelSU</a></td>
+                        <td>Kotlin</td>
+                        <td>12351 ⭐</td>
+                        <td>11 ⭐ <i class="fas fa-arrow-up text-green-500"></i></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p><i class="fas fa-code-branch"></i> Forks: 2.3k | <i class="fas fa-eye"></i> Watchers: 108 | <i class="fas fa-bug"></i> Issues: 20 | <i class="fas fa-code-merge"></i> PRs: 8</p>
+                <p><i class="fas fa-file-code"></i> 编程语言占比: Kotlin 43.8%, Rust 20.9%, C 20.0%, Java 6.3%, Other ~9%</p>
+            </div>
+
+            <div class="repo-section fragment fade-in-up">
+                <h4><i class="fas fa-book-reader"></i> 项目速读</h4>
+                <ul>
+                    <li>专为 Android 设计的、基于操作系统内核的 root 权限解决方案。</li>
+                    <li>与传统用户空间方案不同，权限管理内置内核，提供更底层强大控制。</li>
+                    <li>核心优势：基于内核实现的 su 命令，精细 App Profile 功能（按应用限制 root 权限）。</li>
+                    <li>利用 OverlayFS 实现模块系统，扩展功能和可定制性。</li>
+                    <li><span class="highlight">需要深入系统层面、追求灵活强大 root 权限管理的高级 Android 用户独特有价值的选择。</span></li>
+                </ul>
+            </div>
+
+            <div class="repo-section fragment fade-in-up growth-analysis">
+                <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                <ul>
+                    <li>今日新上榜，已有可观星数，增长平稳。</li>
+                </ul>
+            </div>
+        </section>
+
+
+        <!-- Final Slide -->
+        <section class="center-slide">
+            <h2>感谢聆听！</h2>
+            <p class="mt-8 text-xl">
+                希望今天的分享能为您带来新的启发和思考。
+            </p>
+            <p class="mt-4 text-lg text-gray-700">
+                关注 GitHub 热门趋势，掌握技术脉搏！
+            </p>
+
+             <!-- Bottom Right Overlay for Final Slide -->
+             <div class="bottom-right-overlay">
+                 <a href="https://github.com/aichipera/github-trend" target="_blank" class="project-link">https://github.com/aichipera/github-trend</a>
+                 <img src="../../asserts/wx.jpg" alt="WeChat QR Code" class="qr-code">
+             </div>
+        </section>
+
+    </div>
+</div>
+
+<script>
+    // More info about config & dependencies:
+    // - https://revealjs.com/initialization/
+    // - https://revealjs.com/dependencies/
+    Reveal.initialize({
+        dependencies: [
+            { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js', async: true },
+            { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/search/search.min.js', async: true },
+            { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js', async: true },
+            // Add Mermaid plugin if you plan to use diagrams
+             { src: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/mermaid/mermaid.esm.js', async: true, type: 'module' }
+        ],
+        // Customization options
+        controls: true, // Display controls in the bottom right corner
+        progress: true, // Display a presentation progress bar
+        history: true, // Push each slide change to the browser history
+        center: true, // Vertical centering of slides
+        hash: true, // Enable hashing for linking to specific slides
+        transition: 'slide', // Transition style: none, fade, slide, convex, concave, zoom
+        backgroundTransition: 'fade', // Transition style for backgrounds
+        fragmentIn: 'fade-in', // Fragment in animation
+        fragmentOut: 'fade-out', // Fragment out animation
+        autoAnimateDuration: 1, // Duration in seconds
+        autoAnimateEasing: 'ease-in-out',
+        autoAnimateMatcher: null,
+        autoAnimateStyles: [],
+
+        // More options at https://revealjs.com/config/
+    });
+
+    // Initialize Mermaid (if used)
+    // mermaid.initialize({ startOnLoad: false }); // startOnLoad: true if diagrams are on load
+</script>
+</body>
+</html>
