@@ -1,0 +1,841 @@
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>GitHub 热门仓库日报</title>
+
+  <!-- Core framework -->
+  <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+  <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+
+  <!-- Extended dependencies -->
+  <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <!-- Tailwind CSS for utility classes -->
+  <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Custom CSS overrides and additions */
+    :root {
+      --r-background-color: #f8f9fa; /* Light background */
+      --r-main-font: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+      --r-heading-font: 'Noto Serif SC', serif;
+      --r-main-font-size: 1.1rem; /* Slightly larger base font */
+      --r-heading-font-size: 2.8rem;
+      --r-heading1-size: 3rem;
+      --r-heading2-size: 2.5rem;
+      --r-heading3-size: 2rem;
+      --r-heading4-size: 1.5rem;
+      --r-link-color: #0d6efd; /* Bootstrap primary blue */
+      --r-link-color-hover: #0a58ca;
+    }
+
+    body {
+        font-family: var(--r-main-font);
+        color: #333;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--r-heading-font);
+        font-weight: 600;
+        color: #212529; /* Darker color for headings */
+        text-transform: none; /* Prevent uppercase */
+    }
+
+    .reveal .slides section {
+        padding: 40px; /* Add some padding */
+    }
+
+    .reveal .slides section h1 { font-size: var(--r-heading1-size); }
+    .reveal .slides section h2 { font-size: var(--r-heading2-size); }
+    .reveal .slides section h3 { font-size: var(--r-heading3-size); }
+    .reveal .slides section h4 { font-size: var(--r-heading4-size); }
+
+    /* Specific font sizes for content types */
+    .reveal p, .reveal li {
+        font-size: var(--r-main-font-size);
+        line-height: 1.5;
+    }
+
+    .reveal .fragment {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .reveal .fragment.visible {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* Custom layout for QR code and link */
+    .footer-links {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        display: flex;
+        align-items: center;
+        font-size: 0.9em;
+        color: #6c757d;
+    }
+
+    .footer-links img {
+        height: 50px; /* Adjust size as needed */
+        margin-left: 15px;
+        border-radius: 5px;
+    }
+    
+    /* Style for project details table */
+    .project-table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+    }
+    .project-table th, .project-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    .project-table th {
+        background-color: #e9ecef;
+    }
+
+    /* Style for language percentages */
+    .language-list {
+        list-style: none;
+        padding: 0;
+    }
+    .language-list li {
+        margin-bottom: 5px;
+    }
+
+    .mermaid {
+        width: 100%;
+        height: 300px; /* Adjust height as needed */
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Title Slide -->
+      <section data-background-image="https://source.unsplash.com/random/1600x900/?tech,abstract" data-background-opacity="0.3">
+        <h1 class="text-5xl mb-4">AI Agent杀疯了！开发者为何扎堆涌向自托管与效率神器？</h1>
+        <p class="text-xl mb-8">Github热门仓库**日报**观测时间为 **2025-05-20 20:57:37**</p>
+        <h3 class="text-2xl mt-8">一场技术前沿的静默转向</h3>
+        <p class="mt-12">演讲者：AIChipEra</p>
+        <div class="footer-links">
+          <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-gray-700 hover:text-blue-600 transition-colors duration-300">
+            <i class="fab fa-github mr-1"></i> Project: aichipera/github-trend
+          </a>
+          <img src="../../asserts/wx.jpg" alt="微信二维码">
+        </div>
+      </section>
+
+      <!-- Disclaimer Slide -->
+      <section>
+        <h2>重要提示</h2>
+        <p class="text-red-600 text-center text-2xl mt-10">
+          <strong>以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</strong>
+        </p>
+        <p class="mt-8 text-center text-gray-600">
+          请勿基于本报告进行任何真实的投资或交易决策。
+        </p>
+      </section>
+
+      <!-- Daily Report Highlights -->
+      <section>
+        <h2>日报要点提炼</h2>
+        <ul class="list-disc list-inside mt-8 space-y-4">
+          <li class="fragment">AI焦点转向：从基础模型到**智能Agent**，强调自主任务完成能力。</li>
+          <li class="fragment">自主可控浪潮：开发者对数据和控制权渴望，**开源自托管**平台爆发。</li>
+          <li class="fragment">效率神器涌现：开发者提效工具、海量API资源持续热门。</li>
+          <li class="fragment">技术融合趋势：AI、开源基础设施、开发者工具共同塑造未来代码形态。</li>
+          <li class="fragment text-blue-600 font-semibold">Aha Moment: 技术正在从"调用AI"进化到"构建智能协同体"；同时，"掌控数据"的需求前所未有地强烈！</li>
+        </ul>
+      </section>
+
+      <!-- Trend Analysis Section (Vertical) -->
+      <section>
+        <section>
+          <h2>热门项目趋势分析</h2>
+          <p class="mt-8">深入解读今日 GitHub 热门榜单</p>
+        </section>
+        <section>
+          <h3>今日整体趋势</h3>
+          <p class="fragment">榜单多元但重点突出：AI (LLM应用, Agent), 开源/自托管, 开发者效率工具。</p>
+          <p class="fragment mt-4">**核心焦点:** 如何让 AI 落地应用，以及对数据自主和基础设施可控的强烈需求。</p>
+          <p class="fragment mt-4">预示着技术发展正迈向更智能、更自主、更注重用户控制的方向。</p>
+        </section>
+        <section>
+          <h3>核心技术领域与主题</h3>
+          <ul class="list-disc list-inside mt-8 space-y-3">
+            <li class="fragment"><strong>人工智能 (AI):</strong>
+              <ul class="list-circle list-inside ml-6 space-y-1">
+                <li>LLM 应用与工程化 (e.g., 模拟金融团队, 工程课程)</li>
+                <li><strong>AI Agent 构建</strong> (e.g., 通用Agent Suna, Dify平台)</li>
+                <li>提示词工程 (e.g., Awesome ChatGPT Prompts)</li>
+              </ul>
+            </li>
+            <li class="fragment"><strong>开源与自托管:</strong>
+              <ul class="list-circle list-inside ml-6 space-y-1">
+                <li>开源后端 (BaaS) (e.g., Appwrite)</li>
+                <li>个人笔记/知识库 (e.g., Memos)</li>
+                <li>互联网操作系统 (e.g., Puter)</li>
+                <li>追求数据隐私和自主性成为重要驱动力。</li>
+              </ul>
+            </li>
+            <li class="fragment"><strong>开发者效率工具:</strong>
+              <ul class="list-circle list-inside ml-6 space-y-1">
+                <li>API 资源集合 (e.g., Public APIs)</li>
+                <li>系统工具 (e.g., Ventoy 可启动USB)</li>
+                <li>开发辅助 (e.g., Zod 数据验证, 数据工程手册)</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>主要编程语言和技术栈</h3>
+          <ul class="list-disc list-inside mt-8 space-y-3">
+            <li class="fragment"><strong>Python:</strong> 稳固主导 AI/数据科学领域 (LLM应用, 数据工程)。</li>
+            <li class="fragment"><strong>TypeScript:</strong> 在现代 Web 开发 (前端/后端) 和构建平台工具中表现强劲 (Appwrite, Dify, Zod, Suna)。</li>
+            <li class="fragment"><strong>Go:</strong> 构建轻量级后端服务 (Memos)。</li>
+            <li class="fragment"><strong>JavaScript:</strong> 活跃于 Web 前端, 特定系统/安全场景 (Puter, PSFree)。</li>
+            <li class="fragment"><strong>C:</strong> 系统底层工具 (Ventoy)。</li>
+            <li class="fragment"><strong>Jupyter Notebook:</strong> 数据探索、学习手册 (LLM工程, 数据工程)。</li>
+          </ul>
+        </section>
+        <section>
+          <h3>技术需求与发展方向</h3>
+          <p class="fragment">需求1: 驾驭和利用 AI，特别是将 LLM 能力转化为实际应用的**智能体和端到端解决方案**。</p>
+          <p class="fragment mt-4">需求2: 追求更高的**自主性、可控性和数据安全性**，推动开源和自托管基础设施兴起。</p>
+          <p class="fragment mt-4">发展方向: 从简单模型调用到复杂的 AI 工作流编排、Agent 构建、LLM 工程化；同时强调用户对自身数据和计算环境的掌控。</p>
+          <p class="fragment mt-4">持续热点: 提升开发效率，简化复杂任务。</p>
+        </section>
+        <section>
+          <h3>与不同时间点的比较</h3>
+          <p class="fragment">最显著变化：AI/LLM 项目的**成熟度和应用深度**显著提升。</p>
+          <ul class="list-disc list-inside mt-4 space-y-2 ml-6">
+            <li class="fragment">从关注基础模型转向聚焦 LLM 应用化、智能化 (Agent 化)。</li>
+            <li class="fragment">强调搭建端到端平台和优化工程实践。</li>
+          </ul>
+          <p class="fragment mt-4">自托管和隐私相关项目势头更强劲：反映用户对数据主权的日益重视。</p>
+        </section>
+        <section>
+          <h3>下一波技术热点预测</h3>
+          <ul class="list-disc list-inside mt-8 space-y-3">
+            <li class="fragment">AI 深入应用：通用 Agent 能力提升、多模态 AI 融合、高效 AI 基础设施。</li>
+            <li class="fragment">自托管与去中心化：去中心化身份、应用层基础设施、精细数据控制和隐私保护方案。</li>
+            <li class="fragment">软件开发效率：AI 辅助编程、自动化 DevOps。</li>
+          </ul>
+        </section>
+        <section>
+          <h3>今日特有技术趋势特点</h3>
+          <ul class="list-disc list-inside mt-8 space-y-3">
+            <li class="fragment">头部 AI 项目：概念性 (e.g., AI对冲基金) 与实践性 (e.g., LLM工程课程) 并存。</li>
+            <li class="fragment">社区 curation 项目生命力强：实用资源组织和分享价值巨大 (Public APIs, ChatGPT Prompts)。</li>
+            <li class="fragment">逆中心化潮流：自托管、开源后端及个人应用项目集中爆发。</li>
+            <li class="fragment">需求多层面：AI 是核心，但基础或特定领域实用项目同样高关注。</li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- Hotspot Changes Slide -->
+      <section>
+        <h2>热点变化</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+          <div class="fragment fade-in-then-semi-out">
+            <h3 class="text-green-600"><i class="fas fa-arrow-up mr-2"></i> 新增热点</h3>
+            <ul class="list-disc list-inside mt-4 text-left">
+              <li>appwrite/appwrite</li>
+              <li>dataexpert-io/data-engineer-handbook</li>
+              <li>colinhacks/zod</li>
+              <li>heyputer/puter</li>
+              <li>kmeps4/psfree</li>
+              <li>langgenius/dify</li>
+              <li>usememos/memos</li>
+            </ul>
+          </div>
+          <div class="fragment fade-in-then-semi-out">
+            <h3 class="text-red-600"><i class="fas fa-arrow-down mr-2"></i> 减退热点</h3>
+            <ul class="list-disc list-inside mt-4 text-left">
+              <li>stirling-tools/stirling-pdf</li>
+              <li>zen-browser/desktop</li>
+              <li>th-ch/youtube-music</li>
+              <li>xtls/xray-core</li>
+              <li>copilotkit/copilotkit</li>
+            </ul>
+          </div>
+          <div class="fragment fade-in-then-semi-out">
+            <h3 class="text-blue-600"><i class="fas fa-redo mr-2"></i> 持续热门</h3>
+            <ul class="list-disc list-inside mt-4 text-left">
+              <li>virattt/ai-hedge-fund (5次)</li>
+              <li>public-apis/public-apis (4次)</li>
+              <li>ed-donner/llm_engineering (3次)</li>
+              <li>ventoy/Ventoy (3次)</li>
+              <li>f/awesome-chatgpt-prompts (4次)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Detailed Repository Data Intro -->
+      <section>
+        <h2>详细仓库数据</h2>
+        <p class="mt-8">精选热门项目深度解析</p>
+      </section>
+
+      <!-- Project Slides -->
+
+      <!-- virattt/ai-hedge-fund -->
+      <section>
+        <h3><i class="fas fa-chart-line text-blue-600 mr-2"></i> virattt/ai-hedge-fund</h3>
+        <p class="text-lg text-gray-700">项目简介: 人工智能对冲基金团队</p>
+        <div class="grid grid-cols-2 gap-8 mt-8">
+          <div>
+            <p><i class="fas fa-star text-yellow-500 mr-2"></i> <strong>Star 数:</strong> 30636</p>
+            <p><i class="fas fa-plus-circle text-green-600 mr-2"></i> <strong>当日 Star 增加:</strong> 1754</p>
+            <p><i class="fas fa-redo text-blue-600 mr-2"></i> <strong>连续在榜:</strong> 5次</p>
+            <p><i class="fas fa-history text-purple-600 mr-2"></i> <strong>总上榜次数:</strong> 13次</p>
+            <p><i class="fas fa-code-branch text-gray-600 mr-2"></i> <strong>Forks:</strong> 5.3k</p>
+            <p><i class="fas fa-eye text-indigo-600 mr-2"></i> <strong>Watchers:</strong> 425</p>
+            <p><i class="fas fa-users text-teal-600 mr-2"></i> <strong>Contributors:</strong> 23</p>
+            <p class="mt-4"><a href="https://github.com/virattt/ai-hedge-fund" target="_blank" class="text-blue-600 hover:underline"><i class="fab fa-github mr-1"></i> GitHub 链接</a></p>
+          </div>
+          <div>
+            <h4>编程语言占比:</h4>
+            <div class="language-list">
+                <li><span class="font-semibold">Python:</span> 71.9%</li>
+                <li><span class="font-semibold">TypeScript:</span> 23.3%</li>
+                <li><span class="font-semibold">Other:</span> 4.8%</li>
+            </div>
+            <!-- Mermaid Pie Chart (Optional, uncomment and configure if needed) -->
+            <!-- <div class="mermaid">
+                pie title Language Distribution
+                "Python": 71.9
+                "TypeScript": 23.3
+                "Other": 4.8
+            </div> -->
+          </div>
+        </div>
+        <h4 class="mt-8">项目速读:</h4>
+        <p class="fragment">模拟AI对冲基金团队，利用LLM和金融数据进行投资决策的概念验证项目。</p>
+        <p class="fragment">核心是多智能体系统，模仿不同金融角色协同工作。</p>
+        <p class="fragment text-red-600 font-semibold">注意：仅用于教育和研究，非真实交易或投资建议。</p>
+        <h4 class="mt-4">增长分析:</h4>
+        <p class="fragment">增长强劲，两个多月增14886 Star，当日增星1754远超平均，近期增长迅猛。</p>
+      </section>
+
+      <!-- public-apis/public-apis -->
+      <section>
+        <h3><i class="fas fa-list-alt text-blue-600 mr-2"></i> public-apis/public-apis</h3>
+        <p class="text-lg text-gray-700">项目简介: 免费API集合列表</p>
+         <div class="grid grid-cols-2 gap-8 mt-8">
+          <div>
+            <p><i class="fas fa-star text-yellow-500 mr-2"></i> <strong>Star 数:</strong> 344872</p>
+            <p><i class="fas fa-plus-circle text-green-600 mr-2"></i> <strong>当日 Star 增加:</strong> 811</p>
+            <p><i class="fas fa-redo text-blue-600 mr-2"></i> <strong>连续在榜:</strong> 4次</p>
+            <p><i class="fas fa-history text-purple-600 mr-2"></i> <strong>总上榜次数:</strong> 11次</p>
+            <p><i class="fas fa-code-branch text-gray-600 mr-2"></i> <strong>Forks:</strong> 36.2k</p>
+            <p><i class="fas fa-eye text-indigo-600 mr-2"></i> <strong>Watchers:</strong> 4.3k</p>
+            <p><i class="fas fa-users text-teal-600 mr-2"></i> <strong>Contributors:</strong> 1.2k</p>
+            <p class="mt-4"><a href="https://github.com/public-apis/public-apis" target="_blank" class="text-blue-600 hover:underline"><i class="fab fa-github mr-1"></i> GitHub 链接</a></p>
+          </div>
+           <div>
+            <h4>编程语言占比:</h4>
+            <div class="language-list">
+                <li><span class="font-semibold">Python:</span> 96.8%</li>
+                <li><span class="font-semibold">Shell:</span> 3.2%</li>
+            </div>
+            <!-- <div class="mermaid">
+                pie title Language Distribution
+                "Python": 96.8
+                "Shell": 3.2
+            </div> -->
+          </div>
+        </div>
+        <h4 class="mt-8">项目速读:</h4>
+        <p class="fragment">社区维护的海量免费公共API列表，解决开发者发现API难题。</p>
+        <p class="fragment">涵盖几十种领域，提供详细信息 (描述, 认证, HTTPS, CORS)。</p>
+        <p class="fragment">价值在于提供一站式、无需成本的API资源宝库，极高实用性。</p>
+        <h4 class="mt-4">增长分析:</h4>
+        <p class="fragment">增长强劲且稳健，11次上榜增14708星，平均772.5。近期单日811略超平均。</p>
+      </section>
+
+      <!-- appwrite/appwrite -->
+      <section>
+        <h3><i class="fas fa-server text-blue-600 mr-2"></i> appwrite/appwrite</h3>
+        <p class="text-lg text-gray-700">项目简介: Vercel 的开源替代品</p>
+        <div class="grid grid-cols-2 gap-8 mt-8">
+          <div>
+            <p><i class="fas fa-star text-yellow-500 mr-2"></i> <strong>Star 数:</strong> 48975</p>
+            <p><i class="fas fa-plus-circle text-green-600 mr-2"></i> <strong>当日 Star 增加:</strong> 235</p>
+            <p><i class="fas fa-redo text-blue-600 mr-2"></i> <strong>连续在榜:</strong> 1次</p>
+            <p><i class="fas fa-history text-purple-600 mr-2"></i> <strong>总上榜次数:</strong> 1次</p>
+            <p><i class="fas fa-code-branch text-gray-600 mr-2"></i> <strong>Forks:</strong> 4.3k</p>
+            <p><i class="fas fa-eye text-indigo-600 mr-2"></i> <strong>Watchers:</strong> 378</p>
+            <p><i class="fas fa-users text-teal-600 mr-2"></i> <strong>Contributors:</strong> 349</p>
+            <p class="mt-4"><a href="https://github.com/appwrite/appwrite" target="_blank" class="text-blue-600 hover:underline"><i class="fab fa-github mr-1"></i> GitHub 链接</a></p>
+          </div>
+           <div>
+            <h4>编程语言占比:</h4>
+            <div class="language-list">
+                <li><span class="font-semibold">TypeScript:</span> 74.8%</li>
+                <li><span class="font-semibold">PHP:</span> 24.3%</li>
+                <li><span class="font-semibold">Other:</span> 0.9%</li>
+            </div>
+            <!-- <div class="mermaid">
+                pie title Language Distribution
+                "TypeScript": 74.8
+                "PHP": 24.3
+                "Other": 0.9
+            </div> -->
+          </div>
+        </div>
+        <h4 class="mt-8">项目速读:</h4>
+        <p class="fragment">开源端到端后端平台，提供认证、数据库、存储、云函数等一站式服务。</p>
+        <p class="fragment">简化后端重复工作，提升开发效率。</p>
+        <p class="fragment">核心优势：开源、易自托管 (Docker)、优秀开发者体验。</p>
+        <p class="fragment text-green-600 font-semibold">Aha: 提供了 Firebase 等服务的强大开源替代，让开发者更自由！</p>
+      </section>
+
+      <!-- usememos/memos -->
+      <section>
+        <h3><i class="fas fa-sticky-note text-blue-600 mr-2"></i> usememos/memos</h3>
+        <p class="text-lg text-gray-700">项目简介: 开源轻量级笔记解决方案。你的笔记，你的方式。</p>
+         <div class="grid grid-cols-2 gap-8 mt-8">
+          <div>
+            <p><i class="fas fa-star text-yellow-500 mr-2"></i> <strong>Star 数:</strong> 39911</p>
+            <p><i class="fas fa-plus-circle text-green-600 mr-2"></i> <strong>当日 Star 增加:</strong> 191</p>
+            <p><i class="fas fa-redo text-blue-600 mr-2"></i> <strong>连续在榜:</strong> 1次</p>
+            <p><i class="fas fa-history text-purple-600 mr-2"></i> <strong>总上榜次数:</strong> 1次</p>
+            <p><i class="fas fa-code-branch text-gray-600 mr-2"></i> <strong>Forks:</strong> 2.9k</p>
+            <p><i class="fas fa-eye text-indigo-600 mr-2"></i> <strong>Watchers:</strong> 164</p>
+            <p><i class="fas fa-users text-teal-600 mr-2"></i> <strong>Contributors:</strong> 304</p>
+            <p class="mt-4"><a href="https://github.com/usememos/memos" target="_blank" class="text-blue-600 hover:underline"><i class="fab fa-github mr-1"></i> GitHub 链接</a></p>
+          </div>
+           <div>
+            <h4>编程语言占比:</h4>
+            <div class="language-list">
+                <li><span class="font-semibold">Go:</span> 54.2%</li>
+                <li><span class="font-semibold">TypeScript:</span> 45.2%</li>
+                <li><span class="font-semibold">Other:</span> 0.6%</li>
+            </div>
+             <!-- <div class="mermaid">
+                pie title Language Distribution
+                "Go": 54.2
+                "TypeScript": 45.2
+                "Other": 0.6
+            </div> -->
+          </div>
+        </div>
+        <h4 class="mt-8">项目速读:</h4>
+        <p class="fragment">开源轻量级笔记，纯文本/Markdown格式，强调数据自主控制。</p>
+        <p class="fragment">隐私优先，数据存储在用户环境，摆脱第三方平台。</p>
+        <p class="fragment">Go + React.js 架构，轻量高效。</p>
+        <p class="fragment text-green-600 font-semibold">Aha: 私密、高效、可控的笔记工具，满足用户对数据主权的强烈需求！</p>
+      </section>
+
+       <!-- ed-donner/llm_engineering -->
+      <section>
+        <h3><i class="fas fa-book-open text-blue-600 mr-2"></i> ed-donner/llm_engineering</h3>
+        <p class="text-lg text-gray-700">项目简介: 我的大模型工程精通课程配套仓库</p>
+        <div class="grid grid-cols-2 gap-8 mt-8">
+          <div>
+            <p><i class="fas fa-star text-yellow-500 mr-2"></i> <strong>Star 数:</strong> 2010</p>
+            <p><i class="fas fa-plus-circle text-green-600 mr-2"></i> <strong>当日 Star 增加:</strong> 198</p>
+            <p><i class="fas fa-redo text-blue-600 mr-2"></i> <strong>连续在榜:</strong> 3次</p>
+            <p><i class="fas fa-history text-purple-600 mr-2"></i> <strong>总上榜次数:</strong> 3次</p>
+            <p><i class="fas fa-code-branch text-gray-600 mr-2"></i> <strong>Forks:</strong> 1.8k</p>
+            <p><i class="fas fa-eye text-indigo-600 mr-2"></i> <strong>Watchers:</strong> 77</p>
+            <p><i class="fas fa-users text-teal-600 mr-2"></i> <strong>Contributors:</strong> 139</p>
+            <p class="mt-4"><a href="https://github.com/ed-donner/llm_engineering" target="_blank" class="text-blue-600 hover:underline"><i class="fab fa-github mr-1"></i> GitHub 链接</a></p>
+          </div>
+           <div>
+            <h4>编程语言占比:</h4>
+            <div class="language-list">
+                <li><span class="font-semibold">Jupyter Notebook:</span> 98.3%</li>
+                <li><span class="font-semibold">Python:</span> 1.7%</li>
+            </div>
+             <!-- <div class="mermaid">
+                pie title Language Distribution
+                "Jupyter Notebook": 98.3
+                "Python": 1.7
+            </div> -->
+          </div>
+        </div>
+        <h4 class="mt-8">项目速读:</h4>
+        <p class="fragment">为期八周的 LLM 工程实践课程配套代码和材料。</p>
+        <p class="fragment">强调**通过实践学习**，掌握构建实际 LLM 解决方案和自主 Agent 的技能。</p>
+        <p class="fragment">提供灵活成本方案 (如本地 Ollama 运行开源模型)，兼容多平台。</p>
+        <p class="fragment text-green-600 font-semibold">Aha: 从理论到实践，填补 LLM 应用落地技能鸿沟的实用资源！</p>
+        <h4 class="mt-4">增长分析:</h4>
+        <p class="fragment">连续三天上榜，总增449星。当日增198高于平均，近期增长显著加速。</p>
+      </section>
+
+      <!-- HeyPuter/puter -->
+      <section>
+        <h3><i class="fas fa-cloud text-blue-600 mr-2"></i> HeyPuter/puter</h3>
+        <p class="text-lg text-gray-700">项目简介: 互联网操作系统！免费、开源、可自托管。</p>
+         <div class="grid grid-cols-2 gap-8 mt-8">
+          <div>
+            <p><i class="fas fa-star text-yellow-500 mr-2"></i> <strong>Star 数:</strong> 31084</p>
+            <p><i class="fas fa-plus-circle text-green-600 mr-2"></i> <strong>当日 Star 增加:</strong> 147</p>
+            <p><i class="fas fa-redo text-blue-600 mr-2"></i> <strong>连续在榜:</strong> 1次</p>
+            <p><i class="fas fa-history text-purple-600 mr-2"></i> <strong>总上榜次数:</strong> 1次</p>
+            <p><i class="fas fa-code-branch text-gray-600 mr-2"></i> <strong>Forks:</strong> 2.3k</p>
+            <p><i class="fas fa-eye text-indigo-600 mr-2"></i> <strong>Watchers:</strong> 172</p>
+            <p><i class="fas fa-users text-teal-600 mr-2"></i> <strong>Contributors:</strong> 258</p>
+            <p class="mt-4"><a href="https://github.com/HeyPuter/puter" target="_blank" class="text-blue-600 hover:underline"><i class="fab fa-github mr-1"></i> GitHub 链接</a></p>
+          </div>
+           <div>
+            <h4>编程语言占比:</h4>
+            <div class="language-list">
+                <li><span class="font-semibold">JavaScript:</span> 96.1%</li>
+                <li><span class="font-semibold">CSS:</span> 2.4%</li>
+                <li><span class="font-semibold">HTML:</span> 1.3%</li>
+                <li><span class="font-semibold">Other:</span> 0.2%</li>
+            </div>
+             <!-- <div class="mermaid">
+                pie title Language Distribution
+                "JavaScript": 96.1
+                "CSS": 2.4
+                "HTML": 1.3
+                "Other": 0.2
+            </div> -->
+          </div>
+        </div>
+        <h4 class="mt-8">项目速读:</h4>
+        <p class="fragment">免费开源“互联网操作系统”，个人云电脑概念。</p>
+        <p class="fragment">整合文件、应用、游戏，通过浏览器随时访问。</p>
+        <p class="fragment">核心优势：开源、自托管、隐私优先、用户完全掌控数据。</p>
+        <p class="fragment text-green-600 font-semibold">Aha: 不止是云盘替代，更是构建和运行应用的灵活自主平台！</p>
+      </section>
+
+      <!-- ventoy/Ventoy -->
+      <section>
+        <h3><i class="fas fa-usb text-blue-600 mr-2"></i> ventoy/Ventoy</h3>
+        <p class="text-lg text-gray-700">项目简介: 新的可启动 USB 解决方案</p>
+         <div class="grid grid-cols-2 gap-8 mt-8">
+          <div>
+            <p><i class="fas fa-star text-yellow-500 mr-2"></i> <strong>Star 数:</strong> 67235</p>
+            <p><i class="fas fa-plus-circle text-green-600 mr-2"></i> <strong>当日 Star 增加:</strong> 237</p>
+            <p><i class="fas fa-redo text-blue-600 mr-2"></i> <strong>连续在榜:</strong> 3次</p>
+            <p><i class="fas fa-history text-purple-600 mr-2"></i> <strong>总上榜次数:</strong> 3次</p>
+            <p><i class="fas fa-code-branch text-gray-600 mr-2"></i> <strong>Forks:</strong> 4.3k</p>
+            <p><i class="fas fa-eye text-indigo-600 mr-2"></i> <strong>Watchers:</strong> 678</p>
+            <p><i class="fas fa-users text-teal-600 mr-2"></i> <strong>Contributors:</strong> 118</p>
+            <p class="mt-4"><a href="https://github.com/ventoy/Ventoy" target="_blank" class="text-blue-600 hover:underline"><i class="fab fa-github mr-1"></i> GitHub 链接</a></p>
+          </div>
+           <div>
+            <h4>编程语言占比:</h4>
+            <div class="language-list">
+                <li><span class="font-semibold">C:</span> 84.2%</li>
+                <li><span class="font-semibold">Other:</span> 15.8%</li>
+            </div>
+             <!-- <div class="mermaid">
+                pie title Language Distribution
+                "C": 84.2
+                "Other": 15.8
+            </div> -->
+          </div>
+        </div>
+        <h4 class="mt-8">项目速读:</h4>
+        <p class="fragment">革命性可启动U盘制作方案，无需格式化，直接复制镜像即可启动。</p>
+        <p class="fragment">支持多系统/工具镜像，"复制即启动"模式。</p>
+        <p class="fragment">极高效率，广泛兼容性，简化系统安装维护。</p>
+        <p class="fragment text-green-600 font-semibold">Aha: 一次制作，无限可能！彻底改变传统U盘引导方式的效率神器！</p>
+        <h4 class="mt-4">增长分析:</h4>
+        <p class="fragment">三天内3次上榜，总增539星，当次增237。频繁上榜和持续增长，势头强劲稳定。</p>
+      </section>
+
+      <!-- kortix-ai/suna -->
+      <section>
+        <h3><i class="fas fa-robot text-blue-600 mr-2"></i> kortix-ai/suna</h3>
+        <p class="text-lg text-gray-700">项目简介: Suna - 开源通用型人工智能智能体</p>
+        <div class="grid grid-cols-2 gap-8 mt-8">
+          <div>
+            <p><i class="fas fa-star text-yellow-500 mr-2"></i> <strong>Star 数:</strong> 11915</p>
+            <p><i class="fas fa-plus-circle text-green-600 mr-2"></i> <strong>当日 Star 增加:</strong> 362</p>
+            <p><i class="fas fa-redo text-blue-600 mr-2"></i> <strong>连续在榜:</strong> 2次</p>
+            <p><i class="fas fa-history text-purple-600 mr-2"></i> <strong>总上榜次数:</strong> 7次</p>
+            <p><i class="fas fa-code-branch text-gray-600 mr-2"></i> <strong>Forks:</strong> 1.7k</p>
+            <p><i class="fas fa-eye text-indigo-600 mr-2"></i> <strong>Watchers:</strong> 80</p>
+            <p><i class="fas fa-users text-teal-600 mr-2"></i> <strong>Contributors:</strong> 25</p>
+            <p class="mt-4"><a href="https://github.com/kortix-ai/suna" target="_blank" class="text-blue-600 hover:underline"><i class="fab fa-github mr-1"></i> GitHub 链接</a></p>
+          </div>
+           <div>
+            <h4>编程语言占比:</h4>
+            <div class="language-list">
+                <li><span class="font-semibold">TypeScript:</span> 64.3%</li>
+                <li><span class="font-semibold">Python:</span> 31.7%</li>
+                <li><span class="font-semibold">Other:</span> 4.0%</li>
+            </div>
+            <!-- <div class="mermaid">
+                pie title Language Distribution
+                "TypeScript": 64.3
+                "Python": 31.7
+                "Other": 4.0
+            </div> -->
+          </div>
+        </div>
+        <h4 class="mt-8">项目速读:</h4>
+        <p class="fragment">开源通用型 AI 代理，通过自然对话完成研究、数据分析、日常任务。</p>
+        <p class="fragment">核心价值：开源、通用能力、集成工具集 (浏览器自动化, 文件管理等)。</p>
+        <p class="fragment">Python/FastAPI + Next.js + 容器化代理架构，灵活强大。</p>
+        <p class="fragment text-green-600 font-semibold">Aha: 将复杂任务转化为对话，让AI真正成为你的智能助手！</p>
+        <h4 class="mt-4">增长分析:</h4>
+        <p class="fragment">累计增9054星，平均每次上榜增886星。上榜效应强劲，驱动快速增长。</p>
+      </section>
+
+      <!-- langgenius/dify -->
+      <section>
+        <h3><i class="fas fa-cogs text-blue-600 mr-2"></i> langgenius/dify</h3>
+        <p class="text-lg text-gray-700">项目简介: Dify 是一个开源的大模型应用开发平台。</p>
+         <div class="grid grid-cols-2 gap-8 mt-8">
+          <div>
+            <p><i class="fas fa-star text-yellow-500 mr-2"></i> <strong>Star 数:</strong> 97997</p>
+            <p><i class="fas fa-plus-circle text-green-600 mr-2"></i> <strong>当日 Star 增加:</strong> 208</p>
+            <p><i class="fas fa-redo text-blue-600 mr-2"></i> <strong>连续在榜:</strong> 1次</p>
+            <p><i class="fas fa-history text-purple-600 mr-2"></i> <strong>总上榜次数:</strong> 6次</p>
+            <p><i class="fas fa-code-branch text-gray-600 mr-2"></i> <strong>Forks:</strong> 14.7k</p>
+            <p><i class="fas fa-eye text-indigo-600 mr-2"></i> <strong>Watchers:</strong> 618</p>
+            <p><i class="fas fa-users text-teal-600 mr-2"></i> <strong>Contributors:</strong> 820</p>
+            <p class="mt-4"><a href="https://github.com/langgenius/dify" target="_blank" class="text-blue-600 hover:underline"><i class="fab fa-github mr-1"></i> GitHub 链接</a></p>
+          </div>
+           <div>
+            <h4>编程语言占比:</h4>
+            <div class="language-list">
+                <li><span class="font-semibold">TypeScript:</span> 56.9%</li>
+                <li><span class="font-semibold">Python:</span> 30.2%</li>
+                <li><span class="font-semibold">Other:</span> 12.9%</li>
+            </div>
+             <!-- <div class="mermaid">
+                pie title Language Distribution
+                "TypeScript": 56.9
+                "Python": 30.2
+                "Other": 12.9
+            </div> -->
+          </div>
+        </div>
+        <h4 class="mt-8">项目速读:</h4>
+        <p class="fragment">开源 LLM 应用开发平台，从原型到生产。</p>
+        <p class="fragment">直观界面集成 AI 工作流、RAG、Agent、模型管理、可观测性。</p>
+        <p class="fragment">广泛兼容国内外模型，简化 LLM 开发流程。</p>
+        <p class="fragment text-green-600 font-semibold">Aha: 一站式解决 LLM 应用开发痛点，快速释放 AI 潜能的强大基石！</p>
+        <h4 class="mt-4">增长分析:</h4>
+        <p class="fragment">近两月总增10753星。上榜6次，体现持续活跃和可见性，是快速累积星数主因。</p>
+      </section>
+
+      <!-- colinhacks/zod -->
+      <section>
+        <h3><i class="fas fa-check-circle text-blue-600 mr-2"></i> colinhacks/zod</h3>
+        <p class="text-lg text-gray-700">项目简介: TypeScript 优先的模式验证与静态类型推断</p>
+         <div class="grid grid-cols-2 gap-8 mt-8">
+          <div>
+            <p><i class="fas fa-star text-yellow-500 mr-2"></i> <strong>Star 数:</strong> 37900</p>
+            <p><i class="fas fa-plus-circle text-green-600 mr-2"></i> <strong>当日 Star 增加:</strong> 95</p>
+            <p><i class="fas fa-redo text-blue-600 mr-2"></i> <strong>连续在榜:</strong> 1次</p>
+            <p><i class="fas fa-history text-purple-600 mr-2"></i> <strong>总上榜次数:</strong> 3次</p>
+            <p><i class="fas fa-code-branch text-gray-600 mr-2"></i> <strong>Forks:</strong> 1.4k</p>
+            <p><i class="fas fa-eye text-indigo-600 mr-2"></i> <strong>Watchers:</strong> 71</p>
+            <p><i class="fas fa-users text-teal-600 mr-2"></i> <strong>Contributors:</strong> 393</p>
+            <p class="mt-4"><a href="https://github.com/colinhacks/zod" target="_blank" class="text-blue-600 hover:underline"><i class="fab fa-github mr-1"></i> GitHub 链接</a></p>
+          </div>
+           <div>
+            <h4>编程语言占比:</h4>
+            <div class="language-list">
+                <li><span class="font-semibold">TypeScript:</span> 82.3%</li>
+                <li><span class="font-semibold">MDX:</span> 13.3%</li>
+                <li><span class="font-semibold">Other:</span> 4.4%</li>
+            </div>
+             <!-- <div class="mermaid">
+                pie title Language Distribution
+                "TypeScript": 82.3
+                "MDX": 13.3
+                "Other": 4.4
+            </div> -->
+          </div>
+        </div>
+        <h4 class="mt-8">项目速读:</h4>
+        <p class="fragment">TypeScript 数据验证库，通过定义schema验证运行时数据。</p>
+        <p class="fragment">**TypeScript 优先**：验证同时提供强大静态类型推断。</p>
+        <p class="fragment">无外部依赖，体积小巧，API简洁不可变。</p>
+        <p class="fragment text-green-600 font-semibold">Aha: 显著提升 TS 应用的数据类型安全性和健壮性！</p>
+        <h4 class="mt-4">增长分析:</h4>
+        <p class="fragment">总增1209星，增长集中在上榜期间。依赖上榜带来的短期爆发，非持续匀速增长。</p>
+      </section>
+
+      <!-- kmeps4/PSFree -->
+      <section>
+        <h3><i class="fab fa-playstation text-blue-600 mr-2"></i> kmeps4/PSFree</h3>
+        <p class="text-lg text-gray-700">项目简介: PSFree WebKit 漏洞 和 Lapse 内核漏洞 针对 PS4 9.00 [开发中]</p>
+         <div class="grid grid-cols-2 gap-8 mt-8">
+          <div>
+            <p><i class="fas fa-star text-yellow-500 mr-2"></i> <strong>Star 数:</strong> 211</p>
+            <p><i class="fas fa-plus-circle text-green-600 mr-2"></i> <strong>当日 Star 增加:</strong> 15</p>
+            <p><i class="fas fa-redo text-blue-600 mr-2"></i> <strong>连续在榜:</strong> 1次</p>
+            <p><i class="fas fa-history text-purple-600 mr-2"></i> <strong>总上榜次数:</strong> 1次</p>
+            <p><i class="fas fa-code-branch text-gray-600 mr-2"></i> <strong>Forks:</strong> 34</p>
+            <p><i class="fas fa-eye text-indigo-600 mr-2"></i> <strong>Watchers:</strong> 21</p>
+            <p><i class="fas fa-users text-teal-600 mr-2"></i> <strong>Contributors:</strong> 5</p>
+            <p class="mt-4"><a href="https://github.com/kmeps4/PSFree" target="_blank" class="text-blue-600 hover:underline"><i class="fab fa-github mr-1"></i> GitHub 链接</a></p>
+          </div>
+           <div>
+            <h4>编程语言占比:</h4>
+            <div class="language-list">
+                <li><span class="font-semibold">JavaScript:</span> 90.4%</li>
+                <li><span class="font-semibold">Other:</span> 9.6%</li>
+            </div>
+             <!-- <div class="mermaid">
+                pie title Language Distribution
+                "JavaScript": 90.4
+                "Other": 9.6
+            </div> -->
+          </div>
+        </div>
+        <h4 class="mt-8">项目速读:</h4>
+        <p class="fragment">针对 PS4 9.00 固件的漏洞利用项目。</p>
+        <p class="fragment">链式利用 WebKit 漏洞和内核漏洞，允许加载自定义载荷。</p>
+        <p class="fragment">主要使用 JavaScript 实现，依赖 PS4 内置浏览器。</p>
+        <p class="fragment text-red-600 font-semibold">注意：Beta阶段，稳定性50%，有内核崩溃风险，适用于高阶研究用户。</p>
+        <p class="fragment text-green-600 font-semibold">Aha: 探索主机安全边界，社区驱动的研究项目！</p>
+      </section>
+
+      <!-- f/awesome-chatgpt-prompts -->
+      <section>
+        <h3><i class="fas fa-magic text-blue-600 mr-2"></i> f/awesome-chatgpt-prompts</h3>
+        <p class="text-lg text-gray-700">项目简介: ChatGPT 提示词精选，更好地使用 ChatGPT 和其他 LLM 工具。</p>
+        <div class="grid grid-cols-2 gap-8 mt-8">
+          <div>
+            <p><i class="fas fa-star text-yellow-500 mr-2"></i> <strong>Star 数:</strong> 125556</p>
+            <p><i class="fas fa-plus-circle text-green-600 mr-2"></i> <strong>当日 Star 增加:</strong> 381</p>
+            <p><i class="fas fa-redo text-blue-600 mr-2"></i> <strong>连续在榜:</strong> 4次</p>
+            <p><i class="fas fa-history text-purple-600 mr-2"></i> <strong>总上榜次数:</strong> 4次</p>
+            <p><i class="fas fa-code-branch text-gray-600 mr-2"></i> <strong>Forks:</strong> 16.7k</p>
+            <p><i class="fas fa-eye text-indigo-600 mr-2"></i> <strong>Watchers:</strong> 1.5k</p>
+            <p><i class="fas fa-users text-teal-600 mr-2"></i> <strong>Contributors:</strong> 123</p>
+            <p class="mt-4"><a href="https://github.com/f/awesome-chatgpt-prompts" target="_blank" class="text-blue-600 hover:underline"><i class="fab fa-github mr-1"></i> GitHub 链接</a></p>
+          </div>
+           <div>
+            <h4>编程语言占比:</h4>
+            <div class="language-list">
+                <li><span class="font-semibold">JavaScript:</span> 51.3%</li>
+                <li><span class="font-semibold">CSS:</span> 33.2%</li>
+                <li><span class="font-semibold">HTML:</span> 15.2%</li>
+                <li><span class="font-semibold">Other:</span> 0.3%</li>
+            </div>
+             <!-- <div class="mermaid">
+                pie title Language Distribution
+                "JavaScript": 51.3
+                "CSS": 33.2
+                "HTML": 15.2
+                "Other": 0.3
+            </div> -->
+          </div>
+        </div>
+        <h4 class="mt-8">项目速读:</h4>
+        <p class="fragment">精心整理的 LLM 提示词集合，提供不同角色和场景的范例。</p>
+        <p class="fragment">解决了用户不知如何向 AI 提问的痛点。</p>
+        <p class="fragment">配套网站 prompts.chat 提升用户体验，方便浏览、修改、复制。</p>
+        <p class="fragment text-green-600 font-semibold">Aha: 掌握与AI对话的"秘籍"，大幅提高AI使用效率和产出质量！</p>
+        <h4 class="mt-4">增长分析:</h4>
+        <p class="fragment">4天内4次上榜，增长持续且强劲。当日增381高于平均，增长势头加速。</p>
+      </section>
+
+      <!-- DataExpert-io/data-engineer-handbook -->
+      <section>
+        <h3><i class="fas fa-database text-blue-600 mr-2"></i> DataExpert-io/data-engineer-handbook</h3>
+        <p class="text-lg text-gray-700">项目简介: 数据工程学习资源链接集合。</p>
+         <div class="grid grid-cols-2 gap-8 mt-8">
+          <div>
+            <p><i class="fas fa-star text-yellow-500 mr-2"></i> <strong>Star 数:</strong> 27822</p>
+            <p><i class="fas fa-plus-circle text-green-600 mr-2"></i> <strong>当日 Star 增加:</strong> 22</p>
+            <p><i class="fas fa-redo text-blue-600 mr-2"></i> <strong>连续在榜:</strong> 1次</p>
+            <p><i class="fas fa-history text-purple-600 mr-2"></i> <strong>总上榜次数:</strong> 1次</p>
+            <p><i class="fas fa-code-branch text-gray-600 mr-2"></i> <strong>Forks:</strong> 5.7k</p>
+            <p><i class="fas fa-eye text-indigo-600 mr-2"></i> <strong>Watchers:</strong> 374</p>
+            <p><i class="fas fa-users text-teal-600 mr-2"></i> <strong>Contributors:</strong> 108</p>
+            <p class="mt-4"><a href="https://github.com/DataExpert-io/data-engineer-handbook" target="_blank" class="text-blue-600 hover:underline"><i class="fab fa-github mr-1"></i> GitHub 链接</a></p>
+          </div>
+           <div>
+            <h4>编程语言占比:</h4>
+            <div class="language-list">
+                <li><span class="font-semibold">Jupyter Notebook:</span> 66.9%</li>
+                <li><span class="font-semibold">Python:</span> 26.3%</li>
+                <li><span class="font-semibold">Other:</span> 6.8%</li>
+            </div>
+             <!-- <div class="mermaid">
+                pie title Language Distribution
+                "Jupyter Notebook": 66.9
+                "Python": 26.3
+                "Other": 6.8
+            </div> -->
+          </div>
+        </div>
+        <h4 class="mt-8">项目速读:</h4>
+        <p class="fragment">数据工程学习资源宝库，解决信息分散、路径不清问题。</p>
+        <p class="fragment">提供结构化学习路线，收录海量免费资源 (课程, 书籍, 社区, 工具, 技术洞察)。</p>
+        <p class="fragment text-green-600 font-semibold">Aha: 数据工程师入门与进阶的一站式导航与指引！</p>
+      </section>
+
+
+      <!-- Final Slide -->
+      <section data-background-color="#e9ecef">
+        <h2>感谢观看！</h2>
+        <p class="mt-8 text-xl">希望今天的分享能为您带来启发和 "灵光一现" 的瞬间！</p>
+        <p class="mt-8">如果您对 GitHub 热门趋势、AI Agent 或开源技术感兴趣，欢迎关注项目获取更多信息：</p>
+        <div class="footer-links">
+           <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-gray-700 hover:text-blue-600 transition-colors duration-300 text-lg">
+            <i class="fab fa-github mr-1"></i> <strong>Star us on GitHub:</strong> aichipera/github-trend
+          </a>
+          <img src="../../asserts/wx.jpg" alt="微信二维码">
+        </div>
+        <p class="mt-20 text-sm text-gray-500">演讲者：AIChipEra</p>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Reveal.js core -->
+  <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+  <!-- Reveal.js plugins -->
+  <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+  <script>
+    // Initialize Mermaid
+    mermaid.initialize({ startOnLoad: false }); // Initialize manually after Reveal is ready if needed, or let it auto-start if placed after DOM
+
+    // Initialize Reveal.js
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+      transition: 'slide', // or 'fade', 'convex', 'concave', 'zoom'
+      transitionSpeed: 'default', // 'default', 'fast', 'slow'
+      backgroundTransition: 'fade', // 'fade', 'convex', 'concave', 'zoom'
+      // More options: https://revealjs.com/config/
+
+      // Enable vertical slides
+      // The hierarchy is <section><section> for vertical slides
+      // <section> for horizontal slides
+
+      // Optional plugins (comment out if not needed)
+      plugins: [] // Add plugins here if using any besides core Mermaid
+    });
+
+     // Function to render Mermaid diagrams
+     Reveal.on('slidechanged', function(event) {
+         // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+         mermaid.init(undefined, event.currentSlide.querySelectorAll('.mermaid'));
+     });
+
+     // Initialize on first slide load as well
+     mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+
+  </script>
+</body>
+</html>
