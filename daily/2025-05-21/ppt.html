@@ -1,835 +1,625 @@
-<html>
+<!doctype html>
+<html lang="zh">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <title>微软“杀疯了”？技术风向大变：不止AI，更关乎你的效率与未来</title>
 
-    <!-- Core framework -->
+    <!-- 核心框架 -->
     <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
-    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
-    
-    <!-- Extended dependencies -->
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" id="theme" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- 扩展依赖 -->
     <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
 
     <style>
-        /* Base font settings */
-        body {
-            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback",
-                         "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
-            color: #333; /* Default text color */
-        }
-
-        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
-            font-family: 'Noto Serif SC', 'Noto Sans SC', serif;
-            font-weight: 700; /* Bold titles */
-            color: #2c3e50; /* Dark primary for titles */
-        }
-
-        .reveal h1 { font-size: 3rem; }
-        .reveal h2 { font-size: 2.5rem; }
-        .reveal h3 { font-size: 2rem; }
-        .reveal p { font-size: 1.2rem; line-height: 1.6; }
-        .reveal li { font-size: 1.1rem; line-height: 1.8; margin-bottom: 0.5rem; }
-
-        /* Custom color palette */
         :root {
-            --primary-dark: #2c3e50; /* Deep blue/grey for main titles */
-            --primary-light: #3498db; /* Vibrant blue for accents */
-            --secondary-accent: #2ecc71; /* Green for positive/growth */
-            --text-dark: #333;
-            --text-light: #eee;
-            --bg-light: #f7f9fc;
-            --bg-dark: #333;
-            --gradient-start: #4a69bd;
-            --gradient-end: #3498db;
+            --r-main-font: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: 'Noto Serif SC', serif;
+            --r-background-color: #1a202c; /* 深蓝灰 */
+            --r-main-color: #e2e8f0; /* 浅灰 */
+            --r-heading-color: #63b3ed; /* 亮蓝 */
+            --r-link-color: #f6ad55; /* 橙黄 */
+            --r-link-color-hover: #feb2b2; /* 淡粉红 */
+            --r-selection-background-color: #f6ad55;
+            --r-selection-color: #1a202c;
         }
 
-        /* General reveal.js overrides */
-        .reveal {
-            background-color: var(--bg-light);
+        body {
+            font-family: var(--r-main-font);
         }
 
-        .reveal .slides section {
-            background-color: transparent; /* Ensure custom backgrounds show */
+        .reveal .slides {
+            text-align: left;
         }
 
-        /* Title Slide specific styling */
-        .reveal .slide-title {
-            color: var(--text-light);
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.4);
-            font-size: 3.5rem; /* Larger for impact */
-            margin-bottom: 20px;
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--r-heading-color);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
-        .reveal .slide-subtitle {
-            color: var(--text-light);
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-            font-size: 2rem;
-            margin-top: 10px;
+        .reveal h1 { font-size: 2.8em; margin-bottom: 0.5em; }
+        .reveal h2 { font-size: 2.0em; margin-bottom: 0.4em; }
+        .reveal h3 { font-size: 1.5em; margin-bottom: 0.3em; }
+        .reveal p, .reveal li { font-size: 1.0em; line-height: 1.6; color: #cbd5e0; } /* 稍暗一点的文本 */
+        .reveal strong { color: #f6ad55; } /* 橙黄强调 */
+        .reveal blockquote {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 5px solid var(--r-link-color);
+            padding: 15px;
+            font-style: normal;
         }
-        .reveal .speaker-info {
-            color: var(--text-light);
-            font-size: 1.3rem;
-            margin-top: 40px;
+        .reveal table {
+            margin: auto;
+            border-collapse: collapse;
+            border-spacing: 0;
+            font-size: 0.8em;
+        }
+        .reveal table th {
+            background-color: rgba(99, 179, 237, 0.2); /* 亮蓝背景 */
+            color: #90cdf4; /* 浅蓝文本 */
+            font-weight: bold;
+            border: 1px solid #4a5568; /* 深灰边框 */
+            padding: 8px 12px;
+        }
+        .reveal table td {
+            border: 1px solid #4a5568;
+            padding: 8px 12px;
+            color: #a0aec0; /* 中灰文本 */
+        }
+        .reveal .slide-number {
+            color: var(--r-link-color);
         }
 
-        /* Footer for first/last page */
-        .slide-footer {
-            position: absolute;
+        .fixed-footer {
+            position: fixed;
             bottom: 20px;
             right: 20px;
             display: flex;
             align-items: center;
             gap: 15px;
-            font-size: 0.9em;
-            color: rgba(255, 255, 255, 0.7); /* For dark backgrounds */
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-            z-index: 10; /* Ensure it's on top */
+            background-color: rgba(0,0,0,0.4);
+            padding: 10px 15px;
+            border-radius: 8px;
+            z-index: 1000;
+            font-size: 0.8rem;
         }
-        .slide-footer.light-text {
-             color: rgba(0, 0, 0, 0.6); /* For light backgrounds */
-             text-shadow: none;
+        .fixed-footer img {
+            width: 70px;
+            height: 70px;
+            border-radius: 4px;
         }
-        .slide-footer img {
-            height: 50px; /* Adjust QR code size */
-            width: 50px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        .slide-footer a {
-            color: inherit;
+        .fixed-footer a {
+            color: var(--r-link-color);
             text-decoration: none;
-            transition: color 0.3s ease;
         }
-        .slide-footer a:hover {
-            color: var(--secondary-accent);
-        }
-
-        /* Aha Moment slide */
-        .reveal .aha-moment-slide {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            text-align: center;
-            background: linear-gradient(135deg, #a8dadc 0%, #457b9d 100%); /* Softer gradient */
-            color: #fff;
-        }
-        .reveal .aha-moment-slide h2 {
-            font-size: 3.5rem;
-            color: #fff;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
-            margin-bottom: 30px;
-        }
-        .reveal .aha-moment-slide p {
-            font-size: 1.8rem;
-            max-width: 80%;
-            line-height: 1.5;
-            color: rgba(255, 255, 255, 0.9);
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        .fixed-footer a:hover {
+            color: var(--r-link-color-hover);
         }
 
-        /* Content slides */
-        .reveal section p, .reveal section li {
-            text-align: left;
-            margin-left: auto;
-            margin-right: auto;
-            max-width: 90%; /* Constrain text width */
+        .aha-gradient-text {
+            background: -webkit-linear-gradient(45deg, #f6ad55, #ee5a5a, #63b3ed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
         }
 
-        .reveal .r-frame {
-            border: 2px solid var(--primary-light);
-            border-radius: 10px;
-            padding: 15px;
-            margin: 20px 0;
-            background-color: rgba(255,255,255,0.8);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .reveal .r-highlight {
-            color: var(--primary-light);
-            font-weight: 500;
-        }
-
-        .reveal .r-accent-bg {
-            background-color: var(--primary-light);
-            color: var(--text-light);
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-
-        /* Fragments */
-        .reveal .fragment.fade-in {
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out;
-        }
-        .reveal .fragment.fade-in.visible {
-            opacity: 1;
-        }
-
-        /* Custom list style with icons */
-        .reveal ul.icon-list li {
+        .icon-list li {
             list-style: none;
-            padding-left: 2.5rem; /* Space for icon */
+            padding-left: 2em;
             position: relative;
+            margin-bottom: 0.5em;
         }
-        .reveal ul.icon-list li i {
+        .icon-list li i {
             position: absolute;
             left: 0;
-            top: 0.2em; /* Align icon with text */
-            color: var(--primary-light);
+            top: 0.25em;
+            color: var(--r-link-color);
             font-size: 1.2em;
         }
-        .reveal ul.icon-list li.success i { color: var(--secondary-accent); }
-        .reveal ul.icon-list li.warning i { color: #f39c12; }
-        .reveal ul.icon-list li.danger i { color: #e74c3c; }
-
-
-        /* Project detail card style */
         .project-card {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            background: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.03);
             border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            margin: 20px auto;
-            max-width: 80%;
-            text-align: left;
-            position: relative; /* For the link corner */
-        }
-        .project-card h3 {
-            color: var(--primary-dark);
-            margin-top: 0;
-            margin-bottom: 10px;
-            font-size: 1.8rem;
-        }
-        .project-card .project-link {
-            font-size: 0.9em;
-            color: var(--primary-light);
-            margin-bottom: 15px;
-            display: block;
-        }
-        .project-card .project-stats {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
+            padding: 20px;
             margin-bottom: 20px;
-            font-size: 1rem;
-            color: #666;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
-        .project-card .project-stats span {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .project-card .project-stats span i {
-            color: var(--primary-light);
-        }
-        .project-card .project-desc {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: var(--text-dark);
-            max-height: 180px; /* Limit height for long descriptions */
-            overflow-y: auto;
-            border-left: 3px solid var(--secondary-accent);
-            padding-left: 15px;
-            margin-left: -15px;
-        }
-        .project-card .project-growth {
-            margin-top: 15px;
-            font-style: italic;
-            color: #777;
-            font-size: 0.95rem;
-        }
-        .project-card .language-breakdown {
-            margin-top: 15px;
-            font-size: 0.9rem;
-            color: #888;
-        }
-        .project-card .lang-bar-container {
-            width: 100%;
-            background-color: #f0f0f0;
-            border-radius: 5px;
-            overflow: hidden;
-            height: 10px;
-            margin-top: 5px;
-        }
-        .project-card .lang-bar {
-            float: left;
-            height: 100%;
-        }
-        /* Define colors for common languages */
-        .lang-c { background-color: #555555; }
-        .lang-cpp { background-color: #f34b7d; }
-        .lang-csharp { background-color: #178600; }
-        .lang-python { background-color: #3572A5; }
-        .lang-go { background-color: #00ADD8; }
-        .lang-typescript { background-color: #3178c6; }
-        .lang-javascript { background-color: #f1e05a; }
-        .lang-shell { background-color: #89e051; }
-        .lang-html { background-color: #e34c26; }
-        .lang-css { background-color: #563d7c; }
+        .project-card h3 { margin-top: 0; }
+        .lang-distro { font-size: 0.8em; color: #a0aec0; margin-top: 10px; }
 
-
-        /* Call to action slide */
-        .reveal .cta-slide {
-            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
-            color: var(--text-light);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            text-align: center;
+        /* Specific slide backgrounds */
+        .cover-slide {
+             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%232d3748;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%231a202c;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' fill='url(%23g)' /%3E%3Cg opacity='0.1'%3E%3Ccircle cx='50' cy='50' r='40' stroke='%2363b3ed' stroke-width='1' fill='none'/%3E%3Ccircle cx='50' cy='50' r='30' stroke='%23f6ad55' stroke-width='0.5' fill='none'/%3E%3Cpath d='M10 90 Q50 10 90 90' stroke='%234fd1c5' stroke-width='0.5' fill='none'/%3E%3C/g%3E%3C/svg%3E");
+             background-size: cover;
         }
-        .reveal .cta-slide h2 {
-            color: var(--text-light);
-            font-size: 3rem;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+         .data-viz-slide {
+            background-color: #2c3748; /* Slightly lighter dark blue for contrast */
         }
-        .reveal .cta-slide p {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 1.5rem;
-            max-width: 70%;
-            margin-bottom: 40px;
+        .quote-slide {
+             background: linear-gradient(135deg, #2c3748 0%, #4a5568 100%);
         }
-        .reveal .cta-slide .github-link {
-            font-size: 1.8rem;
-            color: var(--secondary-accent);
-            text-decoration: none;
-            border: 2px solid var(--secondary-accent);
-            padding: 15px 30px;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-        }
-        .reveal .cta-slide .github-link:hover {
-            background-color: var(--secondary-accent);
-            color: var(--primary-dark);
-            box-shadow: 0 0 20px var(--secondary-accent);
+        .project-section-title-slide {
+            background: linear-gradient(to right, #63b3ed20, #1a202c 80%);
         }
 
-        /* Conclusion slide */
-        .reveal .conclusion-slide {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            background-color: var(--bg-light);
-        }
-        .reveal .conclusion-slide h2 {
-            color: var(--primary-dark);
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-        .reveal .conclusion-slide .contact-info {
-            font-size: 1.5rem;
-            color: #666;
-            margin-top: 30px;
-        }
-        .reveal .conclusion-slide .social-icons i {
-            color: var(--primary-light);
-            font-size: 2em;
-            margin: 0 15px;
-            transition: color 0.3s ease;
-        }
-        .reveal .conclusion-slide .social-icons i:hover {
-            color: var(--secondary-accent);
-        }
-        
     </style>
 </head>
 <body>
     <div class="reveal">
         <div class="slides">
 
-            <!-- Slide 1: Title Slide -->
-            <section data-background-image="https://images.unsplash.com/photo-1596496191986-50d4d3d3b764?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-background-size="cover" data-background-position="center">
-                <div style="background: rgba(0,0,0,0.5); padding: 40px; border-radius: 15px;">
-                    <h1 class="slide-title">微软“杀疯了”？技术风向大变：</h1>
-                    <h2 class="slide-subtitle">不止AI，更关乎你的效率与未来</h2>
-                    <p class="speaker-info">主讲人: AIChipEra</p>
-                    <p style="color: rgba(255,255,255,0.7); font-size: 1rem; margin-top: 20px;">
-                        Github热门仓库日报观测时间：2025-05-21 20:57:34
-                    </p>
-                    <p style="color: #f39c12; font-size: 0.9rem; margin-top: 10px;">
-                        *本报告仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！
-                    </p>
-                </div>
-                <div class="slide-footer">
+            <section class="cover-slide text-center">
+                <h1 class="text-5xl font-bold aha-gradient-text">微软“杀疯了”？技术风向大变</h1>
+                <h2 class="text-3xl mt-4 !text-gray-300">不止AI，更关乎你的效率与未来</h2>
+                <p class="mt-8 text-lg !text-gray-400">Github热门仓库日报</p>
+                <p class="text-sm !text-gray-500">观测时间：2025-05-21 20:57:34</p>
+                <p class="mt-12 text-xl !text-gray-300">演讲者：AIChipEra</p>
+                <div class="fixed-footer">
                     <img src="../../asserts/wx.jpg" alt="QR Code">
-                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">Star & Follow Us!</a>
                 </div>
             </section>
 
-            <!-- Slide 2: Aha Moment Setup - The Shift -->
-            <section class="aha-moment-slide">
-                <h2>告别“概念热”，拥抱“落地潮”！</h2>
-                <p class="fragment fade-in">
-                    当下最受全球开发者追捧的，不再只是炫酷的新AI模型，
-                    <span class="r-highlight">而是如何将AI真正落地、大幅提升开发效率、</span>
-                    <br>
-                    <span class="r-highlight">以及保护日益重要的个人数据主权。</span>
-                </p>
-                <p class="fragment fade-in" style="margin-top: 30px;">
-                    微软等科技巨头正以前所未有的力度拥抱开源，推出众多关键工具。
-                </p>
+            <section class="quote-slide">
+                <h2 class="!text-yellow-400"><i class="fas fa-exclamation-triangle mr-2"></i>重要提示</h2>
+                <blockquote class="text-2xl">
+                    以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！
+                </blockquote>
             </section>
 
-            <!-- Slide 3: Today's Overall Trend - Overview -->
-            <section class="gradient-bg">
-                <h2 style="color: var(--text-light);">今日GitHub热门项目<br>技术趋势分析报告</h2>
-                <p style="color: rgba(255,255,255,0.9); margin-top: 30px;">
-                    深入洞察当前技术发展核心脉搏，揭示开发者关注焦点与解决之道。
-                </p>
-                <ul class="icon-list" style="margin-top: 50px; text-align: center; display: inline-block;">
-                    <li class="fragment fade-in success" style="margin-bottom: 15px;"><i class="fas fa-brain"></i> AI应用与基础设施</li>
-                    <li class="fragment fade-in success" style="margin-bottom: 15px;"><i class="fas fa-rocket"></i> 开发者效率与工具链</li>
-                    <li class="fragment fade-in success" style="margin-bottom: 15px;"><i class="fas fa-lock"></i> 数据主权与自托管</li>
-                    <li class="fragment fade-in success"><i class="fas fa-cogs"></i> 系统设计与性能优化</li>
-                </ul>
+            <section data-background-gradient="linear-gradient(to bottom right, #2d3748, #1a202c)">
+                <h2><i class="far fa-newspaper mr-2"></i>日报要点</h2>
+                <p class="fragment" data-fragment-index="1">技术圈的风向标正在改变！当下最受全球开发者追捧的，不再只是炫酷的新AI模型，而是如何将AI<strong class="text-yellow-400">真正落地</strong>、大幅<strong class="text-yellow-400">提升开发效率</strong>、以及保护日益重要的<strong class="text-yellow-400">个人数据主权</strong>。</p>
+                <p class="fragment" data-fragment-index="2">微软等科技巨头正以前所未有的力度拥抱开源，推出众多关键工具。从金融交易AI应用到系统级效率提升，从跨平台开发到搭建个人数据堡垒，这些热门趋势预示着未来的技术方向。</p>
+                <p class="fragment" data-fragment-index="3">想知道哪些是<strong class="text-teal-400">必学技能</strong>？下一波<strong class="text-teal-400">技术红利</strong>在哪？这份洞察报告，将带你抢先把握技术脉搏，不再迷茫！ <i class="fas fa-lightbulb text-yellow-400 ml-1"></i></p>
             </section>
 
-            <!-- Slide 4: Trend 1: AI应用与基础设施 (Deep Dive) -->
-            <section>
-                <h2><i class="fas fa-brain r-highlight"></i> AI应用与基础设施：AI落地正当时</h2>
-                <ul class="icon-list" style="margin-top: 40px;">
-                    <li class="fragment fade-in">
-                        <i class="fas fa-chart-line"></i>
-                        <span class="r-highlight">金融交易AI应用：</span>
-                        <a href="https://github.com/virattt/ai-hedge-fund" target="_blank">virattt/ai-hedge-fund</a>
-                        <br>
-                        多智能体协同，模拟投资决策，学习AI在金融分析的潜力。
-                    </li>
-                    <li class="fragment fade-in" style="margin-top: 20px;">
-                        <i class="fas fa-network-wired"></i>
-                        <span class="r-highlight">AI基础设施：</span>
-                        <a href="https://github.com/modelcontextprotocol/registry" target="_blank">modelcontextprotocol/registry</a>
-                        <br>
-                        模型上下文协议服务器注册中心，解决发现与管理难题。
-                    </li>
-                    <li class="fragment fade-in" style="margin-top: 20px;">
-                        <i class="fas fa-code-branch"></i>
-                        <span class="r-highlight">LLM集成开发框架：</span>
-                        <a href="https://github.com/microsoft/semantic-kernel" target="_blank">microsoft/semantic-kernel</a>
-                        <br>
-                        微软出品，快速集成LLM，构建AI代理及多代理系统。
-                    </li>
-                </ul>
-                <p class="fragment fade-in" style="margin-top: 40px; font-style: italic; color: #777;">
-                    AI从理论走向实际，开发者需要更便捷的工具与平台。
-                </p>
+            <section class="project-section-title-slide">
+                <h2 class="text-4xl"><i class="fas fa-chart-line mr-3"></i>热门项目趋势分析</h2>
+                 <section data-background-color="#222a38">
+                    <h3><i class="fas fa-fire mr-2"></i>今日整体趋势</h3>
+                    <p>观察今日GitHub热门项目的整体情况，可以清晰地捕捉到当前技术发展的一些核心脉搏。这些项目不仅因其自身的技术价值而获得关注，更重要的是它们反映了开发者社区当下最关心的技术领域、遇到的实际问题以及正在探索的解决方案。</p>
+                </section>
+                <section data-background-color="#222a38">
+                    <h4><i class="fas fa-microchip mr-2"></i>最受关注的技术领域和主题</h4>
+                    <ul class="icon-list">
+                        <li class="fragment"><i class="fas fa-brain"></i><strong>人工智能（AI）的应用与基础设施</strong>：从特定领域（金融交易）到基础架构（模型上下文协议、LLM集成框架Semantic Kernel）。</li>
+                        <li class="fragment"><i class="fas fa-tools"></i><strong>开发者效率与工具链完善</strong>：WSL、PowerToys、act、kilo、VSCode等，微软生态投入显著。</li>
+                        <li class="fragment"><i class="fas fa-shield-alt"></i><strong>数据主权与自托管解决方案</strong>：Memos、Puter等项目反映用户对数据隐私和自主权的重视。</li>
+                        <li class="fragment"><i class="fas fa-cogs"></i><strong>系统设计与性能优化</strong>：系统设计入门、零内存分配ZLinq库持续热门。</li>
+                    </ul>
+                </section>
+                <section data-background-color="#222a38">
+                    <h4><i class="fas fa-code mr-2"></i>主要编程语言分布和技术栈特点</h4>
+                    <p>语言分布多样但有所侧重：</p>
+                    <ul class="icon-list">
+                        <li class="fragment"><i class="fab fa-golang"></i><strong>Go:</strong> 基础设施、CLI工具、自托管服务 (registry, act, memos)。</li>
+                        <li class="fragment"><i class="fab fa-windows"></i><strong>C#:</strong> 微软项目核心 (PowerToys, Semantic Kernel, ZLinq)，.NET性能优化。</li>
+                        <li class="fragment"><i class="fab fa-js"></i><strong>JS/TS:</strong> 前端、Electron、现代后端 (puter, appwrite, vscode)。</li>
+                        <li class="fragment"><i class="fab fa-python"></i><strong>Python:</strong> AI、教育资源 (ai-hedge-fund, system-design-primer)。</li>
+                        <li class="fragment"><i class="fas fa-terminal"></i><strong>C/C++:</strong> 系统底层、OS集成、高性能 (WSL, kilo, WSL2-Linux-Kernel)。</li>
+                    </ul>
+                    <p class="fragment">技术栈呈现<strong class="text-teal-400">多语言协同</strong>，按需选择工具。 </p>
+                </section>
+                 <section data-background-color="#222a38">
+                    <h4><i class="fas fa-compass mr-2"></i>技术需求和发展方向</h4>
+                     <ul class="icon-list">
+                        <li class="fragment"><i class="fas fa-rocket"></i>AI应用的<strong class="text-yellow-400">工程化需求</strong>。</li>
+                        <li class="fragment"><i class="fas fa-desktop"></i>跨平台开发体验的<strong class="text-yellow-400">无缝化</strong> (WSL)。</li>
+                        <li class="fragment"><i class="fas fa-robot"></i><strong class="text-yellow-400">自动化与效率提升</strong> (本地CI)。</li>
+                        <li class="fragment"><i class="fas fa-database"></i>个人数据与数字资产的<strong class="text-yellow-400">自主管理</strong>。</li>
+                        <li class="fragment"><i class="fas fa-book-open"></i>对软件系统<strong class="text-yellow-400">基础能力的再强调</strong>。</li>
+                    </ul>
+                </section>
+                <section data-background-color="#222a38">
+                    <h4><i class="fas fa-history mr-2"></i>与前期比较：热门项目变化</h4>
+                    <p class="fragment">AI方向更侧重<strong class="text-teal-400">应用层和基础设施层</strong>。</p>
+                    <p class="fragment">自托管和隐私相关项目<strong class="text-teal-400">更加突出</strong>。</p>
+                    <p class="fragment">传统开发者工具和系统基础类项目<strong class="text-teal-400">依然稳固</strong>。</p>
+                    <p class="fragment">微软在开源领域的活跃度及其项目影响力是<strong class="text-teal-400">近期显著特点</strong>。</p>
+                </section>
+                 <section data-background-color="#222a38">
+                    <h4><i class="fas fa-search-dollar mr-2"></i>预测下一波技术热点 <i class="fas fa-lightbulb text-yellow-400"></i></h4>
+                     <ul class="icon-list">
+                        <li class="fragment"><i class="fas fa-map-marker-alt"></i>去中心化/本地化AI应用。</li>
+                        <li class="fragment"><i class="fas fa-magic"></i>AI原生的开发工具和环境。</li>
+                        <li class="fragment"><i class="fas fa-cloud"></i>个人云/联邦学习的基础设施。</li>
+                        <li class="fragment"><i class="fas fa-project-diagram"></i>AI代理协作与编排平台。</li>
+                    </ul>
+                </section>
+                <section data-background-color="#222a38">
+                    <h4><i class="fas
+fas fa-star-of-life mr-2"></i>今日特有的技术趋势特点</h4>
+                    <p class="fragment">体现<strong class="text-yellow-400">务实性与集成性</strong>：解决如何更好地使用、整合和优化现有技术。</p>
+                    <p class="fragment">微软在开源领域的<strong class="text-yellow-400">积极贡献</strong>及其项目在开发者生态中的核心地位。</p>
+                    <p class="fragment">对<strong class="text-yellow-400">数据主权和自托管</strong>的强调，关注数字伦理和个人控制权。</p>
+                </section>
             </section>
 
-            <!-- Slide 5: Trend 2: 开发者效率与工具链 (Deep Dive) -->
-            <section>
-                <h2><i class="fas fa-rocket r-highlight"></i> 开发者效率与工具链：微软开源大爆发</h2>
-                <ul class="icon-list" style="margin-top: 40px;">
-                    <li class="fragment fade-in">
-                        <i class="fab fa-windows"></i>
-                        <span class="r-highlight">Windows上的Linux：</span>
-                        <a href="https://github.com/microsoft/WSL" target="_blank">microsoft/WSL</a> &
-                        <a href="https://github.com/microsoft/WSL2-Linux-Kernel" target="_blank">WSL2-Linux-Kernel</a>
-                        <br>
-                        原生运行Linux环境，无缝开发体验，效率倍增。
-                    </li>
-                    <li class="fragment fade-in" style="margin-top: 20px;">
-                        <i class="fas fa-toolbox"></i>
-                        <span class="r-highlight">Windows效率神器：</span>
-                        <a href="https://github.com/microsoft/PowerToys" target="_blank">microsoft/PowerToys</a>
-                        <br>
-                        微软开源实用工具集，大幅提高Windows操作效率。
-                    </li>
-                    <li class="fragment fade-in" style="margin-top: 20px;">
-                        <i class="fab fa-github"></i>
-                        <span class="r-highlight">本地运行GitHub Actions：</span>
-                        <a href="https://github.com/nektos/act" target="_blank">nektos/act</a>
-                        <br>
-                        加速CI/CD调试，无需云端等待。
-                    </li>
-                    <li class="fragment fade-in" style="margin-top: 20px;">
-                        <i class="fas fa-edit"></i>
-                        <span class="r-highlight">极致精简编辑器：</span>
-                        <a href="https://github.com/antirez/kilo" target="_blank">antirez/kilo</a> &
-                        <a href="https://github.com/microsoft/vscode" target="_blank">microsoft/vscode</a>
-                        <br>
-                        从极简到全能，效率工具永不过时。
-                    </li>
-                </ul>
+            <section class="data-viz-slide">
+                <h2><i class="fas fa-exchange-alt mr-2"></i>热门项目双日维度对比</h2>
+                <p class="fragment">今日GitHub热门榜单呈现<strong class="text-green-400">积极态势</strong>。新晋项目数量可观（10个），无明显滑落项目。</p>
+                <p class="fragment"><strong class="text-blue-400">微软系项目</strong>占据主导地位（5个），覆盖开发工具、OS组件及AI领域。</p>
+                <p class="fragment">编程语言：<strong class="text-purple-400">C# (+3)</strong> 和 <strong class="text-blue-300">Go (+2)</strong> 表现突出。TS, JS, Jupyter Notebook项目数减少。</p>
+                <p class="fragment"><strong class="text-red-400">'ai-hedge-fund'</strong> 星标增长显著。微软大量项目涌入榜单是当日一大亮点。</p>
             </section>
 
-            <!-- Slide 6: Trend 3: 数据主权与自托管 (Deep Dive) -->
-            <section>
-                <h2><i class="fas fa-lock r-highlight"></i> 数据主权与自托管：掌控你的数字资产</h2>
-                <ul class="icon-list" style="margin-top: 40px;">
-                    <li class="fragment fade-in">
-                        <i class="fas fa-sticky-note"></i>
-                        <span class="r-highlight">轻量级笔记解决方案：</span>
-                        <a href="https://github.com/usememos/memos" target="_blank">usememos/memos</a>
-                        <br>
-                        开源、轻量，你的笔记，随心掌控，注重隐私。
-                    </li>
-                    <li class="fragment fade-in" style="margin-top: 20px;">
-                        <i class="fas fa-cloud"></i>
-                        <span class="r-highlight">互联网操作系统：</span>
-                        <a href="https://github.com/HeyPuter/puter" target="_blank">HeyPuter/puter</a>
-                        <br>
-                        免费、开源、可自托管的个人云电脑，数据完全自主。
-                    </li>
-                    <li class="fragment fade-in" style="margin-top: 20px;">
-                        <i class="fas fa-server"></i>
-                        <span class="r-highlight">开源后端平台：</span>
-                        <a href="https://github.com/appwrite/appwrite" target="_blank">appwrite/appwrite</a>
-                        <br>
-                        Vercel的开源替代品，构建完整后端API，数据可控。
-                    </li>
-                </ul>
-                <p class="fragment fade-in" style="margin-top: 40px; font-style: italic; color: #777;">
-                    用户对个人数据隐私和自主权的日益重视，促使自托管方案崛起。
-                </p>
-            </section>
-
-            <!-- Slide 7: Trend 4: 系统设计与性能优化 (Deep Dive) -->
-            <section>
-                <h2><i class="fas fa-cogs r-highlight"></i> 系统设计与性能优化：技术功底的核心</h2>
-                <ul class="icon-list" style="margin-top: 40px;">
-                    <li class="fragment fade-in">
-                        <i class="fas fa-sitemap"></i>
-                        <span class="r-highlight">大规模系统设计指南：</span>
-                        <a href="https://github.com/donnemartin/system-design-primer" target="_blank">donnemartin/system-design-primer</a>
-                        <br>
-                        学习如何设计大规模系统，准备系统设计面试的必备资源。
-                    </li>
-                    <li class="fragment fade-in" style="margin-top: 20px;">
-                        <i class="fas fa-tachometer-alt"></i>
-                        <span class="r-highlight">零分配LINQ库：</span>
-                        <a href="https://github.com/Cysharp/ZLinq" target="_blank">Cysharp/ZLinq</a>
-                        <br>
-                        高性能.NET LINQ，针对内存分配敏感场景，极致优化。
-                    </li>
-                </ul>
-                <p class="fragment fade-in" style="margin-top: 40px; font-style: italic; color: #777;">
-                    构建高性能、可伸缩系统是永恒的追求。
-                </p>
-            </section>
-
-            <!-- Slide 8: Key Programming Languages & Tech Stack -->
-            <section class="gradient-bg">
-                <h2 style="color: var(--text-light);">主流编程语言与技术栈</h2>
-                <p style="color: rgba(255,255,255,0.9); max-width: 80%; margin: 30px auto;">
-                    今日热门榜单呈现多样性与侧重，技术栈协同，根据项目需求选择最合适工具。
-                </p>
-                <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; margin-top: 50px;">
-                    <div class="fragment fade-in" style="text-align: center;">
-                        <i class="fab fa-golang fa-4x" style="color: #00ADD8;"></i>
-                        <h3 style="color: var(--text-light); margin-top: 15px;">Go</h3>
-                        <p style="color: rgba(255,255,255,0.8); font-size: 1rem;">基础设施、CLI工具、自托管</p>
-                    </div>
-                    <div class="fragment fade-in" style="text-align: center;">
-                        <i class="fab fa-microsoft fa-4x" style="color: #178600;"></i>
-                        <h3 style="color: var(--text-light); margin-top: 15px;">C#</h3>
-                        <p style="color: rgba(255,255,255,0.8); font-size: 1rem;">微软项目、性能优化</p>
-                    </div>
-                    <div class="fragment fade-in" style="text-align: center;">
-                        <i class="fab fa-js-square fa-4x" style="color: #f1e05a;"></i>
-                        <h3 style="color: var(--text-light); margin-top: 15px;">JS / TS</h3>
-                        <p style="color: rgba(255,255,255,0.8); font-size: 1rem;">前端、Electron、现代后端</p>
-                    </div>
-                    <div class="fragment fade-in" style="text-align: center;">
-                        <i class="fab fa-python fa-4x" style="color: #3572A5;"></i>
-                        <h3 style="color: var(--text-light); margin-top: 15px;">Python</h3>
-                        <p style="color: rgba(255,255,255,0.8); font-size: 1rem;">AI、教育资源</p>
-                    </div>
-                    <div class="fragment fade-in" style="text-align: center;">
-                        <i class="fas fa-c fa-4x" style="color: #555555;"></i>
-                        <h3 style="color: var(--text-light); margin-top: 15px;">C/C++</h3>
-                        <p style="color: rgba(255,255,255,0.8); font-size: 1rem;">系统底层、性能极致</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Slide 9: Hotspot Changes - What's New? -->
-            <section>
-                <h2><i class="fas fa-fire r-highlight"></i> 热点变化：洞察技术风向</h2>
-                <div style="display: flex; justify-content: space-around; width: 100%; margin-top: 40px;">
-                    <div class="fragment fade-in" style="width: 30%;">
-                        <h3 style="color: var(--secondary-accent);"><i class="fas fa-plus-circle"></i> 新增热点</h3>
-                        <ul class="icon-list" style="font-size: 0.95rem;">
-                            <li><i class="fas fa-dot-circle"></i> Microsoft/WSL, PowerToys, Semantic Kernel, WSL2-Linux-Kernel, VSCode</li>
-                            <li><i class="fas fa-dot-circle"></i> modelcontextprotocol/registry</li>
-                            <li><i class="fas fa-dot-circle"></i> nektos/act</li>
-                            <li><i class="fas fa-dot-circle"></i> antirez/kilo</li>
-                            <li><i class="fas fa-dot-circle"></i> Cysharp/ZLinq</li>
-                            <li><i class="fas fa-dot-circle"></i> donnemartin/system-design-primer</li>
+            <section data-background-gradient="linear-gradient(to bottom, #2d3748, #1e2633)">
+                <h2><i class="fas fa-fire-alt mr-2"></i>热点变化追踪</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="fragment project-card bg-green-700 bg-opacity-20 border-l-4 border-green-500">
+                        <h4 class="!text-green-400"><i class="fas fa-plus-circle mr-1"></i>新增热点</h4>
+                        <ul class="text-xs">
+                            <li>modelcontextprotocol/registry</li>
+                            <li>microsoft/powertoys</li>
+                            <li>microsoft/semantic-kernel</li>
+                            <li>microsoft/wsl2-linux-kernel</li>
+                            <li>microsoft/wsl</li>
+                            <li>nektos/act</li>
+                            <li>microsoft/vscode</li>
+                            <li>antirez/kilo</li>
+                            <li>cysharp/zlinq</li>
+                            <li>donnemartin/system-design-primer</li>
                         </ul>
                     </div>
-                    <div class="fragment fade-in" style="width: 30%;">
-                        <h3 style="color: #e74c3c;"><i class="fas fa-minus-circle"></i> 减退热点</h3>
-                        <ul class="icon-list" style="font-size: 0.95rem;">
-                            <li><i class="fas fa-dot-circle"></i> ed-donner/llm_engineering</li>
-                            <li><i class="fas fa-dot-circle"></i> langgenius/dify</li>
-                            <li><i class="fas fa-dot-circle"></i> public-apis/public-apis</li>
-                            <li><i class="fas fa-dot-circle"></i> f/awesome-chatgpt-prompts</li>
-                            <li><i class="fas fa-dot-circle"></i> 等AI模型/应用库</li>
+                    <div class="fragment project-card bg-red-700 bg-opacity-20 border-l-4 border-red-500">
+                        <h4 class="!text-red-400"><i class="fas fa-minus-circle mr-1"></i>减退热点</h4>
+                        <ul class="text-xs">
+                            <li>ed-donner/llm_engineering</li>
+                            <li>langgenius/dify</li>
+                            <li>dataexpert-io/data-engineer-handbook</li>
+                            <li>public-apis/public-apis</li>
+                            <li>f/awesome-chatgpt-prompts</li>
+                            <li>kmeps4/psfree</li>
+                            <li>ventoy/ventoy</li>
+                            <li>colinhacks/zod</li>
+                            <li>kortix-ai/suna</li>
                         </ul>
                     </div>
-                    <div class="fragment fade-in" style="width: 30%;">
-                        <h3 style="color: #f39c12;"><i class="fas fa-sync-alt"></i> 持续热门</h3>
-                        <ul class="icon-list" style="font-size: 0.95rem;">
-                            <li><i class="fas fa-dot-circle"></i> <a href="https://github.com/virattt/ai-hedge-fund" target="_blank">virattt/ai-hedge-fund</a> (6次上榜，增长迅猛)</li>
-                            <li><i class="fas fa-dot-circle"></i> <a href="https://github.com/usememos/memos" target="_blank">usememos/memos</a> (2次)</li>
-                            <li><i class="fas fa-dot-circle"></i> <a href="https://github.com/HeyPuter/puter" target="_blank">HeyPuter/puter</a> (2次)</li>
-                            <li><i class="fas fa-dot-circle"></i> <a href="https://github.com/appwrite/appwrite" target="_blank">appwrite/appwrite</a> (2次)</li>
+                    <div class="fragment project-card bg-yellow-600 bg-opacity-20 border-l-4 border-yellow-500">
+                        <h4 class="!text-yellow-400"><i class="fas fa-sync-alt mr-1"></i>持续热门</h4>
+                        <ul class="text-xs">
+                            <li>virattt/ai-hedge-fund (6次)</li>
                         </ul>
                     </div>
                 </div>
-                <p class="fragment fade-in" style="margin-top: 40px; font-style: italic; color: #777;">
-                    微软开源项目影响力显著，AI焦点转向应用工程化与隐私。
-                </p>
             </section>
 
-            <!-- Slide 10: Future Tech Hotspots - Prediction -->
-            <section class="gradient-bg">
-                <h2 style="color: var(--text-light);">下一波技术热点预测</h2>
-                <ul class="icon-list" style="margin-top: 50px; text-align: center; display: inline-block; color: rgba(255,255,255,0.9);">
-                    <li class="fragment fade-in" style="margin-bottom: 20px;"><i class="fas fa-microchip"></i> <span class="r-highlight">去中心化/本地化AI应用：</span>结合隐私需求，边缘AI将更普及。</li>
-                    <li class="fragment fade-in" style="margin-bottom: 20px;"><i class="fas fa-magic"></i> <span class="r-highlight">AI原生的开发工具与环境：</span>深度集成AI能力的IDE、CI/CD。</li>
-                    <li class="fragment fade-in" style="margin-bottom: 20px;"><i class="fas fa-users-cog"></i> <span class="r-highlight">个人云/联邦学习基础设施：</span>易用、安全、互操作的个人数据管理。</li>
-                    <li class="fragment fade-in" style="margin-bottom: 20px;"><i class="fas fa-comments"></i> <span class="r-highlight">AI代理协作与编排平台：</span>管理、协调和监控多智能体系统。</li>
-                </ul>
+            <section class="project-section-title-slide">
+                 <h2 class="text-4xl"><i class="fas fa-database mr-3"></i>详细仓库数据</h2>
             </section>
 
-            <!-- Vertical Section for Detailed Projects -->
+            <!-- Project Slides -->
             <section>
-                <section>
-                    <h2>详细仓库数据：精选项目</h2>
-                    <p style="margin-top: 30px;">
-                        我们将深入探讨几个代表性的热门项目，
-                        <br>
-                        了解它们的核心价值与增长潜力。
-                    </p>
-                    <p class="fragment fade-in" style="margin-top: 50px; font-size: 1.5rem; color: var(--primary-light);">
-                        <i class="fas fa-arrow-down"></i> 下滑查看具体项目
-                    </p>
-                </section>
-
-                <!-- Project 1: microsoft/WSL -->
-                <section>
-                    <div class="project-card">
-                        <h3>microsoft/WSL</h3>
-                        <a href="https://github.com/microsoft/WSL" target="_blank" class="project-link">
-                            <i class="fab fa-github"></i> github.com/microsoft/WSL
-                        </a>
-                        <p class="project-desc">
-                            Windows Subsystem for Linux (WSL) 是微软开发的核心技术，旨在让用户直接在 Windows 操作系统上原生运行 Linux 命令行工具、实用程序和应用程序。它解决了开发者在 Windows 环境下利用 Linux 生态系统时面临的挑战，无需传统虚拟机或双系统的繁琐与资源消耗。WSL 的核心价值在于其高效性能和与 Windows 的深度集成，提供了无缝的开发体验，使得在 Windows 平台进行 Linux 开发和测试变得前所未有的便捷和强大，极大地提升了开发效率和灵活性。
-                        </p>
-                        <div class="project-stats">
-                            <span><i class="fas fa-star"></i> 23997 Stars</span>
-                            <span><i class="fas fa-code"></i> C++</span>
-                            <span><i class="fas fa-arrow-up"></i> 4368 Daily Growth</span>
-                            <span><i class="fas fa-calendar-alt"></i> 1st Time Hot</span>
-                        </div>
-                        <div class="project-growth">
-                            <p><strong>Aha Moment:</strong> 微软深度拥抱Linux生态，彻底改变Windows开发体验！</p>
-                        </div>
-                        <div class="language-breakdown">
-                            <p>语言占比: C++ 58.2%, C 37.3%, C# 1.9%...</p>
-                            <div class="lang-bar-container">
-                                <div class="lang-bar lang-cpp" style="width: 58.2%;"></div>
-                                <div class="lang-bar lang-c" style="width: 37.3%;"></div>
-                                <div class="lang-bar lang-csharp" style="width: 1.9%;"></div>
-                            </div>
-                        </div>
+                <div class="project-card">
+                    <h3><a href="https://github.com/microsoft/WSL" target="_blank" class="!text-blue-400 hover:!text-blue-300"><i class="fab fa-windows mr-2"></i>microsoft/WSL</a></h3>
+                    <p class="text-sm italic !text-gray-400">适用于 Linux 的 Windows 子系统</p>
+                    <div class="grid grid-cols-2 gap-2 text-sm mt-2">
+                        <div><i class="fas fa-star text-yellow-400"></i> Stars: 23997</div>
+                        <div><i class="fas fa-code-branch text-green-400"></i> Forks: 1.1k</div>
+                        <div><i class="fas fa-history text-purple-400"></i> 连续在榜: 1次</div>
+                        <div><i class="fas fa-chart-bar text-red-400"></i> 总上榜: 1次</div>
+                        <div><i class="fas fa-arrow-up text-green-400"></i> 当日增加: 4368</div>
+                        <div><i class="fas fa-code text-blue-400"></i> Language: C++</div>
                     </div>
-                </section>
-
-                <!-- Project 2: virattt/ai-hedge-fund -->
-                <section>
-                    <div class="project-card">
-                        <h3>virattt/ai-hedge-fund</h3>
-                        <a href="https://github.com/virattt/ai-hedge-fund" target="_blank" class="project-link">
-                            <i class="fab fa-github"></i> github.com/virattt/ai-hedge-fund
-                        </a>
-                        <p class="project-desc">
-                            这个项目名为“AI对冲基金”，旨在探索如何利用人工智能进行交易决策。它最核心的特点是采用多智能体协同工作架构，模拟了一个由16个不同职责的“专家”组成的“AI团队”，其中包括模仿投资大师理念的智能体，以及专注于估值、情绪、技术分析等的智能体。作为一个强大的教育和研究工具，它能够模拟交易流程并进行回测，帮助用户理解将大语言模型应用于金融分析和决策的可能性。
-                        </p>
-                        <div class="project-stats">
-                            <span><i class="fas fa-star"></i> 31800 Stars</span>
-                            <span><i class="fas fa-code"></i> Python</span>
-                            <span><i class="fas fa-arrow-up"></i> 1219 Daily Growth</span>
-                            <span><i class="fas fa-fire"></i> 6 Times Hot</span>
-                        </div>
-                        <div class="project-growth">
-                            <p><strong>Aha Moment:</strong> AI不再是孤立模型，多智能体协同才是复杂决策的未来！</p>
-                        </div>
-                        <div class="language-breakdown">
-                            <p>语言占比: Python 71.9%, TypeScript 23.3%, Batchfile 1.8%...</p>
-                            <div class="lang-bar-container">
-                                <div class="lang-bar lang-python" style="width: 71.9%;"></div>
-                                <div class="lang-bar lang-typescript" style="width: 23.3%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Project 3: usememos/memos -->
-                <section>
-                    <div class="project-card">
-                        <h3>usememos/memos</h3>
-                        <a href="https://github.com/usememos/memos" target="_blank" class="project-link">
-                            <i class="fab fa-github"></i> github.com/usememos/memos
-                        </a>
-                        <p class="project-desc">
-                            Memos 是一个开源的、轻量级的笔记记录解决方案，旨在为用户提供一个私密、易于使用的平台，用于随时随地记录想法、备忘和灵感。项目核心理念是数据主权完全掌握在用户手中，解决了许多人对使用第三方云服务记录个人笔记时产生的隐私担忧。通过自托管，所有笔记数据都安全地存储在用户自己的服务器上。
-                        </p>
-                        <div class="project-stats">
-                            <span><i class="fas fa-star"></i> 40389 Stars</span>
-                            <span><i class="fas fa-code"></i> Go</span>
-                            <span><i class="fas fa-arrow-up"></i> 504 Daily Growth</span>
-                            <span><i class="fas fa-fire"></i> 2 Times Hot</span>
-                        </div>
-                        <div class="project-growth">
-                            <p><strong>Aha Moment:</strong> 你的数据你做主！自托管正成为个人数字资产管理新趋势！</p>
-                        </div>
-                        <div class="language-breakdown">
-                            <p>语言占比: Go 54.1%, TypeScript 45.2%...</p>
-                            <div class="lang-bar-container">
-                                <div class="lang-bar lang-go" style="width: 54.1%;"></div>
-                                <div class="lang-bar lang-typescript" style="width: 45.2%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Project 4: HeyPuter/puter -->
-                <section>
-                    <div class="project-card">
-                        <h3>HeyPuter/puter</h3>
-                        <a href="https://github.com/HeyPuter/puter" target="_blank" class="project-link">
-                            <i class="fab fa-github"></i> github.com/HeyPuter/puter
-                        </a>
-                        <p class="project-desc">
-                            Puter 是一个创新的开源项目，旨在构建你的专属“互联网操作系统”（Internet OS）。它本质上是一个可自托管的个人云电脑，让你能把所有文件、应用乃至游戏都集中存储在私密空间，并通过网页随时随地安全访问，为传统云存储提供了一个强调隐私和控制权的替代方案。
-                        </p>
-                        <div class="project-stats">
-                            <span><i class="fas fa-star"></i> 31561 Stars</span>
-                            <span><i class="fas fa-code"></i> JavaScript</span>
-                            <span><i class="fas fa-arrow-up"></i> 479 Daily Growth</span>
-                            <span><i class="fas fa-fire"></i> 2 Times Hot</span>
-                        </div>
-                        <div class="project-growth">
-                            <p><strong>Aha Moment:</strong> 个人云电脑？你的专属数字世界，尽在掌握！</p>
-                        </div>
-                        <div class="language-breakdown">
-                            <p>语言占比: JavaScript 96.1%, CSS 2.4%...</p>
-                            <div class="lang-bar-container">
-                                <div class="lang-bar lang-javascript" style="width: 96.1%;"></div>
-                                <div class="lang-bar lang-css" style="width: 2.4%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                
-                <!-- Project 5: nektos/act -->
-                <section>
-                    <div class="project-card">
-                        <h3>nektos/act</h3>
-                        <a href="https://github.com/nektos/act" target="_blank" class="project-link">
-                            <i class="fab fa-github"></i> github.com/nektos/act
-                        </a>
-                        <p class="project-desc">
-                            act 是一个开源工具，让你能在本地直接运行和测试 GitHub Actions 工作流。它彻底解决了在云端频繁提交代码来测试调试 Action 效率低下的痛点。act 巧妙地利用 Docker 技术，在本地精确模拟 GitHub 官方的运行环境，包括环境变量和文件系统，高度还原真实执行场景。这使得开发者无需等待 CI/CD 管道运行，就能在自己的机器上快速迭代和获得即时反馈，极大地提升了工作流的开发和验证效率。
-                        </p>
-                        <div class="project-stats">
-                            <span><i class="fas fa-star"></i> 62490 Stars</span>
-                            <span><i class="fas fa-code"></i> Go</span>
-                            <span><i class="fas fa-arrow-up"></i> 708 Daily Growth</span>
-                            <span><i class="fas fa-calendar-alt"></i> 1st Time Hot</span>
-                        </div>
-                        <div class="project-growth">
-                            <p><strong>Aha Moment:</strong> CI/CD不再是黑盒！本地调试让你的开发流程快人一步！</p>
-                        </div>
-                        <div class="language-breakdown">
-                            <p>语言占比: Go 81.2%, JavaScript 17.5%, Shell 1.1%...</p>
-                            <div class="lang-bar-container">
-                                <div class="lang-bar lang-go" style="width: 81.2%;"></div>
-                                <div class="lang-bar lang-javascript" style="width: 17.5%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </section>
-
-            <!-- Slide 16: Concluding Thoughts / Call to Action -->
-            <section class="cta-slide">
-                <h2>抢先把握技术脉搏，不再迷茫！</h2>
-                <p>
-                    技术风向已变，效率、AI落地与数据主权是未来核心。
-                    <br>
-                    掌握这些趋势，你将走在技术前沿，抓住下一波红利！
-                </p>
-                <a href="https://github.com/aichipera/github-trend" target="_blank" class="github-link">
-                    <i class="fab fa-github"></i> 关注项目，获取更多技术洞察！
-                </a>
-                <p style="font-size: 1rem; margin-top: 30px; color: rgba(255,255,255,0.7);">
-                    请为我们的Github项目点个Star ⭐ 吧！
-                </p>
-            </section>
-
-            <!-- Slide 17: Thank You / Q&A -->
-            <section class="conclusion-slide">
-                <h2>感谢您的聆听！</h2>
-                <p class="contact-info">
-                    任何问题或合作，请随时联系我们。
-                </p>
-                <div class="social-icons" style="margin-top: 40px;">
-                    <a href="https://github.com/aichipera" target="_blank" title="AIChipEra Github"><i class="fab fa-github"></i></a>
-                    <a href="#" title="联系我们"><i class="fas fa-envelope"></i></a> <!-- Placeholder for email -->
-                    <a href="#" title="更多信息"><i class="fas fa-globe"></i></a> <!-- Placeholder for website -->
+                    <details class="mt-2">
+                        <summary class="text-xs cursor-pointer !text-gray-500">项目速读 & 语言分布</summary>
+                        <p class="text-xs !text-gray-400 mt-1">WSL让用户在Windows上原生运行Linux命令行工具。核心价值在于高效性能和与Windows的深度集成，提供无缝开发体验，提升开发效率和灵活性。</p>
+                        <p class="lang-distro">C++ 58.2%, C 37.3%, C# 1.9%, CMake 1.0%, Python 0.7%, PowerShell 0.7%</p>
+                    </details>
                 </div>
-                <p style="margin-top: 50px; font-size: 1.2rem; color: #555;">
-                    AIChipEra Insights - 与您共同探索未来！
+            </section>
+
+            <section>
+                <div class="project-card">
+                    <h3><a href="https://github.com/virattt/ai-hedge-fund" target="_blank" class="!text-blue-400 hover:!text-blue-300"><i class="fas fa-brain mr-2"></i>virattt/ai-hedge-fund</a> <span class="text-sm text-red-400">(持续热门 <i class="fas fa-fire"></i>)</span></h3>
+                    <p class="text-sm italic !text-gray-400">人工智能对冲基金团队</p>
+                     <div class="grid grid-cols-2 gap-2 text-sm mt-2">
+                        <div><i class="fas fa-star text-yellow-400"></i> Stars: 31800</div>
+                        <div><i class="fas fa-code-branch text-green-400"></i> Forks: 5.4k</div>
+                        <div><i class="fas fa-history text-purple-400"></i> 连续在榜: 6次</div>
+                        <div><i class="fas fa-chart-bar text-red-400"></i> 总上榜: 14次</div>
+                        <div><i class="fas fa-arrow-up text-green-400"></i> 当日增加: 1219</div>
+                        <div><i class="fas fa-code text-blue-400"></i> Language: Python</div>
+                    </div>
+                     <details class="mt-2">
+                        <summary class="text-xs cursor-pointer !text-gray-500">项目速读 & 增长分析 & 语言分布</summary>
+                        <p class="text-xs !text-gray-400 mt-1">探索AI交易决策，采用多智能体协同（16个“专家”）。作为教育和研究工具，模拟交易并回测，展示LLM在金融分析潜力。核心价值是提供实验平台。</p>
+                        <p class="text-xs !text-gray-400 mt-1"><strong>增长分析：</strong>总增星16050，14次上榜是核心增长点。平均每次上榜增688.4星，今日增1219，增长势头良好且依赖曝光。</p>
+                        <p class="lang-distro">Python 71.9%, TypeScript 23.3%, Batchfile 1.8%, Shell 1.7%, CSS 1.0%</p>
+                    </details>
+                </div>
+            </section>
+
+            <section>
+                <div class="project-card">
+                    <h3><a href="https://github.com/modelcontextprotocol/registry" target="_blank" class="!text-blue-400 hover:!text-blue-300"><i class="fas fa-cogs mr-2"></i>modelcontextprotocol/registry</a></h3>
+                    <p class="text-sm italic !text-gray-400">模型上下文协议 (MCP) 服务器的社区驱动注册服务。</p>
+                     <div class="grid grid-cols-2 gap-2 text-sm mt-2">
+                        <div><i class="fas fa-star text-yellow-400"></i> Stars: 342</div>
+                        <div><i class="fas fa-code-branch text-green-400"></i> Forks: 31</div>
+                        <div><i class="fas fa-history text-purple-400"></i> 连续在榜: 1次</div>
+                        <div><i class="fas fa-chart-bar text-red-400"></i> 总上榜: 1次</div>
+                        <div><i class="fas fa-arrow-up text-green-400"></i> 当日增加: 39</div>
+                        <div><i class="fas fa-code text-blue-400"></i> Language: Go</div>
+                    </div>
+                     <details class="mt-2">
+                        <summary class="text-xs cursor-pointer !text-gray-500">项目速读 & 语言分布</summary>
+                        <p class="text-xs !text-gray-400 mt-1">为MCP服务器打造的社区驱动注册中心。解决MCP生态中服务器发现和管理问题，提供中心化“名录”。Go语言实现，RESTful API，支持MongoDB或内存后端。促进MCP应用互联互通的关键基础设施。</p>
+                        <p class="lang-distro">Go 84.3%, Shell 15.3%, Dockerfile 0.4%</p>
+                    </details>
+                </div>
+            </section>
+
+            <section>
+                 <div class="project-card">
+                    <h3><a href="https://github.com/donnemartin/system-design-primer" target="_blank" class="!text-blue-400 hover:!text-blue-300"><i class="fas fa-book-open mr-2"></i>donnemartin/system-design-primer</a></h3>
+                    <p class="text-sm italic !text-gray-400">学习如何设计大规模系统。准备系统设计面试。包含Anki闪卡。</p>
+                    <div class="grid grid-cols-2 gap-2 text-sm mt-2">
+                        <div><i class="fas fa-star text-yellow-400"></i> Stars: 300139</div>
+                        <div><i class="fas fa-code-branch text-green-400"></i> Forks: 49.8k</div>
+                        <div><i class="fas fa-history text-purple-400"></i> 连续在榜: 1次</div>
+                        <div><i class="fas fa-chart-bar text-red-400"></i> 总上榜: 7次</div>
+                        <div><i class="fas fa-arrow-up text-green-400"></i> 当日增加: 254</div>
+                        <div><i class="fas fa-code text-blue-400"></i> Language: Python</div>
+                    </div>
+                    <details class="mt-2">
+                        <summary class="text-xs cursor-pointer !text-gray-500">项目速读 & 增长分析 & 语言分布</summary>
+                        <p class="text-xs !text-gray-400 mt-1">综合性学习资源，讲解大规模系统设计，辅助技术面试。内容全面实用，含CAP定理、数据库选型、缓存策略等，并提供Anki抽认卡。解决学习资料分散问题，是工程师提升系统设计水平的首选资源库。</p>
+                        <p class="text-xs !text-gray-400 mt-1"><strong>增长分析：</strong>约两个月内增7555星。7次上榜体现持续曝光，驱动增长。当前日新增高于历史均值，增长势头强劲。</p>
+                        <p class="lang-distro">Python 98.0%, Shell 2.0%</p>
+                    </details>
+                </div>
+            </section>
+
+            <section>
+                <div class="project-card">
+                    <h3><a href="https://github.com/microsoft/PowerToys" target="_blank" class="!text-blue-400 hover:!text-blue-300"><i class="fas fa-toolbox mr-2"></i>microsoft/PowerToys</a></h3>
+                    <p class="text-sm italic !text-gray-400">提升效率的 Windows 系统工具</p>
+                    <div class="grid grid-cols-2 gap-2 text-sm mt-2">
+                        <div><i class="fas fa-star text-yellow-400"></i> Stars: 118956</div>
+                        <div><i class="fas fa-code-branch text-green-400"></i> Forks: 7k</div>
+                        <div><i class="fas fa-history text-purple-400"></i> 连续在榜: 1次</div>
+                        <div><i class="fas fa-chart-bar text-red-400"></i> 总上榜: 3次</div>
+                        <div><i class="fas fa-arrow-up text-green-400"></i> 当日增加: 95</div>
+                        <div><i class="fas fa-code text-blue-400"></i> Language: C#</div>
+                    </div>
+                    <details class="mt-2">
+                        <summary class="text-xs cursor-pointer !text-gray-500">项目速读 & 增长分析 & 语言分布</summary>
+                        <p class="text-xs !text-gray-400 mt-1">微软为Windows高级用户打造的开源实用工具集，提高使用效率。集成多种功能模块（窗口布局、批量改名、快速搜索启动）。为追求效率和定制的Windows用户提供便利。</p>
+                        <p class="text-xs !text-gray-400 mt-1"><strong>增长分析：</strong>15天内增长901星，增速强劲。3次上榜是关键驱动，今日新增95星，增长势头良好。</p>
+                        <p class="lang-distro">C# 63.9%, C++ 33.7%, C 1.1%, PowerShell 1.0%</p>
+                    </details>
+                </div>
+            </section>
+
+             <section>
+                <div class="project-card">
+                    <h3><a href="https://github.com/antirez/kilo" target="_blank" class="!text-blue-400 hover:!text-blue-300"><i class="fas fa-keyboard mr-2"></i>antirez/kilo</a></h3>
+                    <p class="text-sm italic !text-gray-400">不足 1000 行代码的文本编辑器，支持语法高亮和搜索功能。</p>
+                    <div class="grid grid-cols-2 gap-2 text-sm mt-2">
+                        <div><i class="fas fa-star text-yellow-400"></i> Stars: 8025</div>
+                        <div><i class="fas fa-code-branch text-green-400"></i> Forks: 871</div>
+                        <div><i class="fas fa-history text-purple-400"></i> 连续在榜: 1次</div>
+                        <div><i class="fas fa-chart-bar text-red-400"></i> 总上榜: 1次</div>
+                        <div><i class="fas fa-arrow-up text-green-400"></i> 当日增加: 90</div>
+                        <div><i class="fas fa-code text-blue-400"></i> Language: C</div>
+                    </div>
+                     <details class="mt-2">
+                        <summary class="text-xs cursor-pointer !text-gray-500">项目速读 & 语言分布</summary>
+                        <p class="text-xs !text-gray-400 mt-1">C语言编写的极致精简终端文本编辑器（<1000行），不依赖外部库。核心价值在于简洁设计和实现，是学习从零构建终端应用的绝佳范例，一本终端编程实践教科书。</p>
+                        <p class="lang-distro">C 99.8%, Makefile 0.2%</p>
+                    </details>
+                </div>
+            </section>
+
+            <section>
+                 <div class="project-card">
+                    <h3><a href="https://github.com/microsoft/semantic-kernel" target="_blank" class="!text-blue-400 hover:!text-blue-300"><i class="fas fa-share-alt-square mr-2"></i>microsoft/semantic-kernel</a></h3>
+                    <p class="text-sm italic !text-gray-400">将尖端 LLM 技术快速轻松地集成到您的应用中</p>
+                    <div class="grid grid-cols-2 gap-2 text-sm mt-2">
+                        <div><i class="fas fa-star text-yellow-400"></i> Stars: 24571</div>
+                        <div><i class="fas fa-code-branch text-green-400"></i> Forks: 3.8k</div>
+                        <div><i class="fas fa-history text-purple-400"></i> 连续在榜: 1次</div>
+                        <div><i class="fas fa-chart-bar text-red-400"></i> 总上榜: 1次</div>
+                        <div><i class="fas fa-arrow-up text-green-400"></i> 当日增加: 33</div>
+                        <div><i class="fas fa-code text-blue-400"></i> Language: C#</div>
+                    </div>
+                     <details class="mt-2">
+                        <summary class="text-xs cursor-pointer !text-gray-500">项目速读 & 语言分布</summary>
+                        <p class="text-xs !text-gray-400 mt-1">微软开发的模型无关开源SDK和编排框架，赋能开发者快速集成LLM，构建AI代理及多代理系统。广泛模型兼容性（OpenAI, Azure OpenAI），模块化代理构建，强大插件生态，记忆和规划能力。</p>
+                        <p class="lang-distro">C# 66.8%, Python 31.3%, Jupyter Notebook 1.5%</p>
+                    </details>
+                </div>
+            </section>
+
+            <section>
+                <div class="project-card">
+                    <h3><a href="https://github.com/Cysharp/ZLinq" target="_blank" class="!text-blue-400 hover:!text-blue-300"><i class="fas fa-link mr-2"></i>Cysharp/ZLinq</a></h3>
+                    <p class="text-sm italic !text-gray-400">零分配 LINQ，支持 LINQ to Span、LINQ to SIMD 和 LINQ to Tree，适用于所有 .NET 平台及 Unity、Godot。</p>
+                    <div class="grid grid-cols-2 gap-2 text-sm mt-2">
+                        <div><i class="fas fa-star text-yellow-400"></i> Stars: 3164</div>
+                        <div><i class="fas fa-code-branch text-green-400"></i> Forks: 160</div>
+                        <div><i class="fas fa-history text-purple-400"></i> 连续在榜: 1次</div>
+                        <div><i class="fas fa-chart-bar text-red-400"></i> 总上榜: 1次</div>
+                        <div><i class="fas fa-arrow-up text-green-400"></i> 当日增加: 199</div>
+                        <div><i class="fas fa-code text-blue-400"></i> Language: C#</div>
+                    </div>
+                    <details class="mt-2">
+                        <summary class="text-xs cursor-pointer !text-gray-500">项目速读 & 语言分布</summary>
+                        <p class="text-xs !text-gray-400 mt-1">.NET平台高性能LINQ库，提供“零内存分配”操作，解决标准LINQ内存开销。基于结构体实现，不产生堆分配，提升性能，适用游戏开发等场景。扩展LINQ到Span<T>, SIMD, 文件系统, JSON等。兼容.NET 10 LINQ API。</p>
+                        <p class="lang-distro">C# 100.0%</p>
+                    </details>
+                </div>
+            </section>
+
+            <section>
+                <div class="project-card">
+                    <h3><a href="https://github.com/microsoft/WSL2-Linux-Kernel" target="_blank" class="!text-blue-400 hover:!text-blue-300"><i class="fab fa-linux mr-2"></i>microsoft/WSL2-Linux-Kernel</a></h3>
+                    <p class="text-sm italic !text-gray-400">用于 Windows Subsystem for Linux 2 (WSL2) 的 Linux 内核源代码</p>
+                    <div class="grid grid-cols-2 gap-2 text-sm mt-2">
+                        <div><i class="fas fa-star text-yellow-400"></i> Stars: 9060</div>
+                        <div><i class="fas fa-code-branch text-green-400"></i> Forks: 1.2k</div>
+                        <div><i class="fas fa-history text-purple-400"></i> 连续在榜: 1次</div>
+                        <div><i class="fas fa-chart-bar text-red-400"></i> 总上榜: 1次</div>
+                        <div><i class="fas fa-arrow-up text-green-400"></i> 当日增加: 302</div>
+                        <div><i class="fas fa-code text-blue-400"></i> Language: C</div>
+                    </div>
+                    <details class="mt-2">
+                        <summary class="text-xs cursor-pointer !text-gray-500">项目速读 & 语言分布</summary>
+                        <p class="text-xs !text-gray-400 mt-1">WSL2定制版Linux内核官方源码。提供稳定Linux环境基础，公开微软定制内核配置。高级用户可深入理解、编译替换内核，实现个性化WSL2体验。是深度掌握和改造WSL2的关键资源。</p>
+                        <p class="lang-distro">C 98.2%, Assembly 0.8%, Shell 0.4%, Makefile 0.2%, Python 0.2%</p>
+                    </details>
+                </div>
+            </section>
+
+            <section>
+                <div class="project-card">
+                    <h3><a href="https://github.com/usememos/memos" target="_blank" class="!text-blue-400 hover:!text-blue-300"><i class="fas fa-sticky-note mr-2"></i>usememos/memos</a></h3>
+                    <p class="text-sm italic !text-gray-400">开源、轻量级的笔记解决方案。轻松创建有意义的笔记。你的笔记，随心掌控。</p>
+                    <div class="grid grid-cols-2 gap-2 text-sm mt-2">
+                        <div><i class="fas fa-star text-yellow-400"></i> Stars: 40389</div>
+                        <div><i class="fas fa-code-branch text-green-400"></i> Forks: 2.9k</div>
+                        <div><i class="fas fa-history text-purple-400"></i> 连续在榜: 2次</div>
+                        <div><i class="fas fa-chart-bar text-red-400"></i> 总上榜: 2次</div>
+                        <div><i class="fas fa-arrow-up text-green-400"></i> 当日增加: 504</div>
+                        <div><i class="fas fa-code text-blue-400"></i> Language: Go</div>
+                    </div>
+                    <details class="mt-2">
+                        <summary class="text-xs cursor-pointer !text-gray-500">项目速读 & 增长分析 & 语言分布</summary>
+                        <p class="text-xs !text-gray-400 mt-1">开源轻量笔记方案，提供私密、易用平台记录想法。核心理念数据主权用户掌握，解决云服务隐私担忧。自托管，支持Markdown，Go后端+React前端。适合重视隐私、希望自主可控笔记空间的用户。</p>
+                        <p class="text-xs !text-gray-400 mt-1"><strong>增长分析：</strong>两天内两次上榜，今日新增504 Star，增长迅速，受欢迎度高。</p>
+                        <p class="lang-distro">Go 54.1%, TypeScript 45.2%, JavaScript 0.3%</p>
+                    </details>
+                </div>
+            </section>
+
+            <section>
+                 <div class="project-card">
+                    <h3><a href="https://github.com/HeyPuter/puter" target="_blank" class="!text-blue-400 hover:!text-blue-300"><i class="fas fa-globe-americas mr-2"></i>HeyPuter/puter</a></h3>
+                    <p class="text-sm italic !text-gray-400">🌐 互联网操作系统！免费、开源、可自托管。</p>
+                    <div class="grid grid-cols-2 gap-2 text-sm mt-2">
+                        <div><i class="fas fa-star text-yellow-400"></i> Stars: 31561</div>
+                        <div><i class="fas fa-code-branch text-green-400"></i> Forks: 2.4k</div>
+                        <div><i class="fas fa-history text-purple-400"></i> 连续在榜: 2次</div>
+                        <div><i class="fas fa-chart-bar text-red-400"></i> 总上榜: 2次</div>
+                        <div><i class="fas fa-arrow-up text-green-400"></i> 当日增加: 479</div>
+                        <div><i class="fas fa-code text-blue-400"></i> Language: JavaScript</div>
+                    </div>
+                    <details class="mt-2">
+                        <summary class="text-xs cursor-pointer !text-gray-500">项目速读 & 增长分析 & 语言分布</summary>
+                        <p class="text-xs !text-gray-400 mt-1">构建专属“互联网操作系统”（Internet OS）。可自托管个人云电脑，集中存储文件、应用、游戏，网页随时访问。强调隐私和控制权。JavaScript开发，支持Docker。适合希望掌握数据主权、寻求统一在线工作环境的用户。</p>
+                        <p class="text-xs !text-gray-400 mt-1"><strong>增长分析：</strong>两天内累计增长约470+ Star（今天479）。上榜2次，持续受关注，增长势头强劲。</p>
+                        <p class="lang-distro">JavaScript 96.1%, CSS 2.4%, HTML 1.3%</p>
+                    </details>
+                </div>
+            </section>
+
+            <section>
+                 <div class="project-card">
+                    <h3><a href="https://github.com/microsoft/vscode" target="_blank" class="!text-blue-400 hover:!text-blue-300"><i class="fas fa-code mr-2"></i>microsoft/vscode</a></h3>
+                    <p class="text-sm italic !text-gray-400">Visual Studio Code</p>
+                    <div class="grid grid-cols-2 gap-2 text-sm mt-2">
+                        <div><i class="fas fa-star text-yellow-400"></i> Stars: 171744</div>
+                        <div><i class="fas fa-code-branch text-green-400"></i> Forks: 32.5k</div>
+                        <div><i class="fas fa-history text-purple-400"></i> 连续在榜: 1次</div>
+                        <div><i class="fas fa-chart-bar text-red-400"></i> 总上榜: 1次</div>
+                        <div><i class="fas fa-arrow-up text-green-400"></i> 当日增加: 283</div>
+                        <div><i class="fas fa-code text-blue-400"></i> Language: TypeScript</div>
+                    </div>
+                    <details class="mt-2">
+                        <summary class="text-xs cursor-pointer !text-gray-500">项目速读 & 语言分布</summary>
+                        <p class="text-xs !text-gray-400 mt-1">VS Code开源核心代码仓库。轻量级代码编辑器，强大扩展系统和跨平台能力，集成编辑、调试、版本控制。MIT许可，活跃社区，快速迭代，提升开发效率，适用几乎所有编程场景。</p>
+                        <p class="lang-distro">TypeScript 95.5%, CSS 1.4%, JavaScript 1.1%, Rust 0.7%</p>
+                    </details>
+                </div>
+            </section>
+
+            <section>
+                 <div class="project-card">
+                    <h3><a href="https://github.com/nektos/act" target="_blank" class="!text-blue-400 hover:!text-blue-300"><i class="fas fa-rocket mr-2"></i>nektos/act</a></h3>
+                    <p class="text-sm italic !text-gray-400">在本地运行 GitHub Actions 🚀</p>
+                    <div class="grid grid-cols-2 gap-2 text-sm mt-2">
+                        <div><i class="fas fa-star text-yellow-400"></i> Stars: 62490</div>
+                        <div><i class="fas fa-code-branch text-green-400"></i> Forks: 1.6k</div>
+                        <div><i class="fas fa-history text-purple-400"></i> 连续在榜: 1次</div>
+                        <div><i class="fas fa-chart-bar text-red-400"></i> 总上榜: 1次</div>
+                        <div><i class="fas fa-arrow-up text-green-400"></i> 当日增加: 708</div>
+                        <div><i class="fas fa-code text-blue-400"></i> Language: Go</div>
+                    </div>
+                    <details class="mt-2">
+                        <summary class="text-xs cursor-pointer !text-gray-500">项目速读 & 语言分布</summary>
+                        <p class="text-xs !text-gray-400 mt-1">本地运行和测试GitHub Actions工作流。解决云端测试调试Action效率低下问题。利用Docker模拟GitHub运行环境，还原真实场景。快速迭代，即时反馈，提升工作流开发验证效率。可作本地任务执行器。</p>
+                        <p class="lang-distro">Go 81.2%, JavaScript 17.5%, Shell 1.1%</p>
+                    </details>
+                </div>
+            </section>
+
+            <section>
+                <div class="project-card">
+                    <h3><a href="https://github.com/appwrite/appwrite" target="_blank" class="!text-blue-400 hover:!text-blue-300"><i class="fas fa-server mr-2"></i>appwrite/appwrite</a></h3>
+                    <p class="text-sm italic !text-gray-400">Vercel 的开源替代品</p>
+                     <div class="grid grid-cols-2 gap-2 text-sm mt-2">
+                        <div><i class="fas fa-star text-yellow-400"></i> Stars: 49381</div>
+                        <div><i class="fas fa-code-branch text-green-400"></i> Forks: 4.4k</div>
+                        <div><i class="fas fa-history text-purple-400"></i> 连续在榜: 2次</div>
+                        <div><i class="fas fa-chart-bar text-red-400"></i> 总上榜: 2次</div>
+                        <div><i class="fas fa-arrow-up text-green-400"></i> 当日增加: 423</div>
+                        <div><i class="fas fa-code text-blue-400"></i> Language: TypeScript</div>
+                    </div>
+                    <details class="mt-2">
+                        <summary class="text-xs cursor-pointer !text-gray-500">项目速读 & 增长分析 & 语言分布</summary>
+                        <p class="text-xs !text-gray-400 mt-1">面向Web, Mobile, Flutter应用的开源后端平台，简化加速后端API构建。提供用户认证、数据库、存储、云函数等一站式服务。Firebase等服务的100%开源替代。基于Docker易部署。</p>
+                        <p class="text-xs !text-gray-400 mt-1"><strong>增长分析：</strong>增长势头迅猛，统计期内上榜2次。今日新增423星，远超平均，增长趋势明显向好。</p>
+                        <p class="lang-distro">TypeScript 74.9%, PHP 24.2%</p>
+                    </details>
+                </div>
+            </section>
+
+            <section class="cover-slide text-center">
+                <h2 class="text-4xl aha-gradient-text">感谢观看！</h2>
+                <p class="mt-6 text-xl !text-gray-300">关注我们 <strong class="!text-yellow-400">AIChipEra</strong>，获取更多前沿技术动态！</p>
+                <p class="mt-4">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-2xl !text-blue-400 hover:!text-blue-300">
+                        <i class="fab fa-github"></i> Star 我们在 GitHub!
+                    </a>
                 </p>
-                <div class="slide-footer light-text">
+                <div class="fixed-footer">
                     <img src="../../asserts/wx.jpg" alt="QR Code">
-                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">Star & Follow Us!</a>
                 </div>
             </section>
 
         </div>
     </div>
 
-    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
-    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
     <script>
-        // Mermaid.js configuration (if used with plugin)
-        // mermaid.initialize({ startOnLoad: false }); 
-
         Reveal.initialize({
+            hash: true,
+            center: true,
+            margin: 0.05, // Increased margin for better screen fit
+            width: 1280,   // Standard presentation width
+            height: 720,  // Standard presentation height
             controls: true,
             progress: true,
             history: true,
-            center: true,
-            hash: true,
-            transition: 'slide', // Options: none, fade, slide, convex, concave, zoom
-            transitionSpeed: 'default', // Options: default, fast, slow
-            backgroundTransition: 'fade', // Options: none, fade, slide, convex, concave, zoom
-
-            // Optional Reveal.js plugins - specify using dependencies array
-            dependencies: [
-                { src: 'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-                { src: 'https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js', async: true },
-                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js', async: true },
-                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/zoom/zoom.min.js', async: true },
-                { src: 'https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/math/math.min.js', async: true },
-                { src: 'https://unpkg.com/reveal.js@4.3.0/plugin/mermaid/mermaid.js', async: true }
-            ]
+            slideNumber: 'c/t',
+            transition: 'slide', // 'slide', 'fade', 'convex', 'zoom'
+            backgroundTransition: 'fade',
+            // Learn about plugins: https://revealjs.com/plugins/
+            // plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
         });
+        mermaid.initialize({ startOnLoad: true, theme: 'dark', darkMode: true });
     </script>
 </body>
 </html>
