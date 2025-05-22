@@ -1,0 +1,907 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GitHub热榜：AI的超级助理时代</title>
+
+    <!-- Core framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- Extended dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        :root {
+            --r-main-font: "Noto Sans SC", Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: "Noto Serif SC", serif;
+            --primary-color: #3B82F6; /* Blue-500 */
+            --accent-color-1: #10B981; /* Green-500 */
+            --accent-color-2: #8B5CF6; /* Purple-500 */
+            --text-dark: #374151; /* Gray-700 */
+            --text-light: #F9FAFB; /* Gray-50 */
+            --background-light: #F9FAFB;
+        }
+
+        body {
+            font-family: var(--r-main-font);
+            color: var(--text-dark);
+        }
+
+        .reveal .slides {
+            text-align: left;
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--primary-color);
+            text-shadow: none; /* Remove default Reveal.js text shadow */
+        }
+
+        .reveal h1 { font-size: 3.5rem; line-height: 1.2; margin-bottom: 0.5em; }
+        .reveal h2 { font-size: 2.8rem; line-height: 1.3; }
+        .reveal h3 { font-size: 2.2rem; line-height: 1.4; }
+        .reveal h4 { font-size: 1.8rem; line-height: 1.5; }
+        .reveal p { font-size: 1.2rem; line-height: 1.6; }
+        .reveal li { font-size: 1.1rem; line-height: 1.8; margin-bottom: 0.5rem;}
+
+        .reveal .controls {
+            right: 20px;
+            bottom: 20px;
+        }
+
+        .reveal .progress {
+            background-color: var(--primary-color);
+            height: 8px;
+        }
+
+        .reveal .controls button {
+            color: var(--primary-color);
+        }
+
+        /* Custom styles */
+        .slide-content {
+            padding: 2em;
+            background-color: var(--background-light);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%; /* Ensure content fills the slide vertically */
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            color: var(--text-light);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+            line-height: 1.2;
+            margin-bottom: 0.2em;
+        }
+
+        .hero-subtitle {
+            font-size: 2rem;
+            color: var(--text-light);
+            text-shadow: 1px 1px 6px rgba(0,0,0,0.3);
+            margin-bottom: 1.5em;
+        }
+
+        .speaker-info {
+            position: absolute;
+            bottom: 120px;
+            left: 50px;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            font-family: var(--r-heading-font);
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        }
+
+        .disclaimer {
+            position: absolute;
+            top: 50px;
+            right: 50px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            opacity: 0.8;
+            background: rgba(0,0,0,0.4);
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+
+        .project-link-qr {
+            position: absolute;
+            right: 40px;
+            bottom: 30px;
+            display: flex;
+            align-items: flex-end;
+            gap: 20px;
+        }
+        .project-link-qr img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .project-link-qr span {
+            color: var(--text-light);
+            font-size: 1rem;
+            background: rgba(0,0,0,0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: block;
+            margin-top: 5px;
+            font-family: var(--r-main-font);
+        }
+        .project-link-qr a {
+            color: inherit;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .project-link-qr a:hover {
+            text-decoration: underline;
+        }
+
+        .aha-moment {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-align: center;
+            margin: 1em 0;
+            animation: pulse 1.5s infinite alternate;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); opacity: 1; }
+            to { transform: scale(1.05); opacity: 0.9; }
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 1.5em;
+        }
+
+        .section-icon {
+            font-size: 3em;
+            color: var(--accent-color-1);
+            margin-bottom: 0.5em;
+        }
+
+        .key-point {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1em;
+            font-size: 1.3rem;
+            color: var(--text-dark);
+        }
+        .key-point i {
+            margin-right: 0.8em;
+            color: var(--accent-color-2);
+            font-size: 1.2em;
+        }
+        .key-point strong {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .project-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            padding: 1.5em 2em;
+            margin-bottom: 1.5em;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5em;
+            align-items: start;
+            font-size: 0.95rem;
+        }
+        .project-card h3 {
+            font-size: 1.8rem;
+            margin-top: 0;
+            margin-bottom: 0.5em;
+            color: var(--primary-color);
+        }
+        .project-card .metrics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8em 1.5em;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-bottom: 1em;
+        }
+        .project-card .metrics span {
+            display: flex;
+            align-items: center;
+        }
+        .project-card .metrics i {
+            margin-right: 0.5em;
+            color: var(--accent-color-1);
+        }
+        .project-card .description {
+            grid-column: 1 / span 2;
+            line-height: 1.7;
+            margin-top: 1em;
+        }
+        .project-card .growth-analysis {
+            grid-column: 1 / span 2;
+            background-color: #f0f8ff; /* Light blue background */
+            border-left: 5px solid var(--primary-color);
+            padding: 1em 1.5em;
+            border-radius: 8px;
+            margin-top: 1em;
+        }
+        .project-card .growth-analysis h4 {
+            font-size: 1.3rem;
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+        .project-card .lang-dist {
+            grid-column: 1;
+            font-size: 0.9rem;
+            background-color: #f7f7f7;
+            padding: 1em;
+            border-radius: 8px;
+        }
+        .project-card .lang-dist span {
+            display: block;
+            margin-bottom: 0.3em;
+        }
+
+        /* Specific styles for lists in sections */
+        .reveal section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .reveal section ul li {
+            position: relative;
+            padding-left: 1.8em;
+            margin-bottom: 0.8em;
+        }
+        .reveal section ul li:before {
+            content: "\f058"; /* Font Awesome check-circle */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--accent-color-1);
+            position: absolute;
+            left: 0;
+            top: 0.1em;
+            font-size: 1.2em;
+        }
+
+        .reveal .r-stretch {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .reveal .backgrounds {
+            background-color: var(--background-light);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Title Page -->
+            <section data-background-image="https://images.unsplash.com/photo-1579566373722-e42750e39535?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=1080&ixid=MnwxfDB8MXxyYW5kb218MHx8YWl8fHx8fHwxNjg0MDAwMDAw&ixlib=rb-4.0.3&q=80&w=1920" data-background-size="cover" data-background-position="center">
+                <div class="relative h-full flex flex-col justify-center items-start pl-16 pr-16 bg-gradient-to-r from-black/60 to-transparent">
+                    <h1 class="hero-title text-shadow-lg">这项技术让AI变成你的超级助理！</h1>
+                    <h2 class="hero-subtitle text-shadow-md">GitHub热榜指明未来开发方向</h2>
+                    <p class="text-white text-xl mt-4 opacity-80" style="font-family: var(--r-main-font);">GitHub热门仓库日报观测时间：2025-05-22 20:57:49</p>
+                    <div class="disclaimer">
+                        <strong>注意：</strong>以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！
+                    </div>
+                    <div class="speaker-info">
+                        演讲者: AIChipEra
+                    </div>
+                </div>
+                <div class="project-link-qr">
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra WeChat QR Code">
+                    <span>关注我们：<a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a></span>
+                </div>
+            </section>
+
+            <!-- Slide 2: Aha Moment & Agenda -->
+            <section>
+                <div class="slide-content">
+                    <h2 class="section-header"><i class="fas fa-lightbulb section-icon"></i> 发现“灵光一现”：AI的超级助理时代</h2>
+                    <p class="aha-moment fragment fade-in">核心不再是模型，而是如何让AI<br/>像你的超级助理一样理解、规划、并执行复杂任务！</p>
+                    <ul class="list-none p-0 mt-8 text-2xl">
+                        <li class="fragment fade-in-then-semi-out"><i class="fas fa-check-circle"></i> **日报要点速览**：捕捉当下技术焦点</li>
+                        <li class="fragment fade-in-then-semi-out"><i class="fas fa-check-circle"></i> **热门项目趋势分析**：AI Agent引爆新浪潮</li>
+                        <li class="fragment fade-in-then-semi-out"><i class="fas fa-check-circle"></i> **详细仓库数据解读**：深度剖析明星项目</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle"></i> **未来展望**：抓住新机遇，告别重复劳动</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 3: 热门项目趋势分析 - 智能体AI -->
+            <section>
+                <div class="slide-content">
+                    <h2 class="section-header"><i class="fas fa-robot section-icon"></i> 热门项目趋势分析：AI Agent引爆新一轮技术浪潮</h2>
+                    <p class="text-xl text-gray-600 mb-6">全球开发者正从关注大型语言模型(LLM)本身，转向如何让它们具备更强的行动能力和协作性。</p>
+                    <ul class="list-none p-0">
+                        <li class="key-point fragment fade-in">
+                            <i class="fas fa-brain"></i> **AI Agent 浪潮**：构建能够理解、规划并执行复杂任务的AI代理。
+                        </li>
+                        <li class="key-point fragment fade-in">
+                            <i class="fas fa-code"></i> **自动化软件开发**：项目如 **OpenHands (前身OpenDevin)**，旨在自动化编码、执行命令等。
+                        </li>
+                        <li class="key-point fragment fade-in">
+                            <i class="fas fa-users-cog"></i> **大规模AI系统**：探讨如何构建处理千万级并发智能体的 **learn-agentic-ai**。
+                        </li>
+                        <li class="key-point fragment fade-in">
+                            <i class="fas fa-chart-line"></i> **技术焦点转移**：从“模型本身”转向“模型的行动能力与协作性”。
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 4: 热门项目趋势分析 - 开发者工具与自托管 -->
+            <section>
+                <div class="slide-content">
+                    <h2 class="section-header"><i class="fas fa-tools section-icon"></i> 开发者效率与自托管：工具与基础设施的演进</h2>
+                    <p class="text-xl text-gray-600 mb-6">提升效率的开发者工具、数据自主的自托管方案，以及AI生态的基础设施，持续登上热门榜单。</p>
+                    <ul class="list-none p-0">
+                        <li class="key-point fragment fade-in">
+                            <i class="fas fa-terminal"></i> **核心开发者工具**：如广泛使用的 **VS Code**、类Postman替代方案 **Bruno**、Windows与Linux桥梁 **WSL**。
+                        </li>
+                        <li class="key-point fragment fade-in">
+                            <i class="fas fa-cloud"></i> **开源自托管平台**：端到端后端平台 **Appwrite** 和个人云电脑 **Puter**，凸显数据自主权需求。
+                        </li>
+                        <li class="key-point fragment fade-in">
+                            <i class="fas fa-server"></i> **AI生态基础设施**：**Model Context Protocol** 注册中心，应对AI服务发现和标准化需求。
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 5: 热门项目趋势分析 - 语言与技术栈 -->
+            <section>
+                <div class="slide-content">
+                    <h2 class="section-header"><i class="fas fa-code section-icon"></i> 技术栈解读：TypeScript与Python领跑，Go强势崛起</h2>
+                    <p class="text-xl text-gray-600 mb-6">主流编程语言持续演进，适应AI和云原生开发的新趋势。</p>
+                    <ul class="list-none p-0">
+                        <li class="key-point fragment fade-in">
+                            <i class="fab fa-python"></i> **Python**：AI模型开发、AI Agent构建（OpenHands, ai-hedge-fund）。
+                        </li>
+                        <li class="key-point fragment fade-in">
+                            <i class="fab fa-js"></i> **TypeScript**：前端工具、Web服务（Appwrite, VS Code），AI生态客户端（huggingface.js）。
+                        </li>
+                        <li class="key-point fragment fade-in">
+                            <i class="fas fa-rocket"></i> **Go语言**：高性能后端服务与基础设施（Appwrite, memos, MCP registry），云原生领域优势明显。
+                        </li>
+                        <li class="key-point fragment fade-in">
+                            <i class="fas fa-cubes"></i> **云原生技术**：Docker, Kubernetes, Dapr 的广泛采纳。
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 6: 热门项目趋势分析 - 需求洞察与发展方向 -->
+            <section>
+                <div class="slide-content">
+                    <h2 class="section-header"><i class="fas fa-lightbulb section-icon"></i> 技术需求洞察：AI落地、效率提升与数据主权</h2>
+                    <p class="text-xl text-gray-600 mb-6">当前技术社区的几大核心需求和发展方向，共同塑造了技术未来。</p>
+                    <ul class="list-none p-0">
+                        <li class="key-point fragment fade-in">
+                            <i class="fas fa-cogs"></i> **AI能力落地与泛化**：将LLM转化为可执行具体任务的AI Agent。
+                        </li>
+                        <li class="key-point fragment fade-in">
+                            <i class="fas fa-grip-lines"></i> **大规模AI系统构建**：稳定、高效处理大量AI Agent并发请求的系统设计。
+                        </li>
+                        <li class="key-point fragment fade-in">
+                            <i class="fas fa-tachometer-alt"></i> **提升开发者效率**：通过更优秀工具和自动化手段加速开发。
+                        </li>
+                        <li class="key-point fragment fade-in">
+                            <i class="fas fa-lock"></i> **数据自主与隐私**：转向更高控制权、支持自托管的开源解决方案。
+                        </li>
+                        <li class="key-point fragment fade-in">
+                            <i class="fas fa-network-wired"></i> **AI生态基础设施完善**：对服务发现、标准协议和配套工具的需求。
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 7: 热门项目趋势分析 - 比较与展望 -->
+            <section>
+                <div class="slide-content">
+                    <h2 class="section-header"><i class="fas fa-chart-line section-icon"></i> 展望未来：从模型到应用，Agent协作与安全成焦点</h2>
+                    <p class="text-xl text-gray-600 mb-6">当前趋势显著特征：AI Agent的“行动化”和“规模化”需求集中爆发。</p>
+                    <ul class="list-none p-0">
+                        <li class="key-point fragment fade-in">
+                            <i class="fas fa-project-diagram"></i> **与过往趋势比较**：从“造模型”转向“用模型做事”及“支撑模型的基础设施”。
+                        </li>
+                        <li class="key-point fragment fade-in">
+                            <i class="fas fa-lightbulb"></i> **潜在下一波热点**：
+                            <ul>
+                                <li class="key-point fragment fade-in"><i class="fas fa-dot-circle"></i> 多模态Agent和Agent协作框架。</li>
+                                <li class="key-point fragment fade-in"><i class="fas fa-dot-circle"></i> Agent安全性与可解释性。</li>
+                                <li class="key-point fragment fade-in"><i class="fas fa-dot-circle"></i> 去中心化个人数据管理与AI。</li>
+                                <li class="key-point fragment fade-in"><i class="fas fa-dot-circle"></i> 垂直领域Agent的应用。</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 8: 热点变化概述 -->
+            <section>
+                <div class="slide-content">
+                    <h2 class="section-header"><i class="fas fa-sync-alt section-icon"></i> 热门项目双日对比：洞察GitHub风向</h2>
+                    <p class="text-xl text-gray-600 mb-6">对比昨日数据，GitHub热门项目整体呈现活跃向上的趋势。</p>
+                    <div class="grid grid-cols-2 gap-8 text-xl">
+                        <div class="fragment fade-in">
+                            <h3 class="text-green-600"><i class="fas fa-arrow-up"></i> 新增/上升热点</h3>
+                            <ul class="list-none p-0 mt-4 text-left">
+                                <li class="text-lg"><i class="fas fa-plus-circle mr-2 text-green-500"></i> 新晋：<span class="font-bold">5个</span>，多为AI学习、LLM、AI开发工具。</li>
+                                <li class="text-lg"><i class="fas fa-chart-line mr-2 text-green-500"></i> 持续上升：<span class="font-bold">7个</span>，项目吸引力强劲。</li>
+                                <li class="text-lg"><i class="fas fa-fire-alt mr-2 text-red-500"></i> **WSL爆发式增长**：<span class="font-bold text-red-600">日增2492星</span>，底层开发环境需求巨大。</li>
+                            </ul>
+                        </div>
+                        <div class="fragment fade-in">
+                            <h3 class="text-red-600"><i class="fas fa-arrow-down"></i> 减退/持续热点</h3>
+                            <ul class="list-none p-0 mt-4 text-left">
+                                <li class="text-lg"><i class="fas fa-minus-circle mr-2 text-red-500"></i> 下降：<span class="font-bold">0个</span>。</li>
+                                <li class="text-lg"><i class="fas fa-hourglass-half mr-2 text-blue-500"></i> 持续热门：<span class="font-bold">Appwrite, Puter, Memos, AI-Hedge-Fund</span>。</li>
+                                <li class="text-lg"><i class="fas fa-language mr-2 text-purple-500"></i> 语言变化：TypeScript, JavaScript, Jupyter Notebook 比重增长。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Detailed Project Slides -->
+            <section>
+                <h2 class="section-header"><i class="fas fa-database section-icon"></i> 详细仓库数据：明星项目深度剖析</h2>
+                <div class="text-center text-gray-600 mt-4 text-xl fragment fade-in">
+                    深入了解每个项目的独特价值和增长潜力。
+                </div>
+            </section>
+
+            <!-- Project: All-Hands-AI/OpenHands -->
+            <section>
+                <div class="slide-content">
+                    <div class="project-card">
+                        <div>
+                            <h3>All-Hands-AI/OpenHands</h3>
+                            <p class="text-gray-600 mb-2">🙌 OpenHands: 少写代码，做得更多</p>
+                            <div class="metrics">
+                                <span><i class="fas fa-star"></i> 54.9k</span>
+                                <span><i class="fas fa-code-branch"></i> 6.2k</span>
+                                <span><i class="fas fa-eye"></i> 391</span>
+                                <span><i class="fas fa-bug"></i> 211</span>
+                                <span><i class="fas fa-plus-circle text-accent-color-1"></i> +352 (当日)</span>
+                                <span><i class="fas fa-clipboard-check"></i> 1次 (连续)</span>
+                                <span><i class="fas fa-chart-pie"></i> 4次 (总上榜)</span>
+                            </div>
+                            <div class="lang-dist">
+                                <span class="font-bold">编程语言占比:</span>
+                                <span><i class="fas fa-circle" style="color:#3572A5;"></i> Python 78.2%</span>
+                                <span><i class="fas fa-circle" style="color:#3178C6;"></i> TypeScript 17.5%</span>
+                                <span><i class="fas fa-circle" style="color:#89E051;"></i> Shell 2.0%</span>
+                            </div>
+                        </div>
+                        <div class="description">
+                            <h4 class="text-primary-color">项目速读:</h4>
+                            <p>OpenHands是一个强大的AI软件开发代理平台，通过自动化代码修改、执行命令、浏览网页等任务，极大减少人工编码工作，提升效率。核心优势在于全面模拟人类开发者行为，并提供云、本地Docker、CLI及GitHub Action等灵活运行方式。采用安全沙盒环境执行操作，依赖外部LLM驱动，非常适合加速个人开发流程。</p>
+                        </div>
+                        <div class="growth-analysis">
+                            <h4 class="text-primary-color">增长分析:</h4>
+                            <p>约50天上榜4次，总Star增长3009，日均增长可观，今日新增352，增长势头良好。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Project: appwrite/appwrite -->
+            <section>
+                <div class="slide-content">
+                    <div class="project-card">
+                        <div>
+                            <h3>appwrite/appwrite</h3>
+                            <p class="text-gray-600 mb-2">Vercel 开源替代品</p>
+                            <div class="metrics">
+                                <span><i class="fas fa-star"></i> 49.6k</span>
+                                <span><i class="fas fa-code-branch"></i> 4.4k</span>
+                                <span><i class="fas fa-eye"></i> 381</span>
+                                <span><i class="fas fa-bug"></i> 608</span>
+                                <span><i class="fas fa-plus-circle text-accent-color-1"></i> +265 (当日)</span>
+                                <span><i class="fas fa-clipboard-check"></i> 3次 (连续)</span>
+                                <span><i class="fas fa-chart-pie"></i> 3次 (总上榜)</span>
+                            </div>
+                            <div class="lang-dist">
+                                <span class="font-bold">编程语言占比:</span>
+                                <span><i class="fas fa-circle" style="color:#3178C6;"></i> TypeScript 74.9%</span>
+                                <span><i class="fas fa-circle" style="color:#4F5D95;"></i> PHP 24.2%</span>
+                            </div>
+                        </div>
+                        <div class="description">
+                            <h4 class="text-primary-color">项目速读:</h4>
+                            <p>Appwrite是一个开源的端到端后端平台，为Web、移动和原生应用开发者设计。它通过一套打包好的Docker微服务集合，提供用户认证、数据库、文件存储、云函数等核心后端能力，旨在解决从零开始构建现代后端API的重复与复杂问题。作为开源的Vercel替代方案，它显著加速安全应用开发。</p>
+                        </div>
+                        <div class="growth-analysis">
+                            <h4 class="text-primary-color">增长分析:</h4>
+                            <p>三天连续上榜，仓库持续受关注，增长强劲。统计期内总增666星，平均每次超300星，增长趋势显著。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Project: panaversity/learn-agentic-ai -->
+            <section>
+                <div class="slide-content">
+                    <div class="project-card">
+                        <div>
+                            <h3>panaversity/learn-agentic-ai</h3>
+                            <p class="text-gray-600 mb-2">学习Dapr智能体云提升 (DACA) 设计模式</p>
+                            <div class="metrics">
+                                <span><i class="fas fa-star"></i> 2.3k</span>
+                                <span><i class="fas fa-code-branch"></i> 554</span>
+                                <span><i class="fas fa-eye"></i> 210</span>
+                                <span><i class="fas fa-bug"></i> 3</span>
+                                <span><i class="fas fa-plus-circle text-accent-color-1"></i> +55 (当日)</span>
+                                <span><i class="fas fa-clipboard-check"></i> 1次 (连续)</span>
+                                <span><i class="fas fa-chart-pie"></i> 4次 (总上榜)</span>
+                            </div>
+                            <div class="lang-dist">
+                                <span class="font-bold">编程语言占比:</span>
+                                <span><i class="fas fa-circle" style="color:#DA5B0B;"></i> Jupyter Notebook 94.4%</span>
+                                <span><i class="fas fa-circle" style="color:#3572A5;"></i> Python 5.0%</span>
+                            </div>
+                        </div>
+                        <div class="description">
+                            <h4 class="text-primary-color">项目速读:</h4>
+                            <p>该项目关于构建大规模Agentic AI系统，核心内容为Dapr Agentic Cloud Ascent (DACA) 设计模式。旨在解决如何设计稳定、高效处理千万级并发AI Agent系统挑战。强调利用Dapr和Kubernetes等云原生技术，结合OpenAI Agents SDK，构建AI优先、云优先的模块化架构。是理解和应用云原生技术解决大规模Agent系统设计难题的重要资源。</p>
+                        </div>
+                        <div class="growth-analysis">
+                            <h4 class="text-primary-color">增长分析:</h4>
+                            <p>短周期内增长强劲，总计新增899星。实际上榜4次是关键，表明持续可见性带来稳定关注与增长，今日新增55星，趋势良好。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Project: microsoft/WSL -->
+            <section>
+                <div class="slide-content">
+                    <div class="project-card">
+                        <div>
+                            <h3>microsoft/WSL</h3>
+                            <p class="text-gray-600 mb-2">适用于 Linux 的 Windows 子系统</p>
+                            <div class="metrics">
+                                <span><i class="fas fa-star"></i> 26.4k</span>
+                                <span><i class="fas fa-code-branch"></i> 1.2k</span>
+                                <span><i class="fas fa-eye"></i> 597</span>
+                                <span><i class="fas fa-bug"></i> 1.1k+</span>
+                                <span><i class="fas fa-plus-circle text-accent-color-1"></i> <strong class="text-red-500">+2492 (当日)</strong></span>
+                                <span><i class="fas fa-clipboard-check"></i> 2次 (连续)</span>
+                                <span><i class="fas fa-chart-pie"></i> 2次 (总上榜)</span>
+                            </div>
+                            <div class="lang-dist">
+                                <span class="font-bold">编程语言占比:</span>
+                                <span><i class="fas fa-circle" style="color:#F34B7D;"></i> C++ 58.2%</span>
+                                <span><i class="fas fa-circle" style="color:#555555;"></i> C 37.3%</span>
+                            </div>
+                        </div>
+                        <div class="description">
+                            <h4 class="text-primary-color">项目速读:</h4>
+                            <p>Windows Subsystem for Linux (WSL) 允许用户在Windows上直接运行原生Linux命令行工具和应用，无需传统虚拟机或双系统。其核心优势在于极低的开销和与Windows系统的高集成度，支持运行广泛的Linux应用生态，包括图形界面应用。WSL极大地简化了跨平台开发流程，是连接Windows和Linux世界的重要桥梁。</p>
+                        </div>
+                        <div class="growth-analysis">
+                            <h4 class="text-primary-color">增长分析:</h4>
+                            <p>该仓库在短短2天内上榜2次，显示近期极高的关注度和活跃度。今日新增Star数高达2492，增长势头迅猛。综合看，该仓库目前处于快速上升阶段，潜力巨大。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Project: usebruno/bruno -->
+            <section>
+                <div class="slide-content">
+                    <div class="project-card">
+                        <div>
+                            <h3>usebruno/bruno</h3>
+                            <p class="text-gray-600 mb-2">开源IDE 用于探索和测试API (Postman/Insomnia 的轻量级替代品)</p>
+                            <div class="metrics">
+                                <span><i class="fas fa-star"></i> 33.9k</span>
+                                <span><i class="fas fa-code-branch"></i> 1.6k</span>
+                                <span><i class="fas fa-eye"></i> 98</span>
+                                <span><i class="fas fa-bug"></i> 1.2k+</span>
+                                <span><i class="fas fa-plus-circle text-accent-color-1"></i> +94 (当日)</span>
+                                <span><i class="fas fa-clipboard-check"></i> 1次 (连续)</span>
+                                <span><i class="fas fa-chart-pie"></i> 1次 (总上榜)</span>
+                            </div>
+                            <div class="lang-dist">
+                                <span class="font-bold">编程语言占比:</span>
+                                <span><i class="fas fa-circle" style="color:#F1E05A;"></i> JavaScript 92.4%</span>
+                                <span><i class="fas fa-circle" style="color:#3178C6;"></i> TypeScript 4.4%</span>
+                            </div>
+                        </div>
+                        <div class="description">
+                            <h4 class="text-primary-color">项目速读:</h4>
+                            <p>Bruno是一款开源桌面API客户端和IDE，作为Postman或Insomnia的轻量替代。其核心特点是将API集合以纯文本Bru格式存储在本地文件系统，便于与Git等版本控制系统无缝集成，简化API定义版本管理和团队协作。项目强调离线优先和数据隐私，是追求开源、重视数据安全、偏好Git管理API工作流的开发者的强大选择。</p>
+                        </div>
+                        <div class="growth-analysis">
+                            <h4 class="text-primary-color">增长分析:</h4>
+                            <p>作为新晋项目，首次上榜即有94星增长，显示其作为Postman/Insomnia替代品在社区中快速获得关注。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Project: HeyPuter/puter -->
+            <section>
+                <div class="slide-content">
+                    <div class="project-card">
+                        <div>
+                            <h3>HeyPuter/puter</h3>
+                            <p class="text-gray-600 mb-2">互联网操作系统！免费、开源、可自托管。</p>
+                            <div class="metrics">
+                                <span><i class="fas fa-star"></i> 32.1k</span>
+                                <span><i class="fas fa-code-branch"></i> 2.4k</span>
+                                <span><i class="fas fa-eye"></i> 176</span>
+                                <span><i class="fas fa-bug"></i> 183</span>
+                                <span><i class="fas fa-plus-circle text-accent-color-1"></i> +499 (当日)</span>
+                                <span><i class="fas fa-clipboard-check"></i> 3次 (连续)</span>
+                                <span><i class="fas fa-chart-pie"></i> 3次 (总上榜)</span>
+                            </div>
+                            <div class="lang-dist">
+                                <span class="font-bold">编程语言占比:</span>
+                                <span><i class="fas fa-circle" style="color:#F1E05A;"></i> JavaScript 96.1%</span>
+                            </div>
+                        </div>
+                        <div class="description">
+                            <h4 class="text-primary-color">项目速读:</h4>
+                            <p>Puter是一个创新的开源项目，旨在构建功能丰富、速度极快且支持自托管的“互联网操作系统”。它提供个人云电脑环境，让用户通过任何设备安全访问和管理文件、应用及数据，摆脱对传统云存储的依赖。最大亮点在于强大的自托管能力和对用户隐私的承诺，让用户完全掌控数字资产。是追求数据自主权、高性能个人云服务或探索Web技术和云计算的用户及开发者的理想选择。</p>
+                        </div>
+                        <div class="growth-analysis">
+                            <h4 class="text-primary-color">增长分析:</h4>
+                            <p>该仓库统计期内连续3天上榜，表现出稳定且强劲的增长势头。最新日增499星，高于平均水平，显示增长正在加速。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Project: usememos/memos -->
+            <section>
+                <div class="slide-content">
+                    <div class="project-card">
+                        <div>
+                            <h3>usememos/memos</h3>
+                            <p class="text-gray-600 mb-2">开源的轻量级笔记解决方案。轻松创建有意义的笔记。</p>
+                            <div class="metrics">
+                                <span><i class="fas fa-star"></i> 40.8k</span>
+                                <span><i class="fas fa-code-branch"></i> 2.9k</span>
+                                <span><i class="fas fa-eye"></i> 167</span>
+                                <span><i class="fas fa-bug"></i> 20</span>
+                                <span><i class="fas fa-plus-circle text-accent-color-1"></i> +382 (当日)</span>
+                                <span><i class="fas fa-clipboard-check"></i> 3次 (连续)</span>
+                                <span><i class="fas fa-chart-pie"></i> 3次 (总上榜)</span>
+                            </div>
+                            <div class="lang-dist">
+                                <span class="font-bold">编程语言占比:</span>
+                                <span><i class="fas fa-circle" style="color:#00ADD8;"></i> Go 54.1%</span>
+                                <span><i class="fas fa-circle" style="color:#3178C6;"></i> TypeScript 45.2%</span>
+                            </div>
+                        </div>
+                        <div class="description">
+                            <h4 class="text-primary-color">项目速读:</h4>
+                            <p>Memos是一个开源的轻量级笔记解决方案，旨在帮助用户轻松创建有意义的笔记并完全掌控自己的数据。它提供简洁直观的界面，支持Markdown，标签管理，以及快速搜索等功能。Memos的自托管特性使其成为那些注重数据隐私和渴望拥有个人笔记系统用户的理想选择。其活跃的社区和持续的功能更新也保证了项目的活力和实用性。</p>
+                        </div>
+                        <div class="growth-analysis">
+                            <h4 class="text-primary-color">增长分析:</h4>
+                            <p>该仓库在短短3天内频繁上榜3次，显示极强的曝光度和增长势头。总星数快速增加854，平均每次上榜贡献359星，且今日新增382星略高于平均，表明持续获得大量关注和用户吸引力，增长表现突出。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Project: modelcontextprotocol/registry -->
+            <section>
+                <div class="slide-content">
+                    <div class="project-card">
+                        <div>
+                            <h3>modelcontextprotocol/registry</h3>
+                            <p class="text-gray-600 mb-2">用于 Model Context Protocol (MCP) 服务器的社区驱动注册服务。</p>
+                            <div class="metrics">
+                                <span><i class="fas fa-star"></i> 645</span>
+                                <span><i class="fas fa-code-branch"></i> 45</span>
+                                <span><i class="fas fa-eye"></i> 23</span>
+                                <span><i class="fas fa-bug"></i> 14</span>
+                                <span><i class="fas fa-plus-circle text-accent-color-1"></i> +306 (当日)</span>
+                                <span><i class="fas fa-clipboard-check"></i> 2次 (连续)</span>
+                                <span><i class="fas fa-chart-pie"></i> 2次 (总上榜)</span>
+                            </div>
+                            <div class="lang-dist">
+                                <span class="font-bold">编程语言占比:</span>
+                                <span><i class="fas fa-circle" style="color:#00ADD8;"></i> Go 84.3%</span>
+                                <span><i class="fas fa-circle" style="color:#89E051;"></i> Shell 15.3%</span>
+                            </div>
+                        </div>
+                        <div class="description">
+                            <h4 class="text-primary-color">项目速读:</h4>
+                            <p>该项目是Model Context Protocol (MCP) 服务器的社区驱动型中心化注册服务，旨在解决MCP生态系统中如何发现、了解和管理各种服务器实现的问题。它通过提供一个集中的目录，让用户和应用程序方便地查找MCP服务器、获取元数据和能力描述，极大简化了与不同模型服务集成的过程。使用Go语言构建，提供高性能、功能完整的RESTful API，是促进MCP生态发展的重要基础设施。</p>
+                        </div>
+                        <div class="growth-analysis">
+                            <h4 class="text-primary-color">增长分析:</h4>
+                            <p>该仓库在2025-05-21至22两天内连续上榜2次，平均每次上榜新增星标172.5个。总星标增长达303/306个，显示出在短期内持续获得用户高度关注和认可，增长趋势强劲。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Project: ZJU-LLMs/Foundations-of-LLMs -->
+            <section>
+                <div class="slide-content">
+                    <div class="project-card">
+                        <div>
+                            <h3>ZJU-LLMs/Foundations-of-LLMs</h3>
+                            <p class="text-gray-600 mb-2">大语言模型基础知识与前沿技术开源教材</p>
+                            <div class="metrics">
+                                <span><i class="fas fa-star"></i> 10.4k</span>
+                                <span><i class="fas fa-code-branch"></i> 907</span>
+                                <span><i class="fas fa-eye"></i> 138</span>
+                                <span><i class="fas fa-bug"></i> 48</span>
+                                <span><i class="fas fa-plus-circle text-accent-color-1"></i> +44 (当日)</span>
+                                <span><i class="fas fa-clipboard-check"></i> 1次 (连续)</span>
+                                <span><i class="fas fa-chart-pie"></i> 1次 (总上榜)</span>
+                            </div>
+                            <div class="lang-dist">
+                                <span class="font-bold">编程语言占比:</span> 暂无数据（主要为文档类项目）
+                            </div>
+                        </div>
+                        <div class="description">
+                            <h4 class="text-primary-color">项目速读:</h4>
+                            <p>这是一个关于大语言模型（LLM）基础知识与前沿技术的开源教材项目，旨在提供系统、严谨且易懂的学习资源。内容涵盖传统语言模型、架构演变、Prompt工程、高效微调、模型编辑及检索增强生成等核心领域。项目特色在于其系统性的知识体系、生动的动物背景示例提升易读性，以及每月更新和配套论文列表。是系统性学习大模型理论基础和前沿进展的优秀起点。</p>
+                        </div>
+                        <div class="growth-analysis">
+                            <h4 class="text-primary-color">增长分析:</h4>
+                            <p>作为新晋上榜的教育性质项目，首次上榜即获得10.4k星，并当日新增44星，表明高质量的LLM学习资料在社区中仍有强烈需求。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Project: virattt/ai-hedge-fund -->
+            <section>
+                <div class="slide-content">
+                    <div class="project-card">
+                        <div>
+                            <h3>virattt/ai-hedge-fund</h3>
+                            <p class="text-gray-600 mb-2">一个AI对冲基金团队</p>
+                            <div class="metrics">
+                                <span><i class="fas fa-star"></i> 32.2k</span>
+                                <span><i class="fas fa-code-branch"></i> 5.5k</span>
+                                <span><i class="fas fa-eye"></i> 428</span>
+                                <span><i class="fas fa-bug"></i> 11</span>
+                                <span><i class="fas fa-plus-circle text-accent-color-1"></i> +442 (当日)</span>
+                                <span><i class="fas fa-clipboard-check"></i> 7次 (连续)</span>
+                                <span><i class="fas fa-chart-pie"></i> 15次 (总上榜)</span>
+                            </div>
+                            <div class="lang-dist">
+                                <span class="font-bold">编程语言占比:</span>
+                                <span><i class="fas fa-circle" style="color:#3572A5;"></i> Python 71.9%</span>
+                                <span><i class="fas fa-circle" style="color:#3178C6;"></i> TypeScript 23.3%</span>
+                            </div>
+                        </div>
+                        <div class="description">
+                            <h4 class="text-primary-color">项目速读:</h4>
+                            <p>这个基于Python的AI对冲基金项目，通过构建一个多智能体协作系统，模拟不同投资风格的AI（如股神、分析师）协同分析金融数据并进行决策。它是一个探索如何利用LLM和AI进行投资研究和策略回测的教育平台，提供模拟和回测功能。项目严格声明仅用于学习目的，不构成任何投资建议或用于实盘交易，是理解AI在金融领域应用的有趣范例。</p>
+                        </div>
+                        <div class="growth-analysis">
+                            <h4 class="text-primary-color">增长分析:</h4>
+                            <p>仓库增长显著，总增16438星。15次上榜频率较高，表明持续热门，是主要增长驱动力。连续7次上榜和今日新增442星，显示其在AI+金融领域的持续吸引力。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Project: microsoft/vscode -->
+            <section>
+                <div class="slide-content">
+                    <div class="project-card">
+                        <div>
+                            <h3>microsoft/vscode</h3>
+                            <p class="text-gray-600 mb-2">Visual Studio Code</p>
+                            <div class="metrics">
+                                <span><i class="fas fa-star"></i> 172k</span>
+                                <span><i class="fas fa-code-branch"></i> 32.5k</span>
+                                <span><i class="fas fa-eye"></i> 3.4k</span>
+                                <span><i class="fas fa-bug"></i> 5k+</span>
+                                <span><i class="fas fa-plus-circle text-accent-color-1"></i> +311 (当日)</span>
+                                <span><i class="fas fa-clipboard-check"></i> 2次 (连续)</span>
+                                <span><i class="fas fa-chart-pie"></i> 2次 (总上榜)</span>
+                            </div>
+                            <div class="lang-dist">
+                                <span class="font-bold">编程语言占比:</span>
+                                <span><i class="fas fa-circle" style="color:#3178C6;"></i> TypeScript 95.5%</span>
+                            </div>
+                        </div>
+                        <div class="description">
+                            <h4 class="text-primary-color">项目速读:</h4>
+                            <p>这是流行代码编辑器Visual Studio Code (VS Code)的开源基础。作为强大、轻量级的代码编辑器，它旨在为开发者提供核心的编辑、构建和调试循环所需功能，巧妙平衡了代码编辑器的简洁性与IDE的强大功能。凭借其灵活丰富的扩展模型、优秀的跨平台支持、高效性能以及活跃社区，成为了全球范围内开发者最受欢迎、使用最广泛的工具之一。它极大简化了开发流程，提升了生产力，适用于几乎所有编程语言和开发场景。</p>
+                        </div>
+                        <div class="growth-analysis">
+                            <h4 class="text-primary-color">增长分析:</h4>
+                            <p>2天内实际上榜2次，关注度高。作为成熟且广泛使用的项目，平均每次新增Star约300，今日新增311 Star，增长势头强劲并呈加速趋势，显示其持续的生态吸引力。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Project: huggingface/huggingface.js -->
+            <section>
+                <div class="slide-content">
+                    <div class="project-card">
+                        <div>
+                            <h3>huggingface/huggingface.js</h3>
+                            <p class="text-gray-600 mb-2">Hugging Face Hub API 工具集</p>
+                            <div class="metrics">
+                                <span><i class="fas fa-star"></i> 1.7k</span>
+                                <span><i class="fas fa-code-branch"></i> 388</span>
+                                <span><i class="fas fa-eye"></i> 49</span>
+                                <span><i class="fas fa-bug"></i> 106</span>
+                                <span><i class="fas fa-plus-circle text-accent-color-1"></i> +12 (当日)</span>
+                                <span><i class="fas fa-clipboard-check"></i> 1次 (连续)</span>
+                                <span><i class="fas fa-chart-pie"></i> 1次 (总上榜)</span>
+                            </div>
+                            <div class="lang-dist">
+                                <span class="font-bold">编程语言占比:</span>
+                                <span><i class="fas fa-circle" style="color:#3178C6;"></i> TypeScript 87.1%</span>
+                                <span><i class="fas fa-circle" style="color:#F1E05A;"></i> JavaScript 10.5%</span>
+                            </div>
+                        </div>
+                        <div class="description">
+                            <h4 class="text-primary-color">项目速读:</h4>
+                            <p>Hugging Face JS Libraries 是Hugging Face官方为JavaScript/TypeScript开发者构建的工具集，旨在便捷调用Hugging Face平台上各种机器学习模型进行推理，并管理Hub仓库资源。它以模块化方式提供核心包（如`@huggingface/inference`和`@huggingface/hub`），并提供强大的TypeScript类型支持。极大简化了在JS/TS应用中集成AI能力的过程，是连接JavaScript生态与Hugging Face强大AI生态的关键桥梁。</p>
+                        </div>
+                        <div class="growth-analysis">
+                            <h4 class="text-primary-color">增长分析:</h4>
+                            <p>作为新晋项目，首次上榜，获得1.7k星并当日新增12星。这表明Hugging Face在JS/TS生态中的官方支持受到开发者关注，有助于AI能力在Web端的普及。</p>
+                        </div>
+                    </div>
+                </section>
+
+            <!-- Slide 20: Thank You / Q&A -->
+            <section data-background-image="https://images.unsplash.com/photo-1549492164-16e788e36780?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=1080&ixid=MnwxfDB8MXxyYW5kb218MHx8YWl8fHx8fHwxNjg0MDAwMDAw&ixlib=rb-4.0.3&q=80&w=1920" data-background-size="cover" data-background-position="center">
+                <div class="relative h-full flex flex-col justify-center items-center text-center bg-gradient-to-t from-black/60 to-transparent">
+                    <h1 class="hero-title text-shadow-lg mb-6">感谢聆听！</h1>
+                    <h2 class="hero-subtitle text-shadow-md">Q&A</h2>
+                    <p class="text-white text-2xl mt-8 mb-4">期待与您共同探索AI的无限可能！</p>
+                </div>
+                <div class="project-link-qr">
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra WeChat QR Code">
+                    <span>关注我们：<a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a></span>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            hash: true,
+            transition: 'slide', // Fading or sliding transitions
+            backgroundTransition: 'fade', // Background transitions
+            
+            // Learn about plugins: https://revealjs.com/plugins/
+            plugins: [ ]
+        });
+    </script>
+</body>
+</html>
