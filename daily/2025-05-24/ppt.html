@@ -1,0 +1,926 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>AI正在“长手长脚”：它要自己干活了！</title>
+
+    <!-- Core Reveal.js framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- Font Awesome -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <!-- Google Fonts for Noto Serif SC (headings) and Noto Sans SC (body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Mermaid for diagrams (not explicitly used in content, but included in deps) -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        :root {
+            --r-main-font: "Noto Sans SC", Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: "Noto Serif SC", serif;
+            --r-background-color: #f8f8f8; /* Light off-white for main background */
+            --r-text-color: #333; /* Dark gray for text */
+            --r-primary-color: #4C51BF; /* Primary brand color (deep indigo) */
+            --r-secondary-color: #6B46C1; /* Secondary accent color (purple) */
+            --r-accent-color: #2D3748; /* Darker gray for subtle elements */
+        }
+
+        body {
+            font-family: var(--r-main-font);
+            color: var(--r-text-color);
+            background-color: var(--r-background-color);
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--r-text-color);
+            text-transform: none; /* Keep original casing */
+            font-weight: 700;
+        }
+
+        .reveal h1 { font-size: 3.5rem; /* Matches 2-3rem requirement effectively with 56px */ }
+        .reveal h2 { font-size: 2.5rem; /* Matches 2-3rem requirement effectively with 40px */ }
+        .reveal h3 { font-size: 2rem;   /* Matches 1.5-2rem requirement effectively with 32px */ }
+        .reveal h4 { font-size: 1.5rem; /* Matches 1.5-2rem requirement effectively with 24px */ }
+        .reveal p, .reveal li { font-size: 1.15rem; /* Matches 1-1.2rem requirement effectively with 18.4px */ }
+
+        .reveal .slides section {
+            padding: 40px; /* Uniform padding for all slides */
+            box-sizing: border-box;
+            text-align: left;
+        }
+
+        .reveal .slides section p {
+            margin-bottom: 1em;
+            line-height: 1.6;
+        }
+
+        .reveal .slides section.text-center {
+            text-align: center;
+        }
+
+        .reveal .slides section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .reveal .slides section ul li {
+            margin-bottom: 0.8em;
+            position: relative;
+            padding-left: 1.8em;
+        }
+
+        .reveal .slides section ul:not(.no-bullet) li::before {
+            content: "\f00c"; /* Check mark icon */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--r-primary-color);
+            position: absolute;
+            left: 0;
+            top: 0.1em;
+            font-size: 0.8em;
+        }
+
+        .reveal .slides section ul.no-bullet li::before {
+            content: none;
+        }
+
+        .reveal .slides section table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .reveal .slides section table th,
+        .reveal .slides section table td {
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            text-align: left;
+        }
+
+        .reveal .slides section table th {
+            background-color: var(--r-primary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        .reveal .slides section table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .reveal .slides section .qr-link-container {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: flex-end;
+            gap: 15px;
+            text-align: right;
+            z-index: 10; /* Ensure it's above other elements */
+        }
+        .reveal .slides section .qr-link-container img {
+            height: 100px;
+            width: 100px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .reveal .slides section .qr-link-container a {
+            color: white; /* Default for cover/gradient background */
+            font-size: 0.9rem;
+            text-decoration: none;
+            word-break: break-all;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5); /* For readability on images */
+        }
+        .reveal .slides section .qr-link-container a:hover {
+            opacity: 0.8;
+        }
+        .reveal .slides section:not([data-background-gradient]):not([data-background-image]) .qr-link-container a {
+            color: var(--r-primary-color); /* For white/light backgrounds */
+            text-shadow: none;
+        }
+
+        /* Custom backgrounds */
+        .reveal .slides section[data-background-image] {
+            background-size: cover;
+            background-position: center;
+        }
+
+        .reveal .slides section[data-background-tint] {
+            position: relative;
+            z-index: 0;
+        }
+        .reveal .slides section[data-background-tint]::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--background-tint);
+            z-index: -1;
+        }
+
+        .reveal .slides section[data-background-gradient] {
+            background: linear-gradient(to bottom right, var(--r-primary-color), var(--r-secondary-color));
+            color: white; /* Ensure text is white on dark gradient */
+        }
+        .reveal .slides section[data-background-gradient] h1,
+        .reveal .slides section[data-background-gradient] h2,
+        .reveal .slides section[data-background-gradient] h3,
+        .reveal .slides section[data-background-gradient] p,
+        .reveal .slides section[data-background-gradient] li {
+            color: white;
+        }
+
+        .reveal .slides section[data-project-background] {
+            background-color: var(--r-background-color);
+            position: relative;
+            overflow: hidden;
+        }
+        .reveal .slides section[data-project-background]::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0.95), rgba(255,255,255,0.7) 70%, transparent);
+            z-index: 1;
+        }
+        .reveal .slides section[data-project-background] > *:not(.qr-link-container) {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Fragment animations */
+        .reveal .fragment.fade-in { opacity: 0; }
+        .reveal .fragment.fade-in.visible { opacity: 1; transition: opacity 0.8s ease-in-out; }
+        .reveal .fragment.fade-up { opacity: 0; transform: translateY(20px); }
+        .reveal .fragment.fade-up.visible { opacity: 1; transform: translateY(0); transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out; }
+
+        /* Custom styling for icons within text */
+        .reveal i.fa-solid, .reveal i.fa-brands {
+            color: var(--r-primary-color);
+            margin-right: 0.3em;
+        }
+
+        .reveal .project-title {
+            font-size: 2.8rem;
+            color: var(--r-primary-color);
+            margin-bottom: 0.5em;
+        }
+        .reveal .project-description {
+            font-size: 1.3rem;
+            color: var(--r-accent-color);
+            line-height: 1.5;
+        }
+        .reveal .project-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+            font-size: 1.1rem;
+        }
+        .reveal .project-stats-grid div {
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+        }
+        .reveal .project-stats-grid div i {
+            margin-right: 0.8rem;
+            font-size: 1.5rem;
+            color: var(--r-primary-color);
+        }
+        .reveal .project-stats-grid div strong {
+            color: var(--r-accent-color);
+            margin-right: 0.4em;
+        }
+
+        .reveal .language-breakdown {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 1em;
+        }
+        .reveal .language-breakdown span {
+            background-color: #e6e6e6;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            color: #555;
+            white-space: nowrap;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover Page -->
+            <section data-background-image="https://images.unsplash.com/photo-1596541223130-bb4643666b6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1ODU3MjF8MHwxfHNlYXJjaHwyMHx8QWklMjBhZ2VudHxlbnwxMDh8fHx8fDA&ixlib=rb-4.0.3&q=80&w=1920" data-background-tint="rgba(0,0,0,0.6)" style="--background-tint: rgba(0,0,0,0.6);">
+                <div class="r-stack text-white text-center">
+                    <h1 class="text-7xl font-bold mb-4 fragment fade-in">AI正在“长手长脚”</h1>
+                    <h2 class="text-5xl font-light mb-8 fragment fade-in" data-fragment-index="1">不止模型，它要自己干活了！</h2>
+                    <p class="text-2xl mb-12 fragment fade-in" data-fragment-index="2">Github热门仓库日报观测时间：2025-05-24 20:51:10</p>
+                    <p class="text-xl italic mb-12 fragment fade-in" data-fragment-index="3">以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</p>
+                    <p class="text-3xl mt-12 fragment fade-in" data-fragment-index="4">演讲者：AIChipEra</p>
+                </div>
+                <div class="qr-link-container text-white">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+            <!-- Slide 2: Aha Moment (Core Theme) -->
+            <section data-background-gradient>
+                <h1 class="text-center font-bold text-6xl leading-tight fragment fade-in">
+                    AI正从“会说”走向“会做”<br>
+                    成为真正的<span class="text-yellow-300">“数字劳动力”</span>
+                </h1>
+                <p class="text-center text-3xl mt-12 fragment fade-in" data-fragment-index="1">
+                    <i class="fa-solid fa-robot"></i> 不止于聊天，它要自己规划、执行复杂任务！
+                </p>
+                <p class="text-center text-3xl mt-4 fragment fade-in" data-fragment-index="2">
+                    <i class="fa-solid fa-lightbulb"></i> AI代理（Agentic AI）正带来<br>效率革命的“灵光一现”！
+                </p>
+            </section>
+
+            <!-- Slide 3: 日报要点 (Daily Highlights) -->
+            <section>
+                <h2><i class="fa-solid fa-newspaper"></i> 日报要点概览</h2>
+                <ul class="text-xl leading-relaxed mt-8">
+                    <li class="fragment fade-up"><i class="fa-solid fa-arrow-right"></i> **AI发展方向巨变：** 从底层模型向“落地应用”和“数字劳动力”转型。</li>
+                    <li class="fragment fade-up" data-fragment-index="1"><i class="fa-solid fa-robot"></i> **“AI代理”（Agentic AI）崛起：** 具备自主规划和执行复杂任务的能力，备受关注。</li>
+                    <li class="fragment fade-up" data-fragment-index="2"><i class="fa-solid fa-code"></i> **深度融入垂直行业：** 帮助开发者自动写代码、处理数据；深度融入金融、数据查询等。</li>
+                    <li class="fragment fade-up" data-fragment-index="3"><i class="fa-solid fa-lock"></i> **隐私与本地化：** 将AI集成到现有工作流，实现本地化运行以保护隐私成为趋势。</li>
+                    <li class="fragment fade-up" data-fragment-index="4"><i class="fa-solid fa-handshake"></i> **AI新时代：** 预示着AI将成为强大“超级助理”，彻底改变工作方式。</li>
+                </ul>
+            </section>
+
+            <!-- Slide 4: 热门项目趋势分析 - 今日整体趋势 (Horizontal Parent) -->
+            <section>
+                <section>
+                    <h2><i class="fa-solid fa-chart-line"></i> 今日整体趋势：技术领域与主题概览</h2>
+                    <ul class="text-xl leading-relaxed mt-8 no-bullet">
+                        <li class="fragment fade-up"><i class="fa-solid fa-lightbulb"></i> **AI应用层：** 聚焦AI能力与具体专业工作流程集成。</li>
+                        <li class="fragment fade-up" data-fragment-index="1"><i class="fa-solid fa-robot"></i> **AI编程助手与自动化开发：** 提升编码效率，理解和操作代码库。</li>
+                        <li class="fragment fade-up" data-fragment-index="2"><i class="fa-solid fa-industry"></i> **垂直行业AI平台：** 深入金融、数据查询等特定领域。</li>
+                        <li class="fragment fade-up" data-fragment-index="3"><i class="fa-solid fa-brain"></i> **自主AI代理（Agentic AI）：** 强调无需频繁人工干预，自主规划执行复杂任务。</li>
+                        <li class="fragment fade-up" data-fragment-index="4"><i class="fa-solid fa-house-chimney"></i> **本地化运行与隐私：** 关注完全本地化运行以保障隐私。</li>
+                        <li class="fragment fade-up" data-fragment-index="5"><i class="fa-solid fa-comment-dots"></i> **多模型AI交互界面：** 灵活、多模型兼容的AI交互界面仍是焦点。</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2><i class="fa-solid fa-code-branch"></i> 编程语言与技术栈特点</h2>
+                    <ul class="text-xl leading-relaxed mt-8 no-bullet">
+                        <li class="fragment fade-up"><i class="fa-brands fa-python fa-lg"></i> **Python：** AI与数据科学的主力，核心AI功能、数据处理、后台服务。</li>
+                        <li class="fragment fade-up" data-fragment-index="1"><i class="fa-brands fa-js-square fa-lg"></i> / <i class="fa-brands fa-node-js fa-lg"></i> **TypeScript & JavaScript：** 前端界面、开发者工具及AI服务客户端交互。</li>
+                        <li class="fragment fade-up" data-fragment-index="2"><i class="fa-solid fa-terminal fa-lg"></i> **Shell：** 将AI能力融入命令行工具的实用需求。</li>
+                        <li class="fragment fade-up" data-fragment-index="3"><i class="fa-brands fa-docker fa-lg"></i> **Docker：** 标准化运行环境，保证可移植性和部署便利性。</li>
+                        <li class="fragment fade-up" data-fragment-index="4">**总结：** "Python核心 + TypeScript/JS界面/工具" 组合普遍。</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2><i class="fa-solid fa-magnifying-glass"></i> 技术需求与发展方向洞察</h2>
+                    <ul class="text-xl leading-relaxed mt-8 no-bullet">
+                        <li class="fragment fade-up"><i class="fa-solid fa-check"></i> **AI落地迫切：** 关注AI如何实际解决问题、提升效率。</li>
+                        <li class="fragment fade-up" data-fragment-index="1"><i class="fa-solid fa-check"></i> **Agentic AI实践：** 目标是让AI拥有更强自主性、跨工具协作能力。</li>
+                        <li class="fragment fade-up" data-fragment-index="2"><i class="fa-solid fa-check"></i> **深度集成专业工具：** 降低使用门槛，提高直接效能。</li>
+                        <li class="fragment fade-up" data-fragment-index="3"><i class="fa-solid fa-check"></i> **隐私与自主控制：** 催生本地化、开源、不依赖云服务商的AI解决方案。</li>
+                        <li class="fragment fade-up" data-fragment-index="4"><i class="fa-solid fa-check"></i> **AI渗透：** AI用于改造传统工具和基础设施。</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2><i class="fa-solid fa-history"></i> 与历史趋势对比</h2>
+                    <p class="text-xl leading-relaxed mt-4 fragment fade-up">
+                        <i class="fa-solid fa-arrow-right"></i> 纯粹的基础模型或通用AI框架项目相对减少。
+                    </p>
+                    <p class="text-xl leading-relaxed mt-2 fragment fade-up" data-fragment-index="1">
+                        <i class="fa-solid fa-arrow-right"></i> 聚焦于“AI如何应用”、“AI如何更自主地工作”、“AI如何与我的数据或工作流结合”的项目显著增加。
+                    </p>
+                    <p class="text-xl leading-relaxed mt-2 fragment fade-up" data-fragment-index="2">
+                        <i class="fa-solid fa-arrow-right"></i> 标志着AI技术从“构建模型”快步迈向“应用与集成”阶段。
+                    </p>
+
+                    <h2 class="mt-8 fragment fade-up" data-fragment-index="3"><i class="fa-solid fa-chart-area"></i> 潜在的下一波技术热点预测</h2>
+                    <ul class="text-xl leading-relaxed mt-4 no-bullet">
+                        <li class="fragment fade-up" data-fragment-index="4"><i class="fa-solid fa-star"></i> 更复杂、专业的多模态、多Agent协作系统。</li>
+                        <li class="fragment fade-up" data-fragment-index="5"><i class="fa-solid fa-star"></i> AI代理与操作系统、IDE等底层开发环境深度融合。</li>
+                        <li class="fragment fade-up" data-fragment-index="6"><i class="fa-solid fa-star"></i> 特定行业的“微代理”和领域模型。</li>
+                        <li class="fragment fade-up" data-fragment-index="7"><i class="fa-solid fa-star"></i> 解决AI代理安全、可靠性、可解释性挑战的技术。</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Slide 5: 热门项目双日维度对比分析 -->
+            <section>
+                <h2><i class="fa-solid fa-chart-bar"></i> 热门项目双日维度对比分析</h2>
+                <div class="grid grid-cols-2 gap-8 mt-8">
+                    <div class="fragment fade-up">
+                        <h3 class="text-2xl"><i class="fa-solid fa-fire"></i> 整体活跃度</h3>
+                        <ul class="text-xl no-bullet">
+                            <li><i class="fa-solid fa-plus-circle"></i> **4个** 新项目进入热门</li>
+                            <li><i class="fa-solid fa-arrow-alt-circle-up"></i> **7个** 项目排名上升</li>
+                            <li><i class="fa-solid fa-arrow-alt-circle-down"></i> **0个** 项目出现下降趋势</li>
+                            <li class="font-bold"><i class="fa-solid fa-chart-line"></i> 整体热度呈积极增长态势</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-up" data-fragment-index="1">
+                        <h3 class="text-2xl"><i class="fa-solid fa-code"></i> 编程语言分布</h3>
+                        <ul class="text-xl no-bullet">
+                            <li><i class="fa-brands fa-js-square"></i> JavaScript & TypeScript 项目净增</li>
+                            <li><i class="fa-solid fa-arrow-down"></i> Dart & Go 项目有所减少</li>
+                            <li class="font-bold"><i class="fa-solid fa-hand-point-right"></i> 前端/全栈开发及特定领域工具活跃度提升</li>
+                        </ul>
+                    </div>
+                    <div class="col-span-2 fragment fade-up" data-fragment-index="2">
+                        <h3 class="text-2xl"><i class="fa-solid fa-star"></i> 显著涨幅项目</h3>
+                        <ul class="text-xl no-bullet">
+                            <li><i class="fa-solid fa-arrow-up"></i> **microsoft/qlib**</li>
+                            <li><i class="fa-solid fa-arrow-up"></i> **mindsdb/mindsdb**</li>
+                            <li><i class="fa-solid fa-arrow-up"></i> **Fosowl/agenticSeek**</li>
+                            <li class="font-bold text-lg"><i class="fa-solid fa-lightbulb"></i> 均获得超过 <span class="text-r-primary-color font-extrabold">400</span> 个星标增长。特别是 `agenticSeek` 在相对较小基数上实现了 <span class="text-r-primary-color font-extrabold">13.4%</span> 的显著增幅，再次印证AI相关项目（尤其是AI代理和应用层面）广受追捧。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 6: 热点变化 -->
+            <section>
+                <h2><i class="fa-solid fa-arrow-right-arrow-left"></i> 热点变化</h2>
+                <div class="grid grid-cols-3 gap-8 mt-8 text-center">
+                    <div class="fragment fade-up">
+                        <h3 class="text-2xl text-green-600"><i class="fa-solid fa-plus-circle"></i> 新增热点</h3>
+                        <ul class="text-xl no-bullet">
+                            <li><i class="fa-solid fa-angle-right"></i> huggingface/huggingface.js</li>
+                            <li><i class="fa-solid fa-angle-right"></i> lobehub/lobe-chat</li>
+                            <li><i class="fa-solid fa-angle-right"></i> usebruno/bruno</li>
+                            <li><i class="fa-solid fa-angle-right"></i> disposable-email-domains/disposable-email-domains</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-up" data-fragment-index="1">
+                        <h3 class="text-2xl text-red-600"><i class="fa-solid fa-minus-circle"></i> 减退热点</h3>
+                        <ul class="text-xl no-bullet">
+                            <li><i class="fa-solid fa-angle-right"></i> microsoft/vscode</li>
+                            <li><i class="fa-solid fa-angle-right"></i> modelcontextprotocol/registry</li>
+                            <li><i class="fa-solid fa-angle-right"></i> flutter/flutter</li>
+                            <li><i class="fa-solid fa-angle-right"></i> donnemartin/system-design-primer</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-up" data-fragment-index="2">
+                        <h3 class="text-2xl text-blue-600"><i class="fa-solid fa-sync-alt"></i> 持续热门</h3>
+                        <ul class="text-xl no-bullet">
+                            <li><i class="fa-solid fa-angle-right"></i> All-Hands-AI/OpenHands (3次)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Detailed Repository Data - MindsDB -->
+            <section>
+                <section data-project-background data-background-image="https://images.unsplash.com/photo-1620712948625-78e7bb810795?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1ODU3MjF8MHwxfHNlYXJjaHwyMzl8fGRhdGElMjBhbmFseXNpc3xlbnwwfDF8fHwxMDh8fHx8MA&ixlib=rb-4.0.3&q=80&w=1920">
+                    <h2 class="project-title"><i class="fa-solid fa-database"></i> mindsdb/mindsdb</h2>
+                    <p class="project-description fragment fade-up">
+                        AI 智能查询引擎 - 一个用于构建能够处理大规模联合数据并回答问题的 AI 的平台。
+                        <br>你唯一需要的 MCP 服务器。
+                    </p>
+                    <div class="project-stats-grid mt-8 fragment fade-up" data-fragment-index="1">
+                        <div><i class="fa-solid fa-star"></i> <strong>Star:</strong> 29181</div>
+                        <div><i class="fa-solid fa-code-fork"></i> <strong>Forks:</strong> 5.1k</div>
+                        <div><i class="fa-solid fa-eye"></i> <strong>Watchers:</strong> 407</div>
+                        <div><i class="fa-solid fa-bug"></i> <strong>Issues:</strong> 80</div>
+                        <div><i class="fa-solid fa-code-pull-request"></i> <strong>Pull Requests:</strong> 106</div>
+                        <div><i class="fa-solid fa-box"></i> <strong>Releases:</strong> 299</div>
+                        <div><i class="fa-solid fa-file-code"></i> <strong>Commits:</strong> 19,317</div>
+                        <div><i class="fa-solid fa-user-friends"></i> <strong>贡献者:</strong> 798</div>
+                        <div><i class="fa-solid fa-calendar-alt"></i> <strong>上榜:</strong> 2次 (连续)</div>
+                        <div><i class="fa-solid fa-chart-line"></i> <strong>当日增量:</strong> +269</div>
+                        <div><i class="fa-solid fa-tag"></i> <strong>语言:</strong> Python 99.8%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-book-open"></i> MindsDB 项目速读</h3>
+                    <ul class="text-xl leading-relaxed mt-4 no-bullet">
+                        <li class="fragment fade-up"><i class="fa-solid fa-circle-info"></i> 开源的 AI 查询引擎，解决从大规模、分散数据源高效获取答案的难题。</li>
+                        <li class="fragment fade-up" data-fragment-index="1"><i class="fa-solid fa-circle-info"></i> 允许人类、AI和应用程序使用标准SQL访问分散在数百种不同类型和位置的数据源，无需移动数据 (no-ETL)。</li>
+                        <li class="fragment fade-up" data-fragment-index="2"><i class="fa-solid fa-circle-info"></i> 核心优势：强大数据连接能力、统一SQL接口、内建联邦查询引擎和虚拟表（如视图、知识库、ML模型）。</li>
+                        <li class="fragment fade-up" data-fragment-index="3"><i class="fa-solid fa-circle-info"></i> 集成了AI和智能体能力，直接在数据上进行预测、问答等智能化处理。</li>
+                        <li class="fragment fade-up" data-fragment-index="4"><i class="fa-solid fa-circle-info"></i> 打破企业数据孤岛，快速构建数据驱动型AI应用的关键平台。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-chart-bar"></i> MindsDB 增长分析</h3>
+                    <ul class="text-xl leading-relaxed mt-4 no-bullet">
+                        <li class="fragment fade-up"><i class="fa-solid fa-arrow-right"></i> 两天上榜两次，总增 <span class="font-bold text-r-primary-color">416</span> 星。</li>
+                        <li class="fragment fade-up" data-fragment-index="1"><i class="fa-solid fa-arrow-right"></i> 平均每次增 <span class="font-bold">361</span> 星，但今日增量 <span class="font-bold">269</span> 星。</li>
+                        <li class="fragment fade-up" data-fragment-index="2"><i class="fa-solid fa-arrow-right"></i> 增长势头有所放缓，但仍保持活跃。</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Detailed Repository Data - Microsoft Qlib -->
+            <section>
+                <section data-project-background data-background-image="https://images.unsplash.com/photo-1621256973634-190f845a7d18?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1ODU3MjF8MHwxfHNlYXJjaHwxNXx8cXVhbnQlMjB0cmFkaW5nfGVufDB8MXx8fDEwOHx8fDA&ixlib=rb-4.0.3&q=80&w=1920">
+                    <h2 class="project-title"><i class="fa-solid fa-chart-area"></i> microsoft/qlib</h2>
+                    <p class="project-description fragment fade-up">
+                        Qlib是一个面向人工智能的量化投资平台，旨在利用AI技术在量化投资领域挖掘潜力、赋能研究、创造价值，涵盖从想法探索到生产落地的全过程。
+                    </p>
+                    <div class="project-stats-grid mt-8 fragment fade-up" data-fragment-index="1">
+                        <div><i class="fa-solid fa-star"></i> <strong>Star:</strong> 20388</div>
+                        <div><i class="fa-solid fa-code-fork"></i> <strong>Forks:</strong> 3.3k</div>
+                        <div><i class="fa-solid fa-eye"></i> <strong>Watchers:</strong> 333</div>
+                        <div><i class="fa-solid fa-bug"></i> <strong>Issues:</strong> 233</div>
+                        <div><i class="fa-solid fa-code-pull-request"></i> <strong>Pull Requests:</strong> 25</div>
+                        <div><i class="fa-solid fa-box"></i> <strong>Releases:</strong> 22</div>
+                        <div><i class="fa-solid fa-file-code"></i> <strong>Commits:</strong> 2,023</div>
+                        <div><i class="fa-solid fa-user-friends"></i> <strong>贡献者:</strong> 135</div>
+                        <div><i class="fa-solid fa-calendar-alt"></i> <strong>上榜:</strong> 2次 (连续)</div>
+                        <div><i class="fa-solid fa-chart-line"></i> <strong>当日增量:</strong> +312</div>
+                        <div><i class="fa-solid fa-tag"></i> <strong>语言:</strong> Python 99.2%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-book-open"></i> Qlib 项目速读</h3>
+                    <ul class="text-xl leading-relaxed mt-4 no-bullet">
+                        <li class="fragment fade-up"><i class="fa-solid fa-circle-info"></i> 微软开源的AI量化投资平台，利用AI赋能量化投资研究与实践。</li>
+                        <li class="fragment fade-up" data-fragment-index="1"><i class="fa-solid fa-circle-info"></i> 提供端到端解决方案：金融数据处理、ML模型构建与训练（监督学习、强化学习等）、回测引擎和自动化工具。</li>
+                        <li class="fragment fade-up" data-fragment-index="2"><i class="fa-solid fa-circle-info"></i> 集成了大量前沿量化模型，处理高频、Point-in-Time等复杂金融数据。</li>
+                        <li class="fragment fade-up" data-fragment-index="3"><i class="fa-solid fa-circle-info"></i> 引入基于LLM的多Agent框架，自动化因子挖掘和模型优化，提升研发效率。</li>
+                        <li class="fragment fade-up" data-fragment-index="4"><i class="fa-solid fa-circle-info"></i> 为希望将AI深度应用于量化策略开发的个人或团队提供强大、灵活的开源框架。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-chart-bar"></i> Qlib 增长分析</h3>
+                    <ul class="text-xl leading-relaxed mt-4 no-bullet">
+                        <li class="fragment fade-up"><i class="fa-solid fa-arrow-right"></i> 仓库在统计期内上榜 <span class="font-bold">2</span> 次。</li>
+                        <li class="fragment fade-up" data-fragment-index="1"><i class="fa-solid fa-arrow-right"></i> 平均每次增星 <span class="font-bold">322.5</span>，表现出强劲增长势头和持续吸引力。</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Detailed Repository Data - Claude Code -->
+            <section>
+                <section data-project-background data-background-image="https://images.unsplash.com/photo-1510915228340-ff8b2b7371d3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1ODU3MjF8MHwxfHNlYXJjaHwxMjJ8fGNvZGVyJTIwdGVybWluYWwlMjBhaXxlbnwwfDF8fHwxMDh8fHx8MA&ixlib=rb-4.0.3&q=80&w=1920">
+                    <h2 class="project-title"><i class="fa-solid fa-terminal"></i> anthropics/claude-code</h2>
+                    <p class="project-description fragment fade-up">
+                        Claude Code 是一款智能编程工具，常驻于你的终端，理解你的代码库，并通过执行例行任务、解释复杂代码、处理 Git 工作流来帮助你更快地编码，一切皆可通过自然语言命令操作。
+                    </p>
+                    <div class="project-stats-grid mt-8 fragment fade-up" data-fragment-index="1">
+                        <div><i class="fa-solid fa-star"></i> <strong>Star:</strong> 9514</div>
+                        <div><i class="fa-solid fa-code-fork"></i> <strong>Forks:</strong> 528</div>
+                        <div><i class="fa-solid fa-eye"></i> <strong>Watchers:</strong> 75</div>
+                        <div><i class="fa-solid fa-bug"></i> <strong>Issues:</strong> 495</div>
+                        <div><i class="fa-solid fa-code-pull-request"></i> <strong>Pull Requests:</strong> 4</div>
+                        <div><i class="fa-solid fa-box"></i> <strong>Releases:</strong> 0</div>
+                        <div><i class="fa-solid fa-file-code"></i> <strong>Commits:</strong> 37</div>
+                        <div><i class="fa-solid fa-user-friends"></i> <strong>贡献者:</strong> 12</div>
+                        <div><i class="fa-solid fa-calendar-alt"></i> <strong>上榜:</strong> 2次 (连续)</div>
+                        <div><i class="fa-solid fa-chart-line"></i> <strong>当日增量:</strong> +275</div>
+                        <div><i class="fa-solid fa-tag"></i> <strong>语言:</strong> Shell 64.2%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-book-open"></i> Claude Code 项目速读</h3>
+                    <ul class="text-xl leading-relaxed mt-4 no-bullet">
+                        <li class="fragment fade-up"><i class="fa-solid fa-circle-info"></i> 直接运行在开发者终端的“代理式”编程助手。</li>
+                        <li class="fragment fade-up" data-fragment-index="1"><i class="fa-solid fa-circle-info"></i> 最大亮点：深入理解整个代码库，通过自然语言指令交互。</li>
+                        <li class="fragment fade-up" data-fragment-index="2"><i class="fa-solid fa-circle-info"></i> 核心价值：化繁为简，简化编码、调试和Git工作流。</li>
+                        <li class="fragment fade-up" data-fragment-index="3"><i class="fa-solid fa-circle-info"></i> 通过对话式命令实现跨文件修改、模块理解、测试自动化、Git冲突处理等。</li>
+                        <li class="fragment fade-up" data-fragment-index="4"><i class="fa-solid fa-circle-info"></i> 将AI能力（依赖Anthropic的Claude模型）无缝集成到终端环境，提升开发效率。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-chart-bar"></i> Claude Code 增长分析</h3>
+                    <ul class="text-xl leading-relaxed mt-4 no-bullet">
+                        <li class="fragment fade-up"><i class="fa-solid fa-arrow-right"></i> 仓库2天内上榜 <span class="font-bold">2</span> 次，总Star增长 <span class="font-bold">400</span>。</li>
+                        <li class="fragment fade-up" data-fragment-index="1"><i class="fa-solid fa-arrow-right"></i> 平均每次增 <span class="font-bold">240</span>，今日增 <span class="font-bold">275</span>，显示积极增长势头。</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Detailed Repository Data - OpenHands -->
+            <section>
+                <section data-project-background data-background-image="https://images.unsplash.com/photo-1606857503716-ee8b96585ccf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1ODU3MjF8MHwxfHNlYXJjaHwyMDR8fGFpJTIwZGV2ZWxvcG1lbnR8ZW58MHwxfHwxMDh8fHx8MA&ixlib=rb-4.0.3&q=80&w=1920">
+                    <h2 class="project-title"><i class="fa-solid fa-hands"></i> All-Hands-AI/OpenHands</h2>
+                    <p class="project-description fragment fade-up">
+                        🙌 OpenHands: 少写代码，事半功倍。
+                    </p>
+                    <div class="project-stats-grid mt-8 fragment fade-up" data-fragment-index="1">
+                        <div><i class="fa-solid fa-star"></i> <strong>Star:</strong> 55746</div>
+                        <div><i class="fa-solid fa-code-fork"></i> <strong>Forks:</strong> 6.3k</div>
+                        <div><i class="fa-solid fa-eye"></i> <strong>Watchers:</strong> 397</div>
+                        <div><i class="fa-solid fa-bug"></i> <strong>Issues:</strong> 206</div>
+                        <div><i class="fa-solid fa-code-pull-request"></i> <strong>Pull Requests:</strong> 83</div>
+                        <div><i class="fa-solid fa-box"></i> <strong>Releases:</strong> 61</div>
+                        <div><i class="fa-solid fa-file-code"></i> <strong>Commits:</strong> 4,312</div>
+                        <div><i class="fa-solid fa-user-friends"></i> <strong>贡献者:</strong> 330</div>
+                        <div><i class="fa-solid fa-calendar-alt"></i> <strong>上榜:</strong> 3次 (连续)</div>
+                        <div><i class="fa-solid fa-chart-line"></i> <strong>当日增量:</strong> +504</div>
+                        <div><i class="fa-solid fa-tag"></i> <strong>语言:</strong> Python 78.5%, TypeScript 17.2%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-book-open"></i> OpenHands 项目速读</h3>
+                    <ul class="text-xl leading-relaxed mt-4 no-bullet">
+                        <li class="fragment fade-up"><i class="fa-solid fa-circle-info"></i> AI软件开发代理平台，核心理念“Code Less, Make More”，旨在自动化提升开发效率。</li>
+                        <li class="fragment fade-up" data-fragment-index="1"><i class="fa-solid fa-circle-info"></i> 模拟人类开发者工作流程，AI代理执行代码修改、命令行操作、网页浏览、API调用等。</li>
+                        <li class="fragment fade-up" data-fragment-index="2"><i class="fa-solid fa-circle-info"></i> 突出特点：AI驱动能力强，使用灵活；支持云服务或本地Docker安全可靠运行。</li>
+                        <li class="fragment fade-up" data-fragment-index="3"><i class="fa-solid fa-circle-info"></i> 利用大型语言模型（推荐Claude Sonnet）作为大脑，Docker提供沙盒环境。</li>
+                        <li class="fragment fade-up" data-fragment-index="4"><i class="fa-solid fa-circle-info"></i> 开源（MIT许可证），为个人开发者提供强大自动化工具，探索AI在软件开发全流程的应用价值。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-chart-bar"></i> OpenHands 增长分析</h3>
+                    <ul class="text-xl leading-relaxed mt-4 no-bullet">
+                        <li class="fragment fade-up"><i class="fa-solid fa-arrow-right"></i> 约7周内总增长 <span class="font-bold">3837</span> Star，实际上榜 <span class="font-bold">6</span> 次。</li>
+                        <li class="fragment fade-up" data-fragment-index="1"><i class="fa-solid fa-arrow-right"></i> 平均每次增长 <span class="font-bold">309</span> Star。</li>
+                        <li class="fragment fade-up" data-fragment-index="2"><i class="fa-solid fa-arrow-right"></i> 当日新增 <span class="font-bold text-r-primary-color">504</span> Star 远超平均，增长势头显著。</li>
+                        <li class="fragment fade-up" data-fragment-index="3"><i class="fa-solid fa-arrow-right"></i> 持续上榜反映其较高活跃度。</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Detailed Repository Data - Lobe Chat -->
+            <section>
+                <section data-project-background data-background-image="https://images.unsplash.com/photo-1627398188206-8d5f71d50a25?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1ODU3MjF8MHwxfHNlYXJjaHwyMzh8fGFpJTIwY2hhdGJvdCUyMHVpfGVufDB8MXx8fDEwOHx8fDA&ixlib=rb-4.0.3&q=80&w=1920">
+                    <h2 class="project-title"><i class="fa-solid fa-comments"></i> lobehub/lobe-chat</h2>
+                    <p class="project-description fragment fade-up">
+                        🤯 Lobe Chat - 一个开源、现代设计的 AI 聊天框架。支持多个人工智能提供商 (OpenAI / Claude 3 / Gemini / Ollama / DeepSeek / Qwen)，知识库 (文件上传 / 知识管理 / RAG)，多模态 (插件 / Artifacts) 和思维链。一键免费部署您的私人 ChatGPT / Claude / DeepSeek 应用。
+                    </p>
+                    <div class="project-stats-grid mt-8 fragment fade-up" data-fragment-index="1">
+                        <div><i class="fa-solid fa-star"></i> <strong>Star:</strong> 61069</div>
+                        <div><i class="fa-solid fa-code-fork"></i> <strong>Forks:</strong> 12.8k</div>
+                        <div><i class="fa-solid fa-eye"></i> <strong>Watchers:</strong> 266</div>
+                        <div><i class="fa-solid fa-bug"></i> <strong>Issues:</strong> 784</div>
+                        <div><i class="fa-solid fa-code-pull-request"></i> <strong>Pull Requests:</strong> 89</div>
+                        <div><i class="fa-solid fa-box"></i> <strong>Releases:</strong> 1,659</div>
+                        <div><i class="fa-solid fa-file-code"></i> <strong>Commits:</strong> 5,267</div>
+                        <div><i class="fa-solid fa-user-friends"></i> <strong>贡献者:</strong> 246</div>
+                        <div><i class="fa-solid fa-calendar-alt"></i> <strong>上榜:</strong> 1次</div>
+                        <div><i class="fa-solid fa-chart-line"></i> <strong>当日增量:</strong> +41</div>
+                        <div><i class="fa-solid fa-tag"></i> <strong>语言:</strong> TypeScript 97.7%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-book-open"></i> Lobe Chat 项目速读</h3>
+                    <ul class="text-xl leading-relaxed mt-4 no-bullet">
+                        <li class="fragment fade-up"><i class="fa-solid fa-circle-info"></i> 开源的、设计现代的AI聊天应用框架，提供统一美观界面。</li>
+                        <li class="fragment fade-up" data-fragment-index="1"><i class="fa-solid fa-circle-info"></i> 支持各类主流大型语言模型（OpenAI、Claude、Gemini等）交互。</li>
+                        <li class="fragment fade-up" data-fragment-index="2"><i class="fa-solid fa-circle-info"></i> 核心亮点：支持多模态、插件、知识库（RAG）等先进功能。</li>
+                        <li class="fragment fade-up" data-fragment-index="3"><i class="fa-solid fa-circle-info"></i> 最关键的“一键免费部署”特性，快速搭建私有化、功能强大、高度可定制的AI聊天平台。</li>
+                        <li class="fragment fade-up" data-fragment-index="4"><i class="fa-solid fa-circle-info"></i> 适用于追求美观、强大、易于部署的私有AI聊天环境的用户。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-chart-bar"></i> Lobe Chat 增长分析</h3>
+                    <ul class="text-xl leading-relaxed mt-4 no-bullet">
+                        <li class="fragment fade-up"><i class="fa-solid fa-arrow-right"></i> 统计周期内总增长 <span class="font-bold">1626</span> 星，增长强劲。</li>
+                        <li class="fragment fade-up" data-fragment-index="1"><i class="fa-solid fa-arrow-right"></i> 实际上榜 <span class="font-bold">4</span> 次，但平均每次上榜新增星数相对总增长较低。</li>
+                        <li class="fragment fade-up" data-fragment-index="2"><i class="fa-solid fa-arrow-right"></i> 表明增长并非仅依赖于上榜瞬间，而更可能得益于持续活跃度和更广泛关注。</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Detailed Repository Data - AgenticSeek -->
+            <section>
+                <section data-project-background data-background-image="https://images.unsplash.com/photo-1620616149495-207d4b4700f1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1ODU3MjF8MHwxfHNlYXJjaHw3OXx8YXV0b25vbW91cyUyMHJvYm90fGVufDB8MXx8fDEwOHx8fDA&ixlib=rb-4.0.3&q=80&w=1920">
+                    <h2 class="project-title"><i class="fa-solid fa-brain"></i> Fosowl/agenticSeek</h2>
+                    <p class="project-description fragment fade-up">
+                        完全本地运行的 Manus AI。无需 API，无每月 200 美元账单。体验一个自主智能体，它能够思考、浏览网页并编写代码，唯一成本是电费。
+                    </p>
+                    <div class="project-stats-grid mt-8 fragment fade-up" data-fragment-index="1">
+                        <div><i class="fa-solid fa-star"></i> <strong>Star:</strong> 3523</div>
+                        <div><i class="fa-solid fa-code-fork"></i> <strong>Forks:</strong> 370</div>
+                        <div><i class="fa-solid fa-eye"></i> <strong>Watchers:</strong> 29</div>
+                        <div><i class="fa-solid fa-bug"></i> <strong>Issues:</strong> 12</div>
+                        <div><i class="fa-solid fa-code-pull-request"></i> <strong>Pull Requests:</strong> 3</div>
+                        <div><i class="fa-solid fa-box"></i> <strong>Releases:</strong> 0</div>
+                        <div><i class="fa-solid fa-file-code"></i> <strong>Commits:</strong> 693</div>
+                        <div><i class="fa-solid fa-user-friends"></i> <strong>贡献者:</strong> 10</div>
+                        <div><i class="fa-solid fa-calendar-alt"></i> <strong>上榜:</strong> 2次 (连续)</div>
+                        <div><i class="fa-solid fa-chart-line"></i> <strong>当日增量:</strong> +133</div>
+                        <div><i class="fa-solid fa-tag"></i> <strong>语言:</strong> Python 85.7%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-book-open"></i> AgenticSeek 项目速读</h3>
+                    <ul class="text-xl leading-relaxed mt-4 no-bullet">
+                        <li class="fragment fade-up"><i class="fa-solid fa-circle-info"></i> 开源的、完全本地运行的自主AI代理项目，提供类似Manus AI的能力，保障隐私。</li>
+                        <li class="fragment fade-up" data-fragment-index="1"><i class="fa-solid fa-circle-info"></i> 核心优势：完全本地特性，所有处理在用户设备完成，最大化保护数据隐私。</li>
+                        <li class="fragment fade-up" data-fragment-index="2"><i class="fa-solid fa-circle-info"></i> 赋予电脑自主执行复杂任务能力：浏览网页、填写表单、编写运行代码。</li>
+                        <li class="fragment fade-up" data-fragment-index="3"><i class="fa-solid fa-circle-info"></i> 通过智能代理系统将大型任务分解为可管理步骤，协调不同代理协同完成。</li>
+                        <li class="fragment fade-up" data-fragment-index="4"><i class="fa-solid fa-circle-info"></i> 优化本地运行大型语言模型，适用于重视隐私、希望摆脱订阅费用的用户。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-chart-bar"></i> AgenticSeek 增长分析</h3>
+                    <ul class="text-xl leading-relaxed mt-4 no-bullet">
+                        <li class="fragment fade-up"><i class="fa-solid fa-arrow-right"></i> 2天内上榜 <span class="font-bold">2</span> 次，获得 <span class="font-bold">416</span> Star增长。</li>
+                        <li class="fragment fade-up" data-fragment-index="1"><i class="fa-solid fa-arrow-right"></i> 平均每次上榜贡献 <span class="font-bold">107</span> 星。</li>
+                        <li class="fragment fade-up" data-fragment-index="2"><i class="fa-solid fa-arrow-right"></i> 近期增长加速，当日新增 <span class="font-bold">133</span> 星高于平均，显示强劲增长势头。</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Detailed Repository Data - Bruno -->
+            <section>
+                <section data-project-background data-background-image="https://images.unsplash.com/photo-1549692520-cb4142f10b7f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1ODU3MjF8MHwxfHNlYXJjaHwxNXx8YXBpJTIwdGVzdGluZ3xlbnwwfDF8fHwxMDh8fHx8MA&ixlib=rb-4.0.3&q=80&w=1920">
+                    <h2 class="project-title"><i class="fa-solid fa-layer-group"></i> usebruno/bruno</h2>
+                    <p class="project-description fragment fade-up">
+                        用于探索和测试 API 的开源 IDE (Postman/Insomnia 的轻量级替代品)。
+                    </p>
+                    <div class="project-stats-grid mt-8 fragment fade-up" data-fragment-index="1">
+                        <div><i class="fa-solid fa-star"></i> <strong>Star:</strong> 34260</div>
+                        <div><i class="fa-solid fa-code-fork"></i> <strong>Forks:</strong> 1.6k</div>
+                        <div><i class="fa-solid fa-eye"></i> <strong>Watchers:</strong> 97</div>
+                        <div><i class="fa-solid fa-bug"></i> <strong>Issues:</strong> 1.2k</div>
+                        <div><i class="fa-solid fa-code-pull-request"></i> <strong>Pull Requests:</strong> 265</div>
+                        <div><i class="fa-solid fa-box"></i> <strong>Releases:</strong> 131</div>
+                        <div><i class="fa-solid fa-file-code"></i> <strong>Commits:</strong> 2,883</div>
+                        <div><i class="fa-solid fa-user-friends"></i> <strong>贡献者:</strong> 319</div>
+                        <div><i class="fa-solid fa-calendar-alt"></i> <strong>上榜:</strong> 1次</div>
+                        <div><i class="fa-solid fa-chart-line"></i> <strong>当日增量:</strong> +230</div>
+                        <div><i class="fa-solid fa-tag"></i> <strong>语言:</strong> JavaScript 92.4%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-book-open"></i> Bruno 项目速读</h3>
+                    <ul class="text-xl leading-relaxed mt-4 no-bullet">
+                        <li class="fragment fade-up"><i class="fa-solid fa-circle-info"></i> 开源API测试工具，Postman/Insomnia的轻量级替代品。</li>
+                        <li class="fragment fade-up" data-fragment-index="1"><i class="fa-solid fa-circle-info"></i> 核心创新：所有API请求数据以纯文本文件（.bru格式）直接存储在本地。</li>
+                        <li class="fragment fade-up" data-fragment-index="2"><i class="fa-solid fa-circle-info"></i> 优势：无缝集成到Git等版本控制系统，极大便利团队协作、版本管理和离线使用。</li>
+                        <li class="fragment fade-up" data-fragment-index="3"><i class="fa-solid fa-circle-info"></i> 最大化保障用户数据隐私和安全。</li>
+                        <li class="fragment fade-up" data-fragment-index="4"><i class="fa-solid fa-circle-info"></i> 适用于注重数据控制、版本追踪以及寻求强大且不绑定云服务的API开发测试环境的开发者和团队。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-chart-bar"></i> Bruno 增长分析</h3>
+                    <ul class="text-xl leading-relaxed mt-4 no-bullet">
+                        <li class="fragment fade-up"><i class="fa-solid fa-arrow-right"></i> 短周期内（2天，上榜2次）实现了 <span class="font-bold">320</span> 个Star增长。</li>
+                        <li class="fragment fade-up" data-fragment-index="1"><i class="fa-solid fa-arrow-right"></i> 平均每次上榜贡献 <span class="font-bold">162</span> 个。</li>
+                        <li class="fragment fade-up" data-fragment-index="2"><i class="fa-solid fa-arrow-right"></i> 最新一天增长（<span class="font-bold">230</span> 个）显著高于平均值，显示近期增长势头强劲。</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Detailed Repository Data - Ghost-Downloader-3 -->
+            <section>
+                <section data-project-background data-background-image="https://images.unsplash.com/photo-1620712948625-78e7bb810795?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1ODU3MjF8MHwxfHNlYXJjaHwyMzl8fGRhdGElMjBhbmFseXNpc3xlbnwwfDF8fHwxMDh8fHx8MA&ixlib=rb-4.0.3&q=80&w=1920">
+                    <h2 class="project-title"><i class="fa-solid fa-download"></i> XiaoYouChR/Ghost-Downloader-3</h2>
+                    <p class="project-description fragment fade-up">
+                        一个用Python构建的跨平台流畅设计AI增强多线程下载器。
+                    </p>
+                    <div class="project-stats-grid mt-8 fragment fade-up" data-fragment-index="1">
+                        <div><i class="fa-solid fa-star"></i> <strong>Star:</strong> 1656</div>
+                        <div><i class="fa-solid fa-code-fork"></i> <strong>Forks:</strong> 82</div>
+                        <div><i class="fa-solid fa-eye"></i> <strong>Watchers:</strong> 12</div>
+                        <div><i class="fa-solid fa-bug"></i> <strong>Issues:</strong> 25</div>
+                        <div><i class="fa-solid fa-code-pull-request"></i> <strong>Pull Requests:</strong> 4</div>
+                        <div><i class="fa-solid fa-box"></i> <strong>Releases:</strong> 29</div>
+                        <div><i class="fa-solid fa-file-code"></i> <strong>Commits:</strong> 306</div>
+                        <div><i class="fa-solid fa-user-friends"></i> <strong>贡献者:</strong> 5</div>
+                        <div><i class="fa-solid fa-calendar-alt"></i> <strong>上榜:</strong> 2次 (连续)</div>
+                        <div><i class="fa-solid fa-chart-line"></i> <strong>当日增量:</strong> +126</div>
+                        <div><i class="fa-solid fa-tag"></i> <strong>语言:</strong> Python 99.5%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-book-open"></i> Ghost-Downloader-3 项目速读</h3>
+                    <ul class="text-xl leading-relaxed mt-4 no-bullet">
+                        <li class="fragment fade-up"><i class="fa-solid fa-circle-info"></i> 基于Python的跨平台、多线程下载器，从B站资源整合发展为通用下载工具。</li>
+                        <li class="fragment fade-up" data-fragment-index="1"><i class="fa-solid fa-circle-info"></i> 最大亮点：独创“AI智能加速”和无需合并的“智能分块下载”技术。</li>
+                        <li class="fragment fade-up" data-fragment-index="2"><i class="fa-solid fa-circle-info"></i> 极大地提高了下载效率和速度，媲美专业下载软件体验。</li>
+                        <li class="fragment fade-up" data-fragment-index="3"><i class="fa-solid fa-circle-info"></i> 采用流畅的Fluent设计界面，支持Windows、Linux、macOS。</li>
+                        <li class="fragment fade-up" data-fragment-index="4"><i class="fa-solid fa-circle-info"></i> 为用户提供高效、现代、跨平台的下载解决方案，尤其适合处理大文件。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-chart-bar"></i> Ghost-Downloader-3 增长分析</h3>
+                    <ul class="text-xl leading-relaxed mt-4 no-bullet">
+                        <li class="fragment fade-up"><i class="fa-solid fa-arrow-right"></i> 短短两天内总计增长 <span class="font-bold">286</span> Star，表现出强劲增长势头。</li>
+                        <li class="fragment fade-up" data-fragment-index="1"><i class="fa-solid fa-arrow-right"></i> 两次上榜，表明其持续获得关注及显著增长，增长势头良好。</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Detailed Repository Data - freeCodeCamp -->
+            <section>
+                <section data-project-background data-background-image="https://images.unsplash.com/photo-1549692520-cb4142f10b7f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1ODU3MjF8MHwxfHNlYXJjaHw3OXx8YXBpJTIwdGVzdGluZ3xlbnwwfDF8fHwxMDh8fHx8MA&ixlib=rb-4.0.3&q=80&w=1920">
+                    <h2 class="project-title"><i class="fa-solid fa-graduation-cap"></i> freeCodeCamp/freeCodeCamp</h2>
+                    <p class="project-description fragment fade-up">
+                        freeCodeCamp.org 的开源代码库和课程体系。免费学习数学、编程和计算机科学。
+                    </p>
+                    <div class="project-stats-grid mt-8 fragment fade-up" data-fragment-index="1">
+                        <div><i class="fa-solid fa-star"></i> <strong>Star:</strong> 418645</div>
+                        <div><i class="fa-solid fa-code-fork"></i> <strong>Forks:</strong> 40.2k</div>
+                        <div><i class="fa-solid fa-eye"></i> <strong>Watchers:</strong> 8.6k</div>
+                        <div><i class="fa-solid fa-bug"></i> <strong>Issues:</strong> 205</div>
+                        <div><i class="fa-solid fa-code-pull-request"></i> <strong>Pull Requests:</strong> 104</div>
+                        <div><i class="fa-solid fa-box"></i> <strong>Releases:</strong> 0</div>
+                        <div><i class="fa-solid fa-file-code"></i> <strong>Commits:</strong> 38,363</div>
+                        <div><i class="fa-solid fa-user-friends"></i> <strong>贡献者:</strong> 5000+</div>
+                        <div><i class="fa-solid fa-calendar-alt"></i> <strong>上榜:</strong> 2次 (连续)</div>
+                        <div><i class="fa-solid fa-chart-line"></i> <strong>当日增量:</strong> +127</div>
+                        <div><i class="fa-solid fa-tag"></i> <strong>语言:</strong> TypeScript 69.0%, JavaScript 25.6%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-book-open"></i> freeCodeCamp 项目速读</h3>
+                    <ul class="text-xl leading-relaxed mt-4 no-bullet">
+                        <li class="fragment fade-up"><i class="fa-solid fa-circle-info"></i> 大型开源项目，提供免费、高质量的数学、编程及计算机科学教育。</li>
+                        <li class="fragment fade-up" data-fragment-index="1"><i class="fa-solid fa-circle-info"></i> 帮助忙碌的成年人掌握全栈开发、机器学习等技能，进入技术领域。</li>
+                        <li class="fragment fade-up" data-fragment-index="2"><i class="fa-solid fa-circle-info"></i> 最大亮点：自定进度的学习模式和数千个互动编码挑战的结构化课程。</li>
+                        <li class="fragment fade-up" data-fragment-index="3"><i class="fa-solid fa-circle-info"></i> 学习者通过完成符合行业标准的实践项目，可获得免费、可验证的开发者认证。</li>
+                        <li class="fragment fade-up" data-fragment-index="4"><i class="fa-solid fa-circle-info"></i> 巧妙利用CDN分发自动化测试套件，学习者可在习惯的开发环境灵活实践。</li>
+                        <li class="fragment fade-up" data-fragment-index="5"><i class="fa-solid fa-circle-info"></i> 对于渴望免费学习编程、提升就业竞争力的人群具有极高价值。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-chart-bar"></i> freeCodeCamp 增长分析</h3>
+                    <ul class="text-xl leading-relaxed mt-4 no-bullet">
+                        <li class="fragment fade-up"><i class="fa-solid fa-arrow-right"></i> 仓库高频率上榜 <span class="font-bold">9</span> 次，表明持续受到关注。</li>
+                        <li class="fragment fade-up" data-fragment-index="1"><i class="fa-solid fa-arrow-right"></i> 累计增长 <span class="font-bold">7538</span> Star，增长势头良好。</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Detailed Repository Data - disposable-email-domains -->
+            <section>
+                <section data-project-background data-background-image="https://images.unsplash.com/photo-1557426270-b96e57c6b758?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1ODU3MjF8MHwxfHNlYXJjaHwxNHx8ZW1haWwlMjBwcml2YWN5fGVufDB8MXx8fDEwOHx8fDA&ixlib=rb-4.0.3&q=80&w=1920">
+                    <h2 class="project-title"><i class="fa-solid fa-inbox"></i> disposable-email-domains/disposable-email-domains</h2>
+                    <p class="project-description fragment fade-up">
+                        临时邮箱域名列表。
+                    </p>
+                    <div class="project-stats-grid mt-8 fragment fade-up" data-fragment-index="1">
+                        <div><i class="fa-solid fa-star"></i> <strong>Star:</strong> 3796</div>
+                        <div><i class="fa-solid fa-code-fork"></i> <strong>Forks:</strong> 645</div>
+                        <div><i class="fa-solid fa-eye"></i> <strong>Watchers:</strong> 96</div>
+                        <div><i class="fa-solid fa-bug"></i> <strong>Issues:</strong> 20</div>
+                        <div><i class="fa-solid fa-code-pull-request"></i> <strong>Pull Requests:</strong> 32</div>
+                        <div><i class="fa-solid fa-box"></i> <strong>Releases:</strong> 0</div>
+                        <div><i class="fa-solid fa-file-code"></i> <strong>Commits:</strong> 690</div>
+                        <div><i class="fa-solid fa-user-friends"></i> <strong>贡献者:</strong> 178</div>
+                        <div><i class="fa-solid fa-calendar-alt"></i> <strong>上榜:</strong> 1次</div>
+                        <div><i class="fa-solid fa-chart-line"></i> <strong>当日增量:</strong> +24</div>
+                        <div><i class="fa-solid fa-tag"></i> <strong>语言:</strong> Python 90.8%, Shell 9.2%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-book-open"></i> disposable-email-domains 项目速读</h3>
+                    <ul class="text-xl leading-relaxed mt-4 no-bullet">
+                        <li class="fragment fade-up"><i class="fa-solid fa-circle-info"></i> 维护一份常用的一次性或临时邮箱域名列表。</li>
+                        <li class="fragment fade-up" data-fragment-index="1"><i class="fa-solid fa-circle-info"></i> 目的：帮助网站和应用服务商识别并阻止利用临时邮箱进行注册滥用、发送垃圾邮件等行为。</li>
+                        <li class="fragment fade-up" data-fragment-index="2"><i class="fa-solid fa-circle-info"></i> 核心：持续更新的临时邮箱域名黑名单 (disposableemailblocklist.conf)，由全球社区维护。</li>
+                        <li class="fragment fade-up" data-fragment-index="3"><i class="fa-solid fa-circle-info"></i> 作为CC0许可的开源数据资源，提供免费、权威且易于整合的临时邮箱识别方案。</li>
+                        <li class="fragment fade-up" data-fragment-index="4"><i class="fa-solid fa-circle-info"></i> 适用于用户注册、表单验证、评论防刷等场景，有效降低构建防御系统门槛。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-chart-bar"></i> disposable-email-domains 增长分析</h3>
+                    <ul class="text-xl leading-relaxed mt-4 no-bullet">
+                        <li class="fragment fade-up"><i class="fa-solid fa-arrow-right"></i> 首次上榜，当日增量 <span class="font-bold">24</span> Star。</li>
+                        <li class="fragment fade-up" data-fragment-index="1"><i class="fa-solid fa-arrow-right"></i> 作为实用数据资源，具有稳定关注度。</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Detailed Repository Data - huggingface/huggingface.js -->
+            <section>
+                <section data-project-background data-background-image="https://images.unsplash.com/photo-1620712948625-78e7bb810795?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1ODU3MjF8MHwxfHNlYXJjaHwyMzl8fGRhdGElMjBhbmFseXNpc3xlbnwwfDF8fHwxMDh8fHx8MA&ixlib=rb-4.0.3&q=80&w=1920">
+                    <h2 class="project-title"><i class="fa-solid fa-face-smile"></i> huggingface/huggingface.js</h2>
+                    <p class="project-description fragment fade-up">
+                        使用 Hugging Face Hub API 的工具集。
+                    </p>
+                    <div class="project-stats-grid mt-8 fragment fade-up" data-fragment-index="1">
+                        <div><i class="fa-solid fa-star"></i> <strong>Star:</strong> 1947</div>
+                        <div><i class="fa-solid fa-code-fork"></i> <strong>Forks:</strong> 398</div>
+                        <div><i class="fa-solid fa-eye"></i> <strong>Watchers:</strong> 50</div>
+                        <div><i class="fa-solid fa-bug"></i> <strong>Issues:</strong> 106</div>
+                        <div><i class="fa-solid fa-code-pull-request"></i> <strong>Pull Requests:</strong> 56</div>
+                        <div><i class="fa-solid fa-box"></i> <strong>Releases:</strong> 1</div>
+                        <div><i class="fa-solid fa-file-code"></i> <strong>Commits:</strong> 1,570</div>
+                        <div><i class="fa-solid fa-user-friends"></i> <strong>贡献者:</strong> 208</div>
+                        <div><i class="fa-solid fa-calendar-alt"></i> <strong>上榜:</strong> 1次</div>
+                        <div><i class="fa-solid fa-chart-line"></i> <strong>当日增量:</strong> +10</div>
+                        <div><i class="fa-solid fa-tag"></i> <strong>语言:</strong> TypeScript 87.1%, JavaScript 10.5%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-book-open"></i> huggingface.js 项目速读</h3>
+                    <ul class="text-xl leading-relaxed mt-4 no-bullet">
+                        <li class="fragment fade-up"><i class="fa-solid fa-circle-info"></i> 用于在JavaScript/TypeScript环境中与Hugging Face API交互的工具集。</li>
+                        <li class="fragment fade-up" data-fragment-index="1"><i class="fa-solid fa-circle-info"></i> 方便开发者通过编程方式管理Hugging Face Hub上的模型、数据集和Space。</li>
+                        <li class="fragment fade-up" data-fragment-index="2"><i class="fa-solid fa-circle-info"></i> 轻松调用推理服务执行聊天补全、文本生成、图像处理等ML任务。</li>
+                        <li class="fragment fade-up" data-fragment-index="3"><i class="fa-solid fa-circle-info"></i> 模块化设计，提供强大TypeScript类型支持。</li>
+                        <li class="fragment fade-up" data-fragment-index="4"><i class="fa-solid fa-circle-info"></i> 极大简化在Node.js、浏览器或Deno中集成Hugging Face生态系统的流程。</li>
+                        <li class="fragment fade-up" data-fragment-index="5"><i class="fa-solid fa-circle-info"></i> 构建基于HF的AI应用的强大桥梁。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-chart-bar"></i> huggingface.js 增长分析</h3>
+                    <ul class="text-xl leading-relaxed mt-4 no-bullet">
+                        <li class="fragment fade-up"><i class="fa-solid fa-arrow-right"></i> 短周期内仅上榜 <span class="font-bold">2</span> 次，平均每次增星 <span class="font-bold">11</span>。</li>
+                        <li class="fragment fade-up" data-fragment-index="1"><i class="fa-solid fa-arrow-right"></i> 总增长达 <span class="font-bold">215</span>，显示主要增长发生在上榜之外。</li>
+                        <li class="fragment fade-up" data-fragment-index="2"><i class="fa-solid fa-arrow-right"></i> 今日增势放缓。</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Final Slide: Thank You & Call to Action -->
+            <section data-background-gradient>
+                <h2 class="text-center text-5xl font-bold mb-8 fragment fade-in">感谢您的聆听！</h2>
+                <p class="text-center text-3xl mb-12 fragment fade-in" data-fragment-index="1">
+                    <i class="fa-solid fa-hand-sparkles"></i> 让我们共同探索AI的无限可能！
+                </p>
+                <div class="flex flex-col items-center justify-center mt-12 fragment fade-in" data-fragment-index="2">
+                    <h3 class="text-3xl text-white mb-4">扫描二维码，关注我们！</h3>
+                    <div class="flex items-center gap-6">
+                        <img src="../../asserts/wx.jpg" alt="QR Code" class="w-48 h-48 rounded-lg shadow-xl">
+                        <div class="text-xl text-white">
+                            <p class="mb-2"><i class="fa-solid fa-code-branch"></i> 探索项目源码:</p>
+                            <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-blue-200 hover:text-blue-50">
+                                https://github.com/aichipera/github-trend
+                            </a>
+                            <p class="mt-4"><i class="fa-solid fa-star"></i> 欢迎Star、Fork与贡献！</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="qr-link-container text-white">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            hash: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            transitionSpeed: 'default', // default/fast/slow
+            backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+            hideAddressBar: true,
+            // Learn about plugins: https://revealjs.com/plugins/
+            plugins: [ ]
+        });
+    </script>
+</body>
+</html>
