@@ -107,16 +107,15 @@
 
 # 本周每日Github热点项目分析
 
-| 时间  | 链接 |
-| ----  | ---- |
-| 周一  | TODO_URL |
-| 周二  | TODO_URL |
-| 周三  | TODO_URL |
-| 周四  | TODO_URL |
-| 周五  | TODO_URL |
-| 周六  | TODO_URL |
-| 周日  | TODO_URL |
-
+| 时间  | 链接                                                                                                       |
+| --- | -------------------------------------------------------------------------------------------------------- |
+| 周一  | [别只知ChatGPT！技术风向已变，下一代工作伙伴长这样？(20250519-日报)](https://mp.weixin.qq.com/s/pYkvaSKQ5ozhiytOFB00iA)          |
+| 周二  | [AI Agent杀疯了！GitHub热榜揭示：未来开发者正涌向这些效率神器！(20250520-日报)](https://mp.weixin.qq.com/s/pXhb6NNjYxaPUNriTFfIEg) |
+| 周三  | [微软又“杀疯了”？这5个GitHub爆款，让你效率飙升，AI落地更简单！](https://mp.weixin.qq.com/s/6W9dvnF_dx_z7tex2c9Yew)                |
+| 周四  | [AI进化到能替你工作了？GitHub热榜：告别重复劳动，开启超能开发模式！(20250522-日报)](https://mp.weixin.qq.com/s/paw0d32ku-i5QCby9CPJRw)  |
+| 周五  | [30万星+爆火！GitHub这份“屠龙宝刀”，彻底解锁你的架构师之路！(20250523-日报)](https://mp.weixin.qq.com/s/L4yYPBNAQCrJ9Tql6JdK_Q)    |
+| 周六  | [AI长“手长脚”？颠覆你的工作模式，它要替你干活了！(20250524-日报)](https://mp.weixin.qq.com/s/-4EyfpNIiPj6E3ssbQKPUw)             |
+| 周日  | [AI不再只聊天！这3个Agent让你告别加班，效率直接爆炸！(20250525-日报)](https://mp.weixin.qq.com/s/FAc8Yo-lzn1jAhS80bqetQ)         |
 
 # 详细仓库数据
 
