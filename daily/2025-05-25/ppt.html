@@ -1,0 +1,1193 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>AI智能体潮起：告别聊天，自主行动时代来了！</title>
+
+    <!-- Core framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- Extended dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        :root {
+            --r-background-color: #f8f9fa; /* Light background for general slides */
+            --r-main-font-size: 38px;
+            --r-main-font: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: 'Noto Serif SC', serif;
+            --r-link-color: #007bff;
+            --r-link-color-hover: #0056b3;
+            --r-selection-background-color: #9abaff;
+
+            /* Custom colors - modern and complementary */
+            --primary-color: #007bff; /* Vibrant Blue */
+            --accent-color-1: #28a745; /* Success Green */
+            --accent-color-2: #ffc107; /* Warning Yellow */
+            --text-color: #343a40; /* Dark Gray */
+            --light-gray: #e9ecef;
+            --dark-background: #343a40; /* For section breaks */
+        }
+
+        body {
+            font-family: var(--r-main-font);
+            color: var(--text-color);
+        }
+
+        .reveal .slides section h1,
+        .reveal .slides section h2,
+        .reveal .slides section h3,
+        .reveal .slides section h4,
+        .reveal .slides section h5,
+        .reveal .slides section h6 {
+            font-family: var(--r-heading-font);
+            color: var(--primary-color);
+            text-shadow: none;
+            font-weight: 600; /* Medium bold for titles */
+        }
+
+        .reveal .slides section h1 { font-size: 3rem; } /* Title: 2-3rem */
+        .reveal .slides section h2 { font-size: 2.5rem; }
+        .reveal .slides section h3 { font-size: 2rem; }
+        .reveal .slides section h4 { font-size: 1.75rem; } /* Subtitle: 1.5-2rem */
+        .reveal .slides section p,
+        .reveal .slides section ul,
+        .reveal .slides section ol { font-size: 1.2rem; line-height: 1.5;} /* Body: 1-1.2rem */
+        .reveal .slides section li { font-size: 1.1rem; line-height: 1.5;} /* Body: 1-1.2rem */
+        .reveal .slides section table { font-size: 1rem; }
+
+        /* Custom styles for modern look */
+        .reveal .slides section {
+            padding: 40px;
+            text-align: left;
+            box-sizing: border-box;
+            background-color: var(--r-background-color);
+            border-radius: 15px; /* Subtle rounded corners */
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05); /* Soft shadow */
+        }
+
+        .reveal .slides section.cover-slide {
+            text-align: center;
+            /* Modern gradient background with AI feel */
+            background: linear-gradient(135deg, #007bff 0%, #00d4ff 100%);
+            color: white;
+            box-shadow: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .reveal .slides section.cover-slide h1,
+        .reveal .slides section.cover-slide h2 {
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+        .reveal .slides section.cover-slide .speaker-info {
+            margin-top: 50px;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* QR Code and Project Link positioning */
+        .reveal .slides section .qr-info {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            font-size: 0.8rem;
+            color: #888;
+        }
+        .reveal .slides section .qr-info img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .reveal .slides section .qr-info a {
+            color: #888;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        .reveal .slides section .qr-info a:hover {
+            opacity: 1;
+        }
+        .reveal .slides section.cover-slide .qr-info a {
+            color: white;
+        }
+
+
+        .reveal .slides section.section-title {
+            background: linear-gradient(45deg, #f0f8ff 0%, #e0f2fe 100%); /* Light blue gradient */
+            color: var(--primary-color);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .reveal .slides section.section-title h2 {
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        .reveal .slides section.section-title p {
+            font-size: 1.5rem;
+            color: #666;
+            max-width: 80%;
+        }
+
+        /* List styles with Font Awesome icons */
+        .reveal .slides section ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+        .reveal .slides section ul li {
+            position: relative;
+            margin-bottom: 15px;
+            padding-left: 30px;
+            font-size: 1.15rem;
+            line-height: 1.5;
+        }
+        .reveal .slides section ul li::before {
+            content: "\f00c"; /* Font Awesome check mark */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--accent-color-1);
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.2rem;
+        }
+
+        /* Fragment lists for step-by-step reveal */
+        .reveal .slides section.fragment-list ul li {
+            padding-left: 0; /* Remove default checkmark */
+        }
+        .reveal .slides section.fragment-list ul li::before {
+            content: none;
+        }
+        .reveal .slides section.fragment-list ul li.fragment {
+            opacity: 0; /* fragments will reveal */
+        }
+        .reveal .slides section.fragment-list ul li.fragment.visible {
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .reveal .slides section.fragment-list ul li.fragment::before {
+            content: "\f111"; /* Dot for fragments */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--primary-color);
+            position: absolute;
+            left: -30px; /* Adjust as needed */
+            top: 0;
+            font-size: 0.8rem;
+        }
+
+        /* Table styles for project data */
+        .reveal .slides table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1rem;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .reveal .slides table th,
+        .reveal .slides table td {
+            border: 1px solid #dee2e6;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        .reveal .slides table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+        .reveal .slides table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .reveal .slides table tr:hover {
+            background-color: #e9ecef;
+        }
+        .reveal .slides table td strong {
+            color: var(--primary-color);
+        }
+        .reveal .slides table td .icon {
+            color: var(--accent-color-1);
+            margin-right: 5px;
+        }
+
+        /* Project specific styles for layout */
+        .project-overview .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            align-items: center;
+        }
+        .project-overview .grid img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .project-stat-item {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+            color: #555;
+        }
+        .project-stat-item i {
+            color: var(--primary-color);
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        /* Highlight specific keywords for "Aha moment" */
+        .aha-text {
+            color: var(--accent-color-1); /* Green for impact */
+            font-weight: 700;
+            font-size: 1.05em; /* Slightly larger than surrounding text */
+            display: inline-block;
+            animation: pulse 1.5s infinite; /* Gentle pulsing effect */
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.02); opacity: 0.95; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .reveal .slides section strong {
+            color: var(--primary-color); /* Primary blue for general strong emphasis */
+        }
+        .reveal .slides section .info-box {
+            background-color: #eaf6ff; /* Light blue background */
+            border-left: 5px solid var(--primary-color); /* Blue border */
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        /* Q&A / Thank You slide */
+        .reveal .slides section.qa-slide {
+            text-align: center;
+            background: linear-gradient(135deg, #00d4ff 0%, #007bff 100%); /* Same gradient as cover */
+            color: white;
+            box-shadow: none;
+        }
+        .reveal .slides section.qa-slide h2 {
+            font-size: 4rem;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+        .reveal .slides section.qa-slide p {
+            font-size: 2rem;
+            color: rgba(255,255,255,0.9);
+            margin-top: 30px;
+        }
+        .reveal .slides section.qa-slide .qr-info a {
+            color: white;
+        }
+        .reveal .slides section.qa-slide .qr-info {
+             color: rgba(255,255,255,0.9);
+        }
+
+        /* Reveal.js controls and progress bar styling */
+        .reveal .controls button {
+            color: var(--primary-color);
+        }
+        .reveal .progress span {
+            background: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover Page -->
+            <section class="cover-slide">
+                <h1 style="font-size: 4rem;">AI智能体潮起：告别聊天，自主行动时代来了！</h1>
+                <h2 style="font-size: 2rem; margin-top: 20px; opacity: 0.8;">Github热门仓库日报观测 (2025-05-25 20:52:04)</h2>
+                <p class="speaker-info">演讲者：AIChipEra</p>
+                <div class="qr-info">
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+            <!-- Slide 2: Disclaimer -->
+            <section>
+                <div class="info-box" style="text-align: center; font-size: 1.8rem; padding: 50px; background-color: #ffe0b2; border-left-color: #ff9800; color: #e65100;">
+                    <i class="fas fa-exclamation-triangle mr-3"></i>
+                    <strong>以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</strong>
+                </div>
+            </section>
+
+            <!-- Slide 3: Daily Highlights (Overview) -->
+            <section class="fragment-list">
+                <h2><i class="fas fa-newspaper mr-3"></i>日报要点：AI智能体时代已来！</h2>
+                <ul>
+                    <li class="fragment">AI不再满足于“聊天”，而是开始<strong class="aha-text">“自主行动”</strong>！</li>
+                    <li class="fragment">“AI智能体”（Agent）概念大爆发：能理解、规划、执行复杂任务。</li>
+                    <li class="fragment">应用场景广泛：从写代码、做研究到生成数字人，潜力无限。</li>
+                    <li class="fragment">开源力量推动AI开发工具更强大、易用，强调<strong class="aha-text">本地化与隐私</strong>。</li>
+                    <li class="fragment">AI将更深入融入工作流，效率飞升。</li>
+                    <li class="fragment">未来AI：一个个能帮你搞定事情的<strong class="aha-text">“智能体”</strong>！</li>
+                </ul>
+            </section>
+
+            <!-- Slide 4: Hot Project Trend Analysis (Overall) -->
+            <section class="fragment-list">
+                <h2><i class="fas fa-chart-line mr-3"></i>热门项目趋势分析：今日整体趋势</h2>
+                <ul>
+                    <li class="fragment"><strong>AI核心领域：</strong><strong class="aha-text">AI智能体（AI Agent）</strong>概念爆发。
+                        <ul>
+                            <li class="fragment">AgenticSeek：纯本地化、无需API。</li>
+                            <li class="fragment">Qlib (RD-Agent)：AI Agent融入量化投资。</li>
+                            <li class="fragment">Claude-Code：提升开发者效率的终端Agent。</li>
+                        </ul>
+                    </li>
+                    <li class="fragment"><strong>AI基础设施与工具链成熟：</strong>MindsDB（数据查询）、LLaMA-Factory（LLM微调）、ComfyUI（AI工作流可视化）。</li>
+                    <li class="fragment"><strong>编程语言：</strong>
+                        <ul>
+                            <li class="fragment"><strong class="aha-text">Python</strong>：AI领域霸主地位稳固。</li>
+                            <li class="fragment"><strong class="aha-text">TypeScript</strong>：现代Web应用和开发者工具强劲。</li>
+                            <li class="fragment">C/C++, Go, Zig：活跃于系统级、高性能领域。</li>
+                        </ul>
+                    </li>
+                    <li class="fragment"><strong>关键需求：</strong>用户和开发者渴望<strong class="aha-text">高效、灵活、安全、成本可控</strong>地集成AI。</li>
+                </ul>
+            </section>
+
+            <!-- Slide 5: Trend Outlook -->
+            <section class="fragment-list">
+                <h2><i class="fas fa-arrow-alt-circle-right mr-3"></i>趋势展望：下一波热点预测</h2>
+                <ul>
+                    <li class="fragment"><strong>多模态AI</strong>：进一步融合与实用化。</li>
+                    <li class="fragment"><strong>更强大与可信赖的AI Agent协作系统</strong>：多智能体协同完成复杂任务。</li>
+                    <li class="fragment"><strong>边缘计算/本地AI推理</strong>：面向特定硬件优化的本地化AI。</li>
+                    <li class="fragment"><strong>AI在科学计算与工业领域深度应用</strong>：垂直行业的AI赋能。</li>
+                    <li class="fragment"><strong>AI安全、伦理与可解释性</strong>：随着Agent能力增强，重要性日益凸显。</li>
+                </ul>
+                <div class="info-box fragment" style="margin-top: 40px; border-left-color: var(--accent-color-2); background-color: #fffde7; color: #ff9800;">
+                    <i class="fas fa-lightbulb mr-2"></i>
+                    <strong>今日三大特点：AI Agent爆发、工具链完善、本地化/隐私关注提升！</strong>
+                </div>
+            </section>
+
+            <!-- Slide 6: Hotspot Changes (Comparison) -->
+            <section>
+                <h2><i class="fas fa-sync-alt mr-3"></i>热点变化：榜单动态一览</h2>
+                <div class="grid grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl mb-3"><i class="fas fa-plus-circle mr-2 text-green-500"></i>新增热点项目 (11个)</h3>
+                        <ul class="list-disc pl-5 text-lg">
+                            <li><strong>AI/ML相关：</strong>courses (Anthropic教育), developer-roadmap (AI方向更新), ComfyUI (扩散模型GUI), LLaMA-Factory (LLM微调), Telegram Search (向量搜索), Duix.Heygem (开源数字人)</li>
+                            <li><strong>系统/工具：</strong>shadPS4 (PS4模拟器), ziglang (通用语言), reactos (Windows兼容OS), Jellyfin (媒体系统), typescript-go (TS原生移植)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl mb-3"><i class="fas fa-fire mr-2 text-red-500"></i>持续热门项目 (3次上榜)</h3>
+                        <ul class="list-disc pl-5 text-lg">
+                            <li><strong>Fosowl/agenticSeek:</strong> <strong class="aha-text">纯本地化AI Agent</strong></li>
+                            <li><strong>mindsdb/mindsdb:</strong> AI查询引擎</li>
+                            <li><strong>microsoft/qlib:</strong> AI量化投资平台 (含RD-Agent)</li>
+                            <li><strong>anthropics/claude-code:</strong> 终端AI编程助手</li>
+                        </ul>
+                        <h3 class="text-xl mb-3 mt-5"><i class="fas fa-minus-circle mr-2 text-red-500"></i>减退热点</h3>
+                        <ul class="list-disc pl-5 text-lg">
+                            <li>disposable-email-domains, openhands, huggingface.js, ghost-downloader-3, freecodecamp, bruno</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="info-box mt-8">
+                    <i class="fas fa-code mr-2"></i>
+                    <strong>语言分布变化：</strong>C/C++项目增加，Python/JS小幅减少，Zig语言成功入围。
+                </div>
+            </section>
+
+            <!-- Section Title: Detailed Repository Data -->
+            <section class="section-title" data-background-color="#343a40" data-background-image="" data-background-size="cover">
+                <h2 style="color: white; text-shadow: none;">详细仓库数据</h2>
+                <p style="color: rgba(255,255,255,0.8);">深入洞察每个热门项目</p>
+            </section>
+
+            <!-- Project: Fosowl/agenticSeek -->
+            <section>
+                <section>
+                    <h2><i class="fas fa-robot mr-3"></i>Fosowl/agenticSeek</h2>
+                    <h4>纯本地化 Manus AI。无需API，无每月200美元费用。享受一个自主智能体，可思考、浏览网页、编程，仅需电费成本。</h4>
+                    <div class="project-overview grid">
+                        <div>
+                            <p class="mt-4"><strong>核心亮点：</strong></p>
+                            <ul class="list-disc pl-5">
+                                <li><strong>完全本地化运行：</strong>数据隐私无忧，仅需电费。</li>
+                                <li><strong>自主AI智能体：</strong>思考、规划、执行任务。</li>
+                                <li><strong>多功能：</strong>智能网页浏览、编程伙伴、多语言支持。</li>
+                                <li>支持Ollama、LM Studio等本地模型。</li>
+                            </ul>
+                        </div>
+                        <img src="https://i.imgur.com/Q5s947b.png" alt="AgenticSeek UI Placeholder" style="filter: brightness(0.9);"> <!-- Placeholder image for visual appeal -->
+                    </div>
+                </section>
+                <section>
+                    <h3><i class="fas fa-chart-bar mr-3"></i>AgenticSeek: 数据与增长</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>指标</th>
+                                <th>值</th>
+                                <th>详情</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><i class="fas fa-star icon"></i>Stars</td>
+                                <td><strong>4k</strong> ⭐</td>
+                                <td>当日新增 <strong>422</strong>，总上榜3次</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-code-branch icon"></i>Forks</td>
+                                <td>402 🔄</td>
+                                <td><i class="fas fa-eye icon"></i>Watchers: 34</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-bug icon"></i>Issues</td>
+                                <td>11 ❗</td>
+                                <td><i class="fas fa-code-fork icon"></i>Pull Requests: 3</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-file-code icon"></i>主要语言</td>
+                                <td>Python</td>
+                                <td>85.3% Python, 7.0% JavaScript, 3.5% CSS</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="info-box">
+                        <i class="fas fa-arrow-alt-circle-up mr-2"></i>
+                        <strong>增长分析：</strong>3天内总增长901 Star，最后一天增长422，远超平均，显示<strong class="aha-text">强劲加速增长势头</strong>。
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: mindsdb/mindsdb -->
+            <section>
+                <section>
+                    <h2><i class="fas fa-database mr-3"></i>mindsdb/mindsdb</h2>
+                    <h4>AI查询引擎 - 构建能够回答大规模联合数据上问题的AI的平台。</h4>
+                    <p class="mt-4"><strong>核心亮点：</strong></p>
+                    <ul class="list-disc pl-5">
+                        <li><strong>统一SQL接口：</strong>连接数百种数据源，联邦查询。</li>
+                        <li><strong>内置AI智能体：</strong>直接通过AI获取数据洞察。</li>
+                        <li>简化对复杂、异构数据的访问和利用。</li>
+                        <li><strong class="aha-text">构建能理解数据并回答问题的AI应用的关键工具。</strong></li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fas fa-chart-bar mr-3"></i>MindsDB: 数据与增长</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>指标</th>
+                                <th>值</th>
+                                <th>详情</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><i class="fas fa-star icon"></i>Stars</td>
+                                <td><strong>29.5k</strong> ⭐</td>
+                                <td>当日新增 <strong>425</strong>，总上榜3次</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-code-branch icon"></i>Forks</td>
+                                <td>5.1k 🔄</td>
+                                <td><i class="fas fa-users icon"></i>Contributors: 798</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-file-code icon"></i>主要语言</td>
+                                <td>Python</td>
+                                <td>99.8% Python</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="info-box">
+                        <i class="fas fa-arrow-alt-circle-up mr-2"></i>
+                        <strong>增长分析：</strong>3天内上榜3次，平均每次382 Star，今日新增425，增长势头<strong class="aha-text">强劲且加速</strong>。
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: microsoft/qlib -->
+            <section>
+                <section>
+                    <h2><i class="fas fa-chart-pie mr-3"></i>microsoft/qlib</h2>
+                    <h4>面向AI的量化投资平台，赋能量化研究，涵盖想法探索到生产落地。</h4>
+                    <p class="mt-4"><strong>核心亮点：</strong></p>
+                    <ul class="list-disc pl-5">
+                        <li><strong>AI驱动量化投资：</strong>挖掘潜力，创造价值。</li>
+                        <li>支持监督学习、市场动态建模、强化学习等多种范式。</li>
+                        <li>提供完整工具链：数据处理、模型训练、回测、部署。</li>
+                        <li>最新集成LLM驱动的<strong class="aha-text">自动化研究代理RD-Agent</strong>。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fas fa-chart-bar mr-3"></i>Qlib: 数据与增长</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>指标</th>
+                                <th>值</th>
+                                <th>详情</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><i class="fas fa-star icon"></i>Stars</td>
+                                <td><strong>20.9k</strong> ⭐</td>
+                                <td>当日新增 <strong>426</strong>，总上榜3次</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-code-branch icon"></i>Forks</td>
+                                <td>3.3k 🔄</td>
+                                <td><i class="fas fa-users icon"></i>Contributors: 135</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-file-code icon"></i>主要语言</td>
+                                <td>Python</td>
+                                <td>99.2% Python</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="info-box">
+                        <i class="fas fa-arrow-alt-circle-up mr-2"></i>
+                        <strong>增长分析：</strong>三天内上榜3次，总增长953 Star，今日新增426，远超平均，<strong class="aha-text">持续获得高度关注</strong>。
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: groupultra/telegram-search -->
+            <section>
+                <section>
+                    <h2><i class="fab fa-telegram-plane mr-3"></i>groupultra/telegram-search</h2>
+                    <h4>功能强大的Telegram聊天记录搜索客户端，支持备份和向量搜索。</h4>
+                    <p class="mt-4"><strong>核心亮点：</strong></p>
+                    <ul class="list-disc pl-5">
+                        <li>超越关键词：集成<strong class="aha-text">向量搜索和语义匹配技术</strong>。</li>
+                        <li>利用OpenAI能力实现智能检索，理解消息深层含义。</li>
+                        <li>极大提升查找效率和准确性。</li>
+                        <li>适用于拥有大量Telegram历史的用户。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fas fa-chart-bar mr-3"></i>Telegram Search: 数据与增长</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>指标</th>
+                                <th>值</th>
+                                <th>详情</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><i class="fas fa-star icon"></i>Stars</td>
+                                <td><strong>1.3k</strong> ⭐</td>
+                                <td>当日新增 <strong>102</strong>，首次上榜</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-file-code icon"></i>主要语言</td>
+                                <td>TypeScript</td>
+                                <td>50.4% TypeScript, 39.7% Vue</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="info-box">
+                        <i class="fas fa-arrow-alt-circle-up mr-2"></i>
+                        <strong>增长分析：</strong>首次上榜即获得102 Star，显示了社区对<strong class="aha-text">智能聊天记录搜索</strong>的强劲需求。
+                    </div>
+                </section>
+            </section>
+            
+            <!-- Project: ziglang/zig -->
+            <section>
+                <section>
+                    <h2><i class="fas fa-code mr-3"></i>ziglang/zig</h2>
+                    <h4>用于维护健壮、最优、可复用软件的通用编程语言和工具链。</h4>
+                    <p class="mt-4"><strong>核心亮点：</strong></p>
+                    <ul class="list-disc pl-5">
+                        <li>对底层硬件的<strong class="aha-text">精细控制能力</strong>。</li>
+                        <li>一体化工具链，提升性能、可靠性和可维护性。</li>
+                        <li>安装简便，支持LLVM和轻量级C后端。</li>
+                        <li>适用于系统编程、嵌入式开发、极致性能应用。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fas fa-chart-bar mr-3"></i>Zig: 数据与增长</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>指标</th>
+                                <th>值</th>
+                                <th>详情</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><i class="fas fa-star icon"></i>Stars</td>
+                                <td><strong>39.1k</strong> ⭐</td>
+                                <td>当日新增 <strong>16</strong>，首次上榜</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-file-code icon"></i>主要语言</td>
+                                <td>Zig</td>
+                                <td>97.6% Zig, 1.4% C, 0.7% C++</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="info-box">
+                        <i class="fas fa-rocket mr-2"></i>
+                        <strong>增长分析：</strong>作为小众但潜力巨大的系统编程语言，其稳定增长表明社区对<strong class="aha-text">底层控制和性能优化</strong>的持续追求。
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: comfyanonymous/ComfyUI -->
+            <section>
+                <section>
+                    <h2><i class="fas fa-palette mr-3"></i>comfyanonymous/ComfyUI</h2>
+                    <h4>最强大、模块化的扩散模型GUI、API和后端，具备图/节点界面。</h4>
+                    <p class="mt-4"><strong>核心亮点：</strong></p>
+                    <ul class="list-disc pl-5">
+                        <li><strong>可视化节点/图表界面：</strong>无需代码设计AI生成工作流。</li>
+                        <li>极致灵活性和透明度，精细控制生成过程。</li>
+                        <li>广泛支持各类先进模型，对<strong class="aha-text">低显存优化出色</strong>。</li>
+                        <li>专业人士和爱好者深度探索AI生成管线的强大工具。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fas fa-chart-bar mr-3"></i>ComfyUI: 数据与增长</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>指标</th>
+                                <th>值</th>
+                                <th>详情</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><i class="fas fa-star icon"></i>Stars</td>
+                                <td><strong>77.7k</strong> ⭐</td>
+                                <td>当日新增 <strong>75</strong>，首次上榜</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-file-code icon"></i>主要语言</td>
+                                <td>Python</td>
+                                <td>99.6% Python</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="info-box">
+                        <i class="fas fa-cogs mr-2"></i>
+                        <strong>增长分析：</strong>作为AI生成领域的重要工具，77.7k的Star数和持续增长体现了社区对<strong class="aha-text">可视化、模块化AI工作流</strong>的强烈需求。
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: hiyouga/LLaMA-Factory -->
+            <section>
+                <section>
+                    <h2><i class="fas fa-brain mr-3"></i>hiyouga/LLaMA-Factory</h2>
+                    <h4>统一高效微调100多个LLM和VLM (ACL 2024)</h4>
+                    <p class="mt-4"><strong>核心亮点：</strong></p>
+                    <ul class="list-disc pl-5">
+                        <li><strong>彻底简化LLM/VLM微调过程：</strong>解决技术门槛高、操作复杂问题。</li>
+                        <li>极高兼容性：支持超过100种主流模型。</li>
+                        <li>集成LoRA、QLoRA、FlashAttention-2等前沿技术，提升效率性能。</li>
+                        <li><strong class="aha-text">无需编写代码的命令行及网页图形界面 (LLaMA Board)</strong>。</li>
+                        <li>普及定制化AI模型能力，被广泛认可。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fas fa-chart-bar mr-3"></i>LLaMA-Factory: 数据与增长</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>指标</th>
+                                <th>值</th>
+                                <th>详情</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><i class="fas fa-star icon"></i>Stars</td>
+                                <td><strong>50.1k</strong> ⭐</td>
+                                <td>当日新增 <strong>470</strong>，总上榜2次</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-file-code icon"></i>主要语言</td>
+                                <td>Python</td>
+                                <td>99.3% Python</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="info-box">
+                        <i class="fas fa-arrow-alt-circle-up mr-2"></i>
+                        <strong>增长分析：</strong>总星数增长显著，近期单日新增470，表明社区对<strong class="aha-text">高效、易用LLM微调工具</strong>的巨大需求。
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: anthropics/claude-code -->
+            <section>
+                <section>
+                    <h2><i class="fas fa-terminal mr-3"></i>anthropics/claude-code</h2>
+                    <h4>Claude Code是一个代理式编码工具，驻留在你的终端中，用自然语言命令帮助你更快编码。</h4>
+                    <p class="mt-4"><strong>核心亮点：</strong></p>
+                    <ul class="list-disc pl-5">
+                        <li><strong>终端内的AI编程助手：</strong>无需离开命令行。</li>
+                        <li>深入理解整个代码库，通过自然语言交互。</li>
+                        <li>执行文件编辑、错误修复、代码解释、运行测试、Git任务。</li>
+                        <li><strong class="aha-text">显著提高开发速度和代码理解能力。</strong></li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fas fa-chart-bar mr-3"></i>Claude Code: 数据与增长</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>指标</th>
+                                <th>值</th>
+                                <th>详情</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><i class="fas fa-star icon"></i>Stars</td>
+                                <td><strong>9.8k</strong> ⭐</td>
+                                <td>当日新增 <strong>402</strong>，总上榜3次</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-file-code icon"></i>主要语言</td>
+                                <td>Shell</td>
+                                <td>64.2% Shell, 35.8% Dockerfile</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="info-box">
+                        <i class="fas fa-arrow-alt-circle-up mr-2"></i>
+                        <strong>增长分析：</strong>3天内3次上榜，总增长692 Star，近期新增402，显示<strong class="aha-text">强劲加速增长势头</strong>。
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: shadps4-emu/shadPS4 -->
+            <section>
+                <section>
+                    <h2><i class="fas fa-gamepad mr-3"></i>shadps4-emu/shadPS4</h2>
+                    <h4>C++编写的PlayStation 4模拟器，支持Windows、Linux和macOS。</h4>
+                    <p class="mt-4"><strong>核心亮点：</strong></p>
+                    <ul class="list-disc pl-5">
+                        <li><strong>跨平台支持：</strong>Windows, Linux, macOS。</li>
+                        <li>已能运行《血源诅咒》、《黑暗之魂：重制版》等。</li>
+                        <li>需从合法PS4主机提取系统固件。</li>
+                        <li><strong class="aha-text">在非原装硬件上体验PS4经典作品的途径。</strong></li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fas fa-chart-bar mr-3"></i>shadPS4: 数据与增长</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>指标</th>
+                                <th>值</th>
+                                <th>详情</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><i class="fas fa-star icon"></i>Stars</td>
+                                <td><strong>22.4k</strong> ⭐</td>
+                                <td>当日新增 <strong>20</strong>，总上榜4次</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-file-code icon"></i>主要语言</td>
+                                <td>C++</td>
+                                <td>98.5% C++, 1.2% C</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="info-box">
+                        <i class="fas fa-hourglass-half mr-2"></i>
+                        <strong>增长分析：</strong>两个月内上榜4次，增长势头较好，但近期增长放缓。社区对<strong class="aha-text">PS4模拟器</strong>仍抱有期待。
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: lobehub/lobe-chat -->
+            <section>
+                <section>
+                    <h2><i class="fas fa-comments mr-3"></i>lobehub/lobe-chat</h2>
+                    <h4>开源、现代化设计的AI聊天框架，支持多种AI提供商、知识库、多模态。</h4>
+                    <p class="mt-4"><strong>核心亮点：</strong></p>
+                    <ul class="list-disc pl-5">
+                        <li><strong>统一美观的用户界面：</strong>整合多AI模型。</li>
+                        <li>广泛兼容OpenAI, Claude, Gemini, Ollama等。</li>
+                        <li>强大的扩展能力：知识库（RAG）、插件系统。</li>
+                        <li><strong class="aha-text">一键免费部署私有AI聊天应用，降低门槛。</strong></li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fas fa-chart-bar mr-3"></i>Lobe Chat: 数据与增长</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>指标</th>
+                                <th>值</th>
+                                <th>详情</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><i class="fas fa-star icon"></i>Stars</td>
+                                <td><strong>61.2k</strong> ⭐</td>
+                                <td>当日新增 <strong>58</strong>，总上榜5次</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-file-code icon"></i>主要语言</td>
+                                <td>TypeScript</td>
+                                <td>97.7% TypeScript</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="info-box">
+                        <i class="fas fa-signal mr-2"></i>
+                        <strong>增长分析：</strong>在约一个月内上榜5次，总增长1799 Star，近期新增58 Star，<strong class="aha-text">增长稳定，持续吸引力</strong>。
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: microsoft/typescript-go -->
+            <section>
+                <section>
+                    <h2><i class="fab fa-microsoft mr-3"></i>microsoft/typescript-go</h2>
+                    <h4>TypeScript原生移植开发的暂存仓库。</h4>
+                    <p class="mt-4"><strong>核心亮点：</strong></p>
+                    <ul class="list-disc pl-5">
+                        <li><strong>将TypeScript核心能力用Go语言重写。</strong></li>
+                        <li>目标是构建独立于Node.js、更高效的TypeScript工具链。</li>
+                        <li>已成功对标TypeScript v5.8核心编译管线和类型检查。</li>
+                        <li><strong class="aha-text">为追求极致性能或在非Node.js环境使用TypeScript提供新可能。</strong></li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fas fa-chart-bar mr-3"></i>TypeScript-Go: 数据与增长</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>指标</th>
+                                <th>值</th>
+                                <th>详情</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><i class="fas fa-star icon"></i>Stars</td>
+                                <td><strong>20k</strong> ⭐</td>
+                                <td>当日新增 <strong>55</strong>，首次上榜</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-file-code icon"></i>主要语言</td>
+                                <td>Go</td>
+                                <td>94.2% Go, 4.7% TypeScript</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="info-box">
+                        <i class="fas fa-code mr-2"></i>
+                        <strong>增长分析：</strong>首次上榜即达到20k Star，社区对<strong class="aha-text">前端基础设施底层优化</strong>的浓厚兴趣和期待。
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: anthropics/courses -->
+            <section>
+                <section>
+                    <h2><i class="fas fa-book-open mr-3"></i>anthropics/courses</h2>
+                    <h4>Anthropic的教育课程，系统学习Claude大语言模型及API。</h4>
+                    <p class="mt-4"><strong>核心亮点：</strong></p>
+                    <ul class="list-disc pl-5">
+                        <li><strong>官方出品、实践驱动的学习材料。</strong></li>
+                        <li>结构化课程：API基础、提示工程、复杂应用、评估、工具使用。</li>
+                        <li>深入指导提示工程等核心领域。</li>
+                        <li><strong class="aha-text">有效构建、优化和评估基于Claude的应用。</strong></li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fas fa-chart-bar mr-3"></i>Anthropic Courses: 数据与增长</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>指标</th>
+                                <th>值</th>
+                                <th>详情</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><i class="fas fa-star icon"></i>Stars</td>
+                                <td><strong>11.7k</strong> ⭐</td>
+                                <td>当日新增 <strong>23</strong>，总上榜2次</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-file-code icon"></i>主要语言</td>
+                                <td>Jupyter Notebook</td>
+                                <td>99.9% Jupyter Notebook</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="info-box">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        <strong>增长分析：</strong>上榜2次，总星数增长1199。证明社区对<strong class="aha-text">高质量AI学习资源</strong>的强烈需求。
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: jellyfin/jellyfin -->
+            <section>
+                <section>
+                    <h2><i class="fas fa-tv mr-3"></i>jellyfin/jellyfin</h2>
+                    <h4>自由软件媒体系统 - 服务器后端及API。</h4>
+                    <p class="mt-4"><strong>核心亮点：</strong></p>
+                    <ul class="list-disc pl-5">
+                        <li><strong>完全掌控个人数字媒体库。</strong></li>
+                        <li>开源、免费，无付费限制。</li>
+                        <li>轻松管理并流媒体播放电影、音乐、照片。</li>
+                        <li><strong class="aha-text">Emby和Plex等专有媒体服务器的强大替代方案。</strong></li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fas fa-chart-bar mr-3"></i>Jellyfin: 数据与增长</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>指标</th>
+                                <th>值</th>
+                                <th>详情</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><i class="fas fa-star icon"></i>Stars</td>
+                                <td><strong>39.8k</strong> ⭐</td>
+                                <td>当日新增 <strong>25</strong>，首次上榜</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-file-code icon"></i>主要语言</td>
+                                <td>C#</td>
+                                <td>99.8% C#</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="info-box">
+                        <i class="fas fa-user-lock mr-2"></i>
+                        <strong>增长分析：</strong>作为开源媒体中心的佼佼者，其活跃度和Star数显示了用户对<strong class="aha-text">数据自由和隐私</strong>的重视。
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: kamranahmedse/developer-roadmap -->
+            <section>
+                <section>
+                    <h2><i class="fas fa-road mr-3"></i>kamranahmedse/developer-roadmap</h2>
+                    <h4>互动式路线图、指南及其他教育内容，帮助开发者在职业生涯中成长。</h4>
+                    <p class="mt-4"><strong>核心亮点：</strong></p>
+                    <ul class="list-disc pl-5">
+                        <li><strong>结构化学习路径和职业发展指导。</strong></li>
+                        <li>涵盖前端、后端、DevOps、AI、数据科学等热门领域。</li>
+                        <li>全面性、社区驱动的持续更新。</li>
+                        <li><strong class="aha-text">互动式浏览体验，集文章和资源的学习平台。</strong></li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fas fa-chart-bar mr-3"></i>Developer Roadmap: 数据与增长</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>指标</th>
+                                <th>值</th>
+                                <th>详情</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><i class="fas fa-star icon"></i>Stars</td>
+                                <td><strong>323k</strong> ⭐</td>
+                                <td>当日新增 <strong>203</strong>，总上榜10次</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-file-code icon"></i>主要语言</td>
+                                <td>TypeScript</td>
+                                <td>78.7% TypeScript, 16.7% Astro</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="info-box">
+                        <i class="fas fa-rocket mr-2"></i>
+                        <strong>增长分析：</strong>高达32万+的Star数和持续高增长，表明其在开发者社区的<strong class="aha-text">巨大价值和广泛认可度</strong>。
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: reactos/reactos -->
+            <section>
+                <section>
+                    <h2><i class="fab fa-windows mr-3"></i>reactos/reactos</h2>
+                    <h4>免费的Windows兼容操作系统。</h4>
+                    <p class="mt-4"><strong>核心亮点：</strong></p>
+                    <ul class="list-disc pl-5">
+                        <li><strong>从零开始构建与Windows NT兼容的免费OS。</strong></li>
+                        <li>功能类似Windows，行为模式相似的开源替代方案。</li>
+                        <li>处于不稳定的Alpha阶段，不适合日常生产。</li>
+                        <li><strong class="aha-text">对Windows兼容性的一次艰难而重要的开源探索。</strong></li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fas fa-chart-bar mr-3"></i>ReactOS: 数据与增长</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>指标</th>
+                                <th>值</th>
+                                <th>详情</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><i class="fas fa-star icon"></i>Stars</td>
+                                <td><strong>15.6k</strong> ⭐</td>
+                                <td>当日新增 <strong>8</strong>，首次上榜</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-file-code icon"></i>主要语言</td>
+                                <td>C</td>
+                                <td>86.5% C, 11.2% C++</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="info-box">
+                        <i class="fas fa-flask mr-2"></i>
+                        <strong>增长分析：</strong>虽然增长较慢，但其独特的定位和长期目标使其<strong class="aha-text">持续获得技术社区的关注</strong>。
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: duixcom/Duix.Heygem -->
+            <section>
+                <section>
+                    <h2><i class="fas fa-user-tie mr-3"></i>duixcom/Duix.Heygem</h2>
+                    <h4>免费开源AI数字人项目，旨在成为Heygen的开源替代品。</h4>
+                    <p class="mt-4"><strong>核心亮点：</strong></p>
+                    <ul class="list-disc pl-5">
+                        <li><strong>高精度克隆真实用户外貌和声音。</strong></li>
+                        <li>通过文本或语音输入驱动数字人生成视频。</li>
+                        <li><strong class="aha-text">完全离线运行，强大隐私保护和数据安全。</strong></li>
+                        <li>唇形与音频高度同步，支持多语言。</li>
+                        <li>强制依赖高性能NVIDIA显卡。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fas fa-chart-bar mr-3"></i>Duix.Heygem: 数据与增长</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>指标</th>
+                                <th>值</th>
+                                <th>详情</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><i class="fas fa-star icon"></i>Stars</td>
+                                <td><strong>8.9k</strong> ⭐</td>
+                                <td>当日新增 <strong>82</strong>，首次上榜</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-file-code icon"></i>主要语言</td>
+                                <td>C</td>
+                                <td>85.1% C, 10.3% Vue</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="info-box">
+                        <i class="fas fa-video mr-2"></i>
+                        <strong>增长分析：</strong>首次上榜即获得近百Star，显示了社区对<strong class="aha-text">开源、隐私保护数字人技术</strong>的强烈兴趣。
+                    </div>
+                </section>
+            </section>
+
+
+            <!-- Slide End: Q&A / Thank You -->
+            <section class="qa-slide">
+                <h2>感谢聆听！</h2>
+                <p>Q&A</p>
+                <div class="qr-info">
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            transitionSpeed: 'fast', // default/fast/slow
+            backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+
+            // Learn more here: https://revealjs.com/vertical-slides/
+            history: true,
+
+            // Learn more here: https://revealjs.com/fragments/
+            fragments: true,
+
+            // Optional: The 'a' key enables to toggle the slide speaker notes.
+            keyboard: {
+                27: () => { /* Prevent ESC from breaking things too much */ },
+                // ... any other custom keybindings
+            },
+
+            // Other plugins if needed
+            plugins: [ ]
+        });
+
+        // Initialize mermaid for diagrams if any
+        // mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+</html>

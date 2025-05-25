@@ -1,0 +1,992 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI会炒股会编程了？免费教材资源卷疯了！</title>
+
+    <!-- Core framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- Extended dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        :root {
+            --r-background-color: #f7f7f7; /* Light background */
+            --primary-color: #4F46E5; /* Indigo */
+            --accent-color-1: #8B5CF6; /* Violet */
+            --accent-color-2: #10B981; /* Emerald */
+            --text-color-dark: #1F2937; /* Dark Gray */
+            --text-color-light: #F9FAFB; /* Off-white */
+        }
+
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--text-color-dark);
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--primary-color);
+            text-shadow: none;
+        }
+
+        .reveal h1 { font-size: 3rem; } /* 48px */
+        .reveal h2 { font-size: 2.5rem; } /* 40px */
+        .reveal h3 { font-size: 2rem; } /* 32px */
+        .reveal p, .reveal li, .reveal table { font-size: 1.2rem; } /* 19.2px */
+        .reveal .text-lg { font-size: 1.2rem; }
+        .reveal .text-xl { font-size: 1.5rem; }
+        .reveal .text-2xl { font-size: 2rem; }
+        .reveal .text-3xl { font-size: 2.5rem; }
+        .reveal .text-4xl { font-size: 3rem; }
+
+        .reveal .slides section.has-background {
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+
+        .reveal .slides section.cover-slide {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+            color: var(--text-color-light);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.9) 0%, rgba(139, 92, 246, 0.9) 100%), url('https://source.unsplash.com/random/1600x900/?ai,finance,education,innovation') no-repeat center center / cover;
+        }
+        .reveal .slides section.cover-slide h1 {
+            color: var(--text-color-light);
+            font-size: 4.5rem;
+            line-height: 1.2;
+            margin-bottom: 0.5em;
+        }
+        .reveal .slides section.cover-slide p {
+            color: var(--text-color-light);
+            font-size: 1.8rem;
+            margin-bottom: 0.2em;
+        }
+        .reveal .slides section.cover-slide .speaker-info {
+            font-size: 1.5rem;
+            margin-top: 1em;
+            opacity: 0.8;
+        }
+
+        .reveal .slides section .slide-footer-qr {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.8em;
+            color: var(--text-color-dark);
+            opacity: 0.7;
+        }
+        .reveal .slides section.cover-slide .slide-footer-qr,
+        .reveal .slides section.final-slide .slide-footer-qr {
+             color: var(--text-color-light);
+             text-shadow: none;
+        }
+        .reveal .slides section .slide-footer-qr img {
+            height: 60px;
+            width: 60px;
+            border-radius: 5px;
+        }
+
+        .reveal .slides section.disclaimer-slide {
+            background-color: #FFFBEB;
+            border-left: 8px solid #F59E0B;
+            padding: 2em;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .reveal .slides section.disclaimer-slide .icon {
+            color: #F59E0B;
+            font-size: 3em;
+            margin-bottom: 0.5em;
+        }
+        .reveal .slides section.disclaimer-slide p {
+            font-size: 1.5rem;
+            color: #D97706;
+            font-weight: 500;
+        }
+
+        .reveal .slides section .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5em;
+            padding: 1em;
+            text-align: left;
+        }
+        .reveal .slides section .content-card {
+            background-color: var(--r-background-color);
+            border-radius: 10px;
+            padding: 1.5em;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .reveal .slides section .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .reveal .slides section .content-card .icon {
+            color: var(--primary-color);
+            font-size: 2em;
+            margin-bottom: 0.5em;
+        }
+        .reveal .slides section .content-card h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+        .reveal .slides section .content-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        .reveal .slides section.bg-gradient {
+             background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color-1) 100%);
+             color: var(--text-color-light);
+        }
+        .reveal .slides section.bg-gradient h2,
+        .reveal .slides section.bg-gradient h3 {
+            color: var(--text-color-light);
+        }
+
+        .reveal .slides section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .reveal .slides section ul li {
+            padding: 0.5em 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .reveal .slides section ul li:last-child {
+            border-bottom: none;
+        }
+        .reveal .slides section ul li:hover {
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+        .reveal .slides section ul li .icon {
+            margin-right: 0.5em;
+            color: var(--accent-color-2);
+        }
+
+        /* Specific styles for Project Detail Slides */
+        .reveal .slides section.project-detail-slide {
+            text-align: left;
+            padding: 2em;
+        }
+        .reveal .slides section.project-detail-slide h2 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5em;
+            border-bottom: 3px solid var(--accent-color-2);
+            padding-bottom: 0.2em;
+            display: inline-block;
+        }
+        .reveal .slides section.project-detail-slide .project-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5em;
+            margin-top: 1em;
+            margin-bottom: 2em;
+            font-size: 1rem;
+            color: #6B7280;
+        }
+        .reveal .slides section.project-detail-slide .project-meta div {
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+        }
+        .reveal .slides section.project-detail-slide .project-meta .icon {
+            color: var(--primary-color);
+            font-size: 1.2em;
+        }
+        .reveal .slides section.project-detail-slide .project-desc {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 2em;
+        }
+        .reveal .slides section.project-detail-slide .aha-moment-box {
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color-1));
+            color: var(--text-color-light);
+            padding: 1.5em 2em;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            font-size: 1.6rem;
+            font-weight: 600;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 2em;
+        }
+        .reveal .slides section.project-detail-slide .aha-moment-box::before {
+            content: "\f0eb";
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 3em;
+            color: rgba(255,255,255,0.2);
+            z-index: 0;
+            transform: rotate(-15deg);
+        }
+        .reveal .slides section.project-detail-slide .aha-moment-box p {
+            position: relative;
+            z-index: 1;
+            margin: 0;
+        }
+        .reveal .slides section.project-detail-slide .project-lang-chart {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 1.5em;
+            gap: 1em;
+            justify-content: center;
+            padding: 1em 0;
+        }
+        .reveal .slides section.project-detail-slide .lang-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+            font-size: 1rem;
+            background-color: #E2E8F0;
+            padding: 0.5em 1em;
+            border-radius: 20px;
+            color: #334155;
+        }
+        .reveal .slides section.project-detail-slide .lang-color-box {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        /* Language specific colors */
+        .lang-color-python { background-color: #3572A5; }
+        .lang-color-typescript { background-color: #3178C6; }
+        .lang-color-javascript { background-color: #F7DF1E; }
+        .lang-color-roff { background-color: #AE2B2B; }
+        .lang-color-go { background-color: #00ADD8; }
+        .lang-color-csharp { background-color: #178600; }
+        .lang-color-cpp { background-color: #F34B7D; }
+        .lang-color-jupyter { background-color: #DA5B0B; }
+        .lang-color-rust { background-color: #DEA584; }
+        .lang-color-shell { background-color: #88EE64; }
+        .lang-color-c { background-color: #555555; }
+        .lang-color-php { background-color: #4F5D95; }
+        .lang-color-batchfile { background-color: #C1F12E; }
+        .lang-color-css { background-color: #563D7C; }
+        .lang-color-html { background-color: #E34C26; }
+        .lang-color-dockerfile { background-color: #384d54; }
+        .lang-color-mdx { background-color: #FCB321; }
+        .lang-color-jinja { background-color: #A32626; }
+        .lang-color-makefile { background-color: #005696; }
+        .lang-color-glsl { background-color: #570077; }
+        .lang-color-powershell { background-color: #012456; }
+
+
+        .reveal .slides section.final-slide {
+            background: linear-gradient(45deg, rgba(79, 70, 229, 0.9) 0%, rgba(16, 185, 129, 0.9) 100%);
+            color: var(--text-color-light);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .reveal .slides section.final-slide h2 {
+            font-size: 4rem;
+            color: var(--text-color-light);
+            margin-bottom: 1em;
+        }
+        .reveal .slides section.final-slide p {
+            font-size: 1.8rem;
+            margin-bottom: 0.5em;
+        }
+        .reveal .slides section.final-slide a {
+            color: var(--text-color-light);
+            text-decoration: underline;
+            font-size: 1.5rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .reveal .slides section.final-slide a:hover {
+            color: #C7EEF4;
+        }
+        .reveal .slides section.final-slide .call-to-action {
+            margin-top: 2em;
+            font-size: 2.5rem;
+            font-weight: bold;
+            background-color: rgba(255,255,255,0.2);
+            padding: 0.5em 1em;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover Page -->
+            <section class="cover-slide">
+                <h1>AI会炒股会编程了？<br>免费教材资源卷疯了！</h1>
+                <p>Github热门仓库周报观测 - 2025-05-25 21:18:22</p>
+                <p class="speaker-info">演讲者：AIChipEra</p>
+                <div class="slide-footer-qr">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-white hover:underline">
+                        github.com/aichipera/github-trend
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="微信二维码">
+                </div>
+            </section>
+
+            <!-- Slide 2: Disclaimer -->
+            <section class="disclaimer-slide">
+                <div class="icon"><i class="fas fa-exclamation-triangle"></i></div>
+                <p><strong>以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</strong></p>
+            </section>
+
+            <!-- Slide 3: 周报要点 (Key Takeaways) -->
+            <section>
+                <h2><i class="fas fa-chart-line mr-3"></i>周报要点：未来已来！</h2>
+                <div class="content-grid mt-8">
+                    <div class="content-card fragment fade-in-up">
+                        <div class="icon"><i class="fas fa-robot"></i></div>
+                        <h3 class="text-xl">AI从“模型”走向“应用”</h3>
+                        <p>编程、模拟炒股、长期记忆，AI智能体走向实用化。</p>
+                    </div>
+                    <div class="content-card fragment fade-in-up">
+                        <div class="icon"><i class="fas fa-hand-holding-box"></i></div>
+                        <h3 class="text-xl">开源力量崛起</h3>
+                        <p>免费后端、个人云平台，掌控数字生活，告别封闭。</p>
+                    </div>
+                    <div class="content-card fragment fade-in-up">
+                        <div class="icon"><i class="fas fa-book-open"></i></div>
+                        <h3 class="text-xl">海量免费资源涌现</h3>
+                        <p>教材、API、提示词...助你高效成长，人人可学。</p>
+                    </div>
+                    <div class="content-card fragment fade-in-up">
+                        <div class="icon"><i class="fas fa-lightbulb"></i></div>
+                        <h3 class="text-xl">技术更实用，更开放</h3>
+                        <p>新浪潮赋能个体，人人都能从中找到提升自己的利器。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 4: 热门项目趋势分析 - 整体趋势 (Overall Trends) -->
+            <section>
+                <h2><i class="fas fa-compass mr-3"></i>热门项目趋势：深层洞察</h2>
+                <div class="flex flex-col gap-6 mt-8">
+                    <div class="fragment fade-in-left">
+                        <h3 class="text-2xl text-accent-color-2 mb-2"><i class="fas fa-brain mr-2"></i>AI智能体与深度集成成为新前沿</h3>
+                        <p class="text-lg">AI超越基础模型，聚焦智能体构建与应用深度整合，情境感知和自主执行能力成关键。</p>
+                    </div>
+                    <div class="fragment fade-in-left">
+                        <h3 class="text-2xl text-accent-color-2 mb-2"><i class="fas fa-server mr-2"></i>开源基础设施与个人控制权受到追捧</h3>
+                        <p class="text-lg">开发者偏好自托管、透明化后端与个人云平台，寻求开源、灵活、注重隐私的替代方案。</p>
+                    </div>
+                    <div class="fragment fade-in-left">
+                        <h3 class="text-2xl text-accent-color-2 mb-2"><i class="fas fa-globe-americas mr-2"></i>资源普及与知识整合价值凸显</h3>
+                        <p class="text-lg">免费教材、API集合、学习手册等高质量资源整合，满足社区对结构化、易获取资料的需求。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5: 编程语言与技术栈特点 (Programming Language & Tech Stack) -->
+            <section>
+                <h2><i class="fas fa-code mr-3"></i>技术栈扫描：语言生态</h2>
+                <div class="flex flex-col md:flex-row items-start justify-center gap-10 mt-8">
+                    <div class="w-full md:w-1/2">
+                        <h3 class="text-2xl text-accent-color-2 mb-4"><i class="fas fa-fire mr-2"></i>主导力量</h3>
+                        <ul class="list-disc ml-8 text-left text-lg">
+                            <li class="fragment fade-in-left">Python: AI与数据/资源类项目依旧主导</li>
+                            <li class="fragment fade-in-left">TypeScript/JavaScript: 前端、后端服务与应用集成活跃</li>
+                            <li class="fragment fade-in-left">C, C#, Rust: 性能敏感的基础设施与操作系统增强工具</li>
+                        </ul>
+                    </div>
+                    <div class="w-full md:w-1/2 mt-8 md:mt-0">
+                        <h3 class="text-2xl text-accent-color-2 mb-4"><i class="fas fa-seedling mr-2"></i>新兴与重要角色</h3>
+                        <ul class="list-disc ml-8 text-left text-lg">
+                            <li class="fragment fade-in-right">Roff 文档、Jupyter Notebook手册: 文档与资源组织</li>
+                            <li class="fragment fade-in-right">Shell 脚本工具: 自动化脚本的重要作用</li>
+                            <li class="fragment fade-in-right">非典型“编程语言”的项目强调生态完整性</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 6: 未来展望 (Future Outlook) -->
+            <section class="bg-gradient">
+                <h2 class="text-white"><i class="fas fa-rocket mr-3"></i>未来趋势：AI的下一波浪潮</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 text-left text-light">
+                    <div class="fragment fade-in-up">
+                        <h3 class="text-2xl mb-2"><i class="fas fa-link mr-2"></i>AI智能体协作与通信协议</h3>
+                        <p class="text-lg">智能体如何更高效地协同工作？</p>
+                    </div>
+                    <div class="fragment fade-in-up">
+                        <h3 class="text-2xl mb-2"><i class="fas fa-cogs mr-2"></i>AI驱动的深层应用自动化</h3>
+                        <p class="text-lg">超越代码编写，更深层次的业务流程自动化。</p>
+                    </div>
+                    <div class="fragment fade-in-up">
+                        <h3 class="text-2xl mb-2"><i class="fas fa-cloud-meatball mr-2"></i>去中心化/个人化AI基础设施</h3>
+                        <p class="text-lg">数据主权与隐私保护将更加重要。</p>
+                    </div>
+                    <div class="fragment fade-in-up">
+                        <h3 class="text-2xl mb-2"><i class="fas fa-hand-holding-usd mr-2"></i>AI与新型人机交互界面</h3>
+                        <p class="text-lg">更自然、直观的AI交互方式。</p>
+                    </div>
+                    <div class="fragment fade-in-up md:col-span-2 text-center">
+                        <h3 class="text-2xl mb-2"><i class="fas fa-balance-scale mr-2"></i>平衡AI能力与数据隐私、安全和控制</h3>
+                        <p class="text-lg">持续关注的焦点，确保AI健康发展。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7: 热门项目双周维度对比分析 (Bi-weekly Comparison) -->
+            <section>
+                <h2><i class="fas fa-retweet mr-3"></i>热点变动：双周对比</h2>
+                <ul class="list-disc ml-8 text-left text-lg mt-8">
+                    <li class="fragment fade-in-left"><i class="fas fa-plus-circle icon"></i> <strong>新项目爆发：</strong> 本周13个新项目登上榜单，无项目下降，热度向新生力量转移。</li>
+                    <li class="fragment fade-in-left"><i class="fas fa-brain icon"></i> <strong>AI领跑：</strong> 新晋项目多聚焦AI应用与工具（AI对冲基金、AI编程辅助等）。</li>
+                    <li class="fragment fade-in-left"><i class="fas fa-code icon"></i> <strong>语言消长：</strong> JavaScript强势增长2个，TypeScript减少3个，Python/Java略减，C/Shell/C#/Roff有增。</li>
+                    <li class="fragment fade-in-left"><i class="fas fa-arrow-circle-up icon"></i> <strong>趋势：</strong> 热点集中在新进入者，AI相关项目持续霸榜。</li>
+                </ul>
+            </section>
+
+            <!-- Slide 8: 热点变化 (Hotspot Changes) -->
+            <section>
+                <h2><i class="fas fa-exchange-alt mr-3"></i>热点项目：风水轮流转</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left mt-8">
+                    <div class="fragment fade-in-right">
+                        <h3 class="text-2xl text-accent-color-2 mb-4"><i class="fas fa-arrow-circle-up mr-2"></i>新增热点</h3>
+                        <ul class="text-lg list-disc ml-8">
+                            <li>TapXWorld/ChinaTextbook</li>
+                            <li>anthropics/claude-code</li>
+                            <li>f/awesome-chatgpt-prompts</li>
+                            <li>zen-browser/desktop</li>
+                            <li>ventoy/Ventoy</li>
+                            <li>virattt/ai-hedge-fund</li>
+                            <li>yalter/niri</li>
+                            <li>microsoft/PowerToys</li>
+                            <li>dataexpert-io/data-engineer-handbook</li>
+                            <li>modelcontextprotocol/registry</li>
+                            <li>heputer/puter</li>
+                            <li>all-hands-ai/openhands</li>
+                            <li>appwrite/appwrite</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in-left">
+                        <h3 class="text-2xl text-primary-color mb-4"><i class="fas fa-arrow-circle-down mr-2"></i>减退热点</h3>
+                        <ul class="text-lg list-disc ml-8 opacity-70">
+                            <li>modsetter/surfsense</li>
+                            <li>alibaba/spring-ai-alibaba</li>
+                            <li>aquasecurity/trivy</li>
+                            <li>isledecomp/isle</li>
+                            <li>xming521/weclone</li>
+                            <li>neondatabase/neon</li>
+                            <li>harry0703/moneyprinterturbo</li>
+                            <li>th-ch/youtube-music</li>
+                            <li>mlabonne/llm-course</li>
+                            <li>bytedance/flowgram.ai</li>
+                            <li>comet-ml/opik</li>
+                            <li>voideditor/void</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 9: 编程语言分布 (Programming Language Distribution) -->
+            <section>
+                <h2><i class="fas fa-chart-pie mr-3"></i>语言分布：谁主沉浮？</h2>
+                <div class="project-lang-chart mt-10">
+                    <div class="lang-item fragment fade-in"><span class="lang-color-box lang-color-python"></span> Python (25.0%)</div>
+                    <div class="lang-item fragment fade-in"><span class="lang-color-box lang-color-typescript"></span> TypeScript (12.5%)</div>
+                    <div class="lang-item fragment fade-in"><span class="lang-color-box lang-color-javascript"></span> JavaScript (12.5%)</div>
+                    <div class="lang-item fragment fade-in"><span class="lang-color-box lang-color-roff"></span> Roff (6.2%)</div>
+                    <div class="lang-item fragment fade-in"><span class="lang-color-box lang-color-go"></span> Go (6.2%)</div>
+                    <div class="lang-item fragment fade-in"><span class="lang-color-box lang-color-csharp"></span> C# (6.2%)</div>
+                    <div class="lang-item fragment fade-in"><span class="lang-color-box lang-color-cpp"></span> C++ (6.2%)</div>
+                    <div class="lang-item fragment fade-in"><span class="lang-color-box lang-color-jupyter"></span> Jupyter Notebook (6.2%)</div>
+                    <div class="lang-item fragment fade-in"><span class="lang-color-box lang-color-rust"></span> Rust (6.2%)</div>
+                    <div class="lang-item fragment fade-in"><span class="lang-color-box lang-color-shell"></span> Shell (6.2%)</div>
+                    <div class="lang-item fragment fade-in"><span class="lang-color-box lang-color-c"></span> C (6.2%)</div>
+                </div>
+            </section>
+
+            <!-- Slide 10: Star分布 (Star Distribution) -->
+            <section>
+                <h2><i class="fas fa-star mr-3"></i>星标分布：热门度洞察</h2>
+                <div class="project-lang-chart mt-10">
+                    <div class="lang-item fragment fade-in"><span class="lang-color-box bg-blue-400"></span> 1k-5k: 1个项目 (6.2%)</div>
+                    <div class="lang-item fragment fade-in"><span class="lang-color-box bg-blue-500"></span> 5k-10k: 2个项目 (12.5%)</div>
+                    <div class="lang-item fragment fade-in"><span class="lang-color-box bg-blue-600"></span> 10k-50k: 7个项目 (43.8%)</div>
+                    <div class="lang-item fragment fade-in"><span class="lang-color-box bg-blue-700"></span> 50k以上: 6个项目 (37.5%)</div>
+                </div>
+                <p class="text-xl mt-8 fragment fade-in-up"><strong><i class="fas fa-award mr-2 text-yellow-500"></i>近一半项目拥有1万到5万星标，体现广泛关注！</strong></p>
+            </section>
+
+            <!-- Slide 11: 热门项目排名 (Top Project Rankings) -->
+            <section>
+                <h2><i class="fas fa-trophy mr-3"></i>热门项目：Top 榜单</h2>
+                <ol class="list-decimal ml-8 text-left text-lg mt-8">
+                    <li class="fragment fade-in-up"><strong>public-apis/public-apis</strong> - ⭐346833 - A collective list of free APIs</li>
+                    <li class="fragment fade-in-up"><strong>f/awesome-chatgpt-prompts</strong> - ⭐126497 - This repo includes ChatGPT prompt curation to use ChatGPT and other LLM tools better.</li>
+                    <li class="fragment fade-in-up"><strong>microsoft/PowerToys</strong> - ⭐119296 - Windows system utilities to maximize productivity</li>
+                    <li class="fragment fade-in-up"><strong>ventoy/Ventoy</strong> - ⭐67804 - A new bootable USB solution.</li>
+                    <li class="fragment fade-in-up"><strong>All-Hands-AI/OpenHands</strong> - ⭐55999 - 🙌 OpenHands: Code Less, Make More</li>
+                    <li class="fragment fade-in-up"><strong>appwrite/appwrite</strong> - ⭐50133 - The open-source Vercel alternative</li>
+                    <li class="fragment fade-in-up"><strong>virattt/ai-hedge-fund</strong> - ⭐32772 - An AI Hedge Fund Team</li>
+                    <li class="fragment fade-in-up"><strong>HeyPuter/puter</strong> - ⭐32570 - 🌐 The Internet OS! Free, Open-Source, and Self-Hostable.</li>
+                    <li class="fragment fade-in-up"><strong>mem0ai/mem0</strong> - ⭐32510 - Memory for AI Agents; SOTA in AI Agent Memory; Announcing OpenMemory MCP - local and secure memory management.</li>
+                    <li class="fragment fade-in-up"><strong>zen-browser/desktop</strong> - ⭐31463 - Welcome to a calmer internet</li>
+                </ol>
+            </section>
+
+            <!-- Slide 12: 本周每日Github热点项目分析 (Daily Hotspots) -->
+            <section>
+                <h2><i class="fas fa-calendar-alt mr-3"></i>每日热点回顾</h2>
+                <table class="table-auto w-full text-left mt-8">
+                    <thead>
+                        <tr class="bg-primary-color text-white">
+                            <th class="px-4 py-2">时间</th>
+                            <th class="px-4 py-2">链接</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="fragment fade-in">
+                            <td class="border px-4 py-2">周一</td>
+                            <td class="border px-4 py-2">TODO_URL</td>
+                        </tr>
+                        <tr class="fragment fade-in">
+                            <td class="border px-4 py-2">周二</td>
+                            <td class="border px-4 py-2">TODO_URL</td>
+                        </tr>
+                        <tr class="fragment fade-in">
+                            <td class="border px-4 py-2">周三</td>
+                            <td class="border px-4 py-2">TODO_URL</td>
+                        </tr>
+                        <tr class="fragment fade-in">
+                            <td class="border px-4 py-2">周四</td>
+                            <td class="border px-4 py-2">TODO_URL</td>
+                        </tr>
+                        <tr class="fragment fade-in">
+                            <td class="border px-4 py-2">周五</td>
+                            <td class="border px-4 py-2">TODO_URL</td>
+                        </tr>
+                        <tr class="fragment fade-in">
+                            <td class="border px-4 py-2">周六</td>
+                            <td class="border px-4 py-2">TODO_URL</td>
+                        </tr>
+                        <tr class="fragment fade-in">
+                            <td class="border px-4 py-2">周日</td>
+                            <td class="border px-4 py-2">TODO_URL</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Detailed Project Slides -->
+            <!-- virattt/ai-hedge-fund -->
+            <section class="project-detail-slide">
+                <h2 class="text-primary-color"><i class="fas fa-robot mr-2"></i>virattt/ai-hedge-fund</h2>
+                <p class="text-xl text-gray-700">AI 对冲基金团队：模拟投资决策的沙盒！</p>
+
+                <div class="project-meta">
+                    <div><i class="fas fa-star icon"></i> 32.8k</div>
+                    <div><i class="fas fa-code-branch icon"></i> 5.6k</div>
+                    <div><i class="fas fa-eye icon"></i> 436</div>
+                    <div><i class="fas fa-bug icon"></i> 8</div>
+                    <div><i class="fas fa-code icon"></i> Python</div>
+                    <div><i class="fas fa-calendar-alt icon"></i> 1次在榜</div>
+                </div>
+
+                <div class="project-desc fragment fade-in-up">
+                    <p>这是一个概念验证项目，旨在模拟由AI组成的对冲基金团队如何进行投资决策。它并非真实交易系统，而是教育和研究AI在金融分析中应用的沙盒环境。核心价值在于精巧的多智能体协作架构，智能体协同工作模拟完整投资分析决策流程，让用户深入了解AI推理路径。</p>
+                </div>
+
+                <div class="aha-moment-box fragment fade-in-up">
+                    <p>“AI智能体协作，模拟复杂金融投资决策，是AI落地的绝佳研究与学习沙盒！”</p>
+                </div>
+            </section>
+
+            <!-- TapXWorld/ChinaTextbook -->
+            <section class="project-detail-slide">
+                <h2 class="text-primary-color"><i class="fas fa-book mr-2"></i>TapXWorld/ChinaTextbook</h2>
+                <p class="text-xl text-gray-700">免费教材宝库：对抗知识收费，普及教育资源！</p>
+
+                <div class="project-meta">
+                    <div><i class="fas fa-star icon"></i> 30.5k</div>
+                    <div><i class="fas fa-code-branch icon"></i> 6.7k</div>
+                    <div><i class="fas fa-code icon"></i> Roff</div>
+                    <div><i class="fas fa-calendar-alt icon"></i> 1次在榜</div>
+                </div>
+
+                <div class="project-desc fragment fade-in-up">
+                    <p>该仓库提供中国小学、初中、高中及部分大学（人教版数学）的电子版PDF教材。核心目的是促进教育资源普及与公平，方便国内外学生、家长及教育工作者免费获取高质量学习资料，对抗免费资源收费或加水印销售的行为。</p>
+                </div>
+
+                <div class="aha-moment-box fragment fade-in-up">
+                    <p>“海量小初高大学教材PDF免费获取，公益价值巨大，打破知识壁垒！”</p>
+                </div>
+            </section>
+
+            <!-- modelcontextprotocol/registry -->
+            <section class="project-detail-slide">
+                <h2 class="text-primary-color"><i class="fas fa-network-wired mr-2"></i>modelcontextprotocol/registry</h2>
+                <p class="text-xl text-gray-700">AI模型上下文协议：智能体互联互通的核心！</p>
+
+                <div class="project-meta">
+                    <div><i class="fas fa-star icon"></i> 1.1k</div>
+                    <div><i class="fas fa-code-branch icon"></i> 62</div>
+                    <div><i class="fas fa-code icon"></i> Go</div>
+                    <div><i class="fas fa-calendar-alt icon"></i> 1次在榜</div>
+                </div>
+
+                <div class="project-desc fragment fade-in-up">
+                    <p>Model Context Protocol (MCP) 服务器注册中心，这是一个社区构建的服务。它的核心作用是充当一个发现和管理各种 MCP 服务器实现的集中式枢纽或目录。采用高效的 Go 语言构建，提供强大的 RESTful API，显著提高了 MCP 生态系统中服务器的可见性和互操作性。</p>
+                </div>
+
+                <div class="aha-moment-box fragment fade-in-up">
+                    <p>“AI智能体生态的‘黄页’和‘路由器’，确保AI服务能够被发现、连接和协同！”</p>
+                _</div>
+            </section>
+
+            <!-- appwrite/appwrite -->
+            <section class="project-detail-slide">
+                <h2 class="text-primary-color"><i class="fas fa-cloud mr-2"></i>appwrite/appwrite</h2>
+                <p class="text-xl text-gray-700">开源Vercel替代：掌控你的后端，加速开发！</p>
+
+                <div class="project-meta">
+                    <div><i class="fas fa-star icon"></i> 50.1k</div>
+                    <div><i class="fas fa-code-branch icon"></i> 4.4k</div>
+                    <div><i class="fas fa-code icon"></i> TypeScript</div>
+                    <div><i class="fas fa-calendar-alt icon"></i> 1次在榜</div>
+                </div>
+
+                <div class="project-desc fragment fade-in-up">
+                    <p>Appwrite 是一个开源的后端开发平台，旨在帮助开发者抽象并简化构建现代应用后端的复杂且重复性工作，从而加速安全应用的开发。提供用户认证、数据库、文件存储、云函数等开箱即用的核心后端服务，是出色的开源 Firebase 替代方案。</p>
+                </div>
+
+                <div class="aha-moment-box fragment fade-in-up">
+                    <p>“完全开源、自托管的后端服务，让你的应用数据和部署完全由你掌控！”</p>
+                </div>
+            </section>
+
+            <!-- CopilotKit/CopilotKit -->
+            <section class="project-detail-slide">
+                <h2 class="text-primary-color"><i class="fas fa-hands-helping mr-2"></i>CopilotKit/CopilotKit</h2>
+                <p class="text-xl text-gray-700">应用内AI副驾：AI不只聊天，还能直接操作你的应用！</p>
+
+                <div class="project-meta">
+                    <div><i class="fas fa-star icon"></i> 20.1k</div>
+                    <div><i class="fas fa-code-branch icon"></i> 2.8k</div>
+                    <div><i class="fas fa-code icon"></i> TypeScript</div>
+                    <div><i class="fas fa-calendar-alt icon"></i> 2次在榜</div>
+                </div>
+
+                <div class="project-desc fragment fade-in-up">
+                    <p>CopilotKit 旨在帮助开发者将 AI 助手和智能代理深度集成到现有应用中，解决 AI 难以理解和操作应用内部上下文与功能的痛点。它提供优雅的基础设施和 React 组件，核心在于让 AI 能够突破对话限制，直接与应用进行交互。</p>
+                </div>
+
+                <div class="aha-moment-box fragment fade-in-up">
+                    <p>“实现‘Agentic last-mile’！AI不仅是聊天机器人，还能直接读取数据、执行操作、甚至生成UI！”</p>
+                </div>
+            </section>
+
+            <!-- All-Hands-AI/OpenHands -->
+            <section class="project-detail-slide">
+                <h2 class="text-primary-color"><i class="fas fa-feather-alt mr-2"></i>All-Hands-AI/OpenHands</h2>
+                <p class="text-xl text-gray-700">AI开发代理：真正实现“少写代码，多创造”！</p>
+
+                <div class="project-meta">
+                    <div><i class="fas fa-star icon"></i> 56k</div>
+                    <div><i class="fas fa-code-branch icon"></i> 6.3k</div>
+                    <div><i class="fas fa-code icon"></i> Python</div>
+                    <div><i class="fas fa-calendar-alt icon"></i> 1次在榜</div>
+                </div>
+
+                <div class="project-desc fragment fade-in-up">
+                    <p>OpenHands 是一个强大的 AI 驱动软件开发代理平台，通过模拟人类开发者的行为，在安全的沙盒环境中自主执行代码修改、运行命令、网页浏览等开发任务，极大地提升了开发效率。它支持多种大型语言模型，并提供灵活的本地 Docker、云服务及 CI 集成等部署方式。</p>
+                </div>
+
+                <div class="aha-moment-box fragment fade-in-up">
+                    <p>“AI像人一样与开发环境交互，自动化你的工作流，解放双手，让开发效率飞起！”</p>
+                </div>
+            </section>
+
+            <!-- public-apis/public-apis -->
+            <section class="project-detail-slide">
+                <h2 class="text-primary-color"><i class="fas fa-database mr-2"></i>public-apis/public-apis</h2>
+                <p class="text-xl text-gray-700">免费API合集：开发者的宝藏地图！</p>
+
+                <div class="project-meta">
+                    <div><i class="fas fa-star icon"></i> 347k</div>
+                    <div><i class="fas fa-code-branch icon"></i> 36.4k</div>
+                    <div><i class="fas fa-code icon"></i> Python</div>
+                    <div><i class="fas fa-calendar-alt icon"></i> 2次在榜</div>
+                </div>
+
+                <div class="project-desc fragment fade-in-up">
+                    <p>这是一个汇集了海量免费公共 API 的宝藏仓库，旨在帮助开发者轻松查找和使用来自不同领域的免费数据和服务。项目以结构化的 Markdown 列表形式组织，涵盖广泛类别，并提供关键技术信息，极大地简化了 API 的发现和评估过程。</p>
+                </div>
+
+                <div class="aha-moment-box fragment fade-in-up">
+                    <p>“一站式免费API宝库，加速原型开发，是学生和开发者快速获取数据的首选！”</p>
+                </div>
+            </section>
+
+            <!-- microsoft/PowerToys -->
+            <section class="project-detail-slide">
+                <h2 class="text-primary-color"><i class="fab fa-windows mr-2"></i>microsoft/PowerToys</h2>
+                <p class="text-xl text-gray-700">Windows效率神器：微软官方出品，效率倍增！</p>
+
+                <div class="project-meta">
+                    <div><i class="fas fa-star icon"></i> 119k</div>
+                    <div><i class="fas fa-code-branch icon"></i> 7.1k</div>
+                    <div><i class="fas fa-code icon"></i> C#</div>
+                    <div><i class="fas fa-calendar-alt icon"></i> 1次在榜</div>
+                </div>
+
+                <div class="project-desc fragment fade-in-up">
+                    <p>Microsoft PowerToys是一套专为Windows高级用户设计的开源系统实用工具集，旨在通过提供一系列增强功能，显著提升用户在Windows操作系统上的工作效率。它包含如高级窗口布局管理器、图片尺寸调整器、批量文件重命名工具等多种功能，协同工作，简化复杂任务。</p>
+                </div>
+
+                <div class="aha-moment-box fragment fade-in-up">
+                    <p>“微软官方出品的效率增强包，巧妙弥补系统不足，是Windows高级用户必备的生产力利器！”</p>
+                </div>
+            </section>
+
+            <!-- HeyPuter/puter -->
+            <section class="project-detail-slide">
+                <h2 class="text-primary-color"><i class="fas fa-desktop mr-2"></i>HeyPuter/puter</h2>
+                <p class="text-xl text-gray-700">互联网操作系统：你的个人云电脑，自由掌控！</p>
+
+                <div class="project-meta">
+                    <div><i class="fas fa-star icon"></i> 32.6k</div>
+                    <div><i class="fas fa-code-branch icon"></i> 2.4k</div>
+                    <div><i class="fas fa-code icon"></i> JavaScript</div>
+                    <div><i class="fas fa-calendar-alt icon"></i> 1次在榜</div>
+                </div>
+
+                <div class="project-desc fragment fade-in-up">
+                    <p>Puter 是一个前沿的开源“互联网操作系统”，致力于构建一个功能完备的“个人云电脑”。它允许用户将自己的文件、应用和游戏等数字生活内容集中管理，并通过网络随时随地便捷访问。免费、完全开源且支持自托管，为追求数据自主性、隐私和控制权的用户提供了极大价值。</p>
+                </div>
+
+                <div class="aha-moment-box fragment fade-in-up">
+                    <p>“将你的数字生活内容全部自托管，拥有一个功能完备的个人云电脑，告别数据束缚！”</p>
+                </div>
+            </section>
+
+            <!-- zen-browser/desktop -->
+            <section class="project-detail-slide">
+                <h2 class="text-primary-color"><i class="fas fa-leaf mr-2"></i>zen-browser/desktop</h2>
+                <p class="text-xl text-gray-700">平静上网浏览器：告别干扰，专注体验！</p>
+
+                <div class="project-meta">
+                    <div><i class="fas fa-star icon"></i> 31.5k</div>
+                    <div><i class="fas fa-code-branch icon"></i> 869</div>
+                    <div><i class="fas fa-code icon"></i> C++</div>
+                    <div><i class="fas fa-calendar-alt icon"></i> 1次在榜</div>
+                </div>
+
+                <div class="project-desc fragment fade-in-up">
+                    <p>Zen Browser 是一个基于 Firefox 构建的开源桌面浏览器，旨在为用户提供一个更宁静、更专注的上网体验，解决传统浏览器可能带来的信息过载和干扰问题。它致力于在速度、隐私和生产力之间取得平衡，集成了隐私偏好、界面设计优化等功能。</p>
+                </div>
+
+                <div class="aha-moment-box fragment fade-in-up">
+                    <p>“为专注而生！一个告别信息过载和干扰的浏览器，让你的上网体验真正回归平静与高效！”</p>
+                </div>
+            </section>
+
+            <!-- DataExpert-io/data-engineer-handbook -->
+            <section class="project-detail-slide">
+                <h2 class="text-primary-color"><i class="fas fa-book-reader mr-2"></i>DataExpert-io/data-engineer-handbook</h2>
+                <p class="text-xl text-gray-700">数据工程手册：一站式学习指南，告别迷茫！</p>
+
+                <div class="project-meta">
+                    <div><i class="fas fa-star icon"></i> 28.1k</div>
+                    <div><i class="fas fa-code-branch icon"></i> 5.7k</div>
+                    <div><i class="fas fa-code icon"></i> Jupyter Notebook</div>
+                    <div><i class="fas fa-calendar-alt icon"></i> 1次在榜</div>
+                </div>
+
+                <div class="project-desc fragment fade-in-up">
+                    <p>这个名为 Data Engineering Handbook 的 GitHub 仓库，是一个致力于解决数据工程学习资源分散、缺乏系统性指引问题的综合性手册。它并非软件应用，而是精心整理、链接至各类优质外部资源的集合，覆盖入门路线图、免费训练营、软件列表、实践项目等。</p>
+                </div>
+
+                <div class="aha-moment-box fragment fade-in-up">
+                    <p>“学习数据工程不再迷茫！这是一个系统化、一站式的学习资源整合指南，助你高效入门与进阶！”</p>
+                </div>
+            </section>
+
+            <!-- mem0ai/mem0 -->
+            <section class="project-detail-slide">
+                <h2 class="text-primary-color"><i class="fas fa-memory mr-2"></i>mem0ai/mem0</h2>
+                <p class="text-xl text-gray-700">AI智能体记忆：让AI真正拥有长期记忆！</p>
+
+                <div class="project-meta">
+                    <div><i class="fas fa-star icon"></i> 32.5k</div>
+                    <div><i class="fas fa-code-branch icon"></i> 3.2k</div>
+                    <div><i class="fas fa-code icon"></i> Python</div>
+                    <div><i class="fas fa-calendar-alt icon"></i> 2次在榜</div>
+                </div>
+
+                <div class="project-desc fragment fade-in-up">
+                    <p>Mem0是一个专为AI智能体设计的智能记忆层项目，核心目标是解决当前AI缺乏长期记忆和深度个性化能力的问题。它能让AI助手记住用户偏好、学习历史交互，从而实现更自然、适应性强的对话和行为。在准确率、响应速度和Token使用效率上均显著优于现有方案。</p>
+                </div>
+
+                <div class="aha-moment-box fragment fade-in-up">
+                    <p>“让AI不再‘健忘’！它能记住用户的一切，实现真正持久化和个性化的AI交互，是构建智能助手的核心基石！”</p>
+                </div>
+            </section>
+
+            <!-- YaLTeR/niri -->
+            <section class="project-detail-slide">
+                <h2 class="text-primary-color"><i class="fas fa-window-restore mr-2"></i>YaLTeR/niri</h2>
+                <p class="text-xl text-gray-700">可滚动平铺式Wayland合成器：窗口管理新体验！</p>
+
+                <div class="project-meta">
+                    <div><i class="fas fa-star icon"></i> 7.5k</div>
+                    <div><i class="fas fa-code-branch icon"></i> 246</div>
+                    <div><i class="fas fa-code icon"></i> Rust</div>
+                    <div><i class="fas fa-calendar-alt icon"></i> 1次在榜</div>
+                </div>
+
+                <div class="project-desc fragment fade-in-up">
+                    <p>Niri 是一个基于 Wayland 的创新性合成器，其核心亮点是独树一帜的“可滚动平铺”窗口布局。它将窗口以列的形式向右无限延伸，新窗口仅增加新列，带来如同横向滚动网页般的独特交互体验，解决了窗口频繁改变大小的干扰问题。</p>
+                </div>
+
+                <div class="aha-moment-box fragment fade-in-up">
+                    <p>“窗口可以无限横向滚动！不再缩放挤压，为你带来Wayland下全新、不间断的窗口管理体验！”</p>
+                </div>
+            </section>
+
+            <!-- f/awesome-chatgpt-prompts -->
+            <section class="project-detail-slide">
+                <h2 class="text-primary-color"><i class="fas fa-comment-dots mr-2"></i>f/awesome-chatgpt-prompts</h2>
+                <p class="text-xl text-gray-700">ChatGPT提示词精选：提升AI对话质量的秘籍！</p>
+
+                <div class="project-meta">
+                    <div><i class="fas fa-star icon"></i> 126k</div>
+                    <div><i class="fas fa-code-branch icon"></i> 16.8k</div>
+                    <div><i class="fas fa-code icon"></i> JavaScript</div>
+                    <div><i class="fas fa-calendar-alt icon"></i> 1次在榜</div>
+                </div>
+
+                <div class="project-desc fragment fade-in-up">
+                    <p>这是一个汇集高质量AI提示词的宝藏仓库，核心目标是帮助用户更有效地驱动ChatGPT及各类大语言模型（如Claude, Gemini等），解决如何提问才能获得最佳回复的问题。项目提供了大量经过精心组织、覆盖丰富角色和场景的提示模板，其跨模型兼容性是突出优势。</p>
+                </div>
+
+                <div class="aha-moment-box fragment fade-in-up">
+                    <p>“掌握与AI高效沟通的艺术！通过高质量提示词模板，让你的AI回复更智能，激发无限创意！”</p>
+                </div>
+            </section>
+
+            <!-- anthropics/claude-code -->
+            <section class="project-detail-slide">
+                <h2 class="text-primary-color"><i class="fas fa-terminal mr-2"></i>anthropics/claude-code</h2>
+                <p class="text-xl text-gray-700">Claude Code：AI进驻终端，自然语言编程！</p>
+
+                <div class="project-meta">
+                    <div><i class="fas fa-star icon"></i> 9.8k</div>
+                    <div><i class="fas fa-code-branch icon"></i> 546</div>
+                    <div><i class="fas fa-code icon"></i> Shell</div>
+                    <div><i class="fas fa-calendar-alt icon"></i> 1次在榜</div>
+                </div>
+
+                <div class="project-desc fragment fade-in-up">
+                    <p>Claude Code 是 Anthropic 开源的一个创新型终端 AI 编程工具，旨在将强大的人工智能能力直接融入开发者的日常命令行工作流中。它最核心的特点是能够理解整个代码库的上下文，并允许开发者使用自然语言下达各种复杂的编程及 Git 命令。</p>
+                </div>
+
+                <div class="aha-moment-box fragment fade-in-up">
+                    <p>“AI直接在终端帮你写代码、改Bug、处理Git！用自然语言驱动开发，编程从未如此直观高效！”</p>
+                </div>
+            </section>
+
+            <!-- ventoy/Ventoy -->
+            <section class="project-detail-slide">
+                <h2 class="text-primary-color"><i class="fas fa-usb mr-2"></i>ventoy/Ventoy</h2>
+                <p class="text-xl text-gray-700">万能启动盘：一个U盘，装N个系统，无需格式化！</p>
+
+                <div class="project-meta">
+                    <div><i class="fas fa-star icon"></i> 67.8k</div>
+                    <div><i class="fas fa-code-branch icon"></i> 4.3k</div>
+                    <div><i class="fas fa-code icon"></i> C</div>
+                    <div><i class="fas fa-calendar-alt icon"></i> 1次在榜</div>
+                </div>
+
+                <div class="project-desc fragment fade-in-up">
+                    <p>Ventoy 是一个创新的开源工具，专门用于创建可启动的多系统 U 盘或硬盘。它极大地简化了传统的启动盘制作流程，用户只需将 Ventoy 安装到设备一次，之后直接将各种操作系统或其他可启动工具的镜像文件（如 ISO）复制到设备中即可，无需重复格式化。</p>
+                </div>
+
+                <div class="aha-moment-box fragment fade-in-up">
+                    <p>“告别反复格式化！只需拖放ISO文件，一个U盘即可启动多个系统，便捷高效，是装机神器！”</p>
+                </div>
+            </section>
+
+
+            <!-- Final Slide: Thank You/Call to Action -->
+            <section class="final-slide">
+                <h2><i class="fas fa-heart mr-3"></i>感谢聆听！</h2>
+                <p>探索更多精彩项目，与我们一同成长！</p>
+                <div class="call-to-action fragment fade-in-up">
+                    <p>Star us on GitHub!</p>
+                </div>
+                <div class="slide-footer-qr mt-10">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-white hover:underline">
+                        github.com/aichipera/github-trend
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="微信二维码">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Reveal.js plugins -->
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js"></script>
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js"></script>
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js"></script>
+
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            hash: true,
+            overview: true,
+
+            transition: 'slide',
+            transitionSpeed: 'fast',
+
+            plugins: [
+                RevealNotes,
+                RevealMarkdown,
+                RevealHighlight
+            ],
+            // For Mermaid diagrams
+            dependencies: [
+                { src: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js', async: true, callback: function() { mermaid.initialize({ startOnLoad: false, theme: 'forest' }); } }
+            ]
+        });
+        // Initial setup for mermaid
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+</html>
