@@ -1,0 +1,1139 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI技术趋势：GitHub热门仓库日报</title>
+
+    <!-- Core Reveal.js Framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- Extended Dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Tailwind CSS is included as per request, but custom CSS is primary for specific aesthetics -->
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        /* Custom CSS Variables */
+        :root {
+            --primary-text: #2c3e50; /* Dark blue-gray for main text */
+            --secondary-text: #7f8c8d; /* Muted gray for secondary text */
+            --background-light: #f9f9f9; /* Off-white for general background */
+            --accent-blue: #3498db; /* Vivid blue for highlights/accents */
+            --accent-purple: #9b59b6; /* Soft purple for complementary highlights */
+            --border-color: #bdc3c7; /* Light gray for borders */
+            --gradient-start: #e0f2f7; /* Very light blue for subtle gradients */
+            --gradient-end: #f4e8f7; /* Very light purple for subtle gradients */
+        }
+
+        /* Base Font Settings - Adhering to instructions */
+        html, body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback",
+                         "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--primary-text);
+            background-color: var(--background-light); /* Default background for reveal.js theme */
+        }
+
+        .reveal .slides section {
+            padding: 0; /* Remove default padding to allow custom layout */
+            text-align: left; /* Default text alignment */
+            height: 100vh; /* Ensure sections fill viewport height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--primary-text);
+            text-align: center;
+            margin-bottom: 0.5em;
+        }
+
+        .reveal h1 { font-size: 3.8rem; }
+        .reveal h2 { font-size: 2.8rem; }
+        .reveal h3 { font-size: 2.2rem; }
+        .reveal h4 { font-size: 1.8rem; }
+        .reveal h5 { font-size: 1.5rem; }
+        .reveal p, .reveal li, .reveal table {
+            font-size: 1.15rem; /* Slightly larger for readability */
+            line-height: 1.6;
+        }
+
+        /* Specific styles for slides */
+
+        /* Cover Slide */
+        .slide-cover {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            height: 100%;
+            width: 100%;
+            position: relative;
+        }
+        .slide-cover h1 {
+            font-size: 4rem;
+            color: var(--primary-text);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 0.2em;
+            line-height: 1.2;
+            padding: 0 10%;
+        }
+        .slide-cover h2 {
+            font-size: 2.5rem;
+            color: var(--secondary-text);
+            margin-bottom: 1em;
+            padding: 0 10%;
+        }
+        .slide-cover .speaker-info {
+            font-size: 1.8rem;
+            color: var(--accent-blue);
+            font-weight: 500;
+        }
+
+        /* General Content Slides */
+        .slide-content {
+            padding: 5% 10%;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start; /* Align content to the left */
+        }
+        .slide-content > div { /* Apply max-width to the inner content div */
+            width: 80%;
+            margin: auto;
+        }
+        .slide-content h2 {
+            font-size: 2.5rem;
+            color: var(--accent-blue);
+            margin-bottom: 1em;
+            text-align: left;
+            border-bottom: 3px solid var(--accent-purple);
+            padding-bottom: 0.2em;
+            width: 100%; /* Ensure border spans full width of content */
+        }
+        .slide-content h3 {
+            font-size: 2rem;
+            color: var(--primary-text);
+            margin-top: 1.5em;
+            margin-bottom: 0.8em;
+            text-align: left;
+        }
+        .slide-content ul {
+            list-style-type: none; /* Remove default bullet */
+            padding-left: 0;
+            width: 100%;
+        }
+        .slide-content ul li {
+            position: relative;
+            padding-left: 1.8em;
+            margin-bottom: 0.8em;
+            font-size: 1.15rem;
+        }
+        .slide-content ul li:before {
+            content: "\f00c"; /* Check mark icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--accent-blue);
+            position: absolute;
+            left: 0;
+            top: 0.1em;
+            font-size: 1.2em;
+        }
+        .slide-content strong {
+            color: var(--accent-purple);
+            font-weight: 600;
+        }
+
+        /* Project Specific Slides */
+        .project-slide {
+            padding: 5% 8%;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr; /* Slightly wider for details */
+            gap: 2rem;
+            height: 100%;
+            width: 100%;
+            align-items: flex-start;
+            box-sizing: border-box; /* Include padding in element's total width and height */
+        }
+        .project-slide h3 {
+            grid-column: span 2;
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--accent-blue);
+            margin-bottom: 0.5em;
+            border-bottom: 3px solid var(--accent-purple);
+            padding-bottom: 0.2em;
+        }
+        .project-slide .project-info {
+            grid-column: 1 / 2;
+            padding-right: 1rem;
+            max-height: calc(100vh - 220px); /* Adjust based on header/footer space */
+            overflow-y: auto;
+        }
+        .project-slide .project-details {
+            grid-column: 2 / 3;
+            padding-left: 1rem;
+            border-left: 1px dashed var(--border-color);
+            max-height: calc(100vh - 220px); /* Adjust based on header/footer space */
+            overflow-y: auto;
+        }
+        .project-slide .project-details h4 {
+            font-size: 1.6rem;
+            color: var(--primary-text);
+            margin-bottom: 0.5em;
+            text-align: left;
+        }
+
+        /* Scrollbar styles for project info/details */
+        .project-slide .project-info::-webkit-scrollbar,
+        .project-slide .project-details::-webkit-scrollbar {
+            width: 8px;
+        }
+        .project-slide .project-info::-webkit-scrollbar-track,
+        .project-slide .project-details::-webkit-scrollbar-track {
+            background: var(--background-light);
+        }
+        .project-slide .project-info::-webkit-scrollbar-thumb,
+        .project-slide .project-details::-webkit-scrollbar-thumb {
+            background-color: var(--accent-blue);
+            border-radius: 4px;
+            border: 2px solid var(--background-light);
+        }
+
+        .project-slide table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5em;
+            font-size: 1.05rem;
+        }
+        .project-slide table th, .project-slide table td {
+            border: 1px solid var(--border-color);
+            padding: 0.6em 0.8em;
+            text-align: left;
+        }
+        .project-slide table th {
+            background-color: var(--accent-blue);
+            color: white;
+            font-weight: 600;
+        }
+        .project-slide table tr:nth-child(even) {
+            background-color: #f0f8ff; /* Lightest blue */
+        }
+        .project-slide table td i {
+            margin-right: 0.5em;
+            color: var(--accent-purple);
+        }
+
+        .project-slide .language-bar {
+            display: flex;
+            width: 100%;
+            height: 12px;
+            background-color: #e0e0e0;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-top: 0.8em;
+            margin-bottom: 1.5em;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .project-slide .language-bar span {
+            height: 100%;
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+        /* Dynamic language bar colors */
+        .project-slide .language-bar .python { background-color: #3572A5; }
+        .project-slide .language-bar .typescript { background-color: #3178C6; }
+        .project-slide .language-bar .javascript { background-color: #F7DF1E; }
+        .project-slide .language-bar .rust { background-color: #DEA584; }
+        .project-slide .language-bar .csharp { background-color: #178600; }
+        .project-slide .language-bar .jupyter { background-color: #DA6333; }
+        .project-slide .language-bar .html { background-color: #E34C26; }
+        .project-slide .language-bar .vue { background-color: #42b883; }
+        .project-slide .language-bar .treesitter { background-color: #6a0dad; } /* Placeholder */
+        .project-slide .language-bar .scheme { background-color: #8D511A; } /* Placeholder */
+        .project-slide .language-bar .lua { background-color: #000080; } /* Placeholder */
+        .project-slide .language-bar .other { background-color: #ccc; } /* Generic for small percentages */
+
+
+        /* Growth Analysis specific styles */
+        .growth-analysis {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            padding: 0.5em 0;
+        }
+        .growth-analysis .highlight-growth {
+            color: var(--accent-blue);
+            font-weight: bold;
+            font-size: 1.1em; /* Slightly larger to emphasize */
+        }
+        .growth-analysis i {
+            color: #2ecc71; /* Green for positive growth */
+            margin-right: 0.4em;
+        }
+
+        /* Aha moment styling for text/icons */
+        .reveal .fragment.highlight-blue {
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+        .reveal .fragment.highlight-purple {
+            color: var(--accent-purple);
+            font-weight: 600;
+        }
+        /* Fade-in effect for fragments */
+        .reveal .fragment.fade-in {
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+        .reveal .fragment.fade-in.visible {
+            opacity: 1;
+        }
+
+        /* Footer for project link and QR */
+        .footer-info {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 100; /* Ensure it's above other elements */
+        }
+        .footer-info a {
+            color: var(--primary-text);
+            font-size: 1.1rem;
+            text-decoration: none;
+            font-weight: 500;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        .footer-info a:hover {
+            color: var(--accent-blue);
+            text-decoration: underline;
+            opacity: 1;
+        }
+        .footer-info img {
+            width: 70px;
+            height: 70px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* Adjustments for default reveal.js elements */
+        .reveal .controls button {
+            color: var(--primary-text);
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+        .reveal .controls button:hover {
+            opacity: 1;
+            color: var(--accent-blue);
+        }
+        .reveal .progress span {
+            background: var(--accent-blue);
+        }
+
+        /* Specific icon styles for comparison slide */
+        .icon-plus { color: #2ecc71; } /* Green for new */
+        .icon-minus { color: #e74c3c; } /* Red for decreased */
+        .icon-star { color: #f1c40f; } /* Yellow for hot/stable */
+        .icon-arrow-up { color: #2ecc71; } /* Green for positive growth */
+        .icon-arrow-down { color: #e74c3c; } /* Red for negative growth */
+
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover Page -->
+            <section class="slide-cover">
+                <h1>AI真能落地、工具更趁手：<br>开发者必知的最新技术趋势</h1>
+                <h2>GitHub热门仓库日报观测 <br> <span style="font-size: 1.5rem; color: #5a5a5a;">2025-05-26 20:55:45</span></h2>
+                <p class="speaker-info">演讲者: AIChipEra</p>
+                <div class="footer-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        <i class="fab fa-github"></i> github.com/aichipera/github-trend
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="微信二维码" class="qr-code">
+                </div>
+            </section>
+
+            <!-- Slide 2: Disclaimer & Daily Highlights -->
+            <section class="slide-content">
+                <div>
+                    <h2><i class="fas fa-bullhorn"></i> 免责声明 & 日报要点</h2>
+                    <p class="fragment fade-in" style="font-size: 1.0rem; color: #e74c3c; font-weight: bold; text-align: center; margin-bottom: 2em; width: 100%;">
+                        以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！
+                    </p>
+                    <h3><i class="fas fa-calendar-alt"></i> 今日要点速览</h3>
+                    <ul>
+                        <li class="fragment fade-in">毫无疑问，<strong class="highlight-blue">AI和大型语言模型仍是焦点</strong>，但风向正变。</li>
+                        <li class="fragment fade-in">本地化、强调隐私的<strong class="highlight-purple">AI Agent正在兴起</strong>，让强大AI触手可及。</li>
+                        <li class="fragment fade-in">大量工具涌现，极大<strong class="highlight-blue">降低了AI开发和部署的门槛</strong>，让AI应用变得简单高效。</li>
+                        <li class="fragment fade-in">技术并非只有AI，开发者效率工具和<strong class="highlight-purple">硬核基础设施同样备受追捧</strong>。</li>
+                        <li class="fragment fade-in">经典的命令行工具正用<strong class="highlight-blue">Rust追求极致性能</strong>，核心系统也开始拥抱Rust的可靠性。</li>
+                        <li class="fragment fade-in">未来技术将更注重<strong class="highlight-purple">用户掌控、开发效率和底层性能</strong>。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 3: Overall Trends Analysis -->
+            <section class="slide-content">
+                <div>
+                    <h2><i class="fas fa-chart-line"></i> 今日整体趋势分析</h2>
+                    <h3><i class="fas fa-robot"></i> AI与LLM：落地与普惠化</h3>
+                    <ul>
+                        <li class="fragment fade-in">核心围绕<strong class="highlight-blue">AI与LLM的落地应用</strong>：AgenticSeek (本地AI), Lobe Chat (私有化部署), Langflow/LLaMA-Factory (简化构建与微调)。</li>
+                        <li class="fragment fade-in">强调<strong class="highlight-purple">隐私、成本可控</strong>的AI能力，推动本地化、开源方案发展。</li>
+                        <li class="fragment fade-in">AI开始<strong class="highlight-blue">“反哺”技术开发流程</strong>：RD-Agent自动化ML研发。</li>
+                    </ul>
+                    <h3><i class="fas fa-tools"></i> 开发者效率与基础设施</h3>
+                    <ul>
+                        <li class="fragment fade-in">开发者<strong class="highlight-purple">教育与生产力工具</strong>持续热门：developer-roadmap, ossu/computer-science。</li>
+                        <li class="fragment fade-in">对<strong class="highlight-blue">高效、稳定工具</strong>的追求：nvim-treesitter, uutils/coreutils (Rust重写)。</li>
+                        <li class="fragment fade-in">数据处理与基础设施：Pathway (实时流), Hyperswitch (开源支付)，指向<strong class="highlight-purple">高效、灵活、可控</strong>的数据流与系统。</li>
+                    </ul>
+                    <h3><i class="fas fa-code"></i> 编程语言亮点</h3>
+                    <ul>
+                        <li class="fragment fade-in"><strong class="highlight-blue">Python主导AI和数据</strong>。</li>
+                        <li class="fragment fade-in"><strong class="highlight-purple">TypeScript活跃于Web/UI/CLI</strong>。</li>
+                        <li class="fragment fade-in"><strong class="highlight-blue">Rust持续渗透高性能系统</strong>：Hyperswitch, uutils/coreutils，构建<strong class="highlight-purple">可靠、高效</strong>基础设施。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 4: Hot Project Comparison -->
+            <section class="slide-content">
+                <div>
+                    <h2><i class="fas fa-exchange-alt"></i> 热门项目双日维度对比</h2>
+                    <div style="display: flex; justify-content: space-around; text-align: center; margin-bottom: 2em; width: 100%;">
+                        <div class="fragment fade-in" style="flex: 1;">
+                            <i class="fas fa-plus-circle icon-plus" style="font-size: 3em;"></i>
+                            <h3 style="color: #2ecc71;">12个新项目</h3>
+                            <p style="font-size: 0.9em;">大量新面孔涌现，市场活跃</p>
+                        </div>
+                        <div class="fragment fade-in" style="flex: 1;">
+                            <i class="fas fa-arrow-alt-circle-up icon-arrow-up" style="font-size: 3em;"></i>
+                            <h3 style="color: #3498db;">8个项目上升</h3>
+                            <p style="font-size: 0.9em;">现有热门热度持续攀升</p>
+                        </div>
+                        <div class="fragment fade-in" style="flex: 1;">
+                            <i class="fas fa-fire icon-star" style="font-size: 3em;"></i>
+                            <h3 style="color: #f1c40f;">0个项目下降</h3>
+                            <p style="font-size: 0.9em;">整体热度积极向上</p>
+                        </div>
+                    </div>
+
+                    <h3><i class="fas fa-sync-alt"></i> 热点变化一览</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1em; font-size: 0.95em; width: 100%;">
+                        <div class="fragment fade-in">
+                            <h4><i class="fas fa-rocket icon-plus"></i> 新增热点</h4>
+                            <ul>
+                                <li>Ghost-Downloader-3</li>
+                                <li>RD-Agent</li>
+                                <li>Pathway</li>
+                                <li>F1-Dash</li>
+                                <li>OSSU Computer Science</li>
+                                <li>Langflow</li>
+                                <li>IPTV-Org</li>
+                                <li>Hyperswitch</li>
+                                <li>LLM-Course</li>
+                                <li>Uutils Coreutils</li>
+                                <li>WG-Easy</li>
+                                <li>Nvim-Treesitter</li>
+                            </ul>
+                        </div>
+                        <div class="fragment fade-in">
+                            <h4><i class="fas fa-skull-crossbones icon-minus"></i> 减退热点</h4>
+                            <ul>
+                                <li>Anthropics/Courses</li>
+                                <li>Ziglang/Zig</li>
+                                <li>Microsoft/TypeScript-Go</li>
+                                <li>Shadps4-Emu</li>
+                                <li>Duixcom/Duix.heygem</li>
+                                <li>Anthropics/Claude-Code</li>
+                                <li>Comfyanonymous/Comfyui</li>
+                                <li>ReactOS/ReactOS</li>
+                            </ul>
+                        </div>
+                        <div class="fragment fade-in">
+                            <h4><i class="fas fa-star icon-star"></i> 持续热门</h4>
+                            <ul>
+                                <li>Fosowl/agenticSeek <span style="color:var(--accent-blue);">(4次)</span></li>
+                                <li>Microsoft/Qlib <span style="color:var(--accent-blue);">(4次)</span></li>
+                                <li>LobeHub/Lobe-Chat <span style="color:var(--accent-blue);">(3次)</span></li>
+                                <li>MindsDB/MindsDB <span style="color:var(--accent-blue);">(4次)</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5: Section Header for Detailed Projects (Parent for Vertical Slides) -->
+            <section>
+                <section class="slide-cover" data-background-color="#f0f8ff">
+                    <h2 style="font-size: 4rem; color: var(--accent-blue); text-shadow: 2px 2px 10px rgba(0,0,0,0.1);">
+                        <i class="fas fa-database"></i> 详细仓库数据 <i class="fas fa-chart-area"></i>
+                    </h2>
+                    <p style="font-size: 1.8rem; color: var(--secondary-text); margin-top: 1em;">
+                        深入解析GitHub热门项目的<strong class="highlight-purple">核心价值</strong>与<strong class="highlight-blue">增长秘诀</strong>
+                    </p>
+                </section>
+
+                <!-- Project Slides (Vertical Children Sections) -->
+
+                <!-- Fosowl/agenticSeek -->
+                <section class="project-slide">
+                    <h3><i class="fas fa-brain"></i> Fosowl/agenticSeek: 纯本地AI代理</h3>
+                    <div class="project-info">
+                        <h4>项目简介</h4>
+                        <p>纯本地 Manus AI。无需 API，无需每月 200 美元账单。尽享一个能思考、上网、编程的自主智能体，唯一开销仅为电费。</p>
+                        <h4>核心数据</h4>
+                        <table>
+                            <thead><tr><th>指标</th><th>值</th><th>图标</th></tr></thead>
+                            <tbody>
+                                <tr><td>开发语言</td><td>Python</td><td><i class="fab fa-python"></i></td></tr>
+                                <tr><td>Star 数</td><td>6033</td><td><i class="far fa-star"></i></td></tr>
+                                <tr><td>连续在榜</td><td>4次</td><td><i class="fas fa-clipboard-list"></i></td></tr>
+                                <tr><td>当日 Star 增加数</td><td>2048</td><td><i class="fas fa-fire"></i></td></tr>
+                            </tbody>
+                        </table>
+                        <div class="language-bar">
+                            <span class="python" style="width: 85.4%;"></span>
+                            <span class="javascript" style="width: 6.9%;"></span>
+                            <span class="other" style="width: 7.7%; background-color: #563D7C;"></span> <!-- Combined CSS, Shell, etc. -->
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4><i class="fas fa-search-dollar"></i> 项目速读：为何火爆？</h4>
+                        <p>AgenticSeek 是一个<strong class="highlight-blue">完全本地化、注重隐私的开源AI代理</strong>，旨在提供强大且<strong class="highlight-purple">成本低廉</strong>的AI助手。它将复杂的自主AI能力（如浏览网页、规划任务、编写代码）完全放在用户的个人设备上运行，<strong class="highlight-blue">无需高昂月费</strong>，极大保障隐私。尤其适合看重数据主权、对隐私有高要求，且具备一定硬件基础的用户。其快速增长印证了市场对<strong class="highlight-purple">去中心化、高自主性AI</strong>的强烈需求。</p>
+                        <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                        <p class="growth-analysis"><i class="fas fa-arrow-up icon-arrow-up"></i> 连续4天在榜，总增长<span class="highlight-growth">2926</span>星，日均约731星。今日激增<span class="highlight-growth">2048</span>星，远超平均，显示强劲且加速的增长势头。</p>
+                    </div>
+                </section>
+                
+                <!-- groupultra/telegram-search -->
+                <section class="project-slide">
+                    <h3><i class="fab fa-telegram-plane"></i> groupultra/telegram-search: 智能聊天搜索</h3>
+                    <div class="project-info">
+                        <h4>项目简介</h4>
+                        <p>一个功能强大的 Telegram 聊天记录搜索客户端，支持聊天记录备份和向量搜索。</p>
+                        <h4>核心数据</h4>
+                        <table>
+                            <thead><tr><th>指标</th><th>值</th><th>图标</th></tr></thead>
+                            <tbody>
+                                <tr><td>开发语言</td><td>TypeScript</td><td><i class="fab fa-node-js"></i></td></tr>
+                                <tr><td>Star 数</td><td>1608</td><td><i class="far fa-star"></i></td></tr>
+                                <tr><td>连续在榜</td><td>2次</td><td><i class="fas fa-clipboard-list"></i></td></tr>
+                                <tr><td>当日 Star 增加数</td><td>369</td><td><i class="fas fa-fire"></i></td></tr>
+                            </tbody>
+                        </table>
+                        <div class="language-bar">
+                            <span class="typescript" style="width: 50.5%;"></span>
+                            <span class="vue" style="width: 39.7%;"></span>
+                            <span class="other" style="width: 9.8%; background-color: #563D7C;"></span>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4><i class="fas fa-lightbulb"></i> 项目速读：语义搜索亮点</h4>
+                        <p>该项目引入<strong class="highlight-blue">向量搜索和语义匹配技术</strong>，通过整合OpenAI等服务，理解查询真实含义，并基于消息内容语义相似性而非简单关键词匹配，返回<strong class="highlight-purple">更精准、更相关</strong>的历史聊天记录。同时支持<strong class="highlight-blue">聊天记录备份</strong>。对于需要高效、智能地在海量Telegram消息中查找特定信息或回顾历史对话的用户来说，这是一个极具价值的增强工具。</p>
+                        <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                        <p class="growth-analysis"><i class="fas fa-arrow-up icon-arrow-up"></i> 短短2天内2次上榜，表明关注度较高且增长势头强劲。总Star增长<span class="highlight-growth">334</span>个，平均每次上榜新增235.5个。特别是最后一天新增<span class="highlight-growth">369</span>个Star，显示了积极的增长趋势和潜力。</p>
+                    </div>
+                </section>
+
+                <!-- microsoft/qlib -->
+                <section class="project-slide">
+                    <h3><i class="fas fa-chart-pie"></i> microsoft/qlib: AI量化投资平台</h3>
+                    <div class="project-info">
+                        <h4>项目简介</h4>
+                        <p>Qlib是一个面向人工智能的量化投资平台，旨在利用人工智能技术在量化投资领域，从概念探索到生产部署，实现潜力、赋能研究并创造价值。Qlib支持多种多样的机器学习建模范式，包括监督学习、市场动力学建模和强化学习。</p>
+                        <h4>核心数据</h4>
+                        <table>
+                            <thead><tr><th>指标</th><th>值</th><th>图标</th></tr></thead>
+                            <tbody>
+                                <tr><td>开发语言</td><td>Python</td><td><i class="fab fa-python"></i></td></tr>
+                                <tr><td>Star 数</td><td>21853</td><td><i class="far fa-star"></i></td></tr>
+                                <tr><td>连续在榜</td><td>4次</td><td><i class="fas fa-clipboard-list"></i></td></tr>
+                                <tr><td>当日 Star 增加数</td><td>961</td><td><i class="fas fa-fire"></i></td></tr>
+                            </tbody>
+                        </table>
+                        <div class="language-bar">
+                            <span class="python" style="width: 99.2%;"></span>
+                            <span class="other" style="width: 0.8%;"></span>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4><i class="fas fa-dollar-sign"></i> 项目速读：金融AI利器</h4>
+                        <p>微软开源的<strong class="highlight-blue">一体化AI量化投资平台</strong>。赋能从想法探索到策略生产全流程，支持<strong class="highlight-purple">监督学习、市场动态建模、强化学习</strong>等多种ML范式，集成前沿模型和工具，提供数据处理、模型训练、回测等模块化组件。甚至引入基于LLM的自动化能力。为希望借助AI深入分析金融市场、构建和部署投资策略的研究者和开发者提供了<strong class="highlight-blue">强大、灵活且持续演进</strong>的平台。</p>
+                        <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                        <p class="growth-analysis"><i class="fas fa-arrow-up icon-arrow-up"></i> 连续4天上榜，日均增长<span class="highlight-growth">508</span>星，总增1886。今日新增<span class="highlight-growth">961</span>远超平均，增长趋势显著加速。</p>
+                    </div>
+                </section>
+
+                <!-- mlabonne/llm-course -->
+                <section class="project-slide">
+                    <h3><i class="fas fa-graduation-cap"></i> mlabonne/llm-course: LLM入门课程</h3>
+                    <div class="project-info">
+                        <h4>项目简介</h4>
+                        <p>大语言模型 (LLMs) 入门课程，附带路线图和 Colab notebook。</p>
+                        <h4>核心数据</h4>
+                        <table>
+                            <thead><tr><th>指标</th><th>值</th><th>图标</th></tr></thead>
+                            <tbody>
+                                <tr><td>开发语言</td><td>Jupyter Notebook</td><td><i class="fas fa-book"></i></td></tr>
+                                <tr><td>Star 数</td><td>52811</td><td><i class="far fa-star"></i></td></tr>
+                                <tr><td>连续在榜</td><td>1次</td><td><i class="fas fa-clipboard-list"></i></td></tr>
+                                <tr><td>当日 Star 增加数</td><td>180</td><td><i class="fas fa-fire"></i></td></tr>
+                            </tbody>
+                        </table>
+                        <div class="language-bar">
+                            <span class="jupyter" style="width: 100%;"></span>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4><i class="fas fa-lightbulb"></i> 项目速读：系统学习LLM</h4>
+                        <p>这个GitHub仓库提供了一套备受瞩目的<strong class="highlight-blue">免费大型语言模型（LLM）学习课程</strong>。旨在为希望深入理解和应用LLM的学习者提供一条清晰的学习路径，解决从理论到实践的入门难题。课程通过丰富的Jupyter Notebooks（支持Google Colab一键运行），手把手教授LLM的基础概念、模型构建、高效微调（如QLoRA、DPO）、量化（如GPTQ、GGUF）及应用部署等<strong class="highlight-purple">核心技能</strong>。内容结构化，分设LLM科学家和工程师两个进阶方向，覆盖前沿实用技术。是快速掌握LLM核心技能、进行动手实践的<strong class="highlight-blue">高效资源</strong>。</p>
+                        <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                        <p class="growth-analysis"><i class="fas fa-arrow-up icon-arrow-up"></i> 仓库在统计周期内增长显著（总计<span class="highlight-growth">2334</span>星）。尤其值得关注的是4次上榜，这可能是星数激增的主要驱动因素，平均每次上榜带来约310星。增长趋势与上榜密切相关，呈现脉冲式增长。当前日增<span class="highlight-growth">180</span>星。</p>
+                    </div>
+                </section>
+
+                <!-- jellyfin/jellyfin -->
+                <section class="project-slide">
+                    <h3><i class="fas fa-photo-video"></i> jellyfin/jellyfin: 自由媒体中心</h3>
+                    <div class="project-info">
+                        <h4>项目简介</h4>
+                        <p>自由软件媒体系统 - 服务器后端 & API</p>
+                        <h4>核心数据</h4>
+                        <table>
+                            <thead><tr><th>指标</th><th>值</th><th>图标</th></tr></thead>
+                            <tbody>
+                                <tr><td>开发语言</td><td>C#</td><td><i class="fas fa-hashtag"></i></td></tr>
+                                <tr><td>Star 数</td><td>39953</td><td><i class="far fa-star"></i></td></tr>
+                                <tr><td>连续在榜</td><td>2次</td><td><i class="fas fa-clipboard-list"></i></td></tr>
+                                <tr><td>当日 Star 增加数</td><td>173</td><td><i class="fas fa-fire"></i></td></tr>
+                            </tbody>
+                        </table>
+                        <div class="language-bar">
+                            <span class="csharp" style="width: 99.8%;"></span>
+                            <span class="other" style="width: 0.2%;"></span>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4><i class="fas fa-house-user"></i> 项目速读：掌控你的媒体</h4>
+                        <p>Jellyfin 是一个用 C# 编写的<strong class="highlight-blue">自由开源媒体系统后端</strong>，基于 .NET Core 和 FFmpeg，用于管理和串流用户的个人数字媒体库（如影视、音乐）。它提供了一个<strong class="highlight-purple">完全免费、没有任何付费功能或订阅限制</strong>的解决方案，彻底将媒体和控制权交还给用户，与商业媒体服务形成鲜明对比。作为一个社区驱动的项目，Jellyfin 提供了强大的<strong class="highlight-blue">跨平台能力</strong>，是追求自由、注重隐私、希望完全掌控自己媒体体验用户的理想私有媒体中心选择。</p>
+                        <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                        <p class="growth-analysis"><i class="fas fa-arrow-up icon-arrow-up"></i> 在短短2天内2次上榜，总计增长<span class="highlight-growth">171</span>星，平均每次上榜增星达99个，增长势头迅猛。</p>
+                    </div>
+                </section>
+
+                <!-- iptv-org/iptv -->
+                <section class="project-slide">
+                    <h3><i class="fas fa-tv"></i> iptv-org/iptv: 全球公开IPTV频道</h3>
+                    <div class="project-info">
+                        <h4>项目简介</h4>
+                        <p>全球公开IPTV频道合集</p>
+                        <h4>核心数据</h4>
+                        <table>
+                            <thead><tr><th>指标</th><th>值</th><th>图标</th></tr></thead>
+                            <tbody>
+                                <tr><td>开发语言</td><td>TypeScript</td><td><i class="fab fa-node-js"></i></td></tr>
+                                <tr><td>Star 数</td><td>94025</td><td><i class="far fa-star"></i></td></tr>
+                                <tr><td>连续在榜</td><td>1次</td><td><i class="fas fa-clipboard-list"></i></td></tr>
+                                <tr><td>当日 Star 增加数</td><td>44</td><td><i class="fas fa-fire"></i></td></tr>
+                            </tbody>
+                        </table>
+                        <div class="language-bar">
+                            <span class="typescript" style="width: 56.4%;"></span>
+                            <span class="javascript" style="width: 43.6%;"></span>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4><i class="fas fa-globe"></i> 项目速读：免费直播资源库</h4>
+                        <p>这是一个汇集了<strong class="highlight-blue">全球各地公开可用的免费IPTV电视频道</strong>的项目。它解决了用户查找和管理免费直播源的痛点，提供了一个庞大且持续更新的M3U播放列表集合。其核心优势在于收集范围广泛，并利用自动化机制持续更新，确保列表的可用性与时效性。用户只需将按语言或类别组织的M3U列表导入VLC等常见播放器即可轻松观看。总而言之，这是一个庞大且维护积极的免费直播资源库，极大地降低了观看<strong class="highlight-purple">全球公开频道直播的门槛</strong>，是查找和体验国际免费流媒体内容的便捷途径。</p>
+                        <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                        <p class="growth-analysis"><i class="fas fa-arrow-up icon-arrow-up"></i> 该仓库两周内仅上榜两次，榜单曝光率较低或不稳定。但总Star增长数高达<span class="highlight-growth">782</span>，表明其增长势头强劲，且增长并非完全依赖于榜单曝光，存在榜外持续或集中增长。</p>
+                    </div>
+                </section>
+
+                <!-- kamranahmedse/developer-roadmap -->
+                <section class="project-slide">
+                    <h3><i class="fas fa-map-marked-alt"></i> kamranahmedse/developer-roadmap: 开发者成长路线</h3>
+                    <div class="project-info">
+                        <h4>项目简介</h4>
+                        <p>交互式路线图、指南等教育内容，助力开发者职业发展。</p>
+                        <h4>核心数据</h4>
+                        <table>
+                            <thead><tr><th>指标</th><th>值</th><th>图标</th></tr></thead>
+                            <tbody>
+                                <tr><td>开发语言</td><td>TypeScript</td><td><i class="fab fa-node-js"></i></td></tr>
+                                <tr><td>Star 数</td><td>323403</td><td><i class="far fa-star"></i></td></tr>
+                                <tr><td>连续在榜</td><td>2次</td><td><i class="fas fa-clipboard-list"></i></td></tr>
+                                <tr><td>当日 Star 增加数</td><td>640</td><td><i class="fas fa-fire"></i></td></tr>
+                            </tbody>
+                        </table>
+                        <div class="language-bar">
+                            <span class="typescript" style="width: 78.7%;"></span>
+                            <span class="other" style="width: 16.7%; background-color: #6a0dad;"></span> <!-- Astro color -->
+                            <span class="javascript" style="width: 3.7%;"></span>
+                            <span class="other" style="width: 0.9%;"></span>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4><i class="fas fa-compass"></i> 项目速读：规划你的技术之路</h4>
+                        <p>面对日新月异的技术世界，开发者常常苦于找不到清晰的学习方向。developer-roadmap 项目（即 roadmap.sh）应运而生，它是一个强大的社区驱动平台，旨在为开发者提供<strong class="highlight-blue">结构化、交互式的技术学习路线图和丰富的教育资源</strong>，帮助他们系统地规划学习路径，提升职业技能。核心价值在于其广泛而深入的内容覆盖，几乎囊括了前端、后端、运维、数据科学、人工智能等所有主流技术领域，甚至包括产品经理等相关非技术岗位。路线图由全球开发者社区共同维护和更新，保证了内容的及时性和权威性。用户可以通过交互式界面直观地了解每个技术领域的关键知识点和学习顺序，并链接到精选的学习资源。这种模式极大地降低了学习新技术的门槛，让开发者能更高效地掌握所需技能。总而言之，roadmap.sh 不仅仅是一个知识汇集地，更是<strong class="highlight-purple">开发者进行自我提升和职业规划的得力工具</strong>。无论你是入门新手还是资深专家，都能在这里找到适合自己的成长路径，从而在技术领域走得更远。</p>
+                        <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                        <p class="growth-analysis"><i class="fas fa-arrow-up icon-arrow-up"></i> 仓库增长强劲，2.5月总计增<span class="highlight-growth">1.3万</span>星。得益于<span class="highlight-growth">11次</span>上榜，平均每次新增近400星，今天增速尤其快。</p>
+                    </div>
+                </section>
+
+                <!-- lobehub/lobe-chat -->
+                <section class="project-slide">
+                    <h3><i class="fas fa-comments"></i> lobehub/lobe-chat: 现代AI聊天框架</h3>
+                    <div class="project-info">
+                        <h4>项目简介</h4>
+                        <p>🤯 Lobe Chat - 一个开源、现代设计的AI聊天框架。支持多种AI提供商（OpenAI / Claude 3 / Gemini / Ollama / DeepSeek / Qwen）、知识库（文件上传 / 知识管理 / RAG）、多模态（插件 / Artifacts）和思考。一键免费部署您的私有ChatGPT/Claude/DeepSeek应用。</p>
+                        <h4>核心数据</h4>
+                        <table>
+                            <thead><tr><th>指标</th><th>值</th><th>图标</th></tr></thead>
+                            <tbody>
+                                <tr><td>开发语言</td><td>TypeScript</td><td><i class="fab fa-node-js"></i></td></tr>
+                                <tr><td>Star 数</td><td>61500</td><td><i class="far fa-star"></i></td></tr>
+                                <tr><td>连续在榜</td><td>3次</td><td><i class="fas fa-clipboard-list"></i></td></tr>
+                                <tr><td>当日 Star 增加数</td><td>300</td><td><i class="fas fa-fire"></i></td></tr>
+                            </tbody>
+                        </table>
+                        <div class="language-bar">
+                            <span class="typescript" style="width: 97.7%;"></span>
+                            <span class="html" style="width: 1.4%;"></span>
+                            <span class="other" style="width: 0.9%;"></span>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4><i class="fas fa-magic"></i> 项目速读：多模型私有AI</h4>
+                        <p>Lobe Chat 是一个开源、现代化设计的AI聊天框架，致力于解决用户需要与多种大型语言模型（如 OpenAI、Claude、Gemini、Ollama 等）交互时，<strong class="highlight-blue">缺乏统一且私有化界面</strong>的问题。该项目最突出的优势在于其支持<strong class="highlight-purple">广泛的模型兼容性、内置知识库（RAG）和多模态能力</strong>，并提供“一键免费部署”选项，极大地简化了用户搭建专属、功能丰富的私有AI聊天应用的门槛。它为个人及团队提供了一个便捷、高效、强大的<strong class="highlight-blue">多模型AI交互体验平台</strong>。</p>
+                        <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                        <p class="growth-analysis"><i class="fas fa-arrow-up icon-arrow-up"></i> 仓库一个月内上榜<span class="highlight-growth">6次</span>，总Star增长2057，显示周期性活跃和强劲增长势头。本次新增<span class="highlight-growth">300</span>远超平均，表明近期增长显著加速。</p>
+                    </div>
+                </section>
+
+                <!-- XiaoYouChR/Ghost-Downloader-3 -->
+                <section class="project-slide">
+                    <h3><i class="fas fa-download"></i> Ghost-Downloader-3: AI加速下载器</h3>
+                    <div class="project-info">
+                        <h4>项目简介</h4>
+                        <p>一款使用 Python 构建的跨平台 Fluent 设计 AI 加速 多线程 下载器。</p>
+                        <h4>核心数据</h4>
+                        <table>
+                            <thead><tr><th>指标</th><th>值</th><th>图标</th></tr></thead>
+                            <tbody>
+                                <tr><td>开发语言</td><td>Python</td><td><i class="fab fa-python"></i></td></tr>
+                                <tr><td>Star 数</td><td>2250</td><td><i class="far fa-star"></i></td></tr>
+                                <tr><td>连续在榜</td><td>1次</td><td><i class="fas fa-clipboard-list"></i></td></tr>
+                                <tr><td>当日 Star 增加数</td><td>441</td><td><i class="fas fa-fire"></i></td></tr>
+                            </tbody>
+                        </table>
+                        <div class="language-bar">
+                            <span class="python" style="width: 99.6%;"></span>
+                            <span class="other" style="width: 0.4%;"></span>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4><i class="fas fa-bolt"></i> 项目速读：智能高速下载</h4>
+                        <p>Ghost-Downloader-3 是一款基于 Python 开发的跨平台多线程下载器，最初为 Bilibili UP 主整合资源而生，致力于提供高效、智能的文件下载服务。其核心亮点在于采用<strong class="highlight-blue">AI驱动的智能加速技术</strong>，以及类似 IDM 的智能分块下载机制，且<strong class="highlight-purple">无需合并文件</strong>，大幅提升下载效率。项目拥有现代流畅的界面设计，支持在 Linux、Windows 和 macOS 等多个操作系统上稳定运行，兼容主流架构。尽管开发者因故暂停更新，但其快速增长的关注度（今日星标数显著增加）表明社区对其<strong class="highlight-blue">智能加速和高效下载能力</strong>的认可。对于寻求高速、跨平台且拥有现代界面的下载工具的用户，Ghost-Downloader-3 是一个值得关注的开源选择。</p>
+                        <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                        <p class="growth-analysis"><i class="fas fa-arrow-up icon-arrow-up"></i> 仓库短周期内<span class="highlight-growth">3次</span>上榜，总增<span class="highlight-growth">880</span>星，今日增<span class="highlight-growth">441</span>，增长势头强劲且有加速趋势。</p>
+                    </div>
+                </section>
+
+                <!-- mindsdb/mindsdb -->
+                <section class="project-slide">
+                    <h3><i class="fas fa-database"></i> mindsdb/mindsdb: AI查询引擎</h3>
+                    <div class="project-info">
+                        <h4>项目简介</h4>
+                        <p>AI查询引擎 - 构建可回答大规模联邦数据问题的AI平台 - 您唯一所需的MCP服务器</p>
+                        <h4>核心数据</h4>
+                        <table>
+                            <thead><tr><th>指标</th><th>值</th><th>图标</th></tr></thead>
+                            <tbody>
+                                <tr><td>开发语言</td><td>Python</td><td><i class="fab fa-python"></i></td></tr>
+                                <tr><td>Star 数</td><td>30015</td><td><i class="far fa-star"></i></td></tr>
+                                <tr><td>连续在榜</td><td>4次</td><td><i class="fas fa-clipboard-list"></i></td></tr>
+                                <tr><td>当日 Star 增加数</td><td>496</td><td><i class="fas fa-fire"></i></td></tr>
+                            </tbody>
+                        </table>
+                        <div class="language-bar">
+                            <span class="python" style="width: 99.8%;"></span>
+                            <span class="other" style="width: 0.2%;"></span>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4><i class="fas fa-question-circle"></i> 项目速读：向数据提问</h4>
+                        <p>MindsDB 是一个开源的<strong class="highlight-blue">AI查询引擎</strong>，核心目标是连接、统一并帮助用户（包括 AI 和 Agent）从<strong class="highlight-purple">大规模、分散的数据源</strong>（如各种数据库、SaaS 应用）中轻松获取答案。它解决了数据分散、难以统一查询和利用AI的问题。通过提供对数百种数据源的广泛连接能力，MindsDB 允许用户使用标准的<strong class="highlight-blue">SQL语法进行跨源联合查询</strong>，并将AI模型、知识库和智能Agent直接集成到数据层，无需复杂的ETL过程。这使得用户可以直接向自己的分布式数据提问，实现AI驱动的数据洞察和应用构建。MindsDB 作为数据访问和AI集成的一站式平台，极大地简化了在复杂数据环境下利用数据的过程。</p>
+                        <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                        <p class="growth-analysis"><i class="fas fa-arrow-up icon-arrow-up"></i> 该仓库增长势头强劲，<span class="highlight-growth">4天</span>上榜<span class="highlight-growth">4次</span>充分证明其持续高人气和可见度。总计增长1250个Star，日均增长超400，且最后一天新增<span class="highlight-growth">496</span>个，高于平均，显示出加速增长的趋势。</p>
+                    </div>
+                </section>
+
+                <!-- ossu/computer-science -->
+                <section class="project-slide">
+                    <h3><i class="fas fa-laptop-code"></i> ossu/computer-science: 免费自学CS之路</h3>
+                    <div class="project-info">
+                        <h4>项目简介</h4>
+                        <p>免费自学计算机科学之路</p>
+                        <h4>核心数据</h4>
+                        <table>
+                            <thead><tr><th>指标</th><th>值</th><th>图标</th></tr></thead>
+                            <tbody>
+                                <tr><td>开发语言</td><td>HTML</td><td><i class="fab fa-html5"></i></td></tr>
+                                <tr><td>Star 数</td><td>181603</td><td><i class="far fa-star"></i></td></tr>
+                                <tr><td>连续在榜</td><td>1次</td><td><i class="fas fa-clipboard-list"></i></td></tr>
+                                <tr><td>当日 Star 增加数</td><td>76</td><td><i class="fas fa-fire"></i></td></tr>
+                            </tbody>
+                        </table>
+                        <div class="language-bar">
+                            <span class="html" style="width: 100%;"></span>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4><i class="fas fa-book-open"></i> 项目速读：系统学习CS</h4>
+                        <p>ossu/computer-science 项目提供了一套利用<strong class="highlight-blue">免费在线资源</strong>构建的完整计算机科学自学指南。它整合哈佛、MIT等顶尖名校课程，提供系统、高质量的学习路径，旨在达到本科CS教育水平。项目结构严谨，涵盖编程、数学、系统、理论等核心领域。其核心价值在于为希望系统掌握CS基础、但受限于传统教育的人，提供了一条<strong class="highlight-purple">清晰、免费且有社区支持的高效通道</strong>。非常适合自律、渴望深入学习CS的人士。</p>
+                        <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                        <p class="growth-analysis"><i class="fas fa-arrow-up icon-arrow-up"></i> 该仓库近两月总增长<span class="highlight-growth">4642</span> Star，但仅上榜<span class="highlight-growth">3次</span>，且每次上榜新增量有限，说明增长并非持续高热度或爆发式增长，持续吸引力有待提升。</p>
+                    </div>
+                </section>
+
+                <!-- juspay/hyperswitch -->
+                <section class="project-slide">
+                    <h3><i class="fas fa-credit-card"></i> juspay/hyperswitch: Rust支付交换系统</h3>
+                    <div class="project-info">
+                        <h4>项目简介</h4>
+                        <p>一个用 Rust 编写的开源支付交换系统，旨在让支付快速、可靠、低成本。</p>
+                        <h4>核心数据</h4>
+                        <table>
+                            <thead><tr><th>指标</th><th>值</th><th>图标</th></tr></thead>
+                            <tbody>
+                                <tr><td>开发语言</td><td>Rust</td><td><i class="fab fa-rust"></i></td></tr>
+                                <tr><td>Star 数</td><td>19766</td><td><i class="far fa-star"></i></td></tr>
+                                <tr><td>连续在榜</td><td>1次</td><td><i class="fas fa-clipboard-list"></i></td></tr>
+                                <tr><td>当日 Star 增加数</td><td>580</td><td><i class="fas fa-fire"></i></td></tr>
+                            </tbody>
+                        </table>
+                        <div class="language-bar">
+                            <span class="rust" style="width: 80.7%;"></span>
+                            <span class="javascript" style="width: 18.3%;"></span>
+                            <span class="other" style="width: 1%;"></span>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4><i class="fas fa-exchange-alt"></i> 项目速读：高性能支付编排</h4>
+                        <p>Hyperswitch 是一个基于Rust开发的<strong class="highlight-blue">开源支付编排平台</strong>，旨在解决企业在集成和管理多个支付服务商时面临的复杂性和效率问题。它提供一个统一的API接口，让商家能够无缝连接和控制各种支付渠道及其功能，从而简化支付处理、退款和拒付等核心流程。该项目最核心的优势在于其<strong class="highlight-purple">智能支付路由能力</strong>，能够根据成功率、成本、规则等多种维度动态选择最优的支付通道，显著提高交易成功率并降低运营成本。同时，它提供统一的前端SDK和直观的无代码控制中心。凭借<strong class="highlight-blue">Rust带来的高性能和可靠性</strong>，Hyperswitch 构建了一个快速、稳定且具有成本效益的支付基础设施。对于希望灵活切换支付服务商、优化支付体验、提升全球支付效率的企业而言，Hyperswitch 提供了一个透明、强大且具备企业级能力的开源替代方案。</p>
+                        <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                        <p class="growth-analysis"><i class="fas fa-arrow-up icon-arrow-up"></i> 该仓库在两月内上榜<span class="highlight-growth">9次</span>，表现出持续关注度。总增长<span class="highlight-growth">5595</span> Star，平均每次上榜增约348.6。今日增<span class="highlight-growth">580</span> Star，高于平均，显示增长势头良好，近期可能加速。</p>
+                    </div>
+                </section>
+
+                <!-- uutils/coreutils -->
+                <section class="project-slide">
+                    <h3><i class="fas fa-terminal"></i> uutils/coreutils: GNU coreutils Rust重写</h3>
+                    <div class="project-info">
+                        <h4>项目简介</h4>
+                        <p>GNU coreutils 的 Rust 跨平台重写</p>
+                        <h4>核心数据</h4>
+                        <table>
+                            <thead><tr><th>指标</th><th>值</th><th>图标</th></tr></thead>
+                            <tbody>
+                                <tr><td>开发语言</td><td>Rust</td><td><i class="fab fa-rust"></i></td></tr>
+                                <tr><td>Star 数</td><td>20442</td><td><i class="far fa-star"></i></td></tr>
+                                <tr><td>连续在榜</td><td>1次</td><td><i class="fas fa-clipboard-list"></i></td></tr>
+                                <tr><td>当日 Star 增加数</td><td>66</td><td><i class="fas fa-fire"></i></td></tr>
+                            </tbody>
+                        </table>
+                        <div class="language-bar">
+                            <span class="rust" style="width: 97.8%;"></span>
+                            <span class="other" style="width: 2.2%;"></span>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4><i class="fas fa-crosshairs"></i> 项目速读：更可靠的命令行</h4>
+                        <p>uutils coreutils 项目是用Rust语言对广泛使用的<strong class="highlight-blue">GNU coreutils进行的跨平台重新实现</strong>。它的核心目标是提供一套在主流操作系统（包括 Linux、macOS 和 Windows）上都能稳定运行的标准命令行工具集，例如 ls, cat, echo, rm 等，从而解决在不同平台间编写和执行 shell 脚本时的<strong class="highlight-purple">兼容性和移植性问题</strong>。这个项目的突出优势在于其出色的<strong class="highlight-blue">跨平台能力</strong>以及对传统GNU工具行为的高度兼容性，努力成为一个可以直接替代的选择。通过利用Rust的安全性与效率，uutils coreutils 为开发者、系统管理员及所有需要一致化命令行环境的用户，提供了一个<strong class="highlight-purple">可靠、高性能且开源</strong>的基础工具集，极大地提升了工作流的便捷性和脚本的可移植性。</p>
+                        <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                        <p class="growth-analysis"><i class="fas fa-arrow-up icon-arrow-up"></i> 该仓库在统计周期内总计增长<span class="highlight-growth">1508</span> Star。尽管仅<span class="highlight-growth">3次</span>登上榜单，每次上榜平均带来143.3 Star增长，表明有限的榜单曝光带来了不错的增量。总增长相对可观，显示了项目本身的吸引力或社区活跃度。</p>
+                    </div>
+                </section>
+
+                <!-- nvim-treesitter/nvim-treesitter -->
+                <section class="project-slide">
+                    <h3><i class="fas fa-file-code"></i> nvim-treesitter/nvim-treesitter: Neovim语法增强</h3>
+                    <div class="project-info">
+                        <h4>项目简介</h4>
+                        <p>Nvim Treesitter 配置和抽象层</p>
+                        <h4>核心数据</h4>
+                        <table>
+                            <thead><tr><th>指标</th><th>值</th><th>图标</th></tr></thead>
+                            <tbody>
+                                <tr><td>开发语言</td><td>Tree-sitter Query</td><td><i class="fas fa-code-branch"></i></td></tr>
+                                <tr><td>Star 数</td><td>11970</td><td><i class="far fa-star"></i></td></tr>
+                                <tr><td>连续在榜</td><td>1次</td><td><i class="fas fa-clipboard-list"></i></td></tr>
+                                <tr><td>当日 Star 增加数</td><td>11</td><td><i class="fas fa-fire"></i></td></tr>
+                            </tbody>
+                        </table>
+                        <div class="language-bar">
+                            <span class="treesitter" style="width: 40.9%;"></span>
+                            <span class="scheme" style="width: 28.7%;"></span>
+                            <span class="lua" style="width: 19.8%;"></span>
+                            <span class="other" style="width: 10.6%;"></span>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4><i class="fas fa-edit"></i> 项目速读：智能代码编辑</h4>
+                        <p>nvim-treesitter 是 Neovim 的核心插件，它将强大的<strong class="highlight-blue">Tree-sitter语法解析器集成到编辑器中</strong>。该项目解决了传统代码处理方法（如基于正则表达式）在处理复杂语法时不够精确和健壮的问题，通过构建并利用代码的语法树，实现了<strong class="highlight-purple">更准确、更可靠的代码高亮、缩进、折叠</strong>等功能。其主要优势在于基于语法树提供的强大精确性、功能的模块化设计以及简化的语言解析器管理流程。对于追求现代、高效且代码感知能力强的Neovim用户来说，nvim-treesitter 是<strong class="highlight-blue">构建优秀开发环境的基础组件</strong>，极大地提升了编辑体验和工作效率。</p>
+                    </div>
+                </section>
+                
+                <!-- langflow-ai/langflow -->
+                <section class="project-slide">
+                    <h3><i class="fas fa-project-diagram"></i> langflow-ai/langflow: AI Agent工作流构建</h3>
+                    <div class="project-info">
+                        <h4>项目简介</h4>
+                        <p>Langflow 是一款强大的工具，用于构建和部署 AI 驱动的代理和工作流。</p>
+                        <h4>核心数据</h4>
+                        <table>
+                            <thead><tr><th>指标</th><th>值</th><th>图标</th></tr></thead>
+                            <tbody>
+                                <tr><td>开发语言</td><td>Python, JavaScript, TypeScript</td><td><i class="fab fa-python"></i></td></tr>
+                                <tr><td>Star 数</td><td>63626</td><td><i class="far fa-star"></i></td></tr>
+                                <tr><td>连续在榜</td><td>1次</td><td><i class="fas fa-clipboard-list"></i></td></tr>
+                                <tr><td>当日 Star 增加数</td><td>643</td><td><i class="fas fa-fire"></i></td></tr>
+                            </tbody>
+                        </table>
+                        <div class="language-bar">
+                            <span class="python" style="width: 44.0%;"></span>
+                            <span class="javascript" style="width: 28.5%;"></span>
+                            <span class="typescript" style="width: 26.2%;"></span>
+                            <span class="other" style="width: 1.3%;"></span>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4><i class="fas fa-cogs"></i> 项目速读：可视化AI构建</h4>
+                        <p>Langflow 是一个强大的开源工具，专注于<strong class="highlight-blue">简化AI Agent和工作流的构建与部署</strong>。它提供直观的可视化界面，让开发者<strong class="highlight-purple">无需大量编码</strong>，即可通过拖拽连接大型语言模型、向量数据库及各种AI工具，快速设计复杂的AI应用流程。Langflow 的核心价值在于能够将构建好的Agent轻松转化为可集成的API端点，极大地加速了AI应用的原型开发、测试和生产部署。对于希望高效利用和集成AI能力的开发者和团队来说，Langflow 提供了一个易用、灵活且功能强大的平台，显著降低了构建和部署AI工作流的技术门槛。</p>
+                    </div>
+                </section>
+                
+                <!-- hiyouga/LLaMA-Factory -->
+                <section class="project-slide">
+                    <h3><i class="fas fa-magic"></i> hiyouga/LLaMA-Factory: LLM微调平台</h3>
+                    <div class="project-info">
+                        <h4>项目简介</h4>
+                        <p>统一高效微调 100+ LLMs 和 VLMs (ACL 2024)</p>
+                        <h4>核心数据</h4>
+                        <table>
+                            <thead><tr><th>指标</th><th>值</th><th>图标</th></tr></thead>
+                            <tbody>
+                                <tr><td>开发语言</td><td>Python</td><td><i class="fab fa-python"></i></td></tr>
+                                <tr><td>Star 数</td><td>50618</td><td><i class="far fa-star"></i></td></tr>
+                                <tr><td>连续在榜</td><td>2次</td><td><i class="fas fa-clipboard-list"></i></td></tr>
+                                <tr><td>当日 Star 增加数</td><td>569</td><td><i class="fas fa-fire"></i></td></tr>
+                            </tbody>
+                        </table>
+                        <div class="language-bar">
+                            <span class="python" style="width: 99.3%;"></span>
+                            <span class="other" style="width: 0.7%;"></span>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4><i class="fas fa-flask"></i> 项目速读：LLM定制利器</h4>
+                        <p>LLaMA Factory 是一个强大的统一平台，旨在<strong class="highlight-blue">极大简化和加速大型语言模型（LLM）和视觉语言模型（VLM）的微调过程</strong>。它解决了传统微调复杂、门槛高的问题，让用户无需深入编码即可轻松训练 LLaMA、Qwen、Gemma 等<strong class="highlight-purple">100 多种主流模型</strong>。项目集成了 LoRA、QLoRA 等先进高效的参数微调技术，支持多种训练任务，并提供了便捷的命令行和零代码图形界面。作为 ACL 2024 的成果，LLaMA Factory 凭借其广泛的模型支持、高效的训练方法和出色的易用性，成为了研究者和开发者<strong class="highlight-blue">快速定制、实验和部署大模型的理想工具</strong>。</p>
+                        <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                        <p class="growth-analysis"><i class="fas fa-arrow-up icon-arrow-up"></i> 统计期内总增长<span class="highlight-growth">2659</span> Star，虽仅上榜<span class="highlight-growth">3次</span>，但平均每次上榜贡献372 Star，今日新增<span class="highlight-growth">569</span> Star远超此均值。显示上榜对增长至关重要，近期增长势头强劲。</p>
+                    </div>
+                </section>
+                
+                <!-- microsoft/RD-Agent -->
+                <section class="project-slide">
+                    <h3><i class="fas fa-microscope"></i> microsoft/RD-Agent: AI驱动研发自动化</h3>
+                    <div class="project-info">
+                        <h4>项目简介</h4>
+                        <p>研究与开发 (R&D) 对提升工业生产力至关重要，特别是在人工智能时代，其中研发的核心主要聚焦于数据和模型。我们致力于通过 R&D-Agent 自动化这些高价值的通用研发流程，它让AI驱动数据驱动的AI。</p>
+                        <h4>核心数据</h4>
+                        <table>
+                            <thead><tr><th>指标</th><th>值</th><th>图标</th></tr></thead>
+                            <tbody>
+                                <tr><td>开发语言</td><td>Python</td><td><i class="fab fa-python"></i></td></tr>
+                                <tr><td>Star 数</td><td>4704</td><td><i class="far fa-star"></i></td></tr>
+                                <tr><td>连续在榜</td><td>1次</td><td><i class="fas fa-clipboard-list"></i></td></tr>
+                                <tr><td>当日 Star 增加数</td><td>72</td><td><i class="fas fa-fire"></i></td></tr>
+                            </tbody>
+                        </table>
+                        <div class="language-bar">
+                            <span class="python" style="width: 98.9%;"></span>
+                            <span class="other" style="width: 1.1%;"></span>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4><i class="fas fa-industry"></i> 项目速读：自动化ML工程</h4>
+                        <p>微软开源的 R&D-Agent 项目是一个面向工业级AI研发流程的<strong class="highlight-blue">自动化解决方案</strong>。旨在解决当前机器学习工程（MLE）中，数据探索、特征工程、模型构建和评估等关键环节高度依赖人工、效率低下的痛点。该项目最核心的技术创新在于其独特的<strong class="highlight-purple">“研究（R）”和“开发（D）”双组件代理框架</strong>。这两个代理协同工作，能够像人类研发人员一样，迭代地构思、实现并优化机器学习模型与数据处理流程，真正实现<strong class="highlight-blue">“让AI驱动数据驱动的AI”</strong>这一愿景。R&D-Agent 最显著的优势体现在其强大的实战能力。它在评估AI代理在ML工程任务上表现的权威基准测试MLE-bench中取得了第一名，力压群雄，充分证明了它在解决真实世界ML问题上的<strong class="highlight-purple">卓越效率和效果</strong>。</p>
+                        <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                        <p class="growth-analysis"><i class="fas fa-arrow-up icon-arrow-up"></i> 该仓库在统计周期内总计增长<span class="highlight-growth">2774</span>星，得益于<span class="highlight-growth">6次</span>上榜的强力推动。平均每次上榜带来176.5星增长。今日新增<span class="highlight-growth">72</span>星，延续积极增长态势。</p>
+                    </div>
+                </section>
+                
+                <!-- slowlydev/f1-dash -->
+                <section class="project-slide">
+                    <h3><i class="fas fa-car-side"></i> slowlydev/f1-dash: 实时F1仪表盘</h3>
+                    <div class="project-info">
+                        <h4>项目简介</h4>
+                        <p>实时F1仪表盘</p>
+                        <h4>核心数据</h4>
+                        <table>
+                            <thead><tr><th>指标</th><th>值</th><th>图标</th></tr></thead>
+                            <tbody>
+                                <tr><td>开发语言</td><td>TypeScript, Rust</td><td><i class="fab fa-node-js"></i></td></tr>
+                                <tr><td>Star 数</td><td>968</td><td><i class="far fa-star"></i></td></tr>
+                                <tr><td>连续在榜</td><td>1次</td><td><i class="fas fa-clipboard-list"></i></td></tr>
+                                <tr><td>当日 Star 增加数</td><td>26</td><td><i class="fas fa-fire"></i></td></tr>
+                            </tbody>
+                        </table>
+                        <div class="language-bar">
+                            <span class="typescript" style="width: 84.6%;"></span>
+                            <span class="rust" style="width: 14.6%;"></span>
+                            <span class="other" style="width: 0.8%;"></span>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4><i class="fas fa-tachometer-alt"></i> 项目速读：F1赛况尽在掌握</h4>
+                        <p>这是一个专为 Formula 1 爱好者设计的<strong class="highlight-blue">实时仪表盘项目</strong>。它解决了在 F1 比赛进行期间，难以同步获取详细、即时赛车数据的问题，为用户提供了一个能实时追踪赛场动态的关键工具。项目最核心的技术特点在于其强大的<strong class="highlight-purple">实时数据处理与可视化能力</strong>，能够即时呈现包括排行榜、赛车轮胎状态、各圈用时以及赛车间差距等关键遥测信息。这种即时性是其最大优势，让用户仿佛置身赛况中心。对于渴望深入了解比赛细节、分析车手策略或仅仅想获得比传统转播更全面数据的F1粉丝来说，这个仪表盘提供了独特的价值。它提供了一个全面且不断更新的赛事视图，极大地增强了观看体验，是<strong class="highlight-blue">F1数据爱好者的理想辅助工具</strong>。</p>
+                    </div>
+                </section>
+                
+                <!-- pathwaycom/pathway -->
+                <section class="project-slide">
+                    <h3><i class="fas fa-stream"></i> pathwaycom/pathway: 实时流处理框架</h3>
+                    <div class="project-info">
+                        <h4>项目简介</h4>
+                        <p>用于流处理、实时分析、LLM 管线和 RAG 的 Python ETL 框架</p>
+                        <h4>核心数据</h4>
+                        <table>
+                            <thead><tr><th>指标</th><th>值</th><th>图标</th></tr></thead>
+                            <tbody>
+                                <tr><td>开发语言</td><td>Python, Rust</td><td><i class="fab fa-python"></i></td></tr>
+                                <tr><td>Star 数</td><td>25831</td><td><i class="far fa-star"></i></td></tr>
+                                <tr><td>连续在榜</td><td>1次</td><td><i class="fas fa-clipboard-list"></i></td></tr>
+                                <tr><td>当日 Star 增加数</td><td>226</td><td><i class="fas fa-fire"></i></td></tr>
+                            </tbody>
+                        </table>
+                        <div class="language-bar">
+                            <span class="python" style="width: 68.0%;"></span>
+                            <span class="rust" style="width: 32.0%;"></span>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4><i class="fas fa-chart-pie"></i> 项目速读：Python+Rust高效流处理</h4>
+                        <p>Pathway 是一个强大的Python ETL框架，专注于处理<strong class="highlight-blue">实时数据流和批量数据</strong>，并为LLM/RAG应用提供<strong class="highlight-purple">原生支持</strong>。它巧妙地结合了易用的Python API和高性能的Rust增量计算引擎，能高效处理动态、无序的数据流。开发者可以用一套Python代码构建从开发到生产、从批量到流式的健壮管道，轻松集成多种数据源和现有机器学习库。这使得Pathway 成为<strong class="highlight-blue">构建实时数据分析和智能应用的理想选择</strong>。</p>
+                    </div>
+                </section>
+                
+                <!-- wg-easy/wg-easy -->
+                <section class="project-slide">
+                    <h3><i class="fas fa-network-wired"></i> wg-easy/wg-easy: 易用WireGuard VPN</h3>
+                    <div class="project-info">
+                        <h4>项目简介</h4>
+                        <p>运行 WireGuard VPN + Web 管理界面的最简单方式</p>
+                        <h4>核心数据</h4>
+                        <table>
+                            <thead><tr><th>指标</th><th>值</th><th>图标</th></tr></thead>
+                            <tbody>
+                                <tr><td>开发语言</td><td>TypeScript, Vue</td><td><i class="fab fa-node-js"></i></td></tr>
+                                <tr><td>Star 数</td><td>18947</td><td><i class="far fa-star"></i></td></tr>
+                                <tr><td>连续在榜</td><td>1次</td><td><i class="fas fa-clipboard-list"></i></td></tr>
+                                <tr><td>当日 Star 增加数</td><td>70</td><td><i class="fas fa-fire"></i></td></tr>
+                            </tbody>
+                        </table>
+                        <div class="language-bar">
+                            <span class="typescript" style="width: 55.5%;"></span>
+                            <span class="vue" style="width: 41.2%;"></span>
+                            <span class="other" style="width: 3.3%;"></span>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <h4><i class="fas fa-unlock-alt"></i> 项目速读：简化VPN部署</h4>
+                        <p>WireGuard Easy 是一个开源项目，旨在<strong class="highlight-blue">极大地简化WireGuard VPN的部署与管理</strong>。它将强大的WireGuard服务与<strong class="highlight-purple">用户友好的Web管理界面整合</strong>，彻底解决了传统命令行配置复杂、管理不便的问题。通过直观的浏览器界面，用户可以轻松创建、编辑和删除客户端，一键生成配置（含二维码），并实时监控连接状态及流量。项目打包在Docker容器中，部署过程极为便捷。这使得搭建个人或小型团队的安全VPN变得前所未有的简单，即使不熟悉命令行也能快速上手，是实现<strong class="highlight-blue">安全远程访问、降低技术门槛的理想解决方案</strong>。</p>
+                    </div>
+                </section>
+            </section> <!-- End of parent section for detailed projects -->
+
+
+            <!-- Slide: Conclusion -->
+            <section class="slide-content">
+                <div>
+                    <h2><i class="fas fa-lightbulb"></i> 总结与展望：技术趋势与未来</h2>
+                    <h3><i class="fas fa-cogs"></i> 核心趋势再强调</h3>
+                    <ul>
+                        <li class="fragment fade-in"><strong>AI普惠化与本地掌控：</strong> 强大的AI能力正走向个人设备与私有部署，<strong class="highlight-blue">隐私与成本</strong>成为关键驱动。</li>
+                        <li class="fragment fade-in"><strong>AI开发工具化：</strong> 从模型微调到Agent构建，易用、高效的平台将加速AI落地，<strong class="highlight-purple">降低门槛</strong>。</li>
+                        <li class="fragment fade-in"><strong>效率与高性能：</strong> Rust等语言持续在基础设施领域发力，追求极致的<strong class="highlight-blue">可靠性与速度</strong>。</li>
+                        <li class="fragment fade-in"><strong>数据智能化：</strong> 如何智能、高效处理实时数据，并与AI融合，是未来的重要方向。</li>
+                    </ul>
+                    <h3 class="fragment fade-in"><i class="fas fa-infinity"></i> 未来技术热点：</h3>
+                    <ul>
+                        <li class="fragment fade-in">更专业、协作的<strong class="highlight-blue">本地化AI Agent框架</strong>。</li>
+                        <li class="fragment fade-in">面向特定领域（金融、医疗）的<strong class="highlight-purple">定制化AI解决方案</strong>。</li>
+                        <li class="fragment fade-in">融合<strong class="highlight-blue">AI与实时数据流处理</strong>的技术。</li>
+                        <li class="fragment fade-in">更多基于Rust的高性能、安全基础设施组件。</li>
+                    </ul>
+                    <p class="fragment fade-in" style="margin-top: 2em; text-align: center; font-size: 1.5rem; color: var(--accent-blue);">
+                        <i class="fas fa-hand-point-right"></i> 本地智能、高效平台、可靠基础设施将是下一波浪潮的关键词。
+                    </p>
+                </div>
+            </section>
+
+            <!-- Slide: Thank You -->
+            <section class="slide-cover">
+                <h1>感谢您的聆听！</h1>
+                <p class="speaker-info">AIChipEra</p>
+                <h3 style="margin-top: 1em; color: var(--accent-purple);">期待与您共同探索技术前沿！</h3>
+                <div class="footer-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        <i class="fab fa-github"></i> github.com/aichipera/github-trend
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="微信二维码" class="qr-code">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        // Full list of configuration options available at:
+        // https://revealjs.com/config/
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            hash: true,
+            
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            transitionSpeed: 'default', // default/fast/slow
+
+            // Optional: Enable vertical slides for sections
+            // Projects are nested vertically under "详细仓库数据" parent slide
+            // `fragments` are used throughout the slides for step-by-step reveals
+
+            // Learn about plugins: https://revealjs.com/plugins/
+            plugins: [], // No additional plugins explicitly required for this basic setup
+        });
+
+        // Initialize Mermaid for diagrams if any are present
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+</html>
