@@ -1,0 +1,823 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI要落地，GitHub热门项目都在干这件大事！</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #4A90E2; /* Blue */
+            --secondary-color: #50E3C2; /* Teal */
+            --accent-color: #F5A623; /* Orange */
+            --background-gradient-start: #ECE9EE;
+            --background-gradient-end: #F6F4F7;
+            --text-color: #333;
+            --heading-color: #2C3E50;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback",
+                         "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--text-color);
+            background: linear-gradient(135deg, var(--background-gradient-start), var(--background-gradient-end));
+        }
+
+        .reveal .slides {
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--heading-color);
+            text-shadow: none;
+            letter-spacing: -0.02em;
+        }
+
+        .reveal h1 { font-size: 3rem; }
+        .reveal h2 { font-size: 2.5rem; }
+        .reveal h3 { font-size: 2rem; }
+        .reveal h4 { font-size: 1.5rem; }
+        .reveal p, .reveal li { font-size: 1.1rem; line-height: 1.6; }
+        .reveal small { font-size: 0.8rem; }
+
+        /* Font Size Hierarchy from requirements */
+        .reveal .title-main { font-size: 2.8rem; font-weight: 700; color: var(--primary-color); }
+        .reveal .title-sub { font-size: 1.8rem; font-weight: 500; color: var(--heading-color); }
+        .reveal .text-body { font-size: 1.1rem; }
+
+        .reveal .slide-background {
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2; /* Subtle background images */
+        }
+
+        /* Custom Aha! highlight */
+        .reveal .aha-moment {
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-top: 1.5rem;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-left: 5px solid var(--accent-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            display: inline-block; /* For proper padding/border */
+            transition: all 0.5s ease-in-out;
+        }
+        .reveal .aha-moment.current {
+            background: var(--accent-color);
+            color: white;
+            border-left-color: white;
+            transform: scale(1.03);
+        }
+
+        .reveal .project-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: left;
+            transition: transform 0.3s ease-in-out;
+        }
+        .reveal .project-card:hover {
+            transform: translateY(-5px);
+        }
+        .reveal .project-card h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.6rem;
+        }
+        .reveal .project-card .stats span {
+            margin-right: 15px;
+            font-size: 0.95rem;
+            color: #666;
+        }
+        .reveal .project-card .stats i {
+            color: var(--secondary-color);
+            margin-right: 5px;
+        }
+        .reveal .project-card p {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #555;
+        }
+        .reveal .project-card .language-tag {
+            display: inline-block;
+            background: #E0E0E0;
+            border-radius: 5px;
+            padding: 3px 8px;
+            font-size: 0.85rem;
+            color: #555;
+            margin-right: 8px;
+            margin-top: 10px;
+        }
+        .reveal .project-card .growth-info {
+            font-size: 0.9rem;
+            color: #777;
+            margin-top: 10px;
+            border-top: 1px dashed #eee;
+            padding-top: 8px;
+        }
+
+        .reveal .qr-link-container {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 10;
+        }
+        .reveal .qr-link-container img {
+            height: 80px;
+            width: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .reveal .qr-link-container a {
+            color: var(--primary-color);
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .reveal .qr-link-container a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Specific styles for lists in trend analysis */
+        .reveal ul.trend-list {
+            list-style: none;
+            padding: 0;
+        }
+        .reveal ul.trend-list li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.15rem;
+        }
+        .reveal ul.trend-list li i {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-color);
+            font-size: 1.4rem;
+        }
+
+        .reveal .trend-comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+        .reveal .trend-comparison-table th, .reveal .trend-comparison-table td {
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            text-align: left;
+            font-size: 1rem;
+        }
+        .reveal .trend-comparison-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+        .reveal .trend-comparison-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .reveal .trend-comparison-table .icon-status {
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+        .reveal .trend-comparison-table .icon-status.new { color: #28a745; } /* Green */
+        .reveal .trend-comparison-table .icon-status.rising { color: #ffc107; } /* Orange */
+        .reveal .trend-comparison-table .icon-status.persistent { color: #17a2b8; } /* Cyan */
+        .reveal .trend-comparison-table .icon-status.fading { color: #dc3545; } /* Red */
+
+        .reveal .section-title-bg {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+        .reveal .section-title-bg h2 {
+            color: white;
+        }
+
+        /* Small note for disclaimers */
+        .reveal .disclaimer {
+            position: absolute;
+            bottom: 10px;
+            left: 20px;
+            font-size: 0.75rem;
+            color: #888;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover Page -->
+            <section data-background-image="https://images.unsplash.com/photo-1510519138101-570d1dca3d6b?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-background-opacity="0.3">
+                <h1 class="title-main text-center">AI要落地，GitHub热门项目都在干这件大事！</h1>
+                <h2 class="title-sub text-center mt-6">趋势洞察与未来展望</h2>
+                <p class="text-center text-body mt-10">演讲者：AIChipEra</p>
+                <div class="qr-link-container">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        <i class="fab fa-github fa-lg mr-2"></i>项目详情
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+                <div class="disclaimer">
+                    <p>Github热门仓库观测时间为 2025-05-29 20:57:07</p>
+                    <p>以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</p>
+                </div>
+            </section>
+
+            <!-- Slide 2: Introduction / Aha Moment Setup -->
+            <section>
+                <h2 class="text-center mb-10">日报要点：AI玩法变了！</h2>
+                <div class="grid grid-cols-2 gap-8 text-body leading-relaxed">
+                    <div class="col-span-1">
+                        <p class="fragment fade-in" data-fragment-index="1">
+                            <i class="fas fa-arrow-right text-lg text-primary-color mr-3"></i>
+                            GitHub最新热榜显示：AI焦点已从<strong class="text-accent-color">模型本身</strong>，转向<strong class="text-primary-color">如何把AI用起来</strong>。
+                        </p>
+                        <p class="fragment fade-in" data-fragment-index="2">
+                            <i class="fas fa-arrow-right text-lg text-primary-color mr-3"></i>
+                            从本地隐私Agent到可视化AI构建工具，再到系统学习教程，核心目标是让AI更<strong class="text-accent-color">实用、可控</strong>。
+                        </p>
+                        <p class="fragment fade-in" data-fragment-index="3">
+                            <i class="fas fa-arrow-right text-lg text-primary-color mr-3"></i>
+                            数据隐私、效率提升成为新焦点。Python、TypeScript是主力语言。
+                        </p>
+                    </div>
+                    <div class="col-span-1 flex items-center justify-center">
+                        <div class="fragment fade-in" data-fragment-index="4">
+                            <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9491?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                                 alt="AI Application" class="rounded-xl shadow-lg w-full max-w-md">
+                        </div>
+                    </div>
+                </div>
+                <p class="aha-moment fragment fade-in-then-semi-out" data-fragment-index="5">
+                    <i class="fas fa-lightbulb mr-2"></i> Aha! AI正加速落地，机遇已从“模型”转向“应用与生态”！
+                </p>
+            </section>
+
+            <!-- Section: 热门项目趋势分析 - 今日整体趋势 -->
+            <section>
+                <div class="section-title-bg">
+                    <h2><i class="fas fa-chart-line mr-3"></i> 热门项目趋势分析</h2>
+                    <h3>今日整体趋势洞察</h3>
+                </div>
+                <div class="grid grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-primary-color mb-4"><i class="fas fa-brain mr-2"></i> AI应用层与工具链爆发</h4>
+                        <ul class="trend-list text-body">
+                            <li class="fragment fade-in"><i class="fas fa-check-circle"></i> <strong class="text-accent-color">本地隐私Agent：</strong> AgenticSeek引领隐私AI。</li>
+                            <li class="fragment fade-in"><i class="fas fa-check-circle"></i> <strong class="text-accent-color">AI构建工具：</strong> Langflow降低AI应用开发门槛。</li>
+                            <li class="fragment fade-in"><i class="fas fa-check-circle"></i> <strong class="text-accent-color">系统化学习路径：</strong> Anthropic、微软提供AI Agent教程。</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-primary-color mb-4"><i class="fas fa-code mr-2"></i> 编程语言双雄</h4>
+                        <ul class="trend-list text-body">
+                            <li class="fragment fade-in"><i class="fas fa-laptop-code"></i> <strong class="text-accent-color">Python：</strong> AI应用及工具首选。</li>
+                            <li class="fragment fade-in"><i class="fas fa-laptop-code"></i> <strong class="text-accent-color">TypeScript：</strong> 现代Web开发及工程化主力。</li>
+                            <li class="fragment fade-in"><i class="fas fa-laptop-code"></i> <strong class="text-accent-color">Jupyter Notebook：</strong> AI学习与实验利器。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: 热门项目趋势分析 - 核心需求与趋势演进 -->
+            <section>
+                <h2 class="text-center mb-8"><i class="fas fa-lightbulb mr-3"></i> 核心需求与趋势演进</h2>
+                <div class="grid grid-cols-2 gap-8 text-body leading-relaxed">
+                    <div>
+                        <h4 class="text-primary-color mb-4"><i class="fas fa-bullseye mr-2"></i> 当前技术需求</h4>
+                        <ul class="trend-list text-body">
+                            <li class="fragment fade-in"><i class="fas fa-share-alt"></i> AI赋能的<strong class="text-accent-color">普惠化与落地</strong>。</li>
+                            <li class="fragment fade-in"><i class="fas fa-user-shield"></i> 数据<strong class="text-accent-color">控制与隐私</strong>强调。</li>
+                            <li class="fragment fade-in"><i class="fas fa-robot"></i> 高效工作流与<strong class="text-accent-color">自动化</strong>。</li>
+                            <li class="fragment fade-in"><i class="fas fa-database"></i> 客户端数据层的<strong class="text-accent-color">演进</strong>。</li>
+                            <li class="fragment fade-in"><i class="fas fa-graduation-cap"></i> 持续学习与<strong class="text-accent-color">知识迭代</strong>。</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-primary-color mb-4"><i class="fas fa-arrow-alt-circle-right mr-2"></i> 趋势演进：从模型到应用</h4>
+                        <p class="fragment fade-in text-body">
+                            与早期聚焦大模型本身不同，今日热榜更关注AI的<strong class="text-accent-color">实际应用与基础设施建设</strong>。
+                        </p>
+                        <ul class="trend-list text-body mt-4">
+                            <li class="fragment fade-in"><i class="fas fa-cogs"></i> <strong class="text-secondary-color">AgenticSeek：</strong> 关注如何“跑”智能体。</li>
+                            <li class="fragment fade-in"><i class="fas fa-bezier-curve"></i> <strong class="text-secondary-color">Langflow：</strong> 关注如何“搭建”智能体工作流。</li>
+                            <li class="fragment fade-in"><i class="fas fa-book-reader"></i> <strong class="text-secondary-color">官方教程：</strong> 关注如何“用好”模型。</li>
+                        </ul>
+                        <p class="aha-moment fragment fade-in-then-semi-out" data-fragment-index="6">
+                            <i class="fas fa-magic mr-2"></i> Aha! AI正从概念探索转向大规模落地，重心转移至应用构建和生态完善！
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: 热门项目趋势分析 - 未来展望 -->
+            <section>
+                <h2 class="text-center mb-8"><i class="fas fa-rocket mr-3"></i> 展望未来：下一波技术热点</h2>
+                <ul class="trend-list text-body leading-relaxed max-w-3xl mx-auto">
+                    <li class="fragment fade-in"><i class="fas fa-microchip"></i> <strong class="text-primary-color">边缘侧与低功耗AI：</strong> 更复杂功能、更广泛硬件平台。</li>
+                    <li class="fragment fade-in"><i class="fas fa-robot"></i> <strong class="text-primary-color">更智能、易用的AI Agent框架：</strong> 复杂任务处理、协同能力。</li>
+                    <li class="fragment fade-in"><i class="fas fa-industry"></i> <strong class="text-primary-color">AI与特定领域深度融合：</strong> 定制化工具与平台。</li>
+                    <li class="fragment fade-in"><i class="fas fa-lock"></i> <strong class="text-primary-color">去中心化与隐私增强AI：</strong> 数据隐私与AI结合。</li>
+                    <li class="fragment fade-in"><i class="fas fa-shield-alt"></i> <strong class="text-primary-color">AI安全与伦理工具：</strong> 确保Agent行为符合预期。</li>
+                </ul>
+                <p class="text-center text-lg mt-10 fragment fade-in">
+                    <i class="fas fa-star mr-2 text-accent-color"></i> 总结：技术界正努力将前沿AI转化为触手可及、安全可控且高效的应用！
+                </p>
+            </section>
+
+            <!-- Section: 热门项目双日维度对比分析 -->
+            <section>
+                <div class="section-title-bg">
+                    <h2><i class="fas fa-calendar-alt mr-3"></i> 热门项目双日维度对比分析</h2>
+                    <h3>GitHub 热门项目对比报告 (昨日 vs 今日)</h3>
+                </div>
+                <div class="grid grid-cols-2 gap-8 text-body leading-relaxed">
+                    <div>
+                        <h4 class="text-primary-color mb-4"><i class="fas fa-chart-pie mr-2"></i> 榜单动态：新晋与持续热门</h4>
+                        <ul class="trend-list text-body">
+                            <li class="fragment fade-in"><i class="fas fa-plus-circle text-green-500"></i> 新晋项目：8个，以AI/ML相关内容突出。</li>
+                            <li class="fragment fade-in"><i class="fas fa-arrow-alt-circle-up text-yellow-500"></i> 热度上升：8个，无下降趋势。</li>
+                            <li class="fragment fade-in"><i class="fas fa-fire-alt text-red-500"></i> 持续热门：<strong class="text-accent-color">AgenticSeek (7次)</strong>, <strong class="text-accent-color">OSSU (4次)</strong>, <strong class="text-accent-color">n8n (3次)</strong>。</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-primary-color mb-4"><i class="fas fa-cogs mr-2"></i> 编程语言分布与星标增速</h4>
+                        <ul class="trend-list text-body">
+                            <li class="fragment fade-in"><i class="fas fa-chart-bar"></i> 语言变化：Python代表性减少，Dart、Jupyter Notebook、JS增加。</li>
+                            <li class="fragment fade-in"><i class="fas fa-star"></i> 显著增速：AI Agents 相关项目（如 AgenticSeek, Langflow, Microsoft AI Agents教程）增长强劲，反映社区高度兴趣。</li>
+                        </ul>
+                    </div>
+                </div>
+                <h4 class="text-primary-color text-center mt-8 fragment fade-in"><i class="fas fa-sync-alt mr-2"></i> 热点变化一览</h4>
+                <div class="grid grid-cols-3 gap-4 text-sm mt-4">
+                    <div class="fragment fade-in">
+                        <p class="font-bold text-green-600"><i class="icon-status new fas fa-level-up-alt"></i>新增热点</p>
+                        <p>vuejs/core, livestorejs/livestore, appflowy-io/appflowy, whiskeysockets/baileys, microsoft/ai-agents-for-beginners, anthropics/prompt-eng-interactive-tutorial, kwaivgi/liveportrait, fastapi/fastapi</p>
+                    </div>
+                    <div class="fragment fade-in">
+                        <p class="font-bold text-red-600"><i class="icon-status fading fas fa-level-down-alt"></i>减退热点</p>
+                        <p>microsoft/qlib, microsoft/rd-agent, ccxt/ccxt, lagrange-labs/deep-prove, duixcom/duix.mobile, nomicfoundation/hardhat, sktime/sktime, mlabonne/llm-course, actions/runner-images, labring/fastgpt</p>
+                    </div>
+                    <div class="fragment fade-in">
+                        <p class="font-bold text-blue-600"><i class="icon-status persistent fas fa-fire"></i>持续热门</p>
+                        <p>Fosowl/agenticSeek(7次), ossu/computer-science(4次), n8n-io/n8n(3次)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: 详细仓库数据 (Horizontal Intro) -->
+            <section>
+                <h2 class="text-center section-title-bg"><i class="fas fa-book-open mr-3"></i> 详细仓库数据</h2>
+                <h3 class="text-center mt-6">深入了解热门项目的独特魅力</h3>
+                <p class="text-center text-body mt-4 fragment fade-in">
+                    我们将通过以下垂直幻灯片，逐一剖析每个项目的亮点、技术栈与增长潜力。
+                </p>
+                <div class="text-center mt-10 fragment fade-in">
+                    <i class="fas fa-angle-double-down fa-5x text-primary-color animate-bounce"></i>
+                </div>
+            </section>
+
+            <!-- Detailed Projects (Vertical Slides) -->
+            <section>
+                <!-- Project: Fosowl/agenticSeek -->
+                <section>
+                    <div class="project-card">
+                        <h3><a href="https://github.com/Fosowl/agenticSeek" target="_blank">Fosowl/agenticSeek</a></h3>
+                        <p class="text-muted text-sm mb-4">完全本地化 Manus AI。无需 API，无需每月 200 美元费用。尽享自主智能体，可思考、浏览网页并编写代码，运行成本仅需电费。</p>
+                        <div class="stats mb-2">
+                            <span><i class="fab fa-python"></i> Python</span>
+                            <span><i class="fas fa-star"></i> 12670</span>
+                            <span><i class="fas fa-chart-line"></i> 连续在榜: 7次</span>
+                            <span><i class="fas fa-plus-circle"></i> 当日新增: 1921</span>
+                        </div>
+                        <p class="text-body mt-4">
+                            <strong class="text-primary-color">项目速读：</strong> AgenticSeek 提供完全本地运行的自主 AI 代理解决方案，极大地保护用户隐私和数据安全。功能强大且注重隐私的个人自动化探索工具。
+                        </p>
+                        <p class="aha-moment fragment fade-in-then-semi-out">
+                            <i class="fas fa-lightbulb mr-2"></i> Aha! 100%本地AI Agent：隐私与智能的完美融合！
+                        </p>
+                        <p class="growth-info fragment fade-in">
+                            <i class="fas fa-chart-area mr-1"></i> <strong class="text-accent-color">增长分析：</strong> 连续7天上榜，总增9563星，日均超1300，当日新增1921，势头呈加速趋势。
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Project: WhiskeySockets/Baileys -->
+                <section>
+                    <div class="project-card">
+                        <h3><a href="https://github.com/WhiskeySockets/Baileys" target="_blank">WhiskeySockets/Baileys</a></h3>
+                        <p class="text-muted text-sm mb-4">轻量级、功能全面的 TypeScript/JavaScript WhatsApp Web API</p>
+                        <div class="stats mb-2">
+                            <span><i class="fab fa-js"></i> JavaScript / <i class="fab fa-node-js"></i> TypeScript</span>
+                            <span><i class="fas fa-star"></i> 5499</span>
+                            <span><i class="fas fa-chart-line"></i> 连续在榜: 1次</span>
+                            <span><i class="fas fa-plus-circle"></i> 当日新增: 18</span>
+                        </div>
+                        <p class="text-body mt-4">
+                            <strong class="text-primary-color">项目速读：</strong> Baileys 是一个轻量级的 TypeScript/JavaScript 库，通过模拟 WhatsApp Web 通信协议，使开发者能够以编程方式与 WhatsApp 交互，实现消息自动化。
+                        </p>
+                        <p class="aha-moment fragment fade-in-then-semi-out">
+                            <i class="fas fa-lightbulb mr-2"></i> Aha! 编程控制WhatsApp：连接应用与日常沟通的桥梁！
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Project: vuejs/core -->
+                <section>
+                    <div class="project-card">
+                        <h3><a href="https://github.com/vuejs/core" target="_blank">vuejs/core</a></h3>
+                        <p class="text-muted text-sm mb-4">Vue.js 是一个渐进式、可增量采用的 JavaScript 框架，用于构建 Web 上的用户界面。</p>
+                        <div class="stats mb-2">
+                            <span><i class="fab fa-node-js"></i> TypeScript</span>
+                            <span><i class="fas fa-star"></i> 50202</span>
+                            <span><i class="fas fa-chart-line"></i> 连续在榜: 1次</span>
+                            <span><i class="fas fa-plus-circle"></i> 当日新增: 18</span>
+                        </div>
+                        <p class="text-body mt-4">
+                            <strong class="text-primary-color">项目速读：</strong> Vue.js 框架核心，以“渐进式”和“可增量采纳”设计理念，提供高效、灵活、易上手的Web UI开发体验。
+                        </p>
+                        <p class="aha-moment fragment fade-in-then-semi-out">
+                            <i class="fas fa-lightbulb mr-2"></i> Aha! Vue.js核心：渐进式设计，带来前端开发的无限灵活性！
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Project: anthropics/prompt-eng-interactive-tutorial -->
+                <section>
+                    <div class="project-card">
+                        <h3><a href="https://github.com/anthropics/prompt-eng-interactive-tutorial" target="_blank">anthropics/prompt-eng-interactive-tutorial</a></h3>
+                        <p class="text-muted text-sm mb-4">Anthropic 交互式提示工程教程</p>
+                        <div class="stats mb-2">
+                            <span><i class="fas fa-book"></i> Jupyter Notebook</span>
+                            <span><i class="fas fa-star"></i> 4325</span>
+                            <span><i class="fas fa-chart-line"></i> 连续在榜: 1次</span>
+                            <span><i class="fas fa-plus-circle"></i> 当日新增: 828</span>
+                        </div>
+                        <p class="text-body mt-4">
+                            <strong class="text-primary-color">项目速读：</strong> Anthropic 官方提供的交互式教程，教授如何为 Claude AI 模型编写高效提示词，提供实践演练场。
+                        </p>
+                        <p class="aha-moment fragment fade-in-then-semi-out">
+                            <i class="fas fa-lightbulb mr-2"></i> Aha! 官方提示工程：AI大师的思维路径，手把手教你掌握！
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Project: livestorejs/livestore -->
+                <section>
+                    <div class="project-card">
+                        <h3><a href="https://github.com/livestorejs/livestore" target="_blank">livestorejs/livestore</a></h3>
+                        <p class="text-muted text-sm mb-4">LiveStore 是一个基于响应式 SQLite 和内置同步引擎的下一代状态管理框架。</p>
+                        <div class="stats mb-2">
+                            <span><i class="fab fa-node-js"></i> TypeScript</span>
+                            <span><i class="fas fa-star"></i> 1228</span>
+                            <span><i class="fas fa-chart-line"></i> 连续在榜: 1次</span>
+                            <span><i class="fas fa-plus-circle"></i> 当日新增: 308</span>
+                        </div>
+                        <p class="text-body mt-4">
+                            <strong class="text-primary-color">项目速读：</strong> LiveStore 以响应式 SQLite 为核心，结合内置同步引擎，为复杂应用提供高性能的实时数据查询和跨平台无缝同步。
+                        </p>
+                        <p class="aha-moment fragment fade-in-then-semi-out">
+                            <i class="fas fa-lightbulb mr-2"></i> Aha! LiveStore：本地SQLite驱动，打造离线优先的实时协作应用！
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Project: microsoft/ai-agents-for-beginners -->
+                <section>
+                    <div class="project-card">
+                        <h3><a href="https://github.com/microsoft/ai-agents-for-beginners" target="_blank">microsoft/ai-agents-for-beginners</a></h3>
+                        <p class="text-muted text-sm mb-4">构建 AI Agent 的 11 个入门经验</p>
+                        <div class="stats mb-2">
+                            <span><i class="fas fa-book"></i> Jupyter Notebook</span>
+                            <span><i class="fas fa-star"></i> 22029</span>
+                            <span><i class="fas fa-chart-line"></i> 连续在榜: 1次</span>
+                            <span><i class="fas fa-plus-circle"></i> 当日新增: 180</span>
+                        </div>
+                        <p class="text-body mt-4">
+                            <strong class="text-primary-color">项目速读：</strong> 微软的“AI Agents for Beginners”通过11节课程，帮助初学者系统学习如何构建和理解AI Agent，整合微软AI框架。
+                        </p>
+                        <p class="aha-moment fragment fade-in-then-semi-out">
+                            <i class="fas fa-lightbulb mr-2"></i> Aha! 微软AI Agents教程：智能体开发，从入门到精通的权威指南！
+                        </p>
+                        <p class="growth-info fragment fade-in">
+                            <i class="fas fa-chart-area mr-1"></i> <strong class="text-accent-color">增长分析：</strong> 11次上榜累计增长16974 Star，平均每次贡献近500星，上榜效率极高。
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Project: ossu/computer-science -->
+                <section>
+                    <div class="project-card">
+                        <h3><a href="https://github.com/ossu/computer-science" target="_blank">ossu/computer-science</a></h3>
+                        <p class="text-muted text-sm mb-4">免费自学计算机科学之路</p>
+                        <div class="stats mb-2">
+                            <span><i class="fab fa-html5"></i> HTML</span>
+                            <span><i class="fas fa-star"></i> 184293</span>
+                            <span><i class="fas fa-chart-line"></i> 连续在榜: 4次</span>
+                            <span><i class="fas fa-plus-circle"></i> 当日新增: 431</span>
+                        </div>
+                        <p class="text-body mt-4">
+                            <strong class="text-primary-color">项目速读：</strong> OSSU 提供一条免费、高质量的自学计算机科学之路，整合全球顶尖高校免费课程，对标大学本科学位。
+                        </p>
+                        <p class="aha-moment fragment fade-in-then-semi-out">
+                            <i class="fas fa-lightbulb mr-2"></i> Aha! OSSU：你的免费“常春藤”计算机科学学位之路！
+                        </p>
+                        <p class="growth-info fragment fade-in">
+                            <i class="fas fa-chart-area mr-1"></i> <strong class="text-accent-color">增长分析：</strong> 增长强劲，总增7332星。上榜6次是主要驱动力，平均每次新增526星。近期（当日）增量431星，显示增长势头依然良好。
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Project: n8n-io/n8n -->
+                <section>
+                    <div class="project-card">
+                        <h3><a href="https://github.com/n8n-io/n8n" target="_blank">n8n-io/n8n</a></h3>
+                        <p class="text-muted text-sm mb-4">Fair-code工作流自动化平台，内置原生AI能力。结合可视化构建与自定义代码，支持本地部署或云部署，提供400+集成。</p>
+                        <div class="stats mb-2">
+                            <span><i class="fab fa-node-js"></i> TypeScript</span>
+                            <span><i class="fas fa-star"></i> 100771</span>
+                            <span><i class="fas fa-chart-line"></i> 连续在榜: 3次</span>
+                            <span><i class="fas fa-plus-circle"></i> 当日新增: 756</span>
+                        </div>
+                        <p class="text-body mt-4">
+                            <strong class="text-primary-color">项目速读：</strong> n8n 是一个强大的工作流自动化平台，结合可视化与编程灵活性，内置400+集成，支持AI Agent工作流，并可自托管。
+                        </p>
+                        <p class="aha-moment fragment fade-in-then-semi-out">
+                            <i class="fas fa-lightbulb mr-2"></i> Aha! n8n：AI驱动的低代码自动化大师，解锁工作流无限可能！
+                        </p>
+                        <p class="growth-info fragment fade-in">
+                            <i class="fas fa-chart-area mr-1"></i> <strong class="text-accent-color">增长分析：</strong> 总增逾3.5万星。11次上榜表明持续关注，每次上榜平均增星稳定。今日增量高于平均，增长趋势持续向好。
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Project: trimstray/the-book-of-secret-knowledge -->
+                <section>
+                    <div class="project-card">
+                        <h3><a href="https://github.com/trimstray/the-book-of-secret-knowledge" target="_blank">trimstray/the-book-of-secret-knowledge</a></h3>
+                        <p class="text-muted text-sm mb-4">收集了启发性的列表、手册、速查表、博客、技巧、单行命令、命令行/Web工具等内容。</p>
+                        <div class="stats mb-2">
+                            <span><i class="fas fa-list"></i> 文档/指南</span>
+                            <span><i class="fas fa-star"></i> 170773</span>
+                            <span><i class="fas fa-chart-line"></i> 连续在榜: 2次</span>
+                            <span><i class="fas fa-plus-circle"></i> 当日新增: 309</span>
+                        </div>
+                        <p class="text-body mt-4">
+                            <strong class="text-primary-color">项目速读：</strong> 汇集各类技术资源的宝库，精选手册、备忘单、技术技巧等，为系统、网络、安全等专业人士提供高质量参考源。
+                        </p>
+                        <p class="aha-moment fragment fade-in-then-semi-out">
+                            <i class="fas fa-lightbulb mr-2"></i> Aha! 秘籍之书：你的技术“战术手册”，高效解决日常难题！
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Project: AppFlowy-IO/AppFlowy -->
+                <section>
+                    <div class="project-card">
+                        <h3><a href="https://github.com/AppFlowy-IO/AppFlowy" target="_blank">AppFlowy-IO/AppFlowy</a></h3>
+                        <p class="text-muted text-sm mb-4">利用AI整合项目、维基和团队。AppFlowy 是您的 AI 协作工作空间，助您在不失数据控制权的前提下事半功倍。领先的开源 Notion 替代品。</p>
+                        <div class="stats mb-2">
+                            <span><i class="fab fa-dart"></i> Dart / <i class="fab fa-rust"></i> Rust</span>
+                            <span><i class="fas fa-star"></i> 63372</span>
+                            <span><i class="fas fa-chart-line"></i> 连续在榜: 1次</span>
+                            <span><i class="fas fa-plus-circle"></i> 当日新增: 36</span>
+                        </div>
+                        <p class="text-body mt-4">
+                            <strong class="text-primary-color">项目速读：</strong> AppFlowy 是开源的 Notion 替代品，整合AI、项目管理、维基与团队协作，关键在于用户完全掌握数据主权。
+                        </p>
+                        <p class="aha-moment fragment fade-in-then-semi-out">
+                            <i class="fas fa-lightbulb mr-2"></i> Aha! AppFlowy：协作新范式，AI赋能且数据掌控在你手中！
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Project: langflow-ai/langflow -->
+                <section>
+                    <div class="project-card">
+                        <h3><a href="https://github.com/langflow-ai/langflow" target="_blank">langflow-ai/langflow</a></h3>
+                        <p class="text-muted text-sm mb-4">Langflow 是一个强大的工具，用于构建和部署 AI 智能体和工作流。</p>
+                        <div class="stats mb-2">
+                            <span><i class="fab fa-python"></i> Python</span>
+                            <span><i class="fas fa-star"></i> 65759</span>
+                            <span><i class="fas fa-chart-line"></i> 连续在榜: 2次</span>
+                            <span><i class="fas fa-plus-circle"></i> 当日新增: 745</span>
+                        </div>
+                        <p class="text-body mt-4">
+                            <strong class="text-primary-color">项目速读：</strong> Langflow 是一个强大的开源平台，通过直观的可视化界面，简化AI代理及复杂工作流的构建与部署。
+                        </p>
+                        <p class="aha-moment fragment fade-in-then-semi-out">
+                            <i class="fas fa-lightbulb mr-2"></i> Aha! Langflow：拖拽式构建AI Agent，让AI工作流可视化！
+                        </p>
+                        <p class="growth-info fragment fade-in">
+                            <i class="fas fa-chart-area mr-1"></i> <strong class="text-accent-color">增长分析：</strong> 4天内上榜3次，总星增长2133，平均每次新增726.3，今日745略超平均，增长势头良好。
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Project: facebook/react-native -->
+                <section>
+                    <div class="project-card">
+                        <h3><a href="https://github.com/facebook/react-native" target="_blank">facebook/react-native</a></h3>
+                        <p class="text-muted text-sm mb-4">一个使用 React 构建原生应用的框架</p>
+                        <div class="stats mb-2">
+                            <span><i class="fab fa-react"></i> C++ / JavaScript</span>
+                            <span><i class="fas fa-star"></i> 122345</span>
+                            <span><i class="fas fa-chart-line"></i> 连续在榜: 2次</span>
+                            <span><i class="fas fa-plus-circle"></i> 当日新增: 120</span>
+                        </div>
+                        <p class="text-body mt-4">
+                            <strong class="text-primary-color">项目速读：</strong> React Native 帮助开发者使用 React 构建真正的 iOS 和 Android 原生移动应用，实现代码复用，“一次学习，随处编写”。
+                        </p>
+                        <p class="aha-moment fragment fade-in-then-semi-out">
+                            <i class="fas fa-lightbulb mr-2"></i> Aha! React Native：Web开发技能直通原生App，效率与体验兼得！
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Project: zhayujie/chatgpt-on-wechat -->
+                <section>
+                    <div class="project-card">
+                        <h3><a href="https://github.com/zhayujie/chatgpt-on-wechat" target="_blank">zhayujie/chatgpt-on-wechat</a></h3>
+                        <p class="text-muted text-sm mb-4">基于大模型搭建的聊天机器人，同时支持 微信公众号、企业微信应用、飞书、钉钉 等接入...</p>
+                        <div class="stats mb-2">
+                            <span><i class="fab fa-python"></i> Python</span>
+                            <span><i class="fas fa-star"></i> 37199</span>
+                            <span><i class="fas fa-chart-line"></i> 连续在榜: 2次</span>
+                            <span><i class="fas fa-plus-circle"></i> 当日新增: 171</span>
+                        </div>
+                        <p class="text-body mt-4">
+                            <strong class="text-primary-color">项目速读：</strong> CoW 将大语言模型能力便捷接入微信、飞书、钉钉等社交平台，支持多模型、多模态处理，插件体系丰富。
+                        </p>
+                        <p class="aha-moment fragment fade-in-then-semi-out">
+                            <i class="fas fa-lightbulb mr-2"></i> Aha! AI随身助理：大模型无缝融入你的日常社交与办公！
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Project: KwaiVGI/LivePortrait -->
+                <section>
+                    <div class="project-card">
+                        <h3><a href="https://github.com/KwaiVGI/LivePortrait" target="_blank">KwaiVGI/LivePortrait</a></h3>
+                        <p class="text-muted text-sm mb-4">让肖像活起来！</p>
+                        <div class="stats mb-2">
+                            <span><i class="fab fa-python"></i> Python</span>
+                            <span><i class="fas fa-star"></i> 15198</span>
+                            <span><i class="fas fa-chart-line"></i> 连续在榜: 1次</span>
+                            <span><i class="fas fa-plus-circle"></i> 当日新增: 133</span>
+                        </div>
+                        <p class="text-body mt-4">
+                            <strong class="text-primary-color">项目速读：</strong> LivePortrait 专注于高效肖像动画生成，能够驱动静态肖像图片或已有视频产生表情、姿态变化，实现“让肖像活起来”。
+                        </p>
+                        <p class="aha-moment fragment fade-in-then-semi-out">
+                            <i class="fas fa-lightbulb mr-2"></i> Aha! LivePortrait：AI让静态照片跳动，赋予肖像生命！
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Project: 78/xiaozhi-esp32 -->
+                <section>
+                    <div class="project-card">
+                        <h3><a href="https://github.com/78/xiaozhi-esp32" target="_blank">78/xiaozhi-esp32</a></h3>
+                        <p class="text-muted text-sm mb-4">构建你自己的AI朋友</p>
+                        <div class="stats mb-2">
+                            <span><i class="fas fa-microchip"></i> C++</span>
+                            <span><i class="fas fa-star"></i> 13909</span>
+                            <span><i class="fas fa-chart-line"></i> 连续在榜: 2次</span>
+                            <span><i class="fas fa-plus-circle"></i> 当日新增: 177</span>
+                        </div>
+                        <p class="text-body mt-4">
+                            <strong class="text-primary-color">项目速读：</strong> 小智AI聊天机器人利用ESP32芯片构建轻量级AI助手，解决嵌入式硬件上集成大语言模型和语音交互的难题。
+                        </p>
+                        <p class="aha-moment fragment fade-in-then-semi-out">
+                            <i class="fas fa-lightbulb mr-2"></i> Aha! 小智ESP32：在口袋大小的硬件上，拥有你的专属AI朋友！
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Project: fastapi/fastapi -->
+                <section>
+                    <div class="project-card">
+                        <h3><a href="https://github.com/fastapi/fastapi" target="_blank">fastapi/fastapi</a></h3>
+                        <p class="text-muted text-sm mb-4"></p>
+                        <div class="stats mb-2">
+                            <span><i class="fab fa-python"></i> Python</span>
+                            <span><i class="fas fa-star"></i> 85225</span>
+                            <span><i class="fas fa-chart-line"></i> 连续在榜: 1次</span>
+                            <span><i class="fas fa-plus-circle"></i> 当日新增: 53</span>
+                        </div>
+                        <p class="text-body mt-4">
+                            <strong class="text-primary-color">项目速读：</strong> FastAPI 是现代、高性能的 Python Web 框架，结合类型提示与异步服务器，为构建生产级API带来卓越开发体验。
+                        </p>
+                        <p class="aha-moment fragment fade-in-then-semi-out">
+                            <i class="fas fa-lightbulb mr-2"></i> Aha! FastAPI：Python打造极速API，开发效率与性能双重飞跃！
+                        </p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Conclusion / Call to Action -->
+            <section data-background-image="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-background-opacity="0.3">
+                <h2 class="text-center title-main text-primary-color mb-8">AI落地，未来已来！</h2>
+                <p class="text-center text-body leading-relaxed mb-10 fragment fade-in">
+                    <i class="fas fa-check-circle text-secondary-color mr-3"></i> AI的重心已转向实际应用、用户掌控与效率提升。
+                </p>
+                <p class="text-center text-body leading-relaxed mb-10 fragment fade-in">
+                    <i class="fas fa-lightbulb text-accent-color mr-3"></i> 抓住这些趋势，普通开发者也能在AI浪潮中找到自己的"Aha moment"！
+                </p>
+                
+                <h3 class="text-center title-sub mt-12 fragment fade-in">感谢您的聆听！</h3>
+                <p class="text-center text-body fragment fade-in">欢迎交流与合作。</p>
+
+                <div class="qr-link-container">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        <i class="fab fa-github fa-lg mr-2"></i>项目详情
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <script>
+        // Mermaid initialization for potential future diagrams
+        mermaid.initialize({
+            startOnLoad: false, // Ensure Reveal.js loads first
+            theme: 'default'
+        });
+
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            hash: true,
+            transition: 'slide', // Fades are smooth
+            transitionSpeed: 'fast',
+            
+            // vertical slides are part of a horizontal slide
+            // so if you want to navigate all slides in one direction
+            // you can set this to false
+            // default is true
+            // linear: false, 
+
+            // More info about config & dependencies:
+            // - https://revealjs.com/config/
+            // - https://revealjs.com/dependencies/
+            dependencies: [
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js', async: true },
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js', async: true },
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js', async: true },
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/zoom/zoom.min.js', async: true },
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/math/math.min.js', async: true },
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/mermaid/mermaid.min.js', async: true, callback: function() { console.log('Mermaid plugin loaded.'); } },
+                // Custom plugin for fragment "current" class handling
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/misc/misc.min.js', async: true } // Example: if you need a custom plugin, but Reveal.js built-in features are enough for fragments.
+            ]
+        });
+
+        // Custom script to handle 'aha-moment' fragment styling
+        Reveal.on('fragmentshown', event => {
+            if (event.fragment.classList.contains('aha-moment')) {
+                event.fragment.classList.add('current');
+            }
+        });
+        Reveal.on('fragmenthidden', event => {
+            if (event.fragment.classList.contains('aha-moment')) {
+                event.fragment.classList.remove('current');
+            }
+        });
+    </script>
+</body>
+</html>

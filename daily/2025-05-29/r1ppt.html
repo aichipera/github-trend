@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub热门趋势分析 - AI落地新纪元</title>
+    
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #2563eb;       /* 深蓝 */
+            --secondary: #0d9488;     /* 青色 */
+            --accent: #ea580c;         /* 橙色 */
+            --light: #f3f4f6;          /* 浅灰 */
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", 
+                         "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+        
+        .reveal {
+            font-family: inherit;
+        }
+        
+        /* 字体层次 */
+        .reveal h1, .reveal h2, .reveal h3 {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 700;
+            color: var(--primary);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .reveal h1 { font-size: 3rem; }
+        .reveal h2 { font-size: 2.2rem; }
+        .reveal h3 { font-size: 1.8rem; }
+        .reveal p, .reveal li { font-size: 1.2rem; line-height: 1.6; }
+        
+        /* 卡片设计 */
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        }
+        
+        /* 标签设计 */
+        .tag {
+            display: inline-block;
+            background: var(--light);
+            border-radius: 20px;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* 项目链接 */
+        .project-link {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.9);
+            padding: 8px 12px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .project-link img {
+            width: 50px;
+            height: 50px;
+        }
+        
+        .project-link a {
+            color: var(--primary);
+            font-size: 0.9rem;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        /* 数据可视化 */
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+        
+        /* 动画效果 */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        /* 封面设计 */
+        .title-slide {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .title-slide h1 {
+            color: white;
+            font-size: 3.5rem;
+            margin-top: 15%;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .title-slide h2 {
+            color: white;
+            font-size: 2rem;
+            opacity: 0.9;
+        }
+        
+        .title-slide p {
+            font-size: 1.2rem;
+            opacity: 0.85;
+        }
+        
+        /* 趋势卡片 */
+        .trend-card {
+            background: white;
+            border-left: 5px solid var(--accent);
+            border-radius: 0 12px 12px 0;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        /* 项目高亮 */
+        .highlight-project {
+            border: 2px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .highlight-project::before {
+            content: "🌟 热点项目";
+            position: absolute;
+            top: 10px;
+            right: -30px;
+            background: var(--accent);
+            color: white;
+            padding: 5px 30px;
+            font-size: 0.9rem;
+            transform: rotate(45deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- 封面页 -->
+            <section class="title-slide" data-background-gradient="linear-gradient(135deg, #2563eb 0%, #0d9488 100%)">
+                <h1>AI要落地，GitHub热门项目都在干这件大事！</h1>
+                <h2>GitHub热门趋势深度解析</h2>
+                <p>观测时间：2025-05-29 20:57:07</p>
+                <p>演讲者：AIChipEra</p>
+                <div class="project-link">
+                    <img src="../../asserts/wx.jpg" alt="二维码">
+                    <a href="https://github.com/aichipera/github-trend">github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+            <!-- 免责声明 -->
+            <section>
+                <div class="card" style="background: #fff3f3; border-left: 5px solid #e53e3e;">
+                    <h3><i class="fas fa-exclamation-triangle"></i> 重要声明</h3>
+                    <p>以下内容仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</p>
+                </div>
+            </section>
+
+            <!-- 核心洞察 -->
+            <section>
+                <h2>核心洞察</h2>
+                <div class="trend-card pulse">
+                    <p><i class="fas fa-bolt"></i> GitHub最新热榜告诉你：AI玩法变了！</p>
+                    <p>大家不再只追模型，而是冲向了"怎么把AI用起来"。</p>
+                </div>
+                <div class="fragment">
+                    <div class="card">
+                        <h3><i class="fas fa-lock"></i> 隐私与本地化</h3>
+                        <p>AgenticSeek等完全本地运行的AI代理成为热点</p>
+                    </div>
+                </div>
+                <div class="fragment">
+                    <div class="card">
+                        <h3><i class="fas fa-tools"></i> 工具链成熟</h3>
+                        <p>Langflow等可视化AI工作流构建工具需求激增</p>
+                    </div>
+                </div>
+                <div class="fragment">
+                    <div class="card">
+                        <h3><i class="fas fa-graduation-cap"></i> 学习资源爆发</h3>
+                        <p>微软、Anthropic等官方教程项目增长迅猛</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 技术趋势分析 -->
+            <section>
+                <section>
+                    <h2>今日技术趋势全景</h2>
+                    <div class="chart-container">
+                        <div class="mermaid">
+                            pie showData
+                                title 热门项目技术领域分布
+                                "AI应用与工具链" ： 45
+                                "开发框架" ： 25
+                                "学习资源" ： 20
+                                "自动化工具" ： 10
+                        </div>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2>编程语言分布</h2>
+                    <div class="chart-container">
+                        <div class="mermaid">
+                            barChart
+                                title 热门项目语言分布
+                                x-axis Python TypeScript JavaScript Dart Jupyter Notebook C++
+                                y-axis 50 35 30 15 12 10
+                                series Projects
+                        </div>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2>增长趋势分析</h2>
+                    <div class="chart-container">
+                        <div class="mermaid">
+                            lineChart
+                                title 热门项目增长趋势
+                                x-axis 1 2 3 4 5 6 7
+                                y-axis 500 1000 1500 2000 2500
+                                series AgenticSeek
+                                500, 900, 1300, 1700, 2100, 2500, 2900
+                                series n8n
+                                200, 400, 600, 800, 1000, 1200, 1400
+                                series Langflow
+                                300, 600, 900, 1200, 1500, 1800, 2100
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- 重点仓库分析 -->
+            <section>
+                <h2>明星项目深度解析</h2>
+                
+                <!-- AgenticSeek -->
+                <section>
+                    <div class="card highlight-project">
+                        <h2><i class="fab fa-python"></i> AgenticSeek</h2>
+                        <p>完全本地化 AI 代理 · 无需API · 零月费</p>
+                        <div class="flex items-center mt-4">
+                            <div class="w-1/3">
+                                <img src="https://via.placeholder.com/300x200/2563eb/ffffff?text=AgenticSeek" alt="AgenticSeek" style="border-radius:8px">
+                            </div>
+                            <div class="w-2/3 pl-6">
+                                <p><span class="tag" style="background:#dbeafe">Python</span> <span class="tag" style="background:#ffedd5">本地AI</span></p>
+                                <p><i class="fas fa-chart-line"></i> 7天连续上榜 · 新增1921星</p>
+                                <p><i class="fas fa-lock"></i> 100%本地运行 · 隐私保护</p>
+                                <p><i class="fas fa-brain"></i> 思考/浏览/编写代码一体化</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Langflow -->
+                <section>
+                    <div class="card highlight-project">
+                        <h2><i class="fas fa-project-diagram"></i> Langflow</h2>
+                        <p>可视化AI工作流构建平台</p>
+                        <div class="flex items-center mt-4">
+                            <div class="w-1/3">
+                                <img src="https://via.placeholder.com/300x200/0d9488/ffffff?text=Langflow" alt="Langflow" style="border-radius:8px">
+                            </div>
+                            <div class="w-2/3 pl-6">
+                                <p><span class="tag" style="background:#dbeafe">Python</span> <span class="tag" style="background:#ccfbf1">TypeScript</span> <span class="tag" style="background:#f0f9ff">AI工作流</span></p>
+                                <p><i class="fas fa-chart-line"></i> 当日新增745星 · 总星65.8k</p>
+                                <p><i class="fas fa-magic"></i> 拖拽式AI Agent构建</p>
+                                <p><i class="fas fa-plug"></i> 400+集成支持</p>
+                                <p><i class="fas fa-rocket"></i> 一键部署为API</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- n8n -->
+                <section>
+                    <div class="card">
+                        <h2><i class="fas fa-robot"></i> n8n</h2>
+                        <p>Fair-code工作流自动化平台</p>
+                        <div class="flex items-center mt-4">
+                            <div class="w-1/3">
+                                <img src="https://via.placeholder.com/300x200/ea580c/ffffff?text=n8n" alt="n8n" style="border-radius:8px">
+                            </div>
+                            <div class="w-2/3 pl-6">
+                                <p><span class="tag" style="background:#ccfbf1">TypeScript</span> <span class="tag" style="background:#f0f9ff">自动化</span></p>
+                                <p><i class="fas fa-chart-line"></i> 当日新增756星 · 总星100k+</p>
+                                <p><i class="fas fa-cloud"></i> 原生AI能力集成</p>
+                                <p><i class="fas fa-server"></i> 自托管选项 · 数据主权</p>
+                                <p><i class="fas fa-code"></i> 可视化+自定义代码结合</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- 技术演进方向 -->
+            <section>
+                <h2>AI技术演进方向</h2>
+                <div class="grid grid-cols-2 gap-8 mt-8">
+                    <div class="card fragment" data-fragment-index="1">
+                        <h3><i class="fas fa-microchip"></i> 边缘AI突破</h3>
+                        <p>类似小智ESP32的项目向更复杂功能发展</p>
+                    </div>
+                    <div class="card fragment" data-fragment-index="2">
+                        <h3><i class="fas fa-robot"></i> 智能Agent框架</h3>
+                        <p>更复杂的任务处理与协同能力</p>
+                    </div>
+                    <div class="card fragment" data-fragment-index="3">
+                        <h3><i class="fas fa-heartbeat"></i> 领域深度融合</h3>
+                        <p>AI在科研、教育、医疗的定制化方案</p>
+                    </div>
+                    <div class="card fragment" data-fragment-index="4">
+                        <h3><i class="fas fa-shield-alt"></i> 隐私增强技术</h3>
+                        <p>去中心化AI数据处理方案</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 开发者行动指南 -->
+            <section>
+                <h2>开发者行动指南</h2>
+                <div class="grid grid-cols-3 gap-6 mt-10">
+                    <div class="text-center fragment">
+                        <div class="bg-blue-100 rounded-full w-24 h-24 flex items-center justify-center mx-auto">
+                            <i class="fas fa-graduation-cap text-blue-600 text-4xl"></i>
+                        </div>
+                        <h3 class="mt-4">掌握核心工具</h3>
+                        <p>Langflow · n8n · 本地AI部署</p>
+                    </div>
+                    <div class="text-center fragment">
+                        <div class="bg-teal-100 rounded-full w-24 h-24 flex items-center justify-center mx-auto">
+                            <i class="fas fa-lightbulb text-teal-600 text-4xl"></i>
+                        </div>
+                        <h3 class="mt-4">探索垂直领域</h3>
+                        <p>医疗 · 教育 · 工业AI应用</p>
+                    </div>
+                    <div class="text-center fragment">
+                        <div class="bg-orange-100 rounded-full w-24 h-24 flex items-center justify-center mx-auto">
+                            <i class="fas fa-shield-alt text-orange-600 text-4xl"></i>
+                        </div>
+                        <h3 class="mt-4">关注隐私安全</h3>
+                        <p>联邦学习 · 边缘计算 · 加密技术</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 结论 -->
+            <section data-background-gradient="linear-gradient(135deg, #0d9488 0%, #2563eb 100%)">
+                <h2 style="color:white">核心结论</h2>
+                <div class="text-left text-xl text-white mt-12 space-y-6">
+                    <p class="fragment"><i class="fas fa-arrow-right mr-4"></i> AI技术重心正从基础模型转向应用层和工具链</p>
+                    <p class="fragment"><i class="fas fa-arrow-right mr-4"></i> 隐私保护、本地化运行成为关键需求</p>
+                    <p class="fragment"><i class="fas fa-arrow-right mr-4"></i> 可视化AI构建工具降低技术门槛</p>
+                    <p class="fragment"><i class="fas fa-arrow-right mr-4"></i> Python和TypeScript仍是AI开发主力语言</p>
+                    <p class="fragment"><i class="fas fa-arrow-right mr-4"></i> 边缘AI和垂直领域应用是下一爆发点</p>
+                </div>
+            </section>
+
+            <!-- 封底页 -->
+            <section class="title-slide" data-background-gradient="linear-gradient(135deg, #0d9488 0%, #2563eb 100%)">
+                <h1>感谢观看</h1>
+                <h2>AI落地新时代已开启</h2>
+                <p>立即探索GitHub热门趋势，抓住技术红利</p>
+                <div class="project-link">
+                    <img src="../../asserts/wx.jpg" alt="二维码">
+                    <a href="https://github.com/aichipera/github-trend">github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // 初始化Reveal.js
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            transition: 'slide',
+            backgroundTransition: 'fade',
+            slideNumber: 'c/t',
+            
+            // 使用alt+鼠标点击放大
+            keyboard: {
+                27: () => document.querySelector('.reveal').classList.toggle('overview')
+            },
+            
+            // Mermaid图表初始化
+            dependencies: [
+                { 
+                    src: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js',
+                    callback: function() {
+                        mermaid.initialize({ 
+                            startOnLoad: true,
+                            theme: 'default',
+                            securityLevel: 'loose'
+                        });
+                    }
+                }
+            ]
+        });
+        
+        // 动态加载Mermaid渲染
+        document.addEventListener('DOMContentLoaded', function() {
+            let mermaidElements = document.querySelectorAll('.mermaid');
+            mermaidElements.forEach(el => {
+                el.setAttribute('data-processed', 'false');
+            });
+            
+            Reveal.addEventListener('slidechanged', function(event) {
+                mermaid.init(undefined, '.mermaid:not([data-processed="true"])');
+                document.querySelectorAll('.mermaid').forEach(el => {
+                    el.setAttribute('data-processed', 'true');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
