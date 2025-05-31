@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>AI大变局！GitHub揭秘开发者都在追的三大技术</title>
+
+    <!-- Core framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/black.min.css" rel="stylesheet" id="theme">
+    <!-- Use a dark theme for better contrast with vibrant colors, can be 'white' as requested, but black often works better for "Aha" tech moments -->
+
+    <!-- Extended dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --r-main-font: "Noto Sans SC", Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: "Noto Serif SC", "Noto Sans SC", Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-text-transform: none; /* Keep Chinese characters as is */
+            --r-link-color: #2563EB; /* A vibrant blue */
+            --r-link-color-hover: #1D4ED8;
+            --r-selection-background-color: #F59E0B; /* Amber for selection */
+            --r-background-color: #0f172a; /* Dark slate */
+            --r-main-color: #e2e8f0; /* Light slate for text */
+            --r-heading-color: #f8fafc; /* Lighter slate for headings */
+
+            --aha-glow-color: #38bdf8; /* Sky blue for glow effect */
+            --aha-highlight-color: #f59e0b; /* Amber for highlights */
+        }
+
+        body {
+            font-family: var(--r-main-font);
+        }
+
+        .reveal .slides section,
+        .reveal .slides section > section {
+            padding: 20px; /* Default padding */
+        }
+        
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--r-heading-color);
+            text-shadow: 0 0 5px rgba(var(--aha-glow-color), 0.5);
+        }
+
+        .reveal h1 { font-size: 2.8rem; margin-bottom: 20px; }
+        .reveal h2 { font-size: 2.2rem; margin-bottom: 15px; }
+        .reveal h3 { font-size: 1.8rem; margin-bottom: 10px; }
+        .reveal p, .reveal li { font-size: 1.1rem; line-height: 1.6; color: var(--r-main-color); }
+        .reveal small { font-size: 0.8rem; }
+
+        .reveal strong {
+            color: var(--aha-highlight-color);
+        }
+
+        .reveal .highlight-blue {
+            color: var(--aha-glow-color);
+            font-weight: bold;
+        }
+
+        .cover-slide {
+            text-align: center;
+        }
+        .cover-slide h1 {
+            font-size: 3.5rem !important;
+            color: #fff !important;
+            text-shadow: 0 0 15px rgba(56, 189, 248, 0.8), 0 0 25px rgba(56, 189, 248, 0.6); /* Aha moment glow */
+        }
+        .cover-slide .subtitle {
+            font-size: 1.5rem !important;
+            color: #cbd5e1 !important; /* Slate 300 */
+            margin-top: 20px;
+        }
+        .cover-slide .speaker {
+            font-size: 1.2rem !important;
+            color: #94a3b8 !important; /* Slate 400 */
+            margin-top: 40px;
+        }
+
+        .bottom-right-info {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            font-size: 0.8rem;
+            z-index: 10;
+        }
+        .bottom-right-info img {
+            width: 80px;
+            height: 80px;
+            margin-left: 15px;
+            border-radius: 5px;
+        }
+        .bottom-right-info a {
+            color: #94a3b8;
+            text-decoration: none;
+        }
+        .bottom-right-info a:hover {
+            color: var(--r-link-color);
+        }
+
+        .project-card {
+            background-color: rgba(30, 41, 59, 0.8); /* Slate 800 with opacity */
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(var(--aha-glow-color), 0.3);
+        }
+        .project-card h3 {
+            font-size: 1.5rem; /* Reduced for cards */
+            color: var(--aha-glow-color);
+        }
+        .project-card p, .project-card li {
+            font-size: 0.95rem; /* Reduced for cards */
+        }
+        .project-card .stats {
+            font-size: 0.9rem;
+            color: #94a3b8; /* Slate 400 */
+        }
+        .project-card .stats i {
+            margin-right: 5px;
+        }
+        .project-card .lang-dist {
+            font-size: 0.85rem;
+            margin-top: 10px;
+        }
+        
+        .table-container table {
+            width: 100%;
+            font-size: 0.9rem;
+        }
+        .table-container th, .table-container td {
+            padding: 8px;
+            border: 1px solid #475569; /* Slate 600 */
+        }
+        .table-container th {
+            background-color: #334155; /* Slate 700 */
+        }
+
+        .mermaid-chart-container {
+            background-color: #f8fafc; /* Light background for charts to ensure readability */
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px auto;
+            max-width: 80%;
+        }
+        .mermaid text {
+          fill: #333 !important; /* Ensure text inside mermaid is dark */
+        }
+        
+        .quote-box {
+            background-color: rgba(15, 23, 42, 0.7); /* Slate 900 with opacity */
+            border-left: 5px solid var(--aha-glow-color);
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .quote-box p {
+            font-style: italic;
+            color: #cbd5e1; /* Slate 300 */
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- SLIDE 1: Cover -->
+            <section class="cover-slide" data-background-image="https://source.unsplash.com/random/1920x1080/?technology,futuristic,ai" data-background-opacity="0.5" data-background-color="#000033">
+                <h1>AI大变局！</h1>
+                <p class="subtitle">GitHub揭秘开发者都在追的三大技术：<br>智能体、生成视频、本地AI</p>
+                <p class="speaker">演讲者：AIChipEra</p>
+                <p class="mt-4 text-sm text-gray-400">Github热门仓库**月报**观测时间为 **2025-05-30 22:29:37**</p>
+                <div class="bottom-right-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+            <!-- SLIDE 2: Disclaimer -->
+            <section>
+                <h2><i class="fas fa-exclamation-triangle text-yellow-400"></i> 免责声明</h2>
+                <div class="quote-box">
+                    <p>以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</p>
+                </div>
+                <p class="mt-8 text-lg">本次报告将深入剖析GitHub最新AI趋势，带您领略技术前沿的脉搏。</p>
+            </section>
+
+            <!-- SLIDE 3: 月报要点 -->
+            <section data-background-gradient="linear-gradient(to bottom right, #1e3a8a, #0f172a)">
+                <h2><i class="fas fa-bullseye"></i> 月报核心洞察</h2>
+                <p class="fragment fade-in-then-semi-out">还在关注基础模型？<strong class="text-yellow-400">AI技术风向已变！</strong></p>
+                <p class="fragment fade-in-then-semi-out">本月开发者社区最火热的焦点，已从研究转向<strong class="text-green-400">实用应用</strong>和<strong class="text-green-400">生态构建</strong>。</p>
+                <ul class="mt-4">
+                    <li class="fragment"><i class="fas fa-brain text-blue-400"></i> <span class="highlight-blue">AI智能体 (Agent)</span> 成为核心：让AI学会记忆、使用工具、自主执行。</li>
+                    <li class="fragment"><i class="fas fa-video text-pink-400"></i> <span class="highlight-blue">一键生成视频</span> 和 <span class="highlight-blue">实时换脸</span> 引爆点：AI赋能创作新方式。</li>
+                    <li class="fragment"><i class="fas fa-shield-alt text-teal-400"></i> <span class="highlight-blue">数据隐私</span> 和 <span class="highlight-blue">本地化部署</span> 飙升：多项目强调离线运行、无API依赖。</li>
+                    <li class="fragment"><i class="fab fa-python text-yellow-300"></i> Python仍是主力军。</li>
+                </ul>
+                <p class="mt-6 fragment highlight-current-blue">这波AI新浪潮，预示技术应用进入<strong class="text-red-400">新阶段</strong>。想知道哪些项目最火？速看！</p>
+            </section>
+
+            <!-- Section: 热门项目趋势分析 -->
+            <section>
+                <section>
+                    <h2><i class="fas fa-chart-line"></i> 热门项目趋势分析</h2>
+                    <p>深入解读本月GitHub热门项目的技术动向与未来趋势。</p>
+                </section>
+                <section>
+                    <h3><i class="fas fa-globe-americas"></i> 本月整体趋势</h3>
+                    <p>人工智能领域占据主导，呈现从模型研究向<strong class="highlight-blue">实际应用</strong>和<strong class="highlight-blue">生态构建</strong>加速转变的趋势。</p>
+                    <p class="fragment">高增长项目绝大多数与AI相关，特别是 <strong class="text-yellow-400">AI Agent</strong>、<strong class="text-pink-400">AI生成内容(视频)</strong> 及 <strong class="text-teal-400">AI本地化/隐私增强</strong>。</p>
+                </section>
+                <section>
+                    <h3><i class="fas fa-fire"></i> 技术热点领域与主题</h3>
+                    <ul class="list-disc ml-6">
+                        <li class="fragment"><strong>AI Agent及其基础设施</strong>: 本地自主Agent、长期记忆、工具连接、应用框架。</li>
+                        <li class="fragment"><strong>AI生成媒体</strong>: 一键短视频、实时换脸/Deepfake，降低创作门槛。</li>
+                        <li class="fragment"><strong>AI应用场景深化</strong>: AI赋能代码编辑器、量化投资、数字分身。</li>
+                        <li class="fragment"><strong>LLM学习资源</strong>: 课程、提示词集合持续受关注。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fas fa-code"></i> 编程语言与技术栈特点</h3>
+                    <p><strong class="text-yellow-400">Python</strong>: 绝对主力，AI/ML库生态丰富。</p>
+                    <p><strong class="text-blue-400">TypeScript</strong>: 界面、工具、后端服务，与Python协同。</p>
+                    <p class="fragment">少量高性能项目使用 <strong class="text-gray-400">C++</strong> 和 <strong class="text-orange-500">Rust</strong>。</p>
+                    <p class="mt-2 fragment"><strong>技术栈</strong>: RAG, Function Calling, 本地LLM (Ollama), 向量数据库 (PGVector), Diffusion Transformer等广泛采用。</p>
+                </section>
+                <section>
+                    <h3><i class="fas fa-cogs"></i> 技术需求与发展方向</h3>
+                    <ul class="list-disc ml-6">
+                        <li class="fragment"><strong>实用化与自动化效率</strong>: AI直接解决问题、生成内容、自动化流程。</li>
+                        <li class="fragment"><strong>数据隐私与本地化部署</strong>: "本地运行"、"无API依赖"、"数据隐私"成核心。</li>
+                        <li class="fragment"><strong>强大的AI Agent</strong>: 记忆、工具使用、多步骤规划能力成焦点。</li>
+                        <li class="fragment"><strong>降低AI技术门槛</strong>: "一键式"工具、可视化界面、结构化课程。</li>
+                    </ul>
+                </section>
+                 <section>
+                    <h3><i class="fas fa-exchange-alt"></i> 与前期热点对比 & <i class="fas fa-crystal-ball"></i> 未来预测</h3>
+                    <p><strong>对比前期</strong>: 更聚焦AI的“<strong class="highlight-blue">端到端应用</strong>”和“<strong class="highlight-blue">生态组件</strong>”。</p>
+                    <p class="fragment">突出特点：Agent基础层关注、特定内容形式突破 (视频、数字分身)、本地化/隐私强调。</p>
+                    <p class="mt-4 fragment"><strong>未来热点预测</strong>:</p>
+                    <ul class="list-disc ml-6 text-sm">
+                        <li class="fragment">成熟的AI Agent平台与应用</li>
+                        <li class="fragment">AI在细分领域深度集成 (医疗、教育)</li>
+                        <li class="fragment">端侧AI与边缘计算能力提升</li>
+                        <li class="fragment">AI安全、可解释性、伦理工具与框架</li>
+                        <li class="fragment">多模态AI实际应用爆发</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fas fa-star"></i> 本月特有趋势特点</h3>
+                    <p class="fragment"><strong class="highlight-blue">AI Agent生态雏形形成</strong>: 记忆、工具接口、框架并行发展。</p>
+                    <p class="fragment"><strong class="text-pink-400">AI生成视频能力显著进展</strong>: 文本到视频、实时换脸火热。</p>
+                    <p class="fragment"><strong class="text-teal-400">"本地运行"与"隐私"成核心卖点</strong>: 对云API模式的反思与演进。</p>
+                    <p class="mt-4 fragment"><strong>总结</strong>: AI技术向更<strong class="text-yellow-400">实用</strong>、更<strong class="text-green-400">自主</strong>、更注重<strong class="text-blue-400">用户控制权</strong>方向发展。</p>
+                </section>
+            </section>
+
+            <!-- Section: 热门项目双月维度对比分析 -->
+            <section>
+                <section>
+                    <h2><i class="fas fa-calendar-alt"></i> 热门项目双月维度对比</h2>
+                    <p>观察近两个月GitHub热门项目的动态变化。</p>
+                </section>
+                <section>
+                    <h3><i class="fas fa-wave-square"></i> 趋势总览</h3>
+                    <p class="fragment">榜单<strong class="text-green-400">显著更新</strong>，<strong class="highlight-blue">20个</strong>新项目进入视野。</p>
+                    <p class="fragment">热点集中在<strong class="text-yellow-400">涌现的新项目</strong>上。</p>
+                    <p class="fragment">新晋项目聚焦<strong class="text-pink-400">AI/ML应用与工具</strong>，及开发工具、框架。</p>
+                    <p class="fragment"><strong class="text-blue-400">Python</strong>和<strong class="text-purple-400">TypeScript</strong>新增项目数最多。</p>
+                    <p class="fragment"><strong class="text-red-500">Mojo</strong>和<strong class="text-orange-500">Rust</strong>等新语言亦有斩获。</p>
+                    <p class="mt-4 fragment"><strong>关键变化</strong>: 新项目数量庞大，预示<strong class="highlight-blue">新技术方向和开源项目</strong>正快速吸引关注。</p>
+                </section>
+                <section>
+                    <h3><i class="fas fa-sync-alt"></i> 热点变化</h3>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <h4 class="text-green-400"><i class="fas fa-arrow-up"></i> 新增热点</h4>
+                            <ul class="list-disc ml-5">
+                                <li>xming521/weclone</li>
+                                <li>fosowl/agenticseek</li>
+                                <li>modsetter/surfsense</li>
+                                <!-- Add more if space allows or keep it concise -->
+                                <li>... (共20个)</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-red-400"><i class="fas fa-arrow-down"></i> 减退热点</h4>
+                            <ul class="list-disc ml-5">
+                                <li>n8n-io/n8n</li>
+                                <li>punkpeye/awesome-mcp-servers</li>
+                                <!-- Add more if space allows or keep it concise -->
+                                <li>... (共11个)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p class="mt-2 text-xs">完整列表: xming521/weclone, fosowl/agenticseek, modsetter/surfsense, bytedance/flowgram.ai, voideditor/void, microsoft/qlib, f/awesome-chatgpt-prompts, modular/modular, mlabonne/llm-course, lightricks/ltx-video, mem0ai/mem0, appwrite/appwrite, harry0703/moneyprinterturbo, kamranahmedse/developer-roadmap, ladybirdbrowser/ladybird, aipotheosis-labs/aci, hacksider/deep-live-cam, mindsdb/mindsdb, qwenlm/qwen-agent, zed-industries/zed</p>
+                </section>
+                <section>
+                    <h3><i class="fas fa-code-branch"></i> 编程语言分布 (新增项目)</h3>
+                    <div class="mermaid-chart-container">
+                        <div class="mermaid">
+                            pie title 编程语言占比
+                                "Python" : 10
+                                "TypeScript" : 5
+                                "C++" : 1
+                                "Unknown" : 1
+                                "Jupyter Notebook" : 1
+                                "Rust" : 1
+                                "Mojo" : 1
+                                "JavaScript" : 1
+                        </div>
+                    </div>
+                    <p class="text-center text-sm">Python (47.6%), TypeScript (23.8%) 占据主导</p>
+                </section>
+                <section>
+                    <h3><i class="fas fa-star-half-alt"></i> Star 分布 (新增项目)</h3>
+                     <div class="mermaid-chart-container">
+                        <div class="mermaid">
+                            pie title Star数量分布
+                                "1k-5k" : 3
+                                "5k-10k" : 3
+                                "10k-50k" : 9
+                                "50k以上" : 6
+                        </div>
+                    </div>
+                    <p class="text-center text-sm">大部分新增热门项目Star数集中在 10k-50k (42.9%) 和 50k以上 (28.6%)</p>
+                </section>
+            </section>
+
+            <!-- Section: 热门项目排名 -->
+            <section>
+                 <section>
+                    <h2><i class="fas fa-trophy"></i> 热门项目排名 Top 10</h2>
+                    <p>本月最受瞩目的十大开源项目。</p>
+                </section>
+                <section>
+                    <h3>Top 1-5</h3>
+                    <ol class="list-decimal ml-6">
+                        <li><strong>[kamranahmedse/developer-roadmap]</strong> (⭐324k) - Interactive roadmaps for developers.</li>
+                        <li><strong>[f/awesome-chatgpt-prompts]</strong> (⭐127k) - ChatGPT prompt curation.</li>
+                        <li><strong>[hacksider/Deep-Live-Cam]</strong> (⭐70k) - Real-time face swap & deepfake.</li>
+                        <li><strong>[zed-industries/zed]</strong> (⭐60k) - High-performance, multiplayer code editor.</li>
+                        <li><strong>[mlabonne/llm-course]</strong> (⭐53k) - Course on Large Language Models.</li>
+                    </ol>
+                </section>
+                <section>
+                    <h3>Top 6-10</h3>
+                    <ol class="list-decimal ml-6" start="6">
+                        <li><strong>[appwrite/appwrite]</strong> (⭐50k) - Backend server for developers.</li>
+                        <li><strong>[LadybirdBrowser/ladybird]</strong> (⭐43k) - Independent web browser.</li>
+                        <li><strong>[harry0703/MoneyPrinterTurbo]</strong> (⭐35k) - AI LLM powered short video generation.</li>
+                        <li><strong>[mem0ai/mem0]</strong> (⭐33k) - Memory for AI Agents.</li>
+                        <li><strong>[mindsdb/mindsdb]</strong> (⭐30k) - AI's query engine over federated data.</li>
+                    </ol>
+                </section>
+            </section>
+            
+            <!-- Section: 本月每周Github热点项目分析 -->
+            <section>
+                <h2><i class="fas fa-calendar-week"></i> 本月每周GitHub热点回顾</h2>
+                <div class="table-container text-sm">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>时间</th>
+                                <th>链接/主题</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>第一周</td>
+                                <td><a href="https://mp.weixin.qq.com/s?__biz=MzkyMzg3NTc1OQ==&mid=2247487023&idx=1&sn=e9ee2886c584da35b5e1c2d3fa3ad1cd&scene=21#wechat_redirect" target="_blank">AI Agent冲上GitHub热榜！让AI能像“活人”一样干活？(2025年第18周)</a></td>
+                            </tr>
+                            <tr>
+                                <td>第二周</td>
+                                <td><a href="https://mp.weixin.qq.com/s?__biz=MzkyMzg3NTc1OQ==&mid=2247487250&idx=1&sn=ea5da84d81754ba4857542a959dac726&scene=21#wechat_redirect" target="_blank">这周技术圈炸了！AI、工具、开源…这些新项目颠覆你的认知(2025年第19周)</a></td>
+                            </tr>
+                            <tr>
+                                <td>第三周</td>
+                                <td><a href="https://mp.weixin.qq.com/s?__biz=MzkyMzg3NTc1OQ==&mid=2247487520&idx=1&sn=79e1ee6fbddc11e08a946e57286ba031&scene=21#wechat_redirect" target="_blank">【GitHub爆款】免费克隆你的“数字分身”，还能一键生成短视频？(2025年第20周)</a></td>
+                            </tr>
+                             <tr>
+                                <td>第四周</td>
+                                <td><a href="https://mp.weixin.qq.com/s?__biz=MzkyMzg3NTc1OQ==&mid=2247487731&idx=1&sn=15284946dc94579fa6f20465c732a45d&scene=21#wechat_redirect" target="_blank">AI真的能帮你打工了？编程、炒股它都行，你还敢摸鱼吗？！(2025年第21周)</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Section: 详细仓库数据 -->
+            <section>
+                <section>
+                    <h2><i class="fas fa-database"></i> 详细仓库数据速览</h2>
+                    <p>精选热门项目介绍，快速掌握核心价值。</p>
+                </section>
+
+                <section class="project-card">
+                    <h3><a href="https://github.com/Fosowl/agenticSeek" target="_blank">Fosowl/agenticSeek</a></h3>
+                    <p><strong>简介:</strong> 纯本地 Manus AI。无需API，拥有一个能思考、浏览网页、编写代码的自主代理。</p>
+                    <p class="stats">
+                        <i class="fas fa-star"></i>13.5k | <i class="fas fa-code-branch"></i>1.1k | <i class="fas fa-eye"></i>87 |
+                        <span class="text-green-400"><i class="fas fa-arrow-up"></i>11669 Stars 本期</span> |
+                        <span class="text-blue-400">Python</span>
+                    </p>
+                    <p class="lang-dist text-xs">Python 85.8%, JavaScript 6.8%, CSS 3.4%, Shell 3.4%, Other 0.6%</p>
+                    <div class="quote-box mt-2">
+                        <p><strong>项目速读:</strong> AgenticSeek是本地化AI代理，无需云服务，在用户设备上运行自主智能助手，能规划执行复杂任务（网页浏览、信息提取、代码编写）。亮点是本地化运行模式，利用本地LLM确保数据隐私，仅需电费。 Manus AI的本地替代，隐私与成本优势显著。</p>
+                    </div>
+                </section>
+
+                <section class="project-card">
+                    <h3><a href="https://github.com/harry0703/MoneyPrinterTurbo" target="_blank">harry0703/MoneyPrinterTurbo</a></h3>
+                    <p><strong>简介:</strong> 利用AI大模型，一键生成短视频。</p>
+                    <p class="stats">
+                        <i class="fas fa-star"></i>35k | <i class="fas fa-code-branch"></i>5k | <i class="fas fa-eye"></i>261 |
+                        <span class="text-green-400"><i class="fas fa-arrow-up"></i>8723 Stars 本期</span> |
+                        <span class="text-blue-400">Python</span>
+                    </p>
+                    <p class="lang-dist text-xs">Python 98.7%, Other 1.3%</p>
+                     <div class="quote-box mt-2">
+                        <p><strong>项目速读:</strong> MoneyPrinterTurbo利用AI大模型实现高清短视频“一键生成”。用户输入主题，项目自动完成文案、素材匹配、字幕、配乐。核心优势是高度自动化和“一键式”流程，降低创作门槛。集成多AI模型，支持双语、多分辨率、批量生成及丰富定制。使用无版权素材。极大提高短视频生产效率。</p>
+                    </div>
+                </section>
+
+                <section class="project-card">
+                    <h3><a href="https://github.com/xming521/WeClone" target="_blank">xming521/WeClone</a></h3>
+                    <p><strong>简介:</strong> 从聊天记录创造数字分身的一站式解决方案。</p>
+                    <p class="stats">
+                        <i class="fas fa-star"></i>12.5k | <i class="fas fa-code-branch"></i>935 | <i class="fas fa-eye"></i>63 |
+                        <span class="text-green-400"><i class="fas fa-arrow-up"></i>9756 Stars 本期</span> |
+                        <span class="text-blue-400">Python</span>
+                    </p>
+                    <p class="lang-dist text-xs">Python 100.0%</p>
+                    <div class="quote-box mt-2">
+                        <p><strong>项目速读:</strong> WeClone基于个人聊天记录（微信）创造专属AI数字分身。通过微调LLM，AI学习用户说话风格、表达、思维模式，生成个性化数字“你”。亮点在于完整性与实用性：覆盖数据导出预处理、模型训练，到绑定聊天机器人。关注用户隐私，提供数据过滤。满足用户对个性化数字替身的需求。</p>
+                    </div>
+                </section>
+
+                <section class="project-card">
+                    <h3><a href="https://github.com/voideditor/void" target="_blank">voideditor/void</a></h3>
+                    <p><strong>简介:</strong> AI 编辑器 Cursor 的开源替代品，将 AI 代理融入代码库。</p>
+                    <p class="stats">
+                        <i class="fas fa-star"></i>22.4k | <i class="fas fa-code-branch"></i>1.4k | <i class="fas fa-eye"></i>141 |
+                        <span class="text-green-400"><i class="fas fa-arrow-up"></i>10301 Stars 本期</span> |
+                        <span class="text-purple-400">TypeScript</span>
+                    </p>
+                    <p class="lang-dist text-xs">TypeScript 95.3%, CSS 1.4%, JavaScript 1.2%, Rust 0.7%, Other 1.4%</p>
+                    <div class="quote-box mt-2">
+                        <p><strong>项目速读:</strong> Void 是基于 VS Code 架构开发的开源 AI 代码编辑器，定位为 Cursor 的替代品。将 AI 能力无缝融入开发工作流，允许开发者用 AI 代理完成任务。核心优势是开源透明、深度集成 AI 功能（支持灵活模型选择，含本地部署）、重视用户数据隐私。适合追求开发效率、AI 辅助编码，看重开源和数据安全的开发者。</p>
+                    </div>
+                </section>
+                
+                <section class="project-card">
+                    <h3><a href="https://github.com/hacksider/Deep-Live-Cam" target="_blank">hacksider/Deep-Live-Cam</a></h3>
+                    <p><strong>简介:</strong> 仅需一张图像，即可实现实时换脸和一键 Deepfake 视频。</p>
+                    <p class="stats">
+                        <i class="fas fa-star"></i>70k | <i class="fas fa-code-branch"></i>9.9k | <i class="fas fa-eye"></i>421 |
+                        <span class="text-green-400"><i class="fas fa-arrow-up"></i>17517 Stars 本期</span> |
+                        <span class="text-blue-400">Python</span>
+                    </p>
+                    <p class="lang-dist text-xs">Python 99.9%, Batchfile 0.1%</p>
+                    <div class="quote-box mt-2">
+                        <p><strong>项目速读:</strong> Deep-Live-Cam专注实时换脸和单图生成deepfake视频。解决视频流中快速便捷人脸替换难题。核心优势是实时性和简化操作：用户仅需一张源人脸图片，即可实现即时换脸，支持一键启动。基于Python，利用AI模型和硬件加速，确保流畅高效，提供保留嘴部动作、处理多人脸等功能。降低实时换脸技术门槛。</p>
+                    </div>
+                </section>
+
+                <section class="project-card">
+                    <h3><a href="https://github.com/Lightricks/LTX-Video" target="_blank">Lightricks/LTX-Video</a></h3>
+                    <p><strong>简介:</strong> LTX-Video 的官方仓库，基于DiT架构的视频生成项目。</p>
+                    <p class="stats">
+                        <i class="fas fa-star"></i>6.3k | <i class="fas fa-code-branch"></i>512 | <i class="fas fa-eye"></i>68 |
+                        <span class="text-green-400"><i class="fas fa-arrow-up"></i>2671 Stars 本期</span> |
+                        <span class="text-blue-400">Python</span>
+                    </p>
+                    <p class="lang-dist text-xs">Python 100.0%</p>
+                    <div class="quote-box mt-2">
+                        <p><strong>项目速读:</strong> LTX-Video是基于DiT (Diffusion Transformer) 架构的先进视频生成项目，提供高质量、逼真多样的视频创作。通过文本、图像或关键帧等多种输入生成视频。亮点是实时视频生成能力，能生成1216×704分辨率、30 FPS高清视频。支持文本到视频、图到视频等多种工作流。优化模型提升速度效率。为用户提供强大易用的技术支撑。</p>
+                    </div>
+                </section>
+                <!-- Add more project cards here, following the same structure -->
+
+            </section>
+
+            <!-- SLIDE FINAL: Conclusion & QR -->
+            <section data-background-gradient="linear-gradient(to top right, #1e3a8a, #0f172a)">
+                <h2><i class="fas fa-check-circle"></i> 总结与展望</h2>
+                <p>AI技术正以前所未有的速度融入各个领域，从智能体到内容创作，再到本地化与隐私保护，开源社区的创新浪潮汹涌澎湃。</p>
+                <p class="mt-4">保持关注，拥抱变化，共同见证AI驱动的未来！</p>
+                <p class="mt-8 text-2xl font-semibold text-yellow-400">感谢聆听！</p>
+                <div class="bottom-right-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js"></script>
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            center: true,
+            slideNumber: 'c/t',
+            transition: 'slide', // 'slide', 'fade', 'convex', 'concave', 'zoom'
+            backgroundTransition: 'fade',
+            dependencies: [ // Optional libraries for features
+                { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.0/plugin/zoom/zoom.min.js', async: true },
+            ],
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' }); // neutral or dark for dark slides. default for light.
+    </script>
+</body>
+</html>
