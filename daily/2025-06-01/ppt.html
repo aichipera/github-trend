@@ -1,0 +1,957 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI炸锅！全球开发者都在学的几个绝技，别错过这波红利</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Base Font Settings */
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: #333;
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: 'Noto Serif SC', 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, serif;
+            font-weight: 700;
+            color: #2c3e50; /* Dark blue/grey for titles */
+        }
+
+        /* Font Size Hierarchy (using rem for scalability) */
+        .reveal h1 { font-size: 3.5rem; line-height: 1.2; }
+        .reveal h2 { font-size: 2.5rem; line-height: 1.3; }
+        .reveal h3 { font-size: 2rem; line-height: 1.4; }
+        .reveal p, .reveal li { font-size: 1.1rem; line-height: 1.6; }
+        .reveal .text-lg { font-size: 1.2rem; } /* Custom class for larger text */
+        .reveal .text-md { font-size: 1.1rem; }
+        .reveal .text-sm { font-size: 0.9rem; }
+
+        /* Color Palette */
+        :root {
+            --primary-color: #3498db; /* Blue */
+            --secondary-color: #2ecc71; /* Green */
+            --accent-color: #e67e22; /* Orange/Gold for highlights */
+            --text-dark: #333;
+            --text-light: #f5f5f5;
+            --background-light: #ffffff;
+            --background-dark: #2c3e50; /* Dark blue/grey for contrasting backgrounds */
+        }
+
+        /* Override Reveal.js Defaults */
+        .reveal .slides section {
+            padding: 40px 80px; /* Adjust padding for better content flow */
+            text-align: left;
+        }
+
+        .reveal .slide-number {
+            font-size: 0.8rem;
+            color: #aaa;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        /* Background Customization */
+        .reveal .has-dark-background {
+            color: var(--text-light);
+        }
+        .reveal .has-dark-background h1,
+        .reveal .has-dark-background h2,
+        .reveal .has-dark-background h3 {
+            color: var(--text-light);
+        }
+
+        .reveal .backgrounds {
+            background-color: var(--background-light);
+        }
+
+        /* Cover & End Page Specific Styles */
+        .cover-slide {
+            background: linear-gradient(135deg, rgba(52,152,219,0.9) 0%, rgba(44,62,80,0.9) 100%), url('https://source.unsplash.com/random/1920x1080/?technology,ai,future') no-repeat center center / cover;
+            color: var(--text-light);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .cover-slide h1 {
+            color: var(--text-light);
+            font-size: 4.5rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.1;
+        }
+        .cover-slide p {
+            color: rgba(255,255,255,0.8);
+            font-size: 1.8rem;
+        }
+        .cover-info {
+            position: absolute;
+            bottom: 50px;
+            width: 100%;
+            text-align: center;
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.7);
+        }
+        .cover-info .speaker {
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+        .github-link-qr {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 5px;
+            z-index: 10; /* Ensure it's on top */
+        }
+        .github-link-qr a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            background: rgba(0,0,0,0.3);
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .github-link-qr img {
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.9);
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .end-slide {
+            background: linear-gradient(135deg, rgba(44,62,80,0.9) 0%, rgba(52,152,219,0.9) 100%), url('https://source.unsplash.com/random/1920x1080/?innovation,brain,spark') no-repeat center center / cover;
+            color: var(--text-light);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .end-slide h2 {
+            font-size: 3.5rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+        .end-slide p {
+            font-size: 1.8rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* General Layout & Components */
+        .reveal ul {
+            list-style: none; /* Remove default bullet points */
+            padding-left: 0;
+            margin-top: 1rem;
+        }
+        .reveal li {
+            position: relative;
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem; /* Space for custom bullet */
+        }
+        .reveal li::before {
+            content: "\f00c"; /* Font Awesome checkmark */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+            top: 0.2rem;
+            font-size: 1rem;
+        }
+        /* Custom bullets for specific lists */
+        .icon-list li::before {
+            content: ""; /* Reset default checkmark */
+            display: none;
+        }
+        .icon-list li {
+            padding-left: 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .icon-list li i {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            min-width: 30px; /* Ensure icon has space */
+            text-align: center;
+        }
+
+        .reveal strong {
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .reveal .fragment {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .reveal .fragment.visible {
+            opacity: 1;
+        }
+
+        /* Table Styles for project details */
+        .project-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+        }
+        .project-table th, .project-table td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        .project-table th {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            font-weight: 600;
+        }
+        .project-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .project-table td:first-child {
+            font-weight: 500;
+            color: #555;
+        }
+        .project-table .star-increase {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+
+        .project-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 1rem;
+        }
+        .project-meta-grid div {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.95rem;
+        }
+        .project-meta-grid i {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .project-lang-chart {
+            display: flex;
+            width: 100%;
+            height: 25px;
+            background-color: #eee;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        .project-lang-chart div {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 0 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        /* Language Colors (semi-random, based on common GitHub colors or distinct ones) */
+        .lang-color-1 { background-color: #f1e05a; } /* Python */
+        .lang-color-2 { background-color: #3178c6; } /* TypeScript */
+        .lang-color-3 { background-color: #b07219; } /* Java (not used here, but good to have) */
+        .lang-color-4 { background-color: #563d7c; } /* CSS */
+        .lang-color-5 { background-color: #da5b0b; } /* Go */
+        .lang-color-6 { background-color: #000080; } /* C++ */
+        .lang-color-7 { background-color: #f7931e; } /* Batchfile */
+        .lang-color-8 { background-color: #e34c26; } /* HTML */
+        .lang-color-9 { background-color: #c0658a; } /* Svelte */
+        .lang-color-10 { background-color: #89e051; } /* Shell */
+        .lang-color-11 { background-color: #ed2c4d; } /* Jupyter Notebook */
+        .lang-color-any { background-color: #4a4a4a; } /* General "any other specified" language */
+        .lang-color-other { background-color: #888; } /* Other (catch-all) */
+
+        /* Custom classes for specific content */
+        .disclaimer {
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: #c0392b; /* Red for warning */
+            text-align: center;
+        }
+        .center-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+        }
+        .small-text {
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover Page -->
+            <section class="cover-slide">
+                <h1 data-auto-animate>AI炸锅！全球开发者都在学的几个绝技，别错过这波红利</h1>
+                <p class="mt-4" data-auto-animate-delay="0.1">Github热门仓库日报观测时间为 2025-06-01 20:23:01</p>
+                <div class="cover-info">
+                    <p class="speaker">演讲者：AIChipEra</p>
+                </div>
+                <div class="github-link-qr">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        <i class="fab fa-github"></i> https://github.com/aichipera/github-trend
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="微信二维码">
+                </div>
+            </section>
+
+            <!-- Slide 2: 免责声明 -->
+            <section data-background-color="#fefefe">
+                <div class="center-content">
+                    <i class="fas fa-exclamation-triangle text-red-600 mb-6" style="font-size: 4rem;"></i>
+                    <p class="disclaimer">以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</p>
+                </div>
+            </section>
+
+            <!-- Slide 3: 日报要点 -->
+            <section>
+                <h2><i class="fas fa-newspaper text-primary-color mr-3"></i>日报要点：洞察AI时代核心趋势</h2>
+                <ul class="icon-list mt-8">
+                    <li class="fragment">
+                        <i class="fas fa-rocket"></i>
+                        <p><strong>AI从概念走向实战：</strong> 焦点转向**实用化和应用层**，赋能开发者掌握AI能力。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-cogs"></i>
+                        <p><strong>提示工程与智能体AI Agent：</strong> 有效利用大型模型，构建下一代自动化与交互模式。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-cloud-download-alt"></i>
+                        <p><strong>本地化部署需求增长：</strong> 隐私和成本考量下，本地集成化AI环境成为新方向。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-graduation-cap"></i>
+                        <p><strong>高效学习资源持续火爆：</strong> 社区渴求系统性、实践性强的技术教育内容。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-tools"></i>
+                        <p><strong>开发者效率工具：</strong> 围绕“让开发和日常技术工作更轻松”的核心目标持续创新。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-chart-line"></i>
+                        <p class="text-sm mt-6"><strong>Aha Moment:</strong> AI技术正加速**平民化**，不再是遥远的实验室概念，而是每个开发者触手可及的实用工具与学习热点！</p>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Slide 4: 热门项目趋势分析 - 今日整体趋势概述 -->
+            <section>
+                <h2><i class="fas fa-chart-area text-primary-color mr-3"></i>热门项目趋势分析：今日焦点速览</h2>
+                <p class="text-lg mt-6 fragment">今日GitHub热门项目呈现出几个清晰的技术趋势，共同勾勒出当前开发者社区的关注焦点。</p>
+                <ul class="icon-list mt-8">
+                    <li class="fragment">
+                        <i class="fas fa-brain"></i>
+                        <p><strong>AI实用化与应用层：</strong> 从基础模型转向Prompt Engineering、AI Agent。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-book-open"></i>
+                        <p><strong>技术教育与知识分享：</strong> 高质量学习资源持续受追捧，如系统设计、通用知识库。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-cogs"></i>
+                        <p><strong>开发者效率与自动化：</strong> 提升开发和日常工作效率的工具备受青睐。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-code"></i>
+                        <p><strong>编程语言分布：</strong> Python主导AI与自动化，TypeScript/Go各有所长。</p>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Slide 5: AI：从概念到实战 (详细) -->
+            <section>
+                <h2><i class="fas fa-magic text-primary-color mr-3"></i>AI：从概念走向实战</h2>
+                <ul class="icon-list mt-8">
+                    <li class="fragment">
+                        <i class="fas fa-comments"></i>
+                        <p><strong>Prompt Engineering（提示工程）：</strong> Anthropic教程（项目1, 2）高增长，开发者急于掌握高效与大模型互动技巧。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-robot"></i>
+                        <p><strong>AI Agent（智能体）：</strong> 微软入门（项目10）、Agent Zero（项目3）引爆关注，预示下一代自动化模式。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-server"></i>
+                        <p><strong>本地化部署与隐私：</strong> "Local AI Packaged"（项目11）回应隐私与成本需求，本地集成AI环境成新宠。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-layer-group"></i>
+                        <p><strong>主流厂商推动AI平台化：</strong> Google Go SDK（项目16）出现，AI能力正加速多语言集成。</p>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Slide 6: 技术教育与知识分享 -->
+            <section>
+                <h2><i class="fas fa-book-reader text-primary-color mr-3"></i>技术教育与知识分享：学无止境</h2>
+                <ul class="icon-list mt-8">
+                    <li class="fragment">
+                        <i class="fas fa-sitemap"></i>
+                        <p><strong>系统设计面试准备：</strong> 经久不衰的经典指南（项目6）持续受欢迎，基础硬技能需求旺盛。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-scroll"></i>
+                        <p><strong>实用技术“秘密知识”：</strong> 汇集各种实用技巧的宝库（项目9）持续火爆，解决实际问题。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-chart-bar"></i>
+                        <p><strong>交互式数据科学学习：</strong> 交互式学习面板（项目17）活跃，强调动手实践与可视化学习。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-lightbulb"></i>
+                        <p class="text-sm mt-6"><strong>Aha Moment:</strong> 优质的学习资源始终是社区核心需求，尤其是那些能够将复杂概念**化繁为简、落地实践**的内容。</p>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Slide 7: 开发者效率与自动化 -->
+            <section>
+                <h2><i class="fas fa-wrench text-primary-color mr-3"></i>开发者效率与自动化：让工作更轻松</h2>
+                <ul class="icon-list mt-8">
+                    <li class="fragment">
+                        <i class="fas fa-palette"></i>
+                        <p><strong>可视化前端开发：</strong> Onlook（项目4）提升React应用构建效率，设计与代码实时同步。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-download"></i>
+                        <p><strong>媒体内容下载：</strong> Cobalt（项目5）提供纯净、高效的媒体保存体验。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-video"></i>
+                        <p><strong>内容自动化生成：</strong> Reddit Video Maker Bot（项目8）一键将帖子转视频。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-shield-alt"></i>
+                        <p><strong>去中心化文件同步：</strong> Syncthing（项目12）强调数据隐私与自主控制。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-ban"></i>
+                        <p><strong>网络访问解决：</strong> Zapret Discord YouTube（项目7）为特定网络问题提供简便方案。</p>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Slide 8: 编程语言分布 -->
+            <section>
+                <h2><i class="fas fa-language text-primary-color mr-3"></i>编程语言分布：技术栈的风向标</h2>
+                <ul class="icon-list mt-8">
+                    <li class="fragment">
+                        <i class="fab fa-python"></i>
+                        <p><strong>Python：</strong> 毫无疑问，仍是AI、数据科学、自动化脚本首选语言，持续增长。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fab fa-js-square"></i>
+                        <p><strong>TypeScript：</strong> 继续主导现代Web前端开发，与React/Next.js/TailwindCSS结合紧密。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fab fa-gofore"></i>
+                        <p><strong>Go：</strong> 在基础设施、网络相关项目（如文件同步、Google AI SDK）中展现优势。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-file-code"></i>
+                        <p><strong>Jupyter Notebook：</strong> 作为交互式编程和教育工具，在AI和数据科学教程中广泛应用。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-cube"></i>
+                        <p><strong>C++/Svelte：</strong> 各自服务于特定领域，如3D图形处理和高性能前端。</p>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Slide 9: 今日趋势特点与演进 -->
+            <section>
+                <h2><i class="fas fa-history text-primary-color mr-3"></i>今日趋势特点与演进</h2>
+                <ul class="icon-list mt-8">
+                    <li class="fragment">
+                        <i class="fas fa-star"></i>
+                        <p><strong>鲜明特征：</strong> AI教育和本地AI部署项目爆炸性增长，赋能开发者理解、使用和部署AI。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-layer-group"></i>
+                        <p><strong>基石不变：</strong> 系统设计、通用技术知识库、文件同步等基础领域项目保持长期活力。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-chart-pie"></i>
+                        <p><strong>AI演进：</strong> 从早期的机器学习框架，到现在的Prompt工程、AI Agent、本地部署等更贴近实际应用层面。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-lightbulb"></i>
+                        <p class="text-sm mt-6"><strong>Aha Moment:</strong> 技术热点在变，但解决实际问题、提升生产力、提供优质学习资源的本质需求永恒不变。</p>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Slide 10: 预测未来热点 -->
+            <section>
+                <h2><i class="fas fa-forward text-primary-color mr-3"></i>预测下一波技术热点</h2>
+                <ul class="icon-list mt-8">
+                    <li class="fragment">
+                        <i class="fas fa-atom"></i>
+                        <p><strong>AI Agent的落地与泛化：</strong> 更多针对特定行业或任务的AI Agent框架与应用。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-lock"></i>
+                        <p><strong>隐私计算与本地AI能力：</strong> 更多在终端或私有云运行、保护数据隐私的AI解决方案涌现。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-industry"></i>
+                        <p><strong>AI与垂直领域深度结合：</strong> AI将更深层次地赋能金融、生物、教育等行业应用。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-code-branch"></i>
+                        <p><strong>开发者工作流AI原生化：</strong> AI内嵌于IDE、协作平台等核心开发工具中，改变开发范式。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-fire"></i>
+                        <p class="text-sm mt-6"><strong>Aha Moment:</strong> AI正从一个工具走向**基础设施和范式革命**，将深刻重塑开发者工作与行业应用！</p>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Slide 11: 热门项目双日维度对比分析 -->
+            <section>
+                <h2><i class="fas fa-balance-scale text-primary-color mr-3"></i>热门项目双日维度对比分析</h2>
+                <ul class="icon-list mt-8">
+                    <li class="fragment">
+                        <i class="fas fa-arrow-up"></i>
+                        <p><strong>热度变化趋势：</strong> 新晋项目数达11个，上升项目6个，榜单活跃度高，新旧交替。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-clipboard-list"></i>
+                        <p><strong>新项目特点：</strong> AI/ML工具与教程、经典技术学习资源、实用自动化脚本等。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-laptop-code"></i>
+                        <p><strong>编程语言分布变化：</strong> Python净增长2个项目继续领跑，Go、Batchfile等小幅增长。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-award"></i>
+                        <p><strong>显著变化：</strong> Anthropic提示工程（15.3%增幅）、Google Go GenAI SDK直接上榜。</p>
+                    </li>
+                    <li class="fragment">
+                        <i class="fas fa-fire-alt"></i>
+                        <p><strong>持续热门：</strong> `anthropics/prompt-eng-interactive-tutorial` 和 `microsoft/ai-agents-for-beginners` 持续4次上榜。</p>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Slide 12: 详细仓库数据 (Horizontal Intro) -->
+            <section data-background-color="var(--background-dark)" class="has-dark-background">
+                <div class="center-content">
+                    <i class="fas fa-database text-accent-color mb-6" style="font-size: 4rem;"></i>
+                    <h2><span class="text-accent-color">深度解析：</span>热门仓库详细数据</h2>
+                    <p class="text-lg mt-4">我们将逐一探索今日GitHub热门仓库，揭示它们的独特价值与增长潜力。</p>
+                    <p class="text-sm mt-8 text-light-alpha-60">(向下滑动查看详细内容)</p>
+                </div>
+            </section>
+
+            <!-- Vertical Slides for Detailed Projects -->
+            <section>
+                <section>
+                    <h3><a href="https://github.com/anthropics/prompt-eng-interactive-tutorial" target="_blank" class="text-primary-color">anthropics/prompt-eng-interactive-tutorial</a></h3>
+                    <p class="small-text text-gray-600">项目简介: Anthropic 的交互式提示工程教程</p>
+                    <p class="mt-4"><strong>项目速读:</strong> 实践导向的 **Prompt工程互动教程**，系统教授为Claude编写高质量提示词。通过分步讲解、练习和交互式演练，强调动手实践。特别推荐Google Sheets版本。</p>
+                    <div class="project-meta-grid">
+                        <div><i class="fas fa-star"></i> Stars: 7.2k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 728</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 68</div>
+                        <div><i class="fas fa-bug"></i> Issues: 7</div>
+                        <div><i class="fas fa-plus-square text-secondary-color"></i> 当日增: <span class="star-increase">1153</span></div>
+                    </div>
+                    <div class="project-lang-chart">
+                        <div class="lang-color-11" style="width: 98.1%;">Jupyter Notebook 98.1%</div>
+                        <div class="lang-color-1" style="width: 1.9%;">Python 1.9%</div>
+                    </div>
+                    <p class="small-text mt-4"><strong>增长分析:</strong> 4天内4次上榜，总增2916星，今日增长1153星超平均，持续活跃。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/anthropics/courses" target="_blank" class="text-primary-color">anthropics/courses</a></h3>
+                    <p class="small-text text-gray-600">项目简介: Anthropic 的教育课程</p>
+                    <p class="mt-4"><strong>项目速读:</strong> Anthropic官方教育资源集，系统指导高效使用Claude大模型API。包含5门课程，覆盖API调用到高级应用，<strong>实践性强</strong>，Jupyter Notebook形式，需API Key。重要且受欢迎的官方学习起点。</p>
+                    <div class="project-meta-grid">
+                        <div><i class="fas fa-star"></i> Stars: 12.8k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 1.1k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 112</div>
+                        <div><i class="fas fa-bug"></i> Issues: 20</div>
+                        <div><i class="fas fa-plus-square text-secondary-color"></i> 当日增: <span class="star-increase">340</span></div>
+                    </div>
+                    <div class="project-lang-chart">
+                        <div class="lang-color-11" style="width: 99.9%;">Jupyter Notebook 99.9%</div>
+                        <div class="lang-color-1" style="width: 0.1%;">Python 0.1%</div>
+                    </div>
+                    <p class="small-text mt-4"><strong>增长分析:</strong> 4次上榜期间总增2338星，平均每次约217星，今日新增340星，增长呈加速趋势。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/frdel/agent-zero" target="_blank" class="text-primary-color">frdel/agent-zero</a></h3>
+                    <p class="small-text text-gray-600">项目简介: Agent Zero AI 框架</p>
+                    <p class="mt-4"><strong>项目速读:</strong> 个人用户自学习、自成长智能体框架。能利用计算机能力协助完成开发、数据分析等任务。核心是<strong>灵活性与透明可定制性</strong>，通过学习、编写和执行代码完成任务。注意安全风险，建议Docker运行。</p>
+                    <div class="project-meta-grid">
+                        <div><i class="fas fa-star"></i> Stars: 7.1k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 1.5k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 196</div>
+                        <div><i class="fas fa-bug"></i> Issues: 102</div>
+                        <div><i class="fas fa-plus-square text-secondary-color"></i> 当日增: <span class="star-increase">68</span></div>
+                    </div>
+                    <div class="project-lang-chart">
+                        <div class="lang-color-1" style="width: 49.2%;">Python 49.2%</div>
+                        <div class="lang-color-any" style="width: 24.8%; background-color:#f1e05a">JavaScript 24.8%</div>
+                        <div class="lang-color-8" style="width: 14.0%;">HTML 14.0%</div>
+                        <div class="lang-color-4" style="width: 11.0%;">CSS 11.0%</div>
+                        <div class="lang-color-other" style="width: 1.0%;">Other 1.0%</div>
+                    </div>
+                    <p class="small-text mt-4"><strong>增长分析:</strong> 极短期内2次上榜，总增长255，日增68。增长强劲，呈加速趋势。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/onlook-dev/onlook" target="_blank" class="text-primary-color">onlook-dev/onlook</a></h3>
+                    <p class="small-text text-gray-600">项目简介: 面向设计师的光标 · 开源可视化风格编码编辑器 · 借助 AI 可视化地构建、样式化和编辑你的 React 应用</p>
+                    <p class="mt-4"><strong>项目速读:</strong> 面向设计师和开发者的**开源可视化代码编辑器**，弥合设计与代码鸿沟。核心是可视化编辑与底层代码（Next.js/TailwindCSS）实时双向同步，集成AI辅助。加速React开发流程。</p>
+                    <div class="project-meta-grid">
+                        <div><i class="fas fa-star"></i> Stars: 10.2k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 627</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 46</div>
+                        <div><i class="fas fa-bug"></i> Issues: 197</div>
+                        <div><i class="fas fa-plus-square text-secondary-color"></i> 当日增: <span class="star-increase">128</span></div>
+                    </div>
+                    <div class="project-lang-chart">
+                        <div class="lang-color-2" style="width: 98.6%;">TypeScript 98.6%</div>
+                        <div class="lang-color-other" style="width: 1.4%;">Other 1.4%</div>
+                    </div>
+                    <p class="small-text mt-4"><strong>增长分析:</strong> 该仓库在极短周期（两天）实际上榜2次，总星增长440，显示高活跃度。今日新增128星略高于平均，增长势头强劲且持续。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/imputnet/cobalt" target="_blank" class="text-primary-color">imputnet/cobalt</a></h3>
+                    <p class="small-text text-gray-600">项目简介: 保存你所爱之物的最佳方式</p>
+                    <p class="mt-4"><strong>项目速读:</strong> 功能强大、界面纯粹的**媒体下载工具**。核心优势是极致无干扰体验，无广告、跟踪器、付费墙。创新流式处理技术，高效传输。基于Svelte，三万多星标。</p>
+                    <div class="project-meta-grid">
+                        <div><i class="fas fa-star"></i> Stars: 32.6k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 2.7k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 133</div>
+                        <div><i class="fas fa-bug"></i> Issues: 145</div>
+                        <div><i class="fas fa-plus-square text-secondary-color"></i> 当日增: <span class="star-increase">50</span></div>
+                    </div>
+                    <div class="project-lang-chart">
+                        <div class="lang-color-9" style="width: 42.4%;">Svelte 42.4%</div>
+                        <div class="lang-color-any" style="width: 38.2%; background-color:#f1e05a">JavaScript 38.2%</div>
+                        <div class="lang-color-2" style="width: 17.3%;">TypeScript 17.3%</div>
+                        <div class="lang-color-4" style="width: 1.6%;">CSS 1.6%</div>
+                        <div class="lang-color-other" style="width: 0.5%;">Other 0.5%</div>
+                    </div>
+                    <p class="small-text mt-4"><strong>增长分析:</strong> 首次上榜，单日增长50星，直接进入热门榜单，显示巨大潜力。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/donnemartin/system-design-primer" target="_blank" class="text-primary-color">donnemartin/system-design-primer</a></h3>
+                    <p class="small-text text-gray-600">项目简介: 学习如何设计大规模系统。准备系统设计面试。包含 Anki 闪卡。</p>
+                    <p class="mt-4"><strong>项目速读:</strong> 极其流行和实用的**系统设计学习资源**，专注于高可用、可扩展分布式系统设计，尤其助工程师准备面试。提供原理、组件、面试问题解析及Anki抽认卡。百万星标证明其价值。</p>
+                    <div class="project-meta-grid">
+                        <div><i class="fas fa-star"></i> Stars: 302k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 50k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 6.7k</div>
+                        <div><i class="fas fa-bug"></i> Issues: 239</div>
+                        <div><i class="fas fa-plus-square text-secondary-color"></i> 当日增: <span class="star-increase">404</span></div>
+                    </div>
+                    <div class="project-lang-chart">
+                        <div class="lang-color-1" style="width: 98.0%;">Python 98.0%</div>
+                        <div class="lang-color-10" style="width: 2.0%;">Shell 2.0%</div>
+                    </div>
+                    <p class="small-text mt-4"><strong>增长分析:</strong> 统计期内（上榜9次）总增9321星，平均每次新增约249，增长趋势强劲且持续，仓库吸引力高。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/Flowseal/zapret-discord-youtube" target="_blank" class="text-primary-color">Flowseal/zapret-discord-youtube</a></h3>
+                    <p class="small-text text-gray-600">项目简介: 适用于 Windows 用户的 Discord 和 YouTube 封锁绕过工具</p>
+                    <p class="mt-4"><strong>项目速读:</strong> 专为Windows用户打造的**网络封锁绕过工具**。通过预打包的批处理脚本和流量拦截技术实现“即插即用”，解决特定网站访问问题。易用性极高，一万三千多星标。</p>
+                    <div class="project-meta-grid">
+                        <div><i class="fas fa-star"></i> Stars: 13.2k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 897</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 130</div>
+                        <div><i class="fas fa-bug"></i> Issues: 1.3k</div>
+                        <div><i class="fas fa-plus-square text-secondary-color"></i> 当日增: <span class="star-increase">19</span></div>
+                    </div>
+                    <div class="project-lang-chart">
+                        <div class="lang-color-7" style="width: 100.0%;">Batchfile 100.0%</div>
+                    </div>
+                    <p class="small-text mt-4"><strong>增长分析:</strong> 仓库在约2.5月内上榜4次，平均每次增星48.8。虽上榜次数不多，总星增长达2027，整体增长态势积极。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/elebumm/RedditVideoMakerBot" target="_blank" class="text-primary-color">elebumm/RedditVideoMakerBot</a></h3>
+                    <p class="small-text text-gray-600">项目简介: 只需一个命令，即可制作 Reddit 视频</p>
+                    <p class="mt-4"><strong>项目速读:</strong> Python自动化工具，将Reddit帖子和评论**转化为短视频**。通过简单配置和一条命令自动抓取、整合素材、输出MP4。解决视频创作者痛点，提供“一键式”体验。</p>
+                    <div class="project-meta-grid">
+                        <div><i class="fas fa-star"></i> Stars: 7k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 2k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 88</div>
+                        <div><i class="fas fa-bug"></i> Issues: 23</div>
+                        <div><i class="fas fa-plus-square text-secondary-color"></i> 当日增: <span class="star-increase">72</span></div>
+                    </div>
+                    <div class="project-lang-chart">
+                        <div class="lang-color-1" style="width: 65.0%;">Python 65.0%</div>
+                        <div class="lang-color-8" style="width: 30.3%;">HTML 30.3%</div>
+                        <div class="lang-color-10" style="width: 4.4%;">Shell 4.4%</div>
+                        <div class="lang-color-other" style="width: 0.3%;">Other 0.3%</div>
+                    </div>
+                    <p class="small-text mt-4"><strong>增长分析:</strong> 首次上榜，日增72星，显示项目与社区需求高度匹配。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/trimstray/the-book-of-secret-knowledge" target="_blank" class="text-primary-color">trimstray/the-book-of-secret-knowledge</a></h3>
+                    <p class="small-text text-gray-600">项目简介: 启发性的列表、手册、速查表、博客、技巧、单行命令、命令行/网页工具等资源的合集。</p>
+                    <p class="mt-4"><strong>项目速读:</strong> 精选技术知识库，汇集大量实用命令行工具、网络资源、技巧等**第一手资料**。解决技术信息爆炸与碎片化问题。对于系统管理员、DevOps工程师等是高效助手。庞大星数证明其“秘密武器”价值。</p>
+                    <div class="project-meta-grid">
+                        <div><i class="fas fa-star"></i> Stars: 172k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 10.7k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 2.6k</div>
+                        <div><i class="fas fa-bug"></i> Issues: 0</div>
+                        <div><i class="fas fa-plus-square text-secondary-color"></i> 当日增: <span class="star-increase">510</span></div>
+                    </div>
+                    <div class="project-lang-chart">
+                        <!-- No language percentages provided, so just a general bar or skip if not relevant -->
+                        <div class="lang-color-other" style="width: 100%;">Languages Not Specified</div>
+                    </div>
+                    <p class="small-text mt-4"><strong>增长分析:</strong> 仓库在约一个多月内总增长6477星。得益于7次上榜，平均每次上榜带来超640星，显示出良好的可见性和持续吸引力。近期增长510星，表明增长仍在继续，但可能略低于上榜高峰。总体呈显著增长趋势。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/microsoft/ai-agents-for-beginners" target="_blank" class="text-primary-color">microsoft/ai-agents-for-beginners</a></h3>
+                    <p class="small-text text-gray-600">项目简介: 构建 AI Agent 入门的 11 条秘诀</p>
+                    <p class="mt-4"><strong>项目速读:</strong> 微软开源课程，为初学者提供**构建AI Agent系统指导**。含11节课程，结合实践代码（Jupyter Notebook），基于Semantic Kernel、AutoGen等框架。多语言支持，AI Agent入门理想资源。</p>
+                    <div class="project-meta-grid">
+                        <div><i class="fas fa-star"></i> Stars: 23.3k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 6.2k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 244</div>
+                        <div><i class="fas fa-bug"></i> Issues: 8</div>
+                        <div><i class="fas fa-plus-square text-secondary-color"></i> 当日增: <span class="star-increase">435</span></div>
+                    </div>
+                    <div class="project-lang-chart">
+                        <div class="lang-color-11" style="width: 94.0%;">Jupyter Notebook 94.0%</div>
+                        <div class="lang-color-1" style="width: 5.9%;">Python 5.9%</div>
+                        <div class="lang-color-other" style="width: 0.1%;">Dockerfile 0.1%</div>
+                    </div>
+                    <p class="small-text mt-4"><strong>增长分析:</strong> 该仓库在约两月内增长18218 Star，平均每次上榜增470星。14次上榜是核心，表明其增长持续稳定，并非一次性爆发，显示出持续获得关注的强劲态势。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/coleam00/local-ai-packaged" target="_blank" class="text-primary-color">coleam00/local-ai-packaged</a></h3>
+                    <p class="small-text text-gray-600">项目简介: 在一个软件包中统一运行所有本地AI服务：Ollama, Supabase, n8n, Open WebUI 等！</p>
+                    <p class="mt-4"><strong>项目速读:</strong> 开箱即用的Docker Compose模板，**简化本地AI开发环境搭建**。集成Ollama、Supabase、n8n等热门工具，形成功能齐全、注重隐私的自托管AI平台。理想的私有AI应用构建选择。</p>
+                    <div class="project-meta-grid">
+                        <div><i class="fas fa-star"></i> Stars: 1.5k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 654</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 46</div>
+                        <div><i class="fas fa-bug"></i> Issues: 18</div>
+                        <div><i class="fas fa-plus-square text-secondary-color"></i> 当日增: <span class="star-increase">181</span></div>
+                    </div>
+                    <div class="project-lang-chart">
+                        <div class="lang-color-1" style="width: 100.0%;">Python 100.0%</div>
+                    </div>
+                    <p class="small-text mt-4"><strong>增长分析:</strong> 该仓库在短短3天内两次上榜，表现出较高热度。每次上榜均带来显著Star增长，平均每次超百，总增253。特别是今日新增181，增长势头强劲，显示出持续吸引力。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/syncthing/syncthing" target="_blank" class="text-primary-color">syncthing/syncthing</a></h3>
+                    <p class="small-text text-gray-600">项目简介: 开源持续文件同步</p>
+                    <p class="mt-4"><strong>项目速读:</strong> 广受欢迎的开源**安全、可靠持续文件同步服务**。去中心化点对点连接和端到端加密，保护数据隐私，无需第三方服务器。Go语言开发，跨平台兼容。重视数据安全的个人和团队的信赖选择。</p>
+                    <div class="project-meta-grid">
+                        <div><i class="fas fa-star"></i> Stars: 71.1k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 4.6k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 1k</div>
+                        <div><i class="fas fa-bug"></i> Issues: 328</div>
+                        <div><i class="fas fa-plus-square text-secondary-color"></i> 当日增: <span class="star-increase">57</span></div>
+                    </div>
+                    <div class="project-lang-chart">
+                        <div class="lang-color-5" style="width: 82.6%;">Go 82.6%</div>
+                        <div class="lang-color-8" style="width: 6.9%;">HTML 6.9%</div>
+                        <div class="lang-color-any" style="width: 5.3%; background-color:#f1e05a">JavaScript 5.3%</div>
+                        <div class="lang-color-2" style="width: 2.6%;">TypeScript 2.6%</div>
+                        <div class="lang-color-10" style="width: 1.7%;">Shell 1.7%</div>
+                        <div class="lang-color-other" style="width: 0.9%;">Other 0.9%</div>
+                    </div>
+                    <p class="small-text mt-4"><strong>增长分析:</strong> 短短两天内两次上榜，该仓库共增长356个Star，平均每次上榜增加44个。今天的57个新增Star已超过平均值，表明增长势头强劲且呈上升趋势。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/nautechsystems/nautilus_trader" target="_blank" class="text-primary-color">nautechsystems/nautilus_trader</a></h3>
+                    <p class="small-text text-gray-600">项目简介: 高性能算法交易平台和事件驱动回测引擎</p>
+                    <p class="mt-4"><strong>项目速读:</strong> 高性能、生产级**算法交易平台**。Rust核心极致性能，同一套Python代码回测与实时交易，解决传统回测与实盘割裂。灵活事件驱动架构，支持高频交易。量化团队的强大可靠选择。</p>
+                    <div class="project-meta-grid">
+                        <div><i class="fas fa-star"></i> Stars: 6.1k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 868</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 94</div>
+                        <div><i class="fas fa-bug"></i> Issues: 84</div>
+                        <div><i class="fas fa-plus-square text-secondary-color"></i> 当日增: <span class="star-increase">9</span></div>
+                    </div>
+                    <div class="project-lang-chart">
+                        <div class="lang-color-1" style="width: 43.2%;">Python 43.2%</div>
+                        <div class="lang-color-any" style="width: 38.8%; background-color:#dea584">Rust 38.8%</div>
+                        <div class="lang-color-any" style="width: 17.3%; background-color:#adeaa9">Cython 17.3%</div>
+                        <div class="lang-color-6" style="width: 0.6%;">C 0.6%</div>
+                        <div class="lang-color-10" style="width: 0.1%;">Shell 0.1%</div>
+                        <div class="lang-color-other" style="width: 0.0%;">Makefile 0.0%</div>
+                    </div>
+                    <p class="small-text mt-4"><strong>增长分析:</strong> 仓库在此期间总增长835星，但仅上榜2次，平均每次上榜增32星。这表明大部分增长并非来自上榜带来的爆发，增长相对稳健但未持续达到榜单热度。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/assimp/assimp" target="_blank" class="text-primary-color">assimp/assimp</a></h3>
+                    <p class="small-text text-gray-600">项目简介: Open-Asset-Importer-Library 官方仓库。将 40 多种 3D 文件格式加载到一个统一且整洁的数据结构中。</p>
+                    <p class="mt-4"><strong>项目速读:</strong> Assimp开源库堪称3D资产的“万能翻译器”。它解决了各种3D模型文件格式互不兼容的难题，能将超过40种主流格式统一导入并转换为整洁的数据结构。其核心优势在于广泛的格式支持、便捷的跨平台使用以及强大的模型后处理能力。</p>
+                    <div class="project-meta-grid">
+                        <div><i class="fas fa-star"></i> Stars: 11.7k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 3k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 308</div>
+                        <div><i class="fas fa-bug"></i> Issues: 32</div>
+                        <div><i class="fas fa-plus-square text-secondary-color"></i> 当日增: <span class="star-increase">12</span></div>
+                    </div>
+                    <div class="project-lang-chart">
+                        <div class="lang-color-6" style="width: 70.1%;">C++ 70.1%</div>
+                        <div class="lang-color-any" style="width: 11.3%; background-color:#244783">COBOL 11.3%</div>
+                        <div class="lang-color-any" style="width: 10.7%; background-color:#555555">C 10.7%</div>
+                        <div class="lang-color-1" style="width: 2.4%;">Python 2.4%</div>
+                        <div class="lang-color-other" style="width: 5.5%;">Other 5.5%</div>
+                    </div>
+                    <p class="small-text mt-4"><strong>增长分析:</strong> 首次上榜，单日增长12星，显示其在特定领域的稳健需求。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/mui/mui-x" target="_blank" class="text-primary-color">mui/mui-x</a></h3>
+                    <p class="small-text text-gray-600">项目简介: MUI X: 使用越来越多的高级 React 组件，诸如数据网格、日期和时间选择器、图表等，构建复杂且数据丰富的应用程序！</p>
+                    <p class="mt-4"><strong>项目速读:</strong> MUI X 是一个专注于 React 框架的高级 UI 组件库，旨在帮助开发者高效构建复杂且数据丰富的企业级应用界面。它解决了标准 UI 库在处理大量数据和提供高级交互功能时遇到的挑战。</p>
+                    <div class="project-meta-grid">
+                        <div><i class="fas fa-star"></i> Stars: 5.1k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 1.5k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 60</div>
+                        <div><i class="fas fa-bug"></i> Issues: 1.4k</div>
+                        <div><i class="fas fa-plus-square text-secondary-color"></i> 当日增: <span class="star-increase">36</span></div>
+                    </div>
+                    <div class="project-lang-chart">
+                        <div class="lang-color-2" style="width: 96.2%;">TypeScript 96.2%</div>
+                        <div class="lang-color-any" style="width: 3.7%; background-color:#f1e05a">JavaScript 3.7%</div>
+                        <div class="lang-color-other" style="width: 0.1%;">Other 0.1%</div>
+                    </div>
+                    <p class="small-text mt-4"><strong>增长分析:</strong> 该仓库在极短周期内实际上榜2次，可见度良好。期间总Star增长164。最近一次新增达36，高于平均，表明近期增长势头强劲并有所加速。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/googleapis/go-genai" target="_blank" class="text-primary-color">googleapis/go-genai</a></h3>
+                    <p class="small-text text-gray-600">项目简介: Google 生成式 AI Go SDK 提供了一个接口，供开发者将 Google 的生成式模型集成到其 Go 应用中。</p>
+                    <p class="mt-4"><strong>项目速读:</strong> 这是 Google 官方推出的 Go 语言生成式 AI 开发工具包。它为 Go 开发者打开了通往 Google 先进 AI 模型（如 Gemini）的大门，让你轻松在 Go 应用中实现智能内容生成和理解。率先支持 Gemini 多模态 Live 功能。</p>
+                    <div class="project-meta-grid">
+                        <div><i class="fas fa-star"></i> Stars: 329</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 49</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 36</div>
+                        <div><i class="fas fa-bug"></i> Issues: 7</div>
+                        <div><i class="fas fa-plus-square text-secondary-color"></i> 当日增: <span class="star-increase">4</span></div>
+                    </div>
+                    <div class="project-lang-chart">
+                        <div class="lang-color-5" style="width: 100.0%;">Go 100.0%</div>
+                    </div>
+                    <p class="small-text mt-4"><strong>增长分析:</strong> 首次上榜，单日增长4星，作为官方SDK，潜力巨大，需持续观察。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/GeostatsGuy/DataScienceInteractivePython" target="_blank" class="text-primary-color">GeostatsGuy/DataScienceInteractivePython</a></h3>
+                    <p class="small-text text-gray-600">项目简介: 用于学习数据科学的 Python 交互式仪表盘</p>
+                    <p class="mt-4"><strong>项目速读:</strong> DataScienceInteractivePython 仓库提供一系列用 Python 构建的交互式学习面板，专注于帮助数据科学、统计学及地质统计学的学生或爱好者更好地理解复杂概念。其最大亮点在于利用 ipywidgets 等技术实现的直观互动性。</p>
+                    <div class="project-meta-grid">
+                        <div><i class="fas fa-star"></i> Stars: 1.4k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 278</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 32</div>
+                        <div><i class="fas fa-bug"></i> Issues: 4</div>
+                        <div><i class="fas fa-plus-square text-secondary-color"></i> 当日增: <span class="star-increase">103</span></div>
+                    </div>
+                    <div class="project-lang-chart">
+                        <div class="lang-color-11" style="width: 100.0%;">Jupyter Notebook 100.0%</div>
+                    </div>
+                    <p class="small-text mt-4"><strong>增长分析:</strong> 首次上榜，日增103星，显示出社区对交互式学习资源的高需求。</p>
+                </section>
+            </section>
+
+            <!-- Slide End: Thank You/Call to Action -->
+            <section class="end-slide">
+                <h2 data-auto-animate>感谢观看！</h2>
+                <p data-auto-animate-delay="0.1" class="mt-4">关注我们，持续获取AI前沿洞察！</p>
+                <p data-auto-animate-delay="0.2" class="mt-2">我们致力于为您带来最新、最实用的技术趋势分析与学习资源。</p>
+                <div class="github-link-qr">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        <i class="fab fa-github"></i> https://github.com/aichipera/github-trend
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="微信二维码">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Reveal.js JavaScript Core -->
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <!-- Reveal.js Plugins (if needed, e.g., markdown, highlight, notes) -->
+    <!-- <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js"></script> -->
+    <!-- <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js"></script> -->
+    <!-- <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js"></script> -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+
+    <script>
+        // Initialize Reveal.js
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            hash: true,
+            transition: 'slide', // Fading, sliding, concave, convex, zoom
+            transitionSpeed: 'fast', // default, fast, slow
+            backgroundTransition: 'fade', // slide, fade, convex, concave, zoom
+
+            // Optional: A list of plugins to initialize
+            plugins: [
+                // RevealMarkdown, // Uncomment if Markdown is used within <section data-markdown>
+                // RevealHighlight, // Uncomment if code highlighting is desired
+                // RevealNotes // Uncomment if presenter notes are used
+            ]
+        });
+
+        // Initialize Mermaid for diagrams
+        mermaid.initialize({ startOnLoad: false });
+    </script>
+</body>
+</html>
