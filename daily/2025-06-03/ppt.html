@@ -1,0 +1,1025 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>效率狂飙！GitHub热门榜揭秘</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* 全局字体设置 */
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback",
+                          "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+        }
+        /* 标题字体使用衬线字体 */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', serif;
+        }
+
+        /* Reveal.js 字体大小调整 */
+        .reveal h1 { font-size: 3rem; }
+        .reveal h2 { font-size: 2.5rem; }
+        .reveal h3 { font-size: 2rem; }
+        .reveal p, .reveal li, .reveal table { font-size: 1.2rem; }
+        /* 辅助类字体大小 */
+        .reveal .text-lg { font-size: 1.2rem; }
+        .reveal .text-xl { font-size: 1.4rem; }
+        .reveal .text-2xl { font-size: 1.8rem; }
+        .reveal .text-3xl { font-size: 2.2rem; }
+        .reveal .text-4xl { font-size: 2.8rem; }
+        .reveal .text-5xl { font-size: 3.5rem; }
+        .reveal .text-6xl { font-size: 4rem; }
+
+        /* 背景图效果 */
+        .reveal .slides section .slide-background {
+            background-position: center center;
+            background-size: cover;
+        }
+        .reveal .slide-background-content {
+            filter: brightness(0.8) grayscale(0.5); /* 柔和的背景效果 */
+        }
+        .gradient-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.7)); /* 渐变叠加层，提升文字可读性 */
+            z-index: -1;
+        }
+
+        /* 页脚链接样式 */
+        .footer-links {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+            z-index: 10;
+        }
+        .footer-links img {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+        }
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        /* Aha moment 强调色 */
+        .aha-highlight {
+            color: #FFD700; /* 金色 */
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+        }
+
+        /* Fragment 动画效果 */
+        .fragment.grow {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.6s ease-in-out;
+        }
+        .fragment.grow.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* 表格样式 */
+        .reveal table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1.1rem; /* 稍微调整表格文字大小 */
+        }
+        .reveal table th,
+        .reveal table td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        .reveal table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            color: #333;
+        }
+        .reveal table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover Page (封面页) -->
+            <section
+                data-background-image="https://images.unsplash.com/photo-1596496660819-2169b1779940?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTUyOTd8MHwxfHNlYXJjaHwyMHx8QWklMjB0ZWNobm9sb2d5JTIwcGFuZWx8ZW58MHx8fHwxNjk5MjI3Mzc2fDA&ixlib=rb-4.0.3&q=80&w=1080"
+                data-background-transition="zoom"
+                class="relative text-white flex flex-col items-center justify-center text-center"
+            >
+                <div class="gradient-overlay"></div>
+                <h1 class="text-5xl md:text-6xl lg:text-7xl mb-4 font-bold aha-highlight">
+                    效率狂飙！GitHub热门榜揭秘
+                </h1>
+                <h2 class="text-2xl md:text-3xl lg:text-4xl mb-8">
+                    开发者都在偷偷用的AI和效率工具！
+                </h2>
+                <p class="text-xl">演讲者：AIChipEra</p>
+                <div class="footer-links">
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        https://github.com/aichipera/github-trend
+                    </a>
+                </div>
+            </section>
+
+            <!-- Slide 2: Disclaimer & Date (免责声明与观测日期) -->
+            <section data-background-color="#f8f8f8">
+                <div class="p-8 text-center flex flex-col items-center justify-center h-full">
+                    <h3 class="text-4xl text-gray-800 mb-6 font-bold">
+                        免责声明
+                    </h3>
+                    <p class="text-xl text-gray-700 leading-relaxed max-w-3xl">
+                        <span class="font-bold text-red-600">以下内容仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</span>
+                    </p>
+                    <p class="text-lg text-gray-500 mt-8">
+                        Github热门仓库<span class="font-bold">日报</span>观测时间：<br>
+                        <span class="font-mono text-xl text-gray-600">2025-06-03 20:25:03</span>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Slide 3: 日报要点 - Main Aha moment (核心观点，带来Aha时刻) -->
+            <section data-background-image="https://images.unsplash.com/photo-1516110996841-f633ed739414?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTUyOTd8MHwxfHNlYXJjaHwxNXx8bGlnaHQlMjBidXJiJTIwYmFja2dyb3VuZCUyMGFicy58ZW58MHx8fHwxNjk5MjI4NTk1fDA&ixlib=rb-4.0.3&q=80&w=1080"
+                data-background-transition="fade">
+                <div class="gradient-overlay"></div>
+                <h2 class="text-white text-5xl mb-8 font-bold aha-highlight text-center">
+                    日报要点：效率工具引爆GitHub！
+                </h2>
+                <div class="text-white text-2xl leading-relaxed max-w-4xl mx-auto">
+                    <p class="fragment" data-fragment-index="1">
+                        <i class="fas fa-chart-line text-green-400 mr-3"></i>
+                        开发者关注点巨变：<span class="aha-highlight">从框架转向实用工具！</span>
+                    </p>
+                    <p class="fragment" data-fragment-index="2">
+                        <i class="fas fa-robot text-purple-400 mr-3"></i>
+                        <span class="font-bold">AI、自动化、效率工具</span>成为绝对焦点。
+                    </p>
+                    <p class="fragment" data-fragment-index="3">
+                        <i class="fas fa-bolt text-yellow-400 mr-3"></i>
+                        广泛应用于智能交易、内容生成、日常工作流，<span class="aha-highlight">告别重复内卷！</span>
+                    </p>
+                    <p class="fragment" data-fragment-index="4">
+                        <i class="fas fa-rocket text-red-400 mr-3"></i>
+                        <span class="font-bold">惊人增长：</span>有项目单日星标暴增 <span class="text-4xl aha-highlight">2300+</span>！
+                    </p>
+                    <p class="fragment grow" data-fragment-index="5">
+                        <i class="fas fa-fire text-orange-400 mr-3"></i>
+                        这背后是开发者对<span class="aha-highlight">效率和解决实际问题的迫切需求！</span>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Slide 4: 热门项目趋势分析 - 今日整体趋势 -->
+            <section data-background-color="#e0f2f7">
+                <h2 class="text-4xl text-gray-800 mb-6 font-bold text-center">
+                    热门项目趋势分析：今日整体趋势
+                </h2>
+                <div class="grid grid-cols-2 gap-6 text-gray-700 text-xl">
+                    <div class="col-span-2 fragment" data-fragment-index="1">
+                        <p class="mb-4">
+                            <i class="fas fa-brain text-blue-600 mr-3"></i>
+                            <span class="font-bold">核心聚焦：</span>
+                            <span class="aha-highlight">AI与自动化</span> &amp; <span class="font-bold">效率工具</span>
+                        </p>
+                    </div>
+                    <div class="fragment" data-fragment-index="2">
+                        <p class="mb-2"><i class="fas fa-cogs text-teal-600 mr-3"></i><span class="font-bold">应用广泛：</span>可视化开发、算法交易、智能代理、内容生成等。</p>
+                        <p class="mb-2"><i class="fas fa-book-open text-indigo-600 mr-3"></i><span class="font-bold">学习资源：</span>基础技术与数据工程、系统设计持续受关注。</p>
+                        <p class="mb-2"><i class="fas fa-puzzle-piece text-green-600 mr-3"></i><span class="font-bold">务实导向：</span>解决特定垂直领域痛点，弥合技术鸿沟。</p>
+                    </div>
+                    <div class="fragment" data-fragment-index="3">
+                        <p class="mb-2"><i class="fab fa-python text-yellow-600 mr-3"></i><span class="font-bold">技术栈：</span>Python主导AI/数据，TypeScript/JS流行前端/工具。</p>
+                        <p class="mb-2"><i class="fas fa-shield-alt text-red-600 mr-3"></i><span class="font-bold">用户需求：</span>性能、数据控制（自托管）、绕过限制。</p>
+                        <p class="mb-2"><i class="fas fa-chart-pie text-purple-600 mr-3"></i><span class="font-bold">未来趋势：</span>AI更嵌入式/个性化，本地化方案兴起，AI代理更智能。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5: 热门项目双日维度对比分析 -->
+            <section data-background-color="#f0fdf4">
+                <h2 class="text-4xl text-gray-800 mb-6 font-bold text-center">
+                    热门项目对比：今日 vs 昨日
+                </h2>
+                <div class="text-gray-700 text-xl leading-relaxed">
+                    <p class="fragment" data-fragment-index="1">
+                        <i class="fas fa-plus-circle text-green-500 mr-3"></i>
+                        <span class="font-bold">新晋项目 (6个)：</span>数据工程手册、项目管理、AI/ML研究等，多样性凸显。
+                    </p>
+                    <p class="fragment" data-fragment-index="2">
+                        <i class="fas fa-arrow-alt-circle-up text-blue-500 mr-3"></i>
+                        <span class="font-bold">上升趋势 (6个)：</span>榜单整体热度稳定，且有新鲜血液注入。
+                    </p>
+                    <p class="fragment" data-fragment-index="3">
+                        <i class="fas fa-code text-gray-500 mr-3"></i>
+                        <span class="font-bold">语言分布：</span>Python/Java/Go略减，JavaScript增加，Batchfile项目跻身热门。
+                    </p>
+                    <p class="fragment fade-in-then-semi-out" data-fragment-index="4">
+                        <span class="text-5xl aha-highlight font-bold relative inline-block">
+                            <i class="fas fa-fire absolute -top-4 -left-8 text-orange-400 opacity-75 animate-pulse"></i>
+                            惊人涨幅！
+                            <span class="block text-2xl text-white-400 mt-2">onlook-dev/onlook 单日暴增</span>
+                            <span class="block text-6xl aha-highlight">2300+ Stars！</span>
+                            <span class="block text-lg text-gray-300 mt-2">（此数据来自内部统计，与详细仓库数据中的当日增长数可能存在统计口径差异）</span>
+                        </span>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Slide 6: 热点变化 -->
+            <section data-background-color="#fefce8">
+                <h2 class="text-4xl text-gray-800 mb-6 font-bold text-center">
+                    热点项目动态
+                </h2>
+                <div class="grid grid-cols-2 gap-4 text-gray-700 text-xl leading-relaxed">
+                    <div class="fragment" data-fragment-index="1">
+                        <h3 class="text-2xl text-green-700 mb-3 font-bold">
+                            <i class="fas fa-star text-green-500 mr-3"></i>新增热点
+                        </h3>
+                        <ul class="list-none pl-0">
+                            <li><i class="fas fa-angle-right text-green-400 mr-2"></i>wordpress/gutenberg</li>
+                            <li><i class="fas fa-angle-right text-green-400 mr-2"></i>yeongpin/cursor-free-vip</li>
+                            <li><i class="fas fa-angle-right text-green-400 mr-2"></i>plankanban/planka</li>
+                            <li><i class="fas fa-angle-right text-green-400 mr-2"></i>flowseal/zapret-discord-youtube</li>
+                            <li><i class="fas fa-angle-right text-green-400 mr-2"></i>black-forest-labs/flux</li>
+                            <li><i class="fas fa-angle-right text-green-400 mr-2"></i>dataexpert-io/data-engineer-handbook</li>
+                        </ul>
+                    </div>
+                    <div class="fragment" data-fragment-index="2">
+                        <h3 class="text-2xl text-red-700 mb-3 font-bold">
+                            <i class="fas fa-minus-circle text-red-500 mr-3"></i>减退热点
+                        </h3>
+                        <ul class="list-none pl-0">
+                            <li><i class="fas fa-angle-right text-red-400 mr-2"></i>termux/termux-app</li>
+                            <li><i class="fas fa-angle-right text-red-400 mr-2"></i>syncthing/syncthing</li>
+                            <li><i class="fas fa-angle-right text-red-400 mr-2"></i>assimp/assimp</li>
+                            <li><i class="fas fa-angle-right text-red-400 mr-2"></i>mervinpraison/praisonai</li>
+                            <li><i class="fas fa-angle-right text-red-400 mr-2"></i>anthropics/prompt-eng-interactive-tutorial</li>
+                            <li><i class="fas fa-angle-right text-red-400 mr-2"></i>modsetter/surfsense</li>
+                            <li><i class="fas fa-angle-right text-red-400 mr-2"></i>virattt/ai-hedge-fund</li>
+                            <li><i class="fas fa-angle-right text-red-400 mr-2"></i>anthropics/courses</li>
+                            <li><i class="fas fa-angle-right text-red-400 mr-2"></i>ok-oldking/ok-wuthering-waves</li>
+                        </ul>
+                    </div>
+                    <div class="col-span-2 fragment" data-fragment-index="3">
+                        <h3 class="text-2xl text-blue-700 mb-3 font-bold">
+                            <i class="fas fa-infinity text-blue-500 mr-3"></i>持续热门 (多次上榜)
+                        </h3>
+                        <ul class="list-none pl-0">
+                            <li><i class="fas fa-angle-right text-blue-400 mr-2"></i>onlook-dev/onlook <span class="font-bold">(4次)</span></li>
+                            <li><i class="fas fa-angle-right text-blue-400 mr-2"></i>nautechsystems/nautilus_trader <span class="font-bold">(3次)</span></li>
+                            <li><i class="fas fa-angle-right text-blue-400 mr-2"></i>frdel/agent-zero <span class="font-bold">(4次)</span></li>
+                            <li><i class="fas fa-angle-right text-blue-400 mr-2"></i>donnemartin/system-design-primer <span class="font-bold">(3次)</span></li>
+                            <li><i class="fas fa-angle-right text-blue-400 mr-2"></i>elebumm/RedditVideoMakerBot <span class="font-bold">(3次)</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7: 详细仓库数据 - Introduction (详细数据介绍) -->
+            <section data-background-color="#f5f5f5">
+                <h2 class="text-5xl text-gray-800 mb-8 font-bold text-center aha-highlight">
+                    详细仓库数据：探索效率利器
+                </h2>
+                <p class="text-2xl text-gray-700 text-center fragment" data-fragment-index="1">
+                    深入剖析每一个能帮你“效率狂飙”的GitHub宝藏项目！
+                </p>
+                <div class="grid grid-cols-2 gap-4 mt-8 text-xl text-gray-600">
+                    <div class="fragment" data-fragment-index="2">
+                        <p><i class="fas fa-lightbulb mr-3 text-yellow-500"></i>项目速读：核心价值与应用场景</p>
+                    </div>
+                    <div class="fragment" data-fragment-index="3">
+                        <p><i class="fas fa-chart-line mr-3 text-green-500"></i>增长分析：洞察项目潜力与趋势</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Detailed Projects (垂直幻灯片展示每个项目) -->
+
+            <!-- Project 1: onlook-dev/onlook -->
+            <section data-background-color="#f8f8ff">
+                <section>
+                    <h3 class="text-4xl text-blue-800 mb-4 font-bold text-center">
+                        <i class="fab fa-react text-blue-500 mr-3"></i>onlook-dev/onlook
+                    </h3>
+                    <p class="text-2xl text-gray-700 mb-6 text-center">
+                        设计师的光标 • 开源可视化风格编码编辑器
+                        <span class="block text-lg">(利用 AI 可视化构建、风格化并编辑你的 React 应用)</span>
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-6 text-gray-700 text-xl">
+                        <div>
+                            <p><i class="fas fa-star text-yellow-500 mr-2"></i>Star 数: <span class="font-bold">13170</span></p>
+                            <p><i class="fas fa-chart-line text-green-500 mr-2"></i>当日 Star 增加: <span class="font-bold text-green-600">624</span></p>
+                            <p><i class="fas fa-history text-purple-500 mr-2"></i>连续在榜/总上榜: <span class="font-bold">4次 / 4次</span></p>
+                            <p><i class="fas fa-code text-indigo-500 mr-2"></i>开发语言: <span class="font-bold">TypeScript</span></p>
+                        </div>
+                        <div>
+                            <p><i class="fas fa-code-branch text-gray-500 mr-2"></i>Forks: 774</p>
+                            <p><i class="fas fa-eye text-gray-500 mr-2"></i>Watchers: 61</p>
+                            <p><i class="fas fa-users text-gray-500 mr-2"></i>Contributors: 77</p>
+                            <p><i class="fas fa-book text-gray-500 mr-2"></i>License: Apache-2.0</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-3xl text-blue-800 mb-4 font-bold">项目速读：设计与代码的无缝桥梁</h3>
+                    <ul class="list-disc pl-8 text-xl leading-relaxed">
+                        <li class="fragment" data-fragment-index="1">
+                            <span class="aha-highlight">可视化构建：</span>像设计工具一样拖拽、编辑，实时反映到代码。
+                        </li>
+                        <li class="fragment" data-fragment-index="2">
+                            <span class="font-bold">双向同步：</span>UI改动即时同步代码，代码调整即时呈现UI。
+                        </li>
+                        <li class="fragment" data-fragment-index="3">
+                            <span class="font-bold">AI辅助：</span>进一步简化开发流程，提升效率。
+                        </li>
+                        <li class="fragment" data-fragment-index="4">
+                            <i class="fas fa-magic text-purple-500 mr-2"></i>
+                            <span class="aha-highlight">核心价值：</span>弥合设计与代码鸿沟，加速Next.js/TailwindCSS开发迭代。
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h3 class="text-3xl text-blue-800 mb-4 font-bold">增长分析：强劲加速，潜力无限</h3>
+                    <p class="text-xl leading-relaxed fragment" data-fragment-index="1">
+                        <i class="fas fa-chart-line text-green-500 mr-2"></i>
+                        <span class="font-bold">连续在榜：</span>4天内连续上榜4次，可见度极高。
+                    </p>
+                    <p class="text-xl leading-relaxed fragment" data-fragment-index="2">
+                        <i class="fas fa-star-of-life text-yellow-500 mr-2"></i>
+                        <span class="font-bold">总星增长：</span>3402星，平均每次上榜增约329星。
+                    </p>
+                    <p class="text-xl leading-relaxed fragment" data-fragment-index="3">
+                        <i class="fas fa-rocket text-red-500 mr-2"></i>
+                        <span class="font-bold aha-highlight">最新增长：</span>单日新增<span class="text-2xl">624星</span>，显著高于平均，<span class="aha-highlight">增长趋势加速，势头强劲！</span>
+                    </p>
+                </section>
+            </section>
+
+            <!-- Project 2: nautechsystems/nautilus_trader -->
+            <section data-background-color="#f0faff">
+                <section>
+                    <h3 class="text-4xl text-green-800 mb-4 font-bold text-center">
+                        <i class="fas fa-chart-area text-green-500 mr-3"></i>nautechsystems/nautilus_trader
+                    </h3>
+                    <p class="text-2xl text-gray-700 mb-6 text-center">
+                        高性能算法交易平台与事件驱动回测器
+                    </p>
+                    <div class="grid grid-cols-2 gap-6 text-gray-700 text-xl">
+                        <div>
+                            <p><i class="fas fa-star text-yellow-500 mr-2"></i>Star 数: <span class="font-bold">6645</span></p>
+                            <p><i class="fas fa-chart-line text-green-500 mr-2"></i>当日 Star 增加: <span class="font-bold text-green-600">231</span></p>
+                            <p><i class="fas fa-history text-purple-500 mr-2"></i>连续在榜/总上榜: <span class="font-bold">3次 / 4次</span></p>
+                            <p><i class="fas fa-code text-indigo-500 mr-2"></i>开发语言: <span class="font-bold">Python, Rust</span></p>
+                        </div>
+                        <div>
+                            <p><i class="fas fa-code-branch text-gray-500 mr-2"></i>Forks: 902</p>
+                            <p><i class="fas fa-eye text-gray-500 mr-2"></i>Watchers: 97</p>
+                            <p><i class="fas fa-users text-gray-500 mr-2"></i>Contributors: 79</p>
+                            <p><i class="fas fa-book text-gray-500 mr-2"></i>License: LGPL-3.0</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-3xl text-green-800 mb-4 font-bold">项目速读：量化交易的性能利器</h3>
+                    <ul class="list-disc pl-8 text-xl leading-relaxed">
+                        <li class="fragment" data-fragment-index="1">
+                            <span class="font-bold">核心：</span>高性能、生产级算法交易平台。
+                        </li>
+                        <li class="fragment" data-fragment-index="2">
+                            <span class="aha-highlight">解决痛点：</span>确保回测与实盘环境<span class="font-bold">完全一致</span>，降低部署风险。
+                        </li>
+                        <li class="fragment" data-fragment-index="3">
+                            <span class="font-bold">技术栈：</span>Rust构建核心（高性能），Python接口（易开发）。
+                        </li>
+                        <li class="fragment" data-fragment-index="4">
+                            <i class="fas fa-tachometer-alt text-red-500 mr-2"></i>
+                            <span class="aha-highlight">价值：</span>从研究到实盘的统一方案，尤其适用于<span class="font-bold">高频交易和AI模型训练</span>。
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h3 class="text-3xl text-green-800 mb-4 font-bold">增长分析：持续上扬，潜力爆发</h3>
+                    <p class="text-xl leading-relaxed fragment" data-fragment-index="1">
+                        <i class="fas fa-calendar-alt text-purple-500 mr-2"></i>
+                        <span class="font-bold">时间周期：</span>约1.5个月内总增长1430 Star。
+                    </p>
+                    <p class="text-xl leading-relaxed fragment" data-fragment-index="2">
+                        <i class="fas fa-medal text-yellow-500 mr-2"></i>
+                        <span class="font-bold">上榜驱动：</span>4次上榜是关键驱动。
+                    </p>
+                    <p class="text-xl leading-relaxed fragment" data-fragment-index="3">
+                        <i class="fas fa-chart-bar text-green-500 mr-2"></i>
+                        <span class="font-bold aha-highlight">近期增速：</span>单日新增<span class="text-2xl">231 Star</span>，远超平均（80.5 Star），<span class="aha-highlight">增长势头显著加快！</span>
+                    </p>
+                </section>
+            </section>
+
+            <!-- Project 3: frdel/agent-zero -->
+            <section data-background-color="#fff8f0">
+                <section>
+                    <h3 class="text-4xl text-orange-800 mb-4 font-bold text-center">
+                        <i class="fas fa-robot text-orange-500 mr-3"></i>frdel/agent-zero
+                    </h3>
+                    <p class="text-2xl text-gray-700 mb-6 text-center">
+                        零号智能体人工智能框架
+                    </p>
+                    <div class="grid grid-cols-2 gap-6 text-gray-700 text-xl">
+                        <div>
+                            <p><i class="fas fa-star text-yellow-500 mr-2"></i>Star 数: <span class="font-bold">7900</span></p>
+                            <p><i class="fas fa-chart-line text-green-500 mr-2"></i>当日 Star 增加: <span class="font-bold text-green-600">436</span></p>
+                            <p><i class="fas fa-history text-purple-500 mr-2"></i>连续在榜/总上榜: <span class="font-bold">4次 / 4次</span></p>
+                            <p><i class="fas fa-code text-indigo-500 mr-2"></i>开发语言: <span class="font-bold">Python, JavaScript</span></p>
+                        </div>
+                        <div>
+                            <p><i class="fas fa-code-branch text-gray-500 mr-2"></i>Forks: 1.6k</p>
+                            <p><i class="fas fa-eye text-gray-500 mr-2"></i>Watchers: 201</p>
+                            <p><i class="fas fa-users text-gray-500 mr-2"></i>Contributors: 16</p>
+                            <p><i class="fas fa-book text-gray-500 mr-2"></i>License: 未知</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-3xl text-orange-800 mb-4 font-bold">项目速读：AI的操作系统级助手</h3>
+                    <ul class="list-disc pl-8 text-xl leading-relaxed">
+                        <li class="fragment" data-fragment-index="1">
+                            <span class="font-bold">定位：</span>通用个人助手AI代理框架。
+                        </li>
+                        <li class="fragment" data-fragment-index="2">
+                            <span class="aha-highlight">核心亮点：</span>将<span class="font-bold">操作系统和终端</span>作为执行环境，灵活调用系统命令和代码。
+                        </li>
+                        <li class="fragment" data-fragment-index="3">
+                            <span class="font-bold">功能：</span>信息收集、文档处理、软件开发、系统管理、网络安全分析等。
+                        </li>
+                        <li class="fragment" data-fragment-index="4">
+                            <i class="fas fa-memory text-blue-500 mr-2"></i>
+                            <span class="font-bold">关键特性：</span>持久记忆、多层级代理协作、高度透明可交互。
+                        </li>
+                        <li class="fragment" data-fragment-index="5">
+                            <span class="text-red-500 font-bold">⚠️注意：</span>直接执行系统命令，请在隔离环境下安全使用！
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h3 class="text-3xl text-orange-800 mb-4 font-bold">增长分析：短期内高速增长</h3>
+                    <p class="text-xl leading-relaxed fragment" data-fragment-index="1">
+                        <i class="fas fa-calendar-check text-purple-500 mr-2"></i>
+                        <span class="font-bold">上榜频繁：</span>短周期内4次上榜，总星数增长1031。
+                    </p>
+                    <p class="text-xl leading-relaxed fragment" data-fragment-index="2">
+                        <i class="fas fa-chart-line text-green-500 mr-2"></i>
+                        <span class="font-bold">平均增长：</span>平均每次增长198星。
+                    </p>
+                    <p class="text-xl leading-relaxed fragment" data-fragment-index="3">
+                        <i class="fas fa-arrow-circle-up text-red-500 mr-2"></i>
+                        <span class="font-bold aha-highlight">最新增速：</span>最新一天新增<span class="text-2xl">436星</span>，远超平均水平，<span class="aha-highlight">增长势头强劲，近期加速明显！</span>
+                    </p>
+                </section>
+            </section>
+
+            <!-- Project 4: DataExpert-io/data-engineer-handbook -->
+            <section data-background-color="#f0f8f8">
+                <section>
+                    <h3 class="text-4xl text-teal-800 mb-4 font-bold text-center">
+                        <i class="fas fa-database text-teal-500 mr-3"></i>DataExpert-io/data-engineer-handbook
+                    </h3>
+                    <p class="text-2xl text-gray-700 mb-6 text-center">
+                        数据工程师学习资源指南
+                    </p>
+                    <div class="grid grid-cols-2 gap-6 text-gray-700 text-xl">
+                        <div>
+                            <p><i class="fas fa-star text-yellow-500 mr-2"></i>Star 数: <span class="font-bold">28635</span></p>
+                            <p><i class="fas fa-chart-line text-green-500 mr-2"></i>当日 Star 增加: <span class="font-bold text-green-600">376</span></p>
+                            <p><i class="fas fa-history text-purple-500 mr-2"></i>连续在榜/总上榜: <span class="font-bold">1次 / 2次</span></p>
+                            <p><i class="fas fa-code text-indigo-500 mr-2"></i>开发语言: <span class="font-bold">Jupyter Notebook, Python</span></p>
+                        </div>
+                        <div>
+                            <p><i class="fas fa-code-branch text-gray-500 mr-2"></i>Forks: 5.8k</p>
+                            <p><i class="fas fa-eye text-gray-500 mr-2"></i>Watchers: 390</p>
+                            <p><i class="fas fa-users text-gray-500 mr-2"></i>Contributors: 110</p>
+                            <p><i class="fas fa-book text-gray-500 mr-2"></i>License: 未知</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-3xl text-teal-800 mb-4 font-bold">项目速读：数据工程师的“一站式”宝典</h3>
+                    <ul class="list-disc pl-8 text-xl leading-relaxed">
+                        <li class="fragment" data-fragment-index="1">
+                            <span class="font-bold">定位：</span>为数据工程师打造的<span class="aha-highlight">综合资源指南。</span>
+                        </li>
+                        <li class="fragment" data-fragment-index="2">
+                            <span class="font-bold">内容：</span>学习路线、免费课程、实战项目、核心工具（数据湖/仓、编排）、社区等。
+                        </li>
+                        <li class="fragment" data-fragment-index="3">
+                            <i class="fas fa-thumbtack text-blue-500 mr-2"></i>
+                            <span class="aha-highlight">最大价值：</span>全面性与组织性，<span class="font-bold">简化学习路径，解决信息查找分散问题。</span>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h3 class="text-3xl text-teal-800 mb-4 font-bold">增长分析：持续受关注，近期强劲</h3>
+                    <p class="text-xl leading-relaxed fragment" data-fragment-index="1">
+                        <i class="fas fa-calendar-week text-purple-500 mr-2"></i>
+                        <span class="font-bold">总增长：</span>约两周内总增长813星。
+                    </p>
+                    <p class="text-xl leading-relaxed fragment" data-fragment-index="2">
+                        <i class="fas fa-star-half-alt text-yellow-500 mr-2"></i>
+                        <span class="font-bold">上榜次数：</span>成功上榜2次，显示持续关注度。
+                    </p>
+                    <p class="text-xl leading-relaxed fragment" data-fragment-index="3">
+                        <i class="fas fa-level-up-alt text-green-500 mr-2"></i>
+                        <span class="font-bold aha-highlight">近期势头：</span>当次新增<span class="text-2xl">376星</span>远超平均，<span class="aha-highlight">表明近期增长势头尤为强劲，整体趋势向好。</span>
+                    </p>
+                </section>
+            </section>
+
+            <!-- Project 5: donnemartin/system-design-primer -->
+            <section data-background-color="#f8fdf8">
+                <section>
+                    <h3 class="text-4xl text-purple-800 mb-4 font-bold text-center">
+                        <i class="fas fa-sitemap text-purple-500 mr-3"></i>donnemartin/system-design-primer
+                    </h3>
+                    <p class="text-2xl text-gray-700 mb-6 text-center">
+                        学习如何设计大规模系统。准备系统设计面试。
+                    </p>
+                    <div class="grid grid-cols-2 gap-6 text-gray-700 text-xl">
+                        <div>
+                            <p><i class="fas fa-star text-yellow-500 mr-2"></i>Star 数: <span class="font-bold">303287</span></p>
+                            <p><i class="fas fa-chart-line text-green-500 mr-2"></i>当日 Star 增加: <span class="font-bold text-green-600">596</span></p>
+                            <p><i class="fas fa-history text-purple-500 mr-2"></i>连续在榜/总上榜: <span class="font-bold">3次 / 11次</span></p>
+                            <p><i class="fas fa-code text-indigo-500 mr-2"></i>开发语言: <span class="font-bold">Python</span></p>
+                        </div>
+                        <div>
+                            <p><i class="fas fa-code-branch text-gray-500 mr-2"></i>Forks: 50.2k</p>
+                            <p><i class="fas fa-eye text-gray-500 mr-2"></i>Watchers: 6.7k</p>
+                            <p><i class="fas fa-users text-gray-500 mr-2"></i>Contributors: 120</p>
+                            <p><i class="fas fa-book text-gray-500 mr-2"></i>License: 未知</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-3xl text-purple-800 mb-4 font-bold">项目速读：系统设计面试的“葵花宝典”</h3>
+                    <ul class="list-disc pl-8 text-xl leading-relaxed">
+                        <li class="fragment" data-fragment-index="1">
+                            <span class="font-bold">定位：</span>广受欢迎的<span class="aha-highlight">系统设计学习和面试准备指南。</span>
+                        </li>
+                        <li class="fragment" data-fragment-index="2">
+                            <span class="font-bold">内容：</span>大规模系统设计核心概念、常见模式（数据库、缓存、负载均衡等）。
+                        </li>
+                        <li class="fragment" data-fragment-index="3">
+                            <i class="fas fa-question-circle text-blue-500 mr-2"></i>
+                            <span class="font-bold">实用：</span>包含面试常见问题及解答思路。
+                        </li>
+                        <li class="fragment" data-fragment-index="4">
+                            <i class="fas fa-cogs text-green-500 mr-2"></i>
+                            <span class="aha-highlight">价值：</span>提升架构思维、准备科技公司面试的<span class="font-bold">全面开源学习宝库。</span>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h3 class="text-3xl text-purple-800 mb-4 font-bold">增长分析：持续稳定，人气攀升</h3>
+                    <p class="text-xl leading-relaxed fragment" data-fragment-index="1">
+                        <i class="fas fa-trophy text-yellow-500 mr-2"></i>
+                        <span class="font-bold">总星增长：</span>11次上榜中共增长10703星，平均每次近300星。
+                    </p>
+                    <p class="text-xl leading-relaxed fragment" data-fragment-index="2">
+                        <i class="fas fa-chart-line text-green-500 mr-2"></i>
+                        <span class="font-bold aha-highlight">近期增速：</span>近期新增<span class="text-2xl">596星</span>远超平均，<span class="aha-highlight">表明增长势头强劲且正在加速，人气持续攀升。</span>
+                    </p>
+                </section>
+            </section>
+
+            <!-- Project 6: gitroomhq/postiz-app -->
+            <section data-background-color="#e8f8f8">
+                <section>
+                    <h3 class="text-4xl text-indigo-800 mb-4 font-bold text-center">
+                        <i class="fas fa-share-alt text-indigo-500 mr-3"></i>gitroomhq/postiz-app
+                    </h3>
+                    <p class="text-2xl text-gray-700 mb-6 text-center">
+                        终极社交媒体排程工具，结合大量 AI 功能
+                    </p>
+                    <div class="grid grid-cols-2 gap-6 text-gray-700 text-xl">
+                        <div>
+                            <p><i class="fas fa-star text-yellow-500 mr-2"></i>Star 数: <span class="font-bold">20414</span></p>
+                            <p><i class="fas fa-chart-line text-green-500 mr-2"></i>当日 Star 增加: <span class="font-bold text-green-600">48</span></p>
+                            <p><i class="fas fa-history text-purple-500 mr-2"></i>连续在榜/总上榜: <span class="font-bold">2次 / 4次</span></p>
+                            <p><i class="fas fa-code text-indigo-500 mr-2"></i>开发语言: <span class="font-bold">TypeScript</span></p>
+                        </div>
+                        <div>
+                            <p><i class="fas fa-code-branch text-gray-500 mr-2"></i>Forks: 3.3k</p>
+                            <p><i class="fas fa-eye text-gray-500 mr-2"></i>Watchers: 94</p>
+                            <p><i class="fas fa-users text-gray-500 mr-2"></i>Contributors: 56</p>
+                            <p><i class="fas fa-book text-gray-500 mr-2"></i>License: AGPL-3.0</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-3xl text-indigo-800 mb-4 font-bold">项目速读：AI赋能的社媒利器</h3>
+                    <ul class="list-disc pl-8 text-xl leading-relaxed">
+                        <li class="fragment" data-fragment-index="1">
+                            <span class="font-bold">定位：</span>开源的<span class="font-bold">AI社交媒体内容发布工具。</span>
+                        </li>
+                        <li class="fragment" data-fragment-index="2">
+                            <span class="aha-highlight">解决痛点：</span>简化多平台社媒内容管理，提升效率。
+                        </li>
+                        <li class="fragment" data-fragment-index="3">
+                            <i class="fas fa-magic text-purple-500 mr-2"></i>
+                            <span class="font-bold">核心：</span>通过AI能力自动化发布和管理。
+                        </li>
+                        <li class="fragment" data-fragment-index="4">
+                            <span class="aha-highlight">价值：</span>提供Buffer等商业工具的强大替代方案。
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h3 class="text-3xl text-indigo-800 mb-4 font-bold">增长分析：上榜频率是关键</h3>
+                    <p class="text-xl leading-relaxed fragment" data-fragment-index="1">
+                        <i class="fas fa-calendar-check text-purple-500 mr-2"></i>
+                        <span class="font-bold">总增长：</span>约2个月内增长1445星。
+                    </p>
+                    <p class="text-xl leading-relaxed fragment" data-fragment-index="2">
+                        <i class="fas fa-info-circle text-blue-500 mr-2"></i>
+                        <span class="font-bold">关键制约：</span>仅上榜4次，显著限制了整体曝光和增长潜力。
+                    </p>
+                    <p class="text-xl leading-relaxed fragment" data-fragment-index="3">
+                        <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>
+                        <span class="font-bold aha-highlight">洞察：</span>稀疏的上榜频率表明增长强依赖于不频繁的列表可见性。
+                    </p>
+                </section>
+            </section>
+
+            <!-- Project 7: plankanban/planka -->
+            <section data-background-color="#fefeff">
+                <section>
+                    <h3 class="text-4xl text-pink-800 mb-4 font-bold text-center">
+                        <i class="fas fa-th text-pink-500 mr-3"></i>plankanban/planka
+                    </h3>
+                    <p class="text-2xl text-gray-700 mb-6 text-center">
+                        PLANKA 是一款看板式项目管理工具，适合所有人。
+                    </p>
+                    <div class="grid grid-cols-2 gap-6 text-gray-700 text-xl">
+                        <div>
+                            <p><i class="fas fa-star text-yellow-500 mr-2"></i>Star 数: <span class="font-bold">9403</span></p>
+                            <p><i class="fas fa-chart-line text-green-500 mr-2"></i>当日 Star 增加: <span class="font-bold text-green-600">20</span></p>
+                            <p><i class="fas fa-history text-purple-500 mr-2"></i>连续在榜/总上榜: <span class="font-bold">1次 / 1次</span></p>
+                            <p><i class="fas fa-code text-indigo-500 mr-2"></i>开发语言: <span class="font-bold">JavaScript</span></p>
+                        </div>
+                        <div>
+                            <p><i class="fas fa-code-branch text-gray-500 mr-2"></i>Forks: 940</p>
+                            <p><i class="fas fa-eye text-gray-500 mr-2"></i>Watchers: 76</p>
+                            <p><i class="fas fa-users text-gray-500 mr-2"></i>Contributors: 124</p>
+                            <p><i class="fas fa-book text-gray-500 mr-2"></i>License: 未知</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-3xl text-pink-800 mb-4 font-bold">项目速读：可自托管的看板协作利器</h3>
+                    <ul class="list-disc pl-8 text-xl leading-relaxed">
+                        <li class="fragment" data-fragment-index="1">
+                            <span class="font-bold">定位：</span>直观的<span class="font-bold">看板式项目管理工具。</span>
+                        </li>
+                        <li class="fragment" data-fragment-index="2">
+                            <span class="font-bold">功能：</span>创建项目、组织任务看板、管理卡片。
+                        </li>
+                        <li class="fragment" data-fragment-index="3">
+                            <i class="fas fa-handshake text-blue-500 mr-2"></i>
+                            <span class="font-bold">核心价值：</span>强大的实时协作能力，灵活配置与第三方集成。
+                        </li>
+                        <li class="fragment" data-fragment-index="4">
+                            <span class="aha-highlight">亮点：</span>采用<span class="font-bold">Fair-code模式，支持用户自行部署和托管</span>，注重隐私与定制化。
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Project 8: black-forest-labs/flux -->
+            <section data-background-color="#fbf8f8">
+                <section>
+                    <h3 class="text-4xl text-gray-800 mb-4 font-bold text-center">
+                        <i class="fas fa-cubes text-gray-600 mr-3"></i>black-forest-labs/flux
+                    </h3>
+                    <p class="text-2xl text-gray-700 mb-6 text-center">
+                        FLUX.1 模型官方推理库
+                    </p>
+                    <div class="grid grid-cols-2 gap-6 text-gray-700 text-xl">
+                        <div>
+                            <p><i class="fas fa-star text-yellow-500 mr-2"></i>Star 数: <span class="font-bold">21994</span></p>
+                            <p><i class="fas fa-chart-line text-green-500 mr-2"></i>当日 Star 增加: <span class="font-bold text-green-600">39</span></p>
+                            <p><i class="fas fa-history text-purple-500 mr-2"></i>连续在榜/总上榜: <span class="font-bold">1次 / 1次</span></p>
+                            <p><i class="fas fa-code text-indigo-500 mr-2"></i>开发语言: <span class="font-bold">Python</span></p>
+                        </div>
+                        <div>
+                            <p><i class="fas fa-code-branch text-gray-500 mr-2"></i>Forks: 1.6k</p>
+                            <p><i class="fas fa-eye text-gray-500 mr-2"></i>Watchers: 185</p>
+                            <p><i class="fas fa-users text-gray-500 mr-2"></i>Contributors: 26</p>
+                            <p><i class="fas fa-book text-gray-500 mr-2"></i>License: Apache-2.0</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-3xl text-gray-800 mb-4 font-bold">项目速读：FLUX模型本地推理利器</h3>
+                    <ul class="list-disc pl-8 text-xl leading-relaxed">
+                        <li class="fragment" data-fragment-index="1">
+                            <span class="font-bold">核心：</span>FLUX.1 模型官方推理库，用于<span class="font-bold">本地运行FLUX模型。</span>
+                        </li>
+                        <li class="fragment" data-fragment-index="2">
+                            <span class="font-bold">功能：</span>文本到图像、图片修补、结构化条件生成、图像变体。
+                        </li>
+                        <li class="fragment" data-fragment-index="3">
+                            <i class="fas fa-desktop text-blue-500 mr-2"></i>
+                            <span class="aha-highlight">最大优势：</span>提供<span class="font-bold">本地推理能力，无需依赖云服务。</span>
+                        </li>
+                        <li class="fragment" data-fragment-index="4">
+                            <i class="fas fa-bolt text-yellow-500 mr-2"></i>
+                            <span class="font-bold">性能：</span>可选TensorRT加速优化（Nvidia硬件），显著提升推理速度。
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Project 9: elebumm/RedditVideoMakerBot -->
+            <section data-background-color="#fff0f0">
+                <section>
+                    <h3 class="text-4xl text-red-800 mb-4 font-bold text-center">
+                        <i class="fab fa-youtube text-red-500 mr-3"></i>elebumm/RedditVideoMakerBot
+                    </h3>
+                    <p class="text-2xl text-gray-700 mb-6 text-center">
+                        仅需一行命令，即可创建 Reddit 视频
+                    </p>
+                    <div class="grid grid-cols-2 gap-6 text-gray-700 text-xl">
+                        <div>
+                            <p><i class="fas fa-star text-yellow-500 mr-2"></i>Star 数: <span class="font-bold">7486</span></p>
+                            <p><i class="fas fa-chart-line text-green-500 mr-2"></i>当日 Star 增加: <span class="font-bold text-green-600">216</span></p>
+                            <p><i class="fas fa-history text-purple-500 mr-2"></i>连续在榜/总上榜: <span class="font-bold">3次 / 3次</span></p>
+                            <p><i class="fas fa-code text-indigo-500 mr-2"></i>开发语言: <span class="font-bold">Python</span></p>
+                        </div>
+                        <div>
+                            <p><i class="fas fa-code-branch text-gray-500 mr-2"></i>Forks: 2k</p>
+                            <p><i class="fas fa-eye text-gray-500 mr-2"></i>Watchers: 93</p>
+                            <p><i class="fas fa-users text-gray-500 mr-2"></i>Contributors: 86</p>
+                            <p><i class="fas fa-book text-gray-500 mr-2"></i>License: GPL-3.0</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-3xl text-red-800 mb-4 font-bold">项目速读：Reddit视频自动化神器</h3>
+                    <ul class="list-disc pl-8 text-xl leading-relaxed">
+                        <li class="fragment" data-fragment-index="1">
+                            <span class="font-bold">核心：</span>Python工具，<span class="aha-highlight">一行命令将Reddit帖子转视频。</span>
+                        </li>
+                        <li class="fragment" data-fragment-index="2">
+                            <span class="font-bold">平台：</span>适用于TikTok、YouTube、Instagram等。
+                        </li>
+                        <li class="fragment" data-fragment-index="3">
+                            <i class="fas fa-clock text-blue-500 mr-2"></i>
+                            <span class="aha-highlight">最大价值：</span>彻底自动化繁琐手动编辑，<span class="font-bold">极大节省内容创作者时间。</span>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h3 class="text-3xl text-red-800 mb-4 font-bold">增长分析：稳定增长，势头加速</h3>
+                    <p class="text-xl leading-relaxed fragment" data-fragment-index="1">
+                        <i class="fas fa-calendar-alt text-purple-500 mr-2"></i>
+                        <span class="font-bold">总上榜：</span>三天三次上榜，增长稳定。
+                    </p>
+                    <p class="text-xl leading-relaxed fragment" data-fragment-index="2">
+                        <i class="fas fa-chart-bar text-green-500 mr-2"></i>
+                        <span class="font-bold aha-highlight">最新增速：</span>最新新增<span class="text-2xl">216星</span>远超平均，<span class="aha-highlight">增长势头加速。</span>
+                    </p>
+                </section>
+            </section>
+
+            <!-- Project 10: WordPress/gutenberg -->
+            <section data-background-color="#f5f5f5">
+                <section>
+                    <h3 class="text-4xl text-blue-800 mb-4 font-bold text-center">
+                        <i class="fab fa-wordpress text-blue-500 mr-3"></i>WordPress/gutenberg
+                    </h3>
+                    <p class="text-2xl text-gray-700 mb-6 text-center">
+                        面向WordPress及其他平台的块编辑器项目。
+                    </p>
+                    <div class="grid grid-cols-2 gap-6 text-gray-700 text-xl">
+                        <div>
+                            <p><i class="fas fa-star text-yellow-500 mr-2"></i>Star 数: <span class="font-bold">11140</span></p>
+                            <p><i class="fas fa-chart-line text-green-500 mr-2"></i>当日 Star 增加: <span class="font-bold text-green-600">4</span></p>
+                            <p><i class="fas fa-history text-purple-500 mr-2"></i>连续在榜/总上榜: <span class="font-bold">1次 / 1次</span></p>
+                            <p><i class="fas fa-code text-indigo-500 mr-2"></i>开发语言: <span class="font-bold">JavaScript, TypeScript, PHP</span></p>
+                        </div>
+                        <div>
+                            <p><i class="fas fa-code-branch text-gray-500 mr-2"></i>Forks: 4.4k</p>
+                            <p><i class="fas fa-eye text-gray-500 mr-2"></i>Watchers: 342</p>
+                            <p><i class="fas fa-users text-gray-500 mr-2"></i>Contributors: 1.2k+</p>
+                            <p><i class="fas fa-book text-gray-500 mr-2"></i>License: 未知</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-3xl text-blue-800 mb-4 font-bold">项目速读：革新WordPress编辑体验</h3>
+                    <ul class="list-disc pl-8 text-xl leading-relaxed">
+                        <li class="fragment" data-fragment-index="1">
+                            <span class="font-bold">核心：</span>WordPress的<span class="aha-highlight">区块编辑器项目。</span>
+                        </li>
+                        <li class="fragment" data-fragment-index="2">
+                            <span class="font-bold">理念：</span>内容分解为“区块”，像搭积木一样构建页面。
+                        </li>
+                        <li class="fragment" data-fragment-index="3">
+                            <i class="fas fa-palette text-purple-500 mr-2"></i>
+                            <span class="aha-highlight">价值：</span>极大提升内容编辑灵活性和效率，WordPress生态核心引擎。
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Project 11: Flowseal/zapret-discord-youtube -->
+            <section data-background-color="#f8f8f8">
+                <section>
+                    <h3 class="text-4xl text-gray-800 mb-4 font-bold text-center">
+                        <i class="fas fa-globe text-gray-600 mr-3"></i>Flowseal/zapret-discord-youtube
+                    </h3>
+                    <p class="text-2xl text-gray-700 mb-6 text-center">
+                        绕过Discord和YouTube等服务的网络封锁
+                    </p>
+                    <div class="grid grid-cols-2 gap-6 text-gray-700 text-xl">
+                        <div>
+                            <p><i class="fas fa-star text-yellow-500 mr-2"></i>Star 数: <span class="font-bold">13220</span></p>
+                            <p><i class="fas fa-chart-line text-green-500 mr-2"></i>当日 Star 增加: <span class="font-bold text-green-600">45</span></p>
+                            <p><i class="fas fa-history text-purple-500 mr-2"></i>连续在榜/总上榜: <span class="font-bold">1次 / 5次</span></p>
+                            <p><i class="fas fa-code text-indigo-500 mr-2"></i>开发语言: <span class="font-bold">Batchfile</span></p>
+                        </div>
+                        <div>
+                            <p><i class="fas fa-code-branch text-gray-500 mr-2"></i>Forks: 904</p>
+                            <p><i class="fas fa-eye text-gray-500 mr-2"></i>Watchers: 132</p>
+                            <p><i class="fas fa-users text-gray-500 mr-2"></i>Contributors: 17</p>
+                            <p><i class="fas fa-book text-gray-500 mr-2"></i>License: 未知</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-3xl text-gray-800 mb-4 font-bold">项目速读：便捷的网络封锁绕过工具</h3>
+                    <ul class="list-disc pl-8 text-xl leading-relaxed">
+                        <li class="fragment" data-fragment-index="1">
+                            <span class="font-bold">定位：</span>为Windows用户设计的网络封锁绕过工具。
+                        </li>
+                        <li class="fragment" data-fragment-index="2">
+                            <span class="font-bold">原理：</span>利用zapret技术与WinDivert组件，系统层面拦截处理流量。
+                        </li>
+                        <li class="fragment" data-fragment-index="3">
+                            <i class="fas fa-plug text-blue-500 mr-2"></i>
+                            <span class="aha-highlight">突出优势：</span>“即插即用”的便捷性，<span class="font-bold">无需复杂配置。</span>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h3 class="text-3xl text-gray-800 mb-4 font-bold">增长分析：上榜推动显著</h3>
+                    <p class="text-xl leading-relaxed fragment" data-fragment-index="1">
+                        <i class="fas fa-star text-yellow-500 mr-2"></i>
+                        <span class="font-bold">总增长：</span>统计周期内上榜5次，总星增长2089。
+                    </p>
+                    <p class="text-xl leading-relaxed fragment" data-fragment-index="2">
+                        <i class="fas fa-chart-line text-green-500 mr-2"></i>
+                        <span class="font-bold aha-highlight">洞察：</span>上榜对其增长起到了<span class="font-bold">关键的促进作用。</span>
+                    </p>
+                </section>
+            </section>
+
+            <!-- Project 12: yeongpin/cursor-free-vip -->
+            <section data-background-color="#f0fdfc">
+                <section>
+                    <h3 class="text-4xl text-green-800 mb-4 font-bold text-center">
+                        <i class="fas fa-magic text-green-500 mr-3"></i>yeongpin/cursor-free-vip
+                    </h3>
+                    <p class="text-2xl text-gray-700 mb-6 text-center">
+                        重置Cursor AI机器ID并绕过更高Token限制
+                    </p>
+                    <div class="grid grid-cols-2 gap-6 text-gray-700 text-xl">
+                        <div>
+                            <p><i class="fas fa-star text-yellow-500 mr-2"></i>Star 数: <span class="font-bold">28395</span></p>
+                            <p><i class="fas fa-chart-line text-green-500 mr-2"></i>当日 Star 增加: <span class="font-bold text-green-600">221</span></p>
+                            <p><i class="fas fa-history text-purple-500 mr-2"></i>连续在榜/总上榜: <span class="font-bold">1次 / 7次</span></p>
+                            <p><i class="fas fa-code text-indigo-500 mr-2"></i>开发语言: <span class="font-bold">Python</span></p>
+                        </div>
+                        <div>
+                            <p><i class="fas fa-code-branch text-gray-500 mr-2"></i>Forks: 3.6k</p>
+                            <p><i class="fas fa-eye text-gray-500 mr-2"></i>Watchers: 154</p>
+                            <p><i class="fas fa-users text-gray-500 mr-2"></i>Contributors: 40</p>
+                            <p><i class="fas fa-book text-gray-500 mr-2"></i>License: 未知</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-3xl text-green-800 mb-4 font-bold">项目速读：Cursor AI免费额度“刷新器”</h3>
+                    <ul class="list-disc pl-8 text-xl leading-relaxed">
+                        <li class="fragment" data-fragment-index="1">
+                            <span class="font-bold">定位：</span>为Cursor AI编辑器设计的辅助工具。
+                        </li>
+                        <li class="fragment" data-fragment-index="2">
+                            <span class="aha-highlight">核心：</span>突破免费试用额度限制，<span class="font-bold">继续使用高级功能。</span>
+                        </li>
+                        <li class="fragment" data-fragment-index="3">
+                            <span class="font-bold">原理：</span>修改本地配置文件，重置机器ID，“刷新”试用资格。
+                        </li>
+                        <li class="fragment" data-fragment-index="4">
+                            <i class="fas fa-info-circle text-blue-500 mr-2"></i>
+                            <span class="font-bold">注意：</span>需管理员权限，Cursor应用关闭下运行，<span class="text-red-500">仅供学习研究！</span>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h3 class="text-3xl text-green-800 mb-4 font-bold">增长分析：高频上榜，增长显著</h3>
+                    <p class="text-xl leading-relaxed fragment" data-fragment-index="1">
+                        <i class="fas fa-sync-alt text-purple-500 mr-2"></i>
+                        <span class="font-bold">上榜频率：</span>频繁上榜（7次），驱动了仓库<span class="font-bold">1.8万Star的显著增长。</span>
+                    </p>
+                    <p class="text-xl leading-relaxed fragment" data-fragment-index="2">
+                        <i class="fas fa-chart-line text-green-500 mr-2"></i>
+                        <span class="font-bold aha-highlight">洞察：</span>平均每次上榜贡献良多，显示其<span class="font-bold">持续的吸引力。</span>
+                    </p>
+                </section>
+            </section>
+
+            <!-- Final Slide (结束页) -->
+            <section
+                data-background-image="https://images.unsplash.com/photo-1620283084227-2c5253862dd2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTUyOTd8MHwxfHNlYXJjaHwyfHxhaSUyMHBvd2VyJTIwZ3JhcGhpY3N8ZW58MHx8fHwxNjk5MjI3NDE5fDA&ixlib=rb-4.0.3&q=80&w=1080"
+                data-background-transition="zoom"
+                class="relative text-white flex flex-col items-center justify-center text-center"
+            >
+                <div class="gradient-overlay"></div>
+                <h2 class="text-5xl md:text-6xl lg:text-7xl mb-4 font-bold aha-highlight">
+                    感谢聆听！
+                </h2>
+                <p class="text-2xl md:text-3xl lg:text-4xl mb-8">
+                    探索AI与效率工具的无限可能，一起<span class="aha-highlight">效率狂飙！</span>
+                </p>
+                <p class="text-xl">期待您的关注与Star！</p>
+                <div class="footer-links">
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        https://github.com/aichipera/github-trend
+                    </a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- 核心框架 -->
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <!-- 扩展依赖 -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <script>
+        // Mermaid.js 配置（如果幻灯片中包含图表）
+        mermaid.initialize({ startOnLoad: false });
+
+        // Reveal.js 初始化
+        Reveal.initialize({
+            controls: true,     // 显示导航控制
+            progress: true,     // 显示幻灯片进度条
+            history: true,      // 启用浏览器历史记录，可以通过URL导航
+            center: true,       // 幻灯片内容居中
+            hash: true,         // URL哈希与幻灯片同步
+
+            transition: 'slide', // 幻灯片切换效果: none/fade/slide/convex/concave/zoom
+            backgroundTransition: 'fade', // 背景切换效果: none/fade/slide/convex/concave/zoom
+
+            // 幻灯片尺寸设置
+            width: 1200,
+            height: 800,
+            margin: 0.04,
+            minScale: 0.2,
+            maxScale: 1.0,
+
+            // 插件配置 (目前未用到额外插件，但可以按需添加)
+            plugins: []
+        });
+    </script>
+</body>
+</html>
