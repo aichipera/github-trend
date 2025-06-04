@@ -1,0 +1,716 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI炸场，效率飙升！GitHub热门仓库日报</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet" id="theme">
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --r-main-font: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: 'Noto Serif SC', serif;
+            --r-background-color: #f0f4f8; /* Light background for general content */
+            --primary-color: #4CAF50; /* Green for emphasis */
+            --secondary-color: #2196F3; /* Blue for highlights */
+            --accent-color: #FFC107; /* Amber for warnings/attention */
+            --text-dark: #333;
+            --text-light: #f0f4f8;
+        }
+
+        body {
+            font-family: var(--r-main-font);
+            color: var(--text-dark);
+            background-color: var(--r-background-color);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--r-heading-font);
+            color: var(--text-dark);
+            line-height: 1.2;
+            margin-bottom: 0.5em;
+        }
+
+        h1 { font-size: 3rem; }
+        h2 { font-size: 2.2rem; }
+        h3 { font-size: 1.8rem; }
+        h4 { font-size: 1.5rem; } /* Subtitle like */
+        p { font-size: 1.1rem; line-height: 1.6; }
+        li { font-size: 1.1rem; line-height: 1.6; }
+
+        .reveal .slides section .fragment {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .reveal .slides section .fragment.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .r-stretch img, .r-stretch video, .r-stretch iframe {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        /* Custom styles for cover slide */
+        .cover-slide {
+            background: linear-gradient(135deg, #2a0066, #4b0082); /* Deep purple gradient */
+            color: var(--text-light);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .cover-slide h1 {
+            font-size: 4rem; /* Larger for impact */
+            color: var(--text-light);
+            letter-spacing: 2px;
+            animation: pulse-glow 2s infinite alternate;
+        }
+        .cover-slide h4 {
+            font-size: 1.8rem;
+            color: rgba(255,255,255,0.8);
+            margin-top: 10px;
+        }
+        .cover-slide .speaker-info {
+            font-size: 1.2rem;
+            margin-top: 30px;
+            color: rgba(255,255,255,0.7);
+        }
+        .cover-slide .disclaimer {
+            font-size: 1rem;
+            margin-top: 20px;
+            color: rgba(255,255,255,0.6);
+        }
+        .cover-slide .bottom-links {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: rgba(255,255,255,0.7);
+        }
+        .cover-slide .bottom-links img {
+            height: 60px;
+            width: 60px;
+            border-radius: 5px;
+        }
+        .cover-slide .bottom-links a {
+            color: inherit;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+        .cover-slide .bottom-links a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes pulse-glow {
+            from { text-shadow: 0 0 5px rgba(255,255,255,0.5), 0 0 10px rgba(255,255,255,0.3); }
+            to { text-shadow: 0 0 15px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.6); }
+        }
+
+        .reveal table {
+            width: 100%;
+            margin: 1.5em 0;
+            border-collapse: collapse;
+            font-size: 0.95em;
+        }
+        .reveal th, .reveal td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        .reveal th {
+            background-color: #e0e0e0;
+            font-weight: bold;
+        }
+
+        .section-header {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 1em;
+            color: var(--primary-color);
+            position: relative;
+        }
+        .section-header::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .project-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+            border-left: 5px solid var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        .project-card h3 {
+            color: var(--secondary-color);
+            margin-top: 0;
+            font-size: 1.7rem;
+        }
+        .project-card .stats span {
+            margin-right: 15px;
+            font-size: 0.95rem;
+            color: #666;
+        }
+        .project-card .stats i {
+            color: var(--primary-color);
+            margin-right: 5px;
+        }
+        .project-card .lang-ratio {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 10px;
+        }
+        .project-summary {
+            margin-top: 15px;
+            font-size: 1rem;
+            color: #444;
+        }
+        .growth-analysis {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px dashed #eee;
+            font-style: italic;
+            color: #555;
+            font-size: 1rem;
+        }
+        .highlight-text {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .ahabox {
+            background-color: rgba(255, 193, 7, 0.1); /* Amber light */
+            border-left: 5px solid var(--accent-color);
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-style: italic;
+            color: #5a5a5a;
+            font-size: 1.1rem;
+        }
+        .ahabox strong {
+            color: var(--accent-color);
+        }
+
+        /* Specific background for sections for "Aha" moments */
+        .reveal section.bg-dark {
+            background-color: #333;
+            color: var(--text-light);
+        }
+        .reveal section.bg-dark h1, .reveal section.bg-dark h2, .reveal section.bg-dark h3 {
+            color: var(--text-light);
+        }
+        .reveal section.bg-trends {
+             background-image: url('https://images.unsplash.com/photo-1549692520-cb979a0572b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+             background-size: cover;
+             background-position: center;
+             color: var(--text-light);
+             text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+        }
+        .reveal section.bg-trends h2, .reveal section.bg-trends p, .reveal section.bg-trends li {
+            color: var(--text-light);
+        }
+        .reveal section.bg-ai-theme {
+            background-image: url('https://images.unsplash.com/photo-1596590212048-c89b02a2e4c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80'); /* Neural network like */
+            background-size: cover;
+            background-position: center;
+            color: var(--text-light);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        .reveal section.bg-dev-tools {
+            background-image: url('https://images.unsplash.com/photo-1517694711081-f92e21245781?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80'); /* Code editor */
+            background-size: cover;
+            background-position: center;
+            color: var(--text-light);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        .reveal section.bg-edu {
+            background-image: url('https://images.unsplash.com/photo-1532630578-cd3a17e068c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80'); /* Books/learning */
+            background-size: cover;
+            background-position: center;
+            color: var(--text-dark); /* Lighter background, dark text */
+            text-shadow: none;
+        }
+
+        .reveal .controls button {
+            color: var(--secondary-color);
+        }
+        .reveal .progress span {
+            background: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- 封面页 -->
+            <section class="cover-slide" data-background-image="https://images.unsplash.com/photo-1620712948943-c75c8794c92e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80" data-background-size="cover" data-background-position="center">
+                <h1>AI炸场，效率飙升！</h1>
+                <h2>程序员们都在偷偷学什么、玩什么？</h2>
+                <h4 class="mt-4">Github热门仓库日报观测时间为 2025-06-04 20:25:23</h4>
+                <p class="disclaimer"><strong>以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</strong></p>
+                <div class="speaker-info">
+                    演讲者：<span class="font-bold text-accent-color">AIChipEra</span>
+                </div>
+                <div class="bottom-links">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        <i class="fab fa-github"></i> github.com/aichipera/github-trend
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="微信二维码">
+                </div>
+            </section>
+
+            <!-- 日报要点 -->
+            <section>
+                <h2 class="section-header">日报要点速览 <i class="fas fa-bolt text-accent-color"></i></h2>
+                <div class="text-left leading-relaxed">
+                    <p class="fragment">全球技术风向标：AI应用全面爆发，深入代码、内容、金融等领域。</p>
+                    <p class="fragment mt-2"><strong><i class="fas fa-rocket text-primary-color"></i> 效率引擎：</strong> 智能代码编辑器、AI量化平台成为焦点，提升效率核心。</p>
+                    <p class="fragment mt-2"><strong><i class="fas fa-tools text-secondary-color"></i> 硬核追求：</strong> 开发者工具、底层性能优化持续受关注。</p>
+                    <p class="fragment mt-2"><strong><i class="fas fa-graduation-cap text-green-600"></i> 知识宝藏：</strong> 系统设计、面试准备等学习资源经久不衰。</p>
+                    <p class="fragment mt-2"><strong><i class="fas fa-pizza-slice text-red-500"></i> 生活情趣：</strong> 《程序员做饭指南》等非技术项目意外走红，展现技术人全面追求。</p>
+                    <div class="ahabox fragment">
+                        <strong>Aha Moment:</strong> AI正改变工作方式，但技术人的核心竞争力仍在于系统性学习与多维度发展！
+                    </div>
+                </div>
+            </section>
+
+            <!-- 热门项目趋势分析 -->
+            <section class="bg-trends">
+                <h2 class="section-header text-light">热门项目趋势分析 <i class="fas fa-chart-line text-accent-color"></i></h2>
+                <div class="text-light text-left leading-relaxed">
+                    <h3 class="fragment">1. 今日整体趋势：AI应用落地高峰</h3>
+                    <ul class="fragment">
+                        <li><i class="fas fa-microchip text-primary-color"></i> **AI应用落地爆发：** Onlook (可视化代码), Postiz-app (社交媒体), NautilusTrader (量化交易), Agent Zero (通用AI智能体)。</li>
+                        <li><i class="fas fa-cogs text-secondary-color"></i> **开发者效率与基础设施：** Jemalloc (内存分配器) 等，持续优化底层性能。</li>
+                        <li><i class="fas fa-book-open text-green-600"></i> **教育与职业发展：** System Design Primer, Coding Interview University, Summer 2025 Internships 持续热门。</li>
+                        <li><i class="fas fa-utensils text-yellow-500"></i> **生活与思维拓展：** 《程序员做饭指南》等非技术项目异军突起。</li>
+                    </ul>
+                    <h3 class="fragment mt-4">2. 编程语言分布：Python主导AI，TypeScript前端强势</h3>
+                    <p class="fragment">Python (AI, 数据, 自动化), TypeScript (前端), C/Go/Rust (性能敏感/系统级) 各展所长。</p>
+                    <div class="ahabox fragment">
+                        <strong>Aha Moment:</strong> AI从概念走向实用，同时工程师对基础工具和终身学习的需求永不停止。
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-trends">
+                <h2 class="section-header text-light">热门项目趋势分析：双日维度对比 <i class="fas fa-arrow-right-arrow-left text-accent-color"></i></h2>
+                <div class="text-light text-left leading-relaxed">
+                    <h3 class="fragment">整体态势：热度显著上升，无项目下降 <i class="fas fa-arrow-up text-primary-color"></i></h3>
+                    <ul class="fragment">
+                        <li><i class="fas fa-plus-circle text-primary-color"></i> **6个项目维持或上涨。**</li>
+                        <li><i class="fas fa-star text-accent-color"></i> **7个新面孔进入榜单：** (如jemalloc, HowToCook, ChinaTextbook, Syncthing, CodingInterviewUniversity等)。</li>
+                    </ul>
+                    <h3 class="fragment mt-4">新晋与持续热门：</h3>
+                    <ul class="fragment">
+                        <li><i class="fas fa-fire text-orange-400"></i> **新增热点：** `syncthing/syncthing`, `tapxworld/chinatextbook`, `anduin2017/howtocook`, `simplifyjobs/summer2025-internships`, `jwasham/coding-interview-university`, `scrapy/scrapy`, `jemalloc/jemalloc`</li>
+                        <li><i class="fas fa-arrow-down text-gray-500"></i> **减退热点：** `wordpress/gutenberg` 等</li>
+                        <li><i class="fas fa-heartbeat text-red-400"></i> **持续热门：** `onlook-dev/onlook` (5次), `nautechsystems/nautilus_trader` (4次), `donnemartin/system-design-primer` (4次), `frdel/agent-zero` (5次)</li>
+                    </ul>
+                    <div class="ahabox fragment">
+                        <strong>Aha Moment:</strong> 榜单的更新活力与对AI、效率工具、基础学习资源的持续追捧，显示了技术社区对前沿与基础并重的均衡需求。
+                    </div>
+                </div>
+            </section>
+
+            <!-- 详细仓库数据 (垂直幻灯片) -->
+            <section>
+                <h2 class="section-header">热门项目：深度解析 <i class="fas fa-magnifying-glass text-secondary-color"></i></h2>
+
+                <!-- onlook-dev/onlook -->
+                <section data-background-image="https://images.unsplash.com/photo-1587620962725-abab7fe55159?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" data-background-size="cover" data-background-position="center" class="bg-dev-tools">
+                    <div class="project-card text-dark">
+                        <h3 class="text-light"><a href="https://github.com/onlook-dev/onlook" target="_blank" class="text-light hover:underline"><i class="fas fa-lightbulb text-accent-color"></i> onlook-dev/onlook</a></h3>
+                        <p class="text-gray-200"><strong>项目简介:</strong> 面向设计师的光标 · 开源可视化风格编辑器 · 通过 AI 可视化构建、风格化和编辑你的 React 应用</p>
+                        <div class="stats text-gray-300 mt-2">
+                            <span><i class="fas fa-star"></i> 14.9k</span>
+                            <span><i class="fas fa-code-branch"></i> 856</span>
+                            <span><i class="fas fa-fire text-primary-color"></i> 连续在榜: 5次</span>
+                            <span><i class="fas fa-arrow-up text-primary-color"></i> 当日 Star 增加: 2404</span>
+                        </div>
+                        <p class="lang-ratio text-gray-400"><strong>编程语言:</strong> TypeScript 98.7%</p>
+                        <p class="project-summary text-gray-200 mt-4">
+                            <strong>项目速读:</strong> Onlook是AI驱动的可视化代码编辑器，弥合设计与开发鸿沟，实时同步代码与视觉编辑，旨在革新Next.js开发，显著加速原型与网站构建。
+                        </p>
+                        <p class="growth-analysis text-gray-300">
+                            <strong>增长分析:</strong> 仓库5天持续上榜，增长强劲；今日新增2404星远超平均，显示增长显著加速。
+                        </p>
+                        <div class="ahabox text-gray-700 fragment">
+                            <strong>Aha Moment:</strong> <span class="highlight-text">AI与可视化编程的无缝融合，预示着未来前端开发的新范式，降低了设计与代码的门槛！</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- gitroomhq/postiz-app -->
+                <section data-background-image="https://images.unsplash.com/photo-1504868584819-f8ed6d2187c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" data-background-size="cover" data-background-position="center" class="bg-ai-theme">
+                    <div class="project-card text-dark">
+                        <h3 class="text-light"><a href="https://github.com/gitroomhq/postiz-app" target="_blank" class="text-light hover:underline"><i class="fas fa-robot text-primary-color"></i> gitroomhq/postiz-app</a></h3>
+                        <p class="text-gray-200"><strong>项目简介:</strong> 📨 集成大量AI的终极社交媒体日程工具 🤖</p>
+                        <div class="stats text-gray-300 mt-2">
+                            <span><i class="fas fa-star"></i> 20.7k</span>
+                            <span><i class="fas fa-code-branch"></i> 3.3k</span>
+                            <span><i class="fas fa-fire text-primary-color"></i> 连续在榜: 3次</span>
+                            <span><i class="fas fa-arrow-up text-primary-color"></i> 当日 Star 增加: 357</span>
+                        </div>
+                        <p class="lang-ratio text-gray-400"><strong>编程语言:</strong> TypeScript 67.1%, JavaScript 18.5%</p>
+                        <p class="project-summary text-gray-200 mt-4">
+                            <strong>项目速读:</strong> Postiz-app是一站式社交媒体内容日程工具，通过AI提升多平台内容管理与发布效率，解决手动操作痛点。
+                        </p>
+                        <p class="growth-analysis text-gray-300">
+                            <strong>增长分析:</strong> 总增长显著，尤其今日新增357星，远超平均水平，表明近期关注度激增。
+                        </p>
+                        <div class="ahabox text-gray-700 fragment">
+                            <strong>Aha Moment:</strong> <span class="highlight-text">AI正解放内容创作者，让社交媒体运营从繁琐走向智能自动化！</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- nautechsystems/nautilus_trader -->
+                <section data-background-image="https://images.unsplash.com/photo-1620092147137-33f72153b0c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" data-background-size="cover" data-background-position="center" class="bg-dark">
+                    <div class="project-card text-light">
+                        <h3 class="text-accent-color"><a href="https://github.com/nautechsystems/nautilus_trader" target="_blank" class="text-accent-color hover:underline"><i class="fas fa-chart-line text-primary-color"></i> nautechsystems/nautilus_trader</a></h3>
+                        <p class="text-gray-300"><strong>项目简介:</strong> 高性能算法交易平台和事件驱动回测器</p>
+                        <div class="stats text-gray-400 mt-2">
+                            <span><i class="fas fa-star"></i> 7.5k</span>
+                            <span><i class="fas fa-code-branch"></i> 968</span>
+                            <span><i class="fas fa-fire text-primary-color"></i> 连续在榜: 4次</span>
+                            <span><i class="fas fa-arrow-up text-primary-color"></i> 当日 Star 增加: 380</span>
+                        </div>
+                        <p class="lang-ratio text-gray-500"><strong>编程语言:</strong> Python 43.2%, Rust 38.9%</p>
+                        <p class="project-summary text-gray-300 mt-4">
+                            <strong>项目速读:</strong> NautilusTrader是为专业量化交易员设计的高性能平台，Rust核心确保速度，Python接口提供开发便利，突出“AI优先”设计，加速AI交易模型开发与部署。
+                        </p>
+                        <p class="growth-analysis text-gray-400">
+                            <strong>增长分析:</strong> 尽管上榜次数不多，近期增长势头强劲，远超平均水平，增长趋势显著向上。
+                        </p>
+                        <div class="ahabox text-gray-700 fragment">
+                            <strong>Aha Moment:</strong> <span class="highlight-text">AI与高性能底层语言（Rust）结合，突破传统量化交易瓶颈，解锁复杂AI策略的实战能力！</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Anduin2017/HowToCook -->
+                <section data-background-image="https://images.unsplash.com/photo-1543353071-872f7312f483?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" data-background-size="cover" data-background-position="center" class="bg-light">
+                    <div class="project-card text-dark">
+                        <h3 class="text-primary-color"><a href="https://github.com/Anduin2017/HowToCook" target="_blank" class="text-primary-color hover:underline"><i class="fas fa-bowl-food text-accent-color"></i> Anduin2017/HowToCook</a></h3>
+                        <p class="text-gray-700"><strong>项目简介:</strong> 程序员在家做饭方法指南</p>
+                        <div class="stats text-gray-600 mt-2">
+                            <span><i class="fas fa-star"></i> 86.8k</span>
+                            <span><i class="fas fa-code-branch"></i> 10.1k</span>
+                            <span><i class="fas fa-fire text-primary-color"></i> 连续在榜: 1次</span>
+                            <span><i class="fas fa-arrow-up text-primary-color"></i> 当日 Star 增加: 443</span>
+                        </div>
+                        <p class="lang-ratio text-gray-500"><strong>编程语言:</strong> Dockerfile 100.0%</p>
+                        <p class="project-summary text-gray-700 mt-4">
+                            <strong>项目速读:</strong> 《程序员做饭指南》将编程思维引入厨房，用清晰、标准化的方式组织菜谱，帮助程序员轻松学会做饭。
+                        </p>
+                        <p class="growth-analysis text-gray-600">
+                            <strong>增长分析:</strong> 近7周内上榜7次，总增1.59万星，平均每次增1139星，增长稳定且强劲。
+                        </p>
+                        <div class="ahabox text-gray-700 fragment">
+                            <strong>Aha Moment:</strong> <span class="highlight-text">技术思维不仅能解决复杂代码问题，也能让生活变得更有序、更有趣！</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- donnemartin/system-design-primer -->
+                <section data-background-image="https://images.unsplash.com/photo-1520627725944-d8305c48b2d1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" data-background-size="cover" data-background-position="center" class="bg-edu">
+                    <div class="project-card text-dark">
+                        <h3 class="text-secondary-color"><a href="https://github.com/donnemartin/system-design-primer" target="_blank" class="text-secondary-color hover:underline"><i class="fas fa-brain text-accent-color"></i> donnemartin/system-design-primer</a></h3>
+                        <p class="text-gray-700"><strong>项目简介:</strong> 学习如何设计大型系统。准备系统设计面试。包含 Anki 抽认卡。</p>
+                        <div class="stats text-gray-600 mt-2">
+                            <span><i class="fas fa-star"></i> 304k</span>
+                            <span><i class="fas fa-code-branch"></i> 50.3k</span>
+                            <span><i class="fas fa-fire text-primary-color"></i> 连续在榜: 4次</span>
+                            <span><i class="fas fa-arrow-up text-primary-color"></i> 当日 Star 增加: 860</span>
+                        </div>
+                        <p class="lang-ratio text-gray-500"><strong>编程语言:</strong> Python 98.0%</p>
+                        <p class="project-summary text-gray-700 mt-4">
+                            <strong>项目速读:</strong> 广受欢迎的系统设计学习指南，系统性地帮助工程师掌握大规模系统设计知识，高效准备技术面试。
+                        </p>
+                        <p class="growth-analysis text-gray-600">
+                            <strong>增长分析:</strong> 增长持续稳定，近期势头尤为强劲，上榜频率高表明其持续受到关注。
+                        </p>
+                        <div class="ahabox text-gray-700 fragment">
+                            <strong>Aha Moment:</strong> <span class="highlight-text">硬核知识永不过时！系统性学习和终身成长是技术人职业发展的核心驱动力。</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TapXWorld/ChinaTextbook -->
+                <section data-background-image="https://images.unsplash.com/photo-1524995997946-a1c2e315a724?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" data-background-size="cover" data-background-position="center" class="bg-edu">
+                    <div class="project-card text-dark">
+                        <h3 class="text-primary-color"><a href="https://github.com/TapXWorld/ChinaTextbook" target="_blank" class="text-primary-color hover:underline"><i class="fas fa-book text-accent-color"></i> TapXWorld/ChinaTextbook</a></h3>
+                        <p class="text-gray-700"><strong>项目简介:</strong> 所有小初高、大学PDF教材。</p>
+                        <div class="stats text-gray-600 mt-2">
+                            <span><i class="fas fa-star"></i> 35.4k</span>
+                            <span><i class="fas fa-code-branch"></i> 7.9k</span>
+                            <span><i class="fas fa-fire text-primary-color"></i> 连续在榜: 1次</span>
+                            <span><i class="fas fa-arrow-up text-primary-color"></i> 当日 Star 增加: 658</span>
+                        </div>
+                        <p class="lang-ratio text-gray-500"><strong>编程语言:</strong> Roff 100.0%</p>
+                        <p class="project-summary text-gray-700 mt-4">
+                            <strong>项目速读:</strong> 汇集中国小初高及大学PDF教材，致力于提供免费无水印教育资源，促进教育公平。
+                        </p>
+                        <p class="growth-analysis text-gray-600">
+                            <strong>增长分析:</strong> 仓库增长迅猛，总增21093星，平均每次上榜增2821星，持续受到关注。
+                        </p>
+                        <div class="ahabox text-gray-700 fragment">
+                            <strong>Aha Moment:</strong> <span class="highlight-text">开源的力量超越代码，也能在教育资源共享领域发挥巨大社会价值！</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- elebumm/RedditVideoMakerBot -->
+                <section data-background-image="https://images.unsplash.com/photo-1521737711867-ee134d7ee0c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" data-background-size="cover" data-background-position="center" class="bg-dark">
+                    <div class="project-card text-light">
+                        <h3 class="text-primary-color"><a href="https://github.com/elebumm/RedditVideoMakerBot" target="_blank" class="text-primary-color hover:underline"><i class="fas fa-video text-accent-color"></i> elebumm/RedditVideoMakerBot</a></h3>
+                        <p class="text-gray-300"><strong>项目简介:</strong> 只需一条命令制作 Reddit 视频</p>
+                        <div class="stats text-gray-400 mt-2">
+                            <span><i class="fas fa-star"></i> 7.7k</span>
+                            <span><i class="fas fa-code-branch"></i> 2k</span>
+                            <span><i class="fas fa-fire text-primary-color"></i> 连续在榜: 4次</span>
+                            <span><i class="fas fa-arrow-up text-primary-color"></i> 当日 Star 增加: 249</span>
+                        </div>
+                        <p class="lang-ratio text-gray-500"><strong>编程语言:</strong> Python 65.0%, HTML 30.3%</p>
+                        <p class="project-summary text-gray-300 mt-4">
+                            <strong>项目速读:</strong> 自动化Reddit内容转视频工具，通过简单命令将热门Reddit帖子和评论快速生成可上传到TikTok/YouTube的视频，极大降低内容创作门槛。
+                        </p>
+                        <p class="growth-analysis text-gray-400">
+                            <strong>增长分析:</strong> 持续4天上榜，总增长647星。今日新增249星高于平均，增长势头加速。
+                        </p>
+                        <div class="ahabox text-gray-700 fragment">
+                            <strong>Aha Moment:</strong> <span class="highlight-text">低代码/无代码工具正在赋能非专业人士，让视频内容生产变得触手可及！</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- jemalloc/jemalloc -->
+                <section data-background-image="https://images.unsplash.com/photo-1598466668742-d6023247c430?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" data-background-size="cover" data-background-position="center" class="bg-dark">
+                    <div class="project-card text-light">
+                        <h3 class="text-accent-color"><a href="https://github.com/jemalloc/jemalloc" target="_blank" class="text-accent-color hover:underline"><i class="fas fa-memory text-primary-color"></i> jemalloc/jemalloc</a></h3>
+                        <p class="text-gray-300"><strong>项目简介:</strong> 高性能的通用内存分配器</p>
+                        <div class="stats text-gray-400 mt-2">
+                            <span><i class="fas fa-star"></i> 10.1k</span>
+                            <span><i class="fas fa-code-branch"></i> 1.5k</span>
+                            <span><i class="fas fa-fire text-primary-color"></i> 连续在榜: 1次</span>
+                            <span><i class="fas fa-arrow-up text-primary-color"></i> 当日 Star 增加: 81</span>
+                        </div>
+                        <p class="lang-ratio text-gray-500"><strong>编程语言:</strong> C 87.9%, Perl 5.7%</p>
+                        <p class="project-summary text-gray-300 mt-4">
+                            <strong>项目速读:</strong> Jemalloc是高性能内存分配器，旨在解决高并发多线程环境下的性能瓶颈和内存碎片问题，广泛应用于对内存效率要求极高的场景。
+                        </p>
+                        <p class="growth-analysis text-gray-400">
+                            (首次上榜，暂无历史数据)
+                        </p>
+                        <div class="ahabox text-gray-700 fragment">
+                            <strong>Aha Moment:</strong> <span class="highlight-text">在追求应用层AI创新的同时，底层系统性能优化仍然是技术进步的基石！</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- jwasham/coding-interview-university -->
+                <section data-background-image="https://images.unsplash.com/photo-1518655294025-a1c2e315a724?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" data-background-size="cover" data-background-position="center" class="bg-edu">
+                    <div class="project-card text-dark">
+                        <h3 class="text-secondary-color"><a href="https://github.com/jwasham/coding-interview-university" target="_blank" class="text-secondary-color hover:underline"><i class="fas fa-laptop-code text-accent-color"></i> jwasham/coding-interview-university</a></h3>
+                        <p class="text-gray-700"><strong>项目简介:</strong> 成为软件工程师的完整计算机科学学习计划</p>
+                        <div class="stats text-gray-600 mt-2">
+                            <span><i class="fas fa-star"></i> 319k</span>
+                            <span><i class="fas fa-code-branch"></i> 79k</span>
+                            <span><i class="fas fa-fire text-primary-color"></i> 连续在榜: 1次</span>
+                            <span><i class="fas fa-arrow-up text-primary-color"></i> 当日 Star 增加: 207</span>
+                        </div>
+                        <p class="lang-ratio text-gray-500"><strong>编程语言:</strong> (文档类仓库，无主要语言)</p>
+                        <p class="project-summary text-gray-700 mt-4">
+                            <strong>项目速读:</strong> 极其详尽的自学计划，旨在帮助程序员系统准备大型科技公司技术面试，涵盖算法、数据结构、系统设计等核心内容。
+                        </p>
+                        <p class="growth-analysis text-gray-600">
+                            <strong>增长分析:</strong> 每次上榜日均星增量可观，今天新增207星接近平均值。增长趋势呈脉冲式，潜力稳定。
+                        </p>
+                        <div class="ahabox text-gray-700 fragment">
+                            <strong>Aha Moment:</strong> <span class="highlight-text">技术领域风云变幻，但扎实的计算机科学基础永远是职业发展的金钥匙！</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- scrapy/scrapy -->
+                <section data-background-image="https://images.unsplash.com/photo-1516056637385-d8687a41548e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" data-background-size="cover" data-background-position="center" class="bg-dev-tools">
+                    <div class="project-card text-light">
+                        <h3 class="text-primary-color"><a href="https://github.com/scrapy/scrapy" target="_blank" class="text-primary-color hover:underline"><i class="fas fa-spider text-accent-color"></i> scrapy/scrapy</a></h3>
+                        <p class="text-gray-300"><strong>项目简介:</strong> Scrapy，一个用 Python 编写的快速、高级的网络爬取和抓取框架。</p>
+                        <div class="stats text-gray-400 mt-2">
+                            <span><i class="fas fa-star"></i> 55.5k</span>
+                            <span><i class="fas fa-code-branch"></i> 10.8k</span>
+                            <span><i class="fas fa-fire text-primary-color"></i> 连续在榜: 1次</span>
+                            <span><i class="fas fa-arrow-up text-primary-color"></i> 当日 Star 增加: 41</span>
+                        </div>
+                        <p class="lang-ratio text-gray-500"><strong>编程语言:</strong> Python 99.8%</p>
+                        <p class="project-summary text-gray-300 mt-4">
+                            <strong>项目速读:</strong> Scrapy是Python高性能网络爬虫框架，专注于高效抓取和提取结构化数据，简化大规模数据采集过程。
+                        </p>
+                        <p class="growth-analysis text-gray-400">
+                            (首次上榜，暂无历史数据)
+                        </p>
+                        <div class="ahabox text-gray-700 fragment">
+                            <strong>Aha Moment:</strong> <span class="highlight-text">即便在AI时代，高效的数据获取能力依然是构建智能应用的基础！</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- frdel/agent-zero -->
+                <section data-background-image="https://images.unsplash.com/photo-1518655294025-a1c2e315a724?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" data-background-size="cover" data-background-position="center" class="bg-ai-theme">
+                    <div class="project-card text-light">
+                        <h3 class="text-accent-color"><a href="https://github.com/frdel/agent-zero" target="_blank" class="text-accent-color hover:underline"><i class="fas fa-user-secret text-primary-color"></i> frdel/agent-zero</a></h3>
+                        <p class="text-gray-300"><strong>项目简介:</strong> 零号智能体人工智能框架</p>
+                        <div class="stats text-gray-400 mt-2">
+                            <span><i class="fas fa-star"></i> 8.3k</span>
+                            <span><i class="fas fa-code-branch"></i> 1.7k</span>
+                            <span><i class="fas fa-fire text-primary-color"></i> 连续在榜: 5次</span>
+                            <span><i class="fas fa-arrow-up text-primary-color"></i> 当日 Star 增加: 372</span>
+                        </div>
+                        <p class="lang-ratio text-gray-500"><strong>编程语言:</strong> Python 49.2%, JavaScript 24.8%</p>
+                        <p class="project-summary text-gray-300 mt-4">
+                            <strong>项目速读:</strong> Agent Zero是个人学习型AI智能体框架，通用性极高，能动态调整并从经验中学习，通过OS和终端工具完成软件开发、数据分析等任务。
+                        </p>
+                        <p class="growth-analysis text-gray-400">
+                            <strong>增长分析:</strong> 在短短5次上榜期间实现1438星增长，最新日增372星远超平均，表明增长势头强劲并加速。
+                        </p>
+                        <div class="ahabox text-gray-700 fragment">
+                            <strong>Aha Moment:</strong> <span class="highlight-text">通用型AI Agent的崛起，预示着未来个人工作效率将发生颠覆性变革！</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SimplifyJobs/Summer2025-Internships -->
+                <section data-background-image="https://images.unsplash.com/photo-1542838706-e7e0e2e2a0f8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" data-background-size="cover" data-background-position="center" class="bg-edu">
+                    <div class="project-card text-dark">
+                        <h3 class="text-primary-color"><a href="https://github.com/SimplifyJobs/Summer2025-Internships" target="_blank" class="text-primary-color hover:underline"><i class="fas fa-briefcase text-accent-color"></i> SimplifyJobs/Summer2025-Internships</a></h3>
+                        <p class="text-gray-700"><strong>项目简介:</strong> 2025年夏季技术实习汇总</p>
+                        <div class="stats text-gray-600 mt-2">
+                            <span><i class="fas fa-star"></i> 37.9k</span>
+                            <span><i class="fas fa-code-branch"></i> 2.9k</span>
+                            <span><i class="fas fa-fire text-primary-color"></i> 连续在榜: 1次</span>
+                            <span><i class="fas fa-arrow-up text-primary-color"></i> 当日 Star 增加: 58</span>
+                        </div>
+                        <p class="lang-ratio text-gray-500"><strong>编程语言:</strong> (文档类仓库，无主要语言)</p>
+                        <p class="project-summary text-gray-700 mt-4">
+                            <strong>项目速读:</strong> 汇集2025年夏季全球技术实习机会，解决学生和求职者查找难问题，信息集中、持续更新，社区协作贡献。
+                        </p>
+                        <p class="growth-analysis text-gray-600">
+                            <strong>增长分析:</strong> 每次上榜平均带来113.6星，总星数增长达1159。虽然并非频繁曝光，但上榜对增长驱动作用显著。
+                        </p>
+                        <div class="ahabox text-gray-700 fragment">
+                            <strong>Aha Moment:</strong> <span class="highlight-text">开源协作不仅构建软件，还能高效组织和共享关键职业发展信息！</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- syncthing/syncthing -->
+                <section data-background-image="https://images.unsplash.com/photo-1579547621415-397a61d670f5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" data-background-size="cover" data-background-position="center" class="bg-dark">
+                    <div class="project-card text-light">
+                        <h3 class="text-secondary-color"><a href="https://github.com/syncthing/syncthing" target="_blank" class="text-secondary-color hover:underline"><i class="fas fa-sync-alt text-accent-color"></i> syncthing/syncthing</a></h3>
+                        <p class="text-gray-300"><strong>项目简介:</strong> 开源持续文件同步</p>
+                        <div class="stats text-gray-400 mt-2">
+                            <span><i class="fas fa-star"></i> 71.7k</span>
+                            <span><i class="fas fa-code-branch"></i> 4.6k</span>
+                            <span><i class="fas fa-fire text-primary-color"></i> 连续在榜: 1次</span>
+                            <span><i class="fas fa-arrow-up text-primary-color"></i> 当日 Star 增加: 228</span>
+                        </div>
+                        <p class="lang-ratio text-gray-500"><strong>编程语言:</strong> Go 82.7%, HTML 6.8%</p>
+                        <p class="project-summary text-gray-300 mt-4">
+                            <strong>项目速读:</strong> Syncthing是开源、去中心化的文件同步程序，注重数据安全和隐私，提供多平台持续同步解决方案。
+                        </p>
+                        <p class="growth-analysis text-gray-400">
+                            <strong>增长分析:</strong> 在5天内上榜4次，显示出持续的关注度和活跃度。当次新增达228，高于平均，表明近期增长势头强劲且稳定。
+                        </p>
+                        <div class="ahabox text-gray-700 fragment">
+                            <strong>Aha Moment:</strong> <span class="highlight-text">在云服务盛行的时代，用户对数据隐私和去中心化控制的需求依然强劲！</span>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- 总结与展望 -->
+            <section class="cover-slide" data-background-image="https://images.unsplash.com/photo-1518770660439-4636ee7ba7ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80" data-background-size="cover" data-background-position="center">
+                <h1 class="text-light">洞察未来：AI赋能，持续成长 <i class="fas fa-seedling text-primary-color"></i></h1>
+                <p class="text-gray-200 text-2xl mt-4 fragment">
+                    <i class="fas fa-check-circle text-accent-color"></i> AI正以前所未有的速度改变我们的工作与生活。
+                </p>
+                <p class="text-gray-200 text-2xl mt-2 fragment">
+                    <i class="fas fa-check-circle text-accent-color"></i> 掌握新兴技术，但更要夯实基础、提升效率。
+                </p>
+                <p class="text-gray-200 text-2xl mt-2 fragment">
+                    <i class="fas fa-check-circle text-accent-color"></i> 开源社区是获取知识、共同成长的最佳平台。
+                </p>
+
+                <h3 class="text-accent-color mt-8 fragment">
+                    <i class="fas fa-star"></i> 关注我们，持续获取最新技术洞察！
+                </h3>
+                <div class="bottom-links">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        <i class="fab fa-github"></i> github.com/aichipera/github-trend
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="微信二维码">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <script>
+        // 初始化 Mermaid
+        mermaid.initialize({ startOnLoad: false });
+
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            transition: 'fade', // none/fade/slide/convex/concave/zoom
+            backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+            fragments: true,
+
+            dependencies: [
+                { src: 'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js', async: true },
+                { src: 'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js', async: true },
+                { src: 'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/zoom/zoom.min.js', async: true },
+                { src: 'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/math/math.min.js', async: true },
+                { src: 'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/mermaid/mermaid.min.js', async: true, callback: function() { mermaid.init(); } } // Ensure mermaid is initialized
+            ]
+        });
+    </script>
+</body>
+</html>
