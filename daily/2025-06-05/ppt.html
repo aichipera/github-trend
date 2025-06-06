@@ -1,0 +1,683 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>不只AI Agent！最新技术趋势揭秘：未来风向，还有程序员的隐藏宝藏？</title>
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <!-- 字体：Noto Sans SC for Chinese characters, 确保可读性 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* 配色方案 */
+        :root {
+            --r-background-color: #f8f8f8; /* 整体背景色，现代简约 */
+            --primary-color: #3182CE; /* 主色调：深蓝色，用于标题、重点 */
+            --secondary-color: #6366F1; /* 辅助色调：靛蓝色，用于图标、次要标题 */
+            --accent-color: #FACC15; /* 强调色：明黄色，用于"Aha Moment"、高亮提示 */
+            --text-color: #2D3748; /* 正文颜色：深灰色，确保高对比度 */
+            --light-text-color: #718096; /* 浅色文本：中灰色，用于副标题、说明 */
+        }
+
+        /* 字体设置 */
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--text-color);
+        }
+
+        /* 标题字体与层次 */
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--primary-color);
+            text-shadow: none; /* 移除默认阴影 */
+            font-weight: 700; /* 加粗，提升标题表现力 */
+        }
+
+        .reveal h1 { font-size: 3.5rem; } /* 封面主标题 */
+        .reveal h2 { font-size: 2.8rem; } /* 章节标题 */
+        .reveal h3 { font-size: 2.2rem; } /* 小节标题 */
+        .reveal p, .reveal li, .reveal table { font-size: 1.2rem; line-height: 1.6; } /* 正文与列表 */
+
+        /* RevealJS Fragments (内容分片) 动画 */
+        .reveal .fragment {
+            opacity: 0;
+            visibility: hidden;
+            will-change: transform, opacity;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+
+        .reveal .fragment.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+        .reveal .fragment:not(.visible) {
+            transform: translateX(20px); /* 略微从右侧滑入 */
+        }
+
+        /* 底部链接与二维码 */
+        .reveal .footer-links {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--light-text-color);
+            z-index: 99;
+        }
+
+        .reveal .footer-links img {
+            height: 50px;
+            width: 50px;
+            margin-left: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* 幻灯片通用样式 */
+        .reveal section {
+            padding: 40px;
+            box-sizing: border-box;
+            background-color: var(--r-background-color);
+            background-position: center center;
+            background-size: cover;
+        }
+
+        /* 自定义背景：渐变色，区分章节主题 */
+        .slide-bg-ai {
+            background: linear-gradient(135deg, #e0f2f7 0%, #c4e4f2 50%, #b3e5fc 100%); /* 浅蓝色渐变，代表AI/科技 */
+        }
+        .slide-bg-data {
+            background: linear-gradient(135deg, #f0f4f8 0%, #e8edf3 100%); /* 浅灰色渐变，代表数据/信息 */
+        }
+        .slide-bg-insight {
+             background: linear-gradient(135deg, #fffbe6 0%, #fffacd 100%); /* 浅黄色渐变，代表灵感/Aha */
+        }
+
+        /* 渐变文字效果 */
+        .gradient-text {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 项目卡片样式：用于展示详细仓库数据 */
+        .repo-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08); /* 突出效果 */
+            padding: 25px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            transition: transform 0.3s ease-in-out; /* 微交互：鼠标悬停上浮 */
+        }
+        .repo-card:hover {
+            transform: translateY(-5px);
+        }
+        .repo-card h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        .repo-card .stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .repo-card .stat-item {
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+            color: var(--light-text-color);
+        }
+        .repo-card .stat-item i {
+            margin-right: 8px;
+            color: var(--secondary-color);
+        }
+        .repo-card .description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin-bottom: 15px;
+        }
+        .repo-card .analysis {
+            font-size: 0.95rem;
+            color: var(--light-text-color);
+            border-top: 1px dashed #E2E8F0; /* 虚线分割 */
+            padding-top: 10px;
+            margin-top: auto;
+        }
+
+        /* 突出提示框 */
+        .highlight-box {
+            background-color: var(--accent-color);
+            padding: 20px 30px;
+            border-radius: 12px;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: white;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(250, 204, 21, 0.4);
+            display: inline-block;
+            margin: 30px auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .highlight-box::before { /* 微交互：光晕效果 */
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(45deg);
+            animation: pulse-light 3s infinite ease-in-out;
+        }
+        @keyframes pulse-light {
+            0% { opacity: 0.2; transform: scale(0.8) rotate(45deg); }
+            50% { opacity: 0.6; transform: scale(1.1) rotate(45deg); }
+            100% { opacity: 0.2; transform: scale(0.8) rotate(45deg); }
+        }
+
+        /* "Aha Moment" 效果 */
+        .aha-moment {
+            font-size: 3.2rem;
+            font-weight: 700;
+            text-align: center;
+            color: var(--primary-color);
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            animation: bounceIn 1s ease-out; /* 弹跳动画 */
+            margin-top: 50px;
+            padding: 10px 0;
+            border-bottom: 4px solid var(--accent-color); /* 黄色下划线 */
+            display: inline-block;
+            line-height: 1.2;
+        }
+
+        .aha-moment::before, .aha-moment::after { /* 💡图标动画 */
+            content: "💡";
+            font-size: 1.5em;
+            position: absolute;
+            opacity: 0;
+            animation: lightbulb 2s infinite ease-out;
+        }
+        .aha-moment::before {
+            left: -0.8em;
+            top: -0.8em;
+            animation-delay: 0.5s;
+        }
+        .aha-moment::after {
+            right: -0.8em;
+            bottom: -0.8em;
+            animation-delay: 1s;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.1); opacity: 0; }
+            60% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+        @keyframes lightbulb {
+            0% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.5); }
+        }
+
+        /* 带图标的列表 */
+        .list-with-icons li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        .list-with-icons li i {
+            margin-right: 12px;
+            color: var(--secondary-color);
+            min-width: 30px;
+            text-align: center;
+            font-size: 1.4em;
+            flex-shrink: 0;
+            padding-top: 2px;
+        }
+
+        /* 封面页背景文字阴影，增强可读性 */
+        .reveal section[data-background-image] h1,
+        .reveal section[data-background-image] p {
+            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: 封面页 (Cover Page) -->
+            <section data-background-image="https://images.unsplash.com/photo-1596552994966-26e83863d047?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-background-size="cover" data-background-position="center">
+                <div class="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center items-center text-white p-20">
+                    <h1 class="text-6xl font-bold mb-6 text-center leading-tight">
+                        <span class="gradient-text">不只AI Agent！</span><br>
+                        最新技术趋势揭秘：未来风向，还有<span style="color: var(--accent-color);">程序员的隐藏宝藏</span>？
+                    </h1>
+                    <p class="text-3xl mb-8 font-semibold text-gray-200">
+                        GitHub热门仓库日报观测：2025-06-05
+                    </p>
+                    <p class="text-xl font-light text-gray-300">
+                        演讲者：AIChipEra
+                    </p>
+                    <div class="absolute bottom-6 left-6 text-sm text-gray-400 text-left w-1/3">
+                        <p class="text-base">
+                            <i class="fas fa-exclamation-triangle mr-2 text-yellow-400"></i>
+                            以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！
+                        </p>
+                    </div>
+                    <div class="footer-links">
+                        <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-blue-300 hover:text-blue-200 mr-3">
+                            <i class="fab fa-github mr-1"></i>
+                            github.com/aichipera/github-trend
+                        </a>
+                        <img src="../../asserts/wx.jpg" alt="微信公众号二维码">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 2: 日报要点 - 引入"Aha Moment" -->
+            <section class="slide-bg-insight">
+                <h2 class="text-5xl font-bold mb-8 gradient-text">✨ 日报要点：不只AI Agent，还有更多惊喜！</h2>
+                <div class="flex flex-col md:flex-row items-start justify-center gap-10">
+                    <div class="md:w-1/2">
+                        <p class="text-2xl leading-relaxed fragment" data-fragment-index="1">
+                            <i class="fas fa-brain text-4xl text-primary-color mr-4"></i>
+                            今天，技术圈最火爆的话题无疑是<strong class="text-primary-color">AI Agent！</strong>它们正从概念走向落地，变得越来越智能，能感知环境、执行任务。
+                        </p>
+                        <p class="text-2xl leading-relaxed mt-6 fragment" data-fragment-index="2">
+                            <i class="fas fa-lightbulb text-4xl text-accent-color mr-4"></i>
+                            但这份趋势榜单告诉我们，技术热点远不止于此。
+                        </p>
+                    </div>
+                    <div class="md:w-1/2">
+                        <ul class="text-2xl list-none p-0 mt-6 space-y-4">
+                            <li class="fragment" data-fragment-index="3"><i class="fas fa-code text-secondary-color"></i> 能让开发者效率翻倍的工具</li>
+                            <li class="fragment" data-fragment-index="4"><i class="fas fa-chart-line text-secondary-color"></i> 面向特定领域的高性能平台</li>
+                            <li class="fragment" data-fragment-index="5"><i class="fas fa-book-open text-secondary-color"></i> 甚至还有<strong class="text-accent-color">《程序员做饭指南》</strong>这样的“非典型”热门项目！</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <p class="aha-moment text-4xl mt-12 fragment" data-fragment-index="6">
+                        💥 这份榜单是当下最活跃技术需求和未来风向的缩影！
+                    </p>
+                </div>
+            </section>
+
+            <!-- Slide 3: 整体趋势分析 - AI Agent & Efficiency -->
+            <section class="slide-bg-ai">
+                <h2 class="text-5xl font-bold mb-8 gradient-text">🔍 今日技术热点：AI Agent全面爆发</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div class="fragment" data-fragment-index="1">
+                        <h3 class="text-3xl font-semibold mb-4"><i class="fas fa-robot mr-3 text-primary-color"></i> AI Agent：从概念到落地</h3>
+                        <ul class="list-with-icons text-xl space-y-3">
+                            <li><i class="fas fa-terminal"></i> 操作系统交互 (Agent Zero)</li>
+                            <li><i class="fas fa-memory"></i> 构建记忆系统 (Cognee)</li>
+                            <li><i class="fas fa-toolbox"></i> 外部工具调用 (mcp-agent)</li>
+                            <li><i class="fas fa-handshake"></i> 标准化协议 (ruby-sdk)</li>
+                            <li><i class="fas fa-project-diagram"></i> 目标：更强的环境感知、任务执行、信息处理能力</li>
+                        </ul>
+                    </div>
+                    <div class="fragment" data-fragment-index="2">
+                        <h3 class="text-3xl font-semibold mb-4"><i class="fas fa-rocket mr-3 text-secondary-color"></i> 开发者与创作者效率提升</h3>
+                        <ul class="list-with-icons text-xl space-y-3">
+                            <li><i class="fas fa-palette"></i> 可视化编辑与AI辅助Web开发 (Onlook)</li>
+                            <li><i class="fas fa-file-alt"></i> 增强Markdown表达力与输出 (Quarkdown)</li>
+                            <li><i class="fas fa-desktop"></i> 弥合设计与代码鸿沟，降低开发门槛</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 4: 整体趋势分析 - Niche Platforms & Knowledge Sharing -->
+            <section class="slide-bg-data">
+                <h2 class="text-5xl font-bold mb-8 gradient-text">🌐 持续需求：高性能与知识共享</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div class="fragment" data-fragment-index="1">
+                        <h3 class="text-3xl font-semibold mb-4"><i class="fas fa-cogs mr-3 text-primary-color"></i> 高性能专业平台</h3>
+                        <ul class="list-with-icons text-xl space-y-3">
+                            <li><i class="fas fa-chart-area"></i> 量化交易平台 (NautilusTrader)</li>
+                            <li><i class="fas fa-shield-alt"></i> 基础网络安全基础设施 (NetBird)</li>
+                            <li><i class="fas fa-plane"></i> 嵌入式/无人机控制系统 (ArduPilot)</li>
+                            <li><i class="fas fa-tachometer-alt"></i> 追求性能、稳定性与安全性</li>
+                        </ul>
+                    </div>
+                    <div class="fragment" data-fragment-index="2">
+                        <h3 class="text-3xl font-semibold mb-4"><i class="fas fa-share-alt mr-3 text-secondary-color"></i> 知识分享与社区协作</h3>
+                        <ul class="list-with-icons text-xl space-y-3">
+                            <li><i class="fas fa-utensils"></i> 《程序员做饭指南》 (HowToCook)</li>
+                            <li><i class="fas fa-book"></i> 《中国教材大全》 (ChinaTextbook)</li>
+                            <li><i class="fas fa-lightbulb"></i> 项目实战教程精选 (Project-Based Learning)</li>
+                            <li><i class="fas fa-users"></i> GitHub成为共享各类结构化信息的重要渠道</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5: 编程语言与技术栈 -->
+            <section class="slide-bg-ai">
+                <h2 class="text-5xl font-bold mb-8 gradient-text">💻 主要编程语言与技术栈</h2>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-10">
+                    <div class="md:w-1/2 fragment" data-fragment-index="1">
+                        <h3 class="text-3xl font-semibold mb-4"><i class="fas fa-code mr-3 text-primary-color"></i> 语言分布概览</h3>
+                        <ul class="list-with-icons text-2xl space-y-4">
+                            <li><i class="fab fa-python text-5xl text-blue-600"></i> <strong class="text-blue-600">Python：</strong> 绝对主导 (AI Agent, 数据处理, 量化交易)</li>
+                            <li><i class="fab fa-js-square text-5xl text-yellow-500"></i> <strong class="text-yellow-500">TypeScript：</strong> 现代Web开发 (前端/全栈工具)</li>
+                            <li><i class="fab fa-golang text-5xl text-blue-400"></i> <strong class="text-blue-400">Go：</strong> 网络与基础设施 (并发性, 性能)</li>
+                            <li class="fragment" data-fragment-index="2"><i class="fab fa-cuttlefish text-5xl text-gray-500"></i> <strong class="text-gray-500">C++/Kotlin：</strong> 嵌入式/高性能/特定领域应用</li>
+                            <li class="fragment" data-fragment-index="3"><i class="fas fa-file-code text-5xl text-green-500"></i> <strong class="text-green-500">非传统语言：</strong> (Dockerfile, Roff) 知识组织与分享的体现</li>
+                        </ul>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center items-center fragment" data-fragment-index="4">
+                        <!-- 语言分布示意图，用简单图形代替复杂图表 -->
+                        <div class="flex flex-col items-center">
+                            <div class="w-64 h-64 rounded-full bg-blue-100 flex items-center justify-center text-primary-color text-6xl font-bold relative opacity-80">
+                                Python
+                                <div class="absolute bottom-0 right-0 w-24 h-24 rounded-full bg-yellow-100 text-yellow-500 text-3xl flex items-center justify-center transform translate-x-1/4 translate-y-1/4 opacity-90">TS</div>
+                                <div class="absolute top-0 left-0 w-20 h-20 rounded-full bg-indigo-100 text-indigo-500 text-2xl flex items-center justify-center transform -translate-x-1/4 -translate-y-1/4 opacity-90">Go</div>
+                            </div>
+                            <p class="text-center text-lg text-gray-500 mt-4">
+                                AI/ML领域Python生态成熟，TypeScript引领Web创新。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 6: 技术需求与未来预测 -->
+            <section class="slide-bg-insight">
+                <h2 class="text-5xl font-bold mb-8 gradient-text">🚀 驱动未来的技术需求与预测</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="fragment" data-fragment-index="1">
+                        <h3 class="text-3xl font-semibold mb-4"><i class="fas fa-cogs mr-3 text-primary-color"></i> 核心技术需求</h3>
+                        <ul class="list-with-icons text-xl space-y-3">
+                            <li><i class="fas fa-magic"></i> <strong>智能化与自主化提升：</strong> AI Agent化解决端到端问题。</li>
+                            <li><i class="fas fa-terminal"></i> <strong>开发工作流优化：</strong> AI深度辅助开发，降低门槛。</li>
+                            <li><i class="fas fa-bolt"></i> <strong>高性能与可靠性：</strong> 关键领域对系统性能要求永无止境。</li>
+                            <li><i class="fas fa-database"></i> <strong>结构化数据与知识管理：</strong> 有效利用特定领域知识。</li>
+                            <li><i class="fas fa-handshake"></i> <strong>开放与互操作性：</strong> Agent生态走向开放可组合。</li>
+                        </ul>
+                    </div>
+                    <div class="fragment" data-fragment-index="2">
+                        <h3 class="text-3xl font-semibold mb-4"><i class="fas fa-chart-line mr-3 text-secondary-color"></i> 未来热点预测</h3>
+                        <ul class="list-with-icons text-xl space-y-3">
+                            <li><i class="fas fa-microchip"></i> 更强大的<strong>AI Agent框架与应用</strong>。</li>
+                            <li><i class="fas fa-tools"></i> <strong>AI深度融入开发工具链</strong> (IDE, 代码生成)。</li>
+                            <li><i class="fas fa-network-wired"></i> <strong>知识图谱与AI记忆系统</strong>结合。</li>
+                            <li><i class="fas fa-exchange-alt"></i> 新兴<strong>协议与互联标准</strong> (Agent间通信)。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7: 热点变化 / 增长分析 -->
+            <section class="slide-bg-data">
+                <h2 class="text-5xl font-bold mb-8 gradient-text">📈 热点变化：项目更迭与持续热门</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div class="fragment" data-fragment-index="1">
+                        <h3 class="text-3xl font-semibold mb-4"><i class="fas fa-fire mr-3 text-primary-color"></i> 新晋热点</h3>
+                        <ul class="list-with-icons text-xl space-y-3">
+                            <li><i class="fas fa-network-wired"></i> <strong class="text-secondary-color">NetBird:</strong> 安全覆盖网络</li>
+                            <li><i class="fas fa-microchip"></i> <strong class="text-secondary-color">Cognee:</strong> AI Agent记忆系统</li>
+                            <li><i class="fas fa-robot"></i> <strong class="text-secondary-color">mcp-agent:</strong> Agent工具调用</li>
+                            <li><i class="fas fa-file-alt"></i> <strong class="text-secondary-color">Quarkdown:</strong> 增强Markdown排版</li>
+                            <li><i class="fas fa-plane-departure"></i> <strong class="text-secondary-color">ArduPilot:</strong> 无人载具控制</li>
+                            <li><i class="fas fa-book-reader"></i> <strong class="text-secondary-color">Project-Based Learning:</strong> 项目实战教程</li>
+                        </ul>
+                    </div>
+                    <div class="fragment" data-fragment-index="2">
+                        <h3 class="text-3xl font-semibold mb-4"><i class="fas fa-star mr-3 text-accent-color"></i> 持续热门与焦点</h3>
+                        <ul class="list-with-icons text-xl space-y-3">
+                            <li><i class="fas fa-sync-alt"></i> <strong class="text-primary-color">frdel/agent-zero:</strong> 持续6次上榜，AI Agent框架</li>
+                            <li><i class="fas fa-chart-bar"></i> <strong class="text-primary-color">nautechsystems/nautilus_trader:</strong> 量化交易平台，5次上榜</li>
+                            <li><i class="fas fa-desktop"></i> <strong class="text-red-500">onlook-dev/onlook:</strong> <strong class="text-red-500">本日增长之星！</strong> 可视化AI辅助开发，6次上榜，<span class="text-2xl font-bold">+1477 Star!</span></li>
+                            <li><i class="fas fa-utensils"></i> <strong class="text-primary-color">Anduin2017/HowToCook:</strong> 程序员做饭指南，持续超高关注</li>
+                        </ul>
+                        <p class="text-lg text-gray-600 mt-4 fragment" data-fragment-index="3">
+                            <i class="fas fa-info-circle mr-2"></i> 总体趋势：AI Agent概念全面开花，非技术类结构化知识分享持续强势。
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 8: 详细项目：Onlook (今日明星项目) -->
+            <section class="slide-bg-insight">
+                <h2 class="text-5xl font-bold mb-8 gradient-text">🌟 今日明星项目：onlook-dev/onlook</h2>
+                <div class="repo-card w-full max-w-4xl mx-auto p-8 border-l-8 border-accent-color relative">
+                    <h3 class="text-4xl mb-4">onlook-dev/onlook</h3>
+                    <p class="text-2xl font-medium mb-4 text-gray-700">专为设计师打造的光标 • 开源的可视化 Vibecoding 编辑器 • 利用 AI 可视化构建、设计样式并编辑 React 应用</p>
+                    <div class="stats mb-6 text-xl">
+                        <span class="stat-item"><i class="fas fa-star"></i> 16.3k ⭐</span>
+                        <span class="stat-item"><i class="fas fa-code"></i> TypeScript</span>
+                        <span class="stat-item"><i class="fas fa-calendar-alt"></i> 连续在榜: 6次</span>
+                        <span class="stat-item"><i class="fas fa-plus-circle"></i> 今日新增: <strong class="text-red-500">1477</strong> ⭐</span>
+                    </div>
+                    <div class="description text-lg leading-relaxed mb-6">
+                        <p>
+                            Onlook 弥合设计与代码之间的鸿沟，允许设计师和开发者在浏览器中通过直观的可视化界面构建、样式化和编辑 React 应用，所有操作实时同步到底层代码。其核心在于将强大的可视化编辑能力与真实的、可控的代码相结合，并利用 AI 提供辅助生成和编辑功能。
+                        </p>
+                        <p class="font-semibold text-primary-color mt-4">
+                            <i class="fas fa-lightbulb mr-2"></i> <strong>Aha Moment:</strong> 所见即所得的设计与可控代码的完美融合，加上AI辅助，极大提升Web开发效率！
+                        </p>
+                    </div>
+                    <div class="analysis text-base text-gray-600">
+                        <p><strong>增长分析：</strong> 统计期内6次上榜，仓库增长强劲，总增6543星，平均每次增866星。今日新增1477星，增长呈加速趋势。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 9: 详细项目：HowToCook (程序员的隐藏宝藏) -->
+            <section class="slide-bg-data">
+                <h2 class="text-5xl font-bold mb-8 gradient-text">🍳 程序员的隐藏宝藏：Anduin2017/HowToCook</h2>
+                <div class="repo-card w-full max-w-4xl mx-auto p-8 border-l-8 border-secondary-color relative">
+                    <h3 class="text-4xl mb-4">Anduin2017/HowToCook</h3>
+                    <p class="text-2xl font-medium mb-4 text-gray-700">程序员在家做饭方法指南</p>
+                    <div class="stats mb-6 text-xl">
+                        <span class="stat-item"><i class="fas fa-star"></i> 87.8k ⭐</span>
+                        <span class="stat-item"><i class="fas fa-code"></i> Dockerfile (内容组织)</span>
+                        <span class="stat-item"><i class="fas fa-calendar-alt"></i> 总上榜: 8次</span>
+                        <span class="stat-item"><i class="fas fa-plus-circle"></i> 今日新增: 989 ⭐</span>
+                    </div>
+                    <div class="description text-lg leading-relaxed mb-6">
+                        <p>
+                            《程序员做饭指南》解决传统菜谱描述模糊的问题，以程序员逻辑将烹饪过程分解为标准化、精确指令。它旨在帮助不具备烹饪基础的程序员轻松入门并在家实践做饭。内容结构化，包含大量菜谱、厨房基础知识、技巧及电器说明。
+                        </p>
+                        <p class="font-semibold text-primary-color mt-4">
+                            <i class="fas fa-lightbulb mr-2"></i> <strong>Aha Moment:</strong> GitHub不只是代码！它是高质量、结构化知识共享的平台，连做饭也能开源！
+                        </p>
+                    </div>
+                    <div class="analysis text-base text-gray-600">
+                        <p><strong>增长分析：</strong> 在约1.5个月内上榜8次，该仓库展现出强劲且持续的增长势头。每次上榜平均增星超过千颗，总计增长16862星，表明其近期关注度极高，增长迅速。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 10: 详细项目：Agent Zero -->
+            <section class="slide-bg-ai">
+                <h2 class="text-5xl font-bold mb-8 gradient-text">🤖 深入AI Agent：frdel/agent-zero</h2>
+                <div class="repo-card w-full max-w-4xl mx-auto p-8 border-l-8 border-primary-color relative">
+                    <h3 class="text-4xl mb-4">frdel/agent-zero</h3>
+                    <p class="text-2xl font-medium mb-4 text-gray-700">Agent Zero AI 框架</p>
+                    <div class="stats mb-6 text-xl">
+                        <span class="stat-item"><i class="fas fa-star"></i> 8.6k ⭐</span>
+                        <span class="stat-item"><i class="fas fa-code"></i> Python</span>
+                        <span class="stat-item"><i class="fas fa-calendar-alt"></i> 连续在榜: 6次</span>
+                        <span class="stat-item"><i class="fas fa-plus-circle"></i> 今日新增: 321 ⭐</span>
+                    </div>
+                    <div class="description text-lg leading-relaxed mb-6">
+                        <p>
+                            Agent Zero 是个人化 AI 代理框架，将操作系统作为工具，赋能代理理解和执行复杂任务 (软件开发, 系统管理, 内容创作)。其独特之处在于代理能自行编写和执行代码及终端命令，提升透明度、灵活性和可定制性。支持多智能体协作，提供实时交互界面。
+                        </p>
+                    </div>
+                    <div class="analysis text-base text-gray-600">
+                        <p><strong>增长分析：</strong> 该仓库在6天内6次上榜，增长势头强劲且持续。总计增加1758 Star，平均每次上榜增加247.7个。今日新增321个远超平均值，表明近期增长正在加速，社区关注度持续上升。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 11: 详细项目：NautilusTrader -->
+            <section class="slide-bg-data">
+                <h2 class="text-5xl font-bold mb-8 gradient-text">📊 量化交易：nautechsystems/nautilus_trader</h2>
+                <div class="repo-card w-full max-w-4xl mx-auto p-8 border-l-8 border-primary-color relative">
+                    <h3 class="text-4xl mb-4">nautechsystems/nautilus_trader</h3>
+                    <p class="text-2xl font-medium mb-4 text-gray-700">高性能算法交易平台以及事件驱动回测器</p>
+                    <div class="stats mb-6 text-xl">
+                        <span class="stat-item"><i class="fas fa-star"></i> 7.8k ⭐</span>
+                        <span class="stat-item"><i class="fas fa-code"></i> Python / Rust</span>
+                        <span class="stat-item"><i class="fas fa-calendar-alt"></i> 连续在榜: 5次</span>
+                        <span class="stat-item"><i class="fas fa-plus-circle"></i> 今日新增: 302 ⭐</span>
+                    </div>
+                    <div class="description text-lg leading-relaxed mb-6">
+                        <p>
+                            NautilusTrader 是面向专业量化交易员的高性能、生产级开源平台。它解决了回测到实盘代码不一致的鸿沟，允许用同一套代码进行高精度回测并无缝部署生产。核心引擎Rust构建，确保极低交易延迟和强大稳定性，同时提供Python接口，简化开发。
+                        </p>
+                    </div>
+                    <div class="analysis text-base text-gray-600">
+                        <p><strong>增长分析：</strong> 仓库在约1.5个月内增长2558星，共上榜6次。平均每次上榜带来167星。最近增长302星，远超平均，显示增长势头正显著增强，依赖上榜曝光且近期趋势加速。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 12: 详细项目：其他新晋热门 (网格布局) -->
+            <section class="slide-bg-insight">
+                <h2 class="text-5xl font-bold mb-8 gradient-text">✨ 更多值得关注的新晋项目</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="repo-card p-6">
+                        <h3 class="text-2xl mb-2">netbirdio/netbird</h3>
+                        <p class="text-lg text-gray-600 mb-4">基于WireGuard的安全覆盖网络，支持SSO、MFA。</p>
+                        <div class="stats text-sm mb-4">
+                            <span class="stat-item"><i class="fas fa-star"></i> 14k ⭐</span>
+                            <span class="stat-item"><i class="fas fa-code"></i> Go</span>
+                            <span class="stat-item"><i class="fas fa-plus-circle"></i> +69</span>
+                        </div>
+                        <p class="text-sm leading-relaxed">连接分散设备到统一安全网络，构建加密对等私有网络。</p>
+                    </div>
+                    <div class="repo-card p-6">
+                        <h3 class="text-2xl mb-2">iamgio/quarkdown</h3>
+                        <p class="text-lg text-gray-600 mb-4">强大的Markdown，从想法到演示文稿、文章和书籍。</p>
+                        <div class="stats text-sm mb-4">
+                            <span class="stat-item"><i class="fas fa-star"></i> 3.8k ⭐</span>
+                            <span class="stat-item"><i class="fas fa-code"></i> Kotlin</span>
+                            <span class="stat-item"><i class="fas fa-plus-circle"></i> +744</span>
+                        </div>
+                        <p class="text-sm leading-relaxed">增强Markdown语法，支持变量、函数，编译为HTML/PDF，媲美LaTeX。</p>
+                    </div>
+                    <div class="repo-card p-6">
+                        <h3 class="text-2xl mb-2">topoteretes/cognee</h3>
+                        <p class="text-lg text-gray-600 mb-4">AI 智能体的记忆，5 行代码实现。</p>
+                        <div class="stats text-sm mb-4">
+                            <span class="stat-item"><i class="fas fa-star"></i> 2.6k ⭐</span>
+                            <span class="stat-item"><i class="fas fa-code"></i> Python</span>
+                            <span class="stat-item"><i class="fas fa-plus-circle"></i> +98</span>
+                        </div>
+                        <p class="text-sm leading-relaxed">为AI Agent构建动态记忆系统，处理多模态非结构化信息，提升AI性能。</p>
+                    </div>
+                    <div class="repo-card p-6">
+                        <h3 class="text-2xl mb-2">ArduPilot/ardupilot</h3>
+                        <p class="text-lg text-gray-600 mb-4">ArduPlane、ArduCopter、ArduRover、ArduSub 源码。</p>
+                        <div class="stats text-sm mb-4">
+                            <span class="stat-item"><i class="fas fa-star"></i> 12.4k ⭐</span>
+                            <span class="stat-item"><i class="fas fa-code"></i> C++</span>
+                            <span class="stat-item"><i class="fas fa-plus-circle"></i> +133</span>
+                        </div>
+                        <p class="text-sm leading-relaxed">为几乎所有无人载具设计的“智能大脑”，强大、灵活、高可靠的开源自动驾驶系统。</p>
+                    </div>
+                    <div class="repo-card p-6">
+                        <h3 class="text-2xl mb-2">lastmile-ai/mcp-agent</h3>
+                        <p class="text-lg text-gray-600 mb-4">利用模型上下文协议和简单工作流模式构建有效智能体。</p>
+                        <div class="stats text-sm mb-4">
+                            <span class="stat-item"><i class="fas fa-star"></i> 4.9k ⭐</span>
+                            <span class="stat-item"><i class="fas fa-code"></i> Python</span>
+                            <span class="stat-item"><i class="fas fa-plus-circle"></i> +19</span>
+                        </div>
+                        <p class="text-sm leading-relaxed">基于MCP的Python框架，简化Agent与外部世界交互，扩展能力范围。</p>
+                    </div>
+                    <div class="repo-card p-6">
+                        <h3 class="text-2xl mb-2">TapXWorld/ChinaTextbook</h3>
+                        <p class="text-lg text-gray-600 mb-4">所有小初高、大学PDF教材。</p>
+                        <div class="stats text-sm mb-4">
+                            <span class="stat-item"><i class="fas fa-star"></i> 36.2k ⭐</span>
+                            <span class="stat-item"><i class="fas fa-code"></i> Roff (内容组织)</span>
+                            <span class="stat-item"><i class="fas fa-plus-circle"></i> +756</span>
+                        </div>
+                        <p class="text-sm leading-relaxed">免费、开放获取的中国中小学到大学各类教材PDF，促进教育公平。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 13: 结尾页 (Conclusion) -->
+            <section data-background-image="https://images.unsplash.com/photo-1510519138101-570d1dca3d66?q=80&w=2916&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-background-size="cover" data-background-position="center">
+                <div class="absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center text-white p-20">
+                    <h2 class="text-6xl font-bold mb-8 text-center leading-tight">
+                        <span class="gradient-text">发现未来，捕捉灵感</span>
+                    </h2>
+                    <p class="text-3xl mb-12 text-gray-300 text-center">
+                        GitHub趋势不仅展现尖端AI，更藏着日常实用与效率提升的宝藏。<br>
+                        你找到属于你的“Aha Moment”了吗？
+                    </p>
+                    <div class="highlight-box text-3xl font-bold">
+                        <i class="fas fa-hand-point-right mr-3"></i> 持续关注，解锁更多技术洞察！
+                    </div>
+
+                    <div class="footer-links">
+                        <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-blue-300 hover:text-blue-200 mr-3">
+                            <i class="fab fa-github mr-1"></i>
+                            github.com/aichipera/github-trend
+                        </a>
+                        <img src="../../asserts/wx.jpg" alt="微信公众号二维码">
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- 核心框架脚本 -->
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <!-- Reveal.js 插件 -->
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js"></script>
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js"></script>
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js"></script>
+    <!-- Mermaid 图表库 (如果需要绘制图表) -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <script>
+        Reveal.initialize({
+            controls: true,     // 显示导航控件
+            progress: true,     // 显示进度条
+            center: true,       // 幻灯片内容居中
+            hash: true,         // 启用URL哈希导航
+            transition: 'slide', // 幻灯片过渡效果: slide (滑动)
+            backgroundTransition: 'fade', // 背景过渡效果: fade (淡入淡出)
+            display: 'block',   // 显示模式
+
+            // Reveal.js 插件配置
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+
+        // 初始化 Mermaid (如果幻灯片中包含 Mermaid 图表语法)
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+</html>

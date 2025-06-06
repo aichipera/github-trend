@@ -1,0 +1,880 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GitHub 热门仓库日报观测</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* 自定义颜色变量 */
+        :root {
+            --primary-color: #007bff; /* 现代蓝 */
+            --accent-color: #28a745;  /* 活力绿 */
+            --text-color: #333;      /* 深灰色文本 */
+            --heading-color: #0056b3; /* 标题深蓝 */
+            --background-light: #f8f9fa; /* 浅背景 */
+            --background-gradient-ai: linear-gradient(to right, #e0f2f7, #c1e4f1); /* AI主题渐变 */
+            --background-gradient-learning: linear-gradient(to right, #e6f7e0, #c8edc7); /* 学习主题渐变 */
+            --background-gradient-infra: linear-gradient(to right, #f7f2e0, #ede8c7); /* 基础设施主题渐变 */
+            --background-gradient-conclusion: linear-gradient(to right, #f0f0f0, #e0e0e0); /* 总结主题渐变 */
+        }
+
+        /* 字体设置 - 优先使用 Noto 系列，并提供 fallback */
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback",
+                         "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--text-color);
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: 'Noto Serif SC', 'Times New Roman', serif; /* 标题使用衬线字体 */
+            color: var(--heading-color);
+            text-shadow: none; /* 移除 reveal.js 默认文本阴影 */
+        }
+
+        /* 字体大小层次 */
+        .reveal .slides section h1 { font-size: 2.8rem; margin-bottom: 1rem; }
+        .reveal .slides section h2 { font-size: 2.2rem; margin-bottom: 0.8rem; }
+        .reveal .slides section h3 { font-size: 1.8rem; margin-bottom: 0.6rem; }
+        .reveal .slides section p, .reveal .slides section li { font-size: 1.1rem; line-height: 1.5; }
+        .reveal .slides section small { font-size: 0.8rem; }
+
+        /* 布局原则 */
+        .reveal .slides section {
+            padding: 0 5%; /* 幻灯片内边距 */
+            text-align: left; /* 默认文本左对齐 */
+        }
+
+        /* 列表样式 */
+        .reveal .slides section ul {
+            list-style-type: none; /* 移除默认列表点 */
+            padding-left: 0;
+            margin-top: 1rem;
+        }
+
+        .reveal .slides section ul li {
+            position: relative;
+            padding-left: 1.8em; /* 为自定义图标留出空间 */
+            margin-bottom: 0.6em;
+        }
+
+        .reveal .slides section ul li::before {
+            content: "\f058"; /* Font Awesome check-circle 图标 */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 0.1em;
+            color: var(--accent-color); /* 强调色 */
+        }
+
+        /* Fragments (内容分片) 动画 */
+        .reveal .slides section .fragment {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+        }
+
+        .reveal .slides section .fragment.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* 强调文本样式 */
+        .highlight {
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        /* QR Code & 项目链接样式 */
+        .project-info {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .project-info img {
+            height: 80px;
+            width: 80px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-info a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .project-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* 特定幻灯片样式 */
+        .slide-title-cover {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        .slide-title-cover h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: white; /* 确保标题在背景图上可见 */
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+        .slide-title-cover h2 {
+            font-size: 2.5rem;
+            color: white;
+            text-shadow: 1px 1px 6px rgba(0,0,0,0.4);
+            margin-bottom: 30px;
+        }
+        .slide-title-cover p {
+            color: white;
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        }
+
+        .slide-aha {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+        }
+        .slide-aha h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            color: var(--heading-color);
+        }
+        .slide-aha .aha-moment {
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+        .slide-aha .aha-reveal {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-top: 2rem;
+        }
+
+        .slide-section-title {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        .slide-section-title h2 {
+            font-size: 4rem;
+            color: white; /* 标题在渐变背景上显示为白色 */
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+        }
+        .slide-section-title p {
+            font-size: 1.8rem;
+            color: white;
+            margin-top: 1rem;
+        }
+
+        .slide-project-detail h3 a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        .slide-project-detail h3 a:hover {
+            text-decoration: underline;
+        }
+        .slide-project-detail .project-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            color: #555;
+        }
+        .slide-project-detail .project-meta span {
+            display: flex;
+            align-items: center;
+        }
+        .slide-project-detail .project-meta i {
+            margin-right: 5px;
+            color: var(--accent-color);
+        }
+        .slide-project-detail .project-summary {
+            margin-top: 1.5rem;
+            text-align: left;
+            border-left: 5px solid var(--accent-color);
+            padding-left: 15px;
+            background-color: #f0f8ff; /* 浅蓝背景 */
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .slide-project-detail .project-summary p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        .slide-project-detail .growth-analysis {
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: #666;
+            text-align: left;
+            border-top: 1px dashed #ccc;
+            padding-top: 1rem;
+        }
+        .slide-project-detail .growth-analysis strong {
+            color: var(--primary-color);
+        }
+
+        /* Reveal.js 导航和进度条颜色 */
+        .reveal .controls .navigate-left,
+        .reveal .controls .navigate-right,
+        .reveal .controls .navigate-up,
+        .reveal .controls .navigate-down {
+            color: var(--primary-color);
+        }
+        .reveal .progress span {
+            background: var(--primary-color);
+        }
+
+        /* 章节背景渐变 */
+        .section-background-ai { background: var(--background-gradient-ai); }
+        .section-background-learning { background: var(--background-gradient-learning); }
+        .section-background-infra { background: var(--background-gradient-infra); }
+        .section-background-conclusion { background: var(--background-gradient-conclusion); }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- 封面页 -->
+            <section
+                class="slide-title-cover"
+                data-background-image="https://images.unsplash.com/photo-1510519138101-570d1dca3d6b?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                data-background-opacity="0.6"
+                data-transition="zoom"
+            >
+                <h1 class="gradient-text">AI火爆全球！</h1>
+                <h2 class="gradient-text">但除了Agent，高手都在偷偷练这个…</h2>
+                <p>GitHub热门仓库日报观测 | 2025-06-06 20:24:51</p>
+                <p class="mt-4">演讲者: AIChipEra</p>
+
+                <div class="project-info">
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra WeChat QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        项目链接：github.com/aichipera/github-trend
+                    </a>
+                </div>
+            </section>
+
+            <!-- Aha Moment / 引入点 -->
+            <section class="slide-aha" data-transition="fade">
+                <h2>日报要点：技术圈正在发生巨变！</h2>
+                <p class="aha-moment fragment fade-in" data-fragment-index="1">
+                    最新观察揭示，除了火爆的AI Agent和大型语言模型，全球顶尖开发者们正悄悄投入到另一件事：
+                </p>
+                <p class="aha-reveal fragment fade-in" data-fragment-index="2">
+                    <strong class="highlight">扎实的底层技术构建</strong>
+                </p>
+                <p class="aha-reveal fragment fade-in" data-fragment-index="3">
+                    <strong class="highlight">通过实战项目提升能力！</strong>
+                </p>
+                <p class="aha-moment fragment fade-in" data-fragment-index="4">
+                    这股“<strong class="gradient-text">AI前沿 + 技术内功</strong>”并重的浪潮，正在塑造下一个技术高地。
+                </p>
+                <p class="fragment fade-in" data-fragment-index="5">
+                    想跟上节奏？
+                </p>
+            </section>
+
+            <!-- 章节标题：热门项目趋势分析 -->
+            <section class="slide-section-title" data-background-gradient="linear-gradient(to right, #007bff, #00a8cc)" data-transition="slide">
+                <h2>热门项目趋势分析</h2>
+                <p>深挖 GitHub，洞察技术前沿与底层基石</p>
+            </section>
+
+            <!-- 今日整体趋势 - AI & LLM 重点 -->
+            <section class="section-background-ai" data-transition="slide">
+                <h3><i class="fas fa-robot text-primary mr-3"></i>今日整体趋势：AI & LLM 应用与开发</h3>
+                <ul>
+                    <li class="fragment">AI Agent：<strong class="highlight">自主性、记忆增强、自动化生成</strong></li>
+                    <li class="fragment">LLM 应用工程化：<strong class="highlight">“编程”LLM，高效RAG构建</strong></li>
+                    <li class="fragment">AI赋能工具：笔记应用、设计开发工具<strong class="highlight">深度整合AI能力</strong></li>
+                    <li class="fragment">LLM 学习与微调：<strong class="highlight">降低AI进入门槛</strong></li>
+                </ul>
+                <p class="mt-8 text-center text-xl fragment fade-in">
+                    <i class="fas fa-lightbulb text-accent mr-2"></i>AI正从研究概念走向实际应用，并催生完整生态探索。
+                </p>
+            </section>
+
+            <!-- 今日整体趋势 - 技术教育与基础能力 -->
+            <section class="section-background-learning" data-transition="slide">
+                <h3><i class="fas fa-graduation-cap text-accent mr-3"></i>今日整体趋势：技术教育与基础能力</h3>
+                <ul>
+                    <li class="fragment">项目实战：<strong class="highlight">通过“构建”学习底层技术</strong> (build-your-own-x)</li>
+                    <li class="fragment">基础能力：<strong class="highlight">夯实计算机科学基础</strong> (coding-interview-university)</li>
+                    <li class="fragment">学习资源：<strong class="highlight">基础与前沿并重</strong> (LLM Course + Project-based Learning)</li>
+                </ul>
+                <p class="mt-8 text-center text-xl fragment fade-in">
+                    <i class="fas fa-seedling text-primary mr-2"></i>开发者对提升解决实际问题能力的重视从未减弱。
+                </p>
+            </section>
+
+            <!-- 今日整体趋势 - 技术栈与需求 -->
+            <section class="section-background-infra" data-transition="slide">
+                <h3><i class="fas fa-code text-primary mr-3"></i>技术栈与需求洞察</h3>
+                <ul>
+                    <li class="fragment"><strong>编程语言：</strong><strong class="highlight">Python</strong> (AI/LLM主导), TypeScript (前端/跨平台), Rust/Go (高性能/安全)</li>
+                    <li class="fragment"><strong>内容呈现：</strong>Markdown/Jupyter Notebooks，强调<strong class="highlight">组织与易用性</strong></li>
+                    <li class="fragment"><strong>技术需求：</strong>简化复杂AI开发、提升Agent智能、安全网络、高效工具、高质量实践导向学习资源。</li>
+                </ul>
+                <p class="mt-8 text-center text-xl fragment fade-in">
+                    <i class="fas fa-chart-line text-accent mr-2"></i>AI工程化与扎实基础并重的“仰望星空”与“脚踏实地”发展态势。
+                </p>
+            </section>
+
+            <!-- 热门项目双日维度对比分析 -->
+            <section data-transition="slide">
+                <h3><i class="fas fa-arrow-alt-circle-up text-primary mr-3"></i>热门项目双日维度对比分析</h3>
+                <div class="flex items-center justify-center mt-8">
+                    <div class="w-1/2 text-left pr-8">
+                        <ul class="list-none p-0 m-0 text-lg">
+                            <li class="fragment fade-in" data-fragment-index="1">
+                                <i class="fa fa-plus-circle text-accent mr-2"></i><strong class="highlight">新增项目：</strong>9个，多集中在AI/LLM、开发者工具、编程学习。
+                            </li>
+                            <li class="fragment fade-in" data-fragment-index="2">
+                                <i class="fa fa-chart-line text-primary mr-2"></i><strong class="highlight">上升趋势：</strong>6个，无项目下滑，表明榜单扩容。
+                            </li>
+                            <li class="fragment fade-in" data-fragment-index="3">
+                                <i class="fa fa-code text-primary mr-2"></i><strong class="highlight">语言分布：</strong>Python、TypeScript、Jupyter Notebook、Markdown、Rust 增加。
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="w-1/2 text-left pl-8">
+                        <ul class="list-none p-0 m-0 text-lg">
+                            <li class="fragment fade-in" data-fragment-index="4">
+                                <i class="fa fa-bolt text-accent mr-2"></i><strong class="highlight">显著变化：</strong>
+                                <br/>
+                                <p class="ml-5 mt-2 text-base">
+                                    <i class="fa fa-star text-yellow-500 mr-1"></i>
+                                    `cognee` 和 `onlook` 星标增长率惊人，势头强劲。
+                                </p>
+                            </li>
+                            <li class="fragment fade-in" data-fragment-index="5">
+                                <i class="fa fa-fire text-orange-500 mr-2"></i><strong class="highlight">持续热门：</strong>
+                                <br/>
+                                <p class="ml-5 mt-2 text-base">
+                                    `onlook-dev/onlook` 连续7次上榜，保持极高热度。
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 热点变化 -->
+            <section data-transition="slide">
+                <h3><i class="fas fa-sync-alt text-primary mr-3"></i>热点变化概览</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 text-left">
+                    <div class="fragment fade-in" data-fragment-index="1">
+                        <h4><i class="fa fa-plus-circle text-accent mr-2"></i>新增热点</h4>
+                        <ul class="list-disc ml-5 text-sm">
+                            <li>rustdesk/rustdesk</li>
+                            <li>jwasham/coding-interview-university</li>
+                            <li>stanfordnlp/dspy</li>
+                            <li>deepsense-ai/ragbits</li>
+                            <li>unslothai/notebooks</li>
+                            <li>mlabonne/llm-course</li>
+                            <li>codecrafters-io/build-your-own-x</li>
+                            <li>codexu/note-gen</li>
+                            <li>coleam00/archon</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in" data-fragment-index="2">
+                        <h4><i class="fa fa-minus-circle text-red-500 mr-2"></i>减退热点</h4>
+                        <ul class="list-disc ml-5 text-sm">
+                            <li>anduin2017/howtocook</li>
+                            <li>tapxworld/chinatextbook</li>
+                            <li>iamgio/quarkdown</li>
+                            <li>frdel/agent-zero</li>
+                            <li>nautechsystems/nautilus_trader</li>
+                            <li>modelcontextprotocol/ruby-sdk</li>
+                            <li>scrapy/scrapy</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in" data-fragment-index="3">
+                        <h4><i class="fa fa-fire text-orange-500 mr-2"></i>持续热门</h4>
+                        <ul class="list-disc ml-5 text-sm">
+                            <li>onlook-dev/onlook (7次)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 章节标题：详细仓库数据 -->
+            <section class="slide-section-title" data-background-gradient="linear-gradient(to right, #28a745, #5cb85c)" data-transition="slide">
+                <h2>详细仓库数据</h2>
+                <p>深入了解每一个热门项目</p>
+            </section>
+
+            <!-- 项目详情：netbirdio/netbird -->
+            <section class="slide-project-detail" data-background-color="#f8f9fa" data-transition="slide">
+                <h3><a href="https://github.com/netbirdio/netbird" target="_blank" class="text-primary hover:underline">netbirdio/netbird</a></h3>
+                <p class="text-lg">
+                    <i class="fas fa-network-wired text-accent mr-2"></i>
+                    将你的设备连接到一个基于 WireGuard® 的安全叠加网络。
+                </p>
+                <div class="project-meta">
+                    <span><i class="icon fas fa-code"></i>Go (98.7%)</span>
+                    <span><i class="icon fas fa-star"></i>14.3k</span>
+                    <span><i class="icon fas fa-fire"></i>连续在榜: 2次</span>
+                    <span><i class="icon fas fa-calendar-alt"></i>总上榜: 2次</span>
+                    <span><i class="icon fas fa-chart-line"></i>当日新增: <strong class="text-primary">320</strong></span>
+                    <span><i class="icon fas fa-code-branch"></i>Forks: 686</span>
+                    <span><i class="icon fas fa-eye"></i>Watchers: 105</span>
+                    <span><i class="icon fas fa-bug"></i>Issues: 742</span>
+                </div>
+                <div class="project-summary fragment fade-in">
+                    <p>NetBird 基于 WireGuard® 技术，彻底简化设备间安全私有网络的构建和管理。它采用零配置、点对点连接，解决传统 VPN 配置复杂、难以跨越复杂网络环境以及缺乏集中管理的问题。</p>
+                    <p>核心优势在于<strong class="highlight">高性能网络隧道和强大集中式访问控制</strong>，支持 SSO 和 MFA。适用于连接云服务器、分支机构或远程设备。</p>
+                </div>
+                <p class="growth-analysis fragment fade-in">
+                    <strong>增长分析：</strong>两天内两次上榜，今日新增高达320星，增长迅猛，势头强劲。
+                </p>
+            </section>
+
+            <!-- 项目详情：lastmile-ai/mcp-agent -->
+            <section class="slide-project-detail section-background-ai" data-transition="slide">
+                <h3><a href="https://github.com/lastmile-ai/mcp-agent" target="_blank" class="text-primary hover:underline">lastmile-ai/mcp-agent</a></h3>
+                <p class="text-lg">
+                    <i class="fas fa-brain text-accent mr-2"></i>
+                    构建有效的智能体，利用模型上下文协议和简单的工作流模式。
+                </p>
+                <div class="project-meta">
+                    <span><i class="icon fas fa-code"></i>Python (99.9%)</span>
+                    <span><i class="icon fas fa-star"></i>5.2k</span>
+                    <span><i class="icon fas fa-fire"></i>连续在榜: 2次</span>
+                    <span><i class="icon fas fa-calendar-alt"></i>总上榜: 2次</span>
+                    <span><i class="icon fas fa-chart-line"></i>当日新增: <strong class="text-primary">244</strong></span>
+                    <span><i class="icon fas fa-code-branch"></i>Forks: 480</span>
+                    <span><i class="icon fas fa-eye"></i>Watchers: 34</span>
+                    <span><i class="icon fas fa-bug"></i>Issues: 57</span>
+                </div>
+                <div class="project-summary fragment fade-in">
+                    <p>mcp-agent 是一个基于 Python 的框架，为构建高效 AI Agent 而设计。它运用 Anthropic 的 Model Context Protocol (MCP) 和简洁、可组合的工作流模式，<strong class="highlight">显著简化 Agent 与外部服务交互</strong>。</p>
+                    <p>核心亮点是自动化 MCP 连接管理，开发者专注于 Agent 逻辑本身。支持多 Agent 协作编排，降低开发门槛。</p>
+                </div>
+                <p class="growth-analysis fragment fade-in">
+                    <strong>增长分析：</strong>两天内两次上榜，增长势头迅猛，今日新增244星。
+                </p>
+            </section>
+
+            <!-- 项目详情：topoteretes/cognee -->
+            <section class="slide-project-detail section-background-ai" data-transition="slide">
+                <h3><a href="https://github.com/topoteretes/cognee" target="_blank" class="text-primary hover:underline">topoteretes/cognee</a></h3>
+                <p class="text-lg">
+                    <i class="fas fa-memory text-accent mr-2"></i>
+                    5 行代码实现 AI 智能体记忆。
+                </p>
+                <div class="project-meta">
+                    <span><i class="icon fas fa-code"></i>Python (95.1%)</span>
+                    <span><i class="icon fas fa-star"></i>3.1k</span>
+                    <span><i class="icon fas fa-fire"></i>连续在榜: 2次</span>
+                    <span><i class="icon fas fa-calendar-alt"></i>总上榜: 2次</span>
+                    <span><i class="icon fas fa-chart-line"></i>当日新增: <strong class="text-primary">593</strong></span>
+                    <span><i class="icon fas fa-code-branch"></i>Forks: 278</span>
+                    <span><i class="icon fas fa-eye"></i>Watchers: 22</span>
+                    <span><i class="icon fas fa-bug"></i>Issues: 16</span>
+                </div>
+                <div class="project-summary fragment fade-in">
+                    <p>Cognee 为 AI Agent 构建强大、动态且可互联的记忆系统，提供比传统 RAG 更先进的能力，高效管理和检索海量、多源信息。</p>
+                    <p>突出优势是<strong class="highlight">支持超30种数据源，通过 ECL 管道智能提取、处理并关联数据</strong>。极大地简化了为 AI Agent 添加复杂记忆功能，构建下一代智能 Agent 的有力工具。</p>
+                </div>
+                <p class="growth-analysis fragment fade-in">
+                    <strong>增长分析：</strong>短期内两次上榜，星数增长强劲，今日新增593星，增长趋势明显。
+                </p>
+            </section>
+
+            <!-- 项目详情：stanfordnlp/dspy -->
+            <section class="slide-project-detail section-background-ai" data-transition="slide">
+                <h3><a href="https://github.com/stanfordnlp/dspy" target="_blank" class="text-primary hover:underline">stanfordnlp/dspy</a></h3>
+                <p class="text-lg">
+                    <i class="fas fa-terminal text-accent mr-2"></i>
+                    DSPy：用于编程语言模型，而非提示的框架。
+                </p>
+                <div class="project-meta">
+                    <span><i class="icon fas fa-code"></i>Python (99.6%)</span>
+                    <span><i class="icon fas fa-star"></i>24.8k</span>
+                    <span><i class="icon fas fa-fire"></i>连续在榜: 1次</span>
+                    <span><i class="icon fas fa-calendar-alt"></i>总上榜: 2次</span>
+                    <span><i class="icon fas fa-chart-line"></i>当日新增: <strong class="text-primary">43</strong></span>
+                    <span><i class="icon fas fa-code-branch"></i>Forks: 1.9k</span>
+                    <span><i class="icon fas fa-eye"></i>Watchers: 160</span>
+                    <span><i class="icon fas fa-bug"></i>Issues: 124</span>
+                </div>
+                <div class="project-summary fragment fade-in">
+                    <p>DSPy 解决了传统手动编写提示词构建复杂 LM 应用的脆弱和低效问题。<strong class="highlight">让你能用模块化 Python 代码结构化地构建 LM 应用流水线</strong>。</p>
+                    <p>内置自动优化提示词和模型权重的算法，让 LM 程序自我改进，输出更高质量结果。为开发者提供强大且高效的范式。</p>
+                </div>
+                <p class="growth-analysis fragment fade-in">
+                    <strong>增长分析：</strong>周期内仅上榜2次，增长波动较大。近期43星，增长势头可能正在放缓或不稳定。
+                </p>
+            </section>
+
+            <!-- 项目详情：codexu/note-gen -->
+            <section class="slide-project-detail section-background-ai" data-transition="slide">
+                <h3><a href="https://github.com/codexu/note-gen" target="_blank" class="text-primary hover:underline">codexu/note-gen</a></h3>
+                <p class="text-lg">
+                    <i class="fas fa-sticky-note text-accent mr-2"></i>
+                    一款跨平台 Markdown 笔记应用，致力于利用AI连接录音与写作。
+                </p>
+                <div class="project-meta">
+                    <span><i class="icon fas fa-code"></i>TypeScript (96.0%)</span>
+                    <span><i class="icon fas fa-star"></i>3.1k</span>
+                    <span><i class="icon fas fa-fire"></i>连续在榜: 1次</span>
+                    <span><i class="icon fas fa-calendar-alt"></i>总上榜: 1次</span>
+                    <span><i class="icon fas fa-chart-line"></i>当日新增: <strong class="text-primary">116</strong></span>
+                    <span><i class="icon fas fa-code-branch"></i>Forks: 213</span>
+                    <span><i class="icon fas fa-eye"></i>Watchers: 16</span>
+                    <span><i class="icon fas fa-bug"></i>Issues: 36</span>
+                </div>
+                <div class="project-summary fragment fade-in">
+                    <p>NoteGen 是一款创新的跨平台 Markdown 笔记应用。核心亮点是<strong class="highlight">巧妙融入 AI 技术，弥合零散记录与系统写作差距</strong>。</p>
+                    <p>AI 能力支持多种 LLM，辅助润色、续写，利用现有笔记RAG问答。坚持 Markdown 格式，支持Git、WebDAV同步，基于 Tauri2 框架实现出色跨平台体验。</p>
+                </div>
+                <p class="growth-analysis fragment fade-in">
+                    <strong>增长分析：</strong>首次上榜，当日新增116星，显示良好开局。
+                </p>
+            </section>
+
+            <!-- 项目详情：unslothai/notebooks -->
+            <section class="slide-project-detail section-background-learning" data-transition="slide">
+                <h3><a href="https://github.com/unslothai/notebooks" target="_blank" class="text-primary hover:underline">unslothai/notebooks</a></h3>
+                <p class="text-lg">
+                    <i class="fas fa-book-open text-accent mr-2"></i>
+                    Unsloth 微调笔记本：适用于 Google Colab、Kaggle、Hugging Face 等。
+                </p>
+                <div class="project-meta">
+                    <span><i class="icon fas fa-code"></i>Jupyter Notebook (99.9%)</span>
+                    <span><i class="icon fas fa-star"></i>1.1k</span>
+                    <span><i class="icon fas fa-fire"></i>连续在榜: 1次</span>
+                    <span><i class="icon fas fa-calendar-alt"></i>总上榜: 1次</span>
+                    <span><i class="icon fas fa-chart-line"></i>当日新增: <strong class="text-primary">211</strong></span>
+                    <span><i class="icon fas fa-code-branch"></i>Forks: 198</span>
+                    <span><i class="icon fas fa-eye"></i>Watchers: 17</span>
+                    <span><i class="icon fas fa-bug"></i>Issues: 7</span>
+                </div>
+                <div class="project-summary fragment fade-in">
+                    <p>提供一系列预配置的 Jupyter Notebook，<strong class="highlight">极大地简化和加速 LLM 的微调过程</strong>，尤其适用于 Colab 和 Kaggle。</p>
+                    <p>优势在于易用性和广泛兼容性，为 Llama、Qwen、Gemma 等主流模型提供开箱即用的微调脚本，降低技术门槛。</p>
+                </div>
+                <p class="growth-analysis fragment fade-in">
+                    <strong>增长分析：</strong>首次上榜，当日新增211星，反映出社区对LLM微调工具的迫切需求。
+                </p>
+            </section>
+
+            <!-- 项目详情：jwasham/coding-interview-university -->
+            <section class="slide-project-detail section-background-learning" data-transition="slide">
+                <h3><a href="https://github.com/jwasham/coding-interview-university" target="_blank" class="text-primary hover:underline">jwasham/coding-interview-university</a></h3>
+                <p class="text-lg">
+                    <i class="fas fa-university text-accent mr-2"></i>
+                    成为软件工程师的完整计算机科学学习计划。
+                </p>
+                <div class="project-meta">
+                    <span><i class="icon fas fa-star"></i>319k</span>
+                    <span><i class="icon fas fa-fire"></i>连续在榜: 1次</span>
+                    <span><i class="icon fas fa-calendar-alt"></i>总上榜: 5次</span>
+                    <span><i class="icon fas fa-chart-line"></i>当日新增: <strong class="text-primary">357</strong></span>
+                    <span><i class="icon fas fa-code-branch"></i>Forks: 79k</span>
+                    <span><i class="icon fas fa-eye"></i>Watchers: 8.5k</span>
+                    <span><i class="icon fas fa-bug"></i>Issues: 61</span>
+                </div>
+                <div class="project-summary fragment fade-in">
+                    <p>完整的计算机科学自学计划，旨在帮助有志成为软件工程师的人<strong class="highlight">系统性准备技术面试</strong>，特别是大型科技公司的面试。</p>
+                    <p>提供详细的学习路线图和资源索引，涵盖算法、数据结构及核心计算机科学基础。全球范围内公认的极具价值面试准备指南。</p>
+                </div>
+                <p class="growth-analysis fragment fade-in">
+                    <strong>增长分析：</strong>凭借5次上榜获得显著增长，今日新增357星，高于平均水平，显示近期热度较高。
+                </p>
+            </section>
+
+            <!-- 项目详情：deepsense-ai/ragbits -->
+            <section class="slide-project-detail section-background-ai" data-transition="slide">
+                <h3><a href="https://github.com/deepsense-ai/ragbits" target="_blank" class="text-primary hover:underline">deepsense-ai/ragbits</a></h3>
+                <p class="text-lg">
+                    <i class="fas fa-cubes text-accent mr-2"></i>
+                    快速开发 GenAI 应用的构建模块。
+                </p>
+                <div class="project-meta">
+                    <span><i class="icon fas fa-code"></i>Python (94.4%)</span>
+                    <span><i class="icon fas fa-star"></i>719</span>
+                    <span><i class="icon fas fa-fire"></i>连续在榜: 1次</span>
+                    <span><i class="icon fas fa-calendar-alt"></i>总上榜: 1次</span>
+                    <span><i class="icon fas fa-chart-line"></i>当日新增: <strong class="text-primary">247</strong></span>
+                    <span><i class="icon fas fa-code-branch"></i>Forks: 55</span>
+                    <span><i class="icon fas fa-eye"></i>Watchers: 5</span>
+                    <span><i class="icon fas fa-bug"></i>Issues: 29</span>
+                </div>
+                <div class="project-summary fragment fade-in">
+                    <p>开源 Python 工具集，旨在加速生成式 AI (GenAI) 应用的开发，尤其专注于构建基于<strong class="highlight">检索增强生成 (RAG) 模式的可靠、可扩展应用</strong>。</p>
+                    <p>提供核心积木块，解决数据处理到模型集成部署挑战。关键特点是高度灵活性和全面功能覆盖，能集成上百种 LLM，处理20多种格式数据。</p>
+                </div>
+                <p class="growth-analysis fragment fade-in">
+                    <strong>增长分析：</strong>首次上榜，当日新增247星，表明RAG开发工具受到社区广泛关注。
+                </p>
+            </section>
+
+            <!-- 项目详情：rustdesk/rustdesk -->
+            <section class="slide-project-detail section-background-infra" data-transition="slide">
+                <h3><a href="https://github.com/rustdesk/rustdesk" target="_blank" class="text-primary hover:underline">rustdesk/rustdesk</a></h3>
+                <p class="text-lg">
+                    <i class="fas fa-desktop text-accent mr-2"></i>
+                    一款开源的远程桌面应用，可自托管，TeamViewer 替代。
+                </p>
+                <div class="project-meta">
+                    <span><i class="icon fas fa-code"></i>Rust (65.3%)</span>
+                    <span><i class="icon fas fa-star"></i>89.9k</span>
+                    <span><i class="icon fas fa-fire"></i>连续在榜: 1次</span>
+                    <span><i class="icon fas fa-calendar-alt"></i>总上榜: 3次</span>
+                    <span><i class="icon fas fa-chart-line"></i>当日新增: <strong class="text-primary">74</strong></span>
+                    <span><i class="icon fas fa-code-branch"></i>Forks: 12.9k</span>
+                    <span><i class="icon fas fa-eye"></i>Watchers: 512</span>
+                    <span><i class="icon fas fa-bug"></i>Issues: 51</span>
+                </div>
+                <div class="project-summary fragment fade-in">
+                    <p>基于 Rust 语言开发的开源远程桌面软件，核心价值在于<strong class="highlight">支持用户自建中继/汇聚服务器，实现数据自主可控</strong>。</p>
+                    <p>提供远程访问、屏幕共享、文件传输等功能，强调开箱即用。Rust 语言带来高性能、内存安全及跨平台特性。对重视隐私安全、希望摆脱商业服务依赖的用户极具吸引力。</p>
+                </div>
+                <p class="growth-analysis fragment fade-in">
+                    <strong>增长分析：</strong>总Star增长显著，但仅上榜3次，增长势头基于榜单表现不稳定。
+                </p>
+            </section>
+
+            <!-- 项目详情：coleam00/Archon -->
+            <section class="slide-project-detail section-background-ai" data-transition="slide">
+                <h3><a href="https://github.com/coleam00/Archon" target="_blank" class="text-primary hover:underline">coleam00/Archon</a></h3>
+                <p class="text-lg">
+                    <i class="fas fa-magic text-accent mr-2"></i>
+                    Archon 是一个 AI 智能体，能够创建其他 AI 智能体。
+                </p>
+                <div class="project-meta">
+                    <span><i class="icon fas fa-code"></i>Python (97.4%)</span>
+                    <span><i class="icon fas fa-star"></i>4.6k</span>
+                    <span><i class="icon fas fa-fire"></i>连续在榜: 1次</span>
+                    <span><i class="icon fas fa-calendar-alt"></i>总上榜: 1次</span>
+                    <span><i class="icon fas fa-chart-line"></i>当日新增: <strong class="text-primary">14</strong></span>
+                    <span><i class="icon fas fa-code-branch"></i>Forks: 916</span>
+                    <span><i class="icon fas fa-eye"></i>Watchers: 122</span>
+                    <span><i class="icon fas fa-bug"></i>Issues: 20</span>
+                </div>
+                <div class="project-summary fragment fade-in">
+                    <p>创新的 AI 代理，核心功能是作为其他 AI 代理的“工程师”，<strong class="highlight">自主创建、优化和迭代 AI 代理</strong>。自动化这一过程，加速 AI 代理开发与应用。</p>
+                    <p>通过多代理协作实现复杂推理，集成 LangGraph 进行编排，利用专用代码生成代理和精炼代理。通过 MCP 集成大量预构建工具和领域知识。</p>
+                </div>
+                <p class="growth-analysis fragment fade-in">
+                    <strong>增长分析：</strong>首次上榜，当日新增14星，作为一个高概念项目，未来潜力可期。
+                </p>
+            </section>
+
+            <!-- 项目详情：mlabonne/llm-course -->
+            <section class="slide-project-detail section-background-learning" data-transition="slide">
+                <h3><a href="https://github.com/mlabonne/llm-course" target="_blank" class="text-primary hover:underline">mlabonne/llm-course</a></h3>
+                <p class="text-lg">
+                    <i class="fas fa-book text-accent mr-2"></i>
+                    大型语言模型（LLMs）入门课程，包含学习路线图和Colab笔记本。
+                </p>
+                <div class="project-meta">
+                    <span><i class="icon fas fa-star"></i>54.5k</span>
+                    <span><i class="icon fas fa-fire"></i>连续在榜: 1次</span>
+                    <span><i class="icon fas fa-calendar-alt"></i>总上榜: 6次</span>
+                    <span><i class="icon fas fa-chart-line"></i>当日新增: <strong class="text-primary">221</strong></span>
+                    <span><i class="icon fas fa-code-branch"></i>Forks: 5.8k</span>
+                    <span><i class="icon fas fa-eye"></i>Watchers: 524</span>
+                    <span><i class="icon fas fa-bug"></i>Issues: 53</span>
+                </div>
+                <div class="project-summary fragment fade-in">
+                    <p>广受欢迎的大型语言模型（LLM）开源课程。提供从入门到进阶的系统化学习路径，无论想成为 LLM 科学家还是工程师。</p>
+                    <p>最大亮点是<strong class="highlight">大量可直接在 Colab 运行的实用 Notebooks</strong>，涵盖模型微调、量化、合并、评估等关键操作。高效进入并深入 LLM 领域的绝佳实践指南。</p>
+                </div>
+                <p class="growth-analysis fragment fade-in">
+                    <strong>增长分析：</strong>6次上榜是主要增长驱动因素，表明持续获得关注，整体增长势头强劲。
+                </p>
+            </section>
+
+            <!-- 项目详情：practical-tutorials/project-based-learning -->
+            <section class="slide-project-detail section-background-learning" data-transition="slide">
+                <h3><a href="https://github.com/practical-tutorials/project-based-learning" target="_blank" class="text-primary hover:underline">practical-tutorials/project-based-learning</a></h3>
+                <p class="text-lg">
+                    <i class="fas fa-wrench text-accent mr-2"></i>
+                    精选的基于项目教程，通过实践掌握编程。
+                </p>
+                <div class="project-meta">
+                    <span><i class="icon fas fa-star"></i>230k</span>
+                    <span><i class="icon fas fa-fire"></i>连续在榜: 2次</span>
+                    <span><i class="icon fas fa-calendar-alt"></i>总上榜: 3次</span>
+                    <span><i class="icon fas fa-chart-line"></i>当日新增: <strong class="text-primary">400</strong></span>
+                    <span><i class="icon fas fa-code-branch"></i>Forks: 30.1k</span>
+                    <span><i class="icon fas fa-eye"></i>Watchers: 3.3k</span>
+                    <span><i class="icon fas fa-bug"></i>Issues: 122</span>
+                </div>
+                <div class="project-summary fragment fade-in">
+                    <p>精心收集并整理大量基于实际项目的编程教程。旨在通过引导学习者<strong class="highlight">从零开始构建完整应用程序或系统</strong>，深入掌握编程技能和核心概念。</p>
+                    <p>按语言和项目类型分类，是自学者和希望提升动手能力的开发者宝贵资源。通过实践构建知识的有效途径。</p>
+                </div>
+                <p class="growth-analysis fragment fade-in">
+                    <strong>增长分析：</strong>约一个月内3次上榜，今日新增400星，增长非常迅猛。
+                </p>
+            </section>
+
+            <!-- 项目详情：ArduPilot/ardupilot -->
+            <section class="slide-project-detail section-background-infra" data-transition="slide">
+                <h3><a href="https://github.com/ArduPilot/ardupilot" target="_blank" class="text-primary hover:underline">ArduPilot/ardupilot</a></h3>
+                <p class="text-lg">
+                    <i class="fas fa-plane-departure text-accent mr-2"></i>
+                    ArduPlane、ArduCopter、ArduRover、ArduSub 源码。
+                </p>
+                <div class="project-meta">
+                    <span><i class="icon fas fa-code"></i>C++ (62.8%)</span>
+                    <span><i class="icon fas fa-star"></i>12.7k</span>
+                    <span><i class="icon fas fa-fire"></i>连续在榜: 2次</span>
+                    <span><i class="icon fas fa-calendar-alt"></i>总上榜: 2次</span>
+                    <span><i class="icon fas fa-chart-line"></i>当日新增: <strong class="text-primary">236</strong></span>
+                    <span><i class="icon fas fa-code-branch"></i>Forks: 18.8k</span>
+                    <span><i class="icon fas fa-eye"></i>Watchers: 673</span>
+                    <span><i class="icon fas fa-bug"></i>Issues: 1.5k</span>
+                </div>
+                <div class="project-summary fragment fade-in">
+                    <p>高度成熟和可靠的开源自动驾驶仪软件，为种类繁多的无人载具提供强大自主控制能力。<strong class="highlight">涵盖空中、地面、水面、水下平台</strong>。</p>
+                    <p>自2010年持续发展，凭借模块化设计、广泛硬件兼容性及活跃社区支持，成为构建和实现复杂自主系统理想的灵活可定制平台。</p>
+                </div>
+                <p class="growth-analysis fragment fade-in">
+                    <strong>增长分析：</strong>两天内两次上榜，今日新增236星，平均每次增长184.5星，显示强劲增长趋势。
+                </p>
+            </section>
+
+            <!-- 项目详情：codecrafters-io/build-your-own-x -->
+            <section class="slide-project-detail section-background-learning" data-transition="slide">
+                <h3><a href="https://github.com/codecrafters-io/build-your-own-x" target="_blank" class="text-primary hover:underline">codecrafters-io/build-your-own-x</a></h3>
+                <p class="text-lg">
+                    <i class="fas fa-building text-accent mr-2"></i>
+                    从头构建你喜爱的技术，精通编程。
+                </p>
+                <div class="project-meta">
+                    <span><i class="icon fas fa-code"></i>Markdown (100.0%)</span>
+                    <span><i class="icon fas fa-star"></i>385k</span>
+                    <span><i class="icon fas fa-fire"></i>连续在榜: 1次</span>
+                    <span><i class="icon fas fa-calendar-alt"></i>总上榜: 10次</span>
+                    <span><i class="icon fas fa-chart-line"></i>当日新增: <strong class="text-primary">550</strong></span>
+                    <span><i class="icon fas fa-code-branch"></i>Forks: 35.9k</span>
+                    <span><i class="icon fas fa-eye"></i>Watchers: 6.1k</span>
+                    <span><i class="icon fas fa-bug"></i>Issues: 206</span>
+                </div>
+                <div class="project-summary fragment fade-in">
+                    <p>现象级 GitHub 仓库，核心使命是<strong class="highlight">通过亲手从零开始构建各种技术组件，来真正掌握编程和理解技术原理</strong>。</p>
+                    <p>广泛涵盖计算机科学和软件工程，从操作系统、数据库到 Web 服务器等。每个条目都指向高质量、循序渐进的教程，鼓励“造轮子”学习。</p>
+                </div>
+                <p class="growth-analysis fragment fade-in">
+                    <strong>增长分析：</strong>10次上榜证明持续高热度，平均每次上榜日增722 Star，增长强劲。
+                </p>
+            </section>
+
+            <!-- 项目详情：onlook-dev/onlook -->
+            <section class="slide-project-detail section-background-ai" data-transition="slide">
+                <h3><a href="https://github.com/onlook-dev/onlook" target="_blank" class="text-primary hover:underline">onlook-dev/onlook</a></h3>
+                <p class="text-lg">
+                    <i class="fas fa-paint-brush text-accent mr-2"></i>
+                    设计师的光标，通过 AI 视觉构建、样式和编辑你的 React 应用。
+                </p>
+                <div class="project-meta">
+                    <span><i class="icon fas fa-code"></i>TypeScript (98.7%)</span>
+                    <span><i class="icon fas fa-star"></i>16.8k</span>
+                    <span><i class="icon fas fa-fire"></i>连续在榜: 7次</span>
+                    <span><i class="icon fas fa-calendar-alt"></i>总上榜: 7次</span>
+                    <span><i class="icon fas fa-chart-line"></i>当日新增: <strong class="text-primary">554</strong></span>
+                    <span><i class="icon fas fa-code-branch"></i>Forks: 1k</span>
+                    <span><i class="icon fas fa-eye"></i>Watchers: 75</span>
+                    <span><i class="icon fas fa-bug"></i>Issues: 219</span>
+                </div>
+                <div class="project-summary fragment fade-in">
+                    <p>开源可视化代码编辑器，旨在弥合设计与开发的鸿沟。<strong class="highlight">让设计师和开发者能像使用设计工具一样，通过视觉操作，配合AI辅助，直接在浏览器中构建 React 应用</strong>。</p>
+                    <p>提供所见即所得、与实际代码紧密关联的全新开发体验。解决了传统工作流中设计与代码不同步、效率低下等问题，是 Webflow 等工具的开源替代选择。</p>
+                </div>
+                <p class="growth-analysis fragment fade-in">
+                    <strong>增长分析：</strong>连续7次上榜，增长势头强劲，人气旺盛且稳定。
+                </p>
+            </section>
+
+            <!-- 总结页 -->
+            <section class="slide-section-title section-background-conclusion" data-transition="fade">
+                <h2 class="gradient-text">未来的技术高地：</h2>
+                <h2 class="fragment fade-in text-accent" data-fragment-index="1">AI前沿 + 技术内功</h2>
+                <p class="mt-4 text-xl fragment fade-in" data-fragment-index="2">
+                    拥抱AI，更要脚踏实地，<strong class="highlight">构建深度、解决实际问题</strong>。
+                </p>
+                <p class="mt-2 text-lg fragment fade-in" data-fragment-index="3">
+                    持续学习，从实践中提升，成为下一个技术浪潮的引领者！
+                </p>
+
+                <div class="project-info mt-8">
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra WeChat QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        项目链接：github.com/aichipera/github-trend
+                    </a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- 核心框架脚本 -->
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <script>
+        // Mermaid 初始化 (如果幻灯片中包含 Mermaid 图表)
+        mermaid.initialize({ startOnLoad: true });
+
+        Reveal.initialize({
+            controls: true, // 导航控制
+            progress: true, // 进度条
+            center: true,   // 内容居中
+            hash: true,     // 启用URL哈希导航
+            transition: 'slide', // 默认转场效果
+            
+            // 扩展依赖，Reveal.js 插件
+            dependencies: [
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js', async: true },
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/zoom/zoom.min.js', async: true },
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js', async: true }
+            ]
+        });
+    </script>
+</body>
+</html>
