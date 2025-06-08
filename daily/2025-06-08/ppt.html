@@ -1,0 +1,833 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI大模型进入“实战”</title>
+
+    <!-- Core Reveal.js Framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+
+    <!-- Extended Dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --r-main-font-size: 32px;
+            --r-main-color: #333;
+            --r-heading-color: #1a202c; /* Tailwind's gray-900 */
+            --r-link-color: #4c51bf; /* Tailwind's indigo-700 */
+            --r-link-color-hover: #5a67d8; /* Tailwind's indigo-600 */
+            --r-background-color: #fff;
+            --r-selection-background-color: #b5d5ff;
+            --r-selection-color: #fff;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback",
+                         "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--r-main-color);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--r-heading-color);
+            text-transform: none; /* Disable uppercase for titles */
+            text-shadow: none;
+        }
+
+        h1 { font-size: 3rem; } /* 3rem */
+        h2 { font-size: 2.5rem; } /* 2.5rem */
+        h3 { font-size: 2rem; } /* 2rem */
+        h4 { font-size: 1.5rem; } /* 1.5rem */
+        p, li { font-size: 1.1rem; line-height: 1.6; } /* 1.1rem */
+        .subtitle { font-size: 1.8rem; color: #4a5568; } /* 1.8rem, Tailwind's gray-600 */
+
+        .reveal .slides {
+            box-shadow: none; /* Remove default box shadow */
+        }
+
+        .reveal .slides section.has-dark-background,
+        .reveal .slides section.has-dark-background h1,
+        .reveal .slides section.has-dark-background h2,
+        .reveal .slides section.has-dark-background h3,
+        .reveal .slides section.has-dark-background h4,
+        .reveal .slides section.has-dark-background h5,
+        .reveal .slides section.has-dark-background h6 {
+            color: #fff;
+        }
+
+        .cover-slide {
+            background: linear-gradient(135deg, #1A202C 0%, #2D3748 100%); /* Dark gradient */
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        .cover-slide h1 {
+            font-size: 4rem; /* Larger for impact */
+            color: white;
+            margin-bottom: 20px;
+        }
+        .cover-slide .subtitle {
+            font-size: 2.5rem;
+            color: #E2E8F0; /* Light gray */
+            margin-bottom: 40px;
+        }
+        .cover-slide .speaker-info {
+            font-size: 1.5rem;
+            color: #CBD5E0; /* Lighter gray */
+            margin-bottom: 10px;
+        }
+        .cover-slide .date-info {
+            font-size: 1.2rem;
+            color: #A0AEC0; /* Even lighter gray */
+            margin-bottom: 40px;
+        }
+        .cover-slide .disclaimer {
+            font-size: 0.9rem;
+            color: #718096; /* Gray-500 */
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+        }
+
+        .aha-moment-slide {
+            background: linear-gradient(45deg, #3182CE 0%, #667EEA 100%); /* Blue to purple gradient */
+            color: white;
+            padding: 50px;
+            text-align: center;
+        }
+        .aha-moment-slide h2 {
+            font-size: 3.5rem;
+            color: white;
+            line-height: 1.3;
+            margin-bottom: 30px;
+        }
+        .aha-moment-slide p {
+            font-size: 1.8rem;
+            line-height: 1.7;
+            color: #E2E8F0;
+            margin-bottom: 20px;
+        }
+        .aha-moment-slide .highlight {
+            color: #F6AD55; /* Orange for highlights */
+            font-weight: bold;
+        }
+        .aha-moment-slide .fragment {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .aha-moment-slide .fragment.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title-slide {
+            background: linear-gradient(90deg, #A0AEC0 0%, #CBD5E0 100%); /* Light gray gradient */
+            color: #2D3748;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        .section-title-slide h2 {
+            font-size: 4rem;
+            color: #2D3748;
+            padding: 20px 40px;
+            border-bottom: 4px solid #4A5568;
+            display: inline-block;
+        }
+
+        .content-slide {
+            padding: 60px;
+            text-align: left;
+        }
+        .content-slide h3 {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            color: #2B6CB0; /* Blue-700 */
+        }
+        .content-slide ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .content-slide ul li {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+            font-size: 1.15rem;
+        }
+        .content-slide ul li::before {
+            content: "\f00c"; /* Font Awesome check-circle */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: #38A169; /* Green-600 */
+            position: absolute;
+            left: 0;
+            top: 4px;
+            font-size: 0.9em;
+        }
+        .content-slide ul.no-marker li::before {
+            content: none;
+        }
+        .content-slide .flex-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        .content-slide .flex-item {
+            flex: 1;
+        }
+        .content-slide .project-card {
+            background-color: #F7FAFC; /* Gray-100 */
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            transition: transform 0.3s ease-in-out;
+            border-left: 5px solid #667EEA; /* Accent color */
+        }
+        .content-slide .project-card:hover {
+            transform: translateY(-5px);
+        }
+        .content-slide .project-card h4 {
+            font-size: 1.7rem;
+            margin-bottom: 10px;
+            color: #2C5282; /* Blue-800 */
+        }
+        .content-slide .project-card p {
+            font-size: 1rem;
+            color: #4A5568;
+            margin-bottom: 10px;
+        }
+        .content-slide .project-card .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+            font-size: 0.95rem;
+            color: #718096;
+        }
+        .content-slide .project-card .stats-grid div {
+            display: flex;
+            align-items: center;
+        }
+        .content-slide .project-card .stats-grid i {
+            margin-right: 8px;
+            color: #4C51BF;
+        }
+        .content-slide .project-card .lang-breakdown {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #5A67D8;
+            font-weight: 500;
+        }
+        .content-slide .project-card .growth-analysis {
+            background-color: #EBF8FF; /* Blue-100 */
+            border-left: 4px solid #63B3ED; /* Blue-400 */
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-size: 0.95rem;
+            color: #2C5282;
+        }
+        .content-slide .project-card .growth-analysis strong {
+            color: #2B6CB0;
+        }
+        .content-slide .project-card .project-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--r-link-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .content-slide .project-card .project-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer-info {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.9em;
+            color: #A0AEC0; /* Light gray */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        .footer-info img {
+            height: 60px;
+            width: 60px;
+            border-radius: 8px;
+        }
+        .footer-info a {
+            color: #E2E8F0;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Adjustments for better readability on white theme */
+        .reveal .controls button {
+            color: #4A5568 !important;
+        }
+        .reveal .progress span {
+            background: #667EEA !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover Page -->
+            <section class="cover-slide">
+                <h1>AI大模型进入“实战”</h1>
+                <p class="subtitle">开发者正集体狂奔这几个方向</p>
+                <p class="date-info">Github热门仓库日报观测：2025-06-08 20:23:01</p>
+                <p class="speaker-info">演讲者: AIChipEra</p>
+                <p class="disclaimer">以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</p>
+
+                <div class="footer-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+            <!-- Slide 2: Aha Moment - 日报要点 -->
+            <section class="aha-moment-slide">
+                <h2><i class="fas fa-lightbulb mr-4"></i><span class="highlight">「Aha！」时刻：</span>AI大模型，早已杀入“实战”！</h2>
+                <p class="fragment" data-fragment-index="1">你以为AI大模型还在象牙塔里？<span class="highlight">错了！</span></p>
+                <p class="fragment" data-fragment-index="2">顶尖开发者们早已杀入“实战”，一场围绕<span class="highlight">AI落地的技术淘金潮</span>正在爆发。</p>
+                <p class="fragment" data-fragment-index="3">我们发现：大家正从理论研究转向构建<span class="highlight">真正能用的AI应用</span>。</p>
+                <p class="fragment" data-fragment-index="4">最受追捧的是：<br>
+                    <span class="highlight">轻松搭建AI应用的平台</span>、
+                    <span class="highlight">增强模型理解和记忆的工具</span>、
+                    <span class="highlight">让AI服务在生产环境稳定运行的关键技术</span>。</p>
+                <p class="fragment" data-fragment-index="5">同时，对<span class="highlight">操作系统、网络、安全等基础技术</span>的深入学习再次热门，这表明扎实的底层功底与前沿AI技术结合，才是构建强大系统的决胜关键。</p>
+                <p class="fragment" data-fragment-index="6">这种“<span class="highlight">前沿+基础</span>”双轮驱动的趋势预示着：AI技术正以前所未有的速度走向成熟，形成一个完整的生态。你准备好了吗？</p>
+            </section>
+
+            <!-- Slide 3: Section Title - 热门项目趋势分析 -->
+            <section class="section-title-slide">
+                <h2><i class="fas fa-chart-line mr-4"></i>热门项目趋势分析</h2>
+            </section>
+
+            <!-- Slide 4: 今日整体趋势 -->
+            <section class="content-slide">
+                <h3><i class="fas fa-search mr-3"></i>今日GitHub热门项目：聚焦AI落地</h3>
+                <div class="flex-container">
+                    <div class="flex-item">
+                        <h4 class="text-xl font-semibold mb-3"><i class="fas fa-brain mr-2"></i>LLM应用与优化</h4>
+                        <ul class="no-marker text-gray-700">
+                            <li><i class="far fa-dot-circle text-purple-500 mr-2"></i>核心主旋律：LLM应用、开发与优化。</li>
+                            <li><i class="far fa-dot-circle text-purple-500 mr-2"></i>从研究走向实用，降低开发门槛。</li>
+                            <li><i class="far fa-dot-circle text-purple-500 mr-2"></i>平台（Dify）、工具集（ragbits）、交互框架（DSPy）。</li>
+                            <li><i class="far fa-dot-circle text-purple-500 mr-2"></i>生产环境优化（TensorZero）、AI Agent记忆（Cognee）。</li>
+                            <li><i class="far fa-dot-circle text-purple-500 mr-2"></i>学习资源持续受欢迎（awesome-llm-apps等）。</li>
+                        </ul>
+                    </div>
+                    <div class="flex-item">
+                        <h4 class="text-xl font-semibold mb-3"><i class="fas fa-code mr-2"></i>编程语言与技术栈</h4>
+                        <ul class="no-marker text-gray-700">
+                            <li><i class="far fa-dot-circle text-blue-500 mr-2"></i>Python：AI/ML领域基石，核心算法、模型微调、工具库。</li>
+                            <li><i class="far fa-dot-circle text-blue-500 mr-2"></i>TypeScript：用户界面、开发平台（Dify, NoteGen）。</li>
+                            <li><i class="far fa-dot-circle text-blue-500 mr-2"></i>Go / Rust：基础设施、高性能服务（Xray-core, NetBird, TensorZero）。</li>
+                            <li><i class="far fa-dot-circle text-blue-500 mr-2"></i>技术栈选择与项目目标紧密关联。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5: 技术需求与发展方向 -->
+            <section class="content-slide">
+                <h3><i class="fas fa-cogs mr-3"></i>LLM时代：五大技术需求与发展方向</h3>
+                <ul class="no-marker text-gray-800">
+                    <li class="fragment" data-fragment-index="1"><i class="fas fa-hand-sparkles text-indigo-600 mr-3"></i>
+                        <strong>LLM应用的易用化与工程化：</strong> 市场急需更便捷的工具和平台（如 Dify, ragbits），降低开发门槛。
+                    </li>
+                    <li class="fragment" data-fragment-index="2"><i class="fas fa-memory text-indigo-600 mr-3"></i>
+                        <strong>上下文处理和记忆能力的提升：</strong> RAG 和 AI Agent 趋势要求模型能有效利用外部知识、保持长期记忆（如 Cognee）。
+                    </li>
+                    <li class="fragment" data-fragment-index="3"><i class="fas fa-rocket text-indigo-600 mr-3"></i>
+                        <strong>从原型到生产的优化：</strong> LLM应用稳定、高效推向生产环境是关键（如 TensorZero）。
+                    </li>
+                    <li class="fragment" data-fragment-index="4"><i class="fas fa-book-open text-indigo-600 mr-3"></i>
+                        <strong>基础知识的深化与实践：</strong> 操作系统、网络、分布式系统等基础技术深入理解需求不减（如 build-your-own-x, Kubernetes The Hard Way）。
+                    </li>
+                    <li class="fragment" data-fragment-index="5"><i class="fas fa-shield-alt text-indigo-600 mr-3"></i>
+                        <strong>隐私与安全：</strong> 网络安全（Xray, NetBird）和数据隐私（omni-tools）持续受关注。
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Slide 6: 今日特有趋势特点与未来展望 -->
+            <section class="content-slide">
+                <h3><i class="fas fa-chart-pie mr-3"></i>LLM生态雏形与未来展望</h3>
+                <div class="flex-container">
+                    <div class="flex-item">
+                        <h4 class="text-xl font-semibold mb-3"><i class="fas fa-fire mr-2"></i>今日特有趋势特点</h4>
+                        <ul class="no-marker text-gray-700">
+                            <li><i class="far fa-dot-circle text-red-500 mr-2"></i>LLM相关项目覆盖链条更完整：从微调到平台、工具、生产优化。</li>
+                            <li><i class="far fa-dot-circle text-red-500 mr-2"></i>社区从“能做什么”转向“如何更好地、更高效地做”。</li>
+                            <li><i class="far fa-dot-circle text-red-500 mr-2"></i>LLM生态系统正快速走向实用化、工程化。</li>
+                        </ul>
+                    </div>
+                    <div class="flex-item">
+                        <h4 class="text-xl font-semibold mb-3"><i class="fas fa-lightbulb mr-2"></i>未来展望</h4>
+                        <ul class="no-marker text-gray-700">
+                            <li><i class="far fa-dot-circle text-green-500 mr-2"></i>更多垂直领域AI应用涌现。</li>
+                            <li><i class="far fa-dot-circle text-green-500 mr-2"></i>多模态AI能力更广泛集成。</li>
+                            <li><i class="far fa-dot-circle text-green-500 mr-2"></i>AI安全、可解释性和伦理工具/框架。</li>
+                            <li><i class="far fa-dot-circle text-green-500 mr-2"></i>AI赋能软件开发自身（代码生成等）。</li>
+                            <li><i class="far fa-dot-circle text-green-500 mr-2"></i>小型化、本地化AI模型与应用。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7: 热门项目双日维度对比分析 -->
+            <section class="content-slide">
+                <h3><i class="fas fa-arrows-alt-h mr-3"></i>热门项目：热度变化与新陈代谢</h3>
+                <div class="flex-container">
+                    <div class="flex-item">
+                        <h4 class="text-xl font-semibold mb-3"><i class="fas fa-chart-bar mr-2"></i>热度趋势概览</h4>
+                        <ul class="no-marker text-gray-700">
+                            <li><i class="far fa-dot-circle text-blue-500 mr-2"></i>整体积极：无项目下降，全部上升或平稳。</li>
+                            <li><i class="far fa-dot-circle text-blue-500 mr-2"></i>榜单活跃：8个新项目进入榜单。</li>
+                            <li><i class="far fa-dot-circle text-blue-500 mr-2"></i>新陈代谢：社区焦点快速转移，新兴项目爆发。</li>
+                        </ul>
+                    </div>
+                    <div class="flex-item">
+                        <h4 class="text-xl font-semibold mb-3"><i class="fas fa-code-branch mr-2"></i>语言分布变化</h4>
+                        <ul class="no-marker text-gray-700">
+                            <li><i class="far fa-dot-circle text-orange-500 mr-2"></i>Python席位减少（净减3个）。</li>
+                            <li><i class="far fa-dot-circle text-orange-500 mr-2"></i>Rust、Go、Markdown各增加1个。</li>
+                            <li><i class="far fa-dot-circle text-orange-500 mr-2"></i>系统级语言和非代码资源活跃度提升。</li>
+                        </ul>
+                    </div>
+                </div>
+                <h4 class="text-xl font-semibold mt-6 mb-3"><i class="fas fa-star mr-2"></i>值得关注的显著变化</h4>
+                <ul class="no-marker text-gray-700">
+                    <li><i class="far fa-dot-circle text-green-500 mr-2"></i>零下降趋势项目：榜单整体强劲势头。</li>
+                    <li><i class="far fa-dot-circle text-green-500 mr-2"></i>`topoteretes/cognee`巨大增长率：代表重要兴趣点或技术突破。</li>
+                    <li><i class="far fa-dot-circle text-green-500 mr-2"></i>Python项目数量净减少：语言变化中最突出。</li>
+                </ul>
+            </section>
+
+            <!-- Slide 8: Section Title - 详细仓库数据 -->
+            <section class="section-title-slide">
+                <h2><i class="fas fa-database mr-4"></i>详细仓库数据</h2>
+            </section>
+
+            <!-- Slide 9: Project 1 - tensorzero/tensorzero -->
+            <section class="content-slide">
+                <div class="project-card">
+                    <h4><a class="project-link" href="https://github.com/tensorzero/tensorzero" target="_blank">tensorzero/tensorzero <i class="fas fa-external-link-alt ml-2"></i></a></h4>
+                    <p class="text-sm italic">项目简介: 创建用于优化LLM应用的反馈回路，将生产数据转化为更智能、更快速、更经济的模型。</p>
+                    <div class="stats-grid">
+                        <div><i class="fas fa-star"></i> 4.8k ⭐</div>
+                        <div><i class="fas fa-code-branch"></i> 321 🔄</div>
+                        <div><i class="fas fa-eye"></i> 48 👀</div>
+                        <div><i class="fas fa-exclamation-circle"></i> 212 ❗</div>
+                        <div><i class="fas fa-code-pull-request"></i> 32 🔀</div>
+                        <div><i class="fas fa-box-open"></i> 57 📦</div>
+                        <div><i class="fas fa-file-alt"></i> Apache-2.0 📜</div>
+                        <div><i class="fas fa-users"></i> 51 👥</div>
+                    </div>
+                    <div class="lang-breakdown">编程语言: Rust 68.9%, TypeScript 19.2%, Python 7.0%</div>
+                    <p class="mt-4"><strong>项目速读:</strong> 开源框架，优化生产级LLM应用。通过高性能Rust实现统一LLM网关，集成推理、可观测性、评估等，形成基于生产数据的自动化反馈闭环。工业级稳定性、低延迟、广泛模型兼容、GitOps管理，完全开源自托管。适合需要精细控制和持续优化的复杂生产环境。</p>
+                    <div class="growth-analysis"><strong>增长分析:</strong> 首次上榜，当日新增87星，显示出良好关注度。</div>
+                </div>
+            </section>
+
+            <!-- Slide 10: Project 2 - codexu/note-gen -->
+            <section class="content-slide">
+                <div class="project-card">
+                    <h4><a class="project-link" href="https://github.com/codexu/note-gen" target="_blank">codexu/note-gen <i class="fas fa-external-link-alt ml-2"></i></a></h4>
+                    <p class="text-sm italic">项目简介: 跨平台Markdown笔记应用，利用AI打通记录与写作，组织零散知识。</p>
+                    <div class="stats-grid">
+                        <div><i class="fas fa-star"></i> 3.8k ⭐</div>
+                        <div><i class="fas fa-code-branch"></i> 236 🔄</div>
+                        <div><i class="fas fa-eye"></i> 19 👀</div>
+                        <div><i class="fas fa-exclamation-circle"></i> 39 ❗</div>
+                        <div><i class="fas fa-code-pull-request"></i> 0 🔀</div>
+                        <div><i class="fas fa-box-open"></i> 85 📦</div>
+                        <div><i class="fas fa-file-alt"></i> MIT 📜</div>
+                        <div><i class="fas fa-users"></i> 12 👥</div>
+                    </div>
+                    <div class="lang-breakdown">编程语言: TypeScript 96.0%</div>
+                    <p class="mt-4"><strong>项目速读:</strong> 利用AI深度整合，辅助润色、续写、翻译，支持RAG智能检索问答。多平台、丰富记录方式、原生Markdown、私有仓库/WebDAV同步。轻量、免费、无广告，注重数据自主可控。</p>
+                    <div class="growth-analysis"><strong>增长分析:</strong> 连续上榜3次，增长势头强劲，总增长649星，当日新增325星显著加速。</div>
+                </div>
+            </section>
+
+            <!-- Slide 11: Project 3 - langgenius/dify -->
+            <section class="content-slide">
+                <div class="project-card">
+                    <h4><a class="project-link" href="https://github.com/langgenius/dify" target="_blank">langgenius/dify <i class="fas fa-external-link-alt ml-2"></i></a></h4>
+                    <p class="text-sm italic">项目简介: 开源大语言模型应用开发平台，集成了AI工作流、RAG、Agent能力、模型管理等。</p>
+                    <div class="stats-grid">
+                        <div><i class="fas fa-star"></i> 102k ⭐</div>
+                        <div><i class="fas fa-code-branch"></i> 15.3k 🔄</div>
+                        <div><i class="fas fa-eye"></i> 636 👀</div>
+                        <div><i class="fas fa-exclamation-circle"></i> 610 ❗</div>
+                        <div><i class="fas fa-code-pull-request"></i> 94 🔀</div>
+                        <div><i class="fas fa-box-open"></i> 132 📦</div>
+                        <div><i class="fas fa-file-alt"></i> 未知 📜</div>
+                        <div><i class="fas fa-users"></i> 842 👥</div>
+                    </div>
+                    <div class="lang-breakdown">编程语言: TypeScript 56.9%, Python 30.2%</div>
+                    <p class="mt-4"><strong>项目速读:</strong> 强大的开源平台，降低LLM应用开发门槛。可视化AI应用工厂，图形化工作流，兼容主流LLM模型。集成RAG、Agent，加速原型开发和生产部署。</p>
+                    <div class="growth-analysis"><strong>增长分析:</strong> 9次上榜期间共增长1.4万星，每次上榜均有显著增量，最新日增561远超平均，增长趋势强劲且持续。</div>
+                </div>
+            </section>
+
+            <!-- Slide 12: Project 4 - topoteretes/cognee -->
+            <section class="content-slide">
+                <div class="project-card">
+                    <h4><a class="project-link" href="https://github.com/topoteretes/cognee" target="_blank">topoteretes/cognee <i class="fas fa-external-link-alt ml-2"></i></a></h4>
+                    <p class="text-sm italic">项目简介: 5行代码实现AI智能体的记忆。</p>
+                    <div class="stats-grid">
+                        <div><i class="fas fa-star"></i> 4.4k ⭐</div>
+                        <div><i class="fas fa-code-branch"></i> 348 🔄</div>
+                        <div><i class="fas fa-eye"></i> 32 👀</div>
+                        <div><i class="fas fa-exclamation-circle"></i> 17 ❗</div>
+                        <div><i class="fas fa-code-pull-request"></i> 16 🔀</div>
+                        <div><i class="fas fa-box-open"></i> 43 📦</div>
+                        <div><i class="fas fa-file-alt"></i> Apache-2.0 📜</div>
+                        <div><i class="fas fa-users"></i> 40 👥</div>
+                    </div>
+                    <div class="lang-breakdown">编程语言: Python 95.1%</div>
+                    <p class="mt-4"><strong>项目速读:</strong> 专为AI Agent设计的开源记忆系统，解决Agent记忆、互联、检索海量信息问题。处理30+数据源，构建知识图谱和向量索引。极简设计，号称五行代码实现核心记忆，比传统RAG更集成易用。创新性和易用性受广泛关注。</p>
+                    <div class="growth-analysis"><strong>增长分析:</strong> 持续保持高可见度与稳定增长，平均每次新增538.2星，今日新增872星显著高于平均，近期增长势头强劲且加速。</div>
+                </div>
+            </section>
+
+            <!-- Slide 13: Project 5 - XTLS/Xray-core -->
+            <section class="content-slide">
+                <div class="project-card">
+                    <h4><a class="project-link" href="https://github.com/XTLS/Xray-core" target="_blank">XTLS/Xray-core <i class="fas fa-external-link-alt ml-2"></i></a></h4>
+                    <p class="text-sm italic">项目简介: Xray，穿透一切。也是最好的v2ray-core。奇迹发生的地方。一个多用途的开放平台。</p>
+                    <div class="stats-grid">
+                        <div><i class="fas fa-star"></i> 28.8k ⭐</div>
+                        <div><i class="fas fa-code-branch"></i> 4.3k 🔄</div>
+                        <div><i class="fas fa-eye"></i> 352 👀</div>
+                        <div><i class="fas fa-exclamation-circle"></i> 10 ❗</div>
+                        <div><i class="fas fa-code-pull-request"></i> 16 🔀</div>
+                        <div><i class="fas fa-box-open"></i> 84 📦</div>
+                        <div><i class="fas fa-file-alt"></i> MPL-2.0 📜</div>
+                        <div><i class="fas fa-users"></i> 186 👥</div>
+                    </div>
+                    <div class="lang-breakdown">编程语言: Go 99.7%</div>
+                    <p class="mt-4"><strong>项目速读:</strong> 强大的网络工具核心，提供安全高效、对抗网络审查的网络隧道和代理服务。支持VLESS、XTLS、REALITY等协议，XTLS提升性能，REALITY实现高隐蔽性。基于Go开发，跨平台。追求极致性能、隐蔽性用户的领先解决方案。</p>
+                    <div class="growth-analysis"><strong>增长分析:</strong> 总计增长394星，有限的2次上榜是主要驱动力，每次上榜带来可观Star数提升，呈现由上榜事件驱动的爆发性趋势。</div>
+                </div>
+            </section>
+
+            <!-- Slide 14: Project 6 - Shubhamsaboo/awesome-llm-apps -->
+            <section class="content-slide">
+                <div class="project-card">
+                    <h4><a class="project-link" href="https://github.com/Shubhamsaboo/awesome-llm-apps" target="_blank">Shubhamsaboo/awesome-llm-apps <i class="fas fa-external-link-alt ml-2"></i></a></h4>
+                    <p class="text-sm italic">项目简介: 优秀的LLM应用精选集，集成AI智能体与RAG，支持OpenAI、Anthropic、Gemini和开源模型。</p>
+                    <div class="stats-grid">
+                        <div><i class="fas fa-star"></i> 33.6k ⭐</div>
+                        <div><i class="fas fa-code-branch"></i> 3.8k 🔄</div>
+                        <div><i class="fas fa-eye"></i> 405 👀</div>
+                        <div><i class="fas fa-exclamation-circle"></i> 6 ❗</div>
+                        <div><i class="fas fa-code-pull-request"></i> 6 🔀</div>
+                        <div><i class="fas fa-box-open"></i> 0 📦</div>
+                        <div><i class="fas fa-file-alt"></i> Apache-2.0 📜</div>
+                        <div><i class="fas fa-users"></i> 30 👥</div>
+                    </div>
+                    <div class="lang-breakdown">编程语言: Python 100.0%</div>
+                    <p class="mt-4"><strong>项目速读:</strong> 精选GitHub仓库，汇集大量基于LLMs的优秀应用示例。突出展示AI Agents和RAG等前沿技术结合OpenAI、Anthropic、Gemini及开源模型构建实际应用。涵盖数据分析、金融、医疗等领域，是学习和实践LLM应用开发的绝佳资源。</p>
+                    <div class="growth-analysis"><strong>增长分析:</strong> 12次上榜，总增长达13238星，平均每次上榜贡献424.5星。持续高曝光和强大吸引力，高频次上榜有效累积可观总增长。今日新增151星，整体增长势头良好。</div>
+                </div>
+            </section>
+
+            <!-- Slide 15: Project 7 - zijie0/HumanSystemOptimization -->
+            <section class="content-slide">
+                <div class="project-card">
+                    <h4><a class="project-link" href="https://github.com/zijie0/HumanSystemOptimization" target="_blank">zijie0/HumanSystemOptimization <i class="fas fa-external-link-alt ml-2"></i></a></h4>
+                    <p class="text-sm italic">项目简介: 健康学习到150岁 - 人体系统调优不完全指南。</p>
+                    <div class="stats-grid">
+                        <div><i class="fas fa-star"></i> 15.1k ⭐</div>
+                        <div><i class="fas fa-code-branch"></i> 1.1k 🔄</div>
+                        <div><i class="fas fa-eye"></i> 141 👀</div>
+                        <div><i class="fas fa-exclamation-circle"></i> 10 ❗</div>
+                        <div><i class="fas fa-code-pull-request"></i> 0 🔀</div>
+                        <div><i class="fas fa-box-open"></i> 0 📦</div>
+                        <div><i class="fas fa-file-alt"></i> 未知 📜</div>
+                        <div><i class="fas fa-users"></i> 2 👥</div>
+                    </div>
+                    <div class="lang-breakdown">编程语言: 不适用</div>
+                    <p class="mt-4"><strong>项目速读:</strong> 科学调优人体系统的非官方指南。基于斯坦福神经科学家研究，分享个人在睡眠、饮食、心态管理等方面实践总结。旨在帮助读者理解自身生理机制，提供有科学依据和可操作性建议，改善健康，提升效率，探索长寿潜力。实用“人体操作系统”优化手册。</p>
+                    <div class="growth-analysis"><strong>增长分析:</strong> 首次上榜，当日新增414星，显示出广泛关注和强烈需求。</div>
+                </div>
+            </section>
+
+            <!-- Slide 16: Project 8 - iib0011/omni-tools -->
+            <section class="content-slide">
+                <div class="project-card">
+                    <h4><a class="project-link" href="https://github.com/iib0011/omni-tools" target="_blank">iib0011/omni-tools <i class="fas fa-external-link-alt ml-2"></i></a></h4>
+                    <p class="text-sm italic">项目简介: 自托管的一系列强大网页工具集，助力日常事务处理。无广告、无追踪，提供快速易用的工具。</p>
+                    <div class="stats-grid">
+                        <div><i class="fas fa-star"></i> 2.9k ⭐</div>
+                        <div><i class="fas fa-code-branch"></i> 124 🔄</div>
+                        <div><i class="fas fa-eye"></i> 13 👀</div>
+                        <div><i class="fas fa-exclamation-circle"></i> 24 ❗</div>
+                        <div><i class="fas fa-code-pull-request"></i> 2 🔀</div>
+                        <div><i class="fas fa-box-open"></i> 4 📦</div>
+                        <div><i class="fas fa-file-alt"></i> MIT 📜</div>
+                        <div><i class="fas fa-users"></i> 16 👥</div>
+                    </div>
+                    <div class="lang-breakdown">编程语言: TypeScript 81.7%</div>
+                    <p class="mt-4"><strong>项目速读:</strong> 开源自托管网页工具集合，提供图像、视频、文件、文本处理、日期时间等多种工具。核心价值在于所有操作本地执行，数据不上传服务器，消除隐私风险。轻量Docker镜像部署简单。适用于重视隐私、厌倦广告和跟踪的用户，代表回归本质的工具理念。</p>
+                    <div class="growth-analysis"><strong>增长分析:</strong> 两天内两次上榜，显示强劲增长势头。平均每次带来数百星增长，当次新增405星突出，增长持续且加速。</div>
+                </div>
+            </section>
+
+            <!-- Slide 17: Project 9 - netbirdio/netbird -->
+            <section class="content-slide">
+                <div class="project-card">
+                    <h4><a class="project-link" href="https://github.com/netbirdio/netbird" target="_blank">netbirdio/netbird <i class="fas fa-external-link-alt ml-2"></i></a></h4>
+                    <p class="text-sm italic">项目简介: 将你的设备连接到基于WireGuard® 的安全叠加网络，并支持SSO、MFA和精细访问控制。</p>
+                    <div class="stats-grid">
+                        <div><i class="fas fa-star"></i> 15.1k ⭐</div>
+                        <div><i class="fas fa-code-branch"></i> 713 🔄</div>
+                        <div><i class="fas fa-eye"></i> 109 👀</div>
+                        <div><i class="fas fa-exclamation-circle"></i> 743 ❗</div>
+                        <div><i class="fas fa-code-pull-request"></i> 23 🔀</div>
+                        <div><i class="fas fa-box-open"></i> 230 📦</div>
+                        <div><i class="fas fa-file-alt"></i> BSD-3-Clause 📜</div>
+                        <div><i class="fas fa-users"></i> 103 👥</div>
+                    </div>
+                    <div class="lang-breakdown">编程语言: Go 98.7%</div>
+                    <p class="mt-4"><strong>项目速读:</strong> 开源项目，基于WireGuard®技术，轻松构建覆盖式安全私有网络，无需复杂防火墙。核心价值在于“零配置”理念与集中式管理。通过Web界面纳管设备，支持SSO、MFA、细粒度访问控制，极大提升安全性。支持多平台，提供灵活P2P连接。现代、易部署、易管理，是构建安全灵活私有网络的理想选择。</p>
+                    <div class="growth-analysis"><strong>增长分析:</strong> 四天内四次上榜，显示持续活跃和关注度。日均新增Star约235个，总增长超千颗，增长态势稳定且积极。</div>
+                </div>
+            </section>
+
+            <!-- Slide 18: Project 10 - Daymychen/art-design-pro -->
+            <section class="content-slide">
+                <div class="project-card">
+                    <h4><a class="project-link" href="https://github.com/Daymychen/art-design-pro" target="_blank">Daymychen/art-design-pro <i class="fas fa-external-link-alt ml-2"></i></a></h4>
+                    <p class="text-sm italic">项目简介: 一个使用Vite + TypeScript + Element Plus的Vue 3后台管理模板，专注于用户体验和视觉设计。</p>
+                    <div class="stats-grid">
+                        <div><i class="fas fa-star"></i> 1.8k ⭐</div>
+                        <div><i class="fas fa-code-branch"></i> 310 🔄</div>
+                        <div><i class="fas fa-eye"></i> 7 👀</div>
+                        <div><i class="fas fa-exclamation-circle"></i> 5 ❗</div>
+                        <div><i class="fas fa-code-pull-request"></i> 3 🔀</div>
+                        <div><i class="fas fa-box-open"></i> 0 📦</div>
+                        <div><i class="fas fa-file-alt"></i> MIT 📜</div>
+                        <div><i class="fas fa-users"></i> 4 👥</div>
+                    </div>
+                    <div class="lang-breakdown">编程语言: Vue 60.1%, TypeScript 25.1%</div>
+                    <p class="mt-4"><strong>项目速读:</strong> 基于Vue 3、Vite、TypeScript和Element Plus的开源后台管理系统模板。着重解决传统管理系统在用户体验和视觉设计上的不足，提供美观、易用、高度可定制解决方案。采用最新技术栈，提供丰富功能模块（多主题、权限、国际化、图表）和内置业务组件，加速企业级后台应用开发。高质量起点，适合注重设计细节和用户体验的项目。</p>
+                    <div class="growth-analysis"><strong>增长分析:</strong> 两天内两次上榜，持续获得关注。平均每次带来79星，总增长109星，最新一天新增113星，显示强劲增长势头。</div>
+                </div>
+            </section>
+
+            <!-- Slide 19: Project 11 - friuns2/BlackFriday-GPTs-Prompts -->
+            <section class="content-slide">
+                <div class="project-card">
+                    <h4><a class="project-link" href="https://github.com/friuns2/BlackFriday-GPTs-Prompts" target="_blank">friuns2/BlackFriday-GPTs-Prompts <i class="fas fa-external-link-alt ml-2"></i></a></h4>
+                    <p class="text-sm italic">项目简介: 无需Plus订阅的免费GPTs列表。</p>
+                    <div class="stats-grid">
+                        <div><i class="fas fa-star"></i> 7k ⭐</div>
+                        <div><i class="fas fa-code-branch"></i> 1.1k 🔄</div>
+                        <div><i class="fas fa-eye"></i> 129 👀</div>
+                        <div><i class="fas fa-exclamation-circle"></i> 90 ❗</div>
+                        <div><i class="fas fa-code-pull-request"></i> 6 🔀</div>
+                        <div><i class="fas fa-box-open"></i> 0 📦</div>
+                        <div><i class="fas fa-file-alt"></i> MIT 📜</div>
+                        <div><i class="fas fa-users"></i> 2 👥</div>
+                    </div>
+                    <div class="lang-breakdown">编程语言: 不适用</div>
+                    <p class="mt-4"><strong>项目速读:</strong> 旨在帮助用户深度利用GPT模型的资源集。提供免费GPTs使用线索，更核心的是精心组织的GPT提示词（Prompts）和越狱技巧集合。覆盖编程、营销、学术等领域，提供即用模板。为用户提供实用工具，提升与GPT交互质量和解决问题能力，探索AI潜力的便捷起点。</p>
+                    <div class="growth-analysis"><strong>增长分析:</strong> 首次上榜，当日新增85星，显示出较好的社区兴趣。</div>
+                </div>
+            </section>
+
+            <!-- Slide 20: Project 12 - deepsense-ai/ragbits -->
+            <section class="content-slide">
+                <div class="project-card">
+                    <h4><a class="project-link" href="https://github.com/deepsense-ai/ragbits" target="_blank">deepsense-ai/ragbits <i class="fas fa-external-link-alt ml-2"></i></a></h4>
+                    <p class="text-sm italic">项目简介: 快速开发生成式AI应用的构建模块。</p>
+                    <div class="stats-grid">
+                        <div><i class="fas fa-star"></i> 1.1k ⭐</div>
+                        <div><i class="fas fa-code-branch"></i> 85 🔄</div>
+                        <div><i class="fas fa-eye"></i> 8 👀</div>
+                        <div><i class="fas fa-exclamation-circle"></i> 29 ❗</div>
+                        <div><i class="fas fa-code-pull-request"></i> 9 🔀</div>
+                        <div><i class="fas fa-box-open"></i> 26 📦</div>
+                        <div><i class="fas fa-file-alt"></i> MIT 📜</div>
+                        <div><i class="fas fa-users"></i> 26 👥</div>
+                    </div>
+                    <div class="lang-breakdown">编程语言: Python 94.4%, TypeScript 5.3%</div>
+                    <p class="mt-4"><strong>项目速读:</strong> 开源Python工具包，加速生成式AI应用（特别是RAG）开发。提供灵活、可复用构建模块，快速构建稳定、可扩展、易部署的GenAI解决方案。高度模块化、强大集成能力，轻松切换LLM和向量数据库。强大的数据处理管道，支持多种文档格式和数据源。集成类型安全LLM调用、命令行工具、测试监控框架。降低开发复杂性，是快速迭代GenAI原型和构建可靠生产级应用的理想选择。</p>
+                    <div class="growth-analysis"><strong>增长分析:</strong> 3天内连续3次上榜，持续高曝光度和关注度。总增长377星，平均每次增长约218星，增长势头良好。</div>
+                </div>
+            </section>
+
+            <!-- Slide 21: Project 13 - kelseyhightower/kubernetes-the-hard-way -->
+            <section class="content-slide">
+                <div class="project-card">
+                    <h4><a class="project-link" href="https://github.com/kelseyhightower/kubernetes-the-hard-way" target="_blank">kelseyhightower/kubernetes-the-hard-way <i class="fas fa-external-link-alt ml-2"></i></a></h4>
+                    <p class="text-sm italic">项目简介: 以硬核方式引导Kubernetes。无脚本。</p>
+                    <div class="stats-grid">
+                        <div><i class="fas fa-star"></i> 44.3k ⭐</div>
+                        <div><i class="fas fa-code-branch"></i> 14.9k 🔄</div>
+                        <div><i class="fas fa-eye"></i> 933 👀</div>
+                        <div><i class="fas fa-exclamation-circle"></i> 7 ❗</div>
+                        <div><i class="fas fa-code-pull-request"></i> 7 🔀</div>
+                        <div><i class="fas fa-box-open"></i> 0 📦</div>
+                        <div><i class="fas fa-file-alt"></i> Apache-2.0 📜</div>
+                        <div><i class="fas fa-users"></i> 52 👥</div>
+                    </div>
+                    <div class="lang-breakdown">编程语言: 不适用</div>
+                    <p class="mt-4"><strong>项目速读:</strong> 手动、从零开始搭建Kubernetes集群，深入理解核心组件和工作原理。绕过自动化工具，亲手完成证书生成、etcd引导、控制平面及工作节点配置。提供对Kubernetes内部机制最透彻的洞察。优秀学习资源，适合希望彻底掌握Kubernetes底层细节的技术人员，非快速部署或生产环境。需要多台虚拟机。</p>
+                    <div class="growth-analysis"><strong>增长分析:</strong> 总增长1584星，增长显著。但仅上榜2次，且单次增幅（30.5）远小于总增长，表明主要增长来源并非上榜，上榜对总增长贡献有限。</div>
+                </div>
+            </section>
+
+            <!-- Slide 22: Project 14 - codecrafters-io/build-your-own-x -->
+            <section class="content-slide">
+                <div class="project-card">
+                    <h4><a class="project-link" href="https://github.com/codecrafters-io/build-your-own-x" target="_blank">codecrafters-io/build-your-own-x <i class="fas fa-external-link-alt ml-2"></i></a></h4>
+                    <p class="text-sm italic">项目简介: 通过从零开始实现你喜欢的技术，精通编程。</p>
+                    <div class="stats-grid">
+                        <div><i class="fas fa-star"></i> 386k ⭐</div>
+                        <div><i class="fas fa-code-branch"></i> 36k 🔄</div>
+                        <div><i class="fas fa-eye"></i> 6.1k 👀</div>
+                        <div><i class="fas fa-exclamation-circle"></i> 205 ❗</div>
+                        <div><i class="fas fa-code-pull-request"></i> 178 🔀</div>
+                        <div><i class="fas fa-box-open"></i> 0 📦</div>
+                        <div><i class="fas fa-file-alt"></i> 未知 📜</div>
+                        <div><i class="fas fa-users"></i> 121 👥</div>
+                    </div>
+                    <div class="lang-breakdown">编程语言: Markdown 100.0%</div>
+                    <p class="mt-4"><strong>项目速读:</strong> 精选GitHub仓库，汇集大量高质量、循序渐进教程资源。核心目的是通过从零构建或重现常用技术项目（操作系统、数据库、Web服务器、区块链等），深入理解底层原理。鼓励“learning by doing”，通过动手实践掌握知识。适合希望突破表面使用、真正理解技术本质的开发者，涵盖广泛技术领域和多种编程语言。</p>
+                    <div class="growth-analysis"><strong>增长分析:</strong> 约3个月内上榜11次，总增长33432星，平均每次增加约695个。持续受到关注且增长强劲。今日新增425星，略低于平均水平，但总体增长趋势稳定。</div>
+                </div>
+            </section>
+
+            <!-- Slide 23: Project 15 - unslothai/notebooks -->
+            <section class="content-slide">
+                <div class="project-card">
+                    <h4><a class="project-link" href="https://github.com/unslothai/notebooks" target="_blank">unslothai/notebooks <i class="fas fa-external-link-alt ml-2"></i></a></h4>
+                    <p class="text-sm italic">项目简介: 通过Google Colab、Kaggle等平台上的指导式Notebook，免费微调LLM。</p>
+                    <div class="stats-grid">
+                        <div><i class="fas fa-star"></i> 1.6k ⭐</div>
+                        <div><i class="fas fa-code-branch"></i> 251 🔄</div>
+                        <div><i class="fas fa-eye"></i> 22 👀</div>
+                        <div><i class="fas fa-exclamation-circle"></i> 7 ❗</div>
+                        <div><i class="fas fa-code-pull-request"></i> 4 🔀</div>
+                        <div><i class="fas fa-box-open"></i> 0 📦</div>
+                        <div><i class="fas fa-file-alt"></i> LGPL-3.0 📜</div>
+                        <div><i class="fas fa-users"></i> 12 👥</div>
+                    </div>
+                    <div class="lang-breakdown">编程语言: Jupyter Notebook 99.9%</div>
+                    <p class="mt-4"><strong>项目速读:</strong> Jupyter Notebooks集合，帮助用户高效微调LLM，尤其在Google Colab和Kaggle等免费/低成本云平台。提供详细、可运行的Notebook示例，手把手指导LLM微调全过程（数据预处理、模型训练、评估、保存）。覆盖多种主流LLM模型和任务类型。将复杂微调过程“容器化”为易于操作的Notebooks，降低技术门槛。为在云端免费、快速进行LLM微调的研究人员、开发者和学习者提供了强大且易上手的实践平台。</p>
+                    <div class="growth-analysis"><strong>增长分析:</strong> 短期内仅上榜2次，增长非持续性。每次上榜带来显著星数增长（平均247.5）。总增长448，今日新增284，尤其今日表现强劲。增长趋势集中在少数表现突出日。</div>
+                </div>
+            </section>
+
+            <!-- Slide 24: Project 16 - stanfordnlp/dspy -->
+            <section class="content-slide">
+                <div class="project-card">
+                    <h4><a class="project-link" href="https://github.com/stanfordnlp/dspy" target="_blank">stanfordnlp/dspy <i class="fas fa-external-link-alt ml-2"></i></a></h4>
+                    <p class="text-sm italic">项目简介: DSPy：用于编程（而非提示）语言模型的框架。</p>
+                    <div class="stats-grid">
+                        <div><i class="fas fa-star"></i> 25k ⭐</div>
+                        <div><i class="fas fa-code-branch"></i> 1.9k 🔄</div>
+                        <div><i class="fas fa-eye"></i> 161 👀</div>
+                        <div><i class="fas fa-exclamation-circle"></i> 116 ❗</div>
+                        <div><i class="fas fa-code-pull-request"></i> 65 🔀</div>
+                        <div><i class="fas fa-box-open"></i> 90 📦</div>
+                        <div><i class="fas fa-file-alt"></i> MIT 📜</div>
+                        <div><i class="fas fa-users"></i> 309 👥</div>
+                    </div>
+                    <div class="lang-breakdown">编程语言: Python 99.6%</div>
+                    <p class="mt-4"><strong>项目速读:</strong> 突破性框架，革新LLMs使用方式，强调对模型进行“编程”而非传统提示词工程。解决手动编写和维护提示词痛点，提供结构化、可扩展、可优化方法构建LLM应用。通过Python代码定义AI系统模块，内置优化算法自动调整底层模型提示词和权重。声明式方法提升系统模块化、鲁棒性和可解释性。构建可靠、高效LLM应用的新工具。</p>
+                    <div class="growth-analysis"><strong>增长分析:</strong> 仓库两月增长1759星，增长迅速。上榜4次助推曝光，日增106星，势头正盛。</div>
+                </div>
+            </section>
+
+            <!-- Slide 25: Thank You / Call to Action -->
+            <section class="cover-slide">
+                <h1>感谢聆听！</h1>
+                <p class="subtitle">AI大模型进入“实战”，开发者正集体狂奔这几个方向</p>
+                <p class="speaker-info">演讲者: AIChipEra</p>
+                <p class="date-info">2025-06-08 20:23:01</p>
+
+                <p class="mt-10 text-2xl text-blue-300">
+                    <i class="fas fa-star mr-2"></i> <strong>欢迎关注项目、点赞与Star！</strong>
+                </p>
+
+                <div class="footer-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Core Reveal.js Scripts -->
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- Extended Scripts -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <script>
+        // Mermaid configuration
+        mermaid.initialize({
+            startOnLoad: false, // Ensure Mermaid only processes specific elements
+            theme: 'default' // Or 'dark', 'forest', 'neutral'
+        });
+
+        // Initialize Reveal.js
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            transition: 'slide', // Options: none, fade, slide, convex, concave, zoom
+            transitionSpeed: 'fast', // Options: default, fast, slow
+            backgroundTransition: 'fade', // Options: none, fade, slide, convex, concave, zoom
+
+            // Optional plugins
+            plugins: [
+                // No specific plugins required for this presentation based on the prompt,
+                // but if used, would be listed here, e.g., RevealHighlight, RevealNotes etc.
+            ]
+        });
+
+        // Add mermaid specific code after Reveal.js is initialized
+        // This is a common pattern for integrating Mermaid with Reveal.js
+        Reveal.on( 'ready', function( event ) {
+            document.querySelectorAll( 'pre.mermaid' ).forEach( function( element ) {
+                mermaid.render('mermaid-svg-' + Math.random().toString(36).substr(2, 9), element.innerText, function(svgCode) {
+                    element.innerHTML = svgCode;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
