@@ -104,15 +104,15 @@
 
 # 本周每日Github热点项目分析
 
-| 时间  | 链接 |
-| ----  | ---- |
-| 周一  | TODO_URL |
-| 周二  | TODO_URL |
-| 周三  | TODO_URL |
-| 周四  | TODO_URL |
-| 周五  | TODO_URL |
-| 周六  | TODO_URL |
-| 周日  | TODO_URL |
+| 时间  | 链接                                                                                                               |
+| --- | ---------------------------------------------------------------------------------------------------------------- |
+| 周一  | [【营销人必看】告别加班！这个AI工具让你1键搞定所有社媒，老板看了都发懵！(20250602-日报)](https://mp.weixin.qq.com/s/wc0HP-qNTA_2-Bead1VJjQ)          |
+| 周二  | [效率狂飙！GitHub独家揭秘：99%开发者都在偷偷用的AI黑科技，你还不知道？(20250603-日报)](https://mp.weixin.qq.com/s/UC_tAgDCwMoGujlgEDdTCg)       |
+| 周三  | [设计师也能写代码了？这款AI视觉编辑器，正悄悄改变你的开发模式！(20250604-日报)](https://mp.weixin.qq.com/s/YrtgbvLgNkCMgyeQ-l_s-w)               |
+| 周四  | [不只ChatGPT！AI Agent已悄悄“接管”GitHub？程序员速看，下一个风口是它！(20250605-日报)](https://mp.weixin.qq.com/s/Zf0aeiBF4ZpRsx_MFNZaIw) |
+| 周五  | [AI Agent太卷？真正的高手都在用“代码”驯服大模型，让它有记忆会思考！(20250606-日报)](https://mp.weixin.qq.com/s/bN978OQ-dncHJ0Ua8Q4cmg)         |
+| 周六  | [【重磅】AI开发已彻底变天！这5款顶级AI应用神器，助你抢占未来！(20250607-日报)](https://mp.weixin.qq.com/s/w450fa2y8Aov6orcZ04L6A)              |
+| 周日  | [AI大模型真正的"掘金地"首次曝光！何止PPT？这3个方向让你不再错过！(20250608-日报)](https://mp.weixin.qq.com/s/wVQgoenRNqFRCd7sZX8T9w)           |
 
 
 # 详细仓库数据
