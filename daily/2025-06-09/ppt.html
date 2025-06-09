@@ -1,0 +1,986 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI应用深水区：非大模型技术爆发</title>
+
+    <!-- Core Reveal.js Framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+
+    <!-- Extended Dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <!-- Google Fonts for Noto Serif SC and Noto Sans SC -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #3B82F6; /* Tailwind Blue-500 */
+            --secondary-color: #6366F1; /* Tailwind Indigo-500 */
+            --accent-color: #EF4444; /* Tailwind Red-500 for highlights */
+            --text-color-dark: #1F2937; /* Tailwind Gray-900 */
+            --text-color-light: #F9FAFB; /* Tailwind Gray-50 */
+            --bg-color-light: #FFFFFF; /* White */
+            --bg-color-dark: #111827; /* Tailwind Gray-900 */
+            --gradient-start: #3B82F6;
+            --gradient-end: #6366F1;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--text-color-dark);
+        }
+
+        .reveal .slides section {
+            padding: 40px;
+            text-align: left;
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: 'Noto Serif SC', 'Noto Sans SC', 'Times New Roman', Times, serif; /* Fallback for Serif */
+            color: var(--primary-color);
+            margin-bottom: 0.5em;
+        }
+
+        /* Font Size Hierarchy */
+        .reveal h1 { font-size: 3rem; line-height: 1.2; font-weight: 700; }
+        .reveal h2 { font-size: 2.5rem; line-height: 1.2; font-weight: 600; }
+        .reveal h3 { font-size: 1.8rem; line-height: 1.3; font-weight: 500; }
+        .reveal h4 { font-size: 1.5rem; line-height: 1.4; font-weight: 500; }
+        .reveal p, .reveal li, .reveal table { font-size: 1.1rem; line-height: 1.6; }
+        .reveal small { font-size: 0.8em; }
+
+        /* Specific element sizing for clarity */
+        .reveal .title-h1 { font-size: 3rem; }
+        .reveal .title-h2 { font-size: 2.5rem; }
+        .reveal .title-h3 { font-size: 2rem; }
+        .reveal .subtitle { font-size: 1.7rem; }
+        .reveal .body-text { font-size: 1.1rem; }
+
+        /* Cover slide specific styles */
+        .reveal .hero-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            color: var(--text-color-light);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+            background-image: linear-gradient(to right bottom, rgba(59, 130, 246, 0.7), rgba(99, 102, 241, 0.7)), url('https://source.unsplash.com/1600x900/?ai,technology,abstract,light');
+        }
+
+        .reveal .hero-section h1 {
+            font-size: 4rem; /* Larger for impact */
+            margin-bottom: 0.5em;
+            color: var(--text-color-light);
+            text-align: left;
+        }
+
+        .reveal .hero-section h2 {
+            font-size: 2rem;
+            color: var(--text-color-light);
+            text-align: left;
+        }
+
+        .reveal .hero-section .speaker-info {
+            font-size: 1.5rem;
+            margin-top: 2em;
+            color: var(--text-color-light);
+            text-align: left;
+        }
+
+        /* QR Code & Link container */
+        .reveal .bottom-right-fixed {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            z-index: 100;
+        }
+        .reveal .bottom-right-fixed img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .reveal .bottom-right-fixed a {
+            color: var(--text-color-light);
+            background: rgba(0,0,0,0.6);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            text-decoration: none;
+        }
+        .reveal .bottom-right-fixed a:hover {
+            text-decoration: underline;
+        }
+
+        /* General content slides */
+        .reveal section {
+            text-align: left;
+            padding: 40px 80px;
+        }
+
+        .reveal .r-frame {
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 15px 25px;
+            margin: 20px 0;
+            background: rgba(var(--bg-color-light), 0.95);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .reveal .disclaimer {
+            font-size: 1.1rem;
+            color: var(--accent-color);
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #FEF3C7; /* Tailwind Yellow-100 */
+            border-left: 5px solid #FCD34D; /* Tailwind Yellow-400 */
+            border-radius: 5px;
+        }
+
+        /* Aha Moment / Unexpected Project Style */
+        .reveal .aha-moment-bg {
+            background-image: linear-gradient(to right top, #FEE2E2, #FECACA); /* Light Red/Pink gradient */
+            color: var(--text-color-dark);
+            text-align: center;
+            animation: pulse-bg 1.5s infinite alternate; /* Subtle pulse animation */
+        }
+
+        @keyframes pulse-bg {
+            from { background-color: #FEE2E2; }
+            to { background-color: #FECACA; }
+        }
+
+        .reveal .aha-moment-bg .aha-moment-heading {
+            color: var(--accent-color);
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .reveal .aha-moment-bg .icon-large {
+            font-size: 5rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        /* Tables */
+        .reveal table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 1.05rem;
+        }
+        .reveal th, .reveal td {
+            border: 1px solid #E5E7EB; /* Tailwind Gray-200 */
+            padding: 10px 15px;
+            text-align: left;
+        }
+        .reveal th {
+            background-color: #F3F4F6; /* Tailwind Gray-100 */
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        .reveal td {
+            background-color: #FFFFFF;
+        }
+        .reveal tr:nth-child(even) td {
+            background-color: #F9FAFB; /* Tailwind Gray-50 */
+        }
+
+        /* Fragments */
+        .reveal .fragment {
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+        }
+
+        /* Icons */
+        .icon {
+            margin-right: 0.5em;
+            color: var(--primary-color);
+        }
+        .icon-large {
+            font-size: 2em;
+            color: var(--primary-color);
+        }
+
+        /* Project specific styles */
+        .repo-stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 15px;
+            font-size: 1.1em;
+            color: var(--text-color-dark);
+        }
+        .repo-stat-item {
+            margin: 5px 15px;
+            display: flex;
+            align-items: center;
+        }
+        .repo-stat-item i {
+            margin-right: 5px;
+            color: var(--secondary-color);
+        }
+        .repo-language-breakdown {
+            margin-top: 15px;
+            font-size: 0.95em;
+            color: #555;
+        }
+        .repo-language-breakdown span {
+            display: inline-block;
+            margin-right: 15px;
+            margin-bottom: 5px;
+            background-color: #ECF2FF; /* Light blue */
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .repo-description {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #F0F4F8; /* Light gray-blue */
+            border-left: 4px solid var(--primary-color);
+            border-radius: 5px;
+        }
+        .repo-description p {
+            margin-bottom: 0.5em;
+        }
+        .repo-growth {
+            margin-top: 20px;
+            font-style: italic;
+            color: #4B5563; /* Tailwind Gray-600 */
+        }
+        .repo-growth strong {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        /* Adjustments for white theme */
+        .reveal .has-light-background .controls,
+        .reveal .has-light-background .slide-number,
+        .reveal .has-light-background .state-background {
+            color: var(--text-color-dark);
+        }
+        .reveal .progress span {
+            background: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Cover Slide -->
+            <section class="hero-section" data-transition="slide" data-background-image="https://source.unsplash.com/1600x900/?ai,technology,abstract,light" data-background-color="#FFFFFF">
+                <h1 class="title-h1">AI应用进入深水区，<br>除了大模型，这些“意想不到”的技术正悄悄爆发！</h1>
+                <h2 class="subtitle">Github热门仓库日报观测：2025-06-09 20:25:45</h2>
+                <p class="speaker-info">演讲者：AIChipEra</p>
+
+                <!-- Project Link and QR Code -->
+                <div class="bottom-right-fixed">
+                    <img src="../../asserts/wx.jpg" alt="微信二维码">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+            <!-- Disclaimer Slide -->
+            <section data-transition="fade">
+                <h2 class="title-h2 text-center text-red-600 mb-8">重要提示</h2>
+                <div class="disclaimer text-red-700">
+                    <p class="text-xl leading-relaxed text-center">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                        **以下内容仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！**
+                    </p>
+                </div>
+                <div class="flex justify-center mt-12">
+                    <img src="https://source.unsplash.com/800x450/?caution,warning" alt="Disclaimer Image" class="rounded-lg shadow-xl" style="max-height: 400px;">
+                </div>
+            </section>
+
+            <!-- 日报要点 -->
+            <section data-transition="slide">
+                <h2 class="title-h2"><i class="fas fa-chart-line icon"></i> 日报要点：AI应用的“下半场”</h2>
+                <ul class="body-text mt-6">
+                    <li class="fragment">
+                        <p><i class="fas fa-arrow-right icon"></i> **AI大模型**热潮从研究转向**实际应用与生产环境优化**。</p>
+                        <small class="text-gray-500 ml-6">不再满足API调用，关注LLMs高效、低成本部署，提升性能。</small>
+                    </li>
+                    <li class="fragment mt-4">
+                        <p><i class="fas fa-wrench icon"></i> 焦点转向**RAG系统优化、智能Agent构建、LLMOps**。</p>
+                        <small class="text-gray-500 ml-6">解决实际挑战：如何让AI更智能、更稳定、更实用。</small>
+                    </li>
+                    <li class="fragment mt-4">
+                        <p><i class="fas fa-lightbulb icon"></i> **意想不到的黑马：个人身心健康调优**项目冲上榜首。</p>
+                        <small class="text-gray-500 ml-6">技术关注点悄然蔓延至生活方式，预示新的融合趋势。</small>
+                    </li>
+                    <li class="fragment mt-4">
+                        <p><i class="fas fa-eye icon"></i> 洞察技术圈热点，发现下一个爆款技术。</p>
+                        <small class="text-gray-500 ml-6">本报告带你一探究竟。</small>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- 热门项目趋势分析 - 今日整体趋势 -->
+            <section data-transition="slide">
+                <h2 class="title-h2"><i class="fas fa-compass icon"></i> 热门项目趋势分析：今日整体概览</h2>
+                <ul class="body-text mt-6">
+                    <li class="fragment">
+                        <p><i class="fas fa-brain icon"></i> **AI领域深耕：** LLM应用与优化成为绝对C位。</p>
+                        <small class="text-gray-500 ml-6">从API调用到生产环境部署、性能优化、数据反馈循环。</small>
+                    </li>
+                    <li class="fragment mt-4">
+                        <p><i class="fas fa-robot icon"></i> **智能Agent崛起：** 记忆、知识管理、开发工作流自动化。</p>
+                        <small class="text-gray-500 ml-6">AI Agent的智能度与实用性是未来核心。</small>
+                    </li>
+                    <li class="fragment mt-4">
+                        <p><i class="fas fa-cogs icon"></i> **RAG系统进阶：** 各类技术提升问答效果。</p>
+                        <small class="text-gray-500 ml-6">更精准、上下文更丰富的AI响应。</small>
+                    </li>
+                    <li class="fragment mt-4">
+                        <p><i class="fas fa-terminal icon"></i> **语言多元化：** Python主导AI，Rust/Go在性能/系统级优势显著。</p>
+                        <small class="text-gray-500 ml-6">追求极致性能和特定领域适用性。</small>
+                    </li>
+                    <li class="fragment mt-4">
+                        <p><i class="fas fa-stethoscope icon"></i> **意外之喜：** 个人身心健康优化项目意外火爆。</p>
+                        <small class="text-gray-500 ml-6">技术关注点正悄然蔓延。</small>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- 热门项目趋势分析 - 热门项目双日维度对比分析 -->
+            <section data-transition="slide">
+                <h2 class="title-h2"><i class="fas fa-chart-bar icon"></i> 热门项目趋势分析：双日对比</h2>
+                <ul class="body-text mt-6">
+                    <li class="fragment">
+                        <p><i class="fas fa-plus-circle icon"></i> **新晋项目数量可观：** 今日新增10个，类型多样。</p>
+                        <small class="text-gray-500 ml-6">AI/ML、媒体服务、游戏、系统工具百花齐放。</small>
+                    </li>
+                    <li class="fragment mt-4">
+                        <p><i class="fas fa-arrow-up icon"></i> **无项目下降：** 市场热度稳定或略有上升。</p>
+                        <small class="text-gray-500 ml-6">表明关注度相对分散，但缺乏失宠者。</small>
+                    </li>
+                    <li class="fragment mt-4">
+                        <p><i class="fas fa-code icon"></i> **编程语言波动：** Rust、C++、C#、JS、Lua增加，Vue、Go、Python略减。</p>
+                        <small class="text-gray-500 ml-6">文档/内容格式（Jupyter Notebook, MDX）项目提升。</small>
+                    </li>
+                    <li class="fragment mt-4">
+                        <p><i class="fas fa-fire icon"></i> **超高涨幅项目：**</p>
+                        <ul class="ml-8 list-disc mt-2">
+                            <li class="fragment"><code>tensorzero/tensorzero</code>：惊人星标数跃升。</li>
+                            <li class="fragment"><code>zijie0/HumanSystemOptimization</code>：显著关注度提升。</li>
+                            <li class="fragment"><code>topoteretes/cognee</code>：涨幅突出。</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- 热点变化 -->
+            <section data-transition="slide">
+                <h2 class="title-h2"><i class="fas fa-retweet icon"></i> 热点变化：新生、减退与持续</h2>
+                <div class="grid grid-cols-2 gap-8 mt-6 body-text">
+                    <div class="col-span-1 fragment">
+                        <h3 class="text-green-600"><i class="fas fa-seedling icon"></i> 新增热点</h3>
+                        <ul class="list-disc ml-6">
+                            <li>linsomniac/spotify_to_ytmusic</li>
+                            <li>jellyfin/jellyfin</li>
+                            <li>eythaann/seelen-ui</li>
+                            <li>lizardbyte/sunshine</li>
+                            <li>eyaltoledano/claude-task-master</li>
+                            <li>nirdiamant/rag_techniques</li>
+                            <li>dair-ai/prompt-engineering-guide</li>
+                            <li>pathofbuildingcommunity/pathofbuilding</li>
+                            <li>blakeblackshear/frigate</li>
+                            <li>alphacep/vosk-api</li>
+                        </ul>
+                    </div>
+                    <div class="col-span-1">
+                        <div class="fragment">
+                            <h3 class="text-yellow-600"><i class="fas fa-arrow-down icon"></i> 减退热点</h3>
+                            <ul class="list-disc ml-6">
+                                <li>unslothai/notebooks</li>
+                                <li>stanfordnlp/dspy</li>
+                                <li>codecrafters-io/build-your-own-x</li>
+                                <li>daymychen/art-design-pro</li>
+                                <li>iib0011/omni-tools</li>
+                                <li>netbirdio/netbird</li>
+                                <li>deepsense-ai/ragbits</li>
+                                <li>codexu/note-gen</li>
+                                <li>kelseyhightower/kubernetes-the-hard-way</li>
+                                <li>langgenius/dify</li>
+                            </ul>
+                        </div>
+                        <div class="fragment mt-8">
+                            <h3 class="text-blue-600"><i class="fas fa-infinity icon"></i> 持续热门</h3>
+                            <ul class="list-disc ml-6">
+                                <li>topoteretes/cognee (5次)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 详细仓库数据 Introduction -->
+            <section data-transition="slide">
+                <h2 class="title-h2 text-center"><i class="fas fa-list-alt icon"></i> 详细仓库数据解析</h2>
+                <p class="body-text text-center mt-4 fragment">深入了解每个热门项目，洞察其核心价值与增长潜力。</p>
+                <div class="flex justify-center mt-12 fragment">
+                    <img src="https://source.unsplash.com/800x450/?data,analysis,chart" alt="Data analysis image" class="rounded-lg shadow-xl" style="max-height: 400px;">
+                </div>
+            </section>
+
+            <!-- Project Details - alphacep/vosk-api -->
+            <section>
+                <h2 class="title-h2"><a href="https://github.com/alphacep/vosk-api" target="_blank">alphacep/vosk-api</a> <i class="fas fa-external-link-alt text-sm align-top ml-2"></i></h2>
+                <h4 class="subtitle text-gray-700">离线语音识别API，支持多平台多语言</h4>
+                <div class="r-frame mt-4 fragment">
+                    <table class="body-text">
+                        <tr><th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                        <tr><td>[alphacep/vosk-api](https://github.com/alphacep/vosk-api)</td><td>Jupyter Notebook</td><td>10342</td><td>1次</td><td>2次</td><td>214</td></tr>
+                    </table>
+                </div>
+                <div class="repo-stats fragment mt-6">
+                    <div class="repo-stat-item"><i class="fas fa-star"></i> Stars: 10.3k</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-branch"></i> Forks: 1.3k</div>
+                    <div class="repo-stat-item"><i class="fas fa-eye"></i> Watchers: 129</div>
+                    <div class="repo-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 498</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 39</div>
+                    <div class="repo-stat-item"><i class="fas fa-box"></i> Releases: 20</div>
+                    <div class="repo-stat-item"><i class="fas fa-file-alt"></i> Commits: 522</div>
+                    <div class="repo-stat-item"><i class="fas fa-scroll"></i> License: Apache-2.0 license</div>
+                    <div class="repo-stat-item"><i class="fas fa-users"></i> Contributors: 42</div>
+                </div>
+                <div class="repo-language-breakdown fragment">
+                    <span>Jupyter Notebook 88.8%</span><span>C++ 3.0%</span><span>Kotlin 2.5%</span><span>Java 1.4%</span><span>Python 1.1%</span><span>Shell 1.0%</span><span>Other 2.2%</span>
+                </div>
+                <div class="repo-description fragment">
+                    <h3 class="title-h4">项目速读</h3>
+                    <p>Vosk 是一个功能强大的离线开源语音识别工具包，核心目标是在无需互联网连接的环境下，高效准确地将口语转化为文本。它提供跨平台的 API，特别适用于资源有限的设备如 Android、iOS 和树莓派，同时也支持部署在服务器上，并通过 Python、Java、C、Node.js 等多种主流编程语言提供接口，极大地方便了开发集成。</p>
+                    <p>该项目的最大亮点在于其离线能力，确保用户隐私和数据安全，同时模型体积小巧（约 50MB），易于部署，却能处理大词汇量的连续语音。借助流媒体 API，Vosk 实现了低延迟的实时识别，响应迅速。它支持超过 20 种语言，覆盖广泛，从小型设备到大型集群均具备良好可扩展性。这使得 Vosk 成为开发各种智能语音应用、自动字幕生成、会议或访谈转录等场景的理想选择，为开发者提供了一个灵活、高性能且独立的语音识别方案。</p>
+                </div>
+                <p class="repo-growth fragment mt-4"><strong>增长分析：</strong> 虽仅上榜2次，但总增长451，日增214远超平均，增长势头强劲。</p>
+            </section>
+
+            <!-- Project Details - tensorzero/tensorzero -->
+            <section>
+                <h2 class="title-h2"><a href="https://github.com/tensorzero/tensorzero" target="_blank">tensorzero/tensorzero</a> <i class="fas fa-external-link-alt text-sm align-top ml-2"></i></h2>
+                <h4 class="subtitle text-gray-700">LLM应用优化反馈循环，高性能生产级网关</h4>
+                <div class="r-frame mt-4 fragment">
+                    <table class="body-text">
+                        <tr><th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                        <tr><td>[tensorzero/tensorzero](https://github.com/tensorzero/tensorzero)</td><td>Rust</td><td>5778</td><td>2次</td><td>2次</td><td>1010</td></tr>
+                    </table>
+                </div>
+                <div class="repo-stats fragment mt-6">
+                    <div class="repo-stat-item"><i class="fas fa-star"></i> Stars: 5.8k</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-branch"></i> Forks: 361</div>
+                    <div class="repo-stat-item"><i class="fas fa-eye"></i> Watchers: 54</div>
+                    <div class="repo-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 211</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 34</div>
+                    <div class="repo-stat-item"><i class="fas fa-box"></i> Releases: 57</div>
+                    <div class="repo-stat-item"><i class="fas fa-file-alt"></i> Commits: 1,246</div>
+                    <div class="repo-stat-item"><i class="fas fa-scroll"></i> License: Apache-2.0 license</div>
+                    <div class="repo-stat-item"><i class="fas fa-users"></i> Contributors: 52</div>
+                </div>
+                <div class="repo-language-breakdown fragment">
+                    <span>Rust 68.9%</span><span>TypeScript 19.2%</span><span>Python 7.0%</span><span>Jupyter Notebook 3.2%</span><span>Go 0.8%</span><span>Shell 0.4%</span><span>Other 0.5%</span>
+                </div>
+                <div class="repo-description fragment">
+                    <h3 class="title-h4">项目速读</h3>
+                    <p>TensorZero 是一个开源框架，旨在构建和优化生产级的大型语言模型（LLM）应用。其核心价值在于建立一个强大的反馈循环：利用真实生产环境中的推理数据和用户反馈，持续驱动 LLM 应用的优化，使其变得更智能、响应更快且成本更低。</p>
+                    <p>项目提供一个高性能的 Rust 编写的统一 LLM 网关，通过单一 API 即可访问多个主流提供商，并能实现卓越的超低 P99 延迟（小于 1 毫秒）。它深度集成了 LLMOps 的关键能力，包括详尽的可观测性（记录所有交互数据）、基于数据的优化工具（如 prompt 调优）、模型评估以及内置的实验平台（支持 A/B 测试）。</p>
+                    <p>通过将 LLM 推理、数据捕获、优化和评估统一在一个平台，TensorZero 为开发者提供了基于实际效果迭代改进 LLM 的强大工具。对于追求工业级性能、高可控性，并希望通过实战数据驱动 LLM 优化的团队来说，这是一个极具吸引力的自托管解决方案，将 LLM 从实验快速带入稳定高效的生产系统。</p>
+                </div>
+                <p class="repo-growth fragment mt-4"><strong>增长分析：</strong> 两天内两次上榜，日增1010 Star，增长势头非常迅猛，持续吸引关注。</p>
+            </section>
+
+            <!-- Project Details - XTLS/Xray-core -->
+            <section>
+                <h2 class="title-h2"><a href="https://github.com/XTLS/Xray-core" target="_blank">XTLS/Xray-core</a> <i class="fas fa-external-link-alt text-sm align-top ml-2"></i></h2>
+                <h4 class="subtitle text-gray-700">Xray，穿透一切。最好的v2ray-core。</h4>
+                <div class="r-frame mt-4 fragment">
+                    <table class="body-text">
+                        <tr><th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                        <tr><td>[XTLS/Xray-core](https://github.com/XTLS/Xray-core)</td><td>Go</td><td>28987</td><td>2次</td><td>3次</td><td>144</td></tr>
+                    </table>
+                </div>
+                <div class="repo-stats fragment mt-6">
+                    <div class="repo-stat-item"><i class="fas fa-star"></i> Stars: 29k</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-branch"></i> Forks: 4.3k</div>
+                    <div class="repo-stat-item"><i class="fas fa-eye"></i> Watchers: 353</div>
+                    <div class="repo-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 10</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 15</div>
+                    <div class="repo-stat-item"><i class="fas fa-box"></i> Releases: 85</div>
+                    <div class="repo-stat-item"><i class="fas fa-file-alt"></i> Commits: 1,397</div>
+                    <div class="repo-stat-item"><i class="fas fa-scroll"></i> License: MPL-2.0 license</div>
+                    <div class="repo-stat-item"><i class="fas fa-users"></i> Contributors: 188</div>
+                </div>
+                <div class="repo-language-breakdown fragment">
+                    <span>Go 99.7%</span><span>Other 0.3%</span>
+                </div>
+                <div class="repo-description fragment">
+                    <h3 class="title-h4">项目速读</h3>
+                    <p>Xray-core 是一个基于 v2fly-core 发展而来的高性能网络代理核心，旨在帮助用户突破网络限制，实现安全、自由的互联网访问。其最大亮点在于支持 XTLS 和革命性的 REALITY 协议，特别是 REALITY 能够无须证书便将流量高度伪装成正常网站访问，具备极强的抗探测能力。Xray-core 提供强大、隐蔽的网络连接方案，是当前对抗网络审查、追求高隐匿性和稳定性的顶尖工具之一。</p>
+                </div>
+                <p class="repo-growth fragment mt-4"><strong>增长分析：</strong> 上榜3次总增542星，今日144星，增长势头强劲且呈加速趋势。</p>
+            </section>
+
+            <!-- Project Details - topoteretes/cognee -->
+            <section>
+                <h2 class="title-h2"><a href="https://github.com/topoteretes/cognee" target="_blank">topoteretes/cognee</a> <i class="fas fa-external-link-alt text-sm align-top ml-2"></i></h2>
+                <h4 class="subtitle text-gray-700">5行代码实现AI智能体的记忆</h4>
+                <div class="r-frame mt-4 fragment">
+                    <table class="body-text">
+                        <tr><th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                        <tr><td>[topoteretes/cognee](https://github.com/topoteretes/cognee)</td><td>Python</td><td>4833</td><td>5次</td><td>5次</td><td>414</td></tr>
+                    </table>
+                </div>
+                <div class="repo-stats fragment mt-6">
+                    <div class="repo-stat-item"><i class="fas fa-star"></i> Stars: 4.8k</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-branch"></i> Forks: 369</div>
+                    <div class="repo-stat-item"><i class="fas fa-eye"></i> Watchers: 31</div>
+                    <div class="repo-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 17</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 17</div>
+                    <div class="repo-stat-item"><i class="fas fa-box"></i> Releases: 43</div>
+                    <div class="repo-stat-item"><i class="fas fa-file-alt"></i> Commits: 2,378</div>
+                    <div class="repo-stat-item"><i class="fas fa-scroll"></i> License: Apache-2.0 license</div>
+                    <div class="repo-stat-item"><i class="fas fa-users"></i> Contributors: 40</div>
+                </div>
+                <div class="repo-language-breakdown fragment">
+                    <span>Python 95.1%</span><span>TypeScript 3.8%</span><span>Shell 0.4%</span><span>Dockerfile 0.4%</span><span>CSS 0.3%</span><span>Mako 0.0%</span>
+                </div>
+                <div class="repo-description fragment">
+                    <h3 class="title-h4">项目速读</h3>
+                    <p>Cognee 是一个开源 Python 项目，致力于为 AI Agent 构建动态、高效的记忆能力。它旨在替代传统的检索增强生成（RAG）模式，解决 Agent 在理解复杂、多源信息时的记忆不足问题。</p>
+                    <p>其核心是创新的 ECL（提取、认知、加载）管道，能够处理和组织跨越对话、文档、图像、音频等多种格式的数据。特别是“认知”环节，利用大型语言模型将原始数据转化为结构化知识（如知识图谱），并通过图数据库和向量数据库实现数据的互联和高效检索。这赋予 Agent 访问和利用海量历史信息的能力，显著提升上下文感知和推理水平。</p>
+                    <p>Cognee 提供了比传统 RAG 更灵活、可扩展的方案，极大简化了 Agent 的记忆层开发，是增强 Agent 智能的关键工具。</p>
+                </div>
+                <p class="repo-growth fragment mt-4"><strong>增长分析：</strong> 连续上榜5天，平均每日新增星数超500，增长持续健康，势头强劲。</p>
+            </section>
+
+            <!-- Project Details - eyaltoledano/claude-task-master -->
+            <section>
+                <h2 class="title-h2"><a href="https://github.com/eyaltoledano/claude-task-master" target="_blank">eyaltoledano/claude-task-master</a> <i class="fas fa-external-link-alt text-sm align-top ml-2"></i></h2>
+                <h4 class="subtitle text-gray-700">AI驱动的任务管理系统，提升开发工作流</h4>
+                <div class="r-frame mt-4 fragment">
+                    <table class="body-text">
+                        <tr><th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                        <tr><td>[eyaltoledano/claude-task-master](https://github.com/eyaltoledano/claude-task-master)</td><td>JavaScript</td><td>13103</td><td>1次</td><td>1次</td><td>332</td></tr>
+                    </table>
+                </div>
+                <div class="repo-stats fragment mt-6">
+                    <div class="repo-stat-item"><i class="fas fa-star"></i> Stars: 13.1k</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-branch"></i> Forks: 1.4k</div>
+                    <div class="repo-stat-item"><i class="fas fa-eye"></i> Watchers: 94</div>
+                    <div class="repo-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 70</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 31</div>
+                    <div class="repo-stat-item"><i class="fas fa-box"></i> Releases: 16</div>
+                    <div class="repo-stat-item"><i class="fas fa-file-alt"></i> Commits: 537</div>
+                    <div class="repo-stat-item"><i class="fas fa-scroll"></i> License: 未知</div>
+                    <div class="repo-stat-item"><i class="fas fa-users"></i> Contributors: 21</div>
+                </div>
+                <div class="repo-language-breakdown fragment">
+                    <span>JavaScript 95.2%</span><span>Shell 4.8%</span>
+                </div>
+                <div class="repo-description fragment">
+                    <h3 class="title-h4">项目速读</h3>
+                    <p>Task Master 是一个专为AI驱动开发而设计的任务管理系统。它解决的核心问题是，如何高效地将高层级的产品需求文档（PRD）转化为具体的、可执行的编码任务，并利用大型语言模型来辅助甚至主导这些任务的规划与执行。</p>
+                    <p>该项目的突出之处在于其强大的AI模型兼容性，允许用户自由选择和配置来自不同提供商（如Anthropic、OpenAI等）的多种大模型来担任不同角色，共同推进开发流程。更关键的是，它通过支持MCP协议，实现了与Cursor等主流AI友好型编辑器的深度集成，使得开发者可以直接在熟悉的编码环境中，通过自然的对话式交互来驱动整个开发工作流，从需求解析到代码生成。</p>
+                    <p>Task Master通过自动化需求理解、任务分解和执行建议，为开发者提供了一种全新的、AI优先的开发范式，极大地简化了AI在软件开发中的应用门槛和流程。它特别适合希望利用AI大幅提升开发效率的个人或团队，但需注意其采用附带Commons Clause的MIT许可证，使用时需留意商业限制，并依赖有效的AI服务API密钥。</p>
+                </div>
+            </section>
+
+            <!-- Project Details - NirDiamant/RAG_Techniques -->
+            <section>
+                <h2 class="title-h2"><a href="https://github.com/NirDiamant/RAG_Techniques" target="_blank">NirDiamant/RAG_Techniques</a> <i class="fas fa-external-link-alt text-sm align-top ml-2"></i></h2>
+                <h4 class="subtitle text-gray-700">检索增强生成 (RAG) 系统高级技术集合</h4>
+                <div class="r-frame mt-4 fragment">
+                    <table class="body-text">
+                        <tr><th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                        <tr><td>[NirDiamant/RAG_Techniques](https://github.com/NirDiamant/RAG_Techniques)</td><td>Jupyter Notebook</td><td>17002</td><td>1次</td><td>5次</td><td>118</td></tr>
+                    </table>
+                </div>
+                <div class="repo-stats fragment mt-6">
+                    <div class="repo-stat-item"><i class="fas fa-star"></i> Stars: 17k</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-branch"></i> Forks: 1.7k</div>
+                    <div class="repo-stat-item"><i class="fas fa-eye"></i> Watchers: 189</div>
+                    <div class="repo-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 0</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 7</div>
+                    <div class="repo-stat-item"><i class="fas fa-box"></i> Releases: 0</div>
+                    <div class="repo-stat-item"><i class="fas fa-file-alt"></i> Commits: 379</div>
+                    <div class="repo-stat-item"><i class="fas fa-scroll"></i> License: 未知</div>
+                    <div class="repo-stat-item"><i class="fas fa-users"></i> Contributors: 28</div>
+                </div>
+                <div class="repo-language-breakdown fragment">
+                    <span>Jupyter Notebook 93.6%</span><span>Python 6.4%</span>
+                </div>
+                <div class="repo-description fragment">
+                    <h3 class="title-h4">项目速读</h3>
+                    <p>NirDiamant 的 RAGTechniques 仓库是一个专注于检索增强生成（RAG）高级技术的综合性实践与教程集合。它旨在解决提升 RAG 系统性能的关键挑战，通过整合信息检索与生成模型，生成更准确、更具上下文感知能力的 AI 响应。</p>
+                    <p>该项目的核心价值在于，它超越了基础的 RAG 概念，深入剖析并提供了业界最前沿的增强技术示例。这些技术覆盖了从优化用户查询、应用复杂检索策略（如融合与重排序）、采用创新的上下文处理方法（如多种分块技术），到探索复杂的 RAG 架构（如 RAPTOR, Self-RAG）等多个重要层面。</p>
+                    <p>项目的突出优势在于其高度的实用性和易学性。通过提供基于 LangChain 和 LlamaIndex 等主流框架的详细代码示例，通常以 Google Colab 笔记本和 Python 脚本的形式呈现，它极大地降低了开发者和研究人员学习、理解并应用这些复杂技术的门槛。</p>
+                    <p>总的来说，这个仓库是一个宝贵的知识库和工具集，对于任何希望深入学习、实现或改进 RAG 系统的人来说，提供了一条清晰且实践性强的学习路径，是加速 RAG 技术发展和应用的强大助推器。</p>
+                </div>
+                <p class="repo-growth fragment mt-4"><strong>增长分析：</strong> 仓库增长强劲，总计增长2710星。统计期内五次上榜是关键驱动力，平均每次贡献近300星。今日新增118星，增长仍在持续。</p>
+            </section>
+
+            <!-- Project Details - eythaann/Seelen-UI -->
+            <section>
+                <h2 class="title-h2"><a href="https://github.com/eythaann/Seelen-UI" target="_blank">eythaann/Seelen-UI</a> <i class="fas fa-external-link-alt text-sm align-top ml-2"></i></h2>
+                <h4 class="subtitle text-gray-700">Windows 10/11 的完全可定制桌面环境</h4>
+                <div class="r-frame mt-4 fragment">
+                    <table class="body-text">
+                        <tr><th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                        <tr><td>[eythaann/Seelen-UI](https://github.com/eythaann/Seelen-UI)</td><td>Rust</td><td>7257</td><td>1次</td><td>1次</td><td>51</td></tr>
+                    </table>
+                </div>
+                <div class="repo-stats fragment mt-6">
+                    <div class="repo-stat-item"><i class="fas fa-star"></i> Stars: 7.3k</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-branch"></i> Forks: 242</div>
+                    <div class="repo-stat-item"><i class="fas fa-eye"></i> Watchers: 39</div>
+                    <div class="repo-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 112</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 13</div>
+                    <div class="repo-stat-item"><i class="fas fa-box"></i> Releases: 146</div>
+                    <div class="repo-stat-item"><i class="fas fa-file-alt"></i> Commits: 1,630</div>
+                    <div class="repo-stat-item"><i class="fas fa-scroll"></i> License: 未知</div>
+                    <div class="repo-stat-item"><i class="fas fa-users"></i> Contributors: 37</div>
+                </div>
+                <div class="repo-language-breakdown fragment">
+                    <span>Rust 51.0%</span><span>TypeScript 37.5%</span><span>CSS 5.7%</span><span>NSIS 2.5%</span><span>SCSS 2.1%</span><span>AutoHotkey 0.6%</span><span>Other 0.6%</span>
+                </div>
+                <div class="repo-description fragment">
+                    <h3 class="title-h4">项目速读</h3>
+                    <p>Seelen UI 是一个专为 Windows 10/11 设计的高度可定制化桌面环境增强工具。它旨在彻底改变和优化用户的 Windows 体验，提供前所未有的个性化选项和提升效率的工具。核心优势在于其强大的外观定制能力，让你随心所欲打造独特的桌面风格；以及集成的平铺式窗口管理器和快速启动器，显著提升多任务处理效率。对于追求个性化和高效工作流的 Windows 用户来说，它提供了一个有力的替代方案。</p>
+                </div>
+            </section>
+
+            <!-- Project Details - zijie0/HumanSystemOptimization (Aha Moment) -->
+            <section class="aha-moment-bg" data-transition="zoom" data-background-image="https://source.unsplash.com/1600x900/?human,health,biohacking,mindfulness,light" data-background-color="#FFFFFF">
+                <h2 class="title-h1 aha-moment-heading">
+                    <i class="fas fa-heartbeat icon-large"></i> 
+                    <span class="block mt-4">意想不到的黑马：</span>
+                    <a href="https://github.com/zijie0/HumanSystemOptimization" target="_blank" class="text-red-700 hover:underline">zijie0/HumanSystemOptimization</a>
+                </h2>
+                <h4 class="subtitle text-gray-800 mt-4">健康学习到150岁 - 人体系统调优不完全指南</h4>
+                <div class="r-frame mt-8 fragment bg-white bg-opacity-90 p-6 rounded-lg shadow-xl">
+                    <table class="body-text">
+                        <tr><th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                        <tr><td>[zijie0/HumanSystemOptimization](https://github.com/zijie0/HumanSystemOptimization)</td><td>—</td><td>15974</td><td>2次</td><td>2次</td><td>876</td></tr>
+                    </table>
+                </div>
+                <div class="repo-stats fragment mt-6 text-gray-700">
+                    <div class="repo-stat-item"><i class="fas fa-star"></i> Stars: 16k</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-branch"></i> Forks: 1.2k</div>
+                    <div class="repo-stat-item"><i class="fas fa-eye"></i> Watchers: 146</div>
+                    <div class="repo-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 11</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 0</div>
+                    <div class="repo-stat-item"><i class="fas fa-box"></i> Releases: 0</div>
+                    <div class="repo-stat-item"><i class="fas fa-file-alt"></i> Commits: 16</div>
+                    <div class="repo-stat-item"><i class="fas fa-scroll"></i> License: 未知</div>
+                    <div class="repo-stat-item"><i class="fas fa-users"></i> Contributors: 2</div>
+                </div>
+                <div class="repo-description fragment mt-8 bg-white bg-opacity-90 p-6 rounded-lg shadow-xl">
+                    <h3 class="title-h4 text-blue-600">项目速读</h3>
+                    <p>这是一个名为“健康学习到150岁 - 人体系统调优不完全指南”的项目，它并非代码仓库，而是一份基于神经科学家 Andrew Huberman 播客内容的深度健康实践指南。项目核心目标是运用科学原理，指导个体如何像工程师调优系统一样，精细管理和优化自身的人体功能，从而提升健康水平、认知效率和潜在的寿命。</p>
+                    <p class="mt-2">这份指南最突出的特点在于其内容的科学性和系统性。它不提供笼统的养生建议，而是深入浅出地解释人体生物钟、多巴胺奖赏、禁食机制、肠道菌群等核心系统的运作原理，并在此基础上给出大量有实操性且成本很低的具体方法。例如，如何利用自然光校准生物钟改善睡眠，如何通过间歇性禁食促进细胞修复，以及如何调整饮食优化情绪和免疫。</p>
+                    <p class="mt-2">对于渴望基于科学依据改善自身身心状态、提升生活品质和工作效率的读者来说，这份指南提供了一套宝贵的、可实践的“工具箱”。它尤其适合那些希望理解健康行为背后原理，并愿意通过调整日常习惯来实现长期健康目标的人。其极高的关注度和快速增长的星标数，充分体现了这种科学导向的健康优化方法正受到广泛认可。</p>
+                </div>
+                <p class="repo-growth fragment mt-4 text-red-600 font-bold text-lg"><strong>增长分析：</strong> 该仓库近期增长强劲，两天内上榜两次，显示持续吸引力。今天新增876颗Star，增长势头非常显著。</p>
+            </section>
+
+            <!-- Project Details - dair-ai/Prompt-Engineering-Guide -->
+            <section>
+                <h2 class="title-h2"><a href="https://github.com/dair-ai/Prompt-Engineering-Guide" target="_blank">dair-ai/Prompt-Engineering-Guide</a> <i class="fas fa-external-link-alt text-sm align-top ml-2"></i></h2>
+                <h4 class="subtitle text-gray-700">提示工程相关的指南、论文、讲座、笔记和资源</h4>
+                <div class="r-frame mt-4 fragment">
+                    <table class="body-text">
+                        <tr><th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                        <tr><td>[dair-ai/Prompt-Engineering-Guide](https://github.com/dair-ai/Prompt-Engineering-Guide)</td><td>MDX</td><td>57091</td><td>1次</td><td>2次</td><td>125</td></tr>
+                    </table>
+                </div>
+                <div class="repo-stats fragment mt-6">
+                    <div class="repo-stat-item"><i class="fas fa-star"></i> Stars: 57.1k</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-branch"></i> Forks: 5.7k</div>
+                    <div class="repo-stat-item"><i class="fas fa-eye"></i> Watchers: 626</div>
+                    <div class="repo-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 145</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 64</div>
+                    <div class="repo-stat-item"><i class="fas fa-box"></i> Releases: 0</div>
+                    <div class="repo-stat-item"><i class="fas fa-file-alt"></i> Commits: 1,532</div>
+                    <div class="repo-stat-item"><i class="fas fa-scroll"></i> License: MIT license</div>
+                    <div class="repo-stat-item"><i class="fas fa-users"></i> Contributors: 192</div>
+                </div>
+                <div class="repo-language-breakdown fragment">
+                    <span>MDX 95.5%</span><span>Jupyter Notebook 4.1%</span><span>Other 0.4%</span>
+                </div>
+                <div class="repo-description fragment">
+                    <h3 class="title-h4">项目速读</h3>
+                    <p>这个名为 Prompt-Engineering-Guide 的项目是一个关于提示工程的权威指南，旨在帮助用户掌握与大型语言模型（LLMs）有效沟通的关键技术。随着 LLMs 的广泛应用，如何设计精准、高效的提示词成为核心挑战，本项目正为此提供全面的解决方案。它汇集了提示工程的基础知识、前沿研究论文、各种高级技巧（如链式思考、检索增强生成等）、实战案例及最新资源。项目的核心优势在于其内容的广度和深度，以及作为一个集中的在线学习平台（promptingguide.ai），为开发者、研究人员及 AI 爱好者提供一站式的学习资源，极大地降低了掌握提示工程的门槛，是探索和利用 LLMs 潜力的宝贵工具。</p>
+                </div>
+                <p class="repo-growth fragment mt-4"><strong>增长分析：</strong> 仓库在短周期内仅上榜2次，总Star增长达634。平均每次上榜贡献约317个Star，带动作用明显。当次新增125，近期增长势头良好。</p>
+            </section>
+
+            <!-- Project Details - PathOfBuildingCommunity/PathOfBuilding -->
+            <section>
+                <h2 class="title-h2"><a href="https://github.com/PathOfBuildingCommunity/PathOfBuilding" target="_blank">PathOfBuildingCommunity/PathOfBuilding</a> <i class="fas fa-external-link-alt text-sm align-top ml-2"></i></h2>
+                <h4 class="subtitle text-gray-700">Path of Exile 离线 BD 规划器</h4>
+                <div class="r-frame mt-4 fragment">
+                    <table class="body-text">
+                        <tr><th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                        <tr><td>[PathOfBuildingCommunity/PathOfBuilding](https://github.com/PathOfBuildingCommunity/PathOfBuilding)</td><td>Lua</td><td>4621</td><td>1次</td><td>1次</td><td>10</td></tr>
+                    </table>
+                </div>
+                <div class="repo-stats fragment mt-6">
+                    <div class="repo-stat-item"><i class="fas fa-star"></i> Stars: 4.6k</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-branch"></i> Forks: 2.1k</div>
+                    <div class="repo-stat-item"><i class="fas fa-eye"></i> Watchers: 71</div>
+                    <div class="repo-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 763</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 114</div>
+                    <div class="repo-stat-item"><i class="fas fa-box"></i> Releases: 102</div>
+                    <div class="repo-stat-item"><i class="fas fa-file-alt"></i> Commits: 8,453</div>
+                    <div class="repo-stat-item"><i class="fas fa-scroll"></i> License: 未知</div>
+                    <div class="repo-stat-item"><i class="fas fa-users"></i> Contributors: 287</div>
+                </div>
+                <div class="repo-language-breakdown fragment">
+                    <span>Lua 100.0%</span>
+                </div>
+                <div class="repo-description fragment">
+                    <h3 class="title-h4">项目速读</h3>
+                    <p>Path of Building Community 是一款专为热门在线游戏《流放之路》(Path of Exile) 设计的强大离线角色构建规划工具。它解决了玩家在游戏中投入大量时间、资源进行试错构建的痛点，让玩家能在游戏外高效地规划、模拟和分析他们的角色方案。</p>
+                    <p>这款工具的核心价值在于其全面且高度精确的攻防属性计算引擎，能够深入考量各种复杂的技能、天赋和装备相互作用，准确评估角色的理论性能。通过直观的天赋树规划器、灵活的技能搭配系统以及功能丰富的物品模拟器，玩家可以系统化地优化角色的输出、生存及其他关键属性。</p>
+                    <p>Path of Building Community 因其广泛的游戏内容支持和强大的分析能力，已成为《流放之路》社区中进行“理论构建”（Theorycrafting）和分享方案的必备工具，极大地提升了玩家规划角色的效率和深度。</p>
+                </div>
+            </section>
+
+            <!-- Project Details - LizardByte/Sunshine -->
+            <section>
+                <h2 class="title-h2"><a href="https://github.com/LizardByte/Sunshine" target="_blank">LizardByte/Sunshine</a> <i class="fas fa-external-link-alt text-sm align-top ml-2"></i></h2>
+                <h4 class="subtitle text-gray-700">用于 Moonlight 的自托管游戏串流主机</h4>
+                <div class="r-frame mt-4 fragment">
+                    <table class="body-text">
+                        <tr><th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                        <tr><td>[LizardByte/Sunshine](https://github.com/LizardByte/Sunshine)</td><td>C++</td><td>26162</td><td>1次</td><td>2次</td><td>37</td></tr>
+                    </table>
+                </div>
+                <div class="repo-stats fragment mt-6">
+                    <div class="repo-stat-item"><i class="fas fa-star"></i> Stars: 26.2k</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-branch"></i> Forks: 1.2k</div>
+                    <div class="repo-stat-item"><i class="fas fa-eye"></i> Watchers: 109</div>
+                    <div class="repo-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 89</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 35</div>
+                    <div class="repo-stat-item"><i class="fas fa-box"></i> Releases: 42</div>
+                    <div class="repo-stat-item"><i class="fas fa-file-alt"></i> Commits: 2,742</div>
+                    <div class="repo-stat-item"><i class="fas fa-scroll"></i> License: GPL-3.0 license</div>
+                    <div class="repo-stat-item"><i class="fas fa-users"></i> Contributors: 135</div>
+                </div>
+                <div class="repo-language-breakdown fragment">
+                    <span>C++ 79.8%</span><span>HTML 4.7%</span><span>CMake 4.1%</span><span>Vue 3.5%</span><span>Shell 1.6%</span><span>Objective-C++ 1.5%</span><span>Other 4.8%</span>
+                </div>
+                <div class="repo-description fragment">
+                    <h3 class="title-h4">项目速读</h3>
+                    <p>Sunshine 是一个开源的自建游戏串流服务器软件，专为 Moonlight 客户端设计。它解决了用户希望将自己高性能电脑上的游戏或桌面画面，以低延迟方式串流到其他设备上使用的需求，为用户提供了私有的“云游戏”或远程桌面体验。</p>
+                    <p>该项目的核心亮点在于其出色的低延迟性能，这主要得益于对 AMD、Intel 和 Nvidia 主流显卡硬件编码的广泛支持。通过充分利用显卡的编码能力，Sunshine 能够高效捕捉、编码和传输画面，确保流畅的串流体验。项目提供了一个便捷的 Web 用户界面，使得服务器的配置和客户端的连接变得简单易行。</p>
+                    <p>总的来说，Sunshine 是一个强大且灵活的自建串流解决方案，它让用户摆脱了对商业服务的依赖，可以在局域网内实现高质量、低延迟的跨设备游戏和桌面访问，极大地拓展了电脑的使用场景。</p>
+                </div>
+                <p class="repo-growth fragment mt-4"><strong>增长分析：</strong> 统计周期内，该仓库总Star增长794，增长可观。仅上榜2次，表明其增长具备持续吸引力或长尾效应，非完全依赖短期上榜曝光，增长趋势相对稳定。</p>
+            </section>
+
+            <!-- Project Details - friuns2/BlackFriday-GPTs-Prompts -->
+            <section>
+                <h2 class="title-h2"><a href="https://github.com/friuns2/BlackFriday-GPTs-Prompts" target="_blank">friuns2/BlackFriday-GPTs-Prompts</a> <i class="fas fa-external-link-alt text-sm align-top ml-2"></i></h2>
+                <h4 class="subtitle text-gray-700">无需 Plus 订阅的免费 GPTs 列表</h4>
+                <div class="r-frame mt-4 fragment">
+                    <table class="body-text">
+                        <tr><th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                        <tr><td>[friuns2/BlackFriday-GPTs-Prompts](https://github.com/friuns2/BlackFriday-GPTs-Prompts)</td><td>—</td><td>7286</td><td>2次</td><td>2次</td><td>286</td></tr>
+                    </table>
+                </div>
+                <div class="repo-stats fragment mt-6">
+                    <div class="repo-stat-item"><i class="fas fa-star"></i> Stars: 7.3k</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-branch"></i> Forks: 1.1k</div>
+                    <div class="repo-stat-item"><i class="fas fa-eye"></i> Watchers: 132</div>
+                    <div class="repo-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 93</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 7</div>
+                    <div class="repo-stat-item"><i class="fas fa-box"></i> Releases: 0</div>
+                    <div class="repo-stat-item"><i class="fas fa-file-alt"></i> Commits: 59</div>
+                    <div class="repo-stat-item"><i class="fas fa-scroll"></i> License: MIT license</div>
+                    <div class="repo-stat-item"><i class="fas fa-users"></i> Contributors: 2</div>
+                </div>
+                <div class="repo-description fragment">
+                    <h3 class="title-h4">项目速读</h3>
+                    <p>这是一个汇集了大量大型语言模型提示词（Prompts）和“越狱”技巧（Jailbreaks）的GitHub仓库。项目旨在帮助用户更高效地与AI模型互动，通过提供按类别组织的丰富提示词库，覆盖编程、市场营销、学术、创意等广泛领域。其核心价值在于内容的全面性、结构的清晰性，以及包含了用于探索模型边界的“越狱”技巧。无论你是开发者、营销人员还是创意工作者，都能在这里找到提升AI应用效率的实用工具。仓库以Markdown文档形式呈现，易于查阅和使用，是各类AI模型使用者不可多得的资源集。</p>
+                </div>
+                <p class="repo-growth fragment mt-4"><strong>增长分析：</strong> 仓库在两天统计期内连续上榜两次，总Star增长282个，显示出持续的活跃度和用户关注。日均Star增长约141个，增长势头良好。</p>
+            </section>
+
+            <!-- Project Details - linsomniac/spotify_to_ytmusic -->
+            <section>
+                <h2 class="title-h2"><a href="https://github.com/linsomniac/spotify_to_ytmusic" target="_blank">linsomniac/spotify_to_ytmusic</a> <i class="fas fa-external-link-alt text-sm align-top ml-2"></i></h2>
+                <h4 class="subtitle text-gray-700">从 Spotify 复制播放列表和喜欢的音乐到 YTMusic</h4>
+                <div class="r-frame mt-4 fragment">
+                    <table class="body-text">
+                        <tr><th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                        <tr><td>[linsomniac/spotify_to_ytmusic](https://github.com/linsomniac/spotify_to_ytmusic)</td><td>Python</td><td>3351</td><td>1次</td><td>1次</td><td>36</td></tr>
+                    </table>
+                </div>
+                <div class="repo-stats fragment mt-6">
+                    <div class="repo-stat-item"><i class="fas fa-star"></i> Stars: 3.4k</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-branch"></i> Forks: 249</div>
+                    <div class="repo-stat-item"><i class="fas fa-eye"></i> Watchers: 7</div>
+                    <div class="repo-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 82</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 13</div>
+                    <div class="repo-stat-item"><i class="fas fa-box"></i> Releases: 28</div>
+                    <div class="repo-stat-item"><i class="fas fa-file-alt"></i> Commits: 149</div>
+                    <div class="repo-stat-item"><i class="fas fa-scroll"></i> License: 未知</div>
+                    <div class="repo-stat-item"><i class="fas fa-users"></i> Contributors: 12</div>
+                </div>
+                <div class="repo-language-breakdown fragment">
+                    <span>Python 100.0%</span>
+                </div>
+                <div class="repo-description fragment">
+                    <h3 class="title-h4">项目速读</h3>
+                    <p>这是一个名为 spotifytoytmusic 的 Python 工具，旨在解决用户在 Spotify 和 YouTube Music 之间迁移音乐库的难题。它能帮助你便捷地将 Spotify 上收藏的“喜欢”歌曲、专辑以及自建的播放列表同步或复制到你的 YouTube Music 账号。</p>
+                    <p>该项目提供了图形界面和命令行两种方式，核心在于它通过搜索算法尽力在 YouTube Music 上匹配 Spotify 的歌曲，并具备防重复导入的能力。尽管需要用户手动获取 YouTube Music 的认证信息这一特定步骤，但它极大地简化了跨平台转移大量音乐的繁琐过程。</p>
+                    <p>这个工具对于希望从 Spotify 切换平台，或想在两个服务间保持音乐收藏同步的用户来说，提供了一个实用、高效且相对安全的迁移方案。</p>
+                </div>
+            </section>
+
+            <!-- Project Details - Shubhamsaboo/awesome-llm-apps -->
+            <section>
+                <h2 class="title-h2"><a href="https://github.com/Shubhamsaboo/awesome-llm-apps" target="_blank">Shubhamsaboo/awesome-llm-apps</a> <i class="fas fa-external-link-alt text-sm align-top ml-2"></i></h2>
+                <h4 class="subtitle text-gray-700">精选 LLM 应用集合，集成 AI Agents 和 RAG</h4>
+                <div class="r-frame mt-4 fragment">
+                    <table class="body-text">
+                        <tr><th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                        <tr><td>[Shubhamsaboo/awesome-llm-apps](https://github.com/Shubhamsaboo/awesome-llm-apps)</td><td>Python</td><td>33896</td><td>2次</td><td>13次</td><td>314</td></tr>
+                    </table>
+                </div>
+                <div class="repo-stats fragment mt-6">
+                    <div class="repo-stat-item"><i class="fas fa-star"></i> Stars: 33.9k</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-branch"></i> Forks: 3.9k</div>
+                    <div class="repo-stat-item"><i class="fas fa-eye"></i> Watchers: 409</div>
+                    <div class="repo-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 3</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 5</div>
+                    <div class="repo-stat-item"><i class="fas fa-box"></i> Releases: 0</div>
+                    <div class="repo-stat-item"><i class="fas fa-file-alt"></i> Commits: 600</div>
+                    <div class="repo-stat-item"><i class="fas fa-scroll"></i> License: Apache-2.0 license</div>
+                    <div class="repo-stat-item"><i class="fas fa-users"></i> Contributors: 30</div>
+                </div>
+                <div class="repo-language-breakdown fragment">
+                    <span>Python 100.0%</span>
+                </div>
+                <div class="repo-description fragment">
+                    <h3 class="title-h4">项目速读</h3>
+                    <p>这个仓库是大型语言模型（LLM）应用的一个精选集，重点展示如何结合 RAG、AI Agent 等关键技术构建实际应用。它涵盖了使用 OpenAI、Anthropic、以及 DeepSeek、Qwen 等多种商业和开源模型的例子，涉及广泛的行业场景。对于希望学习和实践构建真实世界 LLM 应用的开发者和爱好者来说，这是一个极具价值的资源库，提供了丰富的技术思路和实现参考。项目的活跃度和高增长率体现了其内容的实用性和受欢迎程度。</p>
+                </div>
+                <p class="repo-growth fragment mt-4"><strong>增长分析：</strong> 该仓库上榜13次，平均每次新增416星，显示通过频繁上榜实现了显著且稳定的增长。</p>
+            </section>
+
+            <!-- Project Details - blakeblackshear/frigate -->
+            <section>
+                <h2 class="title-h2"><a href="https://github.com/blakeblackshear/frigate" target="_blank">blakeblackshear/frigate</a> <i class="fas fa-external-link-alt text-sm align-top ml-2"></i></h2>
+                <h4 class="subtitle text-gray-700">带实时本地物体检测的 IP 摄像机 NVR</h4>
+                <div class="r-frame mt-4 fragment">
+                    <table class="body-text">
+                        <tr><th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                        <tr><td>[blakeblackshear/frigate](https://github.com/blakeblackshear/frigate)</td><td>TypeScript</td><td>22979</td><td>1次</td><td>1次</td><td>16</td></tr>
+                    </table>
+                </div>
+                <div class="repo-stats fragment mt-6">
+                    <div class="repo-stat-item"><i class="fas fa-star"></i> Stars: 23k</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-branch"></i> Forks: 2.2k</div>
+                    <div class="repo-stat-item"><i class="fas fa-eye"></i> Watchers: 200</div>
+                    <div class="repo-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 104</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 47</div>
+                    <div class="repo-stat-item"><i class="fas fa-box"></i> Releases: 72</div>
+                    <div class="repo-stat-item"><i class="fas fa-file-alt"></i> Commits: 4,242</div>
+                    <div class="repo-stat-item"><i class="fas fa-scroll"></i> License: MIT license</div>
+                    <div class="repo-stat-item"><i class="fas fa-users"></i> Contributors: 385</div>
+                </div>
+                <div class="repo-language-breakdown fragment">
+                    <span>TypeScript 51.1%</span><span>Python 46.2%</span><span>CSS 0.8%</span><span>Shell 0.6%</span><span>Dockerfile 0.5%</span><span>JavaScript 0.3%</span><span>Other 0.5%</span>
+                </div>
+                <div class="repo-description fragment">
+                    <h3 class="title-h4">项目速读</h3>
+                    <p>Frigate是一款专为IP摄像头设计的本地网络视频录像机（NVR），其核心亮点在于集成了强大的实时人工智能对象识别功能。它能高效地在视频流中检测并识别出人员、车辆等特定目标，而非仅提供基础录像。项目采用多进程架构优化性能，并通过MQTT与Home Assistant等智能家居平台无缝集成，实现智能联动。为达到流畅的实时识别效果，强烈建议搭配Google Coral等AI加速硬件。Frigate提供了一个智能、高性能、高度可定制的本地视频监控解决方案，特别适合希望提升安防智能化水平的智能家居用户。</p>
+                </div>
+            </section>
+
+            <!-- Project Details - jellyfin/jellyfin -->
+            <section>
+                <h2 class="title-h2"><a href="https://github.com/jellyfin/jellyfin" target="_blank">jellyfin/jellyfin</a> <i class="fas fa-external-link-alt text-sm align-top ml-2"></i></h2>
+                <h4 class="subtitle text-gray-700">自由软件媒体系统 - 服务器后端和API</h4>
+                <div class="r-frame mt-4 fragment">
+                    <table class="body-text">
+                        <tr><th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                        <tr><td>[jellyfin/jellyfin](https://github.com/jellyfin/jellyfin)</td><td>C#</td><td>40466</td><td>1次</td><td>3次</td><td>24</td></tr>
+                    </table>
+                </div>
+                <div class="repo-stats fragment mt-6">
+                    <div class="repo-stat-item"><i class="fas fa-star"></i> Stars: 40.5k</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-branch"></i> Forks: 3.6k</div>
+                    <div class="repo-stat-item"><i class="fas fa-eye"></i> Watchers: 330</div>
+                    <div class="repo-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 373</div>
+                    <div class="repo-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 128</div>
+                    <div class="repo-stat-item"><i class="fas fa-box"></i> Releases: 87</div>
+                    <div class="repo-stat-item"><i class="fas fa-file-alt"></i> Commits: 27,418</div>
+                    <div class="repo-stat-item"><i class="fas fa-scroll"></i> License: GPL-2.0 license</div>
+                    <div class="repo-stat-item"><i class="fas fa-users"></i> Contributors: 1,229</div>
+                </div>
+                <div class="repo-language-breakdown fragment">
+                    <span>C# 99.7%</span><span>Other 0.3%</span>
+                </div>
+                <div class="repo-description fragment">
+                    <h3 class="title-h4">项目速读</h3>
+                    <p>Jellyfin 是一个强大的自由软件媒体系统，旨在帮助用户完全掌控自己的数字媒体生活。它提供了一个灵活的服务器平台，让用户能够轻松地组织、管理个人收藏的电影、电视节目、音乐等，并将其高质量地流式传输到家中的智能电视、手机、平板等各种设备上。作为 Emby 和 Plex 等商业媒体服务器的开源替代方案，Jellyfin 最核心的价值在于其完全免费和开放的特性，遵循 GPL 2.0 许可证，没有任何高级功能限制或订阅费用，真正将媒体库的主权归还给用户。其后端基于成熟的 .NET Core 框架构建，并巧妙利用 ffmpeg 处理复杂的媒体转码任务，保证了内容的广泛兼容性和流畅播放。对于那些拥有大量本地媒体文件、珍视个人数据隐私并渴望一个强大、自主且零成本的媒体中心解决方案的用户而言，Jellyfin 是一个理想且充满活力的选择。</p>
+                </div>
+                <p class="repo-growth fragment mt-4"><strong>增长分析：</strong> 统计期内3次上榜显著拉升仓库星数，总增684，平均每次74，增长趋势良好。</p>
+            </section>
+
+            <!-- Thank You / Call to Action Slide -->
+            <section class="hero-section" data-transition="zoom" data-background-image="https://source.unsplash.com/1600x900/?futuristic,data,ai,abstract,dark" data-background-color="#FFFFFF">
+                <h2 class="title-h1 text-center text-white">感谢您的关注！</h2>
+                <p class="subtitle text-center text-white mt-8">
+                    探索更多精彩，与我们共同成长！
+                </p>
+                <div class="flex flex-col items-center mt-12">
+                    <img src="../../asserts/wx.jpg" alt="微信二维码" class="w-48 h-48 rounded-lg shadow-xl mb-4">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-white text-2xl bg-blue-700 hover:bg-blue-800 px-6 py-3 rounded-lg shadow-lg">
+                        <i class="fab fa-github mr-3"></i> Star 我的 GitHub 项目
+                    </a>
+                </div>
+                <!-- Project Link and QR Code (duplicate for last slide) -->
+                <div class="bottom-right-fixed">
+                    <img src="../../asserts/wx.jpg" alt="微信二维码">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <script>
+        // Full list of plugins available at: https://revealjs.com/plugins/
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+            // Optional reveal.js plugins
+            plugins: [],
+        });
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+</html>
