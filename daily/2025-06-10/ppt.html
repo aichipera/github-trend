@@ -1,0 +1,898 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI落地实战：GitHub热门趋势解析</title>
+    <meta name="description" content="大模型不再炫技，AI落地实战才是硬道理！">
+    <meta name="author" content="AIChipEra">
+
+    <!-- Core framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- Extended dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        :root {
+            --color-primary: #2c3e50; /* Dark Blue */
+            --color-accent1: #1abc9c; /* Teal */
+            --color-accent2: #ecf0f1; /* Light Gray */
+            --color-highlight: #e67e22; /* Orange */
+            --color-text-dark: #333333;
+            --color-text-light: #ffffff;
+            --font-size-h1: 3rem;
+            --font-size-h2: 2.2rem;
+            --font-size-h3: 1.8rem;
+            --font-size-body: 1.1rem;
+            --font-size-small: 0.9rem;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--color-text-dark);
+            font-size: var(--font-size-body);
+        }
+
+        .reveal .slides {
+            text-align: left;
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--color-primary);
+            margin-bottom: 0.5em;
+            letter-spacing: -0.02em;
+        }
+
+        .reveal h1 { font-size: var(--font-size-h1); }
+        .reveal h2 { font-size: var(--font-size-h2); }
+        .reveal h3 { font-size: var(--font-size-h3); }
+        .reveal p, .reveal li { font-size: var(--font-size-body); line-height: 1.5; }
+        .reveal small { font-size: var(--font-size-small); }
+
+        .reveal .controls-arrow {
+            color: var(--color-accent1) !important;
+        }
+
+        .reveal .progress span {
+            background: var(--color-accent1) !important;
+        }
+
+        .reveal .slide-number {
+            color: var(--color-accent1);
+        }
+
+        /* Custom styles for slides */
+        .reveal .slide-background-image {
+            background-size: cover;
+            background-position: center;
+        }
+
+        .reveal .hero-title {
+            color: var(--color-text-light);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+            padding: 20px;
+            background: linear-gradient(to right, rgba(44,62,80,0.8), rgba(44,62,80,0.4));
+            display: inline-block;
+            border-radius: 10px;
+        }
+
+        .reveal .hero-subtitle {
+            color: var(--color-text-light);
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+            margin-top: 10px;
+        }
+
+        .reveal .speaker-info {
+            color: var(--color-text-light);
+            margin-top: 50px;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+        }
+
+        .reveal .bottom-right-fixed {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: flex-end;
+            z-index: 10;
+        }
+
+        .reveal .bottom-right-fixed img {
+            width: 80px;
+            height: 80px;
+            margin-left: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .reveal .bottom-right-fixed a {
+            color: var(--color-accent2);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .reveal section img {
+            background: none;
+            border: none;
+            box-shadow: none;
+        }
+
+        .reveal .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            align-items: center;
+        }
+
+        .reveal .grid-item {
+            text-align: center;
+        }
+
+        .reveal .stat-box {
+            background-color: var(--color-accent2);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+            color: var(--color-primary);
+        }
+
+        .reveal .stat-box i {
+            color: var(--color-highlight);
+            font-size: 1.5rem;
+        }
+        .reveal .fragment.fade-in-then-semi-fade-out {
+            opacity: 0.5;
+            transition: opacity 0.8s ease-in-out;
+        }
+        .reveal .fragment.fade-in-then-semi-fade-out.visible {
+            opacity: 1;
+        }
+        .reveal .fragment.fade-in-then-semi-fade-out.current-fragment {
+            opacity: 1;
+        }
+
+        .reveal .key-point {
+            padding: 10px 15px;
+            background-color: var(--color-accent2);
+            border-left: 5px solid var(--color-accent1);
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .reveal .key-point i {
+            color: var(--color-highlight);
+            margin-right: 10px;
+        }
+
+        .reveal .project-title {
+            color: var(--color-highlight);
+            font-size: var(--font-size-h2);
+            margin-bottom: 0.5em;
+        }
+
+        .reveal .project-meta {
+            font-size: var(--font-size-body);
+            color: var(--color-primary);
+            margin-bottom: 1em;
+        }
+
+        .reveal .project-meta span {
+            margin-right: 1.5em;
+        }
+
+        .reveal .project-meta i {
+            color: var(--color-accent1);
+            margin-right: 5px;
+        }
+
+        .reveal .language-distribution {
+            background-color: var(--color-accent2);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 1em;
+            font-size: var(--font-size-small);
+            color: var(--color-primary);
+        }
+
+        .reveal .disclaimer {
+            font-size: 1.8rem;
+            color: var(--color-highlight);
+            text-align: center;
+            line-height: 1.8;
+            padding: 20px;
+            border: 3px solid var(--color-highlight);
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .reveal .date-text {
+            font-size: 1.2rem;
+            color: var(--color-primary);
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover Page -->
+            <section data-background-image="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-background-position="center center" data-background-size="cover">
+                <div class="bg-gradient-to-r from-gray-900 to-transparent p-10 rounded-lg text-white">
+                    <h1 class="text-6xl font-bold mb-4 drop-shadow-lg text-white">
+                        大模型不再炫技，AI落地实战才是硬道理！
+                    </h1>
+                    <p class="text-3xl mt-4 font-light text-white">
+                        GitHub热门仓库洞察：AI技术落地与未来趋势
+                    </p>
+                    <p class="text-xl mt-12 font-light text-white opacity-90 speaker-info">
+                        演讲者: AIChipEra
+                    </p>
+                </div>
+                <div class="bottom-right-fixed">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="mr-4">
+                        GitHub项目: aichipera/github-trend
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="微信公众号二维码" class="shadow-lg">
+                </div>
+            </section>
+
+            <!-- Slide 2: Disclaimer and Date -->
+            <section data-background-color="#f0f0f0">
+                <div class="disclaimer">
+                    <i class="fa-solid fa-triangle-exclamation mr-3"></i>
+                    <strong>以下内容仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</strong>
+                </div>
+                <p class="date-text mt-10">
+                    GitHub热门仓库日报观测时间：2025-06-10 20:26:03
+                </p>
+            </section>
+
+            <!-- Slide 3: 日报要点 - Key Takeaways -->
+            <section>
+                <h2><i class="fa-solid fa-bullhorn text-highlight"></i> 日报要点：AI落地实战</h2>
+                <div class="mt-8">
+                    <p class="fragment fade-in key-point"><i class="fa-solid fa-lightbulb"></i> 技术焦点全面转向AI“落地”：如何将大模型转化为生产力。</p>
+                    <p class="fragment fade-in key-point"><i class="fa-solid fa-code-fork"></i> 核心关注：特定领域高效工作、安全部署、本地化微调与智能体构建。</p>
+                    <p class="fragment fade-in key-point"><i class="fa-solid fa-gift"></i> 免费AI资源、高性能基建（如Rust）、非典型优化项目成新宠。</p>
+                    <p class="fragment fade-in key-point"><i class="fa-solid fa-arrow-up-right-dots"></i> 语音识别项目（Vosk）实现星标爆炸式增长，实际应用和效率是趋势。</p>
+                    <p class="fragment fade-in key-point"><i class="fa-solid fa-chart-line"></i> 未来AI发展关键词：实际应用、效率提升、工程化与落地化。</p>
+                </div>
+            </section>
+
+            <!-- Slide 4: 热门项目趋势分析 - 今日整体趋势 -->
+            <section>
+                <h2><i class="fa-solid fa-chart-simple text-highlight"></i> 热门项目趋势分析：今日整体趋势</h2>
+                <div class="mt-8 text-lg">
+                    <p class="fragment fade-in">
+                        <i class="fa-solid fa-robot mr-2 text-primary"></i> **LLM核心：** 关注从模型本身转向**落地、可用性、效率与安全性**。
+                    </p>
+                    <ul class="list-disc ml-8 mt-2">
+                        <li class="fragment fade-in-then-semi-fade-out"><i class="fa-solid fa-flask mr-2 text-accent1"></i> 垂直应用 (Boltz生物医药)</li>
+                        <li class="fragment fade-in-then-semi-fade-out"><i class="fa-solid fa-gears mr-2 text-accent1"></i> 生产部署优化 (TensorZero)</li>
+                        <li class="fragment fade-in-then-semi-fade-out"><i class="fa-solid fa-sliders mr-2 text-accent1"></i> 本地化微调 (self-llm)</li>
+                        <li class="fragment fade-in-then-semi-fade-out"><i class="fa-solid fa-user-tie mr-2 text-accent1"></i> 智能体构建 (GenAI_Agents)</li>
+                        <li class="fragment fade-in-then-semi-fade-out"><i class="fa-solid fa-shield-halved mr-2 text-accent1"></i> 模型安全集成 (MCP servers)</li>
+                        <li class="fragment fade-in-then-semi-fade-out"><i class="fa-solid fa-wallet mr-2 text-accent1"></i> 免费LLM资源 (BlackFriday-GPTs-Prompts)</li>
+                    </ul>
+                    <p class="fragment fade-in mt-4">
+                        <i class="fa-solid fa-code mr-2 text-primary"></i> **编程语言：** Python仍主力，**Rust**在高性能基建活跃。
+                    </p>
+                    <p class="fragment fade-in mt-2">
+                        <i class="fa-solid fa-chalkboard mr-2 text-primary"></i> **Jupyter Notebook：** 教程和可执行代码的首选平台。
+                    </p>
+                    <p class="fragment fade-in mt-2">
+                        <i class="fa-solid fa-brain mr-2 text-primary"></i> **独特之处：** AI生态全面覆盖，非典型项目（HumanSystemOptimization）冲上高位，暗示技术优化方法应用于更广领域。
+                    </p>
+                </div>
+            </section>
+
+            <!-- Slide 5: 热门项目双日维度对比分析 -->
+            <section>
+                <h2><i class="fa-solid fa-arrow-right-arrow-left text-highlight"></i> 热门项目双日维度对比分析</h2>
+                <div class="mt-8 text-lg">
+                    <p class="fragment fade-in">
+                        <i class="fa-solid fa-check-circle mr-2 text-accent1"></i> **整体活跃：** 6个新晋项目，8个上升，无项目滑落。
+                    </p>
+                    <p class="fragment fade-in mt-4">
+                        <i class="fa-solid fa-feather-alt mr-2 text-primary"></i> **新面孔：** 集中在LLM/GenAI智能体 (Jupyter Notebook)，模型服务 (Python)，系统工具 (Rust)。
+                    </p>
+                    <p class="fragment fade-in mt-4">
+                        <i class="fa-solid fa-chart-line mr-2 text-primary"></i> **涨幅之王：**
+                        <br>
+                        <span class="ml-4 fragment fade-in-then-semi-fade-out">
+                            <i class="fa-solid fa-star text-yellow-500"></i>
+                            <strong class="text-highlight">alphacep/vosk-api</strong> (语音识别)
+                            <span class="text-xl font-bold ml-2 text-green-600">↑ 932 星 (+9.0%)</span>
+                        </span>
+                        <br>
+                        <span class="ml-4 fragment fade-in-then-semi-fade-out">
+                            <i class="fa-solid fa-star text-yellow-500"></i>
+                            eythaann/Seelen-UI, zijie0/HumanSystemOptimization 显著增长。
+                        </span>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Slide 6: 热点变化 -->
+            <section>
+                <h2><i class="fa-solid fa-fire text-highlight"></i> 热点变化</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8 text-lg">
+                    <div class="fragment fade-in">
+                        <h3 class="text-accent1"><i class="fa-solid fa-plus-circle mr-2"></i> 新增热点</h3>
+                        <ul class="list-disc ml-6">
+                            <li>datawhalechina/self-llm</li>
+                            <li>ourongxing/newsnow</li>
+                            <li>nirdiamant/genai_agents</li>
+                            <li>jwohlwend/boltz</li>
+                            <li>modelcontextprotocol/servers</li>
+                            <li>yalter/niri</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h3 class="text-highlight"><i class="fa-solid fa-minus-circle mr-2"></i> 减退热点</h3>
+                        <ul class="list-disc ml-6">
+                            <li>linsomniac/spotify_to_ytmusic</li>
+                            <li>nirdiamant/rag_techniques</li>
+                            <li>shubhamsaboo/awesome-llm-apps</li>
+                            <li>jellyfin/jellyfin</li>
+                            <li>eyaltoledano/claude-task-master</li>
+                            <li>lizardbyte/sunshine</li>
+                            <li>blakeblackshear/frigate</li>
+                            <li>topoteretes/cognee</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h3 class="text-primary"><i class="fa-solid fa-check-circle mr-2"></i> 持续热门</h3>
+                        <ul class="list-disc ml-6">
+                            <li>tensorzero/tensorzero (3次)</li>
+                            <li>friuns2/BlackFriday-GPTs-Prompts (3次)</li>
+                            <li>zijie0/HumanSystemOptimization (3次)</li>
+                            <li>XTLS/Xray-core (3次)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Divider: 详细仓库数据 -->
+            <section data-background-color="#34495e" data-background-transition="zoom">
+                <h2 class="text-white text-center text-4xl">详细仓库数据</h2>
+                <p class="text-gray-300 text-center text-xl mt-4">深入剖析各热门项目的技术亮点与增长态势</p>
+            </section>
+
+            <!-- Project: jwohlwend/boltz -->
+            <section>
+                <section>
+                    <h3 class="project-title"><i class="fa-solid fa-dna mr-2"></i> jwohlwend/boltz</h3>
+                    <p class="text-gray-700 text-lg">Boltz 生物分子相互作用模型官方仓库</p>
+                    <div class="grid grid-cols-2 gap-x-8 gap-y-4 mt-8">
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-star"></i> Star: 2198 (<span class="text-green-600">+53</span>)</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-branch"></i> Forks: 358</p>
+                            <p class="stat-box"><i class="fa-solid fa-eye"></i> Watchers: 46</p>
+                            <p class="stat-box"><i class="fa-solid fa-bug"></i> Issues: 141</p>
+                        </div>
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-code-compare"></i> PRs: 24</p>
+                            <p class="stat-box"><i class="fa-solid fa-box"></i> Releases: 13</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-commit"></i> Commits: 280</p>
+                            <p class="stat-box"><i class="fa-solid fa-user-group"></i> Contributors: 35</p>
+                        </div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <i class="fa-solid fa-flask"></i> 编程语言占比: **Python** 100.0%
+                    </div>
+                </section>
+                <section>
+                    <h3>jwohlwend/boltz: 项目速读与增长分析</h3>
+                    <div class="text-lg leading-relaxed mt-6">
+                        <h4 class="text-accent1">项目速读:</h4>
+                        <p>Boltz是预测生物分子复杂相互作用的基础模型家族，专注于联合建模分子结构和结合亲和力。应用于早期药物发现中的计算机筛选，其最新模型Boltz-2在结构预测精度媲美AlphaFold3，结合亲和力预测精度媲美FEP，速度提升千倍。实现大规模、高通量in silico筛选。MIT开源，免费用于学术和商业。</p>
+                        <h4 class="text-accent1 mt-4">增长分析:</h4>
+                        <p>2025-06-07至06-10期间，总增长226 Star，平均每次上榜贡献66 Star。今日新增53 Star略低于平均，增长势头需持续观察。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: tensorzero/tensorzero -->
+            <section>
+                <section>
+                    <h3 class="project-title"><i class="fa-solid fa-brain mr-2"></i> tensorzero/tensorzero</h3>
+                    <p class="text-gray-700 text-lg">优化LLM应用反馈循环，生产数据转化为更智能、更快、更经济的模型。</p>
+                    <div class="grid grid-cols-2 gap-x-8 gap-y-4 mt-8">
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-star"></i> Star: 6136 (<span class="text-green-600">+996</span>)</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-branch"></i> Forks: 379</p>
+                            <p class="stat-box"><i class="fa-solid fa-eye"></i> Watchers: 55</p>
+                            <p class="stat-box"><i class="fa-solid fa-bug"></i> Issues: 211</p>
+                        </div>
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-code-compare"></i> PRs: 33</p>
+                            <p class="stat-box"><i class="fa-solid fa-box"></i> Releases: 58</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-commit"></i> Commits: 1,252</p>
+                            <p class="stat-box"><i class="fa-solid fa-user-group"></i> Contributors: 52</p>
+                        </div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <i class="fa-solid fa-flask"></i> 编程语言占比: **Rust** 69.1%, **TypeScript** 18.9%, **Python** 7.2%, ...
+                    </div>
+                </section>
+                <section>
+                    <h3>tensorzero/tensorzero: 项目速读与增长分析</h3>
+                    <div class="text-lg leading-relaxed mt-6">
+                        <h4 class="text-accent1">项目速读:</h4>
+                        <p>TensorZero是开源框架，构建、部署并持续优化生产级LLM应用。通过高性能Rust LLM网关，整合LLM推理、可观测性、模型优化、自动评估和A/B测试。解决LLM应用上线后，基于真实用户数据和反馈，持续提升模型表现、降低成本并提高效率。完全开源，适合追求高性能、数据主权和持续优化的企业。</p>
+                        <h4 class="text-accent1 mt-4">增长分析:</h4>
+                        <p>该仓库在3天内每日上榜3次，增长活跃且持续。总星数增长1348，其中最新一天新增996，显示近期增长势头强劲，呈加速趋势。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: alphacep/vosk-api -->
+            <section>
+                <section>
+                    <h3 class="project-title"><i class="fa-solid fa-microphone mr-2"></i> alphacep/vosk-api</h3>
+                    <p class="text-gray-700 text-lg">适用于 Android、iOS、树莓派和服务器的离线语音识别 API。</p>
+                    <div class="grid grid-cols-2 gap-x-8 gap-y-4 mt-8">
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-star"></i> Star: 11274 (<span class="text-green-600">+221</span>)</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-branch"></i> Forks: 1.4k</p>
+                            <p class="stat-box"><i class="fa-solid fa-eye"></i> Watchers: 133</p>
+                            <p class="stat-box"><i class="fa-solid fa-bug"></i> Issues: 501</p>
+                        </div>
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-code-compare"></i> PRs: 39</p>
+                            <p class="stat-box"><i class="fa-solid fa-box"></i> Releases: 20</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-commit"></i> Commits: 522</p>
+                            <p class="stat-box"><i class="fa-solid fa-user-group"></i> Contributors: 42</p>
+                        </div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <i class="fa-solid fa-flask"></i> 编程语言占比: **Jupyter Notebook** 88.8%, **C++** 3.0%, **Kotlin** 2.5%, ...
+                    </div>
+                </section>
+                <section>
+                    <h3>alphacep/vosk-api: 项目速读与增长分析</h3>
+                    <div class="text-lg leading-relaxed mt-6">
+                        <h4 class="text-accent1">项目速读:</h4>
+                        <p>Vosk是开源离线语音识别工具包，高效准确。最大亮点是完全离线运行，模型仅50MB，适合资源受限设备。支持20+语言，多编程语言API。低延迟流式转写和高吞吐量，构建隐私、实时响应的本地语音应用（如离线助手）。性能出色，应用广泛。</p>
+                        <h4 class="text-accent1 mt-4">增长分析:</h4>
+                        <p>仓库增长迅速，4天内3次上榜带来显著流量，共增1383星，今日增势不减（221星）。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: friuns2/BlackFriday-GPTs-Prompts -->
+            <section>
+                <section>
+                    <h3 class="project-title"><i class="fa-solid fa-gift mr-2"></i> friuns2/BlackFriday-GPTs-Prompts</h3>
+                    <p class="text-gray-700 text-lg">无需 Plus 订阅的免费 GPTs 列表</p>
+                    <div class="grid grid-cols-2 gap-x-8 gap-y-4 mt-8">
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-star"></i> Star: 7509 (<span class="text-green-600">+286</span>)</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-branch"></i> Forks: 1.1k</p>
+                            <p class="stat-box"><i class="fa-solid fa-eye"></i> Watchers: 133</p>
+                            <p class="stat-box"><i class="fa-solid fa-bug"></i> Issues: 93</p>
+                        </div>
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-code-compare"></i> PRs: 7</p>
+                            <p class="stat-box"><i class="fa-solid fa-box"></i> Releases: 0</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-commit"></i> Commits: 59</p>
+                            <p class="stat-box"><i class="fa-solid fa-user-group"></i> Contributors: 2</p>
+                        </div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <i class="fa-solid fa-flask"></i> 编程语言占比: (无主要语言统计)
+                    </div>
+                </section>
+                <section>
+                    <h3>friuns2/BlackFriday-GPTs-Prompts: 项目速读与增长分析</h3>
+                    <div class="text-lg leading-relaxed mt-6">
+                        <h4 class="text-accent1">项目速读:</h4>
+                        <p>收集各类免费GPT模型或相关服务资源，解决用户获取和使用AI工具的成本门槛。直接聚焦“免费”需求，以简单列表形式呈现，方便查找。7500+ Star，持续增长，适合预算有限、学生或仅需基础AI功能的用户，提供免费AI世界入口。</p>
+                        <h4 class="text-accent1 mt-4">增长分析:</h4>
+                        <p>该仓库在短短3天内实际登上榜单3次，表现出持续且稳定的活跃度。总Star增长505，平均每次上榜带来219 Star。今日新增286 Star，高于平均水平，显示近期增长势头良好并有加速趋势。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: dair-ai/Prompt-Engineering-Guide -->
+            <section>
+                <section>
+                    <h3 class="project-title"><i class="fa-solid fa-book mr-2"></i> dair-ai/Prompt-Engineering-Guide</h3>
+                    <p class="text-gray-700 text-lg">🐙 提示工程指南、论文、讲座、笔记本和资源</p>
+                    <div class="grid grid-cols-2 gap-x-8 gap-y-4 mt-8">
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-star"></i> Star: 57439 (<span class="text-green-600">+164</span>)</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-branch"></i> Forks: 5.7k</p>
+                            <p class="stat-box"><i class="fa-solid fa-eye"></i> Watchers: 630</p>
+                            <p class="stat-box"><i class="fa-solid fa-bug"></i> Issues: 146</p>
+                        </div>
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-code-compare"></i> PRs: 64</p>
+                            <p class="stat-box"><i class="fa-solid fa-box"></i> Releases: 0</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-commit"></i> Commits: 1,533</p>
+                            <p class="stat-box"><i class="fa-solid fa-user-group"></i> Contributors: 192</p>
+                        </div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <i class="fa-solid fa-flask"></i> 编程语言占比: **MDX** 95.5%, **Jupyter Notebook** 4.1%, ...
+                    </div>
+                </section>
+                <section>
+                    <h3>dair-ai/Prompt-Engineering-Guide: 项目速读与增长分析</h3>
+                    <div class="text-lg leading-relaxed mt-6">
+                        <h4 class="text-accent1">项目速读:</h4>
+                        <p>关于Prompt Engineering的综合指南和资源库。汇集最新研究论文、学习资料、代码示例，高效、精准使用LLMs。内容全面、及时更新、社区认可，覆盖从基础到高级的各种提示技术，提供在线互动版本、多语言支持。权威资源，对深入了解和掌握LLMs极具参考价值。</p>
+                        <h4 class="text-accent1 mt-4">增长分析:</h4>
+                        <p>该仓库在短短11天内上榜3次，平均每次上榜带来112.7 Star增长，总计增长982 Star。今日新增164 Star高于平均值，显示近期增长势头强劲，上榜行为有效促进了Star数快速提升。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: eythaann/Seelen-UI -->
+            <section>
+                <section>
+                    <h3 class="project-title"><i class="fa-solid fa-desktop mr-2"></i> eythaann/Seelen-UI</h3>
+                    <p class="text-gray-700 text-lg">适用于 Windows 10/11 的完全可定制桌面环境</p>
+                    <div class="grid grid-cols-2 gap-x-8 gap-y-4 mt-8">
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-star"></i> Star: 7845 (<span class="text-green-600">+107</span>)</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-branch"></i> Forks: 252</p>
+                            <p class="stat-box"><i class="fa-solid fa-eye"></i> Watchers: 38</p>
+                            <p class="stat-box"><i class="fa-solid fa-bug"></i> Issues: 120</p>
+                        </div>
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-code-compare"></i> PRs: 16</p>
+                            <p class="stat-box"><i class="fa-solid fa-box"></i> Releases: 146</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-commit"></i> Commits: 1,630</p>
+                            <p class="stat-box"><i class="fa-solid fa-user-group"></i> Contributors: 37</p>
+                        </div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <i class="fa-solid fa-flask"></i> 编程语言占比: **Rust** 51.0%, **TypeScript** 37.5%, **CSS** 5.7%, ...
+                    </div>
+                </section>
+                <section>
+                    <h3>eythaann/Seelen-UI: 项目速读与增长分析</h3>
+                    <div class="text-lg leading-relaxed mt-6">
+                        <h4 class="text-accent1">项目速读:</h4>
+                        <p>Seelen UI是为Windows 10/11设计的完全可定制桌面环境，突破Windows标准限制。提供深度个性化和效率工具，如平铺窗口管理器，优化多任务处理。快速应用启动器和图形配置界面，改造Windows桌面体验。需要WebView和Edge运行时。</p>
+                        <h4 class="text-accent1 mt-4">增长分析:</h4>
+                        <p>在仅2天的统计周期内，仓库仅上榜2次，平均每次增星79。这显示通过榜单获得的可见度和增长相对有限。尽管单次上榜有贡献，但低频率表明基于榜单的增长势头目前不强劲。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: ourongxing/newsnow -->
+            <section>
+                <section>
+                    <h3 class="project-title"><i class="fa-solid fa-newspaper mr-2"></i> ourongxing/newsnow</h3>
+                    <p class="text-gray-700 text-lg">优雅地阅读实时热点新闻</p>
+                    <div class="grid grid-cols-2 gap-x-8 gap-y-4 mt-8">
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-star"></i> Star: 10749 (<span class="text-green-600">+100</span>)</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-branch"></i> Forks: 3.1k</p>
+                            <p class="stat-box"><i class="fa-solid fa-eye"></i> Watchers: 34</p>
+                            <p class="stat-box"><i class="fa-solid fa-bug"></i> Issues: 63</p>
+                        </div>
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-code-compare"></i> PRs: 0</p>
+                            <p class="stat-box"><i class="fa-solid fa-box"></i> Releases: 30</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-commit"></i> Commits: 315</p>
+                            <p class="stat-box"><i class="fa-solid fa-user-group"></i> Contributors: 10</p>
+                        </div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <i class="fa-solid fa-flask"></i> 编程语言占比: **TypeScript** 95.7%, **HTML** 1.8%, **CSS** 1.6%, ...
+                    </div>
+                </section>
+                <section>
+                    <h3>ourongxing/newsnow: 项目速读与增长分析</h3>
+                    <div class="text-lg leading-relaxed mt-6">
+                        <h4 class="text-accent1">项目速读:</h4>
+                        <p>NewsNow提供简洁优雅、实时热门新闻阅读体验。解决传统新闻网站界面杂乱、广告多、信息过载问题。基于TypeScript和Node.js，智能缓存和自适应抓取频率保证实时性和效率。支持Cloudflare Pages、Vercel、Docker部署。MIT开源，适用于追求纯粹阅读、自建新闻聚合服务或对现代Web应用架构感兴趣的开发者。</p>
+                        <h4 class="text-accent1 mt-4">增长分析:</h4>
+                        <p>该仓库在统计周期内总计增长5622个Star。尽管仅上榜6次，但平均每次上榜带来约250个Star增长，显示上榜对增长贡献较大。今日新增100个Star，表明持续保持增长势头。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: zijie0/HumanSystemOptimization -->
+            <section>
+                <section>
+                    <h3 class="project-title"><i class="fa-solid fa-heartbeat mr-2"></i> zijie0/HumanSystemOptimization</h3>
+                    <p class="text-gray-700 text-lg">健康学习到150岁 - 人体系统调优不完全指南</p>
+                    <div class="grid grid-cols-2 gap-x-8 gap-y-4 mt-8">
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-star"></i> Star: 16521 (<span class="text-green-600">+875</span>)</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-branch"></i> Forks: 1.2k</p>
+                            <p class="stat-box"><i class="fa-solid fa-eye"></i> Watchers: 148</p>
+                            <p class="stat-box"><i class="fa-solid fa-bug"></i> Issues: 11</p>
+                        </div>
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-code-compare"></i> PRs: 0</p>
+                            <p class="stat-box"><i class="fa-solid fa-box"></i> Releases: 0</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-commit"></i> Commits: 17</p>
+                            <p class="stat-box"><i class="fa-solid fa-user-group"></i> Contributors: 2</p>
+                        </div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <i class="fa-solid fa-flask"></i> 编程语言占比: (无主要语言统计)
+                    </div>
+                </section>
+                <section>
+                    <h3>zijie0/HumanSystemOptimization: 项目速读与增长分析</h3>
+                    <div class="text-lg leading-relaxed mt-6">
+                        <h4 class="text-accent1">项目速读:</h4>
+                        <p>“健康学习到150岁 - 人体系统调优不完全指南”基于斯坦福神经科学家研究。旨在像“调优软件程序”一样理解和优化人体系统。探讨睡眠、饮食、心态/动力等生理机制，提供大量科学、实践可行、零成本的健康优化建议。强调理解生理原理，为追求长寿、提升健康和心智活力提供系统实用的行动蓝图。</p>
+                        <h4 class="text-accent1 mt-4">增长分析:</h4>
+                        <p>该仓库在3天内上榜3次，高可见度促进了强劲增长。总星数增长1413，平均每次上榜新增721.7星。今日新增875星，高于平均，表明近期增长势头正在加速。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: datawhalechina/self-llm -->
+            <section>
+                <section>
+                    <h3 class="project-title"><i class="fa-solid fa-graduation-cap mr-2"></i> datawhalechina/self-llm</h3>
+                    <p class="text-gray-700 text-lg">《开源大模型食用指南》针对中国宝宝量身打造的教程</p>
+                    <div class="grid grid-cols-2 gap-x-8 gap-y-4 mt-8">
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-star"></i> Star: 16730 (<span class="text-green-600">+161</span>)</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-branch"></i> Forks: 1.8k</p>
+                            <p class="stat-box"><i class="fa-solid fa-eye"></i> Watchers: 109</p>
+                            <p class="stat-box"><i class="fa-solid fa-bug"></i> Issues: 135</p>
+                        </div>
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-code-compare"></i> PRs: 2</p>
+                            <p class="stat-box"><i class="fa-solid fa-box"></i> Releases: 0</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-commit"></i> Commits: 1,169</p>
+                            <p class="stat-box"><i class="fa-solid fa-user-group"></i> Contributors: 62</p>
+                        </div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <i class="fa-solid fa-flask"></i> 编程语言占比: **Jupyter Notebook** 90.7%, **Python** 7.7%, ...
+                    </div>
+                </section>
+                <section>
+                    <h3>datawhalechina/self-llm: 项目速读与增长分析</h3>
+                    <div class="text-lg leading-relaxed mt-6">
+                        <h4 class="text-accent1">项目速读:</h4>
+                        <p>Datawhale China为中国用户打造的《开源大模型食用指南》。解决Linux环境下快速上手、部署、微调国内外开源大模型（LLM/MLLM）的痛点。提供系统实践教程，覆盖环境配置、模型部署到本地，以及高效微调技术（LoRA）。极大降低探索和应用前沿开源LLM/MLLM的技术门槛，适合本地学习、实验和初步开发，是连接理论与实践的优秀入门手册。</p>
+                        <h4 class="text-accent1 mt-4">增长分析:</h4>
+                        <p>该仓库今日首次上榜，获得161星增长，表现出强劲的初始吸引力，后续增长潜力值得关注。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: XTLS/Xray-core -->
+            <section>
+                <section>
+                    <h3 class="project-title"><i class="fa-solid fa-network-wired mr-2"></i> XTLS/Xray-core</h3>
+                    <p class="text-gray-700 text-lg">Xray，穿透一切。也是最棒的 v2ray-core。</p>
+                    <div class="grid grid-cols-2 gap-x-8 gap-y-4 mt-8">
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-star"></i> Star: 29125 (<span class="text-green-600">+152</span>)</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-branch"></i> Forks: 4.3k</p>
+                            <p class="stat-box"><i class="fa-solid fa-eye"></i> Watchers: 354</p>
+                            <p class="stat-box"><i class="fa-solid fa-bug"></i> Issues: 10</p>
+                        </div>
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-code-compare"></i> PRs: 15</p>
+                            <p class="stat-box"><i class="fa-solid fa-box"></i> Releases: 85</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-commit"></i> Commits: 1,397</p>
+                            <p class="stat-box"><i class="fa-solid fa-user-group"></i> Contributors: 188</p>
+                        </div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <i class="fa-solid fa-flask"></i> 编程语言占比: **Go** 99.7%, ...
+                    </div>
+                </section>
+                <section>
+                    <h3>XTLS/Xray-core: 项目速读与增长分析</h3>
+                    <div class="text-lg leading-relaxed mt-6">
+                        <h4 class="text-accent1">项目速读:</h4>
+                        <p>XTLS/Xray-core是功能强大的网络工具集合，提供安全、高效、抗审查代理和隧道服务。核心优势在于XTLS协议的高效传输和REALITY技术卓越的流量伪装。支持VLESS、XTLS、REALITY、XUDP等协议。Go语言开发，跨平台部署灵活，拥有2.9万Star，在提供自由、安全网络访问方面价值重要。</p>
+                        <h4 class="text-accent1 mt-4">增长分析:</h4>
+                        <p>该仓库在统计期内增长显著，总增680 Star。实际上榜4次是主要驱动，平均每次增量83.8。今日新增152远超平均，显示近期增长势头强劲，4次上榜亦证明其持续受关注。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: YaLTeR/niri -->
+            <section>
+                <section>
+                    <h3 class="project-title"><i class="fa-solid fa-scroll mr-2"></i> YaLTeR/niri</h3>
+                    <p class="text-gray-700 text-lg">一个滚动式平铺 Wayland 合成器。</p>
+                    <div class="grid grid-cols-2 gap-x-8 gap-y-4 mt-8">
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-star"></i> Star: 8005 (<span class="text-green-600">+134</span>)</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-branch"></i> Forks: 262</p>
+                            <p class="stat-box"><i class="fa-solid fa-eye"></i> Watchers: 32</p>
+                            <p class="stat-box"><i class="fa-solid fa-bug"></i> Issues: 141</p>
+                        </div>
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-code-compare"></i> PRs: 49</p>
+                            <p class="stat-box"><i class="fa-solid fa-box"></i> Releases: 20</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-commit"></i> Commits: 2,173</p>
+                            <p class="stat-box"><i class="fa-solid fa-user-group"></i> Contributors: 104</p>
+                        </div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <i class="fa-solid fa-flask"></i> 编程语言占比: **Rust** 98.1%, **GLSL** 1.5%, ...
+                    </div>
+                </section>
+                <section>
+                    <h3>YaLTeR/niri: 项目速读与增长分析</h3>
+                    <div class="text-lg leading-relaxed mt-6">
+                        <h4 class="text-accent1">项目速读:</h4>
+                        <p>niri是基于Wayland的创新合成器，提供“可滚动平铺”窗口管理模式。新建窗口不改变已有窗口大小位置，提供稳定可预测的多任务视图。支持独立多显示器工作区、内置截图/投屏、丰富定制选项、良好硬件兼容。为寻求非传统窗口管理且注重布局稳定性的Wayland用户提供高性能选择。</p>
+                        <h4 class="text-accent1 mt-4">增长分析:</h4>
+                        <p>该仓库增长显著受上榜驱动。3次上榜是主要增长峰值，每次平均增加263星，带动总星数快速增长至2161。近期每日134星则补充了持续性增长。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: modelcontextprotocol/servers -->
+            <section>
+                <section>
+                    <h3 class="project-title"><i class="fa-solid fa-server mr-2"></i> modelcontextprotocol/servers</h3>
+                    <p class="text-gray-700 text-lg">模型上下文协议服务器</p>
+                    <div class="grid grid-cols-2 gap-x-8 gap-y-4 mt-8">
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-star"></i> Star: 52570 (<span class="text-green-600">+226</span>)</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-branch"></i> Forks: 6k</p>
+                            <p class="stat-box"><i class="fa-solid fa-eye"></i> Watchers: 382</p>
+                            <p class="stat-box"><i class="fa-solid fa-bug"></i> Issues: 215</p>
+                        </div>
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-code-compare"></i> PRs: 312</p>
+                            <p class="stat-box"><i class="fa-solid fa-box"></i> Releases: 17</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-commit"></i> Commits: 2,736</p>
+                            <p class="stat-box"><i class="fa-solid fa-user-group"></i> Contributors: 563</p>
+                        </div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <i class="fa-solid fa-flask"></i> 编程语言占比: **Python** 37.9%, **JavaScript** 34.7%, **TypeScript** 23.2%, ...
+                    </div>
+                </section>
+                <section>
+                    <h3>modelcontextprotocol/servers: 项目速读与增长分析</h3>
+                    <div class="text-lg leading-relaxed mt-6">
+                        <h4 class="text-accent1">项目速读:</h4>
+                        <p>MCP参考实现服务器及社区构建服务器集合。解决LLMs安全、受控访问外部世界（文件系统、Git、网络、数据库）的问题。通过Python/Typescript MCP SDK示例，展示MCP协议多功能性。构建LLM与现实世界安全交互“桥梁”，规避LLM直接不受限访问风险。对希望LLMs集成到现有基础设施并赋予受控访问能力的开发者有价值。</p>
+                        <h4 class="text-accent1 mt-4">增长分析:</h4>
+                        <p>该仓库今日首次上榜，带来226星增长，显示其作为关键基础设施项目受到高度关注。作为Model Context Protocol的核心组件，预计将保持持续增长。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: NirDiamant/GenAI_Agents -->
+            <section>
+                <section>
+                    <h3 class="project-title"><i class="fa-solid fa-robot mr-2"></i> NirDiamant/GenAI_Agents</h3>
+                    <p class="text-gray-700 text-lg">构建智能、交互式AI系统的全面指南。</p>
+                    <div class="grid grid-cols-2 gap-x-8 gap-y-4 mt-8">
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-star"></i> Star: 12837 (<span class="text-green-600">+111</span>)</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-branch"></i> Forks: 1.7k</p>
+                            <p class="stat-box"><i class="fa-solid fa-eye"></i> Watchers: 184</p>
+                            <p class="stat-box"><i class="fa-solid fa-bug"></i> Issues: 1</p>
+                        </div>
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-code-compare"></i> PRs: 14</p>
+                            <p class="stat-box"><i class="fa-solid fa-box"></i> Releases: 0</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-commit"></i> Commits: 304</p>
+                            <p class="stat-box"><i class="fa-solid fa-user-group"></i> Contributors: 38</p>
+                        </div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <i class="fa-solid fa-flask"></i> 编程语言占比: **Jupyter Notebook** 100.0%
+                    </div>
+                </section>
+                <section>
+                    <h3>NirDiamant/GenAI_Agents: 项目速读与增长分析</h3>
+                    <div class="text-lg leading-relaxed mt-6">
+                        <h4 class="text-accent1">项目速读:</h4>
+                        <p>专注于生成式AI (GenAI) 智能体开发的综合资源库。弥合理论与实践鸿沟，提供从基础到高级系统学习路径和实践示例。通过Jupyter Notebook实例，深入浅出展示如何利用LangChain、LangGraph等框架构建具备感知、思考、规划和执行能力的AI智能体。仓库内容清晰，降低学习门槛，对希望快速掌握GenAI智能体核心技术、亲手构建智能应用的开发者极具价值。</p>
+                        <h4 class="text-accent1 mt-4">增长分析:</h4>
+                        <p>该仓库总增长3066 stars显著，平均每次上榜增225.5。但周期内仅上榜6次，依赖少数高曝光时刻，增长稳定性受上榜频率影响，当前增量偏低。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: PathOfBuildingCommunity/PathOfBuilding -->
+            <section>
+                <section>
+                    <h3 class="project-title"><i class="fa-solid fa-gamepad mr-2"></i> PathOfBuildingCommunity/PathOfBuilding</h3>
+                    <p class="text-gray-700 text-lg">《流放之路》离线构建规划器</p>
+                    <div class="grid grid-cols-2 gap-x-8 gap-y-4 mt-8">
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-star"></i> Star: 4673 (<span class="text-green-600">+13</span>)</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-branch"></i> Forks: 2.1k</p>
+                            <p class="stat-box"><i class="fa-solid fa-eye"></i> Watchers: 71</p>
+                            <p class="stat-box"><i class="fa-solid fa-bug"></i> Issues: 766</p>
+                        </div>
+                        <div>
+                            <p class="stat-box"><i class="fa-solid fa-code-compare"></i> PRs: 110</p>
+                            <p class="stat-box"><i class="fa-solid fa-box"></i> Releases: 102</p>
+                            <p class="stat-box"><i class="fa-solid fa-code-commit"></i> Commits: 8,459</p>
+                            <p class="stat-box"><i class="fa-solid fa-user-group"></i> Contributors: 289</p>
+                        </div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <i class="fa-solid fa-flask"></i> 编程语言占比: **Lua** 100.0%
+                    </div>
+                </section>
+                <section>
+                    <h3>PathOfBuildingCommunity/PathOfBuilding: 项目速读与增长分析</h3>
+                    <div class="text-lg leading-relaxed mt-6">
+                        <h4 class="text-accent1">项目速读:</h4>
+                        <p>专为《流放之路》设计的离线角色构建规划工具。解决玩家在游戏外精细规划、模拟和优化天赋、技能和装备配置的难题。核心优势在于强大精准的性能计算引擎，全面分析角色伤害、生存等数据。集成了直观规划器，支持数据导入导出和分享。高精度，成为《流放之路》社区不可或缺的构建规划利器。</p>
+                        <h4 class="text-accent1 mt-4">增长分析:</h4>
+                        <p>在短短两日内实际上榜两次，显示该仓库获得了持续的显著关注。总共增长了52个Star，增长势头强劲，表明高频率的上榜有效驱动了用户关注与Star数的快速提升。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Final Slide: Call to Action -->
+            <section data-background-color="#2c3e50" data-background-transition="zoom">
+                <h2 class="text-white text-center text-5xl font-bold mb-8">感谢聆听！</h2>
+                <p class="text-gray-300 text-center text-2xl mb-12">
+                    探索更多AI前沿项目，与我们一同见证AI落地！
+                </p>
+                <div class="flex flex-col items-center justify-center">
+                    <p class="text-white text-2xl font-light">
+                        欢迎访问项目仓库，点亮您的 <i class="fa-solid fa-star text-yellow-400"></i> Star！
+                    </p>
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-accent1 text-3xl font-bold mt-4 hover:underline">
+                        https://github.com/aichipera/github-trend
+                    </a>
+                </div>
+                <div class="bottom-right-fixed">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="mr-4">
+                        GitHub项目: aichipera/github-trend
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="微信公众号二维码" class="shadow-lg">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            hash: true,
+            center: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+            fragments: true, // Enable fragments for step-by-step content reveal
+
+            // Optional Reveal.js plugins
+            plugins: [ ]
+        });
+
+        // Mermaid configuration
+        mermaid.initialize({ startOnLoad: false });
+    </script>
+</body>
+</html>
