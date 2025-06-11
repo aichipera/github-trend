@@ -1,0 +1,839 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>GitHub热门项目趋势分析：大模型已过时？</title>
+
+    <!-- Core Reveal.js Framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- Extended Dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Tailwind CSS is included but mostly overridden by custom styles for precise control -->
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        /* Custom Fonts & Base Settings */
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: #333; /* Dark gray for good contrast */
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: 'Noto Serif SC', serif;
+            color: #2c3e50; /* Dark blue-gray for headings */
+            text-shadow: none; /* Remove default text shadow for cleaner look */
+        }
+
+        /* Font Sizes - Using rem for responsiveness */
+        .reveal h1 { font-size: 3.5rem; } /* Main title */
+        .reveal h2 { font-size: 2.2rem; } /* Section titles */
+        .reveal h3 { font-size: 1.8rem; } /* Sub-section titles / Project names */
+        .reveal p, .reveal li, .reveal table { font-size: 1.1rem; line-height: 1.6; } /* Body text */
+        .reveal .small-text { font-size: 0.9rem; } /* For disclaimer, etc. */
+
+        /* Color Scheme - Modern & Complementary */
+        :root {
+            --primary-color: #3498db; /* Azure Blue - Main accent */
+            --secondary-color: #2ecc71; /* Emerald Green - Growth/Positive */
+            --accent-color: #f39c12; /* Sun Yellow - Highlight/Attention */
+            --text-dark: #333;
+            --text-light: #ecf0f1; /* Light gray for dark backgrounds */
+            --bg-light: #ffffff;
+            --bg-dark: #2c3e50; /* Dark blue-gray for contrast */
+            --light-fade-bg: rgba(255, 255, 255, 0.9); /* For text on complex backgrounds */
+        }
+
+        .reveal .slides section {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            padding: 40px;
+            box-sizing: border-box; /* Include padding in element's total width and height */
+        }
+
+        /* Custom Backgrounds & Gradients */
+        .reveal .slides section.cover-slide {
+            background: linear-gradient(to right bottom, #3498db, #2c3e50); /* Blue to dark blue-gray gradient */
+            color: var(--text-light);
+        }
+        .reveal .slides section.cover-slide h1,
+        .reveal .slides section.cover-slide h2 {
+            color: var(--text-light);
+        }
+        .reveal .slides section.cover-slide p {
+            color: var(--text-light);
+            font-size: 1.2rem;
+        }
+
+        .reveal .slides section.dark-bg {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+        }
+        .reveal .slides section.dark-bg h1, .reveal .slides section.dark-bg h2, .reveal .slides section.dark-bg h3 {
+            color: var(--text-light);
+        }
+
+
+        /* Layout & Spacing */
+        .reveal .slides section h2 {
+            margin-bottom: 0.8em;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.2em;
+            display: inline-block;
+        }
+        .reveal .slides section.cover-slide h1 {
+            font-size: 4rem; /* Adjusted for impact */
+            margin-bottom: 0.5em;
+        }
+        .reveal .slides section.cover-slide h2 {
+            font-size: 2.8rem; /* Adjusted for impact */
+            margin-bottom: 1em;
+            border-bottom: none;
+        }
+        .reveal ul {
+            list-style: none; /* Remove default bullets */
+            padding-left: 0;
+            margin-left: 0;
+        }
+        .reveal ul li {
+            position: relative;
+            padding-left: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        .reveal ul li:before {
+            content: "\f058"; /* Font Awesome check-circle for clarity */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+        }
+        .reveal ul.no-bullet li:before {
+            content: none; /* For lists where we don't want specific bullets */
+        }
+        .reveal ul.icon-bullets li:before {
+            content: none; /* Specific rule for lists that use custom icons */
+        }
+
+
+        /* Fragments - Subtle animation for content reveal */
+        .reveal .fragment {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-out;
+            transform: translateY(20px);
+        }
+        .reveal .fragment.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .reveal .fragment.fade-in-left { transform: translateX(-20px); }
+        .reveal .fragment.fade-in-left.visible { transform: translateX(0); }
+        .reveal .fragment.fade-in-right { transform: translateX(20px); }
+        .reveal .fragment.fade-in-right.visible { transform: translateX(0); }
+
+
+        /* Table Styling */
+        .reveal table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5em 0;
+            font-size: 0.95em;
+        }
+        .reveal th, .reveal td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        .reveal th {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            font-weight: bold;
+        }
+        .reveal tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Project Links & QR Code */
+        .reveal .project-info {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            z-index: 100;
+        }
+        .reveal .project-info img {
+            width: 80px; /* Smaller QR code */
+            height: 80px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .reveal .project-info a {
+            color: var(--text-light); /* Light text on dark bg for cover */
+            font-size: 0.8rem;
+            text-decoration: none;
+            background-color: rgba(0,0,0,0.3);
+            padding: 3px 8px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .reveal .project-info a:hover {
+            background-color: rgba(0,0,0,0.5);
+        }
+        /* Override for non-cover slides */
+        .reveal .slides section:not(.cover-slide) .project-info a {
+            color: var(--primary-color); /* Primary color on light bg */
+            background-color: rgba(255,255,255,0.7);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Icon styling for key insights */
+        .icon-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* Center items for visual balance */
+            gap: 30px;
+            margin-top: 2em;
+        }
+        .icon-list-item {
+            flex-basis: 45%; /* Two items per row */
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            background-color: #f0f8ff; /* Light blue background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .icon-list-item:hover {
+            transform: translateY(-5px);
+        }
+        .icon-list-item i {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            min-width: 40px; /* Ensure icon doesn't push text */
+        }
+        .icon-list-item div {
+            flex-grow: 1;
+        }
+        .icon-list-item h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5em;
+            color: var(--primary-color);
+        }
+        .icon-list-item p {
+            font-size: 1rem;
+        }
+
+        /* Specific styles for "Aha" moment slide */
+        .reveal .aha-moment-slide {
+            background: linear-gradient(to right top, var(--primary-color), var(--secondary-color));
+            color: var(--text-light);
+            text-align: center;
+        }
+        .reveal .aha-moment-slide h2 {
+            font-size: 3rem;
+            color: var(--text-light);
+            border-bottom: none;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        }
+        .reveal .aha-moment-slide p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        .reveal .aha-moment-slide .emoji {
+            font-size: 4rem;
+            margin-top: 0.5em;
+            display: block;
+        }
+
+        /* Project Detail Table Styling */
+        .project-detail-table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 1em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden; /* Ensures rounded corners apply to content */
+        }
+        .project-detail-table th, .project-detail-table td {
+            border: 1px solid #eee;
+            padding: 10px 15px;
+            text-align: left;
+            font-size: 0.95em;
+        }
+        .project-detail-table th {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            font-weight: bold;
+        }
+        .project-detail-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .project-detail-table td:nth-child(2) { /* Star count column */
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        .project-detail-table td:last-child { /* Star increase column */
+            color: var(--secondary-color);
+        }
+        .project-detail-table a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        .project-detail-table a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* Specific project sections */
+        .reveal .project-slide h3 {
+            color: var(--primary-color);
+            border-bottom: 1px solid var(--primary-color);
+            padding-bottom: 0.1em;
+            margin-bottom: 0.5em;
+        }
+        .project-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 1em;
+            font-size: 0.9em;
+            color: #555;
+            background-color: #f8f8f8;
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .project-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .project-meta i {
+            color: var(--accent-color);
+        }
+
+        .project-description {
+            margin-top: 1em;
+            font-size: 1.05em;
+            background-color: var(--light-fade-bg);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .growth-analysis {
+            margin-top: 1.5em;
+            padding: 15px;
+            background-color: #e8f5e9; /* Light green background */
+            border-left: 5px solid var(--secondary-color);
+            border-radius: 5px;
+            font-size: 0.95em;
+            color: #444;
+        }
+        .growth-analysis strong {
+            color: var(--secondary-color);
+        }
+
+        /* Responsive adjustments (basic) */
+        @media (max-width: 768px) {
+            .reveal h1 { font-size: 2.5rem; }
+            .reveal h2 { font-size: 1.8rem; }
+            .reveal p, .reveal li { font-size: 1rem; }
+            .icon-list-item { flex-basis: 100%; }
+            .reveal .project-info {
+                bottom: 15px;
+                right: 15px;
+            }
+            .reveal .project-info img {
+                width: 60px;
+                height: 60px;
+            }
+            .reveal .project-info a {
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover Page -->
+            <section class="cover-slide">
+                <h1 class="r-fit-text">大模型已过时？</h1>
+                <h2 class="r-fit-text">GitHub热榜揭示：程序员都在“偷卷”这几个新方向！</h2>
+                <p>—— GitHub热门仓库日报观测 (2025-06-11 20:25:47)</p>
+                <p class="small-text mt-8">本项目介绍和学习使用，不构成任何投资建议，请注意甄别！</p>
+
+                <div class="project-info">
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra WeChat QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+            <!-- Slide 2: 日报要点 -->
+            <section>
+                <h2><i class="fas fa-bullhorn text-accent-color mr-3"></i>日报要点：技术风向标</h2>
+                <ul class="no-bullet icon-bullets">
+                    <li class="fragment fade-in-up"><i class="fas fa-microchip text-primary-color mr-3"></i>LLM：从模型本身到<strong class="text-accent-color">“如何落地”</strong>，构建应用、端侧部署成焦点。</li>
+                    <li class="fragment fade-in-up"><i class="fas fa-lightbulb text-primary-color mr-3"></i>AI深入<strong class="text-accent-color">垂直领域</strong>：生物计算、语音识别等解决实际难题。</li>
+                    <li class="fragment fade-in-up"><i class="fas fa-book-open text-primary-color mr-3"></i>高价值<strong class="text-accent-color">知识整理</strong>：结构化知识、学习指南备受追捧。</li>
+                    <li class="fragment fade-in-up"><i class="fas fa-server text-primary-color mr-3"></i><strong class="text-accent-color">实用工具与基础设施</strong>：性能、效率、控制力是永恒追求。</li>
+                </ul>
+                <p class="fragment fade-in-up mt-8 text-center text-primary-color">
+                    <i class="fas fa-arrow-right"></i> 读完这份报告，你或许能找到破局内卷、抓住下一波红利的关键线索！
+                </p>
+            </section>
+
+            <!-- Slide 3: 热门项目趋势分析 (Horizontal Section) -->
+            <section>
+                <h2><i class="fas fa-chart-line text-secondary-color mr-3"></i>热门项目趋势分析</h2>
+
+                <!-- Vertical Slide 3.1: 今日整体趋势 -->
+                <section>
+                    <h3><i class="fas fa-fire text-accent-color mr-2"></i>今日整体趋势：LLM落地与新赛道</h3>
+                    <div class="icon-list">
+                        <div class="icon-list-item fragment fade-in-left">
+                            <i class="fas fa-brain"></i>
+                            <div>
+                                <h4>LLM落地与效率化</h4>
+                                <p>从底层模型到实际应用，端侧AI和模型效率优化是关键。</p>
+                            </div>
+                        </div>
+                        <div class="icon-list-item fragment fade-in-right">
+                            <i class="fas fa-flask"></i>
+                            <div>
+                                <h4>AI的专业化与泛化</h4>
+                                <p>AI深入生物计算、语音处理，同时向更广泛用户普及。</p>
+                            </div>
+                        </div>
+                        <div class="icon-list-item fragment fade-in-left">
+                            <i class="fas fa-book"></i>
+                            <div>
+                                <h4>知识的组织与共享</h4>
+                                <p>高质量Awesome列表和指南，解决信息爆炸下的学习痛点。</p>
+                            </div>
+                        </div>
+                        <div class="icon-list-item fragment fade-in-right">
+                            <i class="fas fa-cogs"></i>
+                            <div>
+                                <h4>基础设施的升级与控制力</h4>
+                                <p>高性能、可控的开源解决方案，如支付中枢。</p>
+                            </div>
+                        </div>
+                        <div class="icon-list-item fragment fade-in-up">
+                            <i class="fas fa-database"></i>
+                            <div>
+                                <h4>数据获取与处理的便利性</h4>
+                                <p>简单实用的数据抓取工具需求依然旺盛。</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Vertical Slide 3.2: 编程语言与技术栈概览 -->
+                <section>
+                    <h3><i class="fas fa-code text-secondary-color mr-2"></i>编程语言与技术栈概览</h3>
+                    <ul class="no-bullet icon-bullets">
+                        <li class="fragment fade-in-up"><i class="fab fa-python text-primary-color mr-3"></i><strong>Python：</strong> 继续主导AI、数据科学和自动化领域。</li>
+                        <li class="fragment fade-in-up"><i class="fas fa-terminal text-primary-color mr-3"></i><strong>Jupyter Notebook：</strong> AI、教程项目首选，实验探索和知识传播利器。</li>
+                        <li class="fragment fade-in-up"><i class="fab fa-rust text-primary-color mr-3"></i><strong>Rust：</strong> 在高性能基础设施领域崛起，展现独特优势。</li>
+                        <li class="fragment fade-in-up"><i class="fas fa-file-alt text-primary-color mr-3"></i><strong>Markdown文档：</strong> GitHub不仅是代码平台，更是强大的协作式文档和知识库。</li>
+                    </ul>
+                    <p class="fragment fade-in-up mt-8 text-center text-accent-color">
+                        <i class="fas fa-star"></i> 语言分布反映了AI为主导的趋势，以及对性能和知识协作的重视。
+                    </p>
+                </section>
+
+                <!-- Vertical Slide 3.3: 热门项目双日维度对比分析 -->
+                <section>
+                    <h3><i class="fas fa-arrows-alt-h text-accent-color mr-2"></i>双日维度对比：新晋与持续热门</h3>
+                    <ul class="no-bullet icon-bullets">
+                        <li class="fragment fade-in-up"><i class="fas fa-plus-circle text-secondary-color mr-3"></i><strong>新晋项目：</strong> 5个新面孔，涵盖LLM应用、API工具、支付基础设施等。</li>
+                        <li class="fragment fade-in-up"><i class="fas fa-chart-bar text-secondary-color mr-3"></i><strong>持续上升：</strong> 4个项目热度不减，整体关注度稳定增长。</li>
+                        <li class="fragment fade-in-up"><i class="fas fa-arrow-alt-circle-up text-secondary-color mr-3"></i><strong>LLM持续领跑：</strong> 多个新上榜及涨幅显著项目与LLM密切相关。</li>
+                        <li class="fragment fade-in-up"><i class="fas fa-hourglass-half text-secondary-color mr-3"></i><strong>零跌出：</strong> 昨日榜单项目无明显热度下滑，竞争激烈且粘性高。</li>
+                    </ul>
+                    <p class="fragment fade-in-up mt-8 text-center text-primary-color">
+                        <i class="fas fa-bolt"></i> 市场需求多元化，但AI领域仍是核心驱动力！
+                    </p>
+                </section>
+
+                <!-- Vertical Slide 3.4: 热点变化 -->
+                <section>
+                    <h3><i class="fas fa-sync-alt text-primary-color mr-2"></i>热点变化：新陈代谢加速</h3>
+                    <div class="grid grid-cols-2 gap-4 text-left">
+                        <div class="fragment fade-in-left">
+                            <h4 class="text-secondary-color"><i class="fas fa-sparkles mr-2"></i>新增热点</h4>
+                            <ul class="no-bullet icon-bullets text-sm">
+                                <li><i class="fas fa-caret-right mr-2"></i>jdepoix/youtube-transcript-api</li>
+                                <li><i class="fas fa-caret-right mr-2"></i>OpenBMB/MiniCPM</li>
+                                <li><i class="fas fa-caret-right mr-2"></i>juspay/hyperswitch</li>
+                                <li><i class="fas fa-caret-right mr-2"></i>sindresorhus/awesome</li>
+                                <li><i class="fas fa-caret-right mr-2"></i>Shubhamsaboo/awesome-llm-apps</li>
+                            </ul>
+                        </div>
+                        <div class="fragment fade-in-right">
+                            <h4 class="text-gray-600"><i class="fas fa-minus-circle mr-2"></i>减退热点</h4>
+                            <ul class="no-bullet icon-bullets text-sm">
+                                <li><i class="fas fa-caret-right mr-2"></i>friuns2/blackfriday-gpts-prompts...等</li>
+                            </ul>
+                            <p class="small-text mt-2 text-gray-500">（因篇幅限制，此处仅列举部分，完整列表请见报告原文）</p>
+                        </div>
+                        <div class="fragment fade-in-up col-span-2">
+                            <h4 class="text-accent-color"><i class="fas fa-arrow-circle-up mr-2"></i>持续热门</h4>
+                            <ul class="no-bullet icon-bullets text-sm">
+                                <li><i class="fas fa-caret-right mr-2"></i>alphacep/vosk-api (3次)</li>
+                                <li><i class="fas fa-caret-right mr-2"></i>zijie0/HumanSystemOptimization (4次)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Vertical Slide 3.5: 展望未来技术热点 -->
+                <section class="dark-bg">
+                    <h3><i class="fas fa-rocket text-light mr-2"></i>展望未来：下一波技术红利？</h3>
+                    <ul class="no-bullet icon-bullets text-light">
+                        <li class="fragment fade-in-up"><i class="fas fa-robot text-secondary-color mr-3"></i><strong>AI Agent与复杂工作流编排：</strong> AI完成多步骤协同任务。</li>
+                        <li class="fragment fade-in-up"><i class="fas fa-microscope text-secondary-color mr-3"></i><strong>AI for Science/Engineering：</strong> AI在材料、能源等硬核领域突破。</li>
+                        <li class="fragment fade-in-up"><i class="fas fa-lock text-secondary-color mr-3"></i><strong>联邦学习与隐私计算：</strong> AI应用普及与数据隐私安全并重。</li>
+                        <li class="fragment fade-in-up"><i class="fas fa-mobile-alt text-secondary-color mr-3"></i><strong>更高效端侧AI：</strong> 针对特定硬件/任务深度优化的边缘AI。</li>
+                        <li class="fragment fade-in-up"><i class="fas fa-shield-alt text-secondary-color mr-3"></i><strong>AI安全、可解释性与伦理：</strong> 随着AI能力的增强，相关治理和信任问题将日益凸显。</li>
+                        <li class="fragment fade-in-up"><i class="fas fa-code text-secondary-color mr-3"></i><strong>AI辅助开发：</strong> 提升开发效率的AI代码生成/理解工具。</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Slide 4: 详细仓库数据 - Introduction -->
+            <section>
+                <h2><i class="fas fa-cube text-primary-color mr-3"></i>详细仓库数据：洞察热门项目</h2>
+                <p class="fragment fade-in-up">本章节将深入分析今日GitHub热门项目的具体数据与核心价值。</p>
+                <p class="fragment fade-in-up">通过项目简介、数据指标和增长分析，揭示其成功原因与技术亮点。</p>
+                <div class="fragment fade-in-up mt-8 text-center">
+                    <i class="fas fa-eye text-accent-color" style="font-size: 3rem;"></i>
+                    <p class="mt-2 text-primary-color">准备好发现那些被“偷卷”的秘密武器了吗？</p>
+                </div>
+            </section>
+
+            <!-- Slide 5 onwards: Individual Project Details (Vertical Sections for each project) -->
+
+            <!-- sindresorhus/awesome -->
+            <section class="project-slide">
+                <h3><i class="fas fa-list-alt text-primary-color mr-2"></i>sindresorhus/awesome</h3>
+                <table class="project-detail-table">
+                    <tr><th>仓库名称</th><td><a href="https://github.com/sindresorhus/awesome" target="_blank">[sindresorhus/awesome]</a></td></tr>
+                    <tr><th>开发语言</th><td>N/A</td></tr>
+                    <tr><th>Star 数</th><td>365292 ⭐</td></tr>
+                    <tr><th>连续在榜</th><td>1次</td></tr>
+                    <tr><th>总上榜次数</th><td>1次</td></tr>
+                    <tr><th>当日 Star 增加数</th><td>501 🚀</td></tr>
+                </table>
+                <div class="project-meta">
+                    <span><i class="fas fa-star"></i> 365.3k</span>
+                    <span><i class="fas fa-code-branch"></i> 29.3k</span>
+                    <span><i class="fas fa-eye"></i> 7.8k</span>
+                    <span><i class="fas fa-exclamation-circle"></i> 12</span>
+                    <span><i class="fas fa-code-pull-request"></i> 29</span>
+                    <span><i class="fas fa-file-contract"></i> CC0-1.0</span>
+                    <span><i class="fas fa-users"></i> 609</span>
+                </div>
+                <p class="project-description fragment fade-in-up">
+                    <i class="fas fa-info-circle mr-2"></i><strong>项目速读:</strong> GitHub上知名且庞大的精选资源列表集合，解决用户发现特定领域优秀资源的痛点。像中央导航站，简化开发者查找资源流程，体现社区协作共享巨大价值。
+                </p>
+            </section>
+
+            <!-- Shubhamsaboo/awesome-llm-apps -->
+            <section class="project-slide">
+                <h3><i class="fas fa-robot text-primary-color mr-2"></i>Shubhamsaboo/awesome-llm-apps</h3>
+                <table class="project-detail-table">
+                    <tr><th>仓库名称</th><td><a href="https://github.com/Shubhamsaboo/awesome-llm-apps" target="_blank">[Shubhamsaboo/awesome-llm-apps]</a></td></tr>
+                    <tr><th>开发语言</th><td>Python</td></tr>
+                    <tr><th>Star 数</th><td>34667 ⭐</td></tr>
+                    <tr><th>连续在榜</th><td>1次</td></tr>
+                    <tr><th>总上榜次数</th><td>14次</td></tr>
+                    <tr><th>当日 Star 增加数</th><td>311 🚀</td></tr>
+                </table>
+                <div class="project-meta">
+                    <span><i class="fas fa-star"></i> 34.7k</span>
+                    <span><i class="fas fa-code-branch"></i> 4k</span>
+                    <span><i class="fas fa-eye"></i> 413</span>
+                    <span><i class="fas fa-exclamation-circle"></i> 3</span>
+                    <span><i class="fas fa-code-pull-request"></i> 6</span>
+                    <span><i class="fas fa-file-contract"></i> Apache-2.0</span>
+                    <span><i class="fas fa-users"></i> 30</span>
+                </div>
+                <p class="project-description fragment fade-in-up">
+                    <i class="fas fa-info-circle mr-2"></i><strong>项目速读:</strong> 汇集众多优秀LLM实际应用的宝库，展示如何结合AI Agent、RAG等技术构建功能强大应用，是学习、探索LLM应用范式的绝佳平台。
+                </p>
+                <div class="growth-analysis fragment fade-in-up">
+                    <i class="fas fa-chart-line mr-2"></i><strong>增长分析：</strong> 统计期内14次上榜，总星数增长14334，平均每次新增408.5星。频繁上榜是持续强劲增长的关键。
+                </div>
+            </section>
+
+            <!-- alphacep/vosk-api -->
+            <section class="project-slide">
+                <h3><i class="fas fa-microphone-alt text-primary-color mr-2"></i>alphacep/vosk-api</h3>
+                <table class="project-detail-table">
+                    <tr><th>仓库名称</th><td><a href="https://github.com/alphacep/vosk-api" target="_blank">[alphacep/vosk-api]</a></td></tr>
+                    <tr><th>开发语言</th><td>Jupyter Notebook</td></tr>
+                    <tr><th>Star 数</th><td>11671 ⭐</td></tr>
+                    <tr><th>连续在榜</th><td>3次</td></tr>
+                    <tr><th>总上榜次数</th><td>4次</td></tr>
+                    <tr><th>当日 Star 增加数</th><td>400 🚀</td></tr>
+                </table>
+                <div class="project-meta">
+                    <span><i class="fas fa-star"></i> 11.7k</span>
+                    <span><i class="fas fa-code-branch"></i> 1.4k</span>
+                    <span><i class="fas fa-eye"></i> 133</span>
+                    <span><i class="fas fa-exclamation-circle"></i> 501</span>
+                    <span><i class="fas fa-code-pull-request"></i> 39</span>
+                    <span><i class="fas fa-file-contract"></i> Apache-2.0</span>
+                    <span><i class="fas fa-users"></i> 42</span>
+                </div>
+                <p class="project-description fragment fade-in-up">
+                    <i class="fas fa-info-circle mr-2"></i><strong>项目速读:</strong> 离线开源语音识别工具包，体积小巧、支持多语言、近乎零延迟。适用于资源有限或实时性要求高的场景，如智能设备、本地语音助手。
+                </p>
+                <div class="growth-analysis fragment fade-in-up">
+                    <i class="fas fa-chart-line mr-2"></i><strong>增长分析：</strong> 4次上榜获1780 Star，日均增长216.2。今日新增400，远超平均，加速增长。
+                </div>
+            </section>
+
+            <!-- jwohlwend/boltz -->
+            <section class="project-slide">
+                <h3><i class="fas fa-dna text-primary-color mr-2"></i>jwohlwend/boltz</h3>
+                <table class="project-detail-table">
+                    <tr><th>仓库名称</th><td><a href="https://github.com/jwohlwend/boltz" target="_blank">[jwohlwend/boltz]</a></td></tr>
+                    <tr><th>开发语言</th><td>Python</td></tr>
+                    <tr><th>Star 数</th><td>2628 ⭐</td></tr>
+                    <tr><th>连续在榜</th><td>2次</td></tr>
+                    <tr><th>总上榜次数</th><td>3次</td></tr>
+                    <tr><th>当日 Star 增加数</th><td>459 🚀</td></tr>
+                </table>
+                <div class="project-meta">
+                    <span><i class="fas fa-star"></i> 2.6k</span>
+                    <span><i class="fas fa-code-branch"></i> 391</span>
+                    <span><i class="fas fa-eye"></i> 45</span>
+                    <span><i class="fas fa-exclamation-circle"></i> 150</span>
+                    <span><i class="fas fa-code-pull-request"></i> 25</span>
+                    <span><i class="fas fa-file-contract"></i> MIT</span>
+                    <span><i class="fas fa-users"></i> 35</span>
+                </div>
+                <p class="project-description fragment fade-in-up">
+                    <i class="fas fa-info-circle mr-2"></i><strong>项目速读:</strong> 专注于生物分子相互作用预测的模型集合，尤其Boltz-2实现计算速度提升近1000倍，精度接近物理方法，对药物发现价值巨大。
+                </p>
+                <div class="growth-analysis fragment fade-in-up">
+                    <i class="fas fa-chart-line mr-2"></i><strong>增长分析：</strong> 近5天3次上榜，总增656，平均每次197。今日新增459，增长势头强劲且近期加速。
+                </div>
+            </section>
+
+            <!-- jdepoix/youtube-transcript-api -->
+            <section class="project-slide">
+                <h3><i class="fab fa-youtube text-primary-color mr-2"></i>jdepoix/youtube-transcript-api</h3>
+                <table class="project-detail-table">
+                    <tr><th>仓库名称</th><td><a href="https://github.com/jdepoix/youtube-transcript-api" target="_blank">[jdepoix/youtube-transcript-api]</a></td></tr>
+                    <tr><th>开发语言</th><td>Python</td></tr>
+                    <tr><th>Star 数</th><td>4049 ⭐</td></tr>
+                    <tr><th>连续在榜</th><td>1次</td></tr>
+                    <tr><th>总上榜次数</th><td>1次</td></tr>
+                    <tr><th>当日 Star 增加数</th><td>10 🚀</td></tr>
+                </table>
+                <div class="project-meta">
+                    <span><i class="fas fa-star"></i> 4k</span>
+                    <span><i class="fas fa-code-branch"></i> 468</span>
+                    <span><i class="fas fa-eye"></i> 43</span>
+                    <span><i class="fas fa-exclamation-circle"></i> 11</span>
+                    <span><i class="fas fa-code-pull-request"></i> 3</span>
+                    <span><i class="fas fa-file-contract"></i> MIT</span>
+                    <span><i class="fas fa-users"></i> 17</span>
+                </div>
+                <p class="project-description fragment fade-in-up">
+                    <i class="fas fa-info-circle mr-2"></i><strong>项目速读:</strong> 简洁高效的Python库，无需API Key或无头浏览器，快速获取YouTube视频文字脚本和字幕，为视频内容分析、自动化摘要提供便利。
+                </p>
+            </section>
+
+            <!-- zijie0/HumanSystemOptimization -->
+            <section class="project-slide">
+                <h3><i class="fas fa-heartbeat text-primary-color mr-2"></i>zijie0/HumanSystemOptimization</h3>
+                <table class="project-detail-table">
+                    <tr><th>仓库名称</th><td><a href="https://github.com/zijie0/HumanSystemOptimization" target="_blank">[zijie0/HumanSystemOptimization]</a></td></tr>
+                    <tr><th>开发语言</th><td>N/A</td></tr>
+                    <tr><th>Star 数</th><td>16925 ⭐</td></tr>
+                    <tr><th>连续在榜</th><td>4次</td></tr>
+                    <tr><th>总上榜次数</th><td>4次</td></tr>
+                    <tr><th>当日 Star 增加数</th><td>394 🚀</td></tr>
+                </table>
+                <div class="project-meta">
+                    <span><i class="fas fa-star"></i> 16.9k</span>
+                    <span><i class="fas fa-code-branch"></i> 1.2k</span>
+                    <span><i class="fas fa-eye"></i> 149</span>
+                    <span><i class="fas fa-exclamation-circle"></i> 13</span>
+                    <span><i class="fas fa-code-pull-request"></i> 0</span>
+                    <span><i class="fas fa-file-contract"></i> 未知</span>
+                    <span><i class="fas fa-users"></i> 2</span>
+                </div>
+                <p class="project-description fragment fade-in-up">
+                    <i class="fas fa-info-circle mr-2"></i><strong>项目速读:</strong> 基于科学研究的“人体系统调优不完全指南”，整合神经科学成果，指导人们通过调整生活方式优化健康和身心表现，提供有见地、可实践的路径。
+                </p>
+                <div class="growth-analysis fragment fade-in-up">
+                    <i class="fas fa-chart-line mr-2"></i><strong>增长分析：</strong> 4天内上榜4次，平均日增星640，总增1817，增长强劲，但今日增势趋缓。
+                </div>
+            </section>
+
+            <!-- datawhalechina/self-llm -->
+            <section class="project-slide">
+                <h3><i class="fas fa-book-open text-primary-color mr-2"></i>datawhalechina/self-llm</h3>
+                <table class="project-detail-table">
+                    <tr><th>仓库名称</th><td><a href="https://github.com/datawhalechina/self-llm" target="_blank">[datawhalechina/self-llm]</a></td></tr>
+                    <tr><th>开发语言</th><td>Jupyter Notebook</td></tr>
+                    <tr><th>Star 数</th><td>17164 ⭐</td></tr>
+                    <tr><th>连续在榜</th><td>2次</td></tr>
+                    <tr><th>总上榜次数</th><td>2次</td></tr>
+                    <tr><th>当日 Star 增加数</th><td>441 🚀</td></tr>
+                </table>
+                <div class="project-meta">
+                    <span><i class="fas fa-star"></i> 17.2k</span>
+                    <span><i class="fas fa-code-branch"></i> 1.8k</span>
+                    <span><i class="fas fa-eye"></i> 113</span>
+                    <span><i class="fas fa-exclamation-circle"></i> 135</span>
+                    <span><i class="fas fa-code-pull-request"></i> 2</span>
+                    <span><i class="fas fa-file-contract"></i> Apache-2.0</span>
+                    <span><i class="fas fa-users"></i> 62</span>
+                </div>
+                <p class="project-description fragment fade-in-up">
+                    <i class="fas fa-info-circle mr-2"></i><strong>项目速读:</strong> DatawhaleChina专为国内Linux用户打造的《开源大模型食用指南》。提供从环境配置、本地部署到高效微调的详细步骤，显著降低技术门槛，实践开源AI利器。
+                </p>
+                <div class="growth-analysis fragment fade-in-up">
+                    <i class="fas fa-chart-line mr-2"></i><strong>增长分析：</strong> 两天内上榜2次，平均每次增长约301星，最近一次新增441星，增长势头强劲且有加速趋势。
+                </div>
+            </section>
+
+            <!-- juspay/hyperswitch -->
+            <section class="project-slide">
+                <h3><i class="fas fa-credit-card text-primary-color mr-2"></i>juspay/hyperswitch</h3>
+                <table class="project-detail-table">
+                    <tr><th>仓库名称</th><td><a href="https://github.com/juspay/hyperswitch" target="_blank">[juspay/hyperswitch]</a></td></tr>
+                    <tr><th>开发语言</th><td>Rust</td></tr>
+                    <tr><th>Star 数</th><td>20586 ⭐</td></tr>
+                    <tr><th>连续在榜</th><td>1次</td></tr>
+                    <tr><th>总上榜次数</th><td>10次</td></tr>
+                    <tr><th>当日 Star 增加数</th><td>41 🚀</td></tr>
+                </table>
+                <div class="project-meta">
+                    <span><i class="fas fa-star"></i> 20.6k</span>
+                    <span><i class="fas fa-code-branch"></i> 3.4k</span>
+                    <span><i class="fas fa-eye"></i> 90</span>
+                    <span><i class="fas fa-exclamation-circle"></i> 642</span>
+                    <span><i class="fas fa-code-pull-request"></i> 263</span>
+                    <span><i class="fas fa-file-contract"></i> Apache-2.0</span>
+                    <span><i class="fas fa-users"></i> 228</span>
+                </div>
+                <p class="project-description fragment fade-in-up">
+                    <i class="fas fa-info-circle mr-2"></i><strong>项目速读:</strong> Rust编写的开源支付中枢，旨在解决企业支付复杂性、厂商锁定及高成本问题。提供高性能、灵活定制支付流程的能力，适用于需集成多支付渠道、追求效率的企业。
+                </p>
+                <div class="growth-analysis fragment fade-in-up">
+                    <i class="fas fa-chart-line mr-2"></i><strong>增长分析：</strong> 约2.5个月内总增长6415 Star。实际上榜10次，每次平均增317.8 Star，通过周期性高曝光实现显著爆发式增长。
+                </div>
+            </section>
+
+            <!-- OpenBMB/MiniCPM -->
+            <section class="project-slide">
+                <h3><i class="fas fa-mobile-alt text-primary-color mr-2"></i>OpenBMB/MiniCPM</h3>
+                <table class="project-detail-table">
+                    <tr><th>仓库名称</th><td><a href="https://github.com/OpenBMB/MiniCPM" target="_blank">[OpenBMB/MiniCPM]</a></td></tr>
+                    <tr><th>开发语言</th><td>Jupyter Notebook</td></tr>
+                    <tr><th>Star 数</th><td>7717 ⭐</td></tr>
+                    <tr><th>连续在榜</th><td>1次</td></tr>
+                    <tr><th>总上榜次数</th><td>1次</td></tr>
+                    <tr><th>当日 Star 增加数</th><td>146 🚀</td></tr>
+                </table>
+                <div class="project-meta">
+                    <span><i class="fas fa-star"></i> 7.7k</span>
+                    <span><i class="fas fa-code-branch"></i> 478</span>
+                    <span><i class="fas fa-eye"></i> 73</span>
+                    <span><i class="fas fa-exclamation-circle"></i> 9</span>
+                    <span><i class="fas fa-code-pull-request"></i> 0</span>
+                    <span><i class="fas fa-file-contract"></i> Apache-2.0</span>
+                    <span><i class="fas fa-users"></i> 33</span>
+                </div>
+                <p class="project-description fragment fade-in-up">
+                    <i class="fas fa-info-circle mr-2"></i><strong>项目速读:</strong> OpenBMB开源高效、紧凑型大语言模型，突破计算资源限制，让LLM在手机、电脑等端侧设备流畅运行。在典型芯片上实现数倍甚至5倍以上速度提升。
+                </p>
+            </section>
+
+            <!-- Aha Moment/Conclusion Slide -->
+            <section class="aha-moment-slide">
+                <h2><i class="fas fa-lightbulb mr-3"></i>你的“灵光一现”时刻！</h2>
+                <p class="fragment fade-in-up">
+                    大模型并非过时，而是进入了<strong class="text-accent-color">深耕应用、效率为王</strong>的新阶段！
+                </p>
+                <p class="fragment fade-in-up mt-4">
+                    真正的“内卷”不在于追逐模型本身，而在于：
+                </p>
+                <ul class="no-bullet icon-bullets fragment fade-in-up mt-4">
+                    <li><i class="fas fa-check-circle text-light mr-3"></i><strong class="text-secondary-color">深度落地：</strong> 将AI能力转化为解决实际痛点的利器。</li>
+                    <li><i class="fas fa-check-circle text-light mr-3"></i><strong class="text-secondary-color">效率突破：</strong> 端侧AI、高性能基础设施是未来。</li>
+                    <li><i class="fas fa-check-circle text-light mr-3"></i><strong class="text-secondary-color">知识赋能：</strong> 高质量知识整合，加速学习与创新。</li>
+                </ul>
+                <p class="fragment fade-in-up emoji">🎉</p>
+                <p class="fragment fade-in-up mt-4">
+                    这些“偷卷”的新方向，正是下一波技术浪潮的先行信号！
+                </p>
+            </section>
+
+            <!-- Final Slide: Thank You / Call to Action -->
+            <section class="cover-slide">
+                <h2 class="r-fit-text">感谢您的聆听与关注！</h2>
+                <p class="r-fit-text">让我们一同探索开源世界的无限可能</p>
+                <div class="mt-12 text-center">
+                    <p class="text-light">演讲者: <strong class="text-accent-color">AIChipEra</strong></p>
+                </div>
+                <div class="project-info">
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra WeChat QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        // Full list of configuration options available here:
+        // https://revealjs.com/config/
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+            
+            // Optional: Enable the 'hash' plugin to keep the URL in sync with the current slide
+            // plugins: [ RevealHash ],
+
+            // Learn about plugins: https://revealjs.com/plugins/
+            // Note: Reveal.js 4.3.0 does not include RevealMarkdown, RevealHighlight, RevealNotes by default.
+            // These would need to be loaded as separate script tags if markdown/highlighting is truly needed beyond basic HTML.
+            // For this output, we are using direct HTML, so these are not strictly necessary but are common.
+            // Removing them as they were not loaded in the provided dependencies (only core reveal.min.js).
+            // If they were intended, their respective CDN links for plugins would be required.
+            // Keeping `mermaid.min.js` as it was explicitly provided.
+        });
+
+        // Mermaid.js configuration
+        mermaid.initialize({ startOnLoad: true }); // Let mermaid handle diagrams on load
+    </script>
+</body>
+</html>
