@@ -1,0 +1,777 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大模型风向突变：RAG/Agent井喷，GitHub最热项目揭秘！</title>
+
+    <!-- 核心框架 Reveal.js -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Tailwind CSS (for utility classes, though custom CSS will be dominant) -->
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Mermaid (for diagrams, if any) -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #4A3FCF; /* Deep Purple */
+            --secondary-color: #7B68EE; /* Lighter Purple */
+            --accent-color: #FF5C5C; /* Vibrant Red */
+            --text-color-dark: #333333;
+            --text-color-light: #F8F8F8;
+            --bg-light: #F8F8F8;
+            --bg-gradient-start: #E0E7FF; /* Light Blue */
+            --bg-gradient-end: #D8F0FF; /* Lighter Blue */
+
+            /* Font Sizes */
+            --r-font-size-h1: 3.2rem;
+            --r-font-size-h2: 2.4rem;
+            --r-font-size-h3: 1.8rem;
+            --r-font-size-h4: 1.5rem;
+            --r-font-size-text: 1.15rem;
+            --r-font-size-small: 0.9rem;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback",
+                         "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--text-color-dark);
+            background: var(--bg-light);
+        }
+
+        .reveal .slides {
+            text-align: left;
+            padding: 0;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .reveal section {
+            padding: 2rem 5%; /* Adjust padding for content */
+            box-sizing: border-box;
+            background: var(--bg-light);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+            border-radius: 10px;
+            margin: 20px auto; /* Center the slide container */
+            max-width: 90%; /* Max width for content area */
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: 'Noto Serif SC', Georgia, "Times New Roman", Times, serif;
+            color: var(--primary-color);
+            text-shadow: none; /* Remove default text shadow */
+        }
+
+        .reveal h1 { font-size: var(--r-font-size-h1); margin-bottom: 0.5em; }
+        .reveal h2 { font-size: var(--r-font-size-h2); margin-top: 1em; margin-bottom: 0.5em; }
+        .reveal h3 { font-size: var(--r-font-size-h3); margin-top: 0.8em; margin-bottom: 0.4em; color: var(--secondary-color); }
+        .reveal h4 { font-size: var(--r-font-size-h4); margin-top: 0.6em; margin-bottom: 0.3em; color: var(--text-color-dark); }
+
+        .reveal p, .reveal li {
+            font-size: var(--r-font-size-text);
+            line-height: 1.6;
+            margin-bottom: 0.8em;
+        }
+
+        .reveal li {
+            margin-bottom: 0.5em;
+            list-style-type: disc;
+            margin-left: 1.5em;
+        }
+
+        .reveal .fragment {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal .fragment.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .reveal .controls {
+            z-index: 100;
+        }
+
+        .reveal .progress {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        .reveal .progress span {
+            background: var(--primary-color);
+            -webkit-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.96);
+            -moz-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.96);
+            -ms-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.96);
+            -o-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.96);
+            transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.96);
+        }
+
+        /* Cover Slide Specific Styles */
+        .slide-cover {
+            background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--text-color-dark);
+            height: 100vh; /* Full viewport height */
+            position: relative;
+        }
+        .slide-cover .title-box {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 3rem 4rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            max-width: 80%;
+        }
+        .slide-cover h1 {
+            color: var(--primary-color);
+            font-size: 3.8rem;
+            line-height: 1.2;
+            margin-bottom: 0.2em;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+        }
+        .slide-cover .subtitle {
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+            margin-top: 0.5em;
+            margin-bottom: 1.5em;
+        }
+        .slide-cover .speaker-info {
+            font-size: 1.2rem;
+            color: var(--text-color-dark);
+            margin-top: 2em;
+            font-weight: 500;
+        }
+        .slide-cover .disclaimer {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 1.5em;
+            opacity: 0.8;
+        }
+        .github-link-qr {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            z-index: 10;
+        }
+        .github-link-qr img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .github-link-qr a {
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .github-link-qr a:hover {
+            text-decoration: underline;
+        }
+
+        /* General Slide Backgrounds (subtle gradient) */
+        .reveal .slides section:not(.slide-cover):not(.final-slide) {
+            background: linear-gradient(180deg, var(--bg-light) 0%, rgba(255, 255, 255, 0.9) 100%);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        /* Project Detail Card */
+        .project-card {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+            border-radius: 10px;
+            padding: 1.5em;
+            background: #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-top: 1.5em;
+        }
+        .project-card .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1em;
+        }
+        .project-card .repo-name {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.6rem;
+            color: var(--primary-color);
+            margin: 0;
+        }
+        .project-card .tagline {
+            font-size: 1.1rem;
+            color: #666;
+            margin-top: 0.5em;
+        }
+        .project-card .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1em;
+            margin-bottom: 1em;
+        }
+        .project-card .stat-item {
+            background: #f0f4f8;
+            padding: 0.8em 1.2em;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: var(--text-color-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+        }
+        .project-card .stat-item i {
+            color: var(--secondary-color);
+        }
+        .project-card .description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        .project-card .aha-moment {
+            font-style: italic;
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-top: 1em;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 1em;
+        }
+        .project-card .lang-pie {
+            font-size: 0.9rem;
+            color: #777;
+            margin-top: 1em;
+        }
+        .project-card .growth-analysis {
+            font-size: 0.95rem;
+            color: #555;
+            margin-top: 1em;
+            border-top: 1px dashed #eee;
+            padding-top: 1em;
+        }
+
+        /* Aha Moment Callout */
+        .aha-callout {
+            background: linear-gradient(45deg, #FFEFD5, #FFF5E1); /* Soft orange/yellow gradient */
+            border-left: 8px solid var(--accent-color);
+            padding: 1.5em 2em;
+            margin: 2em 0;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-color-dark);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .aha-callout i {
+            color: var(--accent-color);
+            margin-right: 0.8em;
+        }
+        .reveal .slides section p.caption {
+            font-size: var(--r-font-size-small);
+            color: #777;
+            text-align: center;
+            margin-top: 1em;
+        }
+        /* List styling for project overviews */
+        .project-overview-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8em;
+        }
+        .project-overview-list li i {
+            font-size: 1.2em;
+            margin-right: 0.8em;
+            color: var(--primary-color);
+        }
+
+        /* Final Slide */
+        .final-slide {
+            background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--text-color-dark);
+            height: 100vh;
+            position: relative;
+        }
+        .final-slide h2 {
+            color: var(--primary-color);
+            font-size: 3rem;
+            margin-bottom: 1em;
+        }
+        .final-slide p {
+            font-size: 1.5rem;
+            margin-bottom: 1.5em;
+            color: var(--text-color-dark);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover Page -->
+            <section class="slide-cover">
+                <div class="title-box">
+                    <h1>大模型风向突变：<br>RAG/Agent井喷，GitHub最热项目揭秘！</h1>
+                    <p class="subtitle">AI应用落地时代已来！</p>
+                    <p class="disclaimer">
+                        Github热门仓库日报观测时间为 **2025-06-13 20:26:15**<br>
+                        <span style="color: #FF5C5C; font-weight: bold;">以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</span>
+                    </p>
+                    <p class="speaker-info">演讲者：AIChipEra</p>
+                </div>
+                <div class="github-link-qr">
+                    <img src="../../asserts/wx.jpg" alt="微信二维码" class="object-cover">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+            <!-- Slide 2: 今日核心洞察：风向已变！ (Aha Moment Intro) -->
+            <section data-background-color="#f0f4f8">
+                <h2><i class="fa-solid fa-lightbulb text-accent-color mr-3"></i> 今日核心洞察：风向已变！</h2>
+                <p class="aha-callout fragment fade-in" data-fragment-index="1">
+                    <i class="fa-solid fa-bolt-lightning"></i> 还在讨论大模型概念？<br>
+                    <span class="font-bold text-primary-color">全球开发者已经在GitHub上卷起来了！</span>
+                </p>
+                <ul class="list-disc ml-8 text-xl">
+                    <li class="fragment fade-in" data-fragment-index="2">大模型：从“概念”到“<span class="font-bold text-secondary-color">构建真正有用的应用</span>”</li>
+                    <li class="fragment fade-in" data-fragment-index="3">关键领域：<span class="font-bold text-accent-color">RAG、AI Agent 彻底爆发</span>，引领新趋势！</li>
+                    <li class="fragment fade-in" data-fragment-index="4">语言霸主：<span class="font-bold text-primary-color">Python 持续领跑</span> AI 开发！</li>
+                </ul>
+                <p class="text-lg text-gray-600 mt-8 fragment fade-in" data-fragment-index="5">
+                    这份解读带你洞悉最前沿的AI开发需求和下一波技术热点，不看你就Out了！
+                </p>
+            </section>
+
+            <!-- Slide 3: 技术趋势速览：LLM应用生态狂飙 -->
+            <section>
+                <h2><i class="fa-solid fa-chart-line text-secondary-color mr-3"></i> 技术趋势速览：LLM应用生态狂飙</h2>
+                <h3><i class="fa-solid fa-cube text-primary-color mr-2"></i> 最受瞩目的技术领域</h3>
+                <ul class="list-disc ml-8 text-xl">
+                    <li class="fragment fade-in">围绕LLM的<span class="font-bold text-primary-color">应用开发</span>、<span class="font-bold text-primary-color">检索增强生成 (RAG)</span> 和 <span class="font-bold text-primary-color">AI智能体 (AI Agent)</span>。</li>
+                    <li class="fragment fade-in">关键词：<span class="font-bold text-accent-color">落地、解决实际问题</span>。</li>
+                </ul>
+                <h3 class="mt-8"><i class="fa-solid fa-wrench text-secondary-color mr-2"></i> 核心焦点项目示例</h3>
+                <ul class="list-disc ml-8 text-xl">
+                    <li class="fragment fade-in"><code class="text-primary-color">awesome-llm-apps</code>: LLM应用精选集</li>
+                    <li class="fragment fade-in"><code class="text-primary-color">all-rag-techniques</code>: 简化RAG技术实现</li>
+                    <li class="fragment fade-in"><code class="text-primary-color">ai-agents-for-beginners</code>: AI Agent入门教程</li>
+                </ul>
+                <p class="text-lg text-gray-600 mt-8 fragment fade-in">
+                    同时，对LLM本身的<span class="font-bold">部署、微调和评估</span>（如 <code class="text-primary-color">self-llm</code>, <code class="text-primary-color">deepeval</code>）也是热门焦点。
+                </p>
+            </section>
+
+            <!-- Slide 4: 语言统治力：Python 为什么是 AI 首选？ -->
+            <section>
+                <h2><i class="fa-solid fa-code text-primary-color mr-3"></i> 语言统治力：Python 为什么是 AI 首选？</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                    <div class="fragment fade-in">
+                        <h3><i class="fa-brands fa-python text-secondary-color mr-2"></i> Python 绝对主导</h3>
+                        <p class="text-xl">在所有与LLM、AI Agent和RAG相关的项目中，<span class="font-bold text-primary-color">Python占据了绝对的主导地位</span>。</p>
+                        <ul class="list-disc ml-8 text-lg">
+                            <li>丰富的库和框架：TensorFlow, PyTorch, Hugging Face等。</li>
+                            <li>简洁易读：快速原型开发和迭代。</li>
+                            <li>庞大的社区支持。</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h3><i class="fa-solid fa-book-open text-secondary-color mr-2"></i> Jupyter Notebook 的流行</h3>
+                        <p class="text-xl">高频出现，表明<span class="font-bold text-primary-color">互动式、示例驱动的学习和分享方式</span>在技术社区中的流行，尤其适合教程和概念验证项目。</p>
+                        <h3 class="mt-4"><i class="fa-solid fa-puzzle-piece text-secondary-color mr-2"></i> 其他语言</h3>
+                        <p class="text-xl">TypeScript和Rust等语言也出现在特定领域的创新项目中，展示了它们在Web前端、复杂应用和系统编程中的价值。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5: LLM应用需求痛点与机遇 (Vertical) -->
+            <section>
+                <h2><i class="fa-solid fa-lightbulb text-accent-color mr-3"></i> LLM应用需求痛点与机遇</h2>
+                <section>
+                    <h3><i class="fa-solid fa-hand-point-right text-primary-color mr-2"></i> 痛点1：LLM应用落地能力</h3>
+                    <p class="text-xl fragment fade-in">如何用LLM结合Agent和RAG构建<span class="font-bold text-secondary-color">真正有用的应用</span>，解决实际问题？</p>
+                    <p class="text-xl fragment fade-in"><i class="fa-solid fa-check text-green-500 mr-2"></i> 需求：从理论到实践，实现生产级应用。</p>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-hand-point-right text-primary-color mr-2"></i> 痛点2：开源模型的易用性</h3>
+                    <p class="text-xl fragment fade-in">降低部署和微调开源大模型的门槛，特别是在<span class="font-bold text-secondary-color">本地或特定环境中</span>。</p>
+                    <p class="text-xl fragment fade-in"><i class="fa-solid fa-check text-green-500 mr-2"></i> 需求：简化配置、高效训练、降低资源消耗。</p>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-hand-point-right text-primary-color mr-2"></i> 痛点3：AI系统可靠性与评估</h3>
+                    <p class="text-xl fragment fade-in">随着LLM应用复杂化，如何有效地测试和评估其性能、<span class="font-bold text-secondary-color">减少“幻觉”</span>等问题成为关键。</p>
+                    <p class="text-xl fragment fade-in"><i class="fa-solid fa-check text-green-500 mr-2"></i> 需求：可靠的评估框架与方法。</p>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-hand-point-right text-primary-color mr-2"></i> 痛点4：技术学习与实践资源</h3>
+                    <p class="text-xl fragment fade-in">系统性的教程、精选列表和简化的实现方式是开发者快速入门和深入理解的宝库。</p>
+                    <p class="text-xl fragment fade-in"><i class="fa-solid fa-check text-green-500 mr-2"></i> 需求：高质量、易懂的教程与示例。</p>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-hand-point-right text-primary-color mr-2"></i> 机遇：多模态和跨领域应用</h3>
+                    <p class="text-xl fragment fade-in">将AI能力扩展到文本之外（如多模态）或应用于特定行业（如AI金融的概念性探索）。</p>
+                    <p class="text-xl fragment fade-in"><i class="fa-solid fa-check text-green-500 mr-2"></i> 需求：探索AI+X的无限可能。</p>
+                </section>
+            </section>
+
+            <!-- Slide 6: AI 下一波浪潮：深度与广度 (Vertical) -->
+            <section>
+                <h2><i class="fa-solid fa-wave-square text-accent-color mr-3"></i> AI 下一波浪潮：深度与广度</h2>
+                <p class="aha-callout fragment fade-in" data-fragment-index="1">
+                    <i class="fa-solid fa-arrow-right-long"></i> 焦点正从“大模型本身”转向“<span class="font-bold text-primary-color">如何用大模型构建东西</span>”！
+                </p>
+                <section>
+                    <h3><i class="fa-solid fa-arrow-up-right-dots text-primary-color mr-2"></i> 预测1：更复杂、更实用的Agentic工作流</h3>
+                    <p class="text-xl fragment fade-in">Agent之间的协作、任务分解和自主决策能力将进一步提升，<span class="font-bold text-secondary-color">实现更智能的自动化</span>。</p>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-database text-primary-color mr-2"></i> 预测2：RAG技术的深度优化与创新</h3>
+                    <p class="text-xl fragment fade-in">结合更多高级技术，如<span class="font-bold text-secondary-color">混合搜索、知识图谱</span>，以及针对特定领域数据的RAG。</p>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-globe text-primary-color mr-2"></i> 预测3：LLM应用的横向扩展</h3>
+                    <p class="text-xl fragment fade-in">AI能力将被更广泛地集成到各种传统软件和新形态应用中（如<span class="font-bold text-secondary-color">Web 3D与AI的结合</span>）。</p>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-dollar-sign text-primary-color mr-2"></i> 预测4：成本效益与部署效率</h3>
+                    <p class="text-xl fragment fade-in">优化开源模型在消费级硬件或边缘设备的运行效率和微调成本，<span class="font-bold text-secondary-color">实现AI普惠化</span>。</p>
+                </section>
+            </section>
+
+            <!-- Slide 7: 今日热点：普惠化与易用性 -->
+            <section>
+                <h2><i class="fa-solid fa-people-arrows text-secondary-color mr-3"></i> 今日特有趋势：普惠化与本地化</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                    <div class="fragment fade-in">
+                        <h3><i class="fa-solid fa-rocket text-primary-color mr-2"></i> 实用性与可及性</h3>
+                        <ul class="list-disc ml-8 text-xl">
+                            <li>面向<span class="font-bold">初学者的Agent课程</span>。</li>
+                            <li>简化<span class="font-bold">RAG实现的教程</span>。</li>
+                            <li>无需API密钥的实用工具。</li>
+                        </ul>
+                        <p class="mt-4">体现了将前沿技术<span class="font-bold text-accent-color">普惠化</span>、降低学习和使用门槛的努力。</p>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h3><i class="fa-solid fa-map-location-dot text-primary-color mr-2"></i> 本地化与精细化</h3>
+                        <ul class="list-disc ml-8 text-xl">
+                            <li>面向特定用户群体（如国内开发者使用开源模型）的<span class="font-bold">定制化内容</span>获得高度认可。</li>
+                        </ul>
+                        <p class="mt-4">反映了技术传播的<span class="font-bold text-accent-color">本地化和精细化趋势</span>。</p>
+                    </div>
+                </div>
+                <p class="aha-callout mt-12 fragment fade-in">
+                    <i class="fa-solid fa-bullseye"></i> 总之：今日榜单强调<span class="font-bold text-accent-color">实践、易用性、解决实际问题</span>的价值！
+                </p>
+            </section>
+
+            <!-- Slide 8: 榜单动态：稳定中的增长 -->
+            <section>
+                <h2><i class="fa-solid fa-arrow-up-right-from-square text-primary-color mr-3"></i> 热门项目双日维度对比分析</h2>
+                <ul class="list-disc ml-8 text-xl">
+                    <li class="fragment fade-in"><span class="font-bold text-secondary-color">稳定态势：</span>与昨日相比，没有新项目晋升，也没有项目跌出榜单。</li>
+                    <li class="fragment fade-in"><span class="font-bold text-secondary-color">热度上升：</span>共有 <span class="font-bold text-accent-color">10 个项目</span>呈现增长趋势。</li>
+                    <li class="fragment fade-in"><span class="font-bold text-secondary-color">焦点不变：</span>最值得关注的是热度涨幅最大的几个项目，<span class="font-bold text-primary-color">AI/LLM 领域</span>继续主导热度增长。</li>
+                    <li class="fragment fade-in"><span class="font-bold text-secondary-color">多样性亮点：</span>3D 领域项目 <code class="text-primary-color">chili3d</code> 涨幅显著，显示技术探索多样性。</li>
+                </ul>
+            </section>
+
+            <!-- Slide 9: 持续热门项目速览 (列表) -->
+            <section>
+                <h2><i class="fa-solid fa-fire text-accent-color mr-3"></i> 持续热门项目速览</h2>
+                <p class="text-lg text-gray-600 mb-6 fragment fade-in">这些项目在近期持续保持高热度，是领域内的重要风向标。</p>
+                <ul class="list-none project-overview-list grid grid-cols-1 md:grid-cols-2 gap-y-4">
+                    <li class="fragment fade-in"><i class="fa-solid fa-star"></i> <span class="font-bold">Shubhamsaboo/awesome-llm-apps</span> <span class="text-sm text-gray-500">(3次上榜)</span></li>
+                    <li class="fragment fade-in"><i class="fa-solid fa-star"></i> <span class="font-bold">sindresorhus/awesome</span> <span class="text-sm text-gray-500">(3次上榜)</span></li>
+                    <li class="fragment fade-in"><i class="fa-solid fa-star"></i> <span class="font-bold">datawhalechina/self-llm</span> <span class="text-sm text-gray-500">(4次上榜)</span></li>
+                    <li class="fragment fade-in"><i class="fa-solid fa-star"></i> <span class="font-bold">jdepoix/youtube-transcript-api</span> <span class="text-sm text-gray-500">(3次上榜)</span></li>
+                    <li class="fragment fade-in"><i class="fa-solid fa-star"></i> <span class="font-bold">microsoft/ai-agents-for-beginners</span> <span class="text-sm text-gray-500">(16次上榜)</span></li>
+                    <li class="fragment fade-in"><i class="fa-solid fa-star"></i> <span class="font-bold">confident-ai/deepeval</span> <span class="text-sm text-gray-500">(2次上榜)</span></li>
+                    <li class="fragment fade-in"><i class="fa-solid fa-star"></i> <span class="font-bold">YaLTeR/niri</span> <span class="text-sm text-gray-500">(5次上榜)</span></li>
+                    <li class="fragment fade-in"><i class="fa-solid fa-star"></i> <span class="font-bold">FareedKhan-dev/all-rag-techniques</span> <span class="text-sm text-gray-500">(2次上榜)</span></li>
+                    <li class="fragment fade-in"><i class="fa-solid fa-star"></i> <span class="font-bold">virattt/ai-hedge-fund</span> <span class="text-sm text-gray-500">(18次上榜)</span></li>
+                </ul>
+                <p class="caption mt-8 fragment fade-in">
+                    <i class="fa-solid fa-info-circle"></i> 括号内为近三个月上榜次数，显示项目持续热门度。
+                </p>
+            </section>
+
+            <!-- Detailed Project Slides -->
+
+            <!-- Project 1: Shubhamsaboo/awesome-llm-apps -->
+            <section>
+                <h2><i class="fa-solid fa-rocket text-primary-color mr-3"></i> 项目亮点：<span class="text-secondary-color">awesome-llm-apps</span></h2>
+                <div class="project-card">
+                    <p class="tagline">精选的优秀大语言模型应用集合，集成了 AI Agent 和 RAG。</p>
+                    <div class="stats-grid">
+                        <div class="stat-item"><i class="fa-solid fa-code"></i> Python 99.4%</div>
+                        <div class="stat-item"><i class="fa-solid fa-star"></i> 38062 Stars</div>
+                        <div class="stat-item"><i class="fa-solid fa-arrow-up"></i> +2177 Stars (当日)</div>
+                        <div class="stat-item"><i class="fa-solid fa-chart-line"></i> 16次上榜 (总)</div>
+                    </div>
+                    <p class="description">
+                        旨在解决LLM应用开发中学习资源分散的问题，提供一个实践宝库。
+                        涵盖OpenAI、Anthropic、Google等主流模型，更收录了许多<span class="font-bold text-primary-color">基于开源模型且支持本地运行</span>的应用。
+                        深入展示了从简单代理到复杂多代理协作、Agentic RAG、CRAG等多种技术实现。
+                    </p>
+                    <p class="aha-moment fragment fade-in">
+                        <i class="fa-solid fa-lightbulb"></i> Aha Moment: <span class="font-bold text-accent-color">一站式LLM应用开发实践宝库！</span>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Project 2: sindresorhus/awesome -->
+            <section>
+                <h2><i class="fa-solid fa-book-open text-primary-color mr-3"></i> 项目亮点：<span class="text-secondary-color">sindresorhus/awesome</span></h2>
+                <div class="project-card">
+                    <p class="tagline">关于各种有趣主题的 Awesome 列表的中心枢纽。</p>
+                    <div class="stats-grid">
+                        <div class="stat-item"><i class="fa-solid fa-star"></i> 367165 Stars</div>
+                        <div class="stat-item"><i class="fa-solid fa-arrow-up"></i> +673 Stars (当日)</div>
+                        <div class="stat-item"><i class="fa-solid fa-chart-line"></i> 3次上榜 (总)</div>
+                    </div>
+                    <p class="description">
+                        并非一个软件项目，而是一个精心组织的文档索引。汇集了覆盖编程语言、开发框架、计算机科学乃至硬件、商业、艺术等几乎所有有趣主题的外部“Awesome”列表。
+                        旨在解决在海量信息中快速发现高质量资源的难题。
+                    </p>
+                    <p class="aha-moment fragment fade-in">
+                        <i class="fa-solid fa-lightbulb"></i> Aha Moment: <span class="font-bold text-accent-color">寻找任何领域“最佳实践”的首选！</span>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Project 3: xiangechen/chili3d -->
+            <section>
+                <h2><i class="fa-solid fa-cube text-primary-color mr-3"></i> 项目亮点：<span class="text-secondary-color">chili3d</span></h2>
+                <div class="project-card">
+                    <p class="tagline">用于在线模型设计和编辑的基于Web的3D CAD应用。</p>
+                    <div class="stats-grid">
+                        <div class="stat-item"><i class="fa-solid fa-code"></i> TypeScript 70.6%</div>
+                        <div class="stat-item"><i class="fa-solid fa-star"></i> 2012 Stars</div>
+                        <div class="stat-item"><i class="fa-solid fa-arrow-up"></i> +685 Stars (当日)</div>
+                        <div class="stat-item"><i class="fa-solid fa-chart-line"></i> 2次上榜 (总)</div>
+                    </div>
+                    <p class="description">
+                        通过利用WebAssembly技术在客户端运行OpenCascade几何建模引擎，结合Three.js实现高性能渲染。
+                        使用户无需安装任何软件，即可在网页上进行专业的三维模型设计和编辑。
+                        打破了桌面CAD的限制，让复杂的三维建模变得更加触手可及。
+                    </p>
+                    <p class="aha-moment fragment fade-in">
+                        <i class="fa-solid fa-lightbulb"></i> Aha Moment: <span class="font-bold text-accent-color">桌面CAD能力，现在网页上就能用！</span>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Project 4: datawhalechina/self-llm -->
+            <section>
+                <h2><i class="fa-solid fa-graduation-cap text-primary-color mr-3"></i> 项目亮点：<span class="text-secondary-color">self-llm</span></h2>
+                <div class="project-card">
+                    <p class="tagline">《开源大模型食用指南》针对中国宝宝量身打造，快速微调、部署国内外开源大模型教程。</p>
+                    <div class="stats-grid">
+                        <div class="stat-item"><i class="fa-solid fa-code"></i> Jupyter Notebook 90.9%</div>
+                        <div class="stat-item"><i class="fa-solid fa-star"></i> 17944 Stars</div>
+                        <div class="stat-item"><i class="fa-solid fa-arrow-up"></i> +380 Stars (当日)</div>
+                        <div class="stat-item"><i class="fa-solid fa-chart-line"></i> 4次上榜 (总)</div>
+                    </div>
+                    <p class="description">
+                        专为国内用户和Linux环境量身打造的实操教程，旨在解决开源大模型部署和微调门槛高的问题。
+                        手把手教你如何在本地环境快速搭建、使用和高效微调国内外主流开源大模型（LLM和MLLM）。
+                        实用性强，是国内AI爱好者和开发者快速上手开源大模型的宝贵资源。
+                    </p>
+                    <p class="aha-moment fragment fade-in">
+                        <i class="fa-solid fa-lightbulb"></i> Aha Moment: <span class="font-bold text-accent-color">解决国内开源大模型实践痛点，手把手教学！</span>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Project 5: jdepoix/youtube-transcript-api -->
+            <section>
+                <h2><i class="fa-brands fa-youtube text-primary-color mr-3"></i> 项目亮点：<span class="text-secondary-color">youtube-transcript-api</span></h2>
+                <div class="project-card">
+                    <p class="tagline">Python API，无需API密钥或无头浏览器，获取YouTube视频文字稿/字幕。</p>
+                    <div class="stats-grid">
+                        <div class="stat-item"><i class="fa-solid fa-code"></i> Python 100%</div>
+                        <div class="stat-item"><i class="fa-solid fa-star"></i> 4603 Stars</div>
+                        <div class="stat-item"><i class="fa-solid fa-arrow-up"></i> +239 Stars (当日)</div>
+                        <div class="stat-item"><i class="fa-solid fa-chart-line"></i> 3次上榜 (总)</div>
+                    </div>
+                    <p class="description">
+                        一个强大的Python库，专门用于轻松抓取任何YouTube视频的字幕和文本。
+                        无需申请API密钥，更不需要启动复杂的无头浏览器（如Selenium）。
+                        比许多同类方案更高效、更轻便，显著提升工作效率。
+                    </p>
+                    <p class="aha-moment fragment fade-in">
+                        <i class="fa-solid fa-lightbulb"></i> Aha Moment: <span class="font-bold text-accent-color">史上最简洁的YouTube文本提取神器！</span>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Project 6: microsoft/ai-agents-for-beginners -->
+            <section>
+                <h2><i class="fa-brands fa-microsoft text-primary-color mr-3"></i> 项目亮点：<span class="text-secondary-color">ai-agents-for-beginners</span></h2>
+                <div class="project-card">
+                    <p class="tagline">微软开源的AI智能体构建入门11讲。</p>
+                    <div class="stats-grid">
+                        <div class="stat-item"><i class="fa-solid fa-code"></i> Jupyter Notebook 94%</div>
+                        <div class="stat-item"><i class="fa-solid fa-star"></i> 25966 Stars</div>
+                        <div class="stat-item"><i class="fa-solid fa-arrow-up"></i> +480 Stars (当日)</div>
+                        <div class="stat-item"><i class="fa-solid fa-chart-line"></i> 16次上榜 (总)</div>
+                    </div>
+                    <p class="description">
+                        通过11节结构清晰的实践课，帮助新手快速掌握使用Semantic Kernel、AutoGen等主流框架开发AI Agent的核心技术。
+                        <span class="font-bold text-primary-color">提供自动维护的多语言版本，包含高质量的简体、繁体及香港中文翻译</span>，确保内容与英文同步更新，极大地降低了中文用户的学习门槛。
+                    </p>
+                    <p class="aha-moment fragment fade-in">
+                        <i class="fa-solid fa-lightbulb"></i> Aha Moment: <span class="font-bold text-accent-color">微软官方AI Agent中文教程，学习无障碍！</span>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Project 7: confident-ai/deepeval -->
+            <section>
+                <h2><i class="fa-solid fa-chart-simple text-primary-color mr-3"></i> 项目亮点：<span class="text-secondary-color">deepeval</span></h2>
+                <div class="project-card">
+                    <p class="tagline">大语言模型评估框架。</p>
+                    <div class="stats-grid">
+                        <div class="stat-item"><i class="fa-solid fa-code"></i> Python 100%</div>
+                        <div class="stat-item"><i class="fa-solid fa-star"></i> 7618 Stars</div>
+                        <div class="stat-item"><i class="fa-solid fa-arrow-up"></i> +331 Stars (当日)</div>
+                        <div class="stat-item"><i class="fa-solid fa-chart-line"></i> 2次上榜 (总)</div>
+                    </div>
+                    <p class="description">
+                        一个开源的LLM评估框架，为大型语言模型应用（如RAG、聊天机器人）提供<span class="font-bold text-primary-color">类似Pytest的单元测试能力</span>。
+                        内置丰富的评估指标（如幻觉、答案关联度等），支持端到端测试、自定义指标和合成数据生成。
+                        帮助开发者量化、优化和验证LLM系统性能，确保数据隐私。
+                    </p>
+                    <p class="aha-moment fragment fade-in">
+                        <i class="fa-solid fa-lightbulb"></i> Aha Moment: <span class="font-bold text-accent-color">让你的LLM应用像传统代码一样可测试！</span>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Project 8: YaLTeR/niri -->
+            <section>
+                <h2><i class="fa-solid fa-window-restore text-primary-color mr-3"></i> 项目亮点：<span class="text-secondary-color">niri</span></h2>
+                <div class="project-card">
+                    <p class="tagline">可滚动平铺 Wayland 合成器。</p>
+                    <div class="stats-grid">
+                        <div class="stat-item"><i class="fa-solid fa-code"></i> Rust 98.1%</div>
+                        <div class="stat-item"><i class="fa-solid fa-star"></i> 8324 Stars</div>
+                        <div class="stat-item"><i class="fa-solid fa-arrow-up"></i> +146 Stars (当日)</div>
+                        <div class="stat-item"><i class="fa-solid fa-chart-line"></i> 5次上榜 (总)</div>
+                    </div>
+                    <p class="description">
+                        专为Wayland设计的窗口合成器，其核心创新在于提供一种独特的<span class="font-bold text-primary-color">“可滚动平铺”窗口管理体验</span>。
+                        将窗口按列排布在可无限横向滚动的条带上，新窗口加入时不会改变现有窗口的大小，极大提升了管理大量窗口的效率。
+                        适用于追求高效多窗口管理、喜欢平铺布局但又希望摆脱固定尺寸限制的用户。
+                    </p>
+                    <p class="aha-moment fragment fade-in">
+                        <i class="fa-solid fa-lightbulb"></i> Aha Moment: <span class="font-bold text-accent-color">告别传统平铺，开启无限滚动窗口新视界！</span>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Project 9: FareedKhan-dev/all-rag-techniques -->
+            <section>
+                <h2><i class="fa-solid fa-microchip text-primary-color mr-3"></i> 项目亮点：<span class="text-secondary-color">all-rag-techniques</span></h2>
+                <div class="project-card">
+                    <p class="tagline">所有 RAG 技术的简化实现。</p>
+                    <div class="stats-grid">
+                        <div class="stat-item"><i class="fa-solid fa-code"></i> Jupyter Notebook 100%</div>
+                        <div class="stat-item"><i class="fa-solid fa-star"></i> 3475 Stars</div>
+                        <div class="stat-item"><i class="fa-solid fa-arrow-up"></i> +973 Stars (当日)</div>
+                        <div class="stat-item"><i class="fa-solid fa-chart-line"></i> 2次上榜 (总)</div>
+                    </div>
+                    <p class="description">
+                        旨在用最简单直接的方式，带你从零实现各种检索增强生成（RAG）技术。
+                        摒弃了复杂的框架，纯粹使用基础Python库，通过一系列精心设计的Jupyter Notebooks，手把手展示了<span class="font-bold text-primary-color">超过20种RAG变体</span>的原理和代码。
+                        对于希望深入掌握RAG底层原理、摆脱框架束缚的学习者和开发者来说，是极具价值的实战宝库。
+                    </p>
+                    <p class="aha-moment fragment fade-in">
+                        <i class="fa-solid fa-lightbulb"></i> Aha Moment: <span class="font-bold text-accent-color">RAG技术原理，再无框架之谜，从零手撸！</span>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Project 10: virattt/ai-hedge-fund -->
+            <section>
+                <h2><i class="fa-solid fa-dollar-sign text-primary-color mr-3"></i> 项目亮点：<span class="text-secondary-color">ai-hedge-fund</span></h2>
+                <div class="project-card">
+                    <p class="tagline">人工智能对冲基金团队（概念验证项目）。</p>
+                    <div class="stats-grid">
+                        <div class="stat-item"><i class="fa-solid fa-code"></i> Python 68.3%</div>
+                        <div class="stat-item"><i class="fa-solid fa-star"></i> 35988 Stars</div>
+                        <div class="stat-item"><i class="fa-solid fa-arrow-up"></i> +248 Stars (当日)</div>
+                        <div class="stat-item"><i class="fa-solid fa-chart-line"></i> 18次上榜 (总)</div>
+                    </div>
+                    <p class="description">
+                        探索利用人工智能进行股票交易决策的概念验证项目，模拟了一个由<span class="font-bold text-primary-color">多个AI智能体组成的对冲基金团队</span>。
+                        每个智能体模仿不同的投资大师策略或专注于特定的金融分析维度，共同协作生成投资建议。
+                        <p class="text-lg text-accent-color font-bold mt-4">
+                            <i class="fa-solid fa-triangle-exclamation"></i> 警告：本项目严格仅用于学习和模拟，绝不应用于实际交易，不提供任何投资建议，使用者需自行承担所有风险。
+                        </p>
+                    </p>
+                    <p class="aha-moment fragment fade-in">
+                        <i class="fa-solid fa-lightbulb"></i> Aha Moment: <span class="font-bold text-accent-color">用AI模拟金融“天团”，探索智能投资新可能！</span>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Final Slide: 总结与展望 -->
+            <section class="final-slide">
+                <h2><i class="fa-solid fa-face-smile-wink text-accent-color mr-3"></i> 感谢聆听！</h2>
+                <p>AI应用的落地与实践，正以前所未有的速度改变世界。</p>
+                <p>保持好奇，持续学习，与我们一同探索未来！</p>
+                <div class="github-link-qr">
+                    <img src="../../asserts/wx.jpg" alt="微信二维码" class="object-cover">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        // Full list of configuration options available at:
+        // https://revealjs.com/config/
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            hash: true,
+            center: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+            history: true,
+            fragments: true, // Enable fragments for step-by-step content reveal
+
+            // Learn about plugins: https://revealjs.com/plugins/
+            plugins: [ ]
+        });
+
+        // Initialize Mermaid for diagrams
+        mermaid.initialize({ startOnLoad: false });
+        Reveal.on('slidechanged', event => {
+            // Check if there are any mermaid diagrams on the current slide
+            const mermaidElements = event.currentSlide.querySelectorAll('.mermaid');
+            mermaidElements.forEach(el => {
+                mermaid.init(undefined, el);
+            });
+        });
+    </script>
+</body>
+</html>
