@@ -1,0 +1,543 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>让大模型告别幻觉、学会思考！这两种技术正在引爆AI圈</title>
+
+    <!-- Core framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- Extended dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        :root {
+            --r-background-color: #f8f8f8; /* Light background for white theme */
+            --r-main-font-size: 1.2rem;
+            --r-heading1-font-size: 3rem;
+            --r-heading2-font-size: 2.5rem;
+            --r-heading3-font-size: 2rem;
+            --r-heading4-font-size: 1.8rem;
+            --r-heading5-font-size: 1.6rem;
+            --r-heading6-font-size: 1.4rem;
+            --r-link-color: #007bff; /* Blue for links */
+            --r-link-color-hover: #0056b3;
+            --r-selection-background-color: #9cdbff;
+            --r-main-color: #333; /* Main text color */
+        }
+
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback",
+            "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--r-main-color);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', 'Times New Roman', Times, 'Source Han Serif SC', serif;
+            color: #2c3e50; /* Darker heading color */
+        }
+
+        .reveal .slides section .fragment {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        .reveal .slides section .fragment.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+
+        .reveal .controls button {
+            color: var(--r-link-color);
+        }
+
+        .reveal .progress span {
+            background: var(--r-link-color);
+        }
+
+        .reveal section.has-dark-background {
+            color: #fff;
+        }
+
+        .reveal section.has-dark-background h1,
+        .reveal section.has-dark-background h2,
+        .reveal section.has-dark-background h3,
+        .reveal section.has-dark-background h4,
+        .reveal section.has-dark-background h5,
+        .reveal section.has-dark-background h6 {
+            color: #fff;
+        }
+
+        /* Custom styles for gradients and visual effects */
+        .gradient-bg {
+            background: linear-gradient(135deg, #6a85b6 0%, #bac8e0 100%);
+            color: white;
+        }
+
+        .reveal .controls {
+            z-index: 100; /* Ensure controls are above other elements */
+        }
+
+        .footer-info {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.8rem;
+            color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 99; /* Below controls */
+        }
+
+        .footer-info img {
+            height: 40px;
+            width: 40px;
+        }
+
+        .logo-small {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            height: 40px; /* Adjust as needed */
+        }
+
+        /* Project card styles */
+        .project-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: left;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #34495e;
+        }
+
+        .project-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .project-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .project-stats div {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .project-stats i {
+            color: #007bff;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .highlight-text {
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .icon-text {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .icon-text i {
+            font-size: 1.5em;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+
+        <!-- Slide 1: Cover Page -->
+        <section class="gradient-bg" data-background-image="https://images.unsplash.com/photo-1510519138101-570d1dca3d66?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-background-blend-mode="multiply" data-background-opacity="0.7">
+            <h1 class="text-white text-5xl mb-4 leading-tight">让大模型告别幻觉、学会思考！</h1>
+            <h2 class="text-white text-3xl mb-8">这两种技术正在引爆AI圈</h2>
+            <p class="text-white text-lg">GitHub热门仓库日报观测 | 2025-06-17</p>
+            <div class="absolute bottom-8 right-8 text-white text-sm">
+                <p>演讲者：AIChipEra</p>
+            </div>
+            <div class="footer-info text-white">
+                <img src="../../asserts/wx.jpg" alt="QR Code" class="w-10 h-10 rounded-lg shadow-md"/>
+                <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-white hover:underline text-lg">
+                    github.com/aichipera/github-trend
+                </a>
+            </div>
+        </section>
+
+        <!-- Slide 2: Aha Moment - Core Problem & Solution -->
+        <section>
+            <h2 class="text-4xl text-center mb-12">大模型“落地”的黄金机遇：</h2>
+            <div class="grid grid-cols-2 gap-8 items-center text-center">
+                <div class="flex flex-col items-center justify-center p-6 border rounded-lg shadow-lg bg-white">
+                    <i class="fas fa-brain text-6xl text-blue-500 mb-4"></i>
+                    <h3 class="text-3xl font-bold mb-3">告别幻觉，获取真相！</h3>
+                    <p class="text-xl text-gray-700">突破大模型知识边界，实现<span class="highlight-text">精准信息检索</span></p>
+                    <p class="text-2xl mt-4 font-semibold text-blue-600">(RAG: 检索增强生成)</p>
+                </div>
+                <div class="flex flex-col items-center justify-center p-6 border rounded-lg shadow-lg bg-white">
+                    <i class="fas fa-robot text-6xl text-green-500 mb-4"></i>
+                    <h3 class="text-3xl font-bold mb-3">学会思考，执行任务！</h3>
+                    <p class="text-xl text-gray-700">赋予AI逻辑决策能力，完成<span class="highlight-text">复杂多步骤任务</span></p>
+                    <p class="text-2xl mt-4 font-semibold text-green-600">(AI Agent: 人工智能代理)</p>
+                </div>
+            </div>
+            <p class="text-center text-gray-600 text-lg mt-12 italic">
+                “光有模型远远不够，让AI变得<span class="font-semibold text-gray-800">聪明实用</span>才是未来！”
+            </p>
+        </section>
+
+        <!-- Slide 3: 日报要点 - The Core Insight -->
+        <section>
+            <h2 class="text-4xl mb-8">今日日报要点：务实的AI落地潮 <span class="text-gray-500 text-2xl">(2025-06-17)</span></h2>
+            <ul class="list-none space-y-6 text-xl">
+                <li class="flex items-start fragment">
+                    <i class="fas fa-lightbulb text-blue-500 mr-4 mt-1 text-2xl"></i>
+                    <p><span class="font-bold highlight-text">大模型应用层爆发：</span> LLM及其应用实践与落地成核心，不再仅关注基础模型。</p>
+                </li>
+                <li class="flex items-start fragment">
+                    <i class="fas fa-chart-line text-green-500 mr-4 mt-1 text-2xl"></i>
+                    <p><span class="font-bold highlight-text">RAG与AI Agent引爆关注：</span> RagFlow、Awesome LLM Apps等项目增长惊人。</p>
+                </li>
+                <li class="flex items-start fragment">
+                    <i class="fas fa-shield-alt text-purple-500 mr-4 mt-1 text-2xl"></i>
+                    <p><span class="font-bold highlight-text">隐私与离线AI需求凸显：</span> Jan等项目揭示用户对数据隐私的高度重视。</p>
+                </li>
+                <li class="flex items-start fragment">
+                    <i class="fas fa-tools text-red-500 mr-4 mt-1 text-2xl"></i>
+                    <p><span class="font-bold highlight-text">实践与构建是王道：</span> 社区急需工具、案例和指引，而非停留在概念层面。</p>
+                </li>
+            </ul>
+            <p class="text-sm mt-10 text-gray-500 text-center">
+                声明：以下内容仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！
+            </p>
+        </section>
+
+        <!-- Slide 4: 今日整体趋势 - 技术焦点 -->
+        <section>
+            <h2 class="text-4xl mb-8">热门项目趋势分析：LLM应用实践</h2>
+            <div class="grid grid-cols-2 gap-8 text-left">
+                <div class="fragment">
+                    <h3 class="text-2xl font-bold mb-4 flex items-center"><i class="fas fa-fire text-red-500 mr-3"></i>核心热点</h3>
+                    <ul class="list-disc pl-6 space-y-2 text-lg">
+                        <li><span class="font-semibold">检索增强生成 (RAG)：</span> 解决“幻觉”，企业级AI关键。</li>
+                        <li><span class="font-semibold">AI Agent：</span> 实现复杂多步骤任务，从问答到执行。</li>
+                        <li><span class="font-semibold">代表项目：</span> RagFlow (深度文档理解)、Awesome LLM Apps (精选集)。</li>
+                    </ul>
+                </div>
+                <div class="fragment">
+                    <h3 class="text-2xl font-bold mb-4 flex items-center"><i class="fas fa-laptop-code text-blue-500 mr-3"></i>技术栈分布</h3>
+                    <ul class="list-disc pl-6 space-y-2 text-lg">
+                        <li><span class="font-semibold">Python：</span> 稳居AI/ML核心，如RagFlow。</li>
+                        <li><span class="font-semibold">TypeScript/JavaScript：</span> UI、桌面应用(Jan)、开发者工具(Continue)。</li>
+                        <li><span class="font-semibold">低层语言 (Cuda)：</span> 高性能计算优化(DeepEP)。</li>
+                        <li><span class="font-semibold">Jupyter Notebook：</span> AI/ML实践和代码示例首选。</li>
+                    </ul>
+                </div>
+            </div>
+            <p class="text-xl mt-12 text-center italic text-gray-700 fragment">
+                “强大的后端计算”与“灵活的应用/工具开发”紧密结合。
+            </p>
+        </section>
+
+        <!-- Slide 5: 今日整体趋势 - 核心需求与未来展望 -->
+        <section>
+            <h2 class="text-4xl mb-8">大模型落地：可靠、实用、易集成</h2>
+            <ul class="list-none space-y-6 text-xl">
+                <li class="flex items-start fragment">
+                    <i class="fas fa-check-circle text-green-500 mr-4 mt-1 text-2xl"></i>
+                    <p><span class="font-bold">需求驱动：</span> 开发者急需LLM变得可靠、实用且易于集成。</p>
+                </li>
+                <li class="flex items-start fragment">
+                    <i class="fas fa-eye text-blue-500 mr-4 mt-1 text-2xl"></i>
+                    <p><span class="font-bold">隐私与生产力：</span> Jan（数据隐私）、Continue（开发者流程）、Automatisch（通用自动化）受关注。</p>
+                </li>
+                <li class="flex items-start fragment">
+                    <i class="fas fa-chart-line text-purple-500 mr-4 mt-1 text-2xl"></i>
+                    <p><span class="font-bold">趋势转变：</span> 从“造模型”转向“用模型造应用”，解决落地问题（知识、隐私、整合）。</p>
+                </li>
+                <li class="flex items-start fragment">
+                    <i class="fas fa-forward text-yellow-500 mr-4 mt-1 text-2xl"></i>
+                    <p><span class="font-bold">未来展望：</span> 多模态RAG/Agent、Agent协作框架、AI应用评估/监控与安全。</p>
+                </li>
+            </ul>
+            <p class="text-center text-gray-700 text-lg mt-12 fragment">
+                今日趋势尤其强调：<span class="highlight-text">“实践”和“落地”</span>。
+            </p>
+        </section>
+
+        <!-- Slide 6: 热门项目双日维度对比分析 -->
+        <section>
+            <h2 class="text-4xl mb-8">热门项目热度变化：新星涌现与持续聚焦</h2>
+            <div class="grid grid-cols-2 gap-8 text-left">
+                <div class="fragment">
+                    <h3 class="text-2xl font-bold mb-4 flex items-center"><i class="fas fa-arrow-up text-green-500 mr-3"></i>榜单动态</h3>
+                    <ul class="list-disc pl-6 space-y-2 text-lg">
+                        <li><span class="font-semibold">7个新面孔：</span> 社区活跃，活力十足。</li>
+                        <li><span class="font-semibold">整体稳定：</span> 1个项目显著上升，无项目下滑。</li>
+                        <li><span class="font-semibold">新晋项目：</span> 多与AI、LLM相关，如RAG、模型工具包等。</li>
+                    </ul>
+                </div>
+                <div class="fragment">
+                    <h3 class="text-2xl font-bold mb-4 flex items-center"><i class="fas fa-code text-blue-500 mr-3"></i>语言分布</h3>
+                    <ul class="list-disc pl-6 space-y-2 text-lg">
+                        <li><span class="font-semibold">TypeScript/JavaScript/Cuda：</span> 项目数量增加。</li>
+                        <li><span class="font-semibold">Python/Jupyter Notebook：</span> 略有减少。</li>
+                        <li><span class="font-semibold">多元化趋势：</span> AI技术栈正向更多语言和平台扩散。</li>
+                    </ul>
+                </div>
+            </div>
+            <p class="text-xl mt-12 text-center font-bold text-gray-800 fragment">
+                <i class="fas fa-star text-yellow-500 mr-2"></i> <span class="highlight-text">“awesome-llm-apps”</span> 获得近千颗星，用户对LLM实际应用需求强劲！
+            </p>
+        </section>
+
+        <!-- Slide 7: 热点变化 -->
+        <section>
+            <h2 class="text-4xl mb-8">热点项目变迁：新旧交替与持续热门</h2>
+            <div class="grid grid-cols-3 gap-6 text-left">
+                <div class="fragment">
+                    <h3 class="text-2xl font-bold mb-4 flex items-center text-green-700"><i class="fas fa-plus-circle mr-3"></i>新增热点</h3>
+                    <ul class="list-disc pl-6 text-base space-y-1">
+                        <li>menloresearch/jan</li>
+                        <li>continuedev/continue</li>
+                        <li>automatisch/automatisch</li>
+                        <li>anthropics/anthropic-cookbook</li>
+                        <li>deepseek-ai/deepep</li>
+                        <li>microsoft/fluentui-system-icons</li>
+                        <li>infiniflow/ragflow</li>
+                    </ul>
+                </div>
+                <div class="fragment">
+                    <h3 class="text-2xl font-bold mb-4 flex items-center text-red-700"><i class="fas fa-minus-circle mr-3"></i>减退热点</h3>
+                    <ul class="list-disc pl-6 text-base space-y-1">
+                        <li>virattt/ai-hedge-fund</li>
+                        <li>sindresorhus/awesome</li>
+                        <li>yalter/niri</li>
+                        <li>jdepoix/youtube-transcript-api</li>
+                        <li>confident-ai/deepeval</li>
+                        <li>microsoft/ai-agents-for-beginners</li>
+                        <li>datawhalechina/self-llm</li>
+                        <li>xiangechen/chili3d</li>
+                        <li>fareedkhan-dev/all-rag-techniques</li>
+                    </ul>
+                </div>
+                <div class="fragment">
+                    <h3 class="text-2xl font-bold mb-4 flex items-center text-blue-700"><i class="fas fa-fire-alt mr-3"></i>持续热门</h3>
+                    <ul class="list-disc pl-6 text-base space-y-1">
+                        <li class="font-semibold text-xl highlight-text">Shubhamsaboo/awesome-llm-apps <span class="text-gray-600">(已上榜7次)</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vertical Section: 详细仓库数据 -->
+        <section>
+            <section class="gradient-bg" data-background-image="https://images.unsplash.com/photo-1510519138101-570d1dca3d66?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-background-blend-mode="overlay" data-background-opacity="0.5">
+                <h2 class="text-white text-5xl">详细仓库数据</h2>
+                <p class="text-white text-2xl mt-4">深入探索今日GitHub热门项目</p>
+            </section>
+
+            <!-- Project 1: microsoft/fluentui-system-icons -->
+            <section>
+                <h3 class="text-3xl mb-4 text-blue-600 flex items-center"><i class="fab fa-microsoft mr-3"></i>microsoft/fluentui-system-icons</h3>
+                <p class="text-xl mb-6 text-gray-700">简介：微软推出的一组熟悉、友好且现代的图标集。</p>
+                <div class="project-card">
+                    <div class="project-stats">
+                        <div><i class="fas fa-star"></i> Star: 7582 (+59)</div>
+                        <div><i class="fas fa-code"></i> 语言: HTML</div>
+                        <div><i class="fas fa-check-double"></i> 连续在榜: 1次</div>
+                        <div><i class="fas fa-list-ol"></i> 总上榜: 1次</div>
+                    </div>
+                    <h4 class="text-xl font-bold mt-6 mb-2">项目速读:</h4>
+                    <p>一套现代、友好且熟悉的图标，支持常规/填充两种样式，智能适应方向。提供Android、iOS、Flutter等平台原生库及SVG文件。作为Fluent UI一部分，提供高质量一致视觉元素，是寻求统一设计风格开发者的理想选择。</p>
+                </div>
+            </section>
+
+            <!-- Project 2: menloresearch/jan -->
+            <section>
+                <h3 class="text-3xl mb-4 text-purple-600 flex items-center"><i class="fas fa-user-secret mr-3"></i>menloresearch/jan</h3>
+                <p class="text-xl mb-6 text-gray-700">简介：100%离线运行的开源ChatGPT替代品，解决隐私问题。</p>
+                <div class="project-card">
+                    <div class="project-stats">
+                        <div><i class="fas fa-star"></i> Star: 29760 (+93)</div>
+                        <div><i class="fas fa-code"></i> 语言: TypeScript</div>
+                        <div><i class="fas fa-check-double"></i> 连续在榜: 1次</div>
+                        <div><i class="fas fa-list-ol"></i> 总上榜: 1次</div>
+                    </div>
+                    <h4 class="text-xl font-bold mt-6 mb-2">项目速读:</h4>
+                    <p>开源桌面AI助手，核心是<span class="highlight-text">100%离线运行大模型</span>（Llama, Gemma），彻底保障数据隐私。支持兼容OpenAI的本地API，也支持云端AI服务。强调数据隐私、本地掌控AI能力，提供强大灵活安全的替代方案。</p>
+                </div>
+            </section>
+
+            <!-- Project 3: anthropics/anthropic-cookbook -->
+            <section>
+                <h3 class="text-3xl mb-4 text-orange-600 flex items-center"><i class="fas fa-book-open mr-3"></i>anthropics/anthropic-cookbook</h3>
+                <p class="text-xl mb-6 text-gray-700">简介：Claude有趣且有效用法示例集。</p>
+                <div class="project-card">
+                    <div class="project-stats">
+                        <div><i class="fas fa-star"></i> Star: 14484 (+165)</div>
+                        <div><i class="fas fa-code"></i> 语言: Jupyter Notebook</div>
+                        <div><i class="fas fa-check-double"></i> 连续在榜: 1次</div>
+                        <div><i class="fas fa-list-ol"></i> 总上榜: 2次</div>
+                    </div>
+                    <h4 class="text-xl font-bold mt-6 mb-2">项目速读:</h4>
+                    <p>为开发者打造的Claude模型高效使用资源库，提供大量Jupyter Notebook示例。覆盖文本分类、摘要、<span class="highlight-text">RAG、工具使用、多模态、Agent功能</span>等。降低AI能力落地门槛。需Anthropic API密钥。</p>
+                    <p class="mt-4 font-semibold text-green-700">增长分析: 2次上榜总增1889星，本次新增165星，增长势头良好。</p>
+                </div>
+            </section>
+
+            <!-- Project 4: infiniflow/ragflow -->
+            <section>
+                <h3 class="text-3xl mb-4 text-green-600 flex items-center"><i class="fas fa-file-invoice mr-3"></i>infiniflow/ragflow</h3>
+                <p class="text-xl mb-6 text-gray-700">简介：基于深度文档理解的开源RAG（检索增强生成）引擎。</p>
+                <div class="project-card">
+                    <div class="project-stats">
+                        <div><i class="fas fa-star"></i> Star: 56113 (+770)</div>
+                        <div><i class="fas fa-code"></i> 语言: Python</div>
+                        <div><i class="fas fa-check-double"></i> 连续在榜: 1次</div>
+                        <div><i class="fas fa-list-ol"></i> 总上榜: 2次</div>
+                    </div>
+                    <h4 class="text-xl font-bold mt-6 mb-2">项目速读:</h4>
+                    <p>强大开源RAG引擎，解决LLM企业内部复杂非结构化数据“知识盲区”。突出优势是<span class="highlight-text">深度文档理解能力</span>，智能分析PDF、DOCX等复杂格式。支持多数据源、多模型集成，内置Agent功能扩展RAG应用场景。企业级RAG解决方案。</p>
+                    <p class="mt-4 font-semibold text-green-700">增长分析: 2次上榜总增8396星，本次新增770星，增长潜力强劲。</p>
+                </div>
+            </section>
+
+            <!-- Project 5: deepseek-ai/DeepEP -->
+            <section>
+                <h3 class="text-3xl mb-4 text-red-600 flex items-center"><i class="fas fa-network-wired mr-3"></i>deepseek-ai/DeepEP</h3>
+                <p class="text-xl mb-6 text-gray-700">简介：高效的专家并行（EP）通信库。</p>
+                <div class="project-card">
+                    <div class="project-stats">
+                        <div><i class="fas fa-star"></i> Star: 7784 (+5)</div>
+                        <div><i class="fas fa-code"></i> 语言: Cuda</div>
+                        <div><i class="fas fa-check-double"></i> 连续在榜: 1次</div>
+                        <div><i class="fas fa-list-ol"></i> 总上榜: 1次</div>
+                    </div>
+                    <h4 class="text-xl font-bold mt-6 mb-2">项目速读:</h4>
+                    <p>专为MoE模型设计的高性能通信库，解决分布式环境下数据分发和汇总时的<span class="highlight-text">all-to-all通信瓶颈</span>。提供优化GPU all-to-all内核，实现高吞吐低延迟。针对非对称带宽网络优化，提升大规模MoE模型训练和推理效率。关键基础设施组件。</p>
+                </div>
+            </section>
+
+            <!-- Project 6: automatisch/automatisch -->
+            <section>
+                <h3 class="text-3xl mb-4 text-blue-600 flex items-center"><i class="fas fa-cogs mr-3"></i>automatisch/automatisch</h3>
+                <p class="text-xl mb-6 text-gray-700">简介：开源的Zapier替代方案，无需花费时间金钱，构建工作流自动化。</p>
+                <div class="project-card">
+                    <div class="project-stats">
+                        <div><i class="fas fa-star"></i> Star: 9026 (+48)</div>
+                        <div><i class="fas fa-code"></i> 语言: JavaScript</div>
+                        <div><i class="fas fa-check-double"></i> 连续在榜: 1次</div>
+                        <div><i class="fas fa-list-ol"></i> 总上榜: 1次</div>
+                    </div>
+                    <h4 class="text-xl font-bold mt-6 mb-2">项目速读:</h4>
+                    <p>开源工作流自动化平台，旨在替代Zapier等商业服务。核心优势是<span class="highlight-text">开源特性，数据可完全托管在用户服务器</span>，保障隐私合规。通过连接应用构建自动化流程，提供更高灵活性和潜在成本效益。提供社区版和企业版。</p>
+                </div>
+            </section>
+
+            <!-- Project 7: Shubhamsaboo/awesome-llm-apps -->
+            <section>
+                <h3 class="text-3xl mb-4 text-yellow-600 flex items-center"><i class="fas fa-lightbulb mr-3"></i>Shubhamsaboo/awesome-llm-apps</h3>
+                <p class="text-xl mb-6 text-gray-700">简介：优秀的LLM应用集合，集成AI Agents和RAG，利用OpenAI、Anthropic、Gemini及开源模型。</p>
+                <div class="project-card">
+                    <div class="project-stats">
+                        <div><i class="fas fa-star"></i> Star: 43609 (+1593)</div>
+                        <div><i class="fas fa-code"></i> 语言: Python</div>
+                        <div><i class="fas fa-check-double"></i> 连续在榜: 7次</div>
+                        <div><i class="fas fa-list-ol"></i> 总上榜: 20次</div>
+                    </div>
+                    <h4 class="text-xl font-bold mt-6 mb-2">项目速读:</h4>
+                    <p>LLM应用精选集，汇聚基于各类模型构建的项目。核心价值在于展示LLM在实际场景中的多样化应用，尤其突出<span class="highlight-text">RAG和各类AI代理（Agents）的设计实现</span>。为开发者提供宝贵资源库，快速了解LLM应用架构，学习构建复杂系统。</p>
+                    <p class="mt-4 font-semibold text-green-700">增长分析: 统计期内总增23276星，20次上榜平均增733.1星。本次新增1593星<span class="highlight-text">远超平均，增长强劲且加速</span>。频繁上榜印证持续受欢迎度。</p>
+                </section>
+            </section>
+
+
+            <!-- Slide End: Conclusion & Call to Action -->
+            <section class="gradient-bg" data-background-image="https://images.unsplash.com/photo-1510519138101-570d1dca3d66?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-background-blend-mode="multiply" data-background-opacity="0.7">
+                <h2 class="text-white text-5xl mb-8">AI落地，未来已来！</h2>
+                <p class="text-white text-2xl mb-12">RAG与AI Agent：让大模型真正<span class="font-bold">“告别幻觉，学会思考”</span>！</p>
+
+                <h3 class="text-white text-3xl mb-4">感谢观看！</h3>
+                <p class="text-white text-xl">请关注我们的GitHub项目，获取更多AI前沿动态：</p>
+                <div class="footer-info text-white">
+                    <img src="../../asserts/wx.jpg" alt="QR Code" class="w-16 h-16 rounded-lg shadow-md"/>
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-white hover:underline text-2xl font-bold">
+                        github.com/aichipera/github-trend
+                    </a>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Mermaid.js configuration
+        mermaid.initialize({ startOnLoad: false });
+
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+            display: 'block', // 'block' or 'flex'
+
+            // Learn more about plugins: https://revealjs.com/plugins/
+            plugins: [], // No specific plugins needed for this setup, but can be added if required for markdown, highlight etc.
+
+            // Custom options
+            width: 1280, // Standard width for presentations
+            height: 720, // Standard height for presentations
+            margin: 0.04,
+            minScale: 0.2,
+            maxScale: 2.0,
+
+            // Enable slide numbering
+            slideNumber: true
+        });
+
+        // Ensure mermaid renders diagrams if any are present
+        Reveal.on('slidechanged', event => {
+            mermaid.init(undefined, event.currentSlide.querySelectorAll('.mermaid'));
+        });
+    </script>
+</body>
+</html>
