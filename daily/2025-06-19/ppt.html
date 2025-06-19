@@ -1,0 +1,1287 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>不再炫技！技术圈最新风向：AI开始解决真问题</title>
+
+    <!-- Core Reveal.js Framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- Extension Dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #007bff; /* A vibrant blue */
+            --accent-color-1: #6f42c1; /* Purple */
+            --accent-color-2: #28a745; /* Green */
+            --background-dark: #222;
+            --text-light: #f8f8f8;
+            --text-dark: #333;
+            --reveal-background-color: #f8f8f8;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--text-dark);
+        }
+
+        .reveal .slides section {
+            text-align: left;
+            padding: 20px 50px;
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--primary-color);
+            margin-bottom: 0.5em;
+            line-height: 1.2;
+            text-shadow: none; /* Remove default Reveal.js shadow */
+        }
+        .reveal h1 { font-size: 3rem; } /* 3rem */
+        .reveal h2 { font-size: 2.2rem; } /* ~2rem */
+        .reveal h3 { font-size: 1.8rem; } /* ~1.8rem */
+        .reveal h4 { font-size: 1.5rem; } /* ~1.5rem */
+        .reveal p, .reveal li { font-size: 1.1rem; line-height: 1.6; } /* 1-1.2rem */
+        .reveal blockquote {
+            font-size: 1.2rem;
+            border-left: 5px solid var(--accent-color-1);
+            padding-left: 1em;
+            margin-left: 0;
+            color: var(--text-dark);
+        }
+
+        /* Custom Styles for Aha Moment & Modern Aesthetic */
+        .reveal .aha-cover {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* Dark, sophisticated gradient */
+            color: var(--text-light);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+        }
+        .reveal .aha-cover h1 {
+            color: #fff;
+            font-size: 4rem; /* Larger for impact */
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            line-height: 1.1;
+            margin-bottom: 0.2em;
+        }
+        .reveal .aha-cover h2 {
+            color: #ccc;
+            font-size: 2rem;
+            margin-top: 0;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        }
+        .reveal .aha-cover p {
+            color: #ddd;
+            font-size: 1.5rem;
+            margin-top: 2em;
+        }
+
+        .reveal .progress {
+            background: rgba(0, 0, 0, 0.2);
+        }
+        .reveal .progress span {
+            background: var(--primary-color);
+            -webkit-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.96);
+            -moz-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.96);
+            -ms-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.96);
+            -o-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.96);
+            transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.96);
+        }
+
+        .reveal .controls .navigate-left,
+        .reveal .controls .navigate-right,
+        .reveal .controls .navigate-up,
+        .reveal .controls .navigate-down {
+            color: var(--primary-color);
+        }
+
+        /* Custom link and QR code styling */
+        .bottom-right-info {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            font-size: 0.9em;
+            color: #888;
+            z-index: 100; /* Ensure it's on top */
+        }
+        .bottom-right-info a {
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-bottom: 5px;
+        }
+        .bottom-right-info img {
+            width: 80px;
+            height: 80px;
+            border-radius: 5px;
+        }
+        .reveal .slides section:last-child .bottom-right-info a,
+        .reveal .slides section:last-child .bottom-right-info {
+            color: var(--text-light); /* For the dark final slide background */
+        }
+        .reveal .slides section:last-child .bottom-right-info a {
+             color: #fff;
+        }
+        .reveal .slides section:first-child .bottom-right-info a,
+        .reveal .slides section:first-child .bottom-right-info {
+            color: #ddd; /* For the dark cover background */
+        }
+        .reveal .slides section:first-child .bottom-right-info a {
+            color: #eee;
+        }
+
+        /* General layout for content slides */
+        .reveal .content-slide {
+            padding: 40px 80px;
+        }
+        .reveal .content-slide h2 {
+            margin-bottom: 1em;
+            color: var(--accent-color-1);
+        }
+        .reveal .content-slide ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .reveal .content-slide ul li {
+            margin-bottom: 0.8em;
+            position: relative;
+            padding-left: 1.5em;
+        }
+        .reveal .content-slide ul li:before {
+            content: "\f058"; /* Check icon from Font Awesome */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--accent-color-2);
+            position: absolute;
+            left: 0;
+            top: 0.1em;
+            font-size: 0.9em;
+        }
+        .reveal .content-slide table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+            font-size: 0.9em;
+        }
+        .reveal .content-slide th, .reveal .content-slide td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .reveal .content-slide th {
+            background-color: #f2f2f2;
+            color: var(--accent-color-1);
+        }
+
+        .reveal .r-hstack {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .reveal .r-vstack {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Fragment animations for smooth reveals */
+        .reveal .slides section .fragment.fade-in { opacity: 0; }
+        .reveal .slides section .fragment.fade-in.visible { opacity: 1; transition: opacity 0.8s ease-in; }
+
+        /* Specific styles for project details */
+        .project-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        .project-card h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+        .project-card .project-summary {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        .project-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .project-stats div {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.95rem;
+            color: #666;
+        }
+        .project-stats div i {
+            color: var(--accent-color-1);
+        }
+
+        /* Specific adjustments for tables */
+        .reveal table {
+            margin: 1em auto;
+            width: 90%; /* Adjust table width */
+            font-size: 0.9em;
+        }
+        .reveal table th, .reveal table td {
+            padding: 0.6em 0.8em;
+        }
+        .reveal table th {
+            background-color: #eef;
+            color: var(--accent-color-1);
+        }
+
+        /* Last slide */
+        .reveal .end-slide {
+            background: linear-gradient(135deg, #001f3f, #003366, #004d99); /* Dark blue gradient */
+            color: #fff;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .reveal .end-slide h1 {
+            color: #fff;
+            font-size: 3.5rem;
+            margin-bottom: 0.5em;
+        }
+        .reveal .end-slide p {
+            color: #eee;
+            font-size: 1.5rem;
+            margin-bottom: 2em;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover Page -->
+            <section class="aha-cover" data-background-transition="zoom">
+                <div class="flex flex-col items-center justify-center h-full w-full">
+                    <h1>不再炫技！<br>技术圈最新风向：AI开始解决真问题</h1>
+                    <h2>GitHub热门仓库日报观测：2025-06-19 20:25:54</h2>
+                    <p class="mt-12 text-xl font-medium">演讲者：AIChipEra</p>
+                    <blockquote class="text-white text-lg mt-8 border-l-4 border-yellow-400 pl-4">
+                        以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！
+                    </blockquote>
+                </div>
+                <div class="bottom-right-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">项目链接: github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+            <!-- Slide 2: 日报要点 (Daily Highlights) -->
+            <section class="content-slide">
+                <h2><i class="fas fa-bullseye mr-3"></i>日报要点：务实创新，解决真问题</h2>
+                <ul class="text-gray-700">
+                    <li class="fragment fade-in">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        **务实的巨变：** 科技圈不再盲目炫技，技术重心转向**高效、安全、可落地**的智能应用。
+                    </li>
+                    <li class="fragment fade-in">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        **本地化与隐私：** 智能助手可在本地运行，自动化工具强调数据自托管，用户对**数据主权和安全**日益重视。
+                    </li>
+                    <li class="fragment fade-in">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        **效率至上：** 从高性能AI推理到工作流自动化，都在追求更高的**生产效率**。
+                    </li>
+                    <li class="fragment fade-in">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        **普惠性AI：** 提供易用工具和框架，降低AI开发门槛，赋能**更广泛的开发者和个人**。
+                    </li>
+                    <li class="fragment fade-in">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        **抓住机遇：** 快速了解这些趋势，识别转型和掘金的关键领域，不再错过下一波技术红利！
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Slide 3: 热门项目趋势分析 - 今日整体趋势 (Overall Trends) -->
+            <section class="content-slide">
+                <h2><i class="fas fa-chart-line mr-3"></i>热门项目趋势分析：核心主题</h2>
+                <h3 class="fragment fade-in"><i class="fas fa-brain mr-2"></i>人工智能与自动化并行</h3>
+                <ul class="text-gray-700">
+                    <li class="fragment fade-in">
+                        **AI落地应用日益多样化：**
+                        <ul>
+                            <li>**本地化部署：** Jan, Ollama (强调隐私和控制)</li>
+                            <li>**高性能推理：** vLLM (加速AI服务)</li>
+                            <li>**底层优化：** DeepEP (MoE通信库)</li>
+                            <li>**上层应用框架：** Genkit, Anthropic Cookbook (降低开发门槛)</li>
+                        </ul>
+                    </li>
+                    <li class="fragment fade-in">
+                        **自动化效率提升：**
+                        <ul>
+                            <li>**AI Agents：** Suna (智能体自动化)</li>
+                            <li>**通用工作流自动化：** Automatisch (开源Zapier替代品，数据自托管)</li>
+                        </ul>
+                    </li>
+                    <li class="fragment fade-in">
+                        **数据基础不可或缺：** Data Engineering Handbook (高质量数据是AI与自动化基石)
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Slide 4: 热门项目趋势分析 - 技术栈面貌 (Tech Stack Landscape) -->
+            <section class="content-slide">
+                <h2><i class="fas fa-code mr-3"></i>热门项目趋势分析：技术栈面貌</h2>
+                <h3 class="fragment fade-in"><i class="fas fa-project-diagram mr-2"></i>多元交织，TypeScript与Go崭露头角</h3>
+                <ul class="text-gray-700">
+                    <li class="fragment fade-in">
+                        **Python：** 传统AI/ML、数据处理核心 (vLLM, DeepEP, Jupyter Notebook)。
+                    </li>
+                    <li class="fragment fade-in">
+                        **TypeScript：** 活跃于本地AI助手、AI Agents、自动化平台、AI应用框架。
+                    </li>
+                    <li class="fragment fade-in">
+                        **Go：** 用于现代PHP应用服务器 (FrankenPHP) 和本地LLM运行工具 (Ollama)。
+                    </li>
+                    <li class="fragment fade-in">
+                        **C++/C/Rust：** 活跃于性能敏感、系统级项目 (NotepadNext, esp-idf, Sui)。
+                    </li>
+                    <li class="fragment fade-in">
+                        **Shell：** 基础开发环境管理 (nvm)。
+                    </li>
+                </ul>
+                <p class="fragment fade-in text-base text-gray-500 mt-4">
+                    <i class="fas fa-info-circle mr-2"></i>技术栈选择日益取决于项目特性、性能、易用性与跨平台需求。
+                </p>
+            </section>
+
+            <!-- Slide 5: 热门项目趋势分析 - 趋势背后的驱动力与未来展望 (Driving Forces & Future Outlook) -->
+            <section class="content-slide">
+                <h2><i class="fas fa-lightbulb mr-3"></i>趋势背后的驱动力与未来展望</h2>
+                <div class="r-hstack">
+                    <div class="r-vstack w-1/2 pr-4">
+                        <h3 class="fragment fade-in"><i class="fas fa-hand-holding-usd mr-2"></i>驱动力：效率、隐私与普惠</h3>
+                        <ul class="text-gray-700">
+                            <li class="fragment fade-in">
+                                **效率至上：** 高性能AI、自动化工具、Web性能提升。
+                            </li>
+                            <li class="fragment fade-in">
+                                **隐私与控制：** 本地运行 (Jan, Ollama)、数据自托管 (Automatisch)。
+                            </li>
+                            <li class="fragment fade-in">
+                                **普惠性：** 易用本地工具、降低AI开发门槛 (Genkit)。
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="r-vstack w-1/2 pl-4">
+                        <h3 class="fragment fade-in"><i class="fas fa-cogs mr-2"></i>未来展望：下一波技术热点</h3>
+                        <ul class="text-gray-700">
+                            <li class="fragment fade-in">
+                                **AI Agent成熟落地：** 执行复杂多步任务。
+                            </li>
+                            <li class="fragment fade-in">
+                                **边端AI与特定场景优化：** 移动、IoT设备AI。
+                            </li>
+                            <li class="fragment fade-in">
+                                **AI可信度与可解释性：** 关键业务集成。
+                            </li>
+                            <li class="fragment fade-in">
+                                **RAG与工具调用框架：** LLM与外部数据/工具连接。
+                            </li>
+                            <li class="fragment fade-in">
+                                **开发者友好的AI开发与运维（MLOps）。**
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 6: 热门项目双日维度对比分析 (Two-Day Comparison) -->
+            <section class="content-slide">
+                <h2><i class="fas fa-code-branch mr-3"></i>热门项目双日维度对比分析</h2>
+                <div class="r-hstack justify-center text-center">
+                    <div class="r-vstack w-1/3">
+                        <h3 class="fragment fade-in"><i class="fas fa-plus-circle text-green-500 mr-2"></i>新上榜项目</h3>
+                        <p class="text-4xl font-bold text-green-600 fragment fade-in">8 个</p>
+                        <p class="text-gray-700 fragment fade-in">AI相关项目占据多数，涵盖本地LLM、AI框架等。</p>
+                    </div>
+                    <div class="r-vstack w-1/3">
+                        <h3 class="fragment fade-in"><i class="fas fa-arrow-alt-circle-up text-blue-500 mr-2"></i>持续上升项目</h3>
+                        <p class="text-4xl font-bold text-blue-600 fragment fade-in">8 个</p>
+                        <p class="text-gray-700 fragment fade-in">社区关注度与参与度持续增长。</p>
+                    </div>
+                    <div class="r-vstack w-1/3">
+                        <h3 class="fragment fade-in"><i class="fas fa-minus-circle text-red-500 mr-2"></i>下滑项目</h3>
+                        <p class="text-4xl font-bold text-red-600 fragment fade-in">0 个</p>
+                        <p class="text-gray-700 fragment fade-in">整体趋势活跃且上升。</p>
+                    </div>
+                </div>
+                <div class="fragment fade-in mt-8">
+                    <h3 class="text-center"><i class="fas fa-fire mr-2"></i>涨幅最大项目聚焦</h3>
+                    <p class="text-center text-xl text-gray-800 font-semibold">
+                        自动化工具、AI实战指南、数据工程师手册等实用性项目获高关注。
+                    </p>
+                </div>
+            </section>
+
+            <!-- Slide 7: 热点变化 (Hotspot Changes) -->
+            <section class="content-slide">
+                <h2><i class="fas fa-exchange-alt mr-3"></i>热点变化概览</h2>
+                <div class="r-hstack text-gray-700">
+                    <div class="r-vstack w-1/3 pr-4">
+                        <h3 class="text-green-600"><i class="fas fa-plus-square mr-2"></i>新增热点</h3>
+                        <ul class="text-base">
+                            <li class="fragment fade-in">mystenlabs/sui</li>
+                            <li class="fragment fade-in">cloudflare/ai</li>
+                            <li class="fragment fade-in">firebase/genkit</li>
+                            <li class="fragment fade-in">vllm-project/vllm</li>
+                            <li class="fragment fade-in">kortix-ai/suna</li>
+                            <li class="fragment fade-in">dail8859/notepadnext</li>
+                            <li class="fragment fade-in">espressif/esp-idf</li>
+                            <li class="fragment fade-in">ollama/ollama</li>
+                        </ul>
+                    </div>
+                    <div class="r-vstack w-1/3 pr-4">
+                        <h3 class="text-red-600"><i class="fas fa-minus-square mr-2"></i>减退热点</h3>
+                        <ul class="text-base">
+                            <li class="fragment fade-in">moby/buildkit</li>
+                            <li class="fragment fade-in">nocodb/nocodb</li>
+                            <li class="fragment fade-in">yimmenu/yimmenuv2</li>
+                            <li class="fragment fade-in">linshenkx/prompt-optimizer</li>
+                            <li class="fragment fade-in">infiniflow/ragflow</li>
+                            <li class="fragment fade-in">alibaba/lowcode-engine</li>
+                        </ul>
+                    </div>
+                    <div class="r-vstack w-1/3">
+                        <h3 class="text-blue-600"><i class="fas fa-sync-alt mr-2"></i>持续热门 (3+次上榜)</h3>
+                        <ul class="text-base">
+                            <li class="fragment fade-in">menloresearch/jan</li>
+                            <li class="fragment fade-in">automatisch/automatisch</li>
+                            <li class="fragment fade-in">microsoft/fluentui-system-icons</li>
+                            <li class="fragment fade-in">deepseek-ai/DeepEP</li>
+                            <li class="fragment fade-in">anthropics/anthropic-cookbook</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 8: 详细仓库数据 (Detailed Repository Data) - Intro -->
+            <section class="content-slide" data-background-transition="zoom">
+                <h1 class="text-center text-blue-700">🚀 详细仓库数据速览 🚀</h1>
+                <p class="text-center text-gray-600 text-xl mt-4">深入剖析每个热门项目的核心价值与增长潜力</p>
+                <div class="flex justify-center mt-12">
+                    <i class="fas fa-search fa-5x text-primary-color animate-pulse"></i>
+                </div>
+            </section>
+
+            <!-- Individual Project Details (Vertical Slides) -->
+
+            <!-- DataExpert-io/data-engineer-handbook -->
+            <section>
+                <section class="content-slide">
+                    <h3><i class="fas fa-book-open mr-2"></i>DataExpert-io/data-engineer-handbook</h3>
+                    <p class="project-summary">
+                        <i class="fas fa-quote-left mr-2"></i>
+                        **数据工程“藏宝图”：** 汇集所有你想学习的数据工程资源链接。
+                        <i class="fas fa-quote-right ml-2"></i>
+                    </p>
+                    <p class="mt-4">
+                        **核心价值：** 提供一站式、系统化的知识导航，内容全面且组织清晰，是数据工程师自我提升或转型的极佳起点。解决了数据工程学习资料庞杂分散的痛点。
+                    </p>
+                </section>
+                <section class="content-slide">
+                    <h4><i class="fas fa-chart-bar mr-2"></i>数据与增长分析</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜</th>
+                                <th>当日增 Star</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Jupyter Notebook</td>
+                                <td>30275 ⭐</td>
+                                <td>2次</td>
+                                <td>4次</td>
+                                <td>535 <span class="text-green-500"><i class="fas fa-arrow-up"></i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="project-stats mt-6">
+                        <div><i class="fas fa-code"></i> Jupyter Notebook 66.9%</div>
+                        <div><i class="fas fa-code-fork"></i> Forks: 6.1k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 403</div>
+                        <div><i class="fas fa-users"></i> Contributors: 117</div>
+                    </div>
+                    <p class="text-gray-700 mt-4">
+                        **增长分析：** 近一月总增2453 Star，增长显著。4次上榜是关键驱动，平均每次带来近300 Star。今日新增535 Star，势头强劲，表现优于平均水平。
+                    </p>
+                </section>
+            </section>
+
+            <!-- menloresearch/jan -->
+            <section>
+                <section class="content-slide">
+                    <h3><i class="fas fa-robot mr-2"></i>menloresearch/jan</h3>
+                    <p class="project-summary">
+                        <i class="fas fa-quote-left mr-2"></i>
+                        **你的离线ChatGPT：** 开源、100%离线运行，解决隐私担忧。
+                        <i class="fas fa-quote-right ml-2"></i>
+                    </p>
+                    <p class="mt-4">
+                        **核心价值：** 在个人电脑上直接运行各类LLM，支持下载管理Llama、Gemma等模型，提供OpenAI API兼容接口。极大降低本地AI部署门槛，保护数据主权。
+                    </p>
+                </section>
+                <section class="content-slide">
+                    <h4><i class="fas fa-chart-bar mr-2"></i>数据与增长分析</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜</th>
+                                <th>当日增 Star</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>TypeScript</td>
+                                <td>31916 ⭐</td>
+                                <td>3次</td>
+                                <td>3次</td>
+                                <td>450 <span class="text-yellow-500"><i class="fas fa-arrow-down"></i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="project-stats mt-6">
+                        <div><i class="fas fa-code"></i> TypeScript 84.4%, Rust 12.1%</div>
+                        <div><i class="fas fa-code-fork"></i> Forks: 1.9k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 181</div>
+                        <div><i class="fas fa-users"></i> Contributors: 81</div>
+                    </div>
+                    <p class="text-gray-700 mt-4">
+                        **增长分析：** 三天内上榜3次，可见度高。总Star增长2156，增长强劲。最新日增450低于平均，增速或有所回落。
+                    </p>
+                </section>
+            </section>
+
+            <!-- dail8859/NotepadNext -->
+            <section>
+                <section class="content-slide">
+                    <h3><i class="fas fa-edit mr-2"></i>dail8859/NotepadNext</h3>
+                    <p class="project-summary">
+                        <i class="fas fa-quote-left mr-2"></i>
+                        **跨平台Notepad++：** 将Windows经典带到Linux和MacOS。
+                        <i class="fas fa-quote-right ml-2"></i>
+                    </p>
+                    <p class="mt-4">
+                        **核心价值：** 用C++和Qt重新实现Notepad++，解决其Windows独占性，提供熟悉编辑体验。积极开发中，欢迎社区贡献。
+                    </p>
+                </section>
+                <section class="content-slide">
+                    <h4><i class="fas fa-chart-bar mr-2"></i>数据与增长分析</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜</th>
+                                <th>当日增 Star</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>C++</td>
+                                <td>10572 ⭐</td>
+                                <td>1次</td>
+                                <td>1次</td>
+                                <td>37 <span class="text-green-500"><i class="fas fa-arrow-up"></i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="project-stats mt-6">
+                        <div><i class="fas fa-code"></i> C++ 61.9%, HTML 16.0%</div>
+                        <div><i class="fas fa-code-fork"></i> Forks: 637</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 108</div>
+                        <div><i class="fas fa-users"></i> Contributors: 44</div>
+                    </div>
+                    <p class="text-gray-700 mt-4">
+                        **增长分析：** 新上榜项目，首次亮相即受关注。Star增长37，显示社区对跨平台文本编辑器的需求。
+                    </p>
+                </section>
+            </section>
+
+            <!-- automatisch/automatisch -->
+            <section>
+                <section class="content-slide">
+                    <h3><i class="fas fa-workflow mr-2"></i>automatisch/automatisch</h3>
+                    <p class="project-summary">
+                        <i class="fas fa-quote-left mr-2"></i>
+                        **开源Zapier替代品：** 自托管工作流自动化，省时又省钱。
+                        <i class="fas fa-quote-right ml-2"></i>
+                    </p>
+                    <p class="mt-4">
+                        **核心价值：** 无代码连接应用，自动化日常任务。支持数据自托管，增强数据安全隐私。无供应商锁定，可Docker部署。适合关心数据隐私或寻求高性价比方案的企业和个人。
+                    </p>
+                </section>
+                <section class="content-slide">
+                    <h4><i class="fas fa-chart-bar mr-2"></i>数据与增长分析</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜</th>
+                                <th>当日增 Star</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>JavaScript</td>
+                                <td>10819 ⭐</td>
+                                <td>3次</td>
+                                <td>3次</td>
+                                <td>1373 <span class="text-green-500"><i class="fas fa-arrow-up"></i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="project-stats mt-6">
+                        <div><i class="fas fa-code"></i> JavaScript 99.6%</div>
+                        <div><i class="fas fa-code-fork"></i> Forks: 787</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 55</div>
+                        <div><i class="fas fa-users"></i> Contributors: 26</div>
+                    </div>
+                    <p class="text-gray-700 mt-4">
+                        **增长分析：** 仓库上榜3次，表现活跃。总增1793，平均每次626.3。末次新增1373远超平均，增长呈加速趋势。
+                    </p>
+                </section>
+            </section>
+
+            <!-- microsoft/fluentui-system-icons -->
+            <section>
+                <section class="content-slide">
+                    <h3><i class="fas fa-icons mr-2"></i>microsoft/fluentui-system-icons</h3>
+                    <p class="project-summary">
+                        <i class="fas fa-quote-left mr-2"></i>
+                        **微软官方图标库：** 现代化、友好、跨平台的系统图标集。
+                        <i class="fas fa-quote-right ml-2"></i>
+                    </p>
+                    <p class="mt-4">
+                        **核心价值：** 提供常规/填充两种风格，支持Android/iOS/Flutter原生库及SVG。支持RTL语言显示，具备良好国际化能力。轻松集成，保持图标一致性。
+                    </p>
+                </section>
+                <section class="content-slide">
+                    <h4><i class="fas fa-chart-bar mr-2"></i>数据与增长分析</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜</th>
+                                <th>当日增 Star</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>HTML</td>
+                                <td>8771 ⭐</td>
+                                <td>3次</td>
+                                <td>3次</td>
+                                <td>235 <span class="text-yellow-500"><i class="fas fa-arrow-down"></i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="project-stats mt-6">
+                        <div><i class="fas fa-code"></i> HTML 38.3%, Dart 30.9%, Swift 19.6%</div>
+                        <div><i class="fas fa-code-fork"></i> Forks: 660</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 97</div>
+                        <div><i class="fas fa-users"></i> Contributors: 64</div>
+                    </div>
+                    <p class="text-gray-700 mt-4">
+                        **增长分析：** 3天内持续上榜3次，总Star增长1189，显示较高活跃度。平均每次上榜增加424星。但最新一天增长235星，低于平均，表明近期增长势头有所放缓。
+                    </p>
+                </section>
+            </section>
+
+            <!-- kortix-ai/suna -->
+            <section>
+                <section class="content-slide">
+                    <h3><i class="fas fa-user-ninja mr-2"></i>kortix-ai/suna</h3>
+                    <p class="project-summary">
+                        <i class="fas fa-quote-left mr-2"></i>
+                        **Suna：** 开源通用型AI智能体，自动化复杂现实任务。
+                        <i class="fas fa-quote-right ml-2"></i>
+                    </p>
+                    <p class="mt-4">
+                        **核心价值：** 通过自然语言自动化研究、数据分析、数字操作。集成浏览器自动化、文件管理等工具集。支持自托管部署，是构建深度参与数字工作AI Agent的灵活可靠平台。
+                    </p>
+                </section>
+                <section class="content-slide">
+                    <h4><i class="fas fa-chart-bar mr-2"></i>数据与增长分析</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜</th>
+                                <th>当日增 Star</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>TypeScript</td>
+                                <td>14704 ⭐</td>
+                                <td>1次</td>
+                                <td>8次</td>
+                                <td>102 <span class="text-green-500"><i class="fas fa-arrow-up"></i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="project-stats mt-6">
+                        <div><i class="fas fa-code"></i> TypeScript 55.4%, Python 41.9%</div>
+                        <div><i class="fas fa-code-fork"></i> Forks: 2.2k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 112</div>
+                        <div><i class="fas fa-users"></i> Contributors: 29</div>
+                    </div>
+                    <p class="text-gray-700 mt-4">
+                        **增长分析：** 仓库增长强劲，累计增加11843星，8次上榜功不可没。平均每次增近788星，增长势头良好。
+                    </p>
+                </section>
+            </section>
+
+            <!-- cloudflare/ai -->
+            <section>
+                <section class="content-slide">
+                    <h3><i class="fas fa-cloud mr-2"></i>cloudflare/ai</h3>
+                    <p class="project-summary">
+                        <i class="fas fa-quote-left mr-2"></i>
+                        **Cloudflare AI集成利器：** 无缝连接Workers AI与Vercel AI SDK。
+                        <i class="fas fa-quote-right ml-2"></i>
+                    </p>
+                    <p class="mt-4">
+                        **核心价值：** 为开发者提供便捷工具和示例，将Cloudflare AI服务（Workers AI, AI Gateway）轻松集成到Vercel AI SDK应用中。简化开发流程，利用边缘AI推理能力。
+                    </p>
+                </section>
+                <section class="content-slide">
+                    <h4><i class="fas fa-chart-bar mr-2"></i>数据与增长分析</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜</th>
+                                <th>当日增 Star</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>TypeScript</td>
+                                <td>370 ⭐</td>
+                                <td>1次</td>
+                                <td>1次</td>
+                                <td>29 <span class="text-green-500"><i class="fas fa-arrow-up"></i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="project-stats mt-6">
+                        <div><i class="fas fa-code"></i> TypeScript 96.0%</div>
+                        <div><i class="fas fa-code-fork"></i> Forks: 118</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 14</div>
+                        <div><i class="fas fa-users"></i> Contributors: 36</div>
+                    </div>
+                    <p class="text-gray-700 mt-4">
+                        **增长分析：** 新上榜项目。初次上榜即获得29 Star增长，显示其在AI集成领域的潜在价值和社区关注。
+                    </p>
+                </section>
+            </section>
+
+            <!-- nvm-sh/nvm -->
+            <section>
+                <section class="content-slide">
+                    <h3><i class="fas fa-file-invoice mr-2"></i>nvm-sh/nvm</h3>
+                    <p class="project-summary">
+                        <i class="fas fa-quote-left mr-2"></i>
+                        **Node版本管理器：** 轻松切换Node.js版本，告别版本冲突。
+                        <i class="fas fa-quote-right ml-2"></i>
+                    </p>
+                    <p class="mt-4">
+                        **核心价值：** 基于POSIX兼容shell脚本，易用且灵活。简化Node.js开发环境管理，支持项目`.nvmrc`自动加载，是Node.js开发者不可或缺的工具。
+                    </p>
+                </section>
+                <section class="content-slide">
+                    <h4><i class="fas fa-chart-bar mr-2"></i>数据与增长分析</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜</th>
+                                <th>当日增 Star</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Shell</td>
+                                <td>85273 ⭐</td>
+                                <td>2次</td>
+                                <td>6次</td>
+                                <td>113 <span class="text-green-500"><i class="fas fa-arrow-up"></i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="project-stats mt-6">
+                        <div><i class="fas fa-code"></i> Shell 98.0%</div>
+                        <div><i class="fas fa-code-fork"></i> Forks: 8.9k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 1k</div>
+                        <div><i class="fas fa-users"></i> Contributors: 371</div>
+                    </div>
+                    <p class="text-gray-700 mt-4">
+                        **增长分析：** 该仓库统计期内上榜6次，平均每次增长127星，增长较为稳定，累计增长2148星。
+                    </p>
+                </section>
+            </section>
+
+            <!-- deepseek-ai/DeepEP -->
+            <section>
+                <section class="content-slide">
+                    <h3><i class="fas fa-network-wired mr-2"></i>deepseek-ai/DeepEP</h3>
+                    <p class="project-summary">
+                        <i class="fas fa-quote-left mr-2"></i>
+                        **DeepEP：** 高效的专家并行通信库，加速MoE模型训练与推理。
+                        <i class="fas fa-quote-right ml-2"></i>
+                    </p>
+                    <p class="mt-4">
+                        **核心价值：** 解决MoE/EP模型分布式训练通信瓶颈，提供GPU之间all-to-all数据分发和汇聚的高性能通信内核。通过Hook技术实现通信计算重叠，提升效率。
+                    </p>
+                </section>
+                <section class="content-slide">
+                    <h4><i class="fas fa-chart-bar mr-2"></i>数据与增长分析</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜</th>
+                                <th>当日增 Star</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Cuda</td>
+                                <td>8055 ⭐</td>
+                                <td>3次</td>
+                                <td>3次</td>
+                                <td>106 <span class="text-green-500"><i class="fas fa-arrow-up"></i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="project-stats mt-6">
+                        <div><i class="fas fa-code"></i> Cuda 55.9%, Python 22.0%, C++ 21.5%</div>
+                        <div><i class="fas fa-code-fork"></i> Forks: 810</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 77</div>
+                        <div><i class="fas fa-users"></i> Contributors: 20</div>
+                    </div>
+                    <p class="text-gray-700 mt-4">
+                        **增长分析：** 该仓库在三天内连续3次上榜，增长表现持续且稳健。平均每次上榜增加94 Star，今日增长106 Star高于平均水平，显示出良好的增长势头并有加速趋势。
+                    </p>
+                </section>
+            </section>
+
+            <!-- php/frankenphp -->
+            <section>
+                <section class="content-slide">
+                    <h3><i class="fas fa-server mr-2"></i>php/frankenphp</h3>
+                    <p class="project-summary">
+                        <i class="fas fa-quote-left mr-2"></i>
+                        **现代PHP应用服务器：** 基于Caddy，性能飞跃，告别传统FPM。
+                        <i class="fas fa-quote-right ml-2"></i>
+                    </p>
+                    <p class="mt-4">
+                        **核心价值：** 革命性“Worker模式”让PHP进程常驻内存，极大减少请求开销。内置自动HTTPS、HTTP/2、HTTP/3。提供简洁、高效、功能全面的PHP部署方案。
+                    </p>
+                </section>
+                <section class="content-slide">
+                    <h4><i class="fas fa-chart-bar mr-2"></i>数据与增长分析</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜</th>
+                                <th>当日增 Star</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Go</td>
+                                <td>8688 ⭐</td>
+                                <td>2次</td>
+                                <td>2次</td>
+                                <td>177 <span class="text-green-500"><i class="fas fa-arrow-up"></i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="project-stats mt-6">
+                        <div><i class="fas fa-code"></i> Go 62.8%, PHP 16.7%, C 9.3%</div>
+                        <div><i class="fas fa-code-fork"></i> Forks: 326</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 80</div>
+                        <div><i class="fas fa-users"></i> Contributors: 116</div>
+                    </div>
+                    <p class="text-gray-700 mt-4">
+                        **增长分析：** 上榜2次表明仓库获得曝光。尽管平均每次上榜能带来显著增星（289.5），但周期总增星（171）远低于平均，说明增长不稳定，受其他因素影响。
+                    </p>
+                </section>
+            </section>
+
+            <!-- ollama/ollama -->
+            <section>
+                <section class="content-slide">
+                    <h3><i class="fas fa-server mr-2"></i>ollama/ollama</h3>
+                    <p class="project-summary">
+                        <i class="fas fa-quote-left mr-2"></i>
+                        **本地LLM极简部署：** 快速上手Llama、Gemma、Mistral等大型语言模型。
+                        <i class="fas fa-quote-right ml-2"></i>
+                    </p>
+                    <p class="mt-4">
+                        **核心价值：** 极大地简化了在本地计算机上运行LLMs的复杂性。提供用户友好的命令行和REST API，支持导入模型格式和Modelfile定制，降低本地AI部署技术门槛。
+                    </p>
+                </section>
+                <section class="content-slide">
+                    <h4><i class="fas fa-chart-bar mr-2"></i>数据与增长分析</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜</th>
+                                <th>当日增 Star</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Go</td>
+                                <td>144102 ⭐</td>
+                                <td>1次</td>
+                                <td>1次</td>
+                                <td>128 <span class="text-green-500"><i class="fas fa-arrow-up"></i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="project-stats mt-6">
+                        <div><i class="fas fa-code"></i> Go 94.2%, C 2.2%</div>
+                        <div><i class="fas fa-code-fork"></i> Forks: 12.1k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 830</div>
+                        <div><i class="fas fa-users"></i> Contributors: 490</div>
+                    </div>
+                    <p class="text-gray-700 mt-4">
+                        **增长分析：** 作为明星项目首次上榜，Star数已高达14.4万，当日新增128星，表明其持续的吸引力和庞大的用户基础。
+                    </p>
+                </section>
+            </section>
+
+            <!-- vllm-project/vllm -->
+            <section>
+                <section class="content-slide">
+                    <h3><i class="fas fa-rocket mr-2"></i>vllm-project/vllm</h3>
+                    <p class="project-summary">
+                        <i class="fas fa-quote-left mr-2"></i>
+                        **LLM推理加速引擎：** 高吞吐量、内存高效，革命性PagingAttention。
+                        <i class="fas fa-quote-right ml-2"></i>
+                    </p>
+                    <p class="mt-4">
+                        **核心价值：** 解决LLM部署性能瓶颈、高延迟和显存占用问题。创新PagedAttention技术优化内存管理，实现远超传统方法的推理速度和并发请求处理能力。
+                    </p>
+                </section>
+                <section class="content-slide">
+                    <h4><i class="fas fa-chart-bar mr-2"></i>数据与增长分析</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜</th>
+                                <th>当日增 Star</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Python</td>
+                                <td>50063 ⭐</td>
+                                <td>1次</td>
+                                <td>4次</td>
+                                <td>92 <span class="text-green-500"><i class="fas fa-arrow-up"></i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="project-stats mt-6">
+                        <div><i class="fas fa-code"></i> Python 85.5%, Cuda 9.2%, C++ 3.7%</div>
+                        <div><i class="fas fa-code-fork"></i> Forks: 8.2k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 394</div>
+                        <div><i class="fas fa-users"></i> Contributors: 1,221</div>
+                    </div>
+                    <p class="text-gray-700 mt-4">
+                        **增长分析：** 该仓库约两月内仅上榜4次，平均每次上榜带来146.8星增长，反映榜单效应。期间总增长5646星，显示持续增长趋势。今日新增92星。
+                    </p>
+                </section>
+            </section>
+
+            <!-- espressif/esp-idf -->
+            <section>
+                <section class="content-slide">
+                    <h3><i class="fas fa-microchip mr-2"></i>espressif/esp-idf</h3>
+                    <p class="project-summary">
+                        <i class="fas fa-quote-left mr-2"></i>
+                        **乐鑫物联网开发框架：** 官方工具链，简化ESP32/ESP32-S3开发。
+                        <i class="fas fa-quote-right ml-2"></i>
+                    </p>
+                    <p class="mt-4">
+                        **核心价值：** 为乐鑫IoT SoC提供稳定可靠、功能丰富的跨平台开发环境。简化构建物联网和嵌入式应用的复杂性，是基于乐鑫硬件进行专业开发的首选平台。
+                    </p>
+                </section>
+                <section class="content-slide">
+                    <h4><i class="fas fa-chart-bar mr-2"></i>数据与增长分析</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜</th>
+                                <th>当日增 Star</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>C</td>
+                                <td>15503 ⭐</td>
+                                <td>1次</td>
+                                <td>1次</td>
+                                <td>14 <span class="text-green-500"><i class="fas fa-arrow-up"></i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="project-stats mt-6">
+                        <div><i class="fas fa-code"></i> C 94.9%, Python 2.0%</div>
+                        <div><i class="fas fa-code-fork"></i> Forks: 7.7k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 510</div>
+                        <div><i class="fas fa-users"></i> Contributors: 925</div>
+                    </div>
+                    <p class="text-gray-700 mt-4">
+                        **增长分析：** 作为新上榜项目，首次亮相，当日新增14星，显示了在嵌入式和IoT开发领域的稳固地位和持续关注。
+                    </p>
+                </section>
+            </section>
+
+            <!-- firebase/genkit -->
+            <section>
+                <section class="content-slide">
+                    <h3><i class="fas fa-fire-alt mr-2"></i>firebase/genkit</h3>
+                    <p class="project-summary">
+                        <i class="fas fa-quote-left mr-2"></i>
+                        **Genkit：** Firebase开源AI框架，简化AI应用开发、集成与测试。
+                        <i class="fas fa-quote-right ml-2"></i>
+                    </p>
+                    <p class="mt-4">
+                        **核心价值：** 采用代码为中心模式，统一接口集成Google、OpenAI等模型。支持多模态、工具调用、RAG等。降低构建、测试、部署复杂AI功能门槛，是快速集成AI的理想选择。
+                    </p>
+                </section>
+                <section class="content-slide">
+                    <h4><i class="fas fa-chart-bar mr-2"></i>数据与增长分析</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜</th>
+                                <th>当日增 Star</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>TypeScript</td>
+                                <td>2112 ⭐</td>
+                                <td>1次</td>
+                                <td>1次</td>
+                                <td>23 <span class="text-green-500"><i class="fas fa-arrow-up"></i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="project-stats mt-6">
+                        <div><i class="fas fa-code"></i> TypeScript 52.8%, Python 23.3%, Go 22.2%</div>
+                        <div><i class="fas fa-code-fork"></i> Forks: 288</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 50</div>
+                        <div><i class="fas fa-users"></i> Contributors: 95</div>
+                    </div>
+                    <p class="text-gray-700 mt-4">
+                        **增长分析：** 新上榜项目。首次亮相即获得23 Star增长，显示了Firebase在AI开发领域的新动向和社区的积极关注。
+                    </p>
+                </section>
+            </section>
+
+            <!-- anthropics/anthropic-cookbook -->
+            <section>
+                <section class="content-slide">
+                    <h3><i class="fas fa-book mr-2"></i>anthropics/anthropic-cookbook</h3>
+                    <p class="project-summary">
+                        <i class="fas fa-quote-left mr-2"></i>
+                        **Claude API实战手册：** 展示Claude有趣且有效用法的Notebooks集。
+                        <i class="fas fa-quote-right ml-2"></i>
+                    </p>
+                    <p class="mt-4">
+                        **核心价值：** 提供大量可运行的Jupyter Notebook示例，涵盖文本处理、工具交互、多模态、高级技巧等。极大地降低Claude API的学习和实践门槛。
+                    </p>
+                </section>
+                <section class="content-slide">
+                    <h4><i class="fas fa-chart-bar mr-2"></i>数据与增长分析</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜</th>
+                                <th>当日增 Star</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Jupyter Notebook</td>
+                                <td>16063 ⭐</td>
+                                <td>3次</td>
+                                <td>4次</td>
+                                <td>1081 <span class="text-green-500"><i class="fas fa-arrow-up"></i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="project-stats mt-6">
+                        <div><i class="fas fa-code"></i> Jupyter Notebook 99.3%, Python 0.7%</div>
+                        <div><i class="fas fa-code-fork"></i> Forks: 1.7k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 354</div>
+                        <div><i class="fas fa-users"></i> Contributors: 37</div>
+                    </div>
+                    <p class="text-gray-700 mt-4">
+                        **增长分析：** 仓库在约20天内星标显著增长3468，并4次上榜，显示了持续的活跃度。当次新增1081远超平均，表明近期增长势头强劲并呈加速趋势。
+                    </p>
+                </section>
+            </section>
+
+            <!-- MystenLabs/sui -->
+            <section>
+                <section class="content-slide">
+                    <h3><i class="fas fa-coins mr-2"></i>MystenLabs/sui</h3>
+                    <p class="project-summary">
+                        <i class="fas fa-quote-left mr-2"></i>
+                        **Sui：** 下一代智能合约平台，高吞吐、低延迟，面向资产的Move语言驱动。
+                        <i class="fas fa-quote-right ml-2"></i>
+                    </p>
+                    <p class="mt-4">
+                        **核心价值：** 采用Rust构建，通过并行处理交易和优化共识机制，实现前所未有的高吞吐量和即时交易结算。是支持低延迟Web3应用（如游戏、支付）的理想基础。
+                    </p>
+                </section>
+                <section class="content-slide">
+                    <h4><i class="fas fa-chart-bar mr-2"></i>数据与增长分析</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜</th>
+                                <th>当日增 Star</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Rust</td>
+                                <td>7038 ⭐</td>
+                                <td>1次</td>
+                                <td>1次</td>
+                                <td>5 <span class="text-green-500"><i class="fas fa-arrow-up"></i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="project-stats mt-6">
+                        <div><i class="fas fa-code"></i> Rust 75.7%, Move 16.5%</div>
+                        <div><i class="fas fa-code-fork"></i> Forks: 11.5k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 177</div>
+                        <div><i class="fas fa-users"></i> Contributors: 436</div>
+                    </div>
+                    <p class="text-gray-700 mt-4">
+                        **增长分析：** 作为新上榜项目，首次亮相，当日新增5星。虽然增长数不高，但其在Web3高性能公链领域的潜力仍值得关注。
+                    </p>
+                </section>
+            </section>
+
+            <!-- Final Slide -->
+            <section class="end-slide" data-background-transition="zoom">
+                <h1>感谢聆听！<br>抓住AI解决真问题的机遇！</h1>
+                <p class="mt-8">期待您的关注与Star，共同探索技术前沿！</p>
+                <div class="bottom-right-info" style="position: static; margin-top: 50px;">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">项目链接: github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code" class="mt-2">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+            pdfSeparateFragments: false, // Ensure fragments are revealed sequentially in PDF export
+            dependencies: [
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js', async: true },
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js', async: true },
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js', async: true }
+            ]
+        });
+
+        // Initialize Mermaid for diagrams if needed (though none used in this specific content)
+        mermaid.initialize({ startOnLoad: true });
+
+    </script>
+</body>
+</html>
