@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Ubuntu 25.10 计划将 RISC-V 支持基准提升至 RVA23 配置文件</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <!-- 主题，我选择了一个现代化的主题并会进行深度定制 -->
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/sky.min.css" rel="stylesheet" id="theme">
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    
+    <style>
+        /* --- 全局样式定制 --- */
+        :root {
+            --r-background-color: #f8f9fa;
+            --r-main-font-size: 1.1rem;
+            --r-heading-font: 'Noto Serif SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, serif;
+            --r-main-font: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-color: #1a202c;
+            --r-main-color: #2d3748;
+            --r-link-color: #2b6cb0;
+            --r-link-color-hover: #2c5282;
+            --aha-gradient-text: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --accent-color-1: #4A90E2;
+            --accent-color-2: #50E3C2;
+        }
+
+        body {
+            font-family: var(--r-main-font);
+        }
+
+        .reveal {
+            font-family: var(--r-main-font);
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--r-heading-color);
+            font-weight: 600;
+        }
+
+        .reveal h1 { font-size: 3rem; }
+        .reveal h2 { font-size: 2.2rem; }
+        .reveal h3 { font-size: 1.7rem; }
+        .reveal h4 { font-size: 1.3rem; }
+
+        .reveal section img {
+            border: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        
+        .reveal ::selection {
+            color: #fff;
+            background: var(--accent-color-1);
+            text-shadow: none;
+        }
+        
+        /* --- AHA Moment 视觉效果 --- */
+        .aha-text {
+            background: var(--aha-gradient-text);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700 !important;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- 页脚样式 --- */
+        .footer-info {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            font-size: 0.7em;
+            color: #777;
+        }
+        .footer-info img {
+            width: 80px;
+            height: 80px;
+            margin-left: 15px;
+            box-shadow: none;
+        }
+        .footer-info a {
+            color: var(--r-link-color);
+            text-decoration: none;
+        }
+        .footer-info a:hover {
+            text-decoration: underline;
+        }
+        
+        /* --- 自定义布局与组件 --- */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .box {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .highlight-box {
+            border: 2px solid var(--accent-color-1);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .reveal ul {
+            list-style: none;
+        }
+        .reveal ul li::before {
+            content: "\f105"; /* Font Awesome chevron-right */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            margin-right: 0.8em;
+            color: var(--accent-color-1);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- 封面 -->
+            <section data-background-image="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" data-background-opacity="0.3" data-background-color="#111827">
+                <div class="text-white">
+                    <h1 class="aha-text !text-5xl" style="-webkit-text-fill-color: white;">Ubuntu 25.10 提升 RISC-V 支持基准</h1>
+                    <h3 class="mt-4">RVA23 规范吹响迈向主流的冲锋号</h3>
+                    <p class="mt-16 text-lg">演讲者：AIChipEra</p>
+                </div>
+                <aside class="footer-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        <i class="fab fa-github"></i> github.com/aichipera/github-trend
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </aside>
+            </section>
+
+            <!-- 核心提要 -->
+            <section>
+                <h2>核心提要：一个时代的“成人礼”</h2>
+                <p class="text-gray-500">Ubuntu 此次升级是 RISC-V 走向成熟和标准化的关键一步。</p>
+                <div class="mt-12 text-left text-xl space-y-6">
+                    <p class="fragment"><i class="fa-solid fa-microchip text-blue-500 w-8"></i> <strong>更高标准</strong>：升级到 RVA23，强制要求矢量与虚拟化等现代功能。</p>
+                    <p class="fragment"><i class="fa-solid fa-forward text-green-500 w-8"></i> <strong>生态演进</strong>：告别旧硬件，推动生态向统一、高性能的规范看齐。</p>
+                    <p class="fragment"><i class="fa-solid fa-rocket text-purple-500 w-8"></i> <strong>加速应用</strong>：为 RISC-V 在服务器、AI 等高性能领域的应用奠定基础。</p>
+                    <p class="fragment"><i class="fa-solid fa-shield-halved text-red-500 w-8"></i> <strong>未来基石</strong>：为即将到来的 Ubuntu 26.04 LTS 长期支持版铺平道路。</p>
+                </div>
+            </section>
+
+            <!-- 新闻速览 -->
+            <section>
+                <h2>新闻速览：Ubuntu 25.10 的新基准</h2>
+                <div class="grid-2 mt-8">
+                    <div class="text-left">
+                        <p class="fragment" data-fragment-index="1">Canonical 计划在 <strong class="text-blue-600">Ubuntu 25.10</strong> 中，将 RISC-V ISA 基准提升至 <strong class="text-blue-600">RVA23</strong> 配置文件。</p>
+                        <p class="fragment" data-fragment-index="2">这意味着新版 Ubuntu 将<strong class="text-red-600">不再支持</strong>缺乏 RVA23 兼容性的老旧 RISC-V 平台。</p>
+                        <p class="fragment" data-fragment-index="3">受影响的用户需停留在 Ubuntu 24.04 LTS 或更早版本。</p>
+                    </div>
+                    <div class="space-y-4">
+                        <img class="fragment" data-fragment-index="1" src="https://www.phoronix.com/assets/categories/ubuntu.webp" alt="Ubuntu Logo">
+                        <img class="fragment" data-fragment-index="2" src="https://www.phoronix.net/image.php?id=2025&image=ubuntu_rva23" alt="Ubuntu RVA23 Requirement">
+                    </div>
+                </div>
+            </section>
+
+            <!-- The Aha Moment -->
+            <section data-background-color="#f0f4f8">
+                <h2 class="aha-text !text-4xl">关键变革：从“可选”到“强制”</h2>
+                <p class="mt-4">RVA23 的核心是为软件生态提供一个统一、强大的硬件基座。</p>
+                <div class="flex justify-around items-center mt-12 w-full">
+                    <div class="fragment" data-fragment-index="1">
+                        <div class="box w-80 text-center">
+                            <h3 class="!text-2xl !text-gray-500">RVA22 (旧)</h3>
+                            <p class="mt-4 text-lg"><i class="fa-solid fa-microchip text-gray-400"></i> 向量 (V) <span class="font-bold text-gray-500">可选</span></p>
+                            <p class="mt-2 text-lg"><i class="fa-solid fa-server text-gray-400"></i> 虚拟化 (H) <span class="font-bold text-gray-500">可选</span></p>
+                        </div>
+                    </div>
+                    <div class="fragment" data-fragment-index="2">
+                        <i class="fa-solid fa-arrow-right-long text-5xl text-gray-400 mx-8"></i>
+                    </div>
+                    <div class="fragment" data-fragment-index="3">
+                        <div class="box w-80 text-center border-2 border-blue-500">
+                            <h3 class="!text-2xl !text-blue-600">RVA23 (新)</h3>
+                            <p class="mt-4 text-lg"><i class="fa-solid fa-microchip text-blue-500"></i> 向量 (V) <span class="font-bold text-blue-600">强制</span></p>
+                            <p class="mt-2 text-lg"><i class="fa-solid fa-server text-blue-500"></i> 虚拟化 (H) <span class="font-bold text-blue-600">强制</span></p>
+                        </div>
+                    </div>
+                </div>
+                <p class="fragment mt-12 text-2xl" data-fragment-index="4">这是一个明确信号：<strong class="aha-text">RISC-V 正从碎片化走向标准化，为高性能应用铺路。</strong></p>
+            </section>
+            
+            <!-- 极客茶话会 -->
+            <section>
+                <h2><i class="fa-solid fa-comments text-yellow-500"></i> 极客茶话会</h2>
+                <p class="mt-4">这次硬件门槛的提升，对整个生态意味着什么？</p>
+                <div class="mt-8 text-left text-xl space-y-4">
+                    <p class="fragment"><i class="fa-solid fa-laptop-code w-8 text-blue-500"></i> **开发者：** 是否能更大胆地利用新特性开发高性能应用？</p>
+                    <p class="fragment"><i class="fa-solid fa-memory w-8 text-green-500"></i> **硬件商：** 是否会加速新一代 RVA23 标准设备的推出？</p>
+                    <p class="fragment"><i class="fa-solid fa-chart-line w-8 text-purple-500"></i> **未来：** 这是不是 RISC-V 挑战 ARM/x86 的重要信号？</p>
+                </div>
+            </section>
+
+            <!-- 深入解读 RVA23 -->
+            <section data-background-color="#2c3e50" class="text-white">
+                <h2 class="!text-white">深入解读：RVA23 配置文件</h2>
+                <p>理解 RISC-V 的设计理念与未来蓝图</p>
+                <i class="fa-solid fa-arrow-down mt-12 text-4xl animate-bounce"></i>
+                
+                <!-- 垂直幻灯片开始 -->
+                <section>
+                    <h3>为何需要 Profile？</h3>
+                    <p>在“模块化”与“兼容性”之间寻找平衡点。</p>
+                    <ul class="mt-6 text-left text-lg">
+                        <li class="fragment"><strong>挑战</strong>: RISC-V 高度模块化，但二进制软件市场需要兼容性。</li>
+                        <li class="fragment"><strong>目标</strong>: 协调硬件供应商，为软件提供一个确定的、通用的 ISA 特性集。</li>
+                        <li class="fragment"><strong>策略</strong>: 通过前瞻性协调，避免生态停留在“最小公分母”，提升竞争力。</li>
+                    </ul>
+                </section>
+                
+                <section>
+                    <h3>理解“可选”的四种形态</h3>
+                    <div class="grid grid-cols-2 gap-6 mt-8">
+                        <div class="box text-gray-800 text-left">
+                            <h4 class="!text-xl"><i class="fa-solid fa-globe text-blue-500"></i> 地域性 (Localized)</h4>
+                            <p class="text-sm">因地缘政治而异，如国密/NIST加密算法。</p>
+                        </div>
+                        <div class="box text-gray-800 text-left">
+                            <h4 class="!text-xl"><i class="fa-solid fa-forward text-green-500"></i> 发展中 (Development)</h4>
+                            <p class="text-sm">未来将成为强制项，引导社区优先开发。</p>
+                        </div>
+                        <div class="box text-gray-800 text-left">
+                            <h4 class="!text-xl"><i class="fa-solid fa-puzzle-piece text-purple-500"></i> 扩展性 (Expansion)</h4>
+                            <p class="text-sm">实现成本高，非必需，可通过运行时发现。</p>
+                        </div>
+                        <div class="box text-gray-800 text-left">
+                            <h4 class="!text-xl"><i class="fa-solid fa-clock-rotate-left text-orange-500"></i> 过渡性 (Transitory)</h4>
+                            <p class="text-sm">未来不确定，可能被移除或替代。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>RVA23U64 (用户模式) 核心变更</h3>
+                    <div class="grid-2 text-left">
+                        <div>
+                            <h4>继承自 RVA22 的强制项</h4>
+                            <ul class="text-sm mt-4">
+                                <li>M, A, F, D, C, B (基础扩展)</li>
+                                <li>Zicsr, Zicntr, Zihpm (CSR与计数器)</li>
+                                <li>Zic* (缓存一致性相关)</li>
+                                <li>...等等</li>
+                            </ul>
+                        </div>
+                        <div class="fragment">
+                            <h4 class="!text-green-300">RVA23 新增强制项</h4>
+                            <ul class="text-sm mt-4">
+                                <li class="font-bold text-lg text-green-300"><i class="fa-solid fa-star"></i> V (向量扩展)</li>
+                                <li class="text-green-300">Zvfhmin, Zvbb, Zvkt (向量子集)</li>
+                                <li>Zicond (整数条件操作)</li>
+                                <li>Zimop, Zcb, Zfa (附加指令)</li>
+                                <li>...等等</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                
+                <section>
+                    <h3>RVA23S64 (监督者模式) 核心变更</h3>
+                    <p>特权架构升级，全面拥抱虚拟化。</p>
+                    <div class="fragment mt-8 highlight-box !border-green-300 !p-6">
+                        <h4 class="!text-white">新增强制扩展: <span class="!text-green-300">Sha (增强型虚拟化)</span></h4>
+                        <p class="!text-white text-lg">这囊括了 <strong class="text-green-300">H (虚拟化)</strong> 扩展及其全套配套特性，为构建高效的 Hypervisor 提供了坚实基础。</p>
+                    </div>
+                    <p class="fragment mt-6">同时，<strong class="text-green-300">Sstc (计时器中断)</strong>, <strong class="text-green-300">Svnapot (地址转换)</strong> 等多个先前可选的特权扩展也变为强制。</p>
+                </section>
+            </section>
+            
+            <!-- 技术圆桌 -->
+            <section>
+                <h2><i class="fa-solid fa-gears text-gray-700"></i> 技术圆桌</h2>
+                <p>RVA23 描绘了蓝图，我们如何解读？</p>
+                <div class="mt-8 text-left text-lg space-y-3">
+                    <p class="fragment"><strong>1. 向量扩展(V)强制化</strong>，对 AI 和科学计算生态意味着什么？机遇与挑战？</p>
+                    <p class="fragment"><strong>2. “收紧”趋势</strong>：是走向成熟的必经之路，还是牺牲了“模块化”灵活性？</p>
+                    <p class="fragment"><strong>3. 硬件门槛</strong>：实现完整 RVA23 的成本如何？会如何影响芯片市场格局？</p>
+                    <p class="fragment"><strong>4. 下一代 Profile (RVA2x)</strong>：您认为哪些“发展中”选项最应变为强制？</p>
+                </div>
+            </section>
+            
+            <!-- 结尾页 -->
+            <section data-background-image="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" data-background-opacity="0.3" data-background-color="#111827">
+                <h2 class="aha-text !text-5xl" style="-webkit-text-fill-color: white;">Q & A</h2>
+                <h3 class="mt-8 !text-white">感谢聆听</h3>
+                <p class="mt-16 text-lg !text-white">AIChipEra</p>
+                <aside class="footer-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="!text-white">
+                        <i class="fab fa-github"></i> github.com/aichipera/github-trend
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </aside>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js"></script>
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js"></script>
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            center: true,
+            margin: 0.04,
+            transition: 'slide', // 简洁流畅的过渡
+            transitionSpeed: 'default',
+            // Learn about plugins: https://revealjs.com/plugins/
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>
