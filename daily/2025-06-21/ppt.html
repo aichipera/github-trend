@@ -1,0 +1,983 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>揭秘GitHub热门：告别AI玄学，拥抱工程实践与效率工具</title>
+
+    <!-- Core Reveal.js Framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- Extended Dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: #333; /* Darker text for readability */
+        }
+
+        .reveal .slides section h1,
+        .reveal .slides section h2,
+        .reveal .slides section h3,
+        .reveal .slides section h4,
+        .reveal .slides section h5,
+        .reveal .slides section h6 {
+            font-family: 'Noto Serif SC', serif;
+            color: #1a202c; /* Deeper color for titles */
+            text-transform: none; /* Keep original casing */
+        }
+
+        .reveal h1 { font-size: 2.8rem; line-height: 1.2; letter-spacing: -0.05em; }
+        .reveal h2 { font-size: 2.2rem; line-height: 1.2; }
+        .reveal h3 { font-size: 1.8rem; line-height: 1.3; }
+        .reveal h4 { font-size: 1.5rem; line-height: 1.4; }
+        .reveal p, .reveal li { font-size: 1.1rem; line-height: 1.6; }
+        .reveal small { font-size: 0.8rem; }
+
+        .reveal .slides section {
+            padding: 40px 60px; /* Adjust padding for content */
+        }
+
+        .reveal .slides section.title-slide {
+            background: linear-gradient(135deg, #0e1e3a 0%, #1a3a5a 100%); /* Dark blue-grey gradient */
+            color: #f8f8f8; /* Light text on dark background */
+        }
+        .reveal .slides section.title-slide h1 {
+            color: #e0f2fe; /* Lighter blue for main title */
+            font-size: 3.5rem;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+        }
+        .reveal .slides section.title-slide h2 {
+            color: #a7d9f7; /* Slightly darker blue for subtitle */
+            font-size: 2rem;
+            margin-top: 15px;
+        }
+        .reveal .slides section.title-slide .speaker-info {
+            position: absolute;
+            bottom: 120px;
+            left: 60px;
+            font-size: 1.2rem;
+            color: #c0c0c0;
+        }
+        .reveal .slides section.title-slide .disclaimer {
+            font-size: 0.9rem;
+            color: #999;
+            margin-top: 30px;
+            opacity: 0.8;
+        }
+
+        /* Footer for QR and Link */
+        .reveal .controls-arrow {
+            color: #2196F3; /* Bright blue for navigation arrows */
+        }
+
+        .reveal .progress span {
+            background: #2196F3; /* Bright blue progress bar */
+        }
+
+        .reveal .slide-footer {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: flex-end;
+            gap: 15px;
+        }
+        .reveal .slide-footer img {
+            height: 80px; /* Adjust QR code size */
+            width: auto;
+            border-radius: 5px;
+        }
+        .reveal .slide-footer a {
+            color: #2196F3;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Custom backgrounds for sections */
+        .reveal .slides section[data-background-image] {
+            background-size: cover;
+            background-position: center;
+        }
+        .reveal .slides section.section-intro {
+            background: linear-gradient(45deg, #e3f2fd, #bbdefb); /* Light blue gradient */
+            color: #263238;
+        }
+        .reveal .slides section.detail-slide {
+            background-color: #ffffff; /* Clean white background */
+            color: #333;
+        }
+
+        /* Fragment animations */
+        .reveal .fragment.fade-in { opacity: 0; visibility: hidden; }
+        .reveal .fragment.fade-in.visible { opacity: 1; visibility: visible; }
+        .reveal .fragment.grow { transform: scale(0.8); opacity: 0; }
+        .reveal .fragment.grow.visible { transform: scale(1); opacity: 1; }
+
+        /* Table styling */
+        .reveal table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1rem;
+        }
+        .reveal th, .reveal td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .reveal th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        /* Icon styling */
+        .reveal .icon-large {
+            font-size: 1.5em;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        .key-highlight {
+            color: #2196F3; /* Bright blue for key phrases */
+            font-weight: 600;
+        }
+        .info-card {
+            background: #f7f7f7;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .info-card i {
+            color: #2196F3;
+            font-size: 1.8rem;
+        }
+        .project-table-container {
+            max-height: 200px; /* Limit height for project tables */
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        .project-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+            font-size: 0.95rem;
+        }
+        .project-meta-grid div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #eef;
+            padding: 8px 12px;
+            border-radius: 5px;
+        }
+        .project-meta-grid i {
+            color: #4a4a4a;
+        }
+        .language-chart {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            padding: 10px 0;
+            border-top: 1px solid #eee;
+        }
+        .language-chart span {
+            display: inline-block;
+            margin-right: 15px;
+            padding: 3px 8px;
+            background: #e9e9e9;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Title Slide -->
+            <section class="title-slide">
+                <h1 class="text-center">揭秘GitHub热门：告别AI玄学，<br>拥抱工程实践与效率工具</h1>
+                <h2 class="text-center font-normal">技术干货，速速转发收藏！</h2>
+                <div class="speaker-info">
+                    演讲者：AIChipEra<br>
+                    GitHub热门仓库日报观测时间：2025-06-21 21:09:10
+                </div>
+                <p class="text-center disclaimer">以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</p>
+
+                <div class="slide-footer">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="flex items-center">
+                        <i class="fab fa-github icon-large"></i> https://github.com/aichipera/github-trend
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra WeChat QR Code">
+                </div>
+            </section>
+
+            <!-- 日报要点 -->
+            <section class="section-intro" data-transition="fade">
+                <h2><i class="fas fa-chart-line icon-large"></i> 日报要点：技术焦点速览</h2>
+                <ul class="list-disc ml-8 mt-10">
+                    <li class="fragment fade-in">技术焦点从理论模型转向 <span class="key-highlight">AI工程化落地</span>、<span class="key-highlight">开发者效率</span> 及 <span class="key-highlight">数据资产价值挖掘</span>。</li>
+                    <li class="fragment fade-in">大量项目聚焦 <span class="key-highlight">大模型 (LLMs)</span>、<span class="key-highlight">RAG</span> 与 <span class="key-highlight">Agent</span> 的实践应用与<span class="key-highlight">本地部署</span>方案。</li>
+                    <li class="fragment fade-in">Typst、n8n 等工具强调 <span class="key-highlight">效率与用户体验</span>。</li>
+                    <li class="fragment fade-in">《数据工程手册》走红，突显 <span class="key-highlight">数据基建重要性</span>。</li>
+                    <li class="fragment fade-in">Python、Rust、TS 等语言各展所长。预示技术发展更重<span class="key-highlight">实用、安全与普及</span>。</li>
+                </ul>
+            </section>
+
+            <!-- 热门项目趋势分析 - 今日整体趋势 -->
+            <section class="detail-slide" data-transition="slide">
+                <h2><i class="fas fa-microchip icon-large"></i> 今日整体趋势：AI工程实践与效率提升</h2>
+                <h3 class="mt-8 mb-4 fragment fade-in">1. 核心技术领域聚焦AI工程与实践</h3>
+                <ul class="list-disc ml-8 text-lg">
+                    <li class="fragment fade-in">最引人注目的是对LLMs的<span class="key-highlight">落地应用和工程化</span>关注。</li>
+                    <li class="fragment fade-in">项目如"AI Engineering Hub"、"LLMs-from-scratch"提供深度教程和实践代码。</li>
+                    <li class="fragment fade-in">"Self-hosted AI Starter Kit"、"n8n"关注<span class="key-highlight">本地私有化部署</span>，重视数据安全和隐私。</li>
+                    <li class="fragment fade-in">AI热潮正转向<span class="key-highlight">高效、安全、便捷地使用和部署AI</span>的工程实践阶段。</li>
+                </ul>
+            </section>
+
+            <section class="detail-slide" data-transition="slide">
+                <h2><i class="fas fa-code icon-large"></i> 今日整体趋势：语言与需求</h2>
+                <h3 class="mt-8 mb-4 fragment fade-in">2. 语言与技术栈的多样性与倾向</h3>
+                <ul class="list-disc ml-8 text-lg">
+                    <li class="fragment fade-in"><span class="key-highlight">Python</span>在AI和数据科学教育实践中仍具统治地位，Jupyter Notebooks广泛用于动手实践和知识分享。</li>
+                    <li class="fragment fade-in"><span class="key-highlight">Rust</span>作为高性能、安全系统的首选，出现在排版系统和基础设施项目中。</li>
+                    <li class="fragment fade-in"><span class="key-highlight">TypeScript</span>在Web应用和自动化平台中扮演重要角色，类型安全和Node.js生态成熟。</li>
+                </ul>
+
+                <h3 class="mt-8 mb-4 fragment fade-in">3. 反映的技术需求与发展方向</h3>
+                <ul class="list-disc ml-8 text-lg">
+                    <li class="fragment fade-in"><span class="key-highlight">AI技能普及与落地</span>：大量LLM工程、RAG、Agent教程。</li>
+                    <li class="fragment fade-in"><span class="key-highlight">效率与体验优化</span>：Typst、Notepad Next等提升效率和用户体验。</li>
+                    <li class="fragment fade-in"><span class="key-highlight">数据资产价值挖掘</span>：《数据工程手册》凸显数据基建重要性。</li>
+                </ul>
+            </section>
+
+            <!-- 热门项目双日维度对比分析 -->
+            <section class="section-intro" data-transition="fade">
+                <h2><i class="fas fa-chart-bar icon-large"></i> 热门项目双日维度对比分析</h2>
+                <div class="info-card fragment fade-in-then-semi-out">
+                    <i class="fas fa-arrow-up"></i>
+                    <div>
+                        <h4 class="mb-1">活跃度增加，新晋项目多</h4>
+                        <p>新晋项目7个，持续上升5个，无显著下降，整体关注度提升。</p>
+                    </div>
+                </div>
+                <div class="info-card fragment fade-in-then-semi-out">
+                    <i class="fas fa-random"></i>
+                    <div>
+                        <h4 class="mb-1">技术栈多样化</h4>
+                        <p>新晋项目覆盖文档排版、AI工程、即时通讯等，技术栈涵盖Rust、Java、Python、TypeScript。</p>
+                    </div>
+                </div>
+                <div class="info-card fragment fade-in-then-semi-out">
+                    <i class="fas fa-fire-alt"></i>
+                    <div>
+                        <h4 class="mb-1">热点领域持续增长</h4>
+                        <p>数据工程、自动化工作流、LLM相关项目显著增长，如数据工程师手册增幅最大。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 热点变化 -->
+            <section class="detail-slide" data-transition="slide">
+                <h2><i class="fas fa-bolt icon-large"></i> 热点变化一览</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+                    <div class="fragment fade-in">
+                        <h3 class="text-green-600"><i class="fas fa-plus-circle icon-large"></i> 新增热点</h3>
+                        <ul class="list-disc ml-6 mt-4 text-left">
+                            <li>patchy631/ai-engineering-hub</li>
+                            <li>cyclotruc/gitingest</li>
+                            <li>typst/typst</li>
+                            <li>flowseal/zapret-discord-youtube</li>
+                            <li>drklo/telegram</li>
+                            <li>unionlabs/union</li>
+                            <li>ourongxing/newsnow</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h3 class="text-red-600"><i class="fas fa-minus-circle icon-large"></i> 减退热点</h3>
+                        <ul class="list-disc ml-6 mt-4 text-left">
+                            <li>grafana/loki</li>
+                            <li>mail-0/zero</li>
+                            <li>moby/buildkit</li>
+                            <li>vllm-project/vllm</li>
+                            <li>...等8个项目</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h3 class="text-blue-600"><i class="fas fa-sync-alt icon-large"></i> 持续热门</h3>
+                        <ul class="list-disc ml-6 mt-4 text-left">
+                            <li>dail8859/NotepadNext (3次)</li>
+                            <li>DataExpert-io/data-engineer-handbook (4次)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 详细仓库数据 - typst/typst -->
+            <section class="detail-slide" data-transition="fade">
+                <h2><i class="fas fa-file-alt icon-large"></i> typst/typst：排版系统新星</h2>
+                <p class="text-xl mt-4 mb-6">简介：一种强大且易于学习的新的基于标记的排版系统。</p>
+
+                <div class="project-table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Rust</td>
+                                <td>42284</td>
+                                <td>1次</td>
+                                <td>2次</td>
+                                <td>58</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="project-meta-grid">
+                    <div><i class="fas fa-star"></i> 42.3k</div>
+                    <div><i class="fas fa-code-branch"></i> 1.1k</div>
+                    <div><i class="fas fa-eye"></i> 112</div>
+                    <div><i class="fas fa-exclamation-circle"></i> 867</div>
+                    <div><i class="fas fa-code-fork"></i> 47</div>
+                    <div><i class="fas fa-box-open"></i> 22</div>
+                    <div><i class="fas fa-clipboard"></i> 3,719</div>
+                    <div><i class="fas fa-gavel"></i> Apache-2.0</div>
+                    <div><i class="fas fa-users"></i> 347</div>
+                </div>
+                <div class="language-chart">
+                    编程语言占比: <span>Rust 85.4%</span> <span>Typst 14.0%</span> <span>TypeScript 0.3%</span>
+                </div>
+
+                <p class="mt-6 text-sm">
+                    <strong>项目速读:</strong> Typst 是一个新型、高性能的标记排版系统。用Rust开发，优势在于编译速度快、稳定性高、错误提示友好。内置数学公式、参考文献管理等专业排版能力，是撰写学术论文、技术报告的理想选择。开源且提供在线编辑器，正迅速成为高效、优雅排版的新宠。
+                </p>
+                <p class="mt-2 text-xs text-gray-600">
+                    <strong>增长分析:</strong> 仓库总星增长3472，上榜日平均增长58.5星。分析显示，仓库主要星增长并非依赖上榜，上榜对整体拉动作用微弱。
+                </p>
+            </section>
+
+            <!-- 详细仓库数据 - patchy631/ai-engineering-hub -->
+            <section class="detail-slide" data-transition="fade">
+                <h2><i class="fas fa-brain icon-large"></i> ai-engineering-hub：AI工程实践教程</h2>
+                <p class="text-xl mt-4 mb-6">简介：大型语言模型、检索增强生成及实际人工智能代理应用的深度教程。</p>
+
+                <div class="project-table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Jupyter Notebook</td>
+                                <td>10684</td>
+                                <td>1次</td>
+                                <td>9次</td>
+                                <td>343</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="project-meta-grid">
+                    <div><i class="fas fa-star"></i> 10.7k</div>
+                    <div><i class="fas fa-code-branch"></i> 1.8k</div>
+                    <div><i class="fas fa-eye"></i> 151</div>
+                    <div><i class="fas fa-exclamation-circle"></i> 18</div>
+                    <div><i class="fas fa-code-fork"></i> 71</div>
+                    <div><i class="fas fa-box-open"></i> 0</div>
+                    <div><i class="fas fa-clipboard"></i> 281</div>
+                    <div><i class="fas fa-gavel"></i> MIT</div>
+                    <div><i class="fas fa-users"></i> 13</div>
+                </div>
+                <div class="language-chart">
+                    编程语言占比: <span>Jupyter Notebook 97.5%</span> <span>Python 2.5%</span>
+                </div>
+
+                <p class="mt-6 text-sm">
+                    <strong>项目速读:</strong> 这是一个聚焦AI工程的综合资源库，提供LLMs、RAGs及AI Agents的深度教程和应用案例。核心价值在于提供丰富动手实践内容（多为Jupyter Notebook），帮助理论知识快速转化为可执行方案。对于学习、探索或将AI技术应用于实际项目的开发者极具价值。
+                </p>
+                <p class="mt-2 text-xs text-gray-600">
+                    <strong>增长分析:</strong> 该仓库在约3个月内实际上榜9次，每次平均增加245.8星，总增长5652星。频繁上榜是关键驱动力，表明项目持续受到关注和认可，增长势头良好。
+                </p>
+            </section>
+
+            <!-- 详细仓库数据 - dail8859/NotepadNext -->
+            <section class="detail-slide" data-transition="fade">
+                <h2><i class="fas fa-edit icon-large"></i> NotepadNext：跨平台Notepad++</h2>
+                <p class="text-xl mt-4 mb-6">简介：Notepad++ 的跨平台重新实现。</p>
+
+                <div class="project-table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>C++</td>
+                                <td>11040</td>
+                                <td>3次</td>
+                                <td>3次</td>
+                                <td>198</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="project-meta-grid">
+                    <div><i class="fas fa-star"></i> 11k</div>
+                    <div><i class="fas fa-code-branch"></i> 665</div>
+                    <div><i class="fas fa-eye"></i> 114</div>
+                    <div><i class="fas fa-exclamation-circle"></i> 55</div>
+                    <div><i class="fas fa-code-fork"></i> 5</div>
+                    <div><i class="fas fa-box-open"></i> 33</div>
+                    <div><i class="fas fa-clipboard"></i> 916</div>
+                    <div><i class="fas fa-gavel"></i> GPL-3.0</div>
+                    <div><i class="fas fa-users"></i> 45</div>
+                </div>
+                <div class="language-chart">
+                    编程语言占比: <span>C++ 61.9%</span> <span>HTML 16.0%</span> <span>C 7.6%</span>
+                </div>
+
+                <p class="mt-6 text-sm">
+                    <strong>项目速读:</strong> Notepad Next是用C++和Qt框架重新实现Notepad++的跨平台文本编辑器。旨在解决Notepad++仅限Windows的局限，提供类似功能和体验。目前积极开发中，虽有已知缺陷但安装便捷。基于GPLv3，社区驱动，对寻求Notepad++跨平台替代品的用户是值得关注的选择，但需了解其开发状态。
+                </p>
+                <p class="mt-2 text-xs text-gray-600">
+                    <strong>增长分析:</strong> 该仓库在短周期内（3天）连续3次上榜，增长势头良好。总增468 Star，平均每次上榜增102。尤今日新增198 Star，远超平均值，表明增长趋势正在加速，潜力较大。
+                </p>
+            </section>
+            
+            <!-- 详细仓库数据 - DataExpert-io/data-engineer-handbook -->
+            <section class="detail-slide" data-transition="fade">
+                <h2><i class="fas fa-book icon-large"></i> data-engineer-handbook：数据工程师手册</h2>
+                <p class="text-xl mt-4 mb-6">简介：一个包含关于数据工程你想学习的一切链接的仓库。</p>
+
+                <div class="project-table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Jupyter Notebook</td>
+                                <td>33084</td>
+                                <td>4次</td>
+                                <td>6次</td>
+                                <td>1063</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="project-meta-grid">
+                    <div><i class="fas fa-star"></i> 33.1k</div>
+                    <div><i class="fas fa-code-branch"></i> 6.3k</div>
+                    <div><i class="fas fa-eye"></i> 421</div>
+                    <div><i class="fas fa-exclamation-circle"></i> 15</div>
+                    <div><i class="fas fa-code-fork"></i> 17</div>
+                    <div><i class="fas fa-box-open"></i> 0</div>
+                    <div><i class="fas fa-clipboard"></i> 428</div>
+                    <div><i class="fas fa-gavel"></i> 未知</div>
+                    <div><i class="fas fa-users"></i> 117</div>
+                </div>
+                <div class="language-chart">
+                    编程语言占比: <span>Jupyter Notebook 66.9%</span> <span>Python 26.3%</span>
+                </div>
+
+                <p class="mt-6 text-sm">
+                    <strong>项目速读:</strong> 《数据工程手册》是数据工程领域的全面资源聚合库。它并非工具，而是精心策划的导航指南，旨在帮助数据工程师系统掌握知识技能。涵盖入门、实战、工具、面试等，解决学习资料分散问题，提供一站式成长路径。无论是新手还是资深工程师，都是不可多得的实用参考。
+                </p>
+                <p class="mt-2 text-xs text-gray-600">
+                    <strong>增长分析:</strong> 上榜6次显示持续关注。总增5262星，平均每次486。今日激增1063星，增长势头显著增强。
+                </p>
+            </section>
+            
+            <!-- 详细仓库数据 - rasbt/LLMs-from-scratch -->
+            <section class="detail-slide" data-transition="fade">
+                <h2><i class="fas fa-robot icon-large"></i> LLMs-from-scratch：手把手构建LLMs</h2>
+                <p class="text-xl mt-4 mb-6">简介：使用 PyTorch 从零开始一步一步实现类似 ChatGPT 的大型语言模型。</p>
+
+                <div class="project-table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Jupyter Notebook</td>
+                                <td>51921</td>
+                                <td>2次</td>
+                                <td>2次</td>
+                                <td>432</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="project-meta-grid">
+                    <div><i class="fas fa-star"></i> 51.9k</div>
+                    <div><i class="fas fa-code-branch"></i> 7.5k</div>
+                    <div><i class="fas fa-eye"></i> 505</div>
+                    <div><i class="fas fa-exclamation-circle"></i> 8</div>
+                    <div><i class="fas fa-code-fork"></i> 3</div>
+                    <div><i class="fas fa-box-open"></i> 0</div>
+                    <div><i class="fas fa-clipboard"></i> 873</div>
+                    <div><i class="fas fa-gavel"></i> 未知</div>
+                    <div><i class="fas fa-users"></i> 42</div>
+                </div>
+                <div class="language-chart">
+                    编程语言占比: <span>Jupyter Notebook 77.8%</span> <span>Python 22.2%</span>
+                </div>
+
+                <p class="mt-6 text-sm">
+                    <strong>项目速读:</strong> 这是一个从零开始，手把手教你用PyTorch构建类似ChatGPT的LLM的项目。不依赖高级库，通过亲手编写代码，深入理解LLM内部工作原理。覆盖数据处理、注意力机制、Transformer到GPT构建、预训练和微调全过程。注重硬件友好性。对想透彻掌握LLM原理和实现的开发者极具实践价值。
+                </p>
+                <p class="mt-2 text-xs text-gray-600">
+                    <strong>增长分析:</strong> 在极短的统计周期内（2天），该仓库成功上榜2次，显示出持续的可见性。总增长445 Star，其中最近一次上榜贡献了432 Star，表明当前增长势头强劲。
+                </p>
+            </section>
+
+            <!-- 详细仓库数据 - DrKLO/Telegram -->
+            <section class="detail-slide" data-transition="fade">
+                <h2><i class="fab fa-telegram-plane icon-large"></i> DrKLO/Telegram：Android版源代码</h2>
+                <p class="text-xl mt-4 mb-6">简介：Android 版 Telegram 源代码。</p>
+
+                <div class="project-table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Java</td>
+                                <td>26321</td>
+                                <td>1次</td>
+                                <td>1次</td>
+                                <td>34</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="project-meta-grid">
+                    <div><i class="fas fa-star"></i> 26.3k</div>
+                    <div><i class="fas fa-code-branch"></i> 8.4k</div>
+                    <div><i class="fas fa-eye"></i> 1.2k</div>
+                    <div><i class="fas fa-exclamation-circle"></i> 0</div>
+                    <div><i class="fas fa-code-fork"></i> 129</div>
+                    <div><i class="fas fa-box-open"></i> 95</div>
+                    <div><i class="fas fa-clipboard"></i> 546</div>
+                    <div><i class="fas fa-gavel"></i> GPL-2.0</div>
+                    <div><i class="fas fa-users"></i> 17</div>
+                </div>
+                <div class="language-chart">
+                    编程语言占比: <span>Java 42.2%</span> <span>C++ 34.2%</span> <span>C 15.0%</span>
+                </div>
+
+                <p class="mt-6 text-sm">
+                    <strong>项目速读:</strong> 这是Telegram官方Android应用的完整源代码。揭示了这款以速度和安全著称的流行消息应用的内部实现。作为高度流行的开源项目，它提升了透明度，也成为开发者学习顶尖移动端通信技术、或在此基础上构建自定义第三方版本的重要基础。使用此代码需遵守严格的开源许可、使用自有API ID并避免官方品牌标识。
+                </p>
+            </section>
+            
+            <!-- 详细仓库数据 - cyclotruc/gitingest -->
+            <section class="detail-slide" data-transition="fade">
+                <h2><i class="fas fa-database icon-large"></i> gitingest：LLM友好的代码提取</h2>
+                <p class="text-xl mt-4 mb-6">简介：将任何 GitHub URL 中的 'hub' 替换为 'ingest'，即可获取便于提示的代码库提取。</p>
+
+                <div class="project-table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Python</td>
+                                <td>9540</td>
+                                <td>1次</td>
+                                <td>1次</td>
+                                <td>156</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="project-meta-grid">
+                    <div><i class="fas fa-star"></i> 9.5k</div>
+                    <div><i class="fas fa-code-branch"></i> 730</div>
+                    <div><i class="fas fa-eye"></i> 44</div>
+                    <div><i class="fas fa-exclamation-circle"></i> 44</div>
+                    <div><i class="fas fa-code-fork"></i> 11</div>
+                    <div><i class="fas fa-box-open"></i> 2</div>
+                    <div><i class="fas fa-clipboard"></i> 284</div>
+                    <div><i class="fas fa-gavel"></i> MIT</div>
+                    <div><i class="fas fa-users"></i> 40</div>
+                </div>
+                <div class="language-chart">
+                    编程语言占比: <span>Python 78.2%</span> <span>Jinja 18.0%</span> <span>JavaScript 3.3%</span>
+                </div>
+
+                <p class="mt-6 text-sm">
+                    <strong>项目速读:</strong> Gitingest能将Git仓库代码转化为LLM友好的文本摘要，解决了为AI提供代码库上下文的难题。使用便捷，只需将GitHub URL中的'hub'替换为'ingest'即可快速获取摘要页面。提供命令行、Python包和浏览器扩展等多种访问途径，极大提升代码分析和AI辅助开发效率。是一款开源实用的开发者工具。
+                </p>
+            </section>
+
+            <!-- 详细仓库数据 - ourongxing/newsnow -->
+            <section class="detail-slide" data-transition="fade">
+                <h2><i class="fas fa-newspaper icon-large"></i> newsnow：实时热门新闻优雅阅读</h2>
+                <p class="text-xl mt-4 mb-6">简介：实时热门新闻优雅阅读。</p>
+
+                <div class="project-table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>TypeScript</td>
+                                <td>11350</td>
+                                <td>1次</td>
+                                <td>7次</td>
+                                <td>39</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="project-meta-grid">
+                    <div><i class="fas fa-star"></i> 11.4k</div>
+                    <div><i class="fas fa-code-branch"></i> 3.3k</div>
+                    <div><i class="fas fa-eye"></i> 36</div>
+                    <div><i class="fas fa-exclamation-circle"></i> 66</div>
+                    <div><i class="fas fa-code-fork"></i> 3</div>
+                    <div><i class="fas fa-box-open"></i> 30</div>
+                    <div><i class="fas fa-clipboard"></i> 315</div>
+                    <div><i class="fas fa-gavel"></i> MIT</div>
+                    <div><i class="fas fa-users"></i> 10</div>
+                </div>
+                <div class="language-chart">
+                    编程语言占比: <span>TypeScript 95.7%</span> <span>HTML 1.8%</span>
+                </div>
+
+                <p class="mt-6 text-sm">
+                    <strong>项目速读:</strong> NewsNow 提供简洁优雅的实时热门新闻阅读体验，解决传统新闻平台界面复杂、广告繁多问题。采用智能缓存和自适应数据抓取，保证实时性并节约资源。基于TypeScript构建，支持多种部署环境（Cloudflare Pages, Vercel, Docker），降低搭建门槛。支持GitHub OAuth登录，方便用户同步数据。提供纯粹阅读体验，是自建新闻聚合服务的好基础。
+                </p>
+                <p class="mt-2 text-xs text-gray-600">
+                    <strong>增长分析:</strong> 仓库在约3个月内共上榜7次，总增长达6223星。平均每次上榜贡献约220星，显示增长主要集中在上榜期间。本日新增39星，相较上榜平均增长较低，整体增长趋势强依赖于上榜表现。
+                </p>
+            </section>
+
+            <!-- 详细仓库数据 - n8n-io/self-hosted-ai-starter-kit -->
+            <section class="detail-slide" data-transition="fade">
+                <h2><i class="fas fa-laptop-house icon-large"></i> self-hosted-ai-starter-kit：本地AI入门套件</h2>
+                <p class="text-xl mt-4 mb-6">简介：自托管 AI 入门套件是一个开源模板，可快速搭建本地 AI 环境。</p>
+
+                <div class="project-table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>-</td>
+                                <td>9671</td>
+                                <td>2次</td>
+                                <td>2次</td>
+                                <td>187</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="project-meta-grid">
+                    <div><i class="fas fa-star"></i> 9.7k</div>
+                    <div><i class="fas fa-code-branch"></i> 2.3k</div>
+                    <div><i class="fas fa-eye"></i> 132</div>
+                    <div><i class="fas fa-exclamation-circle"></i> 0</div>
+                    <div><i class="fas fa-code-fork"></i> 3</div>
+                    <div><i class="fas fa-box-open"></i> 0</div>
+                    <div><i class="fas fa-clipboard"></i> 35</div>
+                    <div><i class="fas fa-gavel"></i> Apache-2.0</div>
+                    <div><i class="fas fa-users"></i> 15</div>
+                </div>
+
+                <p class="mt-6 text-sm">
+                    <strong>项目速读:</strong> "Self-hosted AI Starter Kit"是n8n提供的开源Docker Compose模板，旨在快速搭建本地化、私密化AI环境。整合了n8n低代码平台、Ollama本地大模型和Qdrant向量数据库，无需编程即可安全构建运行AI工作流。核心价值是简化本地AI应用入门门槛，保障数据安全，适合处理敏感数据场景的概念验证和快速开发。
+                </p>
+                <p class="mt-2 text-xs text-gray-600">
+                    <strong>增长分析:</strong> 两天内两次上榜，总星增193，今日高达187，增长势头迅猛，近期表现尤为突出。
+                </p>
+            </section>
+            
+            <!-- 详细仓库数据 - unionlabs/union -->
+            <section class="detail-slide" data-transition="fade">
+                <h2><i class="fas fa-link icon-large"></i> unionlabs/union：零知识跨链桥协议</h2>
+                <p class="text-xl mt-4 mb-6">简介：一个最小化信任、零知识的跨链桥协议，设计用于抗审查、极高安全性和去中心化金融。</p>
+
+                <div class="project-table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Rust</td>
+                                <td>67900</td>
+                                <td>1次</td>
+                                <td>9次</td>
+                                <td>215</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="project-meta-grid">
+                    <div><i class="fas fa-star"></i> 67.9k</div>
+                    <div><i class="fas fa-code-branch"></i> 3.3k</div>
+                    <div><i class="fas fa-eye"></i> 1.5k</div>
+                    <div><i class="fas fa-exclamation-circle"></i> 256</div>
+                    <div><i class="fas fa-code-fork"></i> 43</div>
+                    <div><i class="fas fa-box-open"></i> 85</div>
+                    <div><i class="fas fa-clipboard"></i> 13,941</div>
+                    <div><i class="fas fa-gavel"></i> Apache-2.0</div>
+                    <div><i class="fas fa-users"></i> 27</div>
+                </div>
+                <div class="language-chart">
+                    编程语言占比: <span>Rust 82.3%</span> <span>TypeScript 5.0%</span> <span>Move 3.8%</span>
+                </div>
+
+                <p class="mt-6 text-sm">
+                    <strong>项目速读:</strong> Union 是基于零知识技术的跨链基础设施协议，旨在实现安全、无需信任的跨链通用消息传递、资产转移和 DeFi 应用。专注于连接不同区块链生态系统。其核心优势在于创新共识验证和零知识证明，不依赖第三方，提供极高安全性和抗审查性。是去中心化金融和跨链互操作的强大基石，尤其适合需要极致安全和无需信任环境的场景。主要使用Rust开发。
+                </p>
+                <p class="mt-2 text-xs text-gray-600">
+                    <strong>增长分析:</strong> 仓库增长强劲，总计增加16686 Star。增长主要集中在9次上榜期间，平均每次带来421.4星，表明上榜是核心驱动力，带来爆发式增长。今日新增215星。
+                </p>
+            </section>
+            
+            <!-- 详细仓库数据 - n8n-io/n8n -->
+            <section class="detail-slide" data-transition="fade">
+                <h2><i class="fas fa-cogs icon-large"></i> n8n-io/n8n：AI工作流自动化平台</h2>
+                <p class="text-xl mt-4 mb-6">简介：Fair-code工作流自动化平台，内置原生AI能力。结合可视化构建与自定义代码，支持自托管或云部署，拥有400+集成。</p>
+
+                <div class="project-table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>TypeScript</td>
+                                <td>109932</td>
+                                <td>2次</td>
+                                <td>13次</td>
+                                <td>542</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="project-meta-grid">
+                    <div><i class="fas fa-star"></i> 110k</div>
+                    <div><i class="fas fa-code-branch"></i> 31.7k</div>
+                    <div><i class="fas fa-eye"></i> 676</div>
+                    <div><i class="fas fa-exclamation-circle"></i> 608</div>
+                    <div><i class="fas fa-code-fork"></i> 378</div>
+                    <div><i class="fas fa-box-open"></i> 349</div>
+                    <div><i class="fas fa-clipboard"></i> 14,353</div>
+                    <div><i class="fas fa-gavel"></i> 未知</div>
+                    <div><i class="fas fa-users"></i> 494</div>
+                </div>
+                <div class="language-chart">
+                    编程语言占比: <span>TypeScript 90.3%</span> <span>Vue 7.9%</span>
+                </div>
+
+                <p class="mt-6 text-sm">
+                    <strong>项目速读:</strong> n8n 是面向技术团队的强大工作流自动化平台，连接各种应用服务，提升效率。它结合可视化拖拽与自定义代码灵活性，原生支持AI能力（基于LangChain构建智能工作流）。采用公平代码模式，提供自托管或云服务选项，用户完全掌控数据和部署环境，具备丰富集成和企业级功能，是自动化日常任务、数据流转和构建智能代理的理想选择。
+                </p>
+                <p class="mt-2 text-xs text-gray-600">
+                    <strong>增长分析:</strong> 仓库增长势头迅猛，在统计周期内总计增长4.4万Star。特别是在13次上榜期间实现爆发式增长，平均每次增加近600Star。今天新增542Star，显示强劲增长趋势仍在持续。
+                </p>
+            </section>
+
+            <!-- 详细仓库数据 - Flowseal/zapret-discord-youtube -->
+            <section class="detail-slide" data-transition="fade">
+                <h2><i class="fas fa-shield-alt icon-large"></i> zapret-discord-youtube：网络封锁规避工具</h2>
+                <p class="text-xl mt-4 mb-6">简介：一个为 Windows 用户设计的工具，旨在帮助规避对 Discord 和 YouTube 等平台的网络封锁。</p>
+
+                <div class="project-table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Batchfile</td>
+                                <td>14117</td>
+                                <td>1次</td>
+                                <td>6次</td>
+                                <td>152</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="project-meta-grid">
+                    <div><i class="fas fa-star"></i> 14.1k</div>
+                    <div><i class="fas fa-code-branch"></i> 945</div>
+                    <div><i class="fas fa-eye"></i> 137</div>
+                    <div><i class="fas fa-exclamation-circle"></i> 1.6k</div>
+                    <div><i class="fas fa-code-fork"></i> 9</div>
+                    <div><i class="fas fa-box-open"></i> 23</div>
+                    <div><i class="fas fa-clipboard"></i> 227</div>
+                    <div><i class="fas fa-gavel"></i> 未知</div>
+                    <div><i class="fas fa-users"></i> 19</div>
+                </div>
+                <div class="language-chart">
+                    编程语言占比: <span>Batchfile 100.0%</span>
+                </div>
+
+                <p class="mt-6 text-sm">
+                    <strong>项目速读:</strong> 这是一个为Windows用户设计的工具，帮助规避Discord和YouTube等平台的网络封锁。基于zapret开发并为Windows优化打包，提供“即插即用”体验。亮点在于易用性和多种规避策略，用户可根据网络环境选择。附带service.bat脚本简化日常使用和维护。技术上利用WinDivert库实现流量拦截过滤。一站式、低门槛的封锁规避方案，但可能与杀毒软件冲突。
+                </p>
+                <p class="mt-2 text-xs text-gray-600">
+                    <strong>增长分析:</strong> 仓库在三个月内上榜6次，平均每次上榜增长65.3 Star，总增长2986 Star。今日新增152 Star，显著高于平均值，表明近期增长势头强劲且加速。
+                </p>
+            </section>
+
+
+            <!-- End Slide -->
+            <section class="title-slide">
+                <h1 class="text-center">感谢您的聆听！</h1>
+                <h2 class="text-center font-normal mt-8">期待您的关注与Star</h2>
+                <div class="text-center mt-20">
+                    <p class="text-white text-2xl">
+                        探索更多GitHub热门项目趋势分析，请访问：
+                    </p>
+                    <p class="text-blue-300 text-3xl font-bold mt-4">
+                        <a href="https://github.com/aichipera/github-trend" target="_blank" class="hover:underline">https://github.com/aichipera/github-trend</a>
+                    </p>
+                </div>
+                
+                <div class="slide-footer">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="flex items-center">
+                        <i class="fab fa-github icon-large"></i> https://github.com/aichipera/github-trend
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra WeChat QR Code">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            hash: true,
+            transition: 'slide', // Fades between slides
+            backgroundTransition: 'fade', // Fades between slide backgrounds
+
+            dependencies: [
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js', async: true },
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js', async: true },
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js', async: true },
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/zoom/zoom.min.js', async: true }
+            ],
+
+            // Mermaid Configuration
+            mermaid: {
+                theme: 'neutral', // default theme for mermaid diagrams
+            }
+        });
+    </script>
+</body>
+</html>
