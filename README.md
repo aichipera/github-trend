@@ -14,6 +14,8 @@
 *   `daily/`: 存放[**每日 GitHub Trending 热门项目**](daily/README.md)的数据及分析结果。
 *   `weekly/`: 存放[**每周 GitHub Trending 热门项目**](weekly/README.md)的数据及分析结果。
 *   `monthly/`: 存放[**每月 GitHub Trending 热门项目**](monthly/README.md)的数据及分析结果。
+*   `riscv/`: 存放[**RISC-V技术**](riscv/README.md)的文章博客。
+*   `linux/`: 存放[**Linux技术**](linux/README.md)的文章博客。
 *   `asserts/`: 存放项目所需的静态资源，例如公众号二维码。
 
 ## 关注我们
