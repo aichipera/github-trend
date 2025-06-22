@@ -1,621 +1,403 @@
-<html lang="zh-CN">
+<!DOCTYPE html>
+<html lang="zh">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GitHub热门：AI应用化浪潮</title>
-    <meta name="description" content="GitHub热门项目趋势分析，AI从大模型走向RAG、Agent、本地AI实用潮">
-    <meta name="author" content="AIChipEra">
-
-    <!-- 核心框架 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub热门：别只追大模型！RAG、Agent、本地AI实用潮来了</title>
+    
+    <!-- Core & Extension Dependencies -->
     <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
-    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet" id="theme">
-
-    <!-- 扩展依赖 -->
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/black.min.css" rel="stylesheet" id="theme">
     <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <!-- Mermaid JS is included in the script section, not as a separate link -->
 
-    <!-- Custom Styles -->
     <style>
         :root {
-            --r-main-font: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
-            --r-heading-font: 'Noto Serif SC', serif;
-            --r-background-color: #f7f7f7;
-            --r-main-color: #333;
-            --r-heading-color: #2c3e50;
-            --r-link-color: #3498db;
-            --r-link-color-hover: #2980b9;
-            --primary-accent: #3498db; /* Blue */
-            --secondary-accent: #27ae60; /* Green */
-            --tertiary-accent: #e67e22; /* Orange */
-            --quaternary-accent: #c0392b; /* Red */
+            --aha-bg: linear-gradient(135deg, #1e0c42 0%, #0d1117 50%, #1a2a45 100%);
+            --aha-glow: radial-gradient(ellipse at center, rgba(76, 107, 193, 0.3) 0%, rgba(76, 107, 193, 0) 70%);
+            --font-serif: 'Noto Serif SC', serif;
+            --font-sans: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --primary-text: #EAEAEA;
+            --accent-color-1: #6A82FB;
+            --accent-color-2: #89F7FE;
+            --highlight-bg: rgba(255, 255, 255, 0.08);
         }
 
         body {
-            font-family: var(--r-main-font);
-            color: var(--r-main-color);
-            background-color: var(--r-background-color);
+            font-family: var(--font-sans);
+            color: var(--primary-text);
         }
 
-        .reveal .slides section h1,
-        .reveal .slides section h2,
-        .reveal .slides section h3,
-        .reveal .slides section h4,
-        .reveal .slides section h5,
-        .reveal .slides section h6 {
-            font-family: var(--r-heading-font);
-            color: var(--r-heading-color);
-            text-transform: none; /* 保持中文标题自然 */
-            letter-spacing: normal;
-            font-weight: 700;
+        .reveal {
+            background: var(--aha-bg);
         }
 
-        .reveal .slides section h1 { font-size: 3rem; } /* For main title on cover */
-        .reveal .slides section h2 { font-size: 2.5rem; } /* For main slide titles */
-        .reveal .slides section h3 { font-size: 2rem; } /* For section subtitles or large content headings */
-        .reveal .slides section h4 { font-size: 1.5rem; } /* For smaller subtitles or descriptive headings */
-        .reveal .slides section p,
-        .reveal .slides section li,
-        .reveal .slides section div { font-size: 1.1rem; line-height: 1.5; } /* Body text */
-
-        /* Fragments for controlled reveal */
-        .reveal .slides section .fragment {
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4 {
+            font-family: var(--font-serif);
+            color: var(--primary-text);
+            text-shadow: 0 0 10px rgba(137, 247, 254, 0.3), 0 0 20px rgba(106, 130, 251, 0.2);
         }
 
-        .reveal .slides section .fragment.visible {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
+        .reveal h1 { font-size: 3rem; }
+        .reveal h2 { font-size: 2.5rem; }
+        .reveal h3 { font-size: 1.8rem; }
+        .reveal p, .reveal li, .reveal td, .reveal th {
+            font-size: 1.1rem;
+            line-height: 1.6;
         }
 
-        .reveal .slides section .fragment.fade-in {
-            transform: translateY(20px);
+        .reveal strong, .reveal b {
+            color: var(--accent-color-2);
         }
-        .reveal .slides section .fragment.fade-in.visible {
-            transform: translateY(0);
+
+        .reveal a {
+            color: var(--accent-color-1);
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        .reveal a:hover {
+            color: var(--accent-color-2);
+            text-shadow: 0 0 8px var(--accent-color-2);
         }
         
-        /* Custom background image for cover */
-        .reveal .slides section.cover-slide {
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center;
-            background-size: cover;
-            color: #fff;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        .reveal small {
+            color: #aaa;
         }
-        .reveal .slides section.cover-slide h1,
-        .reveal .slides section.cover-slide h3 {
-            color: #fff;
-        }
-        .reveal .slides section.cover-slide .speaker-info {
-            position: absolute;
-            bottom: 150px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.2rem;
-            color: rgba(255,255,255,0.8);
-            text-shadow: none;
+        
+        .reveal blockquote {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 5px solid var(--accent-color-1);
+            padding: 1rem;
+            border-radius: 8px;
         }
 
-        /* Footer links for first/last slide */
-        .footer-links {
+        .footer-info {
             position: absolute;
-            right: 20px;
             bottom: 20px;
+            right: 20px;
             display: flex;
             align-items: center;
-            font-size: 0.9rem;
-            color: #666;
-        }
-        .footer-links img {
-            height: 60px; /* 二维码大小 */
-            width: 60px;
-            margin-left: 10px;
-            border-radius: 5px;
-        }
-        .footer-links a {
-            color: #fff; /* 封面页链接颜色 */
-            text-decoration: none;
-            margin-right: 15px;
-        }
-        .footer-links a:hover {
-            color: var(--r-link-color-hover);
-        }
-        .reveal .slides section:not(.cover-slide) .footer-links a {
-            color: var(--r-link-color); /* 其他页链接颜色 */
-        }
-        .qr-code-small { /* Specific class for qr code */
-            height: 60px;
-            width: 60px;
-            border-radius: 5px;
-            object-fit: contain;
+            font-size: 0.8rem;
+            z-index: 1000;
         }
 
-        /* Specific slide backgrounds for visual distinction */
-        .reveal .slides section[data-background-color="#e0f2f7"] { background-color: #e0f2f7; } /* Light blue for key insights */
-        .reveal .slides section[data-background-color="#f0fcf5"] { background-color: #f0fcf5; } /* Light green for positive trends */
-        .reveal .slides section[data-background-color="#fff8e1"] { background-color: #fff8e1; } /* Light yellow for predictions */
-
-        /* General layout adjustments */
-        .reveal .slides section {
-            padding: 40px;
-            text-align: left; /* 默认左对齐，提高可读性 */
+        .footer-info img {
+            width: 80px;
+            height: 80px;
+            margin-left: 15px;
         }
-        .reveal .slides section.center { text-align: center; }
-
-        .reveal ul {
-            list-style: none; /* 移除默认列表点 */
-            padding-left: 0;
+        
+        .section-title {
+            text-align: center;
+            border-bottom: 2px solid var(--accent-color-1);
+            padding-bottom: 15px;
+            margin-bottom: 50px !important;
         }
-        .reveal ul li {
-            position: relative;
-            padding-left: 1.5em; /* 留出图标位置 */
-            margin-bottom: 0.5em;
-        }
-        .reveal ul li:before {
-            content: "\f00c"; /* Font Awesome 勾号图标 */
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            color: var(--secondary-accent);
-            position: absolute;
-            left: 0;
-            top: 0;
-        }
-        .reveal ul.no-bullet li:before { /* 某些列表不需要图标 */
-            content: none;
+        
+        .card {
+            background: var(--highlight-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .reveal .icon-list li {
-            padding-left: 0; /* 列表项内部有图标时，无需额外左边距 */
-        }
-        .reveal .icon-list li i {
-            margin-right: 10px;
-            color: var(--primary-accent);
-        }
-        .reveal .icon-list.star-distribution li i {
-            color: var(--tertiary-accent);
-        }
-
-        /* Project detail table styling */
-        .project-detail-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        .project-detail-table th, .project-detail-table td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-            vertical-align: top;
-        }
-        .project-detail-table th {
-            background-color: #f2f2f2;
-            font-weight: bold;
-            color: var(--r-heading-color);
-        }
-        .project-detail-table tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        .project-detail-table .stat-icons i {
-            margin-right: 5px;
-            color: var(--primary-accent);
-        }
-        .project-language-breakdown {
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 15px;
-        }
-        .project-language-breakdown span {
-            background-color: #e9e9e9;
-            border-radius: 5px;
-            padding: 5px 10px;
-            margin-right: 10px;
-            margin-bottom: 5px;
-            font-size: 0.9em;
-            color: #555;
-        }
-
-        .project-quick-read {
-            margin-top: 20px;
-            font-style: italic;
-            color: #555;
-            padding: 15px;
-            border-left: 4px solid var(--secondary-accent);
-            background-color: #fcfcfc;
-            line-height: 1.6;
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
     </style>
 </head>
+
 <body>
     <div class="reveal">
         <div class="slides">
-
             <!-- Slide 1: Cover Page -->
-            <section class="cover-slide center">
-                <h1>GitHub热门：别只追大模型！</h1>
-                <h3 class="mt-4">RAG、Agent、本地AI实用潮来了</h3>
-                <div class="speaker-info">
-                    <p>演讲者：AIChipEra</p>
-                    <p>GitHub热门仓库周报观测时间：2025-06-22 21:20:40</p>
+            <section data-background-gradient="linear-gradient(135deg, #1e0c42 0%, #0d1117 50%, #1a2a45 100%)">
+                <div class="absolute top-0 left-0 w-full h-full" style="background: var(--aha-glow); z-index: -1;"></div>
+                <h1 class="text-6xl font-bold leading-tight">GitHub热门趋势周报</h1>
+                <p class="mt-4 text-3xl font-light" style="color: var(--accent-color-2);">别只追大模型！RAG、Agent、本地AI实用潮来了</p>
+                <div class="mt-20">
+                    <p class="text-xl">演讲者：AIChipEra</p>
+                    <p class="text-lg text-gray-400">观测时间: 2025-06-22 21:20:40</p>
                 </div>
-                <div class="footer-links">
-                    <a href="https://github.com/aichipera/github-trend" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-github"></i> github.com/aichipera/github-trend
-                    </a>
-                    <img src="../../asserts/wx.jpg" alt="微信二维码" class="qr-code-small">
+                <div class="footer-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
                 </div>
             </section>
 
-            <!-- Slide 2: Aha Moment Introduction -->
-            <section data-background-color="#e0f2f7">
-                <h2 class="text-center"><i class="fas fa-lightbulb text-primary-accent mr-3"></i> 洞察先机：AI技术走向何方？</h2>
-                <div class="flex items-center justify-center mt-10">
-                    <div class="w-1/2 p-4 fragment fade-in" data-fragment-index="1">
-                        <p class="text-xl leading-relaxed">
-                            本周GitHub热榜揭示，技术焦点正从<strong>AI模型本身</strong>转向如何<strong class="text-primary-accent">实际应用</strong>。
-                        </p>
-                        <ul class="mt-4 no-bullet text-lg">
-                            <li class="fragment fade-in" data-fragment-index="2"><i class="fas fa-robot text-secondary-accent mr-2"></i> <strong>RAG、AI Agent</strong>：构建智能应用的关键。</li>
-                            <li class="fragment fade-in" data-fragment-index="3"><i class="fas fa-desktop text-secondary-accent mr-2"></i> <strong>本地化运行</strong>：满足隐私需求，实现自主控制。</li>
-                            <li class="fragment fade-in" data-fragment-index="4"><i class="fas fa-code text-secondary-accent mr-2"></i> <strong>AI融入开发</strong>：深度优化工作流。</li>
-                            <li class="fragment fade-in" data-fragment-index="5"><i class="fas fa-database text-secondary-accent mr-2"></i> <strong>数据与基础设施</strong>：持续受关注的基础。</li>
-                        </ul>
-                    </div>
-                    <div class="w-1/2 p-4 fragment fade-in" data-fragment-index="6">
-                        <img src="https://images.unsplash.com/photo-1606213702159-2911b333a595?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="AI Application" class="rounded-lg shadow-xl" style="max-height: 400px; object-fit: cover;">
-                        <p class="text-center mt-3 text-sm text-gray-500">（图片来源：Unsplash）</p>
-                    </div>
-                </div>
-                <p class="text-center text-md mt-6 fragment fade-in" data-fragment-index="7">这份报告带你快速掌握最新实用技术风向标，发现下一个引爆点！</p>
+            <!-- Slide 2: Weekly Highlights -->
+            <section>
+                <h2 class="section-title">本周要点 · 灵光一现</h2>
+                <ul class="list-none w-4/5 mx-auto">
+                    <li class="fragment p-4 mb-4 card"><i class="fas fa-microchip mr-3 text-blue-400"></i> 技术焦点从 **模型本身** 转向 **实际应用**，RAG 与 AI Agent 成为核心。</li>
+                    <li class="fragment p-4 mb-4 card"><i class="fas fa-shield-halved mr-3 text-green-400"></i> **本地化AI**（如 Jan）崛起，满足数据隐私与自主可控的核心需求。</li>
+                    <li class="fragment p-4 mb-4 card"><i class="fas fa-code mr-3 text-purple-400"></i> AI **深度融入开发流程**（如 Claude Code），成为提效的"智能副驾"。</li>
+                    <li class="fragment p-4 mb-4 card"><i class="fas fa-database mr-3 text-yellow-400"></i> **数据工程** 与 **高性能基础设施** 持续火热，为上层应用提供坚实基础。</li>
+                </ul>
             </section>
 
             <!-- Slide 3: Overall Trend Analysis -->
             <section>
-                <h2><i class="fas fa-chart-line text-primary-accent mr-3"></i> 本周整体趋势：AI应用化浪潮</h2>
-                <h4 class="text-xl text-gray-600 mt-2">（2025-W25 GitHub热门项目技术趋势分析）</h4>
-                <div class="grid grid-cols-2 gap-8 mt-8">
-                    <div class="fragment fade-in" data-fragment-index="1">
-                        <h3 class="text-lg text-primary-accent"><i class="fas fa-cube mr-2"></i> 最受关注的技术领域与主题</h3>
-                        <ul class="text-base icon-list">
-                            <li><i class="fas fa-check-circle"></i> AI大模型应用：本地化 (Jan), RAG, Agent, 提示词优化 (Prompt Optimizer), 开发工作流集成 (Claude Code)。</li>
-                            <li><i class="fas fa-check-circle"></i> 基础支撑：数据工程学习资源 (Data Engineering Handbook)，高性能基础设施 (FrankenPHP)。</li>
-                            <li><i class="fas fa-check-circle"></i> 其他前沿：计算机视觉 (VGGT), 企业管理 (Ever Gauzy)。</li>
-                        </ul>
-                    </div>
-                    <div class="fragment fade-in" data-fragment-index="2">
-                        <h3 class="text-lg text-primary-accent"><i class="fas fa-code mr-2"></i> 主要编程语言分布和技术栈特点</h3>
-                        <ul class="text-base icon-list">
-                            <li><i class="fas fa-check-circle"></i> <strong>TypeScript / Jupyter / Python</strong>：大模型应用、前端/工具活跃。</li>
-                            <li><i class="fas fa-check-circle"></i> <strong>Go / Rust</strong>：基础设施和系统级软件优势。</li>
-                            <li><i class="fas fa-check-circle"></i> 技术栈：LLM应用层与基础架构层并重。</li>
-                        </ul>
-                    </div>
-                    <div class="col-span-2 fragment fade-in" data-fragment-index="3">
-                        <h3 class="text-lg text-primary-accent"><i class="fas fa-cogs mr-2"></i> 反映的技术需求和发展方向</h3>
-                        <ul class="text-base icon-list">
-                            <li><i class="fas fa-check-circle"></i> <strong>AI的实用化和集成化</strong>：如何用AI构建应用 (RAG, Agent)。</li>
-                            <li><i class="fas fa-check-circle"></i> <strong>隐私和自主控制</strong>：本地运行需求日益提升 (Jan)。</li>
-                            <li><i class="fas fa-check-circle"></i> <strong>数据工程基础建设</strong>：支撑AI应用落地的长期需求。</li>
-                            <li><i class="fas fa-check-circle"></i> <strong>追求高性能与简化部署</strong>：基础设施优化趋势。</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Slide 4: Hotspot Changes & Language Distribution -->
-            <section>
-                <h2><i class="fas fa-retweet text-primary-accent mr-3"></i> 热点变迁与语言格局</h2>
-                <div class="grid grid-cols-2 gap-8 mt-8">
-                    <div class="fragment fade-in" data-fragment-index="1">
-                        <h3 class="text-lg text-primary-accent"><i class="fas fa-rocket mr-2"></i> 本周特有趋势</h3>
-                        <ul class="text-base icon-list">
-                            <li><i class="fas fa-check-circle"></i> <strong>AI应用层技术集中爆发</strong>：RAG和Agent应用示例、效率工具涌现。</li>
-                            <li><i class="fas fa-check-circle"></i> <strong>本地AI与隐私保护</strong>：突出亮点。</li>
-                            <li><i class="fas fa-check-circle"></i> <strong>Claude Code</strong>：单点爆发，AI深度融入开发工作流。</li>
-                        </ul>
-                    </div>
-                    <div class="fragment fade-in" data-fragment-index="2">
-                        <h3 class="text-lg text-primary-accent"><i class="fas fa-chart-pie mr-2"></i> 编程语言分布</h3>
-                        <ul class="text-base icon-list">
-                            <li><i class="fas fa-square" style="color: #3498db;"></i> TypeScript: 4个项目 (28.6%)</li>
-                            <li><i class="fas fa-square" style="color: #27ae60;"></i> Jupyter Notebook: 3个项目 (21.4%)</li>
-                            <li><i class="fas fa-square" style="color: #e67e22;"></i> Python: 2个项目 (14.3%)</li>
-                            <li><i class="fas fa-square" style="color: #c0392b;"></i> 其他语言: 5个项目 (35.7%)</li>
-                        </ul>
-                    </div>
-                    <div class="col-span-2 fragment fade-in" data-fragment-index="3">
-                        <h3 class="text-lg text-primary-accent"><i class="fas fa-fire mr-2"></i> Star分布 (人气指数)</h3>
-                        <ul class="text-base icon-list star-distribution">
-                            <li><i class="fas fa-star text-tertiary-accent"></i> 1k-5k: 1个项目 (7.1%)</li>
-                            <li><i class="fas fa-star text-tertiary-accent"></i> 5k-10k: 6个项目 (42.9%)</li>
-                            <li><i class="fas fa-star text-tertiary-accent"></i> 10k-50k: 7个项目 (50.0%)</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Slide 5: Next Hot Spot Prediction -->
-            <section data-background-color="#fff8e1">
-                <h2><i class="fas fa-brain text-primary-accent mr-3"></i> 预测未来：下一个爆点在哪里？</h2>
-                <h4 class="text-xl text-gray-600 mt-2">（基于本周趋势的洞察）</h4>
-                <ul class="mt-8 text-lg icon-list">
-                    <li class="fragment fade-in" data-fragment-index="1"><i class="fas fa-project-diagram"></i> <strong>更垂直、更智能的AI Agent工具：</strong> 深度集成到特定行业或专业工作流。</li>
-                    <li class="fragment fade-in" data-fragment-index="2"><i class="fas fa-mobile-alt"></i> <strong>端侧/边缘侧AI的优化与应用：</strong> 模型小型化、硬件加速、框架支持。</li>
-                    <li class="fragment fade-in" data-fragment-index="3"><i class="fas fa-shield-alt"></i> <strong>AI安全、可信与合规：</strong> 相关工具和框架将受关注。</li>
-                    <li class="fragment fade-in" data-fragment-index="4"><i class="fas fa-palette"></i> <strong>多模态AI的实际应用：</strong> 图像、音频、视频与文本的结合。</li>
-                    <li class="fragment fade-in" data-fragment-index="5"><i class="fas fa-cloud"></i> <strong>AI基础设施的进一步优化：</strong> 分布式训练/推理效率、异构计算。</li>
-                    <li class="fragment fade-in" data-fragment-index="6"><i class="fas fa-globe-americas"></i> <strong>AI与Web3或其他前沿技术的结合探索。</strong></li>
-                </ul>
-            </section>
-
-            <!-- Slide 6: Top Projects Overview -->
-            <section data-background-color="#f0fcf5">
-                <h2><i class="fas fa-trophy text-primary-accent mr-3"></i> 本周精选：不容错过的人气项目</h2>
-                <h4 class="text-xl text-gray-600 mt-2">（Top 5 热门项目概览）</h4>
-                <ul class="mt-8 text-lg no-bullet icon-list">
-                    <li class="fragment fade-in" data-fragment-index="1"><i class="fas fa-star text-tertiary-accent mr-2"></i> <strong>Shubhamsaboo/awesome-llm-apps</strong>: 精彩的LLM应用集合，集成AI Agent和RAG。</li>
-                    <li class="fragment fade-in" data-fragment-index="2"><i class="fas fa-star text-tertiary-accent mr-2"></i> <strong>DataExpert-io/data-engineer-handbook</strong>: 数据工程综合学习资源库。</li>
-                    <li class="fragment fade-in" data-fragment-index="3"><i class="fas fa-star text-tertiary-accent mr-2"></i> <strong>menloresearch/jan</strong>: 100%离线运行的ChatGPT开源替代方案。</li>
-                    <li class="fragment fade-in" data-fragment-index="4"><i class="fas fa-star text-tertiary-accent mr-2"></i> <strong>anthropics/anthropic-cookbook</strong>: Anthropic官方Claude模型使用示例集。</li>
-                    <li class="fragment fade-in" data-fragment-index="5"><i class="fas fa-star text-tertiary-accent mr-2"></i> <strong>anthropics/claude-code</strong>: 终端AI编码代理工具，理解代码库，自然语言操作。</li>
-                </ul>
-                <p class="mt-8 text-center text-md text-gray-500 fragment fade-in" data-fragment-index="6">接下来，我们将深入了解这些热门项目。</p>
-            </section>
-
-            <!-- Detailed Project Breakdown Sections (Vertical Slides) -->
-
-            <!-- Project 1: menloresearch/jan -->
-            <section>
                 <section>
-                    <h2><i class="fas fa-desktop text-secondary-accent mr-3"></i> menloresearch/jan</h2>
-                    <h4 class="text-xl text-gray-600 mt-2">开源ChatGPT替代方案，100%离线运行</h4>
-                    <table class="project-detail-table">
-                        <thead>
-                            <tr>
-                                <th><i class="fas fa-code mr-2"></i>开发语言</th>
-                                <th><i class="fas fa-star mr-2"></i>Star 数</th>
-                                <th><i class="fas fa-long-arrow-alt-right mr-2"></i>当期 Star 增加</th>
-                                <th><i class="fas fa-layer-group mr-2"></i>总上榜次数</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>TypeScript</td>
-                                <td>32760</td>
-                                <td>3249</td>
-                                <td>1次</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="project-quick-read">
-                        <p><strong>项目速读:</strong> Jan 是一个开源的本地AI助手项目，提供100%离线运行的ChatGPT替代方案，保障数据隐私。它提供易于安装的客户端和兼容OpenAI的本地API，降低了本地部署AI的门槛。对于注重个人隐私、追求自主控制或需要本地开发环境的用户而言，Jan 提供了一个强大且安全的本地AI解决方案。</p>
-                    </div>
-                    <div class="project-language-breakdown">
-                        <span>TypeScript 82.7%</span>
-                        <span>Rust 12.6%</span>
-                        <span>JavaScript 2.7%</span>
-                    </div>
+                    <h2 class="section-title">整体趋势分析</h2>
+                    <p class="text-2xl">当前技术发展的主流脉络与社区关注焦点</p>
+                    <p class="mt-10 text-gray-400">按下方向键 <i class="fas fa-arrow-down"></i> 查看详情</p>
                 </section>
                 <section>
-                    <h3>Jan的核心价值：隐私与自主</h3>
-                    <ul class="text-lg icon-list">
-                        <li><i class="fas fa-user-shield"></i> <strong>本地运行：</strong> 所有数据处理均在本地完成，杜绝隐私泄露风险。</li>
-                        <li><i class="fas fa-cogs"></i> <strong>开源自由：</strong> 完全开源，代码透明，用户可自由审查和定制。</li>
-                        <li><i class="fas fa-rocket"></i> <strong>模型多样性：</strong> 支持Llama、Gemma等多种大型语言模型。</li>
-                        <li><i class="fas fa-plug"></i> <strong>OpenAI API兼容：</strong> 无缝集成现有AI应用生态。</li>
-                        <li><i class="fas fa-cubes"></i> <strong>轻量化部署：</strong> 提供便捷的客户端安装体验。</li>
-                    </ul>
-                    <p class="mt-6 text-center text-lg text-primary-accent">“您的AI，您的数据，尽在您的掌控。”</p>
+                    <h3><i class="fas fa-brain mr-2"></i> 1. AI应用层技术集中爆发</h3>
+                    <p class="text-left w-4/5 mx-auto">本周最突出的特点是AI应用层技术的井喷。焦点已从基础模型转向 **“如何用好AI”**。大量项目围绕 RAG（检索增强）、Agent（智能体）以及如何将AI融入现有工作流（Claude Code）展开，标志着AI正加速从研究走向大规模实践。</p>
                 </section>
-            </section>
-
-            <!-- Project 2: DataExpert-io/data-engineer-handbook -->
-            <section>
                 <section>
-                    <h2><i class="fas fa-database text-secondary-accent mr-3"></i> DataExpert-io/data-engineer-handbook</h2>
-                    <h4 class="text-xl text-gray-600 mt-2">数据工程百科全书，一站式学习资源</h4>
-                    <table class="project-detail-table">
-                        <thead>
-                            <tr>
-                                <th><i class="fas fa-code mr-2"></i>开发语言</th>
-                                <th><i class="fas fa-star mr-2"></i>Star 数</th>
-                                <th><i class="fas fa-long-arrow-alt-right mr-2"></i>当期 Star 增加</th>
-                                <th><i class="fas fa-layer-group mr-2"></i>总上榜次数</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Jupyter Notebook</td>
-                                <td>33402</td>
-                                <td>3853</td>
-                                <td>1次</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="project-quick-read">
-                        <p><strong>项目速读:</strong> 《数据工程手册》是面向数据工程师的综合性学习与参考资源库。它解决了学习资料分散、入门路径不清的问题，通过汇集海量精选资源、提供结构化学习路线和实践内容，帮助用户系统掌握数据工程知识。其全面性、高质量策划和清晰分类是其最大优势，是数据工程领域学习者和从业者的宝贵指南。</p>
-                    </div>
-                    <div class="project-language-breakdown">
-                        <span>Jupyter Notebook 66.9%</span>
-                        <span>Python 26.3%</span>
-                    </div>
+                    <h3><i class="fas fa-user-secret mr-2"></i> 2. 隐私与本地化需求凸显</h3>
+                     <p class="text-left w-4/5 mx-auto">对隐私和自主控制的关注日益提升。以 **Jan** 为代表的本地离线AI项目大受欢迎，反映出用户希望在保障数据安全的前提下使用AI。同时，**Prompt Optimizer** 这类前端工具也体现了对数据不离本地的偏好。</p>
                 </section>
-            </section>
-
-            <!-- Project 3: anthropics/anthropic-cookbook -->
-            <section>
                 <section>
-                    <h2><i class="fas fa-utensils text-secondary-accent mr-3"></i> anthropics/anthropic-cookbook</h2>
-                    <h4 class="text-xl text-gray-600 mt-2">Claude模型高效使用“菜谱”</h4>
-                    <table class="project-detail-table">
-                        <thead>
-                            <tr>
-                                <th><i class="fas fa-code mr-2"></i>开发语言</th>
-                                <th><i class="fas fa-star mr-2"></i>Star 数</th>
-                                <th><i class="fas fa-long-arrow-alt-right mr-2"></i>当期 Star 增加</th>
-                                <th><i class="fas fa-layer-group mr-2"></i>总上榜次数</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Jupyter Notebook</td>
-                                <td>16662</td>
-                                <td>3376</td>
-                                <td>1次</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="project-quick-read">
-                        <p><strong>项目速读:</strong> Anthropic Cookbook是官方打造的代码示例集和实用指南，旨在帮助开发者高效运用Claude模型。它提供大量直接上手、覆盖广泛的代码“食谱”，详细展示了Claude从基础文本分析（分类、摘要、RAG问答）到复杂工具使用、Agent构建、与外部服务集成以及图像理解等高级应用。是加速基于Claude应用开发、深入理解模型潜能的宝贵资源。</p>
-                    </div>
-                    <div class="project-language-breakdown">
-                        <span>Jupyter Notebook 99.3%</span>
-                        <span>Python 0.7%</span>
-                    </div>
+                    <h3><i class="fas fa-cogs mr-2"></i> 3. 基础设施持续夯实</h3>
+                     <p class="text-left w-4/5 mx-auto">尽管AI火热，但数据基础建设依然是长期且重要的需求。**Data Engineering Handbook** 的持续受欢迎证明了这一点。同时，追求更高性能、更简化部署的基础设施项目（如 **FrankenPHP**, **DeepEP**）也备受关注。</p>
                 </section>
-            </section>
-
-            <!-- Project 4: Shubhamsaboo/awesome-llm-apps -->
-            <section>
-                <section>
-                    <h2><i class="fas fa-th-large text-secondary-accent mr-3"></i> Shubhamsaboo/awesome-llm-apps</h2>
-                    <h4 class="text-xl text-gray-600 mt-2">LLM应用精选，RAG与AI Agent实践宝库</h4>
-                    <table class="project-detail-table">
-                        <thead>
-                            <tr>
-                                <th><i class="fas fa-code mr-2"></i>开发语言</th>
-                                <th><i class="fas fa-star mr-2"></i>Star 数</th>
-                                <th><i class="fas fa-long-arrow-alt-right mr-2"></i>当期 Star 增加</th>
-                                <th><i class="fas fa-layer-group mr-2"></i>总上榜次数</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Python</td>
-                                <td>45313</td>
-                                <td>5464</td>
-                                <td>1次</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="project-quick-read">
-                        <p><strong>项目速读:</strong> 这是一个汇集了大量基于大语言模型（LLM）的实际应用示例的精选仓库。它为开发者和学习者提供灵感与代码，展示如何利用LLM构建智能应用，特别是结合RAG和AI智能体等先进技术。其优势在于内容广度与深度，涵盖主流商业模型和开源模型，系统展示不同LLM应用模式，是探索LLM实际应用的宝贵资源库。</p>
-                    </div>
-                    <div class="project-language-breakdown">
-                        <span>Python 59.7%</span>
-                        <span>JavaScript 31.8%</span>
-                        <span>TypeScript 7.9%</span>
-                    </div>
-                </section>
-            </section>
-
-            <!-- Project 5: linshenkx/prompt-optimizer -->
-            <section>
-                <section>
-                    <h2><i class="fas fa-magic text-secondary-accent mr-3"></i> linshenkx/prompt-optimizer</h2>
-                    <h4 class="text-xl text-gray-600 mt-2">纯前端提示词优化器，隐私优先</h4>
-                    <table class="project-detail-table">
-                        <thead>
-                            <tr>
-                                <th><i class="fas fa-code mr-2"></i>开发语言</th>
-                                <th><i class="fas fa-star mr-2"></i>Star 数</th>
-                                <th><i class="fas fa-long-arrow-alt-right mr-2"></i>当期 Star 增加</th>
-                                <th><i class="fas fa-layer-group mr-2"></i>总上榜次数</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>TypeScript</td>
-                                <td>7410</td>
-                                <td>1610</td>
-                                <td>1次</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="project-quick-read">
-                        <p><strong>项目速读:</strong> Prompt Optimizer是一款强大的AI提示词优化工具，帮助用户写出高质量提示词，提升大模型输出效果。其最大亮点是纯前端架构，所有优化和API调用都在浏览器本地完成，极大保障数据隐私和安全。它支持多模型智能优化，实时对比效果，提供Web应用和Chrome插件，是追求高质量AI交互并重视数据隐私用户的理想助手。</p>
-                    </div>
-                    <div class="project-language-breakdown">
-                        <span>TypeScript 62.6%</span>
-                        <span>Vue 26.4%</span>
-                        <span>JavaScript 5.4%</span>
+                 <section>
+                    <h3><i class="fas fa-lightbulb mr-2"></i> 4. 下一波技术热点预测</h3>
+                    <div class="text-left w-4/5 mx-auto grid grid-cols-2 gap-x-8 gap-y-4">
+                        <p class="fragment card"><strong><i class="fas fa-robot"></i> 垂直领域 AI Agent</strong></p>
+                        <p class="fragment card"><strong><i class="fas fa-mobile-alt"></i> 端侧/边缘 AI 应用</strong></p>
+                        <p class="fragment card"><strong><i class="fas fa-shield-alt"></i> AI 安全与可信</strong></p>
+                        <p class="fragment card"><strong><i class="fas fa-cubes"></i> 多模态 AI 落地</strong></p>
                     </div>
                 </section>
             </section>
             
-            <!-- Project 6: anthropics/claude-code -->
+            <!-- Slide 4: Data Visualization -->
+            <section>
+                 <section>
+                    <h2 class="section-title">数据洞察</h2>
+                    <p>通过数据，看清技术生态的构成</p>
+                 </section>
+                 <section>
+                    <h3><i class="fas fa-code"></i> 热门项目编程语言分布</h3>
+                    <div class="mermaid w-full h-96">
+                        pie
+                        "TypeScript" : 4
+                        "Jupyter Notebook" : 3
+                        "Python" : 2
+                        "Batchfile" : 1
+                        "Go" : 1
+                        "Shell" : 1
+                        "Cuda" : 1
+                        "Rust" : 1
+                    </div>
+                 </section>
+                 <section>
+                    <h3><i class="fas fa-star"></i> 热门项目 Star 分布</h3>
+                    <div class="mermaid w-full h-96">
+                        pie
+                        title Star数分布
+                        "10k-50k" : 7
+                        "5k-10k" : 6
+                        "1k-5k" : 1
+                    </div>
+                 </section>
+            </section>
+
+            <!-- Slide 5: Hotspot Changes -->
+            <section>
+                <h2 class="section-title">热点变化</h2>
+                <div class="flex justify-around items-start">
+                    <div class="w-2/5 text-center">
+                        <h3 class="text-green-400 mb-4"><i class="fas fa-arrow-trend-up mr-2"></i> 新增热点</h3>
+                        <div class="text-sm text-left bg-gray-800 p-3 rounded-lg h-80 overflow-y-auto">
+                            <p>ever-co/ever-gauzy</p>
+                            <p>facebookresearch/vggt</p>
+                            <p>menloresearch/jan</p>
+                            <p>shubhamsaboo/awesome-llm-apps</p>
+                            <p>flowseal/zapret-discord-youtube</p>
+                            <p>yalter/niri</p>
+                            <p>browserbase/stagehand</p>
+                            <p>dataexpert-io/data-engineer-handbook</p>
+                            <p>fareedkhan-dev/all-rag-techniques</p>
+                            <p>php/frankenphp</p>
+                            <p>anthropics/anthropic-cookbook</p>
+                            <p>deepseek-ai/deepep</p>
+                            <p>linshenkx/prompt-optimizer</p>
+                        </div>
+                    </div>
+                    <div class="w-2/5 text-center">
+                        <h3 class="text-red-400 mb-4"><i class="fas fa-arrow-trend-down mr-2"></i> 减退热点</h3>
+                        <div class="text-sm text-left bg-gray-800 p-3 rounded-lg h-80 overflow-y-auto">
+                            <p>nautechsystems/nautilus_trader</p>
+                            <p>iamgio/quarkdown</p>
+                            <p>datawhalechina/self-llm</p>
+                            <p>tensorzero/tensorzero</p>
+                            <p>cloudflare/workers-oauth-provider</p>
+                            <p>eyaltoledano/claude-task-master</p>
+                            <p>onlook-dev/onlook</p>
+                            <p>stanfordnlp/dspy</p>
+                            <p>netbirdio/netbird</p>
+                            <p>anduin2017/howtocook</p>
+                            <p>codecrafters-io/build-your-own-x</p>
+                            <p>anthropics/prompt-eng-interactive-tutorial</p>
+                            <p>xtls/xray-core</p>
+                            <p>sindresorhus/awesome</p>
+                            <p>frdel/agent-zero</p>
+                            <p>lastmile-ai/mcp-agent</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 6: Top Projects Ranking -->
+            <section>
+                <h2 class="section-title">本周热门 Top 10</h2>
+                <div class="grid grid-cols-2 gap-x-8 gap-y-4">
+                    <div class="fragment card">
+                        <p class="font-bold text-lg"><a href="https://github.com/Shubhamsaboo/awesome-llm-apps" target="_blank">1. awesome-llm-apps</a></p>
+                        <p class="text-sm text-gray-300">LLM 应用、AI Agent和RAG实战集合 <span class="ml-4"><i class="fas fa-star text-yellow-400"></i> 45.3k</span></p>
+                    </div>
+                    <div class="fragment card">
+                        <p class="font-bold text-lg"><a href="https://github.com/DataExpert-io/data-engineer-handbook" target="_blank">2. data-engineer-handbook</a></p>
+                        <p class="text-sm text-gray-300">数据工程终极学习资源库 <span class="ml-4"><i class="fas fa-star text-yellow-400"></i> 33.4k</span></p>
+                    </div>
+                    <div class="fragment card">
+                        <p class="font-bold text-lg"><a href="https://github.com/menloresearch/jan" target="_blank">3. jan</a></p>
+                        <p class="text-sm text-gray-300">100%离线运行的ChatGPT开源替代品 <span class="ml-4"><i class="fas fa-star text-yellow-400"></i> 32.8k</span></p>
+                    </div>
+                    <div class="fragment card">
+                        <p class="font-bold text-lg"><a href="https://github.com/anthropics/anthropic-cookbook" target="_blank">4. anthropic-cookbook</a></p>
+                        <p class="text-sm text-gray-300">Claude模型实用方法“食谱”集合 <span class="ml-4"><i class="fas fa-star text-yellow-400"></i> 16.7k</span></p>
+                    </div>
+                    <div class="fragment card">
+                        <p class="font-bold text-lg"><a href="https://github.com/anthropics/claude-code" target="_blank">5. claude-code</a></p>
+                        <p class="text-sm text-gray-300">终端里的AI编码智能体 <span class="ml-4"><i class="fas fa-star text-yellow-400"></i> 14.3k</span></p>
+                    </div>
+                     <div class="fragment card">
+                        <p class="font-bold text-lg"><a href="https://github.com/Flowseal/zapret-discord-youtube" target="_blank">6. zapret-discord-youtube</a></p>
+                        <p class="text-sm text-gray-300">网络访问工具 <span class="ml-4"><i class="fas fa-star text-yellow-400"></i> 14.2k</span></p>
+                    </div>
+                     <div class="fragment card">
+                        <p class="font-bold text-lg"><a href="https://github.com/browserbase/stagehand" target="_blank">7. stagehand</a></p>
+                        <p class="text-sm text-gray-300">AI浏览器自动化框架 <span class="ml-4"><i class="fas fa-star text-yellow-400"></i> 12.7k</span></p>
+                    </div>
+                     <div class="fragment card">
+                        <p class="font-bold text-lg"><a href="https://github.com/php/frankenphp" target="_blank">8. frankenphp</a></p>
+                        <p class="text-sm text-gray-300">现代PHP应用服务器 <span class="ml-4"><i class="fas fa-star text-yellow-400"></i> 9.1k</span></p>
+                    </div>
+                     <div class="fragment card">
+                        <p class="font-bold text-lg"><a href="https://github.com/YaLTeR/niri" target="_blank">9. niri</a></p>
+                        <p class="text-sm text-gray-300">滚动平铺式Wayland合成器 <span class="ml-4"><i class="fas fa-star text-yellow-400"></i> 9k</span></p>
+                    </div>
+                     <div class="fragment card">
+                        <p class="font-bold text-lg"><a href="https://github.com/facebookresearch/vggt" target="_blank">10. vggt</a></p>
+                        <p class="text-sm text-gray-300">CVPR 2025最佳论文: 视觉几何Transformer <span class="ml-4"><i class="fas fa-star text-yellow-400"></i> 8.7k</span></p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Slide 7: Detailed Project Analysis -->
             <section>
                 <section>
-                    <h2><i class="fas fa-terminal text-secondary-accent mr-3"></i> anthropics/claude-code</h2>
-                    <h4 class="text-xl text-gray-600 mt-2">终端AI编码代理，加速开发</h4>
-                    <table class="project-detail-table">
-                        <thead>
+                    <h2 class="section-title">热门项目深度解读</h2>
+                    <p>精选本周最具代表性的项目</p>
+                </section>
+                <section>
+                    <h3 class="mb-4">menloresearch/jan</h3>
+                    <p class="text-lg text-gray-300 mb-6">本地化AI的标杆：100%离线运行的ChatGPT替代品</p>
+                    <div class="card">
+                        <p class="text-left"><strong><i class="fas fa-rocket mr-2"></i>项目速读：</strong> Jan是一个开源的本地AI助手，致力于在保障数据隐私的前提下，让用户能在自己电脑上完全离线运行Llama等大模型。它提供易于安装的客户端和兼容OpenAI的本地API，极大降低了本地部署AI的门槛。对于注重隐私和自主控制的用户，Jan是强大且安全的本地AI解决方案。</p>
+                    </div>
+                    <p class="mt-6 text-sm">
+                        <span class="mr-4"><i class="fab fa-js-square text-yellow-300"></i> TypeScript</span>
+                        <span class="mr-4"><i class="fas fa-star text-yellow-400"></i> 32.8k</span>
+                        <span class="mr-4"><i class="fas fa-shield-halved text-green-400"></i> Apache-2.0 License</span>
+                    </p>
+                </section>
+                <section>
+                    <h3 class="mb-4">Shubhamsaboo/awesome-llm-apps</h3>
+                    <p class="text-lg text-gray-300 mb-6">AI应用百科全书：RAG与Agent实战宝库</p>
+                    <div class="card">
+                        <p class="text-left"><strong><i class="fas fa-rocket mr-2"></i>项目速读：</strong> 这是一个汇集了大量LLM实际应用的精选仓库。它系统地展示了如何利用RAG和AI Agent等技术构建智能应用，覆盖商业和开源模型。无论你想快速了解特定技术实现，还是寻找项目灵感，这里都是理想的起点，是紧跟LLM前沿开发的宝贵资源库。</p>
+                    </div>
+                     <p class="mt-6 text-sm">
+                        <span class="mr-4"><i class="fab fa-python text-blue-400"></i> Python</span>
+                        <span class="mr-4"><i class="fas fa-star text-yellow-400"></i> 45.3k</span>
+                        <span class="mr-4"><i class="fas fa-shield-halved text-green-400"></i> Apache-2.0 License</span>
+                    </p>
+                </section>
+                 <section>
+                    <h3 class="mb-4">anthropics/claude-code</h3>
+                    <p class="text-lg text-gray-300 mb-6">开发者的智能副驾：终端里的AI编码代理</p>
+                    <div class="card">
+                        <p class="text-left"><strong><i class="fas fa-rocket mr-2"></i>项目速读：</strong> 由Anthropic官方出品，Claude Code是一款驻留在终端的AI编码工具。它能理解你的代码库，通过自然语言命令执行日常任务、解释复杂代码和处理Git工作流。它将AI无缝集成到终端环境，减少上下文切换，让开发者像拥有了一位随时待命的AI编程搭档，极大提升编码效率。</p>
+                    </div>
+                     <p class="mt-6 text-sm">
+                        <span class="mr-4"><i class="fas fa-terminal text-gray-400"></i> Shell</span>
+                        <span class="mr-4"><i class="fas fa-star text-yellow-400"></i> 14.3k</span>
+                        <span class="mr-4"><i class="fas fa-question-circle text-red-400"></i> License Not Specified</span>
+                    </p>
+                </section>
+            </section>
+            
+            <!-- Slide 8: Daily Articles -->
+            <section>
+                <h2 class="section-title">本周每日精彩速递</h2>
+                 <div class="w-full text-xs text-left mx-auto">
+                    <table class="w-full">
+                        <thead class="border-b-2 border-gray-500">
                             <tr>
-                                <th><i class="fas fa-code mr-2"></i>开发语言</th>
-                                <th><i class="fas fa-star mr-2"></i>Star 数</th>
-                                <th><i class="fas fa-long-arrow-alt-right mr-2"></i>当期 Star 增加</th>
-                                <th><i class="fas fa-layer-group mr-2"></i>总上榜次数</th>
+                                <th class="p-2 w-1/6">时间</th>
+                                <th class="p-2 w-5/6">链接</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <tr class="border-b border-gray-700">
+                                <td class="p-2">周一</td>
+                                <td class="p-2"><a href="https://mp.weixin.qq.com/s?__biz=MzkyMzg3NTc1OQ==&mid=2247488419&idx=1&sn=8d09a82f42546a47e6a0169a1de7c5e3&scene=21#wechat_redirect" target="_blank">AI圈风向巨变！高手都在狂练的「LLM生产力秘籍」大公开...</a></td>
+                            </tr>
+                             <tr class="border-b border-gray-700">
+                                <td class="p-2">周二</td>
+                                <td class="p-2"><a href="https://mp.weixin.qq.com/s?__biz=MzkyMzg3NTc1OQ==&mid=2247488438&idx=1&sn=fa2674e17a900e608da17529f3f3289e&scene=21#wechat_redirect" target="_blank">AI圈炸了！大模型告别幻觉、学会思考，全靠这两种硬核技术！...</a></td>
+                            </tr>
+                             <tr class="border-b border-gray-700">
+                                <td class="p-2">周三</td>
+                                <td class="p-2"><a href="https://mp.weixin.qq.com/s?__biz=MzkyMzg3NTc1OQ==&mid=2247488472&idx=1&sn=3799af8dba378d8f281bb2fdb7755407&scene=21#wechat_redirect" target="_blank">【重磅】告别隐私焦虑！这款“离线版ChatGPT”火爆GitHub...</a></td>
+                            </tr>
+                            <tr class="border-b border-gray-700">
+                                <td class="p-2">周四</td>
+                                <td class="p-2"><a href="https://mp.weixin.qq.com/s?__biz=MzkyMzg3NTc1OQ==&mid=2247488499&idx=1&sn=4e4f0f0b0d5dd54eeca348c9f74ebf25&scene=21#wechat_redirect" target="_blank">云端狂欢结束了？这3个黑科技让AI大模型免费跑你家电脑...</a></td>
+                            </tr>
+                             <tr class="border-b border-gray-700">
+                                <td class="p-2">周五</td>
+                                <td class="p-2"><a href="https://mp.weixin.qq.com/s?__biz=MzkyMzg3NTc1OQ==&mid=2247488520&idx=1&sn=9c6e1a969edff558a6566e7662e306ce&scene=21#wechat_redirect" target="_blank">终结高价订阅！这款开源“自动化神器”：让数据隐私和AI效率双丰收...</a></td>
+                            </tr>
+                            <tr class="border-b border-gray-700">
+                                <td class="p-2">周六</td>
+                                <td class="p-2"><a href="https://mp.weixin.qq.com/s?__biz=MzkyMzg3NTc1OQ==&mid=2247488565&idx=1&sn=044dc6e3a431c3738d65b201d097c97e&scene=21#wechat_redirect" target="_blank">想转行AI？别急！GitHub这份“数据工程手册”，才是你进阶大模型的真正基石！...</a></td>
+                            </tr>
                             <tr>
-                                <td>Shell</td>
-                                <td>14290</td>
-                                <td>1376</td>
-                                <td>2次</td>
+                                <td class="p-2">周日</td>
+                                <td class="p-2"><a href="https://mp.weixin.qq.com/s?__biz=MzkyMzg3NTc1OQ==&mid=2247488601&idx=2&sn=9e30adaab7f73e7a524e4ddc532a4718&scene=21#wechat_redirect" target="_blank">炸裂！GitHub AI热榜惊现“从零构建LLM”秘籍，你还在等什么？！...</a></td>
                             </tr>
                         </tbody>
                     </table>
-                    <div class="project-quick-read">
-                        <p><strong>项目速读:</strong> Claude Code是由Anthropic开发的终端代码代理工具，旨在通过深入理解代码库并响应自然语言命令，显著提高开发者编码效率。其“代理”能力能够自动化处理日常编码任务、解释复杂代码片段，并简化Git工作流程。它将AI辅助编程无缝集成到终端环境中，减少上下文切换，适合希望在终端里快速获得智能帮助加速开发的工程师。</p>
-                    </div>
-                    <div class="project-language-breakdown">
-                        <span>Shell 64.0%</span>
-                        <span>Dockerfile 36.0%</span>
-                    </div>
-                </section>
-            </section>
-
-            <!-- Slide: Daily Hotspot Links -->
-            <section>
-                <h2><i class="fas fa-calendar-alt text-primary-accent mr-3"></i> 每日回顾：一周热点速览</h2>
-                <h4 class="text-xl text-gray-600 mt-2">（查看详细的每日报告）</h4>
-                <table class="project-detail-table mt-8">
-                    <thead>
-                        <tr>
-                            <th>时间</th>
-                            <th>链接</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>周一</td><td><a href="TODO_URL" target="_blank" rel="noopener noreferrer">点击查看</a></td></tr>
-                        <tr><td>周二</td><td><a href="TODO_URL" target="_blank" rel="noopener noreferrer">点击查看</a></td></tr>
-                        <tr><td>周三</td><td><a href="TODO_URL" target="_blank" rel="noopener noreferrer">点击查看</a></td></tr>
-                        <tr><td>周四</td><td><a href="TODO_URL" target="_blank" rel="noopener noreferrer">点击查看</a></td></tr>
-                        <tr><td>周五</td><td><a href="TODO_URL" target="_blank" rel="noopener noreferrer">点击查看</a></td></tr>
-                        <tr><td>周六</td><td><a href="TODO_URL" target="_blank" rel="noopener noreferrer">点击查看</a></td></tr>
-                        <tr><td>周日</td><td><a href="TODO_URL" target="_blank" rel="noopener noreferrer">点击查看</a></td></tr>
-                    </tbody>
-                </table>
-                <p class="mt-8 text-center text-md text-gray-500">（链接将在每周报告生成后更新）</p>
-            </section>
-
-            <!-- Final Slide: Call to Action -->
-            <section class="cover-slide center">
-                <h1>💡 把握未来：共同探索技术前沿！</h1>
-                <h3 class="mt-4">不再只追大模型，拥抱RAG、Agent、本地AI的实用浪潮！</h3>
-                <div class="speaker-info">
-                    <p>感谢观看！</p>
-                    <p>持续关注GitHub热门趋势，发现下一个技术引爆点！</p>
                 </div>
-                <div class="footer-links">
-                    <a href="https://github.com/aichipera/github-trend" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-github"></i> github.com/aichipera/github-trend
-                    </a>
-                    <img src="../../asserts/wx.jpg" alt="微信二维码" class="qr-code-small">
+                <p class="mt-4 text-sm text-gray-400">码住，和朋友一起学！</p>
+            </section>
+            
+            <!-- Final Slide: Thank You & QA -->
+            <section data-background-gradient="linear-gradient(135deg, #1e0c42 0%, #0d1117 50%, #1a2a45 100%)">
+                <div class="absolute top-0 left-0 w-full h-full" style="background: var(--aha-glow); z-index: -1;"></div>
+                <h2 class="text-6xl font-bold">感谢观看</h2>
+                <p class="mt-8 text-3xl">Q & A</p>
+                <p class="mt-20 text-xl">Presented by AIChipEra</p>
+                <div class="footer-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">Star us on GitHub!</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
                 </div>
             </section>
 
@@ -623,41 +405,26 @@
     </div>
 
     <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
-    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js"></script>
-    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js"></script>
-    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js"></script>
-    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/zoom/zoom.min.js"></script>
-    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/math/math.min.js"></script>
     <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
-
     <script>
-        // Mermaid JS 初始化 (如果幻灯片中需要图表)
-        mermaid.initialize({ startOnLoad: true });
-
-        // Reveal.js 插件列表
-        const plugins = [
-            RevealNotes,
-            RevealMarkdown,
-            RevealHighlight,
-            RevealZoom,
-            RevealMath
-        ];
-
         Reveal.initialize({
-            controls: true, // 显示导航控件
-            progress: true, // 显示进度条
-            history: true, // 启用浏览器历史记录（回退/前进）
-            center: true, // 幻灯片垂直居中
-            transition: 'slide', // 幻灯片过渡效果: none/fade/slide/convex/concave/zoom
-            backgroundTransition: 'fade', // 背景过渡效果
-            autoPlayMedia: null, // 不自动播放媒体
-            loop: false, // 不循环播放
-            fragments: true, // 启用分步显示（fragments）
-            slideNumber: 'h.v/s', // 显示幻灯片编号 (当前水平.当前垂直/总幻灯片数)
-
-            // 插件配置
-            plugins: plugins
+            hash: true,
+            center: true,
+            margin: 0.04,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            backgroundTransition: 'fade',
+            // Learn about plugins: https://revealjs.com/plugins/
+            plugins: []
+        });
+        
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            'pie':{
+                'useWidth': 500
+            }
         });
     </script>
 </body>
+
 </html>
