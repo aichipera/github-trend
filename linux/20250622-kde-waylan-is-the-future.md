@@ -1,6 +1,6 @@
 
 
-# KDE Plasma 坚定拥抱 Wayland 未来：超七成用户已率先体验
+# [KDE Plasma 坚定拥抱 Wayland 未来：超七成用户已率先体验](20250622-kde-wayland.mp3)
 
 > **译者注** KDE Plasma 6 将 Wayland 作为默认会话，无疑是桌面 Linux 发展的一大步。Nate Graham 披露的超过 70% 的采用率数据，也印证了这一趋势。尽管在特定硬件（尤其是部分 NVIDIA 显卡）和一些旧有工作流上，Wayland 仍有待完善，但 X11 的维护模式已成定局。对于大多数普通用户而言，拥抱 Wayland 已是大势所趋，剩下的只是时间问题。
 
