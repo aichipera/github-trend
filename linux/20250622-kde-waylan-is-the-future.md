@@ -37,8 +37,6 @@ Nate Graham 在他今天的博文中，言简意赅地总结了当前 KDE Plasma
 [fig1]: https://www.phoronix.com/assets/categories/kde.webp
 [1]: https://pointieststick.com/2025/06/21/about-plasmas-x11-session/
 
-好的，没问题！这是一篇根据 Phoronix 论坛评论区内容创作的自媒体风格文章章节，标题和内容都旨在吸引读者眼球。
-
 ---
 
 # 网友热议：70%的Wayland用户？评论区直接“开战”了！

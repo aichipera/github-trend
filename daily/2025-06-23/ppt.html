@@ -1,0 +1,772 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>GitHub热榜：AI、性能工具与跨平台潮</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        :root {
+            --r-background-color: #f8f9fa; /* Light background */
+            --r-main-font: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: 'Noto Serif SC', serif;
+            --r-main-color: #343a40; /* Dark text for contrast */
+            --r-link-color: #007bff; /* Primary blue for links */
+            --r-selection-background-color: #ffc107; /* Yellow highlight */
+
+            /* Custom colors for "Aha moment" and visual harmony */
+            --primary-accent: #007bff; /* Blue */
+            --secondary-accent: #6f42c1; /* Purple */
+            --tertiary-accent: #28a745; /* Green */
+            --quaternary-accent: #fd7e14; /* Orange */
+            --dark-gray: #343a40;
+            --light-gray: #e9ecef;
+        }
+
+        body {
+            font-family: var(--r-main-font);
+            color: var(--r-main-color);
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--dark-gray);
+            text-transform: none; /* Prevent uppercase transformation */
+            font-weight: 700;
+        }
+
+        .reveal h1 { font-size: 3rem; }
+        .reveal h2 { font-size: 2rem; }
+        .reveal h3 { font-size: 1.7rem; }
+        .reveal p, .reveal li { font-size: 1.1rem; line-height: 1.6; }
+        .reveal ul { list-style: none; padding: 0; }
+        .reveal li { margin-bottom: 0.5rem; }
+        .reveal .fragment { transition: opacity 0.8s ease; }
+
+        /* Cover and End slide specific styles */
+        .reveal .title-slide {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-accent) 0%, var(--secondary-accent) 100%);
+            color: white;
+        }
+        .reveal .title-slide h1 {
+            font-size: 4.5rem; /* Larger for cover */
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            margin-bottom: 0.5em;
+        }
+        .reveal .title-slide h3 {
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 0.5em;
+            font-weight: 400;
+        }
+        .reveal .title-slide .speaker-info {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .reveal .bottom-right-links {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            z-index: 100;
+        }
+        .reveal .bottom-right-links img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .reveal .bottom-right-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        }
+
+        /* General slide enhancements */
+        .reveal section img {
+            max-height: 80vh;
+            max-width: 90%;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Aha moment specific styles */
+        .aha-highlight {
+            color: var(--primary-accent);
+            font-weight: 700;
+            transition: all 0.5s ease-in-out;
+        }
+        .aha-box {
+            background: linear-gradient(45deg, rgba(0,123,255,0.1) 0%, rgba(111,66,193,0.1) 100%);
+            border-left: 5px solid var(--primary-accent);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .aha-box::before {
+            content: "\f0eb"; /* Lightbulb icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 3rem;
+            color: rgba(0,123,255,0.2);
+            opacity: 0.5;
+        }
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 0.95rem;
+        }
+        .stats-table th, .stats-table td {
+            border: 1px solid var(--light-gray);
+            padding: 10px;
+            text-align: left;
+        }
+        .stats-table th {
+            background-color: var(--primary-accent);
+            color: white;
+            font-weight: 600;
+        }
+        .stats-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .stats-table td {
+            vertical-align: top;
+        }
+        .project-details ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .project-details ul li {
+            margin-right: 20px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #555;
+            padding: 0; /* Override default li padding */
+            background-color: transparent; /* Override default li background */
+            box-shadow: none; /* Override default li shadow */
+        }
+        .project-details ul li i {
+            margin-right: 8px;
+            color: var(--primary-accent);
+            font-size: 1.1em;
+        }
+
+        /* Language distribution visualization */
+        .language-bar-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 30px;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .language-bar {
+            display: flex;
+            align-items: center;
+            height: 30px;
+            background-color: var(--light-gray);
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        .language-bar span {
+            font-weight: bold;
+            color: var(--dark-gray);
+            margin-left: 10px;
+            white-space: nowrap;
+        }
+        .language-fill {
+            height: 100%;
+            background-color: var(--primary-accent);
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 0.9em;
+            padding-left: 10px;
+            transition: width 1s ease-out;
+        }
+        .language-bar:nth-child(2n) .language-fill { background-color: var(--secondary-accent); }
+        .language-bar:nth-child(3n) .language-fill { background-color: var(--tertiary-accent); }
+        .language-bar:nth-child(4n) .language-fill { background-color: var(--quaternary-accent); }
+        .language-bar:nth-child(5n) .language-fill { background-color: #6c757d; } /* Grey for "Other" */
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover Page -->
+            <section class="title-slide" data-background-image="https://images.unsplash.com/photo-1510519138101-570d1dca3d66?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHw3OXx8YWklMjB0ZWNobm9sb2d5JTIwYWJzdHJhY3R8ZW58MHx8fHwxNzA2MjUyNTU3fDA&ixlib=rb-4.0.3&q=80&w=1080" data-background-size="cover">
+                <h1><span class="aha-highlight">GitHub热榜</span>：<br>AI、性能工具与跨平台潮</h1>
+                <h3>Github热门仓库日报观测时间：2025-06-23 20:27:16</h3>
+                <p class="speaker-info">演讲者：AIChipEra</p>
+                <div class="bottom-right-links">
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra 微信二维码">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+            <!-- Slide 2: Disclaimer -->
+            <section>
+                <div class="aha-box">
+                    <h2><i class="fas fa-exclamation-triangle text-red-500"></i> 重要声明</h2>
+                    <p class="mt-4">以下内容仅供<span class="aha-highlight">项目介绍和学习</span>使用，不构成任何投资建议，请注意甄别！</p>
+                    <p class="mt-4">本PPT在线链接: <a href="https://aichipera.github.io/github-trend/daily/2025-06-23/ppt.html" target="_blank" class="text-blue-500 hover:underline">https://aichipera.github.io/github-trend/daily/2025-06-23/ppt.html</a></p>
+                </div>
+            </section>
+
+            <!-- Slide 3: Daily Summary / 日报要点 -->
+            <section>
+                <h2><i class="fas fa-bullhorn text-primary-accent"></i> 今日GitHub热榜要点</h2>
+                <div class="grid grid-cols-2 gap-8 mt-10">
+                    <div class="flex items-start fragment fade-in-up">
+                        <i class="fas fa-robot text-secondary-accent text-5xl mr-5"></i>
+                        <div>
+                            <h3 class="text-xl font-bold">AI深度融合</h3>
+                            <p class="text-lg">开源AI编程助手、通用智能体、AI模型机制解析，反映对AI实用性与可控性的渴望。</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start fragment fade-in-up">
+                        <i class="fas fa-tachometer-alt text-tertiary-accent text-5xl mr-5"></i>
+                        <div>
+                            <h3 class="text-xl font-bold">效率工具革新</h3>
+                            <p class="text-lg">高性能终端、现代编辑器、排版系统，追求极致开发者效率。</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start fragment fade-in-up">
+                        <i class="fas fa-exchange-alt text-quaternary-accent text-5xl mr-5"></i>
+                        <div>
+                            <h3 class="text-xl font-bold">跨平台无缝体验</h3>
+                            <p class="text-lg">文件共享、经典游戏移植，消除设备壁垒。</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start fragment fade-in-up">
+                        <i class="fas fa-code text-primary-accent text-5xl mr-5"></i>
+                        <div>
+                            <h3 class="text-xl font-bold">性能语言崛起</h3>
+                            <p class="text-lg">Rust、Zig等性能语言崭露头角。</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="mt-10 text-center text-gray-600 italic fragment fade-in">掌握这些，事半功倍！</p>
+            </section>
+
+            <!-- Slide 4: 热门项目趋势分析 - 今日整体趋势 (Part 1) -->
+            <section>
+                <h2><i class="fas fa-chart-line text-primary-accent"></i> 今日整体趋势：AI深度融合与开发者效率</h2>
+                <ul class="list-none text-left pl-0 mt-8">
+                    <li class="fragment fade-in-up">
+                        <i class="fas fa-brain text-secondary-accent mr-3"></i>
+                        <strong class="aha-highlight">AI应用与机制：</strong>
+                        开源AI编程工具(Void)、通用AI智能体(Suna)、AI工具系统提示词分析(system-prompts-and-models-of-ai-tools)、扩散模型GUI(ComfyUI)。
+                        <p class="ml-8 text-gray-600 text-sm">社区渴望AI实用性、可控性及深度集成。</p>
+                    </li>
+                    <li class="fragment fade-in-up mt-4">
+                        <i class="fas fa-tools text-tertiary-accent mr-3"></i>
+                        <strong class="aha-highlight">开发者工具革新：</strong>
+                        简洁高效文本编辑器(microsoft/edit)、高性能终端(Ghostty)、现代排版系统(Typst)。
+                        <p class="ml-8 text-gray-600 text-sm">追求更高性能、更好可用性和现代交互。</p>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Slide 5: 热门项目趋势分析 - 今日整体趋势 (Part 2) -->
+            <section>
+                <h2><i class="fas fa-chart-line text-primary-accent"></i> 今日整体趋势：跨平台与性能追求</h2>
+                <ul class="list-none text-left pl-0 mt-8">
+                    <li class="fragment fade-in-up">
+                        <i class="fas fa-sync-alt text-quaternary-accent mr-3"></i>
+                        <strong class="aha-highlight">跨平台兼容性：</strong>
+                        文件共享工具(LocalSend)、经典游戏移植(SpaghettiKart, isle-portable)。
+                        <p class="ml-8 text-gray-600 text-sm">用户希望在不同设备间实现无缝体验。</p>
+                    </li>
+                    <li class="fragment fade-in-up mt-4">
+                        <i class="fas fa-retweet text-primary-accent mr-3"></i>
+                        <strong class="aha-highlight">怀旧与重塑经典：</strong>
+                        编辑器风格、游戏移植，追溯优秀软件体验。
+                        <p class="ml-8 text-gray-600 text-sm">社区对传统优秀软件的喜爱与技术传承。</p>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Slide 6: 热门项目趋势分析 - 编程语言分布 -->
+            <section>
+                <h2><i class="fas fa-code text-primary-accent"></i> 编程语言分布：高性能与多样化</h2>
+                <div class="language-bar-chart">
+                    <div class="language-bar fragment fade-in-left" data-fragment-index="1">
+                        <div class="language-fill" style="width: 25%;"><span>Rust / Zig (性能)</span></div>
+                        <span class="ml-auto mr-4">25%</span>
+                    </div>
+                    <div class="language-bar fragment fade-in-left" data-fragment-index="2">
+                        <div class="language-fill" style="width: 20%;"><span>TypeScript (AI/Web)</span></div>
+                        <span class="ml-auto mr-4">20%</span>
+                    </div>
+                    <div class="language-bar fragment fade-in-left" data-fragment-index="3">
+                        <div class="language-fill" style="width: 15%;"><span>Python (AI/ML)</span></div>
+                        <span class="ml-auto mr-4">15%</span>
+                    </div>
+                    <div class="language-bar fragment fade-in-left" data-fragment-index="4">
+                        <div class="language-fill" style="width: 10%;"><span>C/C++ (系统/游戏)</span></div>
+                        <span class="ml-auto mr-4">10%</span>
+                    </div>
+                    <div class="language-bar fragment fade-in-left" data-fragment-index="5">
+                        <div class="language-fill" style="width: 30%;"><span>Other (Dart等)</span></div>
+                        <span class="ml-auto mr-4">30%</span>
+                    </div>
+                </div>
+                <p class="text-center text-gray-600 italic mt-8 fragment fade-in" data-fragment-index="6">
+                    语言选择多样，反映项目开发者根据特定需求和性能目标进行的技术栈权衡。
+                </p>
+            </section>
+
+            <!-- Slide 7: 热门项目趋势分析 - 反映的技术需求 -->
+            <section>
+                <h2><i class="fas fa-lightbulb text-primary-accent"></i> 反映的技术需求与发展方向</h2>
+                <ul class="list-none text-left pl-0 mt-8">
+                    <li class="fragment fade-in-up"><i class="fas fa-lock text-secondary-accent mr-3"></i> <strong class="aha-highlight">AI的民主化与控制力：</strong> 开源、隐私友好、可定制AI工具。</li>
+                    <li class="fragment fade-in-up mt-3"><i class="fas fa-user-cog text-tertiary-accent mr-3"></i> <strong class="aha-highlight">开发者体验优化：</strong> 核心开发基础设施持续改进。</li>
+                    <li class="fragment fade-in-up mt-3"><i class="fas fa-share-alt text-quaternary-accent mr-3"></i> <strong class="aha-highlight">跨平台与互联互通：</strong> 消除设备壁垒，流畅体验。</li>
+                    <li class="fragment fade-in-up mt-3"><i class="fas fa-search-dollar text-primary-accent mr-3"></i> <strong class="aha-highlight">对底层机制的探索：</strong> 提示工程、代理设计研究活跃。</li>
+                    <li class="fragment fade-in-up mt-3"><i class="fas fa-bolt text-secondary-accent mr-3"></i> <strong class="aha-highlight">性能与效率：</strong> 各领域对速度和效率的恒定追求。</li>
+                </ul>
+            </section>
+
+            <!-- Slide 8: 热门项目趋势分析 - 趋势对比与预测 -->
+            <section>
+                <h2><i class="fas fa-forward text-primary-accent"></i> 趋势演变与未来预测</h2>
+                <div class="grid grid-cols-2 gap-8 mt-8">
+                    <div class="fragment fade-in-right">
+                        <h3><i class="fas fa-history text-secondary-accent mr-2"></i> 过去 vs 现在</h3>
+                        <ul class="list-disc pl-5">
+                            <li>AI项目<span class="aha-highlight">数量、复杂度和类型激增</span>。</li>
+                            <li>AI从研究阶段快速走向<span class="aha-highlight">实际应用和工具化</span>。</li>
+                            <li>围绕“如何用好AI”产生新需求。</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in-left">
+                        <h3><i class="fas fa-flask text-tertiary-accent mr-2"></i> 下一波技术热点</h3>
+                        <ul class="list-disc pl-5">
+                            <li><strong class="aha-highlight">更智能、更自主的AI代理：</strong> 理解复杂指令，执行长链任务。</li>
+                            <li><strong class="aha-highlight">AI工具透明化与定制化：</strong> 理解、控制和微调AI模型行为。</li>
+                            <li><strong class="aha-highlight">AI与本地数据深度集成：</strong> 隐私安全保障。</li>
+                            <li><strong class="aha-highlight">高性能原生应用框架：</strong> 基于Rust、Zig等语言。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 9: 热门项目趋势分析 - 今日特有趋势 -->
+            <section>
+                <h2><i class="fas fa-star text-primary-accent"></i> 今日亮点：社区深度探索与情怀</h2>
+                <ul class="list-none text-left pl-0 mt-8">
+                    <li class="fragment fade-in-up">
+                        <i class="fas fa-cogs text-secondary-accent mr-3"></i>
+                        <strong class="aha-highlight">对“理解AI如何工作”兴趣新高：</strong>
+                        如系统提示词收集项目(system-prompts-and-models-of-ai-tools)。
+                        <p class="ml-8 text-gray-600 text-sm">不仅是好奇心，更是复现或改进现有AI工具能力的愿望。</p>
+                    </li>
+                    <li class="fragment fade-in-up mt-4">
+                        <i class="fas fa-heart text-tertiary-accent mr-3"></i>
+                        <strong class="aha-highlight">垂直领域高完成度项目：</strong>
+                        如怀旧游戏移植(SpaghettiKart, isle-portable)。
+                        <p class="ml-8 text-gray-600 text-sm">凭借独特性和情怀引发社区共鸣，展现垂直领域强大潜力。</p>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Slide 10: 热门项目双日维度对比分析 -->
+            <section>
+                <h2><i class="fas fa-arrow-alt-circle-right text-primary-accent"></i> 榜单动态：新星涌现，焦点转移</h2>
+                <div class="grid grid-cols-2 gap-8 mt-8">
+                    <div class="fragment fade-in-right">
+                        <h3><i class="fas fa-chart-pie text-secondary-accent mr-2"></i> 核心发现</h3>
+                        <ul class="list-disc pl-5">
+                            <li><strong class="aha-highlight">8个全新项目</strong>进入榜单。</li>
+                            <li><strong class="aha-highlight">3个既有项目</strong>热度持续攀升。</li>
+                            <li><strong class="aha-highlight">无显著下滑项目</strong>，社区关注点快速转移。</li>
+                            <li>新晋项目类型十分<strong class="aha-highlight">多样化</strong>。</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in-left">
+                        <h3><i class="fas fa-language text-tertiary-accent mr-2"></i> 语言与趋势变化</h3>
+                        <ul class="list-disc pl-5">
+                            <li>Python和Jupyter Notebook项目<span class="aha-highlight">数量减少</span>。</li>
+                            <li>C、Zig、Rust和Dart等语言项目<span class="aha-highlight">数量增加</span>。</li>
+                            <li>暗示对系统级编程、性能优化或跨平台开发兴趣<strong class="aha-highlight">上升</strong>。</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="mt-8 text-center text-gray-600 italic fragment fade-in" data-fragment-index="3">
+                    最显著特征是新项目快速涌入和榜单剧烈变动，揭示技术趋势的高度活跃与多元探索。
+                </p>
+            </section>
+
+            <!-- Detailed Repo Data Section (Vertical Slides) -->
+            <section>
+                <h2><i class="fas fa-database text-primary-accent"></i> 详细仓库数据速览</h2>
+                <p class="mt-4 text-lg fragment fade-in">以下将对热门GitHub仓库进行逐一深入解析。</p>
+            </section>
+
+            <!-- microsoft/edit -->
+            <section>
+                <h3><i class="fab fa-microsoft text-blue-500 mr-2"></i> microsoft/edit</h3>
+                <p class="text-left mb-4"><strong>项目简介:</strong> 我们都编辑。</p>
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>指标</th>
+                            <th>数值</th>
+                            <th>描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>9210</td><td>高关注度</td></tr>
+                        <tr><td><i class="fas fa-language"></i> 开发语言</td><td>Rust</td><td>性能与系统级</td></tr>
+                        <tr><td><i class="fas fa-calendar-alt"></i> 连续在榜</td><td>2次</td><td>持续热度</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 当日 Star 增加</td><td>217</td><td>活跃增长</td></tr>
+                    </tbody>
+                </table>
+                <div class="project-details mt-6 text-left">
+                    <p class="font-bold">项目速读:</p>
+                    <p>Microsoft Edit 是基于 <span class="aha-highlight">Rust</span> 的简单文本编辑器，旨在复刻经典的MS-DOS Editor风格，结合<span class="aha-highlight">现代化UI和VS Code操作体验</span>。适合不熟悉终端的用户，提供轻量易用的文本编辑工具。</p>
+                    <p class="font-bold mt-4">增长分析:</p>
+                    <p>两天内两次上榜，显示<span class="aha-highlight">持续增长势头</span>。每次上榜平均贡献212星，总增长达367星。今日新增217星略高于平均水平，近期关注度活跃。</p>
+                </div>
+            </section>
+
+            <!-- voideditor/void -->
+            <section>
+                <h3><i class="fas fa-terminal text-gray-700 mr-2"></i> voideditor/void</h3>
+                <p class="text-left mb-4"><strong>项目简介:</strong> 开源AI编程工具，Cursor替代。</p>
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>指标</th>
+                            <th>数值</th>
+                            <th>描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>24419</td><td>极高关注度</td></tr>
+                        <tr><td><i class="fas fa-language"></i> 开发语言</td><td>TypeScript</td><td>AI与Web技术融合</td></tr>
+                        <tr><td><i class="fas fa-calendar-alt"></i> 连续在榜</td><td>1次</td><td>潜力新星</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 当日 Star 增加</td><td>196</td><td>迅速攀升</td></tr>
+                    </tbody>
+                </table>
+                <div class="project-details mt-6 text-left">
+                    <p class="font-bold">项目速读:</p>
+                    <p>Void 是基于 VS Code 分支的<span class="aha-highlight">开源AI编程工具</span>，提供Cursor开源替代。核心功能是利用<span class="aha-highlight">AI代理</span>在自有代码库开发，支持检查点和可视化代码变更。优势在于<span class="aha-highlight">开源、隐私友好</span>、高度灵活，支持连接任意AI模型甚至本地运行。</p>
+                    <p class="font-bold mt-4">增长分析:</p>
+                    <p>总增长强劲，但仅上榜6次，表明增长<span class="aha-highlight">高度依赖上榜曝光</span>。</p>
+                </div>
+            </section>
+
+            <!-- ghostty-org/ghostty -->
+            <section>
+                <h3><i class="fas fa-ghost text-purple-600 mr-2"></i> ghostty-org/ghostty</h3>
+                <p class="text-left mb-4"><strong>项目简介:</strong> 👻 快速、功能丰富、跨平台的终端模拟器，它使用平台原生UI和GPU加速。</p>
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>指标</th>
+                            <th>数值</th>
+                            <th>描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>31867</td><td>顶级热度</td></tr>
+                        <tr><td><i class="fas fa-language"></i> 开发语言</td><td>Zig</td><td>高性能语言选择</td></tr>
+                        <tr><td><i class="fas fa-calendar-alt"></i> 连续在榜</td><td>1次</td><td>首次上榜即亮眼</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 当日 Star 增加</td><td>46</td><td>稳健增长</td></tr>
+                    </tbody>
+                </table>
+                <div class="project-details mt-6 text-left">
+                    <p class="font-bold">项目速读:</p>
+                    <p>Ghostty 是用 <span class="aha-highlight">Zig 语言</span>编写的快速、功能丰富且采用<span class="aha-highlight">原生UI</span>的跨平台终端模拟器。利用 <span class="aha-highlight">GPU加速</span>和独立I/O线程，实现极高渲染速度。其价值在于为追求极致性能、兼容性和原生平台集成的开发者提供了强大选择。</p>
+                </div>
+            </section>
+
+            <!-- kortix-ai/suna -->
+            <section>
+                <h3><i class="fas fa-brain text-green-500 mr-2"></i> kortix-ai/suna</h3>
+                <p class="text-left mb-4"><strong>项目简介:</strong> Suna - 开源通用型 AI 智能体</p>
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>指标</th>
+                            <th>数值</th>
+                            <th>描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>15542</td><td>高星项目</td></tr>
+                        <tr><td><i class="fas fa-language"></i> 开发语言</td><td>TypeScript</td><td>AI智能体核心</td></tr>
+                        <tr><td><i class="fas fa-calendar-alt"></i> 连续在榜</td><td>2次</td><td>持续热度</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 当日 Star 增加</td><td>148</td><td>活跃增长</td></tr>
+                    </tbody>
+                </table>
+                <div class="project-details mt-6 text-left">
+                    <p class="font-bold">项目速读:</p>
+                    <p>Suna是一个备受社区关注的开源<span class="aha-highlight">通用型AI智能体</span>项目，其核心目标是通过自然语言交互，帮助用户更便捷、高效地处理现实世界中的各种数字任务。核心优势在于<span class="aha-highlight">集成的强大工具集与实际执行能力</span>，能自动化浏览器操作、文件管理、网络数据爬取、命令行执行乃至网站部署等一系列工具，显著提升用户效率并解决传统方法难以触及的问题。</p>
+                    <p class="font-bold mt-4">增长分析:</p>
+                    <p>仓库在约两个月内总增长显著（12681星），10次上榜显示持续活跃，每次上榜平均增加650星，具<span class="aha-highlight">强劲稳定增长爆发力</span>。</p>
+                </div>
+            </section>
+
+            <!-- x1xhlol/system-prompts-and-models-of-ai-tools -->
+            <section>
+                <h3><i class="fas fa-file-invoice text-orange-500 mr-2"></i> x1xhlol/system-prompts-and-models-of-ai-tools</h3>
+                <p class="text-left mb-4"><strong>项目简介:</strong> FULL v0、Cursor等AI工具系统提示词、工具与AI模型集合。</p>
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>指标</th>
+                            <th>数值</th>
+                            <th>描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>59868</td><td>超高星项目</td></tr>
+                        <tr><td><i class="fas fa-language"></i> 开发语言</td><td>N/A</td><td>纯文本内容</td></tr>
+                        <tr><td><i class="fas fa-calendar-alt"></i> 连续在榜</td><td>1次</td><td>首次上榜即爆炸</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 当日 Star 增加</td><td>352</td><td>惊人涨幅</td></tr>
+                    </tbody>
+                </table>
+                <div class="project-details mt-6 text-left">
+                    <p class="font-bold">项目速读:</p>
+                    <p>这个GitHub仓库是一个核心资源库，专门收集了大量流行AI开发工具和代理的内部运作秘密——主要是它们的<span class="aha-highlight">系统提示词、内置工具的定义和部分AI模型配置</span>。它解决了让外部用户能够深入理解这些复杂AI工具如何通过指令驱动大型语言模型执行任务，揭示其背后的提示工程和代理设计逻辑。项目最突出的特点和优势在于其<span class="aha-highlight">内容的广泛性、深度和独家性</span>。</p>
+                </div>
+            </section>
+
+            <!-- typst/typst -->
+            <section>
+                <h3><i class="fas fa-file-alt text-teal-500 mr-2"></i> typst/typst</h3>
+                <p class="text-left mb-4"><strong>项目简介:</strong> 基于标记的新型排版系统，功能强大且易于学习。</p>
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>指标</th>
+                            <th>数值</th>
+                            <th>描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>42677</td><td>热门排版工具</td></tr>
+                        <tr><td><i class="fas fa-language"></i> 开发语言</td><td>Rust</td><td>高性能排版</td></tr>
+                        <tr><td><i class="fas fa-calendar-alt"></i> 连续在榜</td><td>1次</td><td>新晋热点</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 当日 Star 增加</td><td>217</td><td>强劲增长</td></tr>
+                    </tbody>
+                </table>
+                <div class="project-details mt-6 text-left">
+                    <p class="font-bold">项目速读:</p>
+                    <p>Typst 是一个基于标记语言的<span class="aha-highlight">全新排版系统</span>，旨在提供一种强大且易于学习的方式来创建高质量文档。项目的核心优势在于其平衡的设计理念：既有简洁直观的标记语法，能快速完成常见的格式任务；又有灵活的函数和脚本系统，足以处理复杂的排版需求。<span class="aha-highlight">采用 Rust 语言开发保证了其卓越的性能</span>，编译速度快，支持增量编译。</p>
+                    <p class="font-bold mt-4">增长分析:</p>
+                    <p>仓库在统计周期内总Star增长达3865，表现良好。尽管总增长显著，但仅上榜3次，且平均每次上榜新增Stars较低，表明<span class="aha-highlight">增长驱动力可能并非高度依赖频繁或高影响力的榜单曝光</span>，其增长更多来自其他渠道。</p>
+                </div>
+            </section>
+
+            <!-- HarbourMasters/SpaghettiKart -->
+            <section>
+                <h3><i class="fas fa-gamepad text-red-500 mr-2"></i> HarbourMasters/SpaghettiKart</h3>
+                <p class="text-left mb-4"><strong>项目简介:</strong> 《马力欧赛车 64》现代平台移植。</p>
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>指标</th>
+                            <th>数值</th>
+                            <th>描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>733</td><td>新晋关注</td></tr>
+                        <tr><td><i class="fas fa-language"></i> 开发语言</td><td>C</td><td>底层移植</td></tr>
+                        <tr><td><i class="fas fa-calendar-alt"></i> 连续在榜</td><td>1次</td><td>首次亮相</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 当日 Star 增加</td><td>240</td><td>迅速受追捧</td></tr>
+                    </tbody>
+                </table>
+                <div class="project-details mt-6 text-left">
+                    <p class="font-bold">项目速读:</p>
+                    <p>SpaghettiKart 是一个社区主导的项目，致力于将经典的 Nintendo 64 赛车游戏《马力欧赛车 64》移植到现代平台，解决老游戏难以在当前设备上原生运行的问题。项目的核心优势在于<span class="aha-highlight">卓越的跨平台兼容性</span>，原生支持在 Windows、Linux 和 Nintendo Switch 等多种设备上流畅运行。更重要的是，SpaghettiKart 提供了强大的<span class="aha-highlight">自定义内容（Mod）支持</span>，允许玩家轻松导入新的赛道、角色模型、纹理等。</p>
+                </div>
+            </section>
+
+            <!-- microsoft/Web-Dev-For-Beginners -->
+            <section>
+                <h3><i class="fab fa-microsoft text-blue-500 mr-2"></i> microsoft/Web-Dev-For-Beginners</h3>
+                <p class="text-left mb-4"><strong>项目简介:</strong> 24 节课，12 周，入门 Web 开发者。</p>
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>指标</th>
+                            <th>数值</th>
+                            <th>描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>89126</td><td>海量收藏</td></tr>
+                        <tr><td><i class="fas fa-language"></i> 开发语言</td><td>JavaScript</td><td>Web开发核心</td></tr>
+                        <tr><td><i class="fas fa-calendar-alt"></i> 连续在榜</td><td>2次</td><td>持续受欢迎</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 当日 Star 增加</td><td>83</td><td>稳定增长</td></tr>
+                    </tbody>
+                </table>
+                <div class="project-details mt-6 text-left">
+                    <p class="font-bold">项目速读:</p>
+                    <p>这是一个由微软创建的、针对完全没有基础的Web开发初学者的<span class="aha-highlight">免费系统课程</span>。通过为期12周、共计24节的课程，系统地讲解HTML、CSS和JavaScript等核心技术，旨在帮助学习者快速入门。其最大亮点在于<span class="aha-highlight">强调实践</span>，每节课都包含动手项目，如构建互动植物箱、浏览器扩展、游戏等，让学习过程更生动有效。</p>
+                    <p class="font-bold mt-4">增长分析:</p>
+                    <p>约3月上榜4次，频率不高。每次上榜平均增星147，稳定。总增星3144，<span class="aha-highlight">非上榜期增长是主体</span>。</p>
+                </div>
+            </section>
+
+            <!-- comfyanonymous/ComfyUI -->
+            <section>
+                <h3><i class="fas fa-paint-brush text-pink-500 mr-2"></i> comfyanonymous/ComfyUI</h3>
+                <p class="text-left mb-4"><strong>项目简介:</strong> 最强大、模块化且配备图/节点界面的扩散模型GUI、API及后端。</p>
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>指标</th>
+                            <th>数值</th>
+                            <th>描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>80370</td><td>顶级AI绘图工具</td></tr>
+                        <tr><td><i class="fas fa-language"></i> 开发语言</td><td>Python</td><td>AI/ML主导</td></tr>
+                        <tr><td><i class="fas fa-calendar-alt"></i> 连续在榜</td><td>1次</td><td>再次回归热点</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 当日 Star 增加</td><td>108</td><td>稳步增长</td></tr>
+                    </tbody>
+                </table>
+                <div class="project-details mt-6 text-left">
+                    <p class="font-bold">项目速读:</p>
+                    <p>ComfyUI 是一个功能强大且高度模块化的<span class="aha-highlight">扩散模型平台</span>，其核心在于一个基于<span class="aha-highlight">节点/图的可视化工作流系统</span>。它使艺术家、研究者和爱好者无需编写代码，就能以直观的方式设计、执行和优化复杂的 AI 生成流程，特别是基于 Stable Diffusion 的图像、视频和音频任务。项目最大优势是其<span class="aha-highlight">极致的灵活性和控制力</span>。</p>
+                    <p class="font-bold mt-4">增长分析:</p>
+                    <p>仓库近一月仅上榜2次，平均贡献91.5星。但总星增长高达2624，远超上榜贡献，显示<span class="aha-highlight">非上榜日增长是主力</span>。</p>
+                </div>
+            </section>
+
+            <!-- localsend/localsend -->
+            <section>
+                <h3><i class="fas fa-share-square text-indigo-500 mr-2"></i> localsend/localsend</h3>
+                <p class="text-left mb-4"><strong>项目简介:</strong> 开源跨平台 AirDrop 替代方案</p>
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>指标</th>
+                            <th>数值</th>
+                            <th>描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>62934</td><td>高人气工具</td></tr>
+                        <tr><td><i class="fas fa-language"></i> 开发语言</td><td>Dart</td><td>跨平台UI</td></tr>
+                        <tr><td><i class="fas fa-calendar-alt"></i> 连续在榜</td><td>1次</td><td>新晋热门</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 当日 Star 增加</td><td>128</td><td>快速上升</td></tr>
+                    </tbody>
+                </table>
+                <div class="project-details mt-6 text-left">
+                    <p class="font-bold">项目速读:</p>
+                    <p>LocalSend 是一个广受关注的<span class="aha-highlight">免费开源项目</span>，提供了一种便捷、安全、无需互联网的<span class="aha-highlight">本地网络文件共享和设备间消息传递方式</span>。作为苹果 AirDrop 的出色<span class="aha-highlight">跨平台替代方案</span>，它无缝连接了 Windows、macOS、Linux、Android 和 iOS 等各类操作系统设备。其核心亮点在于<span class="aha-highlight">完全依赖局域网，保证了数据传输的高速与可靠性，同时采用 HTTPS 加密</span>。</p>
+                </div>
+            </section>
+
+            <!-- isledecomp/isle-portable -->
+            <section>
+                <h3><i class="fas fa-cube text-brown-600 mr-2"></i> isledecomp/isle-portable</h3>
+                <p class="text-left mb-4"><strong>项目简介:</strong> 乐高岛 (1997) 的 便携版</p>
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>指标</th>
+                            <th>数值</th>
+                            <th>描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>447</td><td>怀旧小众</td></tr>
+                        <tr><td><i class="fas fa-language"></i> 开发语言</td><td>C++</td><td>游戏底层</td></tr>
+                        <tr><td><i class="fas fa-calendar-alt"></i> 连续在榜</td><td>1次</td><td>首次亮相</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 当日 Star 增加</td><td>49</td><td>稳定关注</td></tr>
+                    </tbody>
+                </table>
+                <div class="project-details mt-6 text-left">
+                    <p class="font-bold">项目速读:</p>
+                    <p>isledecomp/isle-portable 项目致力于为 1997 年的经典游戏《乐高岛》创建一个能在现代系统上运行的<span class="aha-highlight">便携版本</span>。它不是重制或增强，而是基于对原版游戏代码的解译，核心目标是用<span class="aha-highlight">跨平台库（如 SDL3）替换原版 Windows 专属的底层 API</span>，从而实现在 Windows、Linux、macOS 乃至 Web 等多个平台上的兼容运行，同时严格保持游戏的原汁原味。</p>
+                </div>
+            </section>
+
+            <!-- Final Slide: Thank You / QR Code -->
+            <section class="title-slide" data-background-image="https://images.unsplash.com/photo-1510519138101-570d1dca3d66?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHw3OXx8YWklMjB0ZWNobm9sb2d5JTIwYWJzdHJhY3R8ZW58MHx8fHwxNzA2MjUyNTU3fDA&ixlib=rb-4.0.3&q=80&w=1080" data-background-size="cover">
+                <h1><span class="aha-highlight">感谢聆听！</span></h1>
+                <h3>期待您的关注与Star！</h3>
+                <p class="speaker-info">AIChipEra</p>
+                <div class="bottom-right-links">
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra 微信二维码">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            transition: 'slide', // 简洁流畅的过渡效果
+            transitionSpeed: 'fast',
+            backgroundTransition: 'fade', // 背景过渡
+            history: true,
+
+            // 启用内容分片（fragments）
+            fragments: true,
+
+            // Learn about plugins: https://revealjs.com/plugins/
+            plugins: [ ]
+        });
+
+        // 初始化Mermaid，以便在需要时渲染图表
+        // 本次演示文稿未直接使用Mermaid图表，但保留其加载，以备未来扩展
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+</html>

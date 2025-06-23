@@ -344,9 +344,6 @@ PaLM模型就是这样训练出来的。它在6144个TPUv4（2个Pod）上花费
 
 感谢谷歌TPU研究云（TRC）项目提供的TPU支持！
 
-好的，这是对Hacker News上关于《TPU Deep Dive》文章讨论的总结，可以作为文章译文后的“Hacker News网友热议”部分。
-
----
 
 ## Hacker News 网友热议
 
