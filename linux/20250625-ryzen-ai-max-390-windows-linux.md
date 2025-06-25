@@ -1,4 +1,4 @@
-# 巅峰对决：AMD 锐龙 AI Max PRO 390 "Strix Halo" 平台上的 Windows 11 vs. Ubuntu Linux 性能评测
+# [巅峰对决：AMD 锐龙 AI Max PRO 390 "Strix Halo" 平台上的 Windows 11 vs. Ubuntu Linux 性能评测](20250625-ryzen-ai-max-390-windows-linux.mp3)
 
 > - 作者：[Michael Larabel](https://www.michaellarabel.com/)
 > - 原文：https://www.phoronix.com/review/ryzen-ai-max-390-windows-linux
