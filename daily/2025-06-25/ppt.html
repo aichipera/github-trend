@@ -1,0 +1,717 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>今日GitHub榜单：为什么这份学习资源清单比AI还火？</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        /* Custom Styles */
+        :root {
+            --r-background-color: #f8f8f8; /* Light grey background */
+            --r-main-font-color: #333; /* Dark grey text */
+            --r-heading-color: #4A46F0; /* Deep blue for headings */
+            --r-link-color: #14B8A6; /* Teal for links */
+            --r-link-color-hover: #0F9F8B; /* Darker teal on hover */
+        }
+
+        body {
+            font-family: "Noto Sans SC", Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--r-main-font-color);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Noto Serif SC", serif;
+            color: var(--r-heading-color);
+        }
+
+        .reveal .slides section.title-slide {
+            background: linear-gradient(135deg, #e0f2f7 0%, #c1dff0 100%); /* Subtle gradient background for cover */
+            color: var(--r-main-font-color);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .reveal h1 {
+            font-size: 3rem; /* Title */
+            margin-bottom: 0.5em;
+        }
+        .reveal h2 {
+            font-size: 2.2rem; /* Subtitle */
+            margin-bottom: 0.8em;
+            color: #555;
+        }
+        .reveal h3 {
+            font-size: 1.8rem;
+            color: #333; /* Sub-headings can be darker */
+        }
+        .reveal h4 {
+            font-size: 1.4rem;
+        }
+        .reveal p, .reveal li {
+            font-size: 1.1rem; /* Body text */
+            line-height: 1.6;
+            color: var(--r-main-font-color);
+        }
+        .reveal ul {
+            list-style-type: none; /* No default bullet points for cleaner look */
+            padding-left: 0;
+            margin-left: 0;
+        }
+        .reveal ul li:before {
+            content: "\f058"; /* Font Awesome check-circle for a modern bullet */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--r-link-color);
+            display: inline-block;
+            width: 1.2em;
+            margin-left: -1.2em;
+        }
+
+        .reveal .controls button {
+            color: var(--r-link-color); /* Control arrows */
+        }
+
+        .reveal .progress span {
+            background-color: var(--r-link-color); /* Progress bar */
+        }
+
+        /* Specific elements for project stats */
+        .repo-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+            font-size: 0.95em;
+            text-align: left;
+        }
+        .repo-stats div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            background-color: #fefefe;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            line-height: 1.2;
+        }
+        .repo-stats i {
+            color: var(--r-link-color);
+            font-size: 1.2em;
+        }
+        .language-distribution {
+            margin-top: 15px;
+            font-size: 0.95em;
+            text-align: left;
+        }
+        .language-distribution ul li:before {
+            content: "\f121"; /* Font Awesome code icon */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--r-link-color);
+        }
+
+        /* Footer for links and QR */
+        .footer-links {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.8em;
+            color: #666;
+        }
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+        }
+        .footer-links a:hover {
+            color: var(--r-link-color);
+        }
+        .footer-links img {
+            height: 60px; /* Adjust QR code size */
+            width: auto;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .aha-highlight {
+            color: var(--r-heading-color);
+            font-weight: bold;
+        }
+
+        .reveal section img {
+            border: none; /* Remove default reveal.js border */
+            box-shadow: none; /* Remove default reveal.js shadow */
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        /* For fragments */
+        .reveal .fragment.fade-in { opacity: 0; }
+        .reveal .fragment.fade-in.visible { opacity: 1; transition: opacity 0.8s ease-in-out; }
+
+        .reveal a {
+            color: var(--r-link-color);
+            text-decoration: none;
+        }
+        .reveal a:hover {
+            color: var(--r-link-color-hover);
+        }
+
+        .reveal .project-title a {
+            color: var(--r-heading-color);
+            font-size: 1.8rem;
+            margin-bottom: 0.5em;
+            display: block;
+        }
+        .reveal .project-title a:hover {
+            text-decoration: underline;
+        }
+
+        .slide-section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--r-heading-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover Page -->
+            <section class="title-slide">
+                <h1>今日GitHub榜单：<br><span class="aha-highlight">为什么这份学习资源清单比AI还火？</span></h1>
+                <h2>技术风向变了，速转给你的开发者好友！</h2>
+                <p style="margin-top: 50px;">演讲者：AIChipEra</p>
+                <div class="footer-links">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">项目链接: https://github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="微信二维码">
+                </div>
+            </section>
+
+            <!-- Slide 2: 日报要点 -->
+            <section>
+                <h3 class="slide-section-title">日报要点：风向转变，知识需求飙升！</h3>
+                <p>Github热门仓库观测时间: <strong>2025-06-25 20:27:06</strong></p>
+                <div class="text-left mt-8">
+                    <ul>
+                        <li class="fragment fade-in">今天的GitHub榜单透出新信号：AI应用、效率工具依旧火热。</li>
+                        <li class="fragment fade-in">但最引人注目的，竟是一批<span class="aha-highlight">高质量的学习资源和精选列表</span>！</li>
+                        <li class="fragment fade-in">开发者们正集体涌向这些<span class="aha-highlight">非代码仓库</span>，渴望在信息爆炸时代高效获取知识。</li>
+                        <li class="fragment fade-in">这反映出大家不仅追逐技术前沿，更脚踏实地<span class="aha-highlight">解决开发痛点</span>，并高度重视<span class="aha-highlight">如何学习、去哪儿找信息</span>。</li>
+                        <li class="fragment fade-in">榜单快速变动，<span class="aha-highlight">实用主义和知识 curated</span> 成为关键词。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 3: 热门项目趋势分析 - 今日整体趋势 -->
+            <section>
+                <h3 class="slide-section-title">热门项目趋势分析：务实的创新</h3>
+                <h4><i class="fas fa-chart-line"></i> 今日整体趋势概览</h4>
+                <div class="text-left mt-8">
+                    <ul>
+                        <li class="fragment fade-in"><strong><i class="fas fa-brain"></i> 人工智能（LLMs）深度探索与实用化：</strong>
+                            <ul>
+                                <li class="fragment fade-in">围绕AI构建的周边生态：AI模型路由、成本优化、内部机制理解。</li>
+                                <li class="fragment fade-in">从"如何使用AI"迈向"<span class="aha-highlight">如何更好地管理AI、降低成本、并理解其内在机制</span>"。</li>
+                            </ul>
+                        </li>
+                        <li class="fragment fade-in"><strong><i class="fas fa-code"></i> 极致的开发者效率与体验（DevX）：</strong>
+                            <ul>
+                                <li class="fragment fade-in">前端构建工具、数据可视化、免费资源、自托管指南等解决实际痛点。</li>
+                                <li class="fragment fade-in">追求高性能、跨平台开发方案。</li>
+                            </ul>
+                        </li>
+                        <li class="fragment fade-in"><strong><i class="fas fa-book"></i> 高质量学习资源和信息 Curated 的强烈需求：</strong>
+                            <ul>
+                                <li class="fragment fade-in"><strong>非代码仓库</strong>占据榜单显著比重 (Awesome lists, Build-your-own-X, Engineering blogs)。</li>
+                                <li class="fragment fade-in">在信息爆炸时代，<span class="aha-highlight">对高质量、结构化、经过 curated 的学习和参考资源的渴求最为突出</span>。</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p class="fragment fade-in mt-4">总结：<span class="aha-highlight">务实的创新</span> —— 在追逐前沿的同时，脚踏实地解决痛点，并高度重视知识的积累和信息的有效获取。</p>
+                </div>
+            </section>
+
+            <!-- Slide 4: 热门项目双日维度对比分析 -->
+            <section>
+                <h3 class="slide-section-title">热门项目双日维度对比分析</h3>
+                <div class="text-left mt-8">
+                    <ul>
+                        <li class="fragment fade-in"><strong><i class="fas fa-exchange-alt"></i> 榜单动态性高：</strong>
+                            <ul>
+                                <li class="fragment fade-in">12个新项目涌入，3个项目强劲上升。</li>
+                                <li class="fragment fade-in">市场热点快速轮动，新面孔取代旧热门。</li>
+                            </ul>
+                        </li>
+                        <li class="fragment fade-in"><strong><i class="fas fa-star"></i> 新晋项目类型多样：</strong>
+                            <ul>
+                                <li class="fragment fade-in">相当一部分是<span class="aha-highlight">各类精选列表或学习资源</span>（开发工具集、建站指南、技术博客列表）。</li>
+                                <li class="fragment fade-in">也包括新的UI框架、构建工具及有趣的技术演示。</li>
+                            </ul>
+                        </li>
+                        <li class="fragment fade-in"><strong><i class="fas fa-code-branch"></i> 编程语言分布变化：</strong>
+                            <ul>
+                                <li class="fragment fade-in">Python, Go, HTML, Ruby, Dockerfile, Markdown 等项目数量增加。</li>
+                                <li class="fragment fade-in">C++, C, JavaScript, Rust, Java 等有所减少。</li>
+                                <li class="fragment fade-in">'<span class="aha-highlight">Unknown</span>' 语言项目增加两个，表明<span class="aha-highlight">非代码仓库（文档、资源列表）热度提升</span>。</li>
+                            </ul>
+                        </li>
+                        <li class="fragment fade-in"><strong><i class="fas fa-rocket"></i> 显著涨幅：</strong>
+                            <ul>
+                                <li class="fragment fade-in">前三涨幅项目中有两个直接与<span class="aha-highlight">AI/LLM相关</span>，另一个是<span class="aha-highlight">高质量机器学习资源列表</span>。</li>
+                                <li class="fragment fade-in">AI/ML领域仍是焦点，但<span class="aha-highlight">资源类项目的爆发式增长最具特色</span>，揭示“信息 curated”的巨大价值。</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 5: 热点变化 -->
+            <section>
+                <h3 class="slide-section-title">今日热点变化速览</h3>
+                <div class="grid grid-cols-2 gap-4 text-left mt-8">
+                    <div>
+                        <h4 style="color:#22C55E;"><i class="fas fa-fire"></i> 新增热点</h4>
+                        <ul style="font-size:0.95em;">
+                            <li class="fragment fade-in">vitejs/vite</li>
+                            <li class="fragment fade-in">sindresorhus/awesome <span class="aha-highlight">(精选列表)</span></li>
+                            <li class="fragment fade-in">sdmg15/best-websites-a-programmer-should-visit <span class="aha-highlight">(程序员网站)</span></li>
+                            <li class="fragment fade-in">codecrafters-io/build-your-own-x <span class="aha-highlight">(学习实践)</span></li>
+                            <li class="fragment fade-in">kilimchoi/engineering-blogs <span class="aha-highlight">(技术博客)</span></li>
+                            <li class="fragment fade-in">mikeroyal/self-hosting-guide <span class="aha-highlight">(自托管指南)</span></li>
+                            <li class="fragment fade-in">bgstaal/multiplewindow3dscene</li>
+                            <li class="fragment fade-in">eriklindernoren/ml-from-scratch <span class="aha-highlight">(ML学习)</span></li>
+                            <li class="fragment fade-in">gitleaks/gitleaks</li>
+                            <li class="fragment fade-in">dioxuslabs/dioxus</li>
+                            <li class="fragment fade-in">ripienaar/free-for-dev <span class="aha-highlight">(免费资源)</span></li>
+                            <li class="fragment fade-in">aykutsarac/jsoncrack.com</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color:#EF4444;"><i class="fas fa-snowflake"></i> 减退热点</h4>
+                        <ul style="font-size:0.95em;">
+                            <li class="fragment fade-in">typst/typst</li>
+                            <li class="fragment fade-in">microsoft/edit</li>
+                            <li class="fragment fade-in">patchy631/ai-engineering-hub</li>
+                            <li class="fragment fade-in">harbourmasters/spaghettikart</li>
+                            <li class="fragment fade-in">poteto/hiring-without-whiteboards</li>
+                            <li class="fragment fade-in">isledecomp/isle-portable</li>
+                            <li class="fragment fade-in">microsoft/playwright</li>
+                            <li class="fragment fade-in">drklo/telegram</li>
+                            <li class="fragment fade-in">effect-ts/effect</li>
+                            <li class="fragment fade-in">microsoft/web-dev-for-beginners</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 6: DioxusLabs/dioxus -->
+            <section>
+                <h3 class="slide-section-title">详细仓库数据</h3>
+                <section>
+                    <h3 class="project-title"><a href="https://github.com/DioxusLabs/dioxus" target="_blank"><i class="fab fa-rust"></i> DioxusLabs/dioxus</a></h3>
+                    <h4>高性能Rust全栈应用框架</h4>
+                    <p class="fragment fade-in">旨在用单一代码库构建跨平台Web、桌面、移动和服务器端渲染应用。</p>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="fas fa-star"></i> Stars: 28.2k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 1.2k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 144</div>
+                        <div><i class="fas fa-exclamation-circle"></i> Issues: 384</div>
+                        <div><i class="fas fa-code-pull-request"></i> PRs: 21</div>
+                        <div><i class="fas fa-file-contract"></i> License: Apache-2.0</div>
+                    </div>
+                    <div class="language-distribution fragment fade-in">
+                        <h4>编程语言占比:</h4>
+                        <ul>
+                            <li>Rust 91.5%</li>
+                            <li>HTML 3.0%</li>
+                            <li>R 1.7%</li>
+                            <li>TypeScript 1.4%</li>
+                            <li>JavaScript 1.1%</li>
+                            <li>CSS 0.6%</li>
+                        </ul>
+                    </div>
+                    <p class="fragment fade-in mt-4"><strong><span class="aha-highlight">速读：</span></strong>极致性能、优秀开发体验、Rust类型安全、小体积可执行文件，是Rust生态构建现代UI的有力工具。</p>
+                    <p class="fragment fade-in"><strong>增长分析：</strong>总增长1646 Star，上榜2次，近期增长较快，说明关注度持续上升。</p>
+                </section>
+            </section>
+
+            <!-- Slide 7: vitejs/vite -->
+            <section>
+                <section>
+                    <h3 class="project-title"><a href="https://github.com/vitejs/vite" target="_blank"><i class="fas fa-bolt"></i> vitejs/vite</a></h3>
+                    <h4>下一代前端构建工具，速度很快！</h4>
+                    <p class="fragment fade-in">彻底革新前端开发流程，大幅提升开发体验。</p>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="fas fa-star"></i> Stars: 73.5k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 6.9k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 452</div>
+                        <div><i class="fas fa-exclamation-circle"></i> Issues: 476</div>
+                        <div><i class="fas fa-code-pull-request"></i> PRs: 148</div>
+                        <div><i class="fas fa-file-contract"></i> License: MIT</div>
+                    </div>
+                    <div class="language-distribution fragment fade-in">
+                        <h4>编程语言占比:</h4>
+                        <ul>
+                            <li>TypeScript 83.4%</li>
+                            <li>JavaScript 9.8%</li>
+                            <li>HTML 5.2%</li>
+                            <li>CSS 1.2%</li>
+                        </ul>
+                    </div>
+                    <p class="fragment fade-in mt-4"><strong><span class="aha-highlight">速读：</span></strong>利用原生ES模块实现<span class="aha-highlight">瞬时启动和HMR</span>，生产环境基于Rollup优化打包，是提升前端效率和体验的首选方案。</p>
+                </section>
+            </section>
+
+            <!-- Slide 8: musistudio/claude-code-router -->
+            <section>
+                <section>
+                    <h3 class="project-title"><a href="https://github.com/musistudio/claude-code-router" target="_blank"><i class="fas fa-robot"></i> musistudio/claude-code-router</a></h3>
+                    <h4>AI模型路由与成本优化利器</h4>
+                    <p class="fragment fade-in">解决Claude使用限制，自由路由到DeepSeek、OpenRouter等第三方模型。</p>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="fas fa-star"></i> Stars: 1.6k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 114</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 12</div>
+                        <div><i class="fas fa-exclamation-circle"></i> Issues: 34</div>
+                        <div><i class="fas fa-code-pull-request"></i> PRs: 2</div>
+                        <div><i class="fas fa-file-contract"></i> License: MIT</div>
+                    </div>
+                    <div class="language-distribution fragment fade-in">
+                        <h4>编程语言占比:</h4>
+                        <ul>
+                            <li>TypeScript 90.4%</li>
+                            <li>JavaScript 9.6%</li>
+                        </ul>
+                    </div>
+                    <p class="fragment fade-in mt-4"><strong><span class="aha-highlight">速读：</span></strong>将claude-code变成<span class="aha-highlight">通用、经济高效的多模型AI代码辅助工具</span>，显著降低AI使用成本。</p>
+                    <p class="fragment fade-in"><strong>增长分析：</strong>2天内上榜2次，总增339星，活跃度和关注度高，增长势头强劲。</p>
+                </section>
+            </section>
+
+            <!-- Slide 9: AykutSarac/jsoncrack.com -->
+            <section>
+                <section>
+                    <h3 class="project-title"><a href="https://github.com/AykutSarac/jsoncrack.com" target="_blank"><i class="fas fa-chart-network"></i> AykutSarac/jsoncrack.com</a></h3>
+                    <h4>交互式数据可视化应用</h4>
+                    <p class="fragment fade-in">将JSON、YAML、XML、CSV等多种数据格式转换为交互式图表。</p>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="fas fa-star"></i> Stars: 38k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 2.5k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 209</div>
+                        <div><i class="fas fa-exclamation-circle"></i> Issues: 36</div>
+                        <div><i class="fas fa-code-pull-request"></i> PRs: 5</div>
+                        <div><i class="fas fa-file-contract"></i> License: Apache-2.0</div>
+                    </div>
+                    <div class="language-distribution fragment fade-in">
+                        <h4>编程语言占比:</h4>
+                        <ul>
+                            <li>TypeScript 94.4%</li>
+                            <li>JavaScript 5.4%</li>
+                            <li>Dockerfile 0.2%</li>
+                        </ul>
+                    </div>
+                    <p class="fragment fade-in mt-4"><strong><span class="aha-highlight">速读：</span></strong>彻底改变理解和调试复杂结构化数据的方式，<span class="aha-highlight">直观可视化和隐私安全兼备</span>，大幅提升工作效率。</p>
+                </section>
+            </section>
+
+            <!-- Slide 10: ripienaar/free-for-dev -->
+            <section>
+                <section>
+                    <h3 class="project-title"><a href="https://github.com/ripienaar/free-for-dev" target="_blank"><i class="fas fa-gift"></i> ripienaar/free-for-dev</a></h3>
+                    <h4>免费DevOps/Infra服务列表</h4>
+                    <p class="fragment fade-in">汇集对开发者和基础设施工程师有益的、提供可持续免费层级的各类在线服务。</p>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="fas fa-star"></i> Stars: 99.9k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 10.7k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 1.7k</div>
+                        <div><i class="fas fa-file-contract"></i> License: Unknown</div>
+                    </div>
+                    <div class="language-distribution fragment fade-in">
+                        <h4>编程语言占比:</h4>
+                        <ul>
+                            <li>HTML 100.0%</li>
+                        </ul>
+                    </div>
+                    <p class="fragment fade-in mt-4"><strong><span class="aha-highlight">速读：</span></strong>精准解决寻找<span class="aha-highlight">免费云服务和工具</span>的难题，是利用免费资源进行学习、原型开发或管理小型项目的宝贵指南。</p>
+                    <p class="fragment fade-in"><strong>增长分析：</strong>总增长6107星，近期881星增量显著高于平均，当前增长势头强劲且可能正在加速。</p>
+                </section>
+            </section>
+
+            <!-- Slide 11: sdmg15/Best-websites-a-programmer-should-visit -->
+            <section>
+                <section>
+                    <h3 class="project-title"><a href="https://github.com/sdmg15/Best-websites-a-programmer-should-visit" target="_blank"><i class="fas fa-globe"></i> sdmg15/Best-websites-a-programmer-should-visit</a></h3>
+                    <h4>程序员必访网站精选列表</h4>
+                    <p class="fragment fade-in">一个精选的程序员常用网站集合，帮助开发者快速找到所需资源。</p>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="fas fa-star"></i> Stars: 68.1k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 8.2k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 1.4k</div>
+                        <div><i class="fas fa-file-contract"></i> License: Unknown</div>
+                    </div>
+                    <div class="language-distribution fragment fade-in">
+                        <h4>编程语言占比:</h4>
+                        <ul>
+                            <li>Unknown (主要是Markdown文档)</li>
+                        </ul>
+                    </div>
+                    <p class="fragment fade-in mt-4"><strong><span class="aha-highlight">速读：</span></strong>详尽分类、社区共同维护，确保了资源的全面性、时效性和易用性，是广大程序员<span class="aha-highlight">探索和利用在线资源的宝贵索引</span>。</p>
+                </section>
+            </section>
+
+            <!-- Slide 12: jujumilk3/leaked-system-prompts -->
+            <section>
+                <section>
+                    <h3 class="project-title"><a href="https://github.com/jujumilk3/leaked-system-prompts" target="_blank"><i class="fas fa-lightbulb"></i> jujumilk3/leaked-system-prompts</a></h3>
+                    <h4>泄露的系统提示词集合</h4>
+                    <p class="fragment fade-in">专门收集并整理来自各种大型语言模型（LLM）服务的“泄露”系统提示词。</p>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="fas fa-star"></i> Stars: 10.3k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 1.4k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 152</div>
+                        <div><i class="fas fa-file-contract"></i> License: Unknown</div>
+                    </div>
+                    <p class="fragment fade-in mt-4"><strong><span class="aha-highlight">速读：</span></strong>提供独特窗口一窥LLM背后隐藏的<span class="aha-highlight">起始指令和行为设定</span>，对于LLM研究和理解领域具有重要参考价值。</p>
+                    <p class="fragment fade-in"><strong>增长分析：</strong>7次上榜，累积增长7737星，增长势头稳健且持续，证明其独特价值。</p>
+                </section>
+            </section>
+
+            <!-- Slide 13: ml-tooling/best-of-ml-python -->
+            <section>
+                <section>
+                    <h3 class="project-title"><a href="https://github.com/ml-tooling/best-of-ml-python" target="_blank"><i class="fab fa-python"></i> ml-tooling/best-of-ml-python</a></h3>
+                    <h4>精选机器学习Python库排行榜</h4>
+                    <p class="fragment fade-in">为Python机器学习开发者量身打造的精选工具集，提供高质量的ML及相关开源库排名。</p>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="fas fa-star"></i> Stars: 20.8k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 2.8k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 437</div>
+                        <div><i class="fas fa-file-contract"></i> License: CC-BY-SA-4.0</div>
+                    </div>
+                    <p class="fragment fade-in mt-4"><strong><span class="aha-highlight">速读：</span></strong>独特的排名算法综合多维度数据，每周自动更新，为<span class="aha-highlight">Python ML社区提供权威工具选型参考</span>，是快速找到优秀工具的宝贵指南。</p>
+                    <p class="fragment fade-in"><strong>增长分析：</strong>2天内2次上榜，总增长418星，活跃度高，用户采纳度快速提升。</p>
+                </section>
+            </section>
+
+            <!-- Slide 14: bgstaal/multipleWindow3dScene -->
+            <section>
+                <section>
+                    <h3 class="project-title"><a href="https://github.com/bgstaal/multipleWindow3dScene" target="_blank"><i class="fas fa-cube"></i> bgstaal/multipleWindow3dScene</a></h3>
+                    <h4>多窗口3D场景同步示例</h4>
+                    <p class="fragment fade-in">使用Three.js和localStorage在多个窗口间“同步”3D场景的一个快速示例。</p>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="fas fa-star"></i> Stars: 18.4k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 2.8k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 129</div>
+                        <div><i class="fas fa-file-contract"></i> License: MIT</div>
+                    </div>
+                    <div class="language-distribution fragment fade-in">
+                        <h4>编程语言占比:</h4>
+                        <ul>
+                            <li>JavaScript 96.0%</li>
+                            <li>HTML 4.0%</li>
+                        </ul>
+                    </div>
+                    <p class="fragment fade-in mt-4"><strong><span class="aha-highlight">速读：</span></strong>巧妙利用技术实现<span class="aha-highlight">多屏幕/窗口3D体验无缝同步</span>，为构建跨屏、分布式图形应用提供了实用基础示例。</p>
+                    <p class="fragment fade-in"><strong>增长分析：</strong>2个月内上榜3次，每次显著带动星标增长，今日新增128星，增长与上榜频率密切相关。</p>
+                </section>
+            </section>
+
+            <!-- Slide 15: mikeroyal/Self-Hosting-Guide -->
+            <section>
+                <section>
+                    <h3 class="project-title"><a href="https://github.com/mikeroyal/Self-Hosting-Guide" target="_blank"><i class="fas fa-server"></i> mikeroyal/Self-Hosting-Guide</a></h3>
+                    <h4>全面自托管指南</h4>
+                    <p class="fragment fade-in">学习如何在自己的本地或私有服务器上运行和管理各种软件应用。</p>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="fas fa-star"></i> Stars: 14.1k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 736</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 195</div>
+                        <div><i class="fas fa-file-contract"></i> License: Unknown</div>
+                    </div>
+                    <div class="language-distribution fragment fade-in">
+                        <h4>编程语言占比:</h4>
+                        <ul>
+                            <li>Dockerfile 100.0%</li>
+                        </ul>
+                    </div>
+                    <p class="fragment fade-in mt-4"><strong><span class="aha-highlight">速读：</span></strong>涵盖容器化、网络、自动化、智能家居、私有云乃至LLMs等，为希望<span class="aha-highlight">掌控数据、搭建私有化服务</span>的用户提供结构化知识库。</p>
+                </section>
+            </section>
+
+            <!-- Slide 16: codecrafters-io/build-your-own-x -->
+            <section>
+                <section>
+                    <h3 class="project-title"><a href="https://github.com/codecrafters-io/build-your-own-x" target="_blank"><i class="fas fa-wrench"></i> codecrafters-io/build-your-own-x</a></h3>
+                    <h4>通过实现掌握编程</h4>
+                    <p class="fragment fade-in">通过从零开始亲手实现各种技术，从而精通编程的精选学习资源索引。</p>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="fas fa-star"></i> Stars: 390k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 36.4k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 6.1k</div>
+                        <div><i class="fas fa-file-contract"></i> License: Unknown</div>
+                    </div>
+                    <div class="language-distribution fragment fade-in">
+                        <h4>编程语言占比:</h4>
+                        <ul>
+                            <li>Markdown 100.0%</li>
+                        </ul>
+                    </div>
+                    <p class="fragment fade-in mt-4"><strong><span class="aha-highlight">速读：</span></strong>汇集大量高质量教程，涵盖操作系统、编程语言、数据库等，是<span class="aha-highlight">深入掌握技术本质、提升技术内功</span>的极具价值学习路径。</p>
+                    <p class="fragment fade-in"><strong>增长分析：</strong>3个多月上榜12次，每次平均新增超700星，总计增长3.8万余，增长势头良好。</p>
+                </section>
+            </section>
+
+            <!-- Slide 17: sindresorhus/awesome -->
+            <section>
+                <section>
+                    <h3 class="project-title"><a href="https://github.com/sindresorhus/awesome" target="_blank"><i class="fas fa-list-alt"></i> sindresorhus/awesome</a></h3>
+                    <h4>包罗万象的Awesome列表索引</h4>
+                    <p class="fragment fade-in">GitHub上极具影响力的仓库，精心策划的Awesome列表索引。</p>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="fas fa-star"></i> Stars: 373k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 29.9k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 7.9k</div>
+                        <div><i class="fas fa-file-contract"></i> License: CC0-1.0</div>
+                    </div>
+                    <p class="fragment fade-in mt-4"><strong><span class="aha-highlight">速读：</span></strong>不直接提供内容，而是作为通往<span class="aha-highlight">所有技术领域优质资源列表的中心导航</span>，是技术探索和学习的宝库。</p>
+                    <p class="fragment fade-in"><strong>增长分析：</strong>周期内上榜7次，总星增长7725，今日新增912星高于平均，频繁上榜显著驱动仓库快速增长，持续受欢迎。</p>
+                </section>
+            </section>
+
+            <!-- Slide 18: eriklindernoren/ML-From-Scratch -->
+            <section>
+                <section>
+                    <h3 class="project-title"><a href="https://github.com/eriklindernoren/ML-From-Scratch" target="_blank"><i class="fas fa-graduation-cap"></i> eriklindernoren/ML-From-Scratch</a></h3>
+                    <h4>机器学习从零开始</h4>
+                    <p class="fragment fade-in">使用纯NumPy实现机器学习模型与算法，侧重易于理解。</p>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="fas fa-star"></i> Stars: 25.3k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 4.7k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 941</div>
+                        <div><i class="fas fa-file-contract"></i> License: MIT</div>
+                    </div>
+                    <div class="language-distribution fragment fade-in">
+                        <h4>编程语言占比:</h4>
+                        <ul>
+                            <li>Python 100.0%</li>
+                        </ul>
+                    </div>
+                    <p class="fragment fade-in mt-4"><strong><span class="aha-highlight">速读：</span></strong>代码高度可读、教学价值极高，是希望<span class="aha-highlight">从零开始、彻底掌握算法背后机制</span>的学习者绝佳实践和参考资源。</p>
+                </section>
+            </section>
+
+            <!-- Slide 19: kilimchoi/engineering-blogs -->
+            <section>
+                <section>
+                    <h3 class="project-title"><a href="https://github.com/kilimchoi/engineering-blogs" target="_blank"><i class="fas fa-blog"></i> kilimchoi/engineering-blogs</a></h3>
+                    <h4>精选工程技术博客列表</h4>
+                    <p class="fragment fade-in">系统地收集并整理全球顶尖科技公司、知名技术个人及特定产品/技术相关的优质工程博客。</p>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="fas fa-star"></i> Stars: 33.8k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 1.8k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 1.1k</div>
+                        <div><i class="fas fa-file-contract"></i> License: Unknown</div>
+                    </div>
+                    <div class="language-distribution fragment fade-in">
+                        <h4>编程语言占比:</h4>
+                        <ul>
+                            <li>Ruby 100.0%</li>
+                        </ul>
+                    </div>
+                    <p class="fragment fade-in mt-4"><strong><span class="aha-highlight">速读：</span></strong>为开发者提供便捷入口，高效发现和访问<span class="aha-highlight">深入技术见解、前沿趋势与实践经验</span>，是工程师和技术爱好者宝贵的学习导航平台。</p>
+                </section>
+            </section>
+
+            <!-- Slide 20: gitleaks/gitleaks -->
+            <section>
+                <section>
+                    <h3 class="project-title"><a href="https://github.com/gitleaks/gitleaks" target="_blank"><i class="fas fa-lock"></i> gitleaks/gitleaks</a></h3>
+                    <h4>使用Gitleaks发现秘密</h4>
+                    <p class="fragment fade-in">强大的开源Go语言工具，专注于在Git仓库、文件系统及输入流中查找并揭示敏感信息。</p>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="fas fa-star"></i> Stars: 20.4k</div>
+                        <div><i class="fas fa-code-branch"></i> Forks: 1.6k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 161</div>
+                        <div><i class="fas fa-file-contract"></i> License: MIT</div>
+                    </div>
+                    <div class="language-distribution fragment fade-in">
+                        <h4>编程语言占比:</h4>
+                        <ul>
+                            <li>Go 99.3%</li>
+                        </ul>
+                    </div>
+                    <p class="fragment fade-in mt-4"><strong><span class="aha-highlight">速读：</span></strong>高效检测泄露、无缝集成CI/CD，成为组织<span class="aha-highlight">预防敏感数据意外暴露、强化代码安全</span>的重要防线。</p>
+                </section>
+            </section>
+
+            <!-- Slide 21: Conclusion -->
+            <section>
+                <h3 class="slide-section-title">总结：知识的价值，永恒的追求</h3>
+                <div class="text-left mt-8">
+                    <ul>
+                        <li class="fragment fade-in">今天的GitHub榜单明确传递一个信号：<br><strong><span class="aha-highlight">技术不仅向前冲，更在向内求。</span></strong></li>
+                        <li class="fragment fade-in">除了追逐AI前沿，开发者们正<span class="aha-highlight">脚踏实地地寻找解决实际问题</span>的工具和方法。</li>
+                        <li class="fragment fade-in">而最令人惊喜的"Aha moment"是，面对信息洪流，<br><strong><span class="aha-highlight">高质量、经过精选的知识和学习资源，正成为比纯粹AI技术本身更受追捧的“硬通货”！</span></strong></li>
+                        <li class="fragment fade-in">这预示着未来技术热点将更集中于：<br>智能学习平台、专业化AI工具链，以及更易部署的自托管解决方案。</li>
+                    </ul>
+                    <h3 class="fragment fade-in mt-8 text-center" style="color:var(--r-link-color);">知识，是下一波技术浪潮的核心驱动力！</h3>
+                </div>
+            </section>
+
+            <!-- Slide 22: Call to Action -->
+            <section class="title-slide">
+                <h1>感谢聆听！</h1>
+                <h2>期待与您共同探索技术未来</h2>
+                <h3 style="margin-top: 50px;">扫描二维码，关注我们，获取更多GitHub趋势洞察！</h3>
+                <div class="footer-links">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">项目链接: https://github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="微信二维码">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            transition: 'slide', // Fades, slide, convex, zoom
+            // Optional reveal.js plugins
+            plugins: [ ], // No specific plugins requested, keeping it simple
+            // Custom configurations
+            width: 1280,
+            height: 800,
+            margin: 0.05,
+            minScale: 0.2,
+            maxScale: 1.5,
+            // Configure markdown to parse fragments
+            markdown: {
+                smartypants: true
+            }
+        });
+    </script>
+</body>
+</html>
