@@ -1,0 +1,1172 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GitHub趋势分析：AI之外的效率与学习宝藏</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        :root {
+            --r-main-font: "Noto Sans SC", Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: "Noto Serif SC", serif;
+            --r-background-color: #f7f7f7;
+            --r-main-color: #333;
+            --r-heading-color: #1a202c;
+            --r-link-color: #4a90e2;
+            --r-link-color-hover: #357bd8;
+            --r-selection-background-color: #98e4f1;
+            --r-transition-speed: 0.8s; /* Slightly slower for more dramatic effect */
+        }
+
+        body {
+            font-family: var(--r-main-font);
+            background-color: var(--r-background-color);
+            color: var(--r-main-color);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--r-heading-font);
+            color: var(--r-heading-color);
+            text-transform: none; /* Disable default uppercase */
+            line-height: 1.2;
+            margin-bottom: 0.5em;
+        }
+
+        h1 { font-size: 2.8rem; } /* Adjusted for a modern feel */
+        h2 { font-size: 2.0rem; }
+        h3 { font-size: 1.6rem; }
+        p { font-size: 1.15rem; line-height: 1.6; }
+        li { font-size: 1.05rem; line-height: 1.8; }
+
+        .reveal .slides section {
+            padding: 40px 80px;
+            text-align: left;
+            box-sizing: border-box;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .reveal .controls button {
+            color: var(--r-link-color);
+        }
+
+        .gradient-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3));
+            z-index: -1;
+        }
+
+        .reveal .slide-number {
+            font-size: 0.7em;
+            color: rgba(0, 0, 0, 0.4);
+            bottom: 10px;
+            right: 10px;
+            position: absolute;
+        }
+
+        /* Custom styles for specific elements */
+        .project-table th, .project-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+        .project-table th {
+            background-color: #f0f0f0;
+            font-weight: 500;
+        }
+
+        .project-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .icon-text {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 20px;
+            font-size: 0.95rem;
+            color: #555;
+        }
+        .icon-text i {
+            margin-right: 8px;
+            color: var(--r-link-color);
+        }
+
+        .bg-tech-abstract {
+            background-image: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .bg-insights {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .bg-deep-dive {
+            background: linear-gradient(135deg, #e0f2f7 0%, #b3e5fc 100%);
+        }
+
+        .aha-highlight {
+            color: #e91e63; /* A bright, attention-grabbing color */
+            font-weight: 700;
+        }
+        .reveal strong {
+            color: var(--r-link-color);
+        }
+        .reveal h1 strong, .reveal h2 strong {
+            color: #e91e63; /* Primary accent color for key highlights */
+        }
+
+        .project-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+            padding: 10px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+        .project-stat-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .project-stat-item i {
+            margin-right: 5px;
+            color: #888;
+        }
+
+        .small-text {
+            font-size: 0.8em;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover Page -->
+            <section data-background-image="https://images.unsplash.com/photo-1587620962725-abab7fe65553?q=80&w=2900&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-background-color="#000" data-transition="slide">
+                <div class="gradient-overlay"></div>
+                <div class="flex flex-col justify-center items-center h-full text-center p-8">
+                    <p class="text-white text-3xl font-semibold mb-4 drop-shadow-lg fragment fade-in" data-fragment-index="1">
+                        🔥 今日最火爆的开源项目都在这 ⭐️
+                    </p>
+                    <h1 class="text-white text-6xl font-bold mb-6 drop-shadow-xl fragment fade-in" data-fragment-index="2">
+                        最新GitHub趋势：<br>
+                        <span class="aha-highlight">AI之外</span>，开发者都在追哪些<br>
+                        效率工具和宝藏学习资源？
+                    </h1>
+                    <p class="text-white text-xl mt-4 drop-shadow-lg fragment fade-in" data-fragment-index="3">
+                        Github热门仓库<strong class="text-yellow-400">日报</strong>观测时间：<span class="font-mono">2025-06-26 20:26:50</span>
+                    </p>
+                    <p class="text-gray-300 text-sm mt-8 drop-shadow-lg fragment fade-in" data-fragment-index="4">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！
+                    </p>
+                </div>
+                <div class="absolute bottom-8 right-8 text-white text-right z-10">
+                    <p class="text-lg">演讲者：<strong class="aha-highlight">AIChipEra</strong></p>
+                    <div class="mt-2">
+                        <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-blue-300 hover:text-blue-200 text-sm">
+                            <i class="fab fa-github mr-2"></i> github.com/aichipera/github-trend
+                        </a>
+                        <img src="../../asserts/wx.jpg" alt="QR Code" class="w-24 h-24 mt-2 border-2 border-white rounded-lg">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 2: 日报要点 (Key Takeaways) -->
+            <section class="bg-insights" data-transition="fade">
+                <h2 class="text-center mb-10 text-5xl font-bold text-gray-800">
+                    <i class="fas fa-lightbulb text-yellow-500 mr-4"></i>日报要点：<span class="aha-highlight">技术圈新风向</span>
+                </h2>
+                <div class="grid grid-cols-2 gap-8 text-gray-700 text-xl">
+                    <div class="fragment fade-in-then-semi-out" data-fragment-index="1">
+                        <h3 class="text-2xl font-semibold mb-4 text-blue-700"><i class="fas fa-robot mr-3"></i>AI应用与生态深化</h3>
+                        <ul class="list-disc pl-6">
+                            <li>焦点从模型转向<strong class="aha-highlight">应用、管理与生态构建</strong>。</li>
+                            <li>协议 (MCP)、网关 (Portkey AI Gateway) 等工具涌现。</li>
+                            <li>初学者AI/ML课程受热捧，AI知识普及加速。</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in-then-semi-out" data-fragment-index="2">
+                        <h3 class="text-2xl font-semibold mb-4 text-green-700"><i class="fas fa-tools mr-3"></i>开发者效率与安全</h3>
+                        <ul class="list-disc pl-6">
+                            <li><strong class="aha-highlight">实用工具</strong>需求强劲：文本编辑器、可视化工具 (JSON Crack)。</li>
+                            <li>代码安全：秘密泄露扫描 (Gitleaks) 持续受关注。</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in-then-semi-out" data-fragment-index="3">
+                        <h3 class="text-2xl font-semibold mb-4 text-purple-700"><i class="fas fa-code mr-3"></i>Rust与TypeScript崛起</h3>
+                        <ul class="list-disc pl-6">
+                            <li><strong class="aha-highlight">Rust</strong>在高性能、底层工具及全栈应用中持续走强。</li>
+                            <li><strong class="aha-highlight">TypeScript</strong>巩固前端、全栈及AI服务中间件地位。</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in-then-semi-out" data-fragment-index="4">
+                        <h3 class="text-2xl font-semibold mb-4 text-orange-700"><i class="fas fa-book-open mr-3"></i>优质学习资源与干货</h3>
+                        <ul class="list-disc pl-6">
+                            <li>精选资源列表、免费服务指南、微软AI/ML课程获<strong class="aha-highlight">极高关注</strong>。</li>
+                            <li>社区对系统化学习路径和实用干货有着强烈渴望。</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="text-center text-sm text-gray-500 mt-8 fragment fade-in" data-fragment-index="5">
+                    榜单活跃度高，新项目涌现，反映社区正快速拥抱变化。
+                </p>
+            </section>
+
+            <!-- Slide 3: 热门项目趋势分析 - 今日整体趋势 (Overall Trends) -->
+            <section class="bg-deep-dive" data-transition="slide">
+                <h2 class="text-center mb-10 text-5xl font-bold text-gray-800">
+                    <i class="fas fa-chart-line text-blue-600 mr-4"></i>今日整体趋势：<span class="aha-highlight">多维度技术交织</span>
+                </h2>
+                <ul class="list-none space-y-6 text-gray-700 text-xl">
+                    <li class="fragment fade-in" data-fragment-index="1">
+                        <span class="text-blue-700 font-semibold text-2xl">1. 人工智能 (AI) 应用深化：</span>
+                        大型语言模型 (LLM) 从研究走向<strong class="aha-highlight">广泛应用与知识普及</strong>，关注点转向AI模型的交互、管理与生态构建。
+                    </li>
+                    <li class="fragment fade-in" data-fragment-index="2">
+                        <span class="text-green-700 font-semibold text-2xl">2. 开发者效率与基础工具：</span>
+                        简洁编辑器、可视化工具、代码安全扫描工具等持续热门，社区对<strong class="aha-highlight">优化开发流程、提高生产力</strong>的需求不减。
+                    </li>
+                    <li class="fragment fade-in" data-fragment-index="3">
+                        <span class="text-purple-700 font-semibold text-2xl">3. Rust与TypeScript的强劲势头：</span>
+                        <strong class="aha-highlight">Rust</strong>在高性能、底层与全栈应用中持续渗透；<strong class="aha-highlight">TypeScript</strong>巩固其在Web、全栈及AI服务中间件的地位。
+                    </li>
+                    <li class="fragment fade-in" data-fragment-index="4">
+                        <span class="text-orange-700 font-semibold text-2xl">4. 知识分享与学习资源爆发：</span>
+                        多个高星标的资源列表和<strong class="aha-highlight">系统性初学者课程</strong>（如微软AI/ML系列）增长强劲，反映开发者对高质量学习路径的渴望。
+                    </li>
+                    <li class="fragment fade-in" data-fragment-index="5">
+                        <span class="text-red-700 font-semibold text-2xl">未来展望：</span>
+                        AI与更多领域的深度融合、AI开发全生命周期工具链、更便捷高效的多模态/具身智能应用框架将是<strong class="aha-highlight">下一波热点</strong>。
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Slide 4: 热门项目趋势分析 - 双日维度对比分析 (Two-Day Comparison) -->
+            <section class="bg-insights" data-transition="fade">
+                <h2 class="text-center mb-10 text-5xl font-bold text-gray-800">
+                    <i class="fas fa-exchange-alt text-orange-600 mr-4"></i>双日趋势对比：<span class="aha-highlight">活跃与增长并存</span>
+                </h2>
+                <ul class="list-none space-y-6 text-gray-700 text-xl">
+                    <li class="fragment fade-in" data-fragment-index="1">
+                        <span class="text-blue-700 font-semibold text-2xl">市场活跃度高：</span>
+                        榜单由<strong class="aha-highlight">大量新晋和上升项目</strong>主导，无显著下降项目，表明社区关注点集中在新兴与快速成长项目。
+                    </li>
+                    <li class="fragment fade-in" data-fragment-index="2">
+                        <span class="text-green-700 font-semibold text-2xl">新晋项目多样化：</span>
+                        微软在AI与基础编程教育发力，同时不乏UI框架和特定技术工具。Rust和TypeScript在新晋榜单中<strong class="aha-highlight">地位突出</strong>。
+                    </li>
+                    <li class="fragment fade-in" data-fragment-index="3">
+                        <span class="text-purple-700 font-semibold text-2xl">编程语言微妙变化：</span>
+                        <strong class="aha-highlight">Rust净增两位最抢眼</strong>。Python和JavaScript略减，TypeScript、Go、HTML和Jupyter Notebook项目增加，反映技术焦点多元化。
+                    </li>
+                    <li class="fragment fade-in" data-fragment-index="4">
+                        <span class="text-orange-700 font-semibold text-2xl">资源类项目贡献显著：</span>
+                        涨幅贡献者多为对开发者有实际帮助的<strong class="aha-highlight">资源集合</strong>（如网站、免费服务），印证社区对实用信息和学习资料的旺盛需求。
+                    </li>
+                    <li class="fragment fade-in" data-fragment-index="5">
+                        <span class="text-red-700 font-semibold text-2xl">微软持续布局：</span>
+                        微软持续推出与<strong class="aha-highlight">AI和学习相关项目</strong>，是值得持续跟踪的战略动向。
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Slide 5: 热门项目趋势分析 - 热点变化 (Hotspot Changes) -->
+            <section class="bg-deep-dive" data-transition="slide">
+                <h2 class="text-center mb-10 text-5xl font-bold text-gray-800">
+                    <i class="fas fa-fire text-red-600 mr-4"></i>热点速览：<span class="aha-highlight">涌现与沉淀</span>
+                </h2>
+                <div class="grid grid-cols-3 gap-8 text-gray-700 text-xl">
+                    <div class="fragment fade-in" data-fragment-index="1">
+                        <h3 class="text-2xl font-semibold mb-4 text-blue-700"><i class="fas fa-plus-circle mr-3"></i>新增热点</h3>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li><strong class="aha-highlight">microsoft/edit</strong> (Rust文本编辑器)</li>
+                            <li><strong class="aha-highlight">mui/base-ui</strong> (无样式UI组件)</li>
+                            <li><strong class="aha-highlight">gitleaks/gitleaks</strong> (秘密泄露扫描)</li>
+                            <li><strong class="aha-highlight">modelcontextprotocol/registry</strong> (MCP服务器注册)</li>
+                            <li><strong class="aha-highlight">punkpeye/awesome-mcp-servers</strong> (MCP服务器集合)</li>
+                            <li><strong class="aha-highlight">microsoft/generative-ai-for-beginners</strong> (生成式AI教程)</li>
+                            <li><strong class="aha-highlight">microsoft/ml-for-beginners</strong> (ML初学者课程)</li>
+                            <li><strong class="aha-highlight">portkey-ai/gateway</strong> (AI网关)</li>
+                            <li><strong class="aha-highlight">twentyhq/twenty</strong> (开源CRM)</li>
+                            <li><strong class="aha-highlight">nexus-xyz/nexus-cli</strong> (Nexus网络CLI)</li>
+                            <li><strong class="aha-highlight">AykutSarac/jsoncrack.com</strong> (JSON可视化)</li>
+                            <li><strong class="aha-highlight">DioxusLabs/dioxus</strong> (Rust全栈框架)</li>
+                            <li><strong class="aha-highlight">mikeroyal/Self-Hosting-Guide</strong> (自托管指南)</li>
+                            <li><strong class="aha-highlight">sdmg15/Best-websites-a-programmer-should-visit</strong> (程序员网站)</li>
+                            <li><strong class="aha-highlight">ripienaar/free-for-dev</strong> (免费服务列表)</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in" data-fragment-index="2">
+                        <h3 class="text-2xl font-semibold mb-4 text-red-700"><i class="fas fa-minus-circle mr-3"></i>减退热点</h3>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li>musistudio/claude-code-router</li>
+                            <li>sindresorhus/awesome</li>
+                            <li>kilimchoi/engineering-blogs</li>
+                            <li>bgstaal/multiplewindow3dscene</li>
+                            <li>eriklindernoren/ml-from-scratch</li>
+                            <li>vitejs/vite</li>
+                            <li>codecrafters-io/build-your-own-x</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in" data-fragment-index="3">
+                        <h3 class="text-2xl font-semibold mb-4 text-yellow-700"><i class="fas fa-sync-alt mr-3"></i>持续热门</h3>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li><strong class="aha-highlight">jujumilk3/leaked-system-prompts</strong> (3次上榜)</li>
+                            <li><strong class="aha-highlight">ml-tooling/best-of-ml-python</strong> (3次上榜)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 6: 详细仓库数据 - Introduction -->
+            <section data-background-color="#f0f8ff" data-transition="zoom">
+                <h2 class="text-center text-6xl font-bold text-gray-800 mb-8">
+                    <i class="fas fa-database text-indigo-600 mr-4"></i>详细仓库数据：<br><span class="aha-highlight">深入解析热门项目</span>
+                </h2>
+                <p class="text-center text-gray-600 text-2xl mt-4 fragment fade-in">
+                    每个项目，都蕴含着社区的智慧与需求。
+                </p>
+                <p class="text-center text-gray-600 text-xl mt-8 fragment fade-in">
+                    让我们逐一揭秘，发现它们的独特价值与增长潜力！
+                </p>
+            </section>
+
+            <!-- Projects Section -->
+            <section data-background-color="#ffffff">
+                <section>
+                    <div class="project-card">
+                        <h2 class="text-3xl font-bold mb-4">
+                            <a href="https://github.com/microsoft/edit" target="_blank" class="text-blue-700 hover:underline">
+                                <i class="fas fa-terminal mr-3"></i>microsoft/edit
+                            </a>
+                        </h2>
+                        <p class="text-gray-700 italic mb-6">"我们都编辑。"</p>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="flex items-center text-lg"><i class="fas fa-star text-yellow-500 mr-2"></i> <span class="font-bold text-gray-800">10,572 Stars</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-code text-blue-500 mr-2"></i> <span class="font-bold text-gray-800">Rust</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-calendar-alt text-gray-500 mr-2"></i> 连续在榜: <span class="font-bold">1次</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-chart-line text-green-500 mr-2"></i> 当日新增: <span class="font-bold text-green-700">585 Stars</span></div>
+                        </div>
+
+                        <div class="project-stats-grid">
+                            <div class="project-stat-item"><i class="fas fa-code-branch"></i> Forks: 454</div>
+                            <div class="project-stat-item"><i class="fas fa-eye"></i> Watchers: 62</div>
+                            <div class="project-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 84</div>
+                            <div class="project-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 38</div>
+                            <div class="project-stat-item"><i class="fas fa-box"></i> Releases: 3</div>
+                            <div class="project-stat-item"><i class="fas fa-file-alt"></i> Commits: 358</div>
+                            <div class="project-stat-item"><i class="fas fa-balance-scale"></i> License: MIT</div>
+                            <div class="project-stat-item"><i class="fas fa-users"></i> Contributors: 57</div>
+                        </div>
+
+                        <h3 class="text-2xl font-semibold mt-8 mb-4 text-purple-700"><i class="fas fa-info-circle mr-2"></i>项目速读</h3>
+                        <p class="text-gray-700">
+                            microsoft/edit 是一个基于 <strong class="aha-highlight">Rust</strong> 开发的简洁文本编辑器，致敬经典 MS-DOS Editor，拥有现代图形界面。它专注于满足简单的文本处理需求，特别适合不熟悉命令行或复杂编辑器的用户。其<strong class="aha-highlight">极致的易用性、直观的界面和流畅的体验</strong>，提供快速无障碍的文本编辑方式。是介于传统简易编辑器与功能强大 IDE 之间，专注于简单而优雅的编辑解决方案。
+                        </p>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-3xl font-bold mb-6 text-purple-700"><i class="fas fa-chart-bar mr-2"></i>增长分析：microsoft/edit</h3>
+                    <ul class="list-disc pl-8 text-gray-700 text-xl space-y-4">
+                        <li class="fragment fade-in">在2025-06-22至06-26周期内，<strong class="aha-highlight">4次上榜</strong>共增长1729 Star。</li>
+                        <li class="fragment fade-in">平均每次上榜新增344.8 Star。</li>
+                        <li class="fragment fade-in">当次新增<strong class="aha-highlight">585 Star</strong>，远高于平均值。</li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-arrow-alt-circle-up text-green-500 mr-2"></i>表明其<strong class="aha-highlight">增长势头强劲，且呈现加速趋势</strong>，受关注度持续提升。
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <section data-background-color="#ffffff">
+                <section>
+                    <div class="project-card">
+                        <h2 class="text-3xl font-bold mb-4">
+                            <a href="https://github.com/mui/base-ui" target="_blank" class="text-blue-700 hover:underline">
+                                <i class="fas fa-palette mr-3"></i>mui/base-ui
+                            </a>
+                        </h2>
+                        <p class="text-gray-700 italic mb-6">"无样式 UI 组件，用于构建可访问的 Web 应用和设计系统。"</p>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="flex items-center text-lg"><i class="fas fa-star text-yellow-500 mr-2"></i> <span class="font-bold text-gray-800">3,581 Stars</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-code text-blue-500 mr-2"></i> <span class="font-bold text-gray-800">TypeScript</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-calendar-alt text-gray-500 mr-2"></i> 连续在榜: <span class="font-bold">1次</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-chart-line text-green-500 mr-2"></i> 当日新增: <span class="font-bold text-green-700">131 Stars</span></div>
+                        </div>
+
+                        <div class="project-stats-grid">
+                            <div class="project-stat-item"><i class="fas fa-code-branch"></i> Forks: 150</div>
+                            <div class="project-stat-item"><i class="fas fa-eye"></i> Watchers: 27</div>
+                            <div class="project-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 148</div>
+                            <div class="project-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 47</div>
+                            <div class="project-stat-item"><i class="fas fa-box"></i> Releases: 0</div>
+                            <div class="project-stat-item"><i class="fas fa-file-alt"></i> Commits: 2,625</div>
+                            <div class="project-stat-item"><i class="fas fa-balance-scale"></i> License: MIT</div>
+                            <div class="project-stat-item"><i class="fas fa-users"></i> Contributors: 45</div>
+                        </div>
+
+                        <h3 class="text-2xl font-semibold mt-8 mb-4 text-purple-700"><i class="fas fa-info-circle mr-2"></i>项目速读</h3>
+                        <p class="text-gray-700">
+                            Base UI 是由开发了 Radix、Floating UI 和 Material UI 等知名库的团队构建的 React UI 组件库。其核心特点是<strong class="aha-highlight">“无样式”设计</strong>，专注于提供组件行为逻辑和<strong class="aha-highlight">优秀的可访问性支持</strong>，将外观设计完全交给开发者。这允许自由定制外观，完美融入现有设计系统，避免覆盖默认样式的麻烦。适用于需要高度定制界面、构建复杂设计系统，或对应用可访问性有严格要求的项目。
+                        </p>
+                    </div>
+                </section>
+            </section>
+
+            <section data-background-color="#ffffff">
+                <section>
+                    <div class="project-card">
+                        <h2 class="text-3xl font-bold mb-4">
+                            <a href="https://github.com/gitleaks/gitleaks" target="_blank" class="text-blue-700 hover:underline">
+                                <i class="fas fa-lock mr-3"></i>gitleaks/gitleaks
+                            </a>
+                        </h2>
+                        <p class="text-gray-700 italic mb-6">"使用 Gitleaks 发现秘密"</p>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="flex items-center text-lg"><i class="fas fa-star text-yellow-500 mr-2"></i> <span class="font-bold text-gray-800">20,674 Stars</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-code text-blue-500 mr-2"></i> <span class="font-bold text-gray-800">Go</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-calendar-alt text-gray-500 mr-2"></i> 连续在榜: <span class="font-bold">2次</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-chart-line text-green-500 mr-2"></i> 当日新增: <span class="font-bold text-green-700">298 Stars</span></div>
+                        </div>
+
+                        <div class="project-stats-grid">
+                            <div class="project-stat-item"><i class="fas fa-code-branch"></i> Forks: 1.6k</div>
+                            <div class="project-stat-item"><i class="fas fa-eye"></i> Watchers: 164</div>
+                            <div class="project-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 206</div>
+                            <div class="project-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 78</div>
+                            <div class="project-stat-item"><i class="fas fa-box"></i> Releases: 185</div>
+                            <div class="project-stat-item"><i class="fas fa-file-alt"></i> Commits: 1,242</div>
+                            <div class="project-stat-item"><i class="fas fa-balance-scale"></i> License: MIT</div>
+                            <div class="project-stat-item"><i class="fas fa-users"></i> Contributors: 211</div>
+                        </div>
+
+                        <h3 class="text-2xl font-semibold mt-8 mb-4 text-purple-700"><i class="fas fa-info-circle mr-2"></i>项目速读</h3>
+                        <p class="text-gray-700">
+                            Gitleaks 是一个强大的开源工具，专注于发现和阻止<strong class="aha-highlight">硬编码在代码中的敏感信息泄露</strong>。其核心优势在于全面的扫描能力，可检查 Git 仓库的当前状态及完整提交历史。采用 Go 语言开发，效率高且跨平台兼容。易于集成到开发工作流程，如作为 Git pre-commit 钩子或嵌入 CI/CD 流水线。保障代码仓库安全、预防敏感信息意外泄露的<strong class="aha-highlight">重要工具</strong>。
+                        </p>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-3xl font-bold mb-6 text-purple-700"><i class="fas fa-chart-bar mr-2"></i>增长分析：gitleaks/gitleaks</h3>
+                    <ul class="list-disc pl-8 text-gray-700 text-xl space-y-4">
+                        <li class="fragment fade-in">仓库两天内<strong class="aha-highlight">两次上榜</strong>，持续获得良好曝光。</li>
+                        <li class="fragment fade-in">平均每次上榜新增Star约168.5。</li>
+                        <li class="fragment fade-in">当次新增<strong class="aha-highlight">298 Star</strong>，高于平均。</li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-arrow-alt-circle-up text-green-500 mr-2"></i>整体增长趋势积极，<strong class="aha-highlight">动能良好</strong>。
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <section data-background-color="#ffffff">
+                <section>
+                    <div class="project-card">
+                        <h2 class="text-3xl font-bold mb-4">
+                            <a href="https://github.com/modelcontextprotocol/registry" target="_blank" class="text-blue-700 hover:underline">
+                                <i class="fas fa-server mr-3"></i>modelcontextprotocol/registry
+                            </a>
+                        </h2>
+                        <p class="text-gray-700 italic mb-6">"Model Context Protocol (MCP) 服务器的社区驱动注册服务。"</p>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="flex items-center text-lg"><i class="fas fa-star text-yellow-500 mr-2"></i> <span class="font-bold text-gray-800">1,650 Stars</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-code text-blue-500 mr-2"></i> <span class="font-bold text-gray-800">Go</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-calendar-alt text-gray-500 mr-2"></i> 连续在榜: <span class="font-bold">1次</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-chart-line text-green-500 mr-2"></i> 当日新增: <span class="font-bold text-green-700">20 Stars</span></div>
+                        </div>
+
+                        <div class="project-stats-grid">
+                            <div class="project-stat-item"><i class="fas fa-code-branch"></i> Forks: 118</div>
+                            <div class="project-stat-item"><i class="fas fa-eye"></i> Watchers: 34</div>
+                            <div class="project-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 50</div>
+                            <div class="project-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 13</div>
+                            <div class="project-stat-item"><i class="fas fa-box"></i> Releases: 0</div>
+                            <div class="project-stat-item"><i class="fas fa-file-alt"></i> Commits: 84</div>
+                            <div class="project-stat-item"><i class="fas fa-balance-scale"></i> License: MIT</div>
+                            <div class="project-stat-item"><i class="fas fa-users"></i> Contributors: 11</div>
+                        </div>
+
+                        <h3 class="text-2xl font-semibold mt-8 mb-4 text-purple-700"><i class="fas fa-info-circle mr-2"></i>项目速读</h3>
+                        <p class="text-gray-700">
+                            MCP Registry 是一个社区主导的 Model Context Protocol (MCP) 服务器注册中心，基于 Go 语言。它提供一套完整的 RESTful API，方便用户发现、管理和发布不同的 MCP 服务器条目。支持 MongoDB/内存存储及丰富的环境配置，具备健康检查和详细 API 文档。该服务是连接和组织 MCP 生态中各种服务器的<strong class="aha-highlight">关键枢纽</strong>，极大地便利了开发者和用户查找或贡献 MCP 服务。
+                        </p>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-3xl font-bold mb-6 text-purple-700"><i class="fas fa-chart-bar mr-2"></i>增长分析：modelcontextprotocol/registry</h3>
+                    <ul class="list-disc pl-8 text-gray-700 text-xl space-y-4">
+                        <li class="fragment fade-in">该仓库月内<strong class="aha-highlight">仅上榜4次</strong>，增长波动较大。</li>
+                        <li class="fragment fade-in">上榜时星数增加较快（平均146.2）。</li>
+                        <li class="fragment fade-in">当前日增<strong class="aha-highlight">20 Star</strong>，低于平均。</li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-arrow-alt-circle-down text-red-500 mr-2"></i>整体增长不持续，需<strong class="aha-highlight">更多曝光来维持动能</strong>。
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <section data-background-color="#ffffff">
+                <section>
+                    <div class="project-card">
+                        <h2 class="text-3xl font-bold mb-4">
+                            <a href="https://github.com/punkpeye/awesome-mcp-servers" target="_blank" class="text-blue-700 hover:underline">
+                                <i class="fas fa-cube mr-3"></i>punkpeye/awesome-mcp-servers
+                            </a>
+                        </h2>
+                        <p class="text-gray-700 italic mb-6">"MCP 服务器集合"</p>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="flex items-center text-lg"><i class="fas fa-star text-yellow-500 mr-2"></i> <span class="font-bold text-gray-800">57,695 Stars</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-code text-blue-500 mr-2"></i> <span class="font-bold text-gray-800">Markdown List</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-calendar-alt text-gray-500 mr-2"></i> 连续在榜: <span class="font-bold">1次</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-chart-line text-green-500 mr-2"></i> 当日新增: <span class="font-bold text-green-700">430 Stars</span></div>
+                        </div>
+
+                        <div class="project-stats-grid">
+                            <div class="project-stat-item"><i class="fas fa-code-branch"></i> Forks: 4.4k</div>
+                            <div class="project-stat-item"><i class="fas fa-eye"></i> Watchers: 398</div>
+                            <div class="project-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 29</div>
+                            <div class="project-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 172</div>
+                            <div class="project-stat-item"><i class="fas fa-box"></i> Releases: 0</div>
+                            <div class="project-stat-item"><i class="fas fa-file-alt"></i> Commits: 1,974</div>
+                            <div class="project-stat-item"><i class="fas fa-balance-scale"></i> License: MIT</div>
+                            <div class="project-stat-item"><i class="fas fa-users"></i> Contributors: 538</div>
+                        </div>
+
+                        <h3 class="text-2xl font-semibold mt-8 mb-4 text-purple-700"><i class="fas fa-info-circle mr-2"></i>项目速读</h3>
+                        <p class="text-gray-700">
+                            这是一个精选的 GitHub 仓库，汇集了支持模型上下文协议（MCP）的各类服务器实现。MCP 是一个开放标准，旨在让 AI 模型能够安全、便捷地与外部资源交互。本项目提供了功能多样、实现语言和平台各异的 MCP 服务器列表，帮助开发者和用户<strong class="aha-highlight">快速找到能够扩展AI模型能力</strong>、使其与外部世界互动的工具。作为 MCP 生态的<strong class="aha-highlight">重要资源索引</strong>，为构建更强大、更具连接性的智能应用提供了便利。
+                        </p>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-3xl font-bold mb-6 text-purple-700"><i class="fas fa-chart-bar mr-2"></i>增长分析：punkpeye/awesome-mcp-servers</h3>
+                    <ul class="list-disc pl-8 text-gray-700 text-xl space-y-4">
+                        <li class="fragment fade-in">该仓库统计期内<strong class="aha-highlight">12次上榜</strong>，平均每次增1200+ Star。</li>
+                        <li class="fragment fade-in">总增星数<strong class="aha-highlight">超5.1万</strong>。</li>
+                        <li class="fragment fade-in">当前日增<strong class="aha-highlight">430 Star</strong>，表现良好。</li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-arrow-alt-circle-up text-green-500 mr-2"></i>频繁上榜且<strong class="aha-highlight">增长强劲，显示持续人气</strong>。
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <section data-background-color="#ffffff">
+                <section>
+                    <div class="project-card">
+                        <h2 class="text-3xl font-bold mb-4">
+                            <a href="https://github.com/jujumilk3/leaked-system-prompts" target="_blank" class="text-blue-700 hover:underline">
+                                <i class="fas fa-comment-dots mr-3"></i>jujumilk3/leaked-system-prompts
+                            </a>
+                        </h2>
+                        <p class="text-gray-700 italic mb-6">"泄露系统提示词合集"</p>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="flex items-center text-lg"><i class="fas fa-star text-yellow-500 mr-2"></i> <span class="font-bold text-gray-800">10,617 Stars</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-code text-blue-500 mr-2"></i> <span class="font-bold text-gray-800">Markdown List</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-calendar-alt text-gray-500 mr-2"></i> 连续在榜: <span class="font-bold">3次</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-chart-line text-green-500 mr-2"></i> 当日新增: <span class="font-bold text-green-700">310 Stars</span></div>
+                        </div>
+
+                        <div class="project-stats-grid">
+                            <div class="project-stat-item"><i class="fas fa-code-branch"></i> Forks: 1.4k</div>
+                            <div class="project-stat-item"><i class="fas fa-eye"></i> Watchers: 159</div>
+                            <div class="project-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 10</div>
+                            <div class="project-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 11</div>
+                            <div class="project-stat-item"><i class="fas fa-box"></i> Releases: 0</div>
+                            <div class="project-stat-item"><i class="fas fa-file-alt"></i> Commits: 176</div>
+                            <div class="project-stat-item"><i class="fas fa-balance-scale"></i> License: 未知</div>
+                            <div class="project-stat-item"><i class="fas fa-users"></i> Contributors: 27</div>
+                        </div>
+
+                        <h3 class="text-2xl font-semibold mt-8 mb-4 text-purple-700"><i class="fas fa-info-circle mr-2"></i>项目速读</h3>
+                        <p class="text-gray-700">
+                            这是一个收集大型语言模型<strong class="aha-highlight">“泄露”或推断出的系统提示</strong>的独特资源库。它如同一个窗口，让开发者和研究者能够一窥 LLM 背后那些塑造其行为、设定规则的隐藏指令。本项目通过汇聚这些难以直接获取的第一手资料，为深入分析 LLM 的工作机制、进行提示工程研究以及相关学术探索提供了<strong class="aha-highlight">宝贵的参考</strong>。因其独特性和研究价值，该仓库已被多篇论文引用。
+                        </p>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-3xl font-bold mb-6 text-purple-700"><i class="fas fa-chart-bar mr-2"></i>增长分析：jujumilk3/leaked-system-prompts</h3>
+                    <ul class="list-disc pl-8 text-gray-700 text-xl space-y-4">
+                        <li class="fragment fade-in"><strong class="aha-highlight">8次上榜</strong>带来总计8042星增长。</li>
+                        <li class="fragment fade-in">平均每次增<strong class="aha-highlight">245星</strong>，显示出在该渠道上增长势头强劲。</li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-arrow-alt-circle-up text-green-500 mr-2"></i><strong class="aha-highlight">连续3天在榜</strong>，持续受关注，潜力十足。
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <section data-background-color="#ffffff">
+                <section>
+                    <div class="project-card">
+                        <h2 class="text-3xl font-bold mb-4">
+                            <a href="https://github.com/twentyhq/twenty" target="_blank" class="text-blue-700 hover:underline">
+                                <i class="fas fa-users mr-3"></i>twentyhq/twenty
+                            </a>
+                        </h2>
+                        <p class="text-gray-700 italic mb-6">"打造社区驱动的现代化 Salesforce 替代方案。"</p>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="flex items-center text-lg"><i class="fas fa-star text-yellow-500 mr-2"></i> <span class="font-bold text-gray-800">28,626 Stars</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-code text-blue-500 mr-2"></i> <span class="font-bold text-gray-800">TypeScript</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-calendar-alt text-gray-500 mr-2"></i> 连续在榜: <span class="font-bold">1次</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-chart-line text-green-500 mr-2"></i> 当日新增: <span class="font-bold text-green-700">190 Stars</span></div>
+                        </div>
+
+                        <div class="project-stats-grid">
+                            <div class="project-stat-item"><i class="fas fa-code-branch"></i> Forks: 3.4k</div>
+                            <div class="project-stat-item"><i class="fas fa-eye"></i> Watchers: 134</div>
+                            <div class="project-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 185</div>
+                            <div class="project-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 24</div>
+                            <div class="project-stat-item"><i class="fas fa-box"></i> Releases: 42</div>
+                            <div class="project-stat-item"><i class="fas fa-file-alt"></i> Commits: 7,061</div>
+                            <div class="project-stat-item"><i class="fas fa-balance-scale"></i> License: 未知</div>
+                            <div class="project-stat-item"><i class="fas fa-users"></i> Contributors: 479</div>
+                        </div>
+
+                        <h3 class="text-2xl font-semibold mt-8 mb-4 text-purple-700"><i class="fas fa-info-circle mr-2"></i>项目速读</h3>
+                        <p class="text-gray-700">
+                            Twenty 是一个高度现代化、社区驱动的<strong class="aha-highlight">开源客户关系管理 (CRM) 系统</strong>。它致力于为企业提供一个功能强大且灵活的 Salesforce 替代方案，解决传统 CRM 昂贵且容易造成数据锁定的问题。核心亮点在于其<strong class="aha-highlight">开源模式</strong>，带来成本效益和高度透明度。技术上，采用 React、NestJS 和 PostgreSQL 等现代技术栈，并基于 TypeScript 构建，提供了流畅、类似 Notion 或 Airtable 的用户体验。
+                        </p>
+                    </div>
+                </section>
+            </section>
+
+            <section data-background-color="#ffffff">
+                <section>
+                    <div class="project-card">
+                        <h2 class="text-3xl font-bold mb-4">
+                            <a href="https://github.com/nexus-xyz/nexus-cli" target="_blank" class="text-blue-700 hover:underline">
+                                <i class="fas fa-network-wired mr-3"></i>nexus-xyz/nexus-cli
+                            </a>
+                        </h2>
+                        <p class="text-gray-700 italic mb-6">"向 Nexus 网络提交证明的命令行界面。"</p>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="flex items-center text-lg"><i class="fas fa-star text-yellow-500 mr-2"></i> <span class="font-bold text-gray-800">753 Stars</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-code text-blue-500 mr-2"></i> <span class="font-bold text-gray-800">Rust</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-calendar-alt text-gray-500 mr-2"></i> 连续在榜: <span class="font-bold">1次</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-chart-line text-green-500 mr-2"></i> 当日新增: <span class="font-bold text-green-700">4 Stars</span></div>
+                        </div>
+
+                        <div class="project-stats-grid">
+                            <div class="project-stat-item"><i class="fas fa-code-branch"></i> Forks: 321</div>
+                            <div class="project-stat-item"><i class="fas fa-eye"></i> Watchers: 15</div>
+                            <div class="project-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 50</div>
+                            <div class="project-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 14</div>
+                            <div class="project-stat-item"><i class="fas fa-box"></i> Releases: 52</div>
+                            <div class="project-stat-item"><i class="fas fa-file-alt"></i> Commits: 208</div>
+                            <div class="project-stat-item"><i class="fas fa-balance-scale"></i> License: Apache-2.0</div>
+                            <div class="project-stat-item"><i class="fas fa-users"></i> Contributors: 40</div>
+                        </div>
+
+                        <h3 class="text-2xl font-semibold mt-8 mb-4 text-purple-700"><i class="fas fa-info-circle mr-2"></i>项目速读</h3>
+                        <p class="text-gray-700">
+                            Nexus CLI 是一个基于 <strong class="aha-highlight">Rust</strong> 开发的高性能命令行接口工具，是用户连接到 Nexus 网络并参与贡献计算证明（proofs）的关键入口。Nexus 网络致力于整合全球计算资源，构建一个“可验证的互联网”。通过 Nexus CLI，用户可以便捷地注册节点、管理身份，并启动证明任务。主要优势在于其<strong class="aha-highlight">高性能特性</strong>和推荐的简单安装方式。
+                        </p>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-3xl font-bold mb-6 text-purple-700"><i class="fas fa-chart-bar mr-2"></i>增长分析：nexus-xyz/nexus-cli</h3>
+                    <ul class="list-disc pl-8 text-gray-700 text-xl space-y-4">
+                        <li class="fragment fade-in">作为一个<strong class="aha-highlight">新上榜项目</strong>，当日新增4 Star。</li>
+                        <li class="fragment fade-in">Forks数高达321，显示社区对其基础概念和技术的<strong class="aha-highlight">高度兴趣和潜在参与意愿</strong>。</li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-arrow-alt-circle-right text-blue-500 mr-2"></i>未来增长潜力取决于 Nexus 网络生态的普及和CLI的易用性。
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <section data-background-color="#ffffff">
+                <section>
+                    <div class="project-card">
+                        <h2 class="text-3xl font-bold mb-4">
+                            <a href="https://github.com/AykutSarac/jsoncrack.com" target="_blank" class="text-blue-700 hover:underline">
+                                <i class="fas fa-sitemap mr-3"></i>AykutSarac/jsoncrack.com
+                            </a>
+                        </h2>
+                        <p class="text-gray-700 italic mb-6">"✨ 创新开源的可视化应用，可将JSON、YAML、XML、CSV等各种数据格式转换为交互式图表。"</p>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="flex items-center text-lg"><i class="fas fa-star text-yellow-500 mr-2"></i> <span class="font-bold text-gray-800">38,267 Stars</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-code text-blue-500 mr-2"></i> <span class="font-bold text-gray-800">TypeScript</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-calendar-alt text-gray-500 mr-2"></i> 连续在榜: <span class="font-bold">2次</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-chart-line text-green-500 mr-2"></i> 当日新增: <span class="font-bold text-green-700">294 Stars</span></div>
+                        </div>
+
+                        <div class="project-stats-grid">
+                            <div class="project-stat-item"><i class="fas fa-code-branch"></i> Forks: 2.6k</div>
+                            <div class="project-stat-item"><i class="fas fa-eye"></i> Watchers: 213</div>
+                            <div class="project-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 36</div>
+                            <div class="project-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 5</div>
+                            <div class="project-stat-item"><i class="fas fa-box"></i> Releases: 21</div>
+                            <div class="project-stat-item"><i class="fas fa-file-alt"></i> Commits: 1,765</div>
+                            <div class="project-stat-item"><i class="fas fa-balance-scale"></i> License: Apache-2.0</div>
+                            <div class="project-stat-item"><i class="fas fa-users"></i> Contributors: 37</div>
+                        </div>
+
+                        <h3 class="text-2xl font-semibold mt-8 mb-4 text-purple-700"><i class="fas fa-info-circle mr-2"></i>项目速读</h3>
+                        <p class="text-gray-700">
+                            JSON Crack 是一个创新且广受欢迎的开源应用，旨在将 JSON、YAML、XML、CSV 等多种复杂数据格式转化为<strong class="aha-highlight">直观互动的图形或树状结构</strong>。它极大地简化了人工解析和理解大型嵌套数据的过程。项目核心优势在于强大的<strong class="aha-highlight">跨格式可视化能力</strong>，同时强调<strong class="aha-highlight">隐私保护</strong>，所有数据处理均在本地浏览器完成。对于需要高效、便捷理解和处理结构化数据的开发者、数据分析师或任何用户来说，提供了一个非常有价值且用户友好的解决方案。
+                        </p>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-3xl font-bold mb-6 text-purple-700"><i class="fas fa-chart-bar mr-2"></i>增长分析：AykutSarac/jsoncrack.com</h3>
+                    <ul class="list-disc pl-8 text-gray-700 text-xl space-y-4">
+                        <li class="fragment fade-in">该仓库两天内<strong class="aha-highlight">上榜两次</strong>，活跃度高，持续受关注。</li>
+                        <li class="fragment fade-in">每次上榜带来显著Star增长（平均199）。</li>
+                        <li class="fragment fade-in">今日新增<strong class="aha-highlight">294 Star</strong>，高于平均值。</li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-arrow-alt-circle-up text-green-500 mr-2"></i>显示出<strong class="aha-highlight">强劲的增长势头</strong>。
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <section data-background-color="#ffffff">
+                <section>
+                    <div class="project-card">
+                        <h2 class="text-3xl font-bold mb-4">
+                            <a href="https://github.com/DioxusLabs/dioxus" target="_blank" class="text-blue-700 hover:underline">
+                                <i class="fas fa-globe mr-3"></i>DioxusLabs/dioxus
+                            </a>
+                        </h2>
+                        <p class="text-gray-700 italic mb-6">"Web、桌面和移动的全栈应用框架。"</p>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="flex items-center text-lg"><i class="fas fa-star text-yellow-500 mr-2"></i> <span class="font-bold text-gray-800">28,796 Stars</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-code text-blue-500 mr-2"></i> <span class="font-bold text-gray-800">Rust</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-calendar-alt text-gray-500 mr-2"></i> 连续在榜: <span class="font-bold">2次</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-chart-line text-green-500 mr-2"></i> 当日新增: <span class="font-bold text-green-700">566 Stars</span></div>
+                        </div>
+
+                        <div class="project-stats-grid">
+                            <div class="project-stat-item"><i class="fas fa-code-branch"></i> Forks: 1.2k</div>
+                            <div class="project-stat-item"><i class="fas fa-eye"></i> Watchers: 150</div>
+                            <div class="project-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 385</div>
+                            <div class="project-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 21</div>
+                            <div class="project-stat-item"><i class="fas fa-box"></i> Releases: 22</div>
+                            <div class="project-stat-item"><i class="fas fa-file-alt"></i> Commits: 6,690</div>
+                            <div class="project-stat-item"><i class="fas fa-balance-scale"></i> License: Apache-2.0</div>
+                            <div class="project-stat-item"><i class="fas fa-users"></i> Contributors: 333</div>
+                        </div>
+
+                        <h3 class="text-2xl font-semibold mt-8 mb-4 text-purple-700"><i class="fas fa-info-circle mr-2"></i>项目速读</h3>
+                        <p class="text-gray-700">
+                            Dioxus 是一个基于 <strong class="aha-highlight">Rust 的高性能跨平台应用开发框架</strong>。它旨在通过一套代码库，让开发者能高效构建覆盖 Web、桌面、移动甚至服务器端渲染的<strong class="aha-highlight">全栈应用</strong>。框架核心优势在于利用 Rust 提供极致的<strong class="aha-highlight">性能和内存安全</strong>，并集成了如亚秒级热重载、基于 Signals 的现代状态管理等提升开发效率的特性。对于追求性能、安全，并希望用统一语言开发多端应用的 Rust 开发者来说，Dioxus 是一个极具吸引力的选择。
+                        </p>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-3xl font-bold mb-6 text-purple-700"><i class="fas fa-chart-bar mr-2"></i>增长分析：DioxusLabs/dioxus</h3>
+                    <ul class="list-disc pl-8 text-gray-700 text-xl space-y-4">
+                        <li class="fragment fade-in">仓库在统计期内增长显著，总计新增<strong class="aha-highlight">2204 Stars</strong>。</li>
+                        <li class="fragment fade-in">尽管仅上榜3次，每次上榜平均贡献228 Stars。</li>
+                        <li class="fragment fade-in">今日更是新增<strong class="aha-highlight">566 Stars</strong>，远超平均水平。</li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-arrow-alt-circle-up text-green-500 mr-2"></i>这表明每次曝光效果较好，且近期<strong class="aha-highlight">增长势头强劲，潜力较大</strong>。
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <section data-background-color="#ffffff">
+                <section>
+                    <div class="project-card">
+                        <h2 class="text-3xl font-bold mb-4">
+                            <a href="https://github.com/Portkey-AI/gateway" target="_blank" class="text-blue-700 hover:underline">
+                                <i class="fas fa-brain mr-3"></i>Portkey-AI/gateway
+                            </a>
+                        </h2>
+                        <p class="text-gray-700 italic mb-6">"集成安全防护的极速AI网关。通过一个快速友好的API，连接到200多个LLMs和50多个AI安全防护。"</p>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="flex items-center text-lg"><i class="fas fa-star text-yellow-500 mr-2"></i> <span class="font-bold text-gray-800">8,158 Stars</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-code text-blue-500 mr-2"></i> <span class="font-bold text-gray-800">TypeScript</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-calendar-alt text-gray-500 mr-2"></i> 连续在榜: <span class="font-bold">1次</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-chart-line text-green-500 mr-2"></i> 当日新增: <span class="font-bold text-green-700">13 Stars</span></div>
+                        </div>
+
+                        <div class="project-stats-grid">
+                            <div class="project-stat-item"><i class="fas fa-code-branch"></i> Forks: 613</div>
+                            <div class="project-stat-item"><i class="fas fa-eye"></i> Watchers: 46</div>
+                            <div class="project-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 112</div>
+                            <div class="project-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 12</div>
+                            <div class="project-stat-item"><i class="fas fa-box"></i> Releases: 63</div>
+                            <div class="project-stat-item"><i class="fas fa-file-alt"></i> Commits: 2,654</div>
+                            <div class="project-stat-item"><i class="fas fa-balance-scale"></i> License: MIT</div>
+                            <div class="project-stat-item"><i class="fas fa-users"></i> Contributors: 71</div>
+                        </div>
+
+                        <h3 class="text-2xl font-semibold mt-8 mb-4 text-purple-700"><i class="fas fa-info-circle mr-2"></i>项目速读</h3>
+                        <p class="text-gray-700">
+                            Portkey AI Gateway 是一个开源、极速的 AI 网关，提供<strong class="aha-highlight">单一 API 入口</strong>，让你轻松接入并管理超过 1600 种大型及多模态 AI 模型。它彻底解决了集成和管理多样化模型的复杂性，以<strong class="aha-highlight">低于 1 毫秒的延迟</strong>和极小体积著称，同时内置自动重试、故障转移、负载均衡及安全防护等关键功能，确保服务的高性能、高可靠性和安全性。对于需要快速、稳定、安全地在应用中利用多种 AI 能力的开发者和企业，提供了一个强大且便捷的解决方案。
+                        </p>
+                    </div>
+                </section>
+            </section>
+
+            <section data-background-color="#ffffff">
+                <section>
+                    <div class="project-card">
+                        <h2 class="text-3xl font-bold mb-4">
+                            <a href="https://github.com/ml-tooling/best-of-ml-python" target="_blank" class="text-blue-700 hover:underline">
+                                <i class="fas fa-list-alt mr-3"></i>ml-tooling/best-of-ml-python
+                            </a>
+                        </h2>
+                        <p class="text-gray-700 italic mb-6">"精选机器学习 Python 库排行榜。每周更新。"</p>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="flex items-center text-lg"><i class="fas fa-star text-yellow-500 mr-2"></i> <span class="font-bold text-gray-800">21,089 Stars</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-code text-blue-500 mr-2"></i> <span class="font-bold text-gray-800">Markdown List</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-calendar-alt text-gray-500 mr-2"></i> 连续在榜: <span class="font-bold">3次</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-chart-line text-green-500 mr-2"></i> 当日新增: <span class="font-bold text-green-700">310 Stars</span></div>
+                        </div>
+
+                        <div class="project-stats-grid">
+                            <div class="project-stat-item"><i class="fas fa-code-branch"></i> Forks: 2.9k</div>
+                            <div class="project-stat-item"><i class="fas fa-eye"></i> Watchers: 438</div>
+                            <div class="project-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 24</div>
+                            <div class="project-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 8</div>
+                            <div class="project-stat-item"><i class="fas fa-box"></i> Releases: 189</div>
+                            <div class="project-stat-item"><i class="fas fa-file-alt"></i> Commits: 585</div>
+                            <div class="project-stat-item"><i class="fas fa-balance-scale"></i> License: CC-BY-SA-4.0</div>
+                            <div class="project-stat-item"><i class="fas fa-users"></i> Contributors: 53</div>
+                        </div>
+
+                        <h3 class="text-2xl font-semibold mt-8 mb-4 text-purple-700"><i class="fas fa-info-circle mr-2"></i>项目速读</h3>
+                        <p class="text-gray-700">
+                            这是一个名为 best-of-ml-python 的 GitHub 项目，提供了一个<strong class="aha-highlight">精选并排名的 Python 机器学习库列表</strong>。核心价值在于帮助开发者和研究人员在海量开源库中快速找到高质量、活跃且受欢迎的工具。最关键的技术特点是其独特的<strong class="aha-highlight">自动化排名机制</strong>，通过抓取 GitHub 和 PyPi 等平台的多项客观指标计算“项目质量得分”并排序。列表每周更新，确保了信息的时效性和准确性。
+                        </p>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-3xl font-bold mb-6 text-purple-700"><i class="fas fa-chart-bar mr-2"></i>增长分析：ml-tooling/best-of-ml-python</h3>
+                    <ul class="list-disc pl-8 text-gray-700 text-xl space-y-4">
+                        <li class="fragment fade-in">仓库<strong class="aha-highlight">连续3天上榜</strong>，总增728星。</li>
+                        <li class="fragment fade-in">平均日增153星，今日<strong class="aha-highlight">激增310星</strong>。</li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-arrow-alt-circle-up text-green-500 mr-2"></i>增长趋势明显<strong class="aha-highlight">加速</strong>，显示其作为高质量资源列表的持续吸引力。
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <section data-background-color="#ffffff">
+                <section>
+                    <div class="project-card">
+                        <h2 class="text-3xl font-bold mb-4">
+                            <a href="https://github.com/microsoft/ML-For-Beginners" target="_blank" class="text-blue-700 hover:underline">
+                                <i class="fas fa-chalkboard-teacher mr-3"></i>microsoft/ML-For-Beginners
+                            </a>
+                        </h2>
+                        <p class="text-gray-700 italic mb-6">"12 周，26 课，52 次测验，经典机器学习，适合所有人"</p>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="flex items-center text-lg"><i class="fas fa-star text-yellow-500 mr-2"></i> <span class="font-bold text-gray-800">72,909 Stars</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-code text-blue-500 mr-2"></i> <span class="font-bold text-gray-800">HTML / Jupyter Notebook</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-calendar-alt text-gray-500 mr-2"></i> 连续在榜: <span class="font-bold">1次</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-chart-line text-green-500 mr-2"></i> 当日新增: <span class="font-bold text-green-700">51 Stars</span></div>
+                        </div>
+
+                        <div class="project-stats-grid">
+                            <div class="project-stat-item"><i class="fas fa-code-branch"></i> Forks: 16k</div>
+                            <div class="project-stat-item"><i class="fas fa-eye"></i> Watchers: 1k</div>
+                            <div class="project-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 5</div>
+                            <div class="project-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 10</div>
+                            <div class="project-stat-item"><i class="fas fa-box"></i> Releases: 0</div>
+                            <div class="project-stat-item"><i class="fas fa-file-alt"></i> Commits: 1,679</div>
+                            <div class="project-stat-item"><i class="fas fa-balance-scale"></i> License: MIT</div>
+                            <div class="project-stat-item"><i class="fas fa-users"></i> Contributors: 130</div>
+                        </div>
+
+                        <h3 class="text-2xl font-semibold mt-8 mb-4 text-purple-700"><i class="fas fa-info-circle mr-2"></i>项目速读</h3>
+                        <p class="text-gray-700">
+                            microsoft/ML-For-Beginners 是微软云倡导者团队为机器学习初学者量身打造的<strong class="aha-highlight">免费、开源完整课程</strong>。提供结构化12周、26节教学大纲，专注“经典机器学习”核心概念和实践。最大特色是<strong class="aha-highlight">高度实践性和项目驱动</strong>的学习方法，围绕“环游世界”主题，利用真实数据“边学边建”，主要使用 Python 和 Scikit-learn。作为开放且资源全面的学习路径，极大降低了机器学习入门门槛。
+                        </p>
+                    </div>
+                </section>
+            </section>
+
+            <section data-background-color="#ffffff">
+                <section>
+                    <div class="project-card">
+                        <h2 class="text-3xl font-bold mb-4">
+                            <a href="https://github.com/mikeroyal/Self-Hosting-Guide" target="_blank" class="text-blue-700 hover:underline">
+                                <i class="fas fa-server mr-3"></i>mikeroyal/Self-Hosting-Guide
+                            </a>
+                        </h2>
+                        <p class="text-gray-700 italic mb-6">"自托管指南。了解如何由您或您的组织本地托管（本地部署和私有 Web 服务器）和管理软件应用。"</p>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="flex items-center text-lg"><i class="fas fa-star text-yellow-500 mr-2"></i> <span class="font-bold text-gray-800">14,749 Stars</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-code text-blue-500 mr-2"></i> <span class="font-bold text-gray-800">Dockerfile</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-calendar-alt text-gray-500 mr-2"></i> 连续在榜: <span class="font-bold">2次</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-chart-line text-green-500 mr-2"></i> 当日新增: <span class="font-bold text-green-700">680 Stars</span></div>
+                        </div>
+
+                        <div class="project-stats-grid">
+                            <div class="project-stat-item"><i class="fas fa-code-branch"></i> Forks: 753</div>
+                            <div class="project-stat-item"><i class="fas fa-eye"></i> Watchers: 197</div>
+                            <div class="project-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 14</div>
+                            <div class="project-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 14</div>
+                            <div class="project-stat-item"><i class="fas fa-box"></i> Releases: 0</div>
+                            <div class="project-stat-item"><i class="fas fa-file-alt"></i> Commits: 624</div>
+                            <div class="project-stat-item"><i class="fas fa-balance-scale"></i> License: 未知</div>
+                            <div class="project-stat-item"><i class="fas fa-users"></i> Contributors: 14</div>
+                        </div>
+
+                        <h3 class="text-2xl font-semibold mt-8 mb-4 text-purple-700"><i class="fas fa-info-circle mr-2"></i>项目速读</h3>
+                        <p class="text-gray-700">
+                            mikeroyal 的 Self-Hosting Guide 是一个极为详尽的技术指南仓库，专注于“自托管”，手把手教导如何在本地设备或自有服务器上部署和管理各类软件应用。内容极其广泛，从网络、安全、操作系统，到容器化、数据库、自动化工具，乃至最新的大型语言模型（LLMs）部署都有涉猎。其核心价值在于将自托管领域庞杂的知识、工具和技术<strong class="aha-highlight">整合汇集，提供一站式参考平台</strong>。
+                        </p>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-3xl font-bold mb-6 text-purple-700"><i class="fas fa-chart-bar mr-2"></i>增长分析：mikeroyal/Self-Hosting-Guide</h3>
+                    <ul class="list-disc pl-8 text-gray-700 text-xl space-y-4">
+                        <li class="fragment fade-in">在2天统计期内，该仓库<strong class="aha-highlight">仅上榜2次</strong>。</li>
+                        <li class="fragment fade-in">尽管上榜次数有限，平均每次上榜带来<strong class="aha-highlight">513.5星</strong>，总星增长668。</li>
+                        <li class="fragment fade-in">今日新增<strong class="aha-highlight">680星</strong>，高于平均值。</li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-arrow-alt-circle-up text-green-500 mr-2"></i>表明在上榜时<strong class="aha-highlight">增长强劲</strong>，但整体增长受上榜频率影响，未来有持续上榜的潜力。
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <section data-background-color="#ffffff">
+                <section>
+                    <div class="project-card">
+                        <h2 class="text-3xl font-bold mb-4">
+                            <a href="https://github.com/microsoft/generative-ai-for-beginners" target="_blank" class="text-blue-700 hover:underline">
+                                <i class="fas fa-robot mr-3"></i>microsoft/generative-ai-for-beginners
+                            </a>
+                        </h2>
+                        <p class="text-gray-700 italic mb-6">"21 节课，生成式 AI 入门与构建实践"</p>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="flex items-center text-lg"><i class="fas fa-star text-yellow-500 mr-2"></i> <span class="font-bold text-gray-800">85,788 Stars</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-code text-blue-500 mr-2"></i> <span class="font-bold text-gray-800">Jupyter Notebook</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-calendar-alt text-gray-500 mr-2"></i> 连续在榜: <span class="font-bold">1次</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-chart-line text-green-500 mr-2"></i> 当日新增: <span class="font-bold text-green-700">187 Stars</span></div>
+                        </div>
+
+                        <div class="project-stats-grid">
+                            <div class="project-stat-item"><i class="fas fa-code-branch"></i> Forks: 45.2k</div>
+                            <div class="project-stat-item"><i class="fas fa-eye"></i> Watchers: 751</div>
+                            <div class="project-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 6</div>
+                            <div class="project-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 8</div>
+                            <div class="project-stat-item"><i class="fas fa-box"></i> Releases: 0</div>
+                            <div class="project-stat-item"><i class="fas fa-file-alt"></i> Commits: 1,456</div>
+                            <div class="project-stat-item"><i class="fas fa-balance-scale"></i> License: MIT</div>
+                            <div class="project-stat-item"><i class="fas fa-users"></i> Contributors: 125</div>
+                        </div>
+
+                        <h3 class="text-2xl font-semibold mt-8 mb-4 text-purple-700"><i class="fas fa-info-circle mr-2"></i>项目速读</h3>
+                        <p class="text-gray-700">
+                            这是微软为初学者打造的一个包含<strong class="aha-highlight">21节课程的生成式 AI 入门教程</strong>。项目旨在帮助没有相关经验的学习者，系统地掌握构建生成式 AI 应用所需的基础理论和实践开发技能。课程设计巧妙，将理论讲解（Learn）与带代码示例的实践（Build）相结合，提供 Python 和 TypeScript 两种语言实现，并灵活支持连接 Azure OpenAI Service、OpenAI API 或其他模型服务。最显著优势是<strong class="aha-highlight">强大的多语言支持能力</strong>，确保高质量中文版本同步更新。
+                        </p>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-3xl font-bold mb-6 text-purple-700"><i class="fas fa-chart-bar mr-2"></i>增长分析：microsoft/generative-ai-for-beginners</h3>
+                    <ul class="list-disc pl-8 text-gray-700 text-xl space-y-4">
+                        <li class="fragment fade-in">该仓库在统计期内累计增长<strong class="aha-highlight">10070 Star</strong>。</li>
+                        <li class="fragment fade-in">在实际上榜<strong class="aha-highlight">14次</strong>的周期内，平均每次增长达269.6 Star。</li>
+                        <li class="fragment fade-in">今日新增<strong class="aha-highlight">187 Star</strong>。</li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-arrow-alt-circle-up text-green-500 mr-2"></i>显示出持续且<strong class="aha-highlight">稳健的增长势头</strong>，活跃度较高。
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <section data-background-color="#ffffff">
+                <section>
+                    <div class="project-card">
+                        <h2 class="text-3xl font-bold mb-4">
+                            <a href="https://github.com/sdmg15/Best-websites-a-programmer-should-visit" target="_blank" class="text-blue-700 hover:underline">
+                                <i class="fas fa-link mr-3"></i>sdmg15/Best-websites-a-programmer-should-visit
+                            </a>
+                        </h2>
+                        <p class="text-gray-700 italic mb-6">"一些对程序员有用的网站"</p>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="flex items-center text-lg"><i class="fas fa-star text-yellow-500 mr-2"></i> <span class="font-bold text-gray-800">68,714 Stars</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-code text-blue-500 mr-2"></i> <span class="font-bold text-gray-800">Markdown List</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-calendar-alt text-gray-500 mr-2"></i> 连续在榜: <span class="font-bold">2次</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-chart-line text-green-500 mr-2"></i> 当日新增: <span class="font-bold text-green-700">617 Stars</span></div>
+                        </div>
+
+                        <div class="project-stats-grid">
+                            <div class="project-stat-item"><i class="fas fa-code-branch"></i> Forks: 8.2k</div>
+                            <div class="project-stat-item"><i class="fas fa-eye"></i> Watchers: 1.4k</div>
+                            <div class="project-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 70</div>
+                            <div class="project-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 852</div>
+                            <div class="project-stat-item"><i class="fas fa-box"></i> Releases: 0</div>
+                            <div class="project-stat-item"><i class="fas fa-file-alt"></i> Commits: 1,269</div>
+                            <div class="project-stat-item"><i class="fas fa-balance-scale"></i> License: 未知</div>
+                            <div class="project-stat-item"><i class="fas fa-users"></i> Contributors: 314</div>
+                        </div>
+
+                        <h3 class="text-2xl font-semibold mt-8 mb-4 text-purple-700"><i class="fas fa-info-circle mr-2"></i>项目速读</h3>
+                        <p class="text-gray-700">
+                            这是一个名为 "Best-websites-a-programmer-should-visit" 的 GitHub 项目，是为全球程序员<strong class="aha-highlight">精心策划、持续更新的网站资源导航站</strong>。旨在解决程序员寻找高质量学习、工作、工具和资讯资源的痛点。核心价值在于汇聚了从技术问答、新闻、杂志、编程练习、在线课程到开发工具、求职招聘等<strong class="aha-highlight">所有程序员日常所需的关键在线平台链接</strong>。其社区驱动的维护模式确保了资源的鲜活与准确。
+                        </p>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-3xl font-bold mb-6 text-purple-700"><i class="fas fa-chart-bar mr-2"></i>增长分析：sdmg15/Best-websites-a-programmer-should-visit</h3>
+                    <ul class="list-disc pl-8 text-gray-700 text-xl space-y-4">
+                        <li class="fragment fade-in">仓库在2天内<strong class="aha-highlight">实际上榜2次</strong>，增长势头稳定且强劲。</li>
+                        <li class="fragment fade-in">平均每次上榜增长约<strong class="aha-highlight">587星</strong>，总增长达604星。</li>
+                        <li class="fragment fade-in">今日新增<strong class="aha-highlight">617星</strong>。</li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-arrow-alt-circle-up text-green-500 mr-2"></i>显示出较高的活跃度和<strong class="aha-highlight">持续受欢迎程度</strong>。
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <section data-background-color="#ffffff">
+                <section>
+                    <div class="project-card">
+                        <h2 class="text-3xl font-bold mb-4">
+                            <a href="https://github.com/ripienaar/free-for-dev" target="_blank" class="text-blue-700 hover:underline">
+                                <i class="fas fa-gift mr-3"></i>ripienaar/free-for-dev
+                            </a>
+                        </h2>
+                        <p class="text-gray-700 italic mb-6">"DevOps 和基础设施开发者感兴趣的，提供免费层级的 SaaS、PaaS 和 IaaS 服务列表。"</p>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="flex items-center text-lg"><i class="fas fa-star text-yellow-500 mr-2"></i> <span class="font-bold text-gray-800">100,621 Stars</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-code text-blue-500 mr-2"></i> <span class="font-bold text-gray-800">HTML List</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-calendar-alt text-gray-500 mr-2"></i> 连续在榜: <span class="font-bold">2次</span></div>
+                            <div class="flex items-center text-lg"><i class="fas fa-chart-line text-green-500 mr-2"></i> 当日新增: <span class="font-bold text-green-700">715 Stars</span></div>
+                        </div>
+
+                        <div class="project-stats-grid">
+                            <div class="project-stat-item"><i class="fas fa-code-branch"></i> Forks: 10.8k</div>
+                            <div class="project-stat-item"><i class="fas fa-eye"></i> Watchers: 1.7k</div>
+                            <div class="project-stat-item"><i class="fas fa-exclamation-circle"></i> Issues: 0</div>
+                            <div class="project-stat-item"><i class="fas fa-code-pull-request"></i> PRs: 3</div>
+                            <div class="project-stat-item"><i class="fas fa-box"></i> Releases: 0</div>
+                            <div class="project-stat-item"><i class="fas fa-file-alt"></i> Commits: 6,415</div>
+                            <div class="project-stat-item"><i class="fas fa-balance-scale"></i> License: 未知</div>
+                            <div class="project-stat-item"><i class="fas fa-users"></i> Contributors: 1,767</div>
+                        </div>
+
+                        <h3 class="text-2xl font-semibold mt-8 mb-4 text-purple-700"><i class="fas fa-info-circle mr-2"></i>项目速读</h3>
+                        <p class="text-gray-700">
+                            free-for-dev 项目是一个面向开发者，尤其是 DevOps 和基础设施开发者的核心资源库。它维护着一份内容丰富、实时更新的列表，专门收录那些提供<strong class="aha-highlight">永久免费使用层级的 SaaS、PaaS 和 IaaS 服务</strong>。该项目的核心价值在于<strong class="aha-highlight">极大地节省了开发者寻找免费技术服务的时间和精力</strong>。涵盖了主要云服务商和各种特定领域的服务，确保了信息的实用性和可靠性。超过 1600 名全球贡献者的社区协作模式确保了列表信息的及时更新和广泛覆盖。
+                        </p>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-3xl font-bold mb-6 text-purple-700"><i class="fas fa-chart-bar mr-2"></i>增长分析：ripienaar/free-for-dev</h3>
+                    <ul class="list-disc pl-8 text-gray-700 text-xl space-y-4">
+                        <li class="fragment fade-in">仓库<strong class="aha-highlight">增长势头强劲</strong>，总计增长6801星。</li>
+                        <li class="fragment fade-in">实际上榜<strong class="aha-highlight">5次</strong>对其可见度和增长贡献显著，每次平均带来470星。</li>
+                        <li class="fragment fade-in">最新一天增长<strong class="aha-highlight">715星高于平均</strong>。</li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-arrow-alt-circle-up text-green-500 mr-2"></i>表明增长持续且<strong class="aha-highlight">加速</strong>，不只依赖上榜日，潜力巨大。
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Slide Last: Thank You / Call to Action -->
+            <section data-background-image="https://images.unsplash.com/photo-1518770660613-ee0b7ce4086d?q=80&w=2900&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-background-color="#000" data-transition="slide">
+                <div class="gradient-overlay"></div>
+                <div class="flex flex-col justify-center items-center h-full text-center p-8 text-white">
+                    <h2 class="text-6xl font-bold mb-8 drop-shadow-xl fragment fade-in" data-fragment-index="1">
+                        <i class="fas fa-heart text-red-500 mr-4"></i>感谢您的关注！
+                    </h2>
+                    <p class="text-3xl font-semibold mb-6 drop-shadow-lg fragment fade-in" data-fragment-index="2">
+                        期待与您共同探索更多技术前沿！
+                    </p>
+                    <div class="mt-12 text-2xl drop-shadow-lg fragment fade-in" data-fragment-index="3">
+                        <p class="mb-4">有任何问题或想讨论？随时联系我们！</p>
+                        <p class="text-yellow-400">演讲者：<strong class="aha-highlight">AIChipEra</strong></p>
+                    </div>
+                </div>
+                <div class="absolute bottom-8 right-8 text-white text-right z-10">
+                    <div class="mt-2">
+                        <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-blue-300 hover:text-blue-200 text-sm">
+                            <i class="fab fa-github mr-2"></i> github.com/aichipera/github-trend
+                        </a>
+                        <img src="../../asserts/wx.jpg" alt="QR Code" class="w-24 h-24 mt-2 border-2 border-white rounded-lg">
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            hash: true,
+            center: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            transitionSpeed: 'fast', // default/fast/slow
+            backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+
+            // Learn about plugins: https://revealjs.com/plugins/
+            plugins: [],
+            
+            // Custom fragment speed (optional)
+            fragmentInvert: false, // Ensure fragments always fade in, not fade out previous
+            
+            // Mermaid config (if you add diagrams)
+            mermaid: {
+                theme: 'neutral'
+            }
+        });
+    </script>
+</body>
+</html>
