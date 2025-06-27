@@ -3,7 +3,7 @@
 > - **作者**: Taylor Mullen, Ryan J. Salva
 > - **原文**: https://blog.google/technology/developers/introducing-gemini-cli-open-source-ai-agent/
 
-> **译者注**: 谷歌此次推出的 Gemini CLI，意图非常明确：将强大的 Gemini 1.5 Pro 模型及其百万级上下文窗口直接注入开发者的核心工作区——终端。其提供的“业界最慷慨”免费额度，不仅是对 GitHub Copilot CLI 等竞品的直接“降维打击”，更是其构建完整 AI 驱动开发生态的关键一步。工具的开源特性，也为社区的信任和共同发展铺平了道路，值得每一位开发者关注和尝试。
+> **译者注**: 谷歌此次推出的 Gemini CLI，意图非常明确：将强大的 Gemini 2.5 Pro 模型及其百万级上下文窗口直接注入开发者的核心工作区——终端。其提供的“业界最慷慨”免费额度，不仅是对 GitHub Copilot CLI 等竞品的直接“降维打击”，更是其构建完整 AI 驱动开发生态的关键一步。工具的开源特性，也为社区的信任和共同发展铺平了道路，值得每一位开发者关注和尝试。
 
 Gemini CLI 是一款免费且开源的工具，它将 Gemini 的强大能力直接带入开发者的终端——并为个人用户提供了前所未有的使用额度。
 
@@ -15,11 +15,11 @@ Gemini CLI 是一款免费且开源的工具，它将 Gemini 的强大能力直�
 
 我们还将 Gemini CLI 与谷歌的 AI 编码助手 [Gemini Code Assist](https://codeassist.google/) 进行了集成。这样一来，所有开发者——无论是免费版、标准版还是企业版的 Code Assist 用户——都可以在 VS Code 和 Gemini CLI 中享受到由提示词驱动、AI 优先的编码体验。
 
-![开发者、构建者和创造者可以通过 Gemini CLI 将 Gemini 1.5 Pro 的强大能力直接引入他们的终端](https://storage.googleapis.com/gweb-uniblog-publish-prod/original_images/Gemini_CLI_GIF.gif)
+![开发者、构建者和创造者可以通过 Gemini CLI 将 Gemini 2.5 Pro 的强大能力直接引入他们的终端](https://storage.googleapis.com/gweb-uniblog-publish-prod/original_images/Gemini_CLI_GIF.gif)
 
 ## 为个人开发者提供无与伦比的使用额度
 
-要免费使用 Gemini CLI，只需用你的个人 Google 账户登录，即可获得免费的 Gemini Code Assist 许可证。该免费许可证让你能够使用 Gemini 1.5 Pro 及其庞大的 100 万 token 上下文窗口。为了确保你在此预览期间几乎不会遇到限制，我们提供了业界最为慷慨的免费额度：**每分钟 60 次模型请求，每天 1,000 次请求，完全免费**。
+要免费使用 Gemini CLI，只需用你的个人 Google 账户登录，即可获得免费的 Gemini Code Assist 许可证。该免费许可证让你能够使用 Gemini 2.5 Pro 及其庞大的 100 万 token 上下文窗口。为了确保你在此预览期间几乎不会遇到限制，我们提供了业界最为慷慨的免费额度：**每分钟 60 次模型请求，每天 1,000 次请求，完全免费**。
 
 如果你是需要同时运行多个智能体的专业开发者，或者倾向于使用特定模型，你可以使用 [Google AI Studio](https://aistudio.google.com/apikey) 或 [Vertex AI](https://console.cloud.google.com/vertex-ai/studio/multimodal) 的密钥进行按量计费，或者获取 Gemini Code Assist 标准版或企业版许可证。
 
@@ -66,7 +66,7 @@ Gemini CLI 是一款免费且开源的工具，它将 Gemini 的强大能力直�
 
 > 热议: https://news.ycombinator.com/item?id=44376919
 
-谷歌最新发布的开源命令行工具Gemini CLI在Hacker News上引发了超过500条评论的热烈讨论。这款工具旨在将强大的Gemini 1.5 Pro模型（拥有百万级token上下文窗口）直接带入开发者的终端。然而，网友们的讨论焦点迅速从产品本身扩展到了谷歌混乱的产品策略、激烈的市场竞争以及对隐私的深切担忧。
+谷歌最新发布的开源命令行工具Gemini CLI在Hacker News上引发了超过500条评论的热烈讨论。这款工具旨在将强大的Gemini 2.5 Pro模型（拥有百万级token上下文窗口）直接带入开发者的终端。然而，网友们的讨论焦点迅速从产品本身扩展到了谷歌混乱的产品策略、激烈的市场竞争以及对隐私的深切担忧。
 
 ## 1. “史诗级混乱”的产品线与定价策略
 
@@ -81,7 +81,7 @@ Gemini CLI 是一款免费且开源的工具，它将 Gemini 的强大能力直�
 
 Gemini CLI被普遍认为是谷歌对标Anthropic的Claude Code的产品，因此两者的比较贯穿了整个讨论。
 
-*   **模型虽强，商业模式落后**：许多人承认Gemini 1.5 Pro模型本身非常强大，可能是当前最强的模型之一。但他们认为，相比Claude Code清晰的订阅模式（如Pro订阅可直接使用CLI），谷歌的定价和授权方式正在“搞砸自己的优势”（fumbling the bag so badly）。
+*   **模型虽强，商业模式落后**：许多人承认Gemini 2.5 Pro模型本身非常强大，可能是当前最强的模型之一。但他们认为，相比Claude Code清晰的订阅模式（如Pro订阅可直接使用CLI），谷歌的定价和授权方式正在“搞砸自己的优势”（fumbling the bag so badly）。
 *   **抄作业但没抄到精髓**：用户 `unshavedyak` 指出，虽然Gemini CLI在功能上模仿了Claude Code，但在购买和授权体验上却天差地别。他想了解价格，却被引导到一个复杂的设置文档，而购买Claude Max就像买Pro一样简单。
 *   **开放性带来一线希望**：由于Gemini CLI是开源的，有用户 `zackify` 提出，这为社区提供了可能性——可以替换其API层，接入本地模型或其他LLM，这或许是它相较于闭源的Claude Code的一个优势。
 
@@ -117,7 +117,7 @@ Gemini CLI被普遍认为是谷歌对标Anthropic的Claude Code的产品，因�
 
 1.  你觉得 Gemini CLI 和你用过的其他命令行 AI 工具（比如 GitHub Copilot CLI、Warp AI）相比如何？谷歌这波“免费大餐”会吸引你从其他工具切换过来吗？
 2.  在终端里集成 AI，你最期待用它来解决什么问题？是快速生成 shell 脚本、调试代码，还是有其他更有创意的玩法？欢迎分享你的脑洞！
-3.  Gemini 1.5 Pro 的“百万级上下文窗口”在命令行场景下，你认为最实用的地方会是哪里？比如一次性分析一个大型代码库的依赖关系，或是让它阅读整个项目的文档来回答问题？
+3.  Gemini 2.5 Pro 的“百万级上下文窗口”在命令行场景下，你认为最实用的地方会是哪里？比如一次性分析一个大型代码库的依赖关系，或是让它阅读整个项目的文档来回答问题？
 4.  Gemini CLI 是开源的，你是否会去查看它的源码或者考虑为其贡献代码？你认为开源对于 AI 工具的生态发展有多重要？
 
 期待在评论区看到你的真知灼见！
