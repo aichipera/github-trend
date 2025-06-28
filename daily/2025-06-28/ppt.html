@@ -1,0 +1,982 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今日GitHub热榜洞察：AI实战、效率飞升、开源精选</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet" id="theme">
+    
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --r-main-font: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: 'Noto Serif SC', serif;
+            --r-main-color: #333;
+            --r-background-color: #f7f7f7;
+
+            /* Custom Color Palette */
+            --color-primary: #0A2E50; /* Dark Blue */
+            --color-secondary: #007bff; /* Bright Blue */
+            --color-accent-green: #28a745; /* Success Green */
+            --color-accent-orange: #ffc107; /* Warning Orange */
+            --color-text-light: #fefefe;
+            --color-text-dark: #333;
+            --color-text-muted: #6c757d;
+        }
+
+        body {
+            font-family: var(--r-main-font);
+            color: var(--color-text-dark);
+            line-height: 1.6;
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--color-primary);
+            text-transform: none; /* Override default uppercase */
+            font-weight: 700;
+        }
+
+        .reveal h1 { font-size: 3.0rem; margin-bottom: 0.5em; }
+        .reveal h2 { font-size: 2.2rem; margin-bottom: 0.4em; }
+        .reveal h3 { font-size: 1.8rem; margin-bottom: 0.3em; }
+        .reveal p, .reveal li, .reveal span { font-size: 1.15rem; }
+
+        .reveal .slides section {
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        /* Custom Backgrounds */
+        .reveal .slides section[data-background-image] {
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Gradient Overlay for Backgrounds */
+        .gradient-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(10, 46, 80, 0.7), rgba(0, 123, 255, 0.4));
+            z-index: -1;
+        }
+
+        /* Specific slide styles */
+        #title-slide {
+            color: var(--color-text-light);
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        #title-slide h1 {
+            font-size: 4.5rem; /* Larger for impact */
+            color: var(--color-text-light);
+            line-height: 1.1;
+        }
+        #title-slide h2 {
+            font-size: 2.5rem;
+            color: var(--color-text-light);
+            margin-top: 0.5em;
+        }
+        #title-slide .speaker-info {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            color: var(--color-text-light);
+            opacity: 0.9;
+        }
+        #title-slide .github-link,
+        #final-slide .github-link {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            color: var(--color-text-light);
+            font-size: 1.1rem;
+            text-decoration: none;
+            background-color: rgba(0,0,0,0.4);
+            padding: 8px 15px;
+            border-radius: 5px;
+            backdrop-filter: blur(5px);
+        }
+        #title-slide .github-link img,
+        #final-slide .github-link img {
+            height: 80px; /* Adjust QR code size */
+            margin-left: 15px;
+            border-radius: 5px;
+        }
+        #final-slide {
+            background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+            color: var(--color-text-light);
+        }
+        #final-slide h2 {
+            color: var(--color-text-light);
+            font-size: 3rem;
+            margin-bottom: 0.8em;
+        }
+        #final-slide p {
+            font-size: 1.5rem;
+            margin-bottom: 2em;
+        }
+
+        .highlight-text {
+            color: var(--color-secondary);
+            font-weight: 600;
+        }
+        .icon-large {
+            font-size: 2em;
+            margin-right: 15px;
+            color: var(--color-secondary);
+        }
+
+        .reveal ul {
+            list-style: none; /* Remove default bullets */
+            padding-left: 0;
+        }
+        .reveal ul li {
+            padding-left: 1.5em;
+            position: relative;
+            margin-bottom: 0.8em;
+        }
+        .reveal ul li::before {
+            content: "\f00c"; /* Font Awesome checkmark */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--color-accent-green);
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .project-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+            text-align: left;
+        }
+        .project-details .meta-left, .project-details .meta-right {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .project-details .meta-item {
+            display: flex;
+            align-items: center;
+            font-size: 1.05rem;
+            color: var(--color-text-dark);
+        }
+        .project-details .meta-item i {
+            margin-right: 8px;
+            color: var(--color-secondary);
+        }
+        .repo-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.95rem;
+        }
+        .repo-table th, .repo-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .repo-table th {
+            background-color: var(--color-primary);
+            color: var(--color-text-light);
+            font-weight: 500;
+        }
+        .repo-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .growth-analysis {
+            background-color: #e6f7ff;
+            border-left: 5px solid var(--color-secondary);
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-size: 1.05rem;
+        }
+        .growth-analysis i {
+            margin-right: 8px;
+            color: var(--color-accent-green);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .stat-item {
+            background-color: #e0f2f7;
+            padding: 15px 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .stat-item .label {
+            font-size: 0.9em;
+            color: var(--color-text-muted);
+            display: block;
+            margin-top: 5px;
+        }
+        .stat-item i {
+            color: var(--color-secondary);
+            margin-right: 5px;
+        }
+
+        /* Hotspot change indicators */
+        .hotspot-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+        .hotspot-list li::before {
+            content: '';
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.5em;
+        }
+        .hotspot-list .new::before { content: "\f062"; color: var(--color-accent-green); } /* Up arrow */
+        .hotspot-list .decayed::before { content: "\f063"; color: #dc3545; } /* Down arrow (red) */
+        .hotspot-list .persistent::before { content: "\f021"; color: var(--color-secondary); } /* Sync icon */
+
+        .reveal .r-stretch {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+        .reveal .r-stretch.centered {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Ensure images and QR code are visible */
+        .reveal .github-link {
+            z-index: 10; /* Ensure it's above other content */
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Title Slide -->
+            <section id="title-slide"
+                data-background-image="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                data-background-opacity="0.8"
+                class="gradient-overlay">
+                <hgroup>
+                    <h1>今日GitHub热榜洞察</h1>
+                    <h2>AI实战、效率飞升、开源精选</h2>
+                </hgroup>
+                <div class="speaker-info">
+                    <p>演讲者: AIChipEra</p>
+                    <p>观测时间: 2025-06-28 20:24:15</p>
+                </div>
+                <a href="https://github.com/aichipera/github-trend" target="_blank" class="github-link">
+                    项目链接: github.com/aichipera/github-trend
+                    <img src="../../asserts/wx.jpg" alt="微信二维码" class="ml-4">
+                </a>
+            </section>
+
+            <!-- Introduction Slide -->
+            <section>
+                <h2 class="text-center mb-6">分享本文，跟上最新技术潮！</h2>
+                <div class="flex items-center justify-center space-x-6 text-xl">
+                    <i class="fas fa-lightbulb icon-large"></i>
+                    <p class="text-gray-700">探索GitHub趋势，把握技术前沿，实现效率跃升。</p>
+                </div>
+                <aside class="notes">
+                    开场白：欢迎大家，今天我们将一起深入探讨GitHub的最新热点，看看哪些技术正在引领潮流，如何帮助我们提升效率，找到灵感。
+                </aside>
+            </section>
+
+            <!-- 日报要点 -->
+            <section>
+                <h2><i class="fas fa-bullseye mr-4 text-color-secondary"></i>日报要点：趋势速览</h2>
+                <div class="grid grid-cols-2 gap-8 mt-10">
+                    <div class="flex flex-col items-start fragment" data-fragment-index="1">
+                        <i class="fas fa-brain icon-large"></i>
+                        <h3 class="text-color-primary">AI加速落地</h3>
+                        <p class="text-gray-700">AI教育与实用工具爆发式增长，从研究走向应用普惠。</p>
+                    </div>
+                    <div class="flex flex-col items-start fragment" data-fragment-index="2">
+                        <i class="fas fa-rocket icon-large"></i>
+                        <h3 class="text-color-primary">效率飞升工具</h3>
+                        <p class="text-gray-700">开发者急需现代框架、自动化工具，提升生产力。</p>
+                    </div>
+                    <div class="flex flex-col items-start fragment" data-fragment-index="3">
+                        <i class="fas fa-code-branch icon-large"></i>
+                        <h3 class="text-color-primary">开源精选崛起</h3>
+                        <p class="text-gray-700">开源替代品与高性能语言（如Rust）备受青睐。</p>
+                    </div>
+                    <div class="flex flex-col items-start fragment" data-fragment-index="4">
+                        <i class="fas fa-hand-holding-heart icon-large"></i>
+                        <h3 class="text-color-primary">社区共鸣</h3>
+                        <p class="text-gray-700">深挖技术前沿，掌握核心趋势，助力个人成长。</p>
+                    </div>
+                </div>
+                <aside class="notes">
+                    今天GitHub热榜有三大核心亮点：AI正在加速从实验室走向我们的日常应用；开发者们都在寻找能让工作更高效的利器；同时，高性能的开源项目也越来越受到社区的欢迎。
+                </aside>
+            </section>
+
+            <!-- 热门项目趋势分析 -->
+            <section>
+                <section>
+                    <h2><i class="fas fa-chart-line mr-4 text-color-secondary"></i>热门项目趋势分析</h2>
+                    <h3 class="mt-4">今日整体趋势：聚焦AI应用与开发者效率</h3>
+                    <ul class="mt-8 text-left text-lg">
+                        <li class="fragment" data-fragment-index="1">
+                            <strong class="highlight-text">AI的落地与普惠：</strong>从基础模型转向应用与教育，如微软的AI入门课程、Google Gemini API实践。
+                        </li>
+                        <li class="fragment" data-fragment-index="2">
+                            <strong class="highlight-text">提升开发者与个人效率：</strong>现代Web应用模板（FastAPI）、开源企业级替代（Twenty, Midday）、CI/CD优化。
+                        </li>
+                        <li class="fragment" data-fragment-index="3">
+                            <strong class="highlight-text">自主可控与去中心化：</strong>企业级CRM与个人数据管理工具（BookLore）的自托管需求旺盛。
+                        </li>
+                        <li class="fragment" data-fragment-index="4">
+                            <strong class="highlight-text">现代化与高性能：</strong>Rust在图形编辑（Graphite）、网络工具（Sniffnet）中的应用增加。
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2><i class="fas fa-arrows-alt-h mr-4 text-color-secondary"></i>热门项目双日维度对比</h2>
+                    <h3 class="mt-4">新项目涌现，增长势头强劲</h3>
+                    <div class="stats-grid fragment" data-fragment-index="1">
+                        <div class="stat-item"><i class="fas fa-plus-circle"></i>11<span class="label">新项目</span></div>
+                        <div class="stat-item"><i class="fas fa-arrow-up"></i>3<span class="label">持续上升</span></div>
+                        <div class="stat-item"><i class="fas fa-sync-alt"></i>0<span class="label">下降项目</span></div>
+                    </div>
+                    <p class="text-lg mt-8 text-left fragment" data-fragment-index="2">
+                        新晋项目覆盖图形编辑、AI教育、全栈开发、安全等领域，展现技术热点多样性。
+                    </p>
+                    <p class="text-lg text-left fragment" data-fragment-index="3">
+                        <strong class="highlight-text">语言趋势：</strong>Rust和Jupyter Notebook项目数量增加，C、HTML等有所减少，性能与数据科学工具受关注。
+                    </p>
+                    <ul class="hotspot-list text-left mt-8 fragment" data-fragment-index="4">
+                        <li class="new"><strong>新增热点：</strong> Serial Studio, Microsoft Generative AI for Beginners, PayloadsAllTheThings, Midday, FastAPI Full-Stack Template, Sniffnet, Graphite, BookLore, Actions Runner Controller, Pot Desktop, Google Gemini Cookbook</li>
+                        <li class="decayed"><strong>减退热点：</strong> automatisch, cline, gitleaks等 (略)</li>
+                        <li class="persistent"><strong>持续热门：</strong> twentyhq/twenty (3次在榜)</li>
+                    </ul>
+                    <aside class="notes">
+                        可以看到，今天的榜单非常活跃，新项目不断涌现，而且没有明显的下降趋势。这说明技术社区对新兴技术和解决方案的兴趣非常浓厚。特别是Rust和Jupyter Notebook相关项目增加，进一步印证了性能和数据科学工具的吸引力。
+                    </aside>
+                </section>
+            </section>
+
+            <!-- Detailed Project Data -->
+            <section>
+                <h2><i class="fas fa-box-open mr-4 text-color-secondary"></i>详细仓库数据</h2>
+                <p class="text-lg mt-4 text-gray-600">精选热门项目，深入剖析其价值与增长潜力。</p>
+            </section>
+
+            <!-- Project: twentyhq/twenty -->
+            <section>
+                <h3>1. twentyhq/twenty</h3>
+                <h4 class="text-color-primary">打造由社区驱动的 Salesforce 现代替代品。</h4>
+                <div class="repo-table-container fragment" data-fragment-index="1">
+                    <table class="repo-table">
+                        <thead>
+                            <tr>
+                                <th>语言</th><th>Star 数</th><th>在榜</th><th>日增</th><th>总增</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>TypeScript</td><td>29838 ⭐</td><td>3次</td><td>817 ⭐</td><td>1212 ⭐</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="project-details mt-6 fragment" data-fragment-index="2">
+                    <div class="meta-left">
+                        <div class="meta-item"><i class="fas fa-star"></i>Stars: 29.8k</div>
+                        <div class="meta-item"><i class="fas fa-code-branch"></i>Forks: 3.4k</div>
+                        <div class="meta-item"><i class="fas fa-eye"></i>Watchers: 140</div>
+                        <div class="meta-item"><i class="fas fa-exclamation-circle"></i>Issues: 193</div>
+                    </div>
+                    <div class="meta-right">
+                        <div class="meta-item"><i class="fas fa-code"></i>Lang: TS 98.5%</div>
+                        <div class="meta-item"><i class="fas fa-file-contract"></i>License: 未知</div>
+                        <div class="meta-item"><i class="fas fa-users"></i>Contributors: 479</div>
+                        <div class="meta-item"><i class="fas fa-upload"></i>Releases: 42</div>
+                    </div>
+                </div>
+                <div class="growth-analysis fragment" data-fragment-index="3">
+                    <i class="fas fa-chart-line"></i>
+                    <p><strong>增长分析：</strong>连续3天在榜，显示<strong class="text-color-accent-green">强劲持续增长</strong>。今日新增817星高于平均，呈加速趋势。</p>
+                </div>
+                <p class="text-left mt-6 fragment" data-fragment-index="4">
+                    <strong>项目速读：</strong><strong class="highlight-text">开源、现代化CRM替代品</strong>，旨在挑战Salesforce。TypeScript构建，高度灵活定制，注重数据自主权，适合寻求无厂商锁定、个性化CRM的企业。
+                </p>
+            </section>
+
+            <!-- Project: black-forest-labs/flux -->
+            <section>
+                <h3>2. black-forest-labs/flux</h3>
+                <h4 class="text-color-primary">FLUX.1 模型官方推理仓库</h4>
+                <div class="repo-table-container fragment" data-fragment-index="1">
+                    <table class="repo-table">
+                        <thead>
+                            <tr>
+                                <th>语言</th><th>Star 数</th><th>在榜</th><th>日增</th><th>总增</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Python</td><td>22857 ⭐</td><td>2次</td><td>175 ⭐</td><td>863 ⭐</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="project-details mt-6 fragment" data-fragment-index="2">
+                    <div class="meta-left">
+                        <div class="meta-item"><i class="fas fa-star"></i>Stars: 22.9k</div>
+                        <div class="meta-item"><i class="fas fa-code-branch"></i>Forks: 1.6k</div>
+                        <div class="meta-item"><i class="fas fa-eye"></i>Watchers: 189</div>
+                        <div class="meta-item"><i class="fas fa-exclamation-circle"></i>Issues: 169</div>
+                    </div>
+                    <div class="meta-right">
+                        <div class="meta-item"><i class="fas fa-code"></i>Lang: Python 100%</div>
+                        <div class="meta-item"><i class="fas fa-file-contract"></i>License: Apache-2.0</div>
+                        <div class="meta-item"><i class="fas fa-users"></i>Contributors: 28</div>
+                        <div class="meta-item"><i class="fas fa-upload"></i>Releases: 0</div>
+                    </div>
+                </div>
+                <div class="growth-analysis fragment" data-fragment-index="3">
+                    <i class="fas fa-chart-line"></i>
+                    <p><strong>增长分析：</strong>上榜3次总增863星，日常增长稳健，近期175星超平均，<strong class="text-color-accent-green">增长潜力大</strong>。</p>
+                </div>
+                <p class="text-left mt-6 fragment" data-fragment-index="4">
+                    <strong>项目速读：</strong>Black Forest Labs 的<strong class="highlight-text">FLUX图像生成推理代码</strong>。提供开放权重模型，支持文本到图像、图像填充、变体和编辑等任务，<strong class="highlight-text">高性能本地推理是核心优势</strong>。注意商业用途的许可限制。
+                </p>
+            </section>
+
+            <!-- Project: GraphiteEditor/Graphite -->
+            <section>
+                <h3>3. GraphiteEditor/Graphite</h3>
+                <h4 class="text-color-primary">二维矢量及栅格编辑器，融合传统与现代工作流。</h4>
+                <div class="repo-table-container fragment" data-fragment-index="1">
+                    <table class="repo-table">
+                        <thead>
+                            <tr>
+                                <th>语言</th><th>Star 数</th><th>在榜</th><th>日增</th><th>总增</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Rust</td><td>13600 ⭐</td><td>1次</td><td>263 ⭐</td><td>263 ⭐</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="project-details mt-6 fragment" data-fragment-index="2">
+                    <div class="meta-left">
+                        <div class="meta-item"><i class="fas fa-star"></i>Stars: 13.6k</div>
+                        <div class="meta-item"><i class="fas fa-code-branch"></i>Forks: 631</div>
+                        <div class="meta-item"><i class="fas fa-eye"></i>Watchers: 89</div>
+                        <div class="meta-item"><i class="fas fa-exclamation-circle"></i>Issues: 271</div>
+                    </div>
+                    <div class="meta-right">
+                        <div class="meta-item"><i class="fas fa-code"></i>Lang: Rust 84.1%</div>
+                        <div class="meta-item"><i class="fas fa-file-contract"></i>License: Apache-2.0</div>
+                        <div class="meta-item"><i class="fas fa-users"></i>Contributors: 151</div>
+                        <div class="meta-item"><i class="fas fa-upload"></i>Releases: 0</div>
+                    </div>
+                </div>
+                <p class="text-left mt-6 fragment" data-fragment-index="3">
+                    <strong>项目速读：</strong>免费开源的2D图形编辑器，<strong class="highlight-text">创新地结合了传统图层与非破坏性节点工作流</strong>。基于Rust开发，目标是成为未来全能2D创作平台。尽管Alpha阶段，潜力巨大，吸引大量关注。
+                </p>
+            </section>
+            
+            <!-- Project: adityachandelgit/BookLore -->
+            <section>
+                <h3>4. adityachandelgit/BookLore</h3>
+                <h4 class="text-color-primary">自托管书籍管理与阅读网络应用。</h4>
+                <div class="repo-table-container fragment" data-fragment-index="1">
+                    <table class="repo-table">
+                        <thead>
+                            <tr>
+                                <th>语言</th><th>Star 数</th><th>在榜</th><th>日增</th><th>总增</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Java</td><td>1679 ⭐</td><td>1次</td><td>50 ⭐</td><td>50 ⭐</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="project-details mt-6 fragment" data-fragment-index="2">
+                    <div class="meta-left">
+                        <div class="meta-item"><i class="fas fa-star"></i>Stars: 1.7k</div>
+                        <div class="meta-item"><i class="fas fa-code-branch"></i>Forks: 65</div>
+                        <div class="meta-item"><i class="fas fa-eye"></i>Watchers: 11</div>
+                        <div class="meta-item"><i class="fas fa-exclamation-circle"></i>Issues: 70</div>
+                    </div>
+                    <div class="meta-right">
+                        <div class="meta-item"><i class="fas fa-code"></i>Lang: Java 47.6%</div>
+                        <div class="meta-item"><i class="fas fa-file-contract"></i>License: GPL-3.0</div>
+                        <div class="meta-item"><i class="fas fa-users"></i>Contributors: 9</div>
+                        <div class="meta-item"><i class="fas fa-upload"></i>Releases: 62</div>
+                    </div>
+                </div>
+                <p class="text-left mt-6 fragment" data-fragment-index="3">
+                    <strong>项目速读：</strong><strong class="highlight-text">Java开源自托管网络应用</strong>，用于管理PDF/ePub书籍。核心优势在于<strong class="highlight-text">用户完全掌控数字图书馆</strong>，支持元数据、分类、内置阅读器和多用户。适合追求私有化书库的用户。
+                </p>
+            </section>
+
+            <!-- Project: coleam00/ottomator-agents -->
+            <section>
+                <h3>5. coleam00/ottomator-agents</h3>
+                <h4 class="text-color-primary">oTTomator Live Agent Studio 平台上的开源 AI 代理集合。</h4>
+                <div class="repo-table-container fragment" data-fragment-index="1">
+                    <table class="repo-table">
+                        <thead>
+                            <tr>
+                                <th>语言</th><th>Star 数</th><th>在榜</th><th>日增</th><th>总增</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Python</td><td>2830 ⭐</td><td>2次</td><td>103 ⭐</td><td>568 ⭐</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="project-details mt-6 fragment" data-fragment-index="2">
+                    <div class="meta-left">
+                        <div class="meta-item"><i class="fas fa-star"></i>Stars: 2.8k</div>
+                        <div class="meta-item"><i class="fas fa-code-branch"></i>Forks: 1.1k</div>
+                        <div class="meta-item"><i class="fas fa-eye"></i>Watchers: 81</div>
+                        <div class="meta-item"><i class="fas fa-exclamation-circle"></i>Issues: 12</div>
+                    </div>
+                    <div class="meta-right">
+                        <div class="meta-item"><i class="fas fa-code"></i>Lang: Python 93.3%</div>
+                        <div class="meta-item"><i class="fas fa-file-contract"></i>License: MIT</div>
+                        <div class="meta-item"><i class="fas fa-users"></i>Contributors: 3</div>
+                        <div class="meta-item"><i class="fas fa-upload"></i>Releases: 0</div>
+                    </div>
+                </div>
+                <div class="growth-analysis fragment" data-fragment-index="3">
+                    <i class="fas fa-chart-line"></i>
+                    <p><strong>增长分析：</strong>2天内上榜2次，总增568星，今日103星高于平均，<strong class="text-color-accent-green">增长势头强劲</strong>。</p>
+                </div>
+                <p class="text-left mt-6 fragment" data-fragment-index="4">
+                    <strong>项目速读：</strong><strong class="highlight-text">开源AI代理代码集合</strong>，供学习和实践构建AI代理。最大亮点是<strong class="highlight-text">所有代理开源</strong>，促进社区协作、知识共享，是理解AI Agent的优质起点。
+                </p>
+            </section>
+
+            <!-- Project: Serial-Studio/Serial-Studio -->
+            <section>
+                <h3>6. Serial-Studio/Serial-Studio</h3>
+                <h4 class="text-color-primary">可视化嵌入式设备数据。</h4>
+                <div class="repo-table-container fragment" data-fragment-index="1">
+                    <table class="repo-table">
+                        <thead>
+                            <tr>
+                                <th>语言</th><th>Star 数</th><th>在榜</th><th>日增</th><th>总增</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>C++</td><td>5634 ⭐</td><td>1次</td><td>20 ⭐</td><td>20 ⭐</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="project-details mt-6 fragment" data-fragment-index="2">
+                    <div class="meta-left">
+                        <div class="meta-item"><i class="fas fa-star"></i>Stars: 5.6k</div>
+                        <div class="meta-item"><i class="fas fa-code-branch"></i>Forks: 864</div>
+                        <div class="meta-item"><i class="fas fa-eye"></i>Watchers: 133</div>
+                        <div class="meta-item"><i class="fas fa-exclamation-circle"></i>Issues: 26</div>
+                    </div>
+                    <div class="meta-right">
+                        <div class="meta-item"><i class="fas fa-code"></i>Lang: C++ 90.1%</div>
+                        <div class="meta-item"><i class="fas fa-file-contract"></i>License: 未知</div>
+                        <div class="meta-item"><i class="fas fa-users"></i>Contributors: 17</div>
+                        <div class="meta-item"><i class="fas fa-upload"></i>Releases: 41</div>
+                    </div>
+                </div>
+                <p class="text-left mt-6 fragment" data-fragment-index="3">
+                    <strong>项目速读：</strong>跨平台开源工具，<strong class="highlight-text">实时可视化嵌入式设备数据</strong>。核心优势是广泛数据输入支持（串口、BLE、MQTT等）及<strong class="highlight-text">高度定制化的可视化仪表盘</strong>。工程调试和数据分析的理想选择。
+                </p>
+            </section>
+            
+            <!-- Project: midday-ai/midday -->
+            <section>
+                <h3>7. midday-ai/midday</h3>
+                <h4 class="text-color-primary">发票管理、工时记录、文件核对及自由职业者助手。</h4>
+                <div class="repo-table-container fragment" data-fragment-index="1">
+                    <table class="repo-table">
+                        <thead>
+                            <tr>
+                                <th>语言</th><th>Star 数</th><th>在榜</th><th>日增</th><th>总增</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>TypeScript</td><td>8082 ⭐</td><td>1次</td><td>20 ⭐</td><td>577 ⭐</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="project-details mt-6 fragment" data-fragment-index="2">
+                    <div class="meta-left">
+                        <div class="meta-item"><i class="fas fa-star"></i>Stars: 8.1k</div>
+                        <div class="meta-item"><i class="fas fa-code-branch"></i>Forks: 798</div>
+                        <div class="meta-item"><i class="fas fa-eye"></i>Watchers: 60</div>
+                        <div class="meta-item"><i class="fas fa-exclamation-circle"></i>Issues: 9</div>
+                    </div>
+                    <div class="meta-right">
+                        <div class="meta-item"><i class="fas fa-code"></i>Lang: TS 96.5%</div>
+                        <div class="meta-item"><i class="fas fa-file-contract"></i>License: AGPL-3.0</div>
+                        <div class="meta-item"><i class="fas fa-users"></i>Contributors: 23</div>
+                        <div class="meta-item"><i class="fas fa-upload"></i>Releases: 8</div>
+                    </div>
+                </div>
+                <div class="growth-analysis fragment" data-fragment-index="3">
+                    <i class="fas fa-chart-line"></i>
+                    <p><strong>增长分析：</strong>统计期内上榜2次，总增577星。当前日增20星，<strong class="text-color-accent-green">增长势头良好</strong>，持续吸引关注。</p>
+                </div>
+                <p class="text-left mt-6 fragment" data-fragment-index="4">
+                    <strong>项目速读：</strong>为<strong class="highlight-text">自由职业者打造的一体化业务管理工具</strong>。整合工时追踪、发票开具、财务对账等功能，并有AI助手。采用现代化技术栈，帮助独立工作者提升效率。
+                </p>
+            </section>
+            
+            <!-- Project: microsoft/generative-ai-for-beginners -->
+            <section>
+                <h3>8. microsoft/generative-ai-for-beginners</h3>
+                <h4 class="text-color-primary">21节课，生成式AI入门与实践。</h4>
+                <div class="repo-table-container fragment" data-fragment-index="1">
+                    <table class="repo-table">
+                        <thead>
+                            <tr>
+                                <th>语言</th><th>Star 数</th><th>在榜</th><th>日增</th><th>总增</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Jupyter Notebook</td><td>86214 ⭐</td><td>1次</td><td>228 ⭐</td><td>10496 ⭐</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="project-details mt-6 fragment" data-fragment-index="2">
+                    <div class="meta-left">
+                        <div class="meta-item"><i class="fas fa-star"></i>Stars: 86.2k</div>
+                        <div class="meta-item"><i class="fas fa-code-branch"></i>Forks: 45.4k</div>
+                        <div class="meta-item"><i class="fas fa-eye"></i>Watchers: 754</div>
+                        <div class="meta-item"><i class="fas fa-exclamation-circle"></i>Issues: 6</div>
+                    </div>
+                    <div class="meta-right">
+                        <div class="meta-item"><i class="fas fa-code"></i>Lang: JN 86.4%</div>
+                        <div class="meta-item"><i class="fas fa-file-contract"></i>License: MIT</div>
+                        <div class="meta-item"><i class="fas fa-users"></i>Contributors: 125</div>
+                        <div class="meta-item"><i class="fas fa-upload"></i>Releases: 0</div>
+                    </div>
+                </div>
+                <div class="growth-analysis fragment" data-fragment-index="3">
+                    <i class="fas fa-chart-line"></i>
+                    <p><strong>增长分析：</strong>15次上榜，总增10496星，平均267星/次。<strong class="text-color-accent-green">增长势头良好，持续活力强劲。</strong></p>
+                </div>
+                <p class="text-left mt-6 fragment" data-fragment-index="4">
+                    <strong>项目速读：</strong>微软开源的<strong class="highlight-text">生成式AI初学者宝典</strong>。21节课系统引导，理论与实践结合，提供Python/TypeScript示例，<strong class="highlight-text">支持多语言（含简体中文）</strong>。高质量内容、实用代码，是入门生成式AI的理想起点。
+                </p>
+            </section>
+            
+            <!-- Project: fastapi/full-stack-fastapi-template -->
+            <section>
+                <h3>9. fastapi/full-stack-fastapi-template</h3>
+                <h4 class="text-color-primary">全栈现代化 Web 应用模板：FastAPI + React + PostgreSQL 等。</h4>
+                <div class="repo-table-container fragment" data-fragment-index="1">
+                    <table class="repo-table">
+                        <thead>
+                            <tr>
+                                <th>语言</th><th>Star 数</th><th>在榜</th><th>日增</th><th>总增</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>TypeScript</td><td>33808 ⭐</td><td>1次</td><td>112 ⭐</td><td>112 ⭐</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="project-details mt-6 fragment" data-fragment-index="2">
+                    <div class="meta-left">
+                        <div class="meta-item"><i class="fas fa-star"></i>Stars: 33.8k</div>
+                        <div class="meta-item"><i class="fas fa-code-branch"></i>Forks: 6.4k</div>
+                        <div class="meta-item"><i class="fas fa-eye"></i>Watchers: 281</div>
+                        <div class="meta-item"><i class="fas fa-exclamation-circle"></i>Issues: 167</div>
+                    </div>
+                    <div class="meta-right">
+                        <div class="meta-item"><i class="fas fa-code"></i>Lang: TS 63.9%, Py 28.8%</div>
+                        <div class="meta-item"><i class="fas fa-file-contract"></i>License: MIT</div>
+                        <div class="meta-item"><i class="fas fa-users"></i>Contributors: 69</div>
+                        <div class="meta-item"><i class="fas fa-upload"></i>Releases: 10</div>
+                    </div>
+                </div>
+                <p class="text-left mt-6 fragment" data-fragment-index="3">
+                    <strong>项目速读：</strong><strong class="highlight-text">现代化全栈Web应用开发骨架</strong>。结合FastAPI (Python) 和 React (TypeScript)，集成PostgreSQL、SQLModel。内置JWT认证、测试、CI/CD、Docker，<strong class="highlight-text">极大简化开发、部署和运维</strong>。构建可扩展高性能Web应用的理想起点。
+                </p>
+            </section>
+            
+            <!-- Project: swisskyrepo/PayloadsAllTheThings -->
+            <section>
+                <h3>10. swisskyrepo/PayloadsAllTheThings</h3>
+                <h4 class="text-color-primary">Web应用安全、渗透测试/CTF的有用攻击载荷与绕过列表。</h4>
+                <div class="repo-table-container fragment" data-fragment-index="1">
+                    <table class="repo-table">
+                        <thead>
+                            <tr>
+                                <th>语言</th><th>Star 数</th><th>在榜</th><th>日增</th><th>总增</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Python</td><td>66276 ⭐</td><td>1次</td><td>30 ⭐</td><td>30 ⭐</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="project-details mt-6 fragment" data-fragment-index="2">
+                    <div class="meta-left">
+                        <div class="meta-item"><i class="fas fa-star"></i>Stars: 66.3k</div>
+                        <div class="meta-item"><i class="fas fa-code-branch"></i>Forks: 15.5k</div>
+                        <div class="meta-item"><i class="fas fa-eye"></i>Watchers: 1.9k</div>
+                        <div class="meta-item"><i class="fas fa-exclamation-circle"></i>Issues: 0</div>
+                    </div>
+                    <div class="meta-right">
+                        <div class="meta-item"><i class="fas fa-code"></i>Lang: Python 83.7%</div>
+                        <div class="meta-item"><i class="fas fa-file-contract"></i>License: MIT</div>
+                        <div class="meta-item"><i class="fas fa-users"></i>Contributors: 283</div>
+                        <div class="meta-item"><i class="fas fa-upload"></i>Releases: 4</div>
+                    </div>
+                </div>
+                <p class="text-left mt-6 fragment" data-fragment-index="3">
+                    <strong>项目速读：</strong><strong class="highlight-text">Web安全攻击载荷和绕过技巧的知识库</strong>。为渗透测试、安全研究和CTF提供一站式资源。内容按漏洞类型分类，<strong class="highlight-text">极大提高了Web安全测试效率</strong>，是全球安全社区认可的宝贵资源。
+                </p>
+            </section>
+            
+            <!-- Project: actions/actions-runner-controller -->
+            <section>
+                <h3>11. actions/actions-runner-controller</h3>
+                <h4 class="text-color-primary">GitHub Actions 自托管运行器的 Kubernetes 控制器。</h4>
+                <div class="repo-table-container fragment" data-fragment-index="1">
+                    <table class="repo-table">
+                        <thead>
+                            <tr>
+                                <th>语言</th><th>Star 数</th><th>在榜</th><th>日增</th><th>总增</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Go</td><td>5365 ⭐</td><td>1次</td><td>4 ⭐</td><td>4 ⭐</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="project-details mt-6 fragment" data-fragment-index="2">
+                    <div class="meta-left">
+                        <div class="meta-item"><i class="fas fa-star"></i>Stars: 5.4k</div>
+                        <div class="meta-item"><i class="fas fa-code-branch"></i>Forks: 1.3k</div>
+                        <div class="meta-item"><i class="fas fa-eye"></i>Watchers: 55</div>
+                        <div class="meta-item"><i class="fas fa-exclamation-circle"></i>Issues: 292</div>
+                    </div>
+                    <div class="meta-right">
+                        <div class="meta-item"><i class="fas fa-code"></i>Lang: Go 90.1%</div>
+                        <div class="meta-item"><i class="fas fa-file-contract"></i>License: Apache-2.0</div>
+                        <div class="meta-item"><i class="fas fa-users"></i>Contributors: 307</div>
+                        <div class="meta-item"><i class="fas fa-upload"></i>Releases: 141</div>
+                    </div>
+                </div>
+                <p class="text-left mt-6 fragment" data-fragment-index="3">
+                    <strong>项目速读：</strong><strong class="highlight-text">连接GitHub Actions运行器与Kubernetes集群的桥梁</strong>。作为K8s控制器，实现自托管运行器的动态管理和按需扩缩容。利用K8s编排能力，<strong class="highlight-text">提升自托管CI/CD效率和资源利用率</strong>。
+                </p>
+            </section>
+            
+            <!-- Project: GyulyVGC/sniffnet -->
+            <section>
+                <h3>12. GyulyVGC/sniffnet</h3>
+                <h4 class="text-color-primary">轻松监控网络流量。</h4>
+                <div class="repo-table-container fragment" data-fragment-index="1">
+                    <table class="repo-table">
+                        <thead>
+                            <tr>
+                                <th>语言</th><th>Star 数</th><th>在榜</th><th>日增</th><th>总增</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Rust</td><td>24716 ⭐</td><td>1次</td><td>28 ⭐</td><td>28 ⭐</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="project-details mt-6 fragment" data-fragment-index="2">
+                    <div class="meta-left">
+                        <div class="meta-item"><i class="fas fa-star"></i>Stars: 24.7k</div>
+                        <div class="meta-item"><i class="fas fa-code-branch"></i>Forks: 784</div>
+                        <div class="meta-item"><i class="fas fa-eye"></i>Watchers: 99</div>
+                        <div class="meta-item"><i class="fas fa-exclamation-circle"></i>Issues: 33</div>
+                    </div>
+                    <div class="meta-right">
+                        <div class="meta-item"><i class="fas fa-code"></i>Lang: Rust 98.7%</div>
+                        <div class="meta-item"><i class="fas fa-file-contract"></i>License: Apache-2.0</div>
+                        <div class="meta-item"><i class="fas fa-users"></i>Contributors: 54</div>
+                        <div class="meta-item"><i class="fas fa-upload"></i>Releases: 14</div>
+                    </div>
+                </div>
+                <p class="text-left mt-6 fragment" data-fragment-index="3">
+                    <strong>项目速读：</strong>跨平台桌面应用，<strong class="highlight-text">直观监控和理解网络流量</strong>。基于高性能Rust和iced GUI库。价值在于将复杂网络分析<strong class="highlight-text">变得易于接近</strong>，提供实时统计、协议识别和地理定位，提升网络安全意识。
+                </p>
+            </section>
+            
+            <!-- Project: google-gemini/cookbook -->
+            <section>
+                <h3>13. google-gemini/cookbook</h3>
+                <h4 class="text-color-primary">Gemini API 使用示例和指南。</h4>
+                <div class="repo-table-container fragment" data-fragment-index="1">
+                    <table class="repo-table">
+                        <thead>
+                            <tr>
+                                <th>语言</th><th>Star 数</th><th>在榜</th><th>日增</th><th>总增</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Jupyter Notebook</td><td>13619 ⭐</td><td>1次</td><td>42 ⭐</td><td>2242 ⭐</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="project-details mt-6 fragment" data-fragment-index="2">
+                    <div class="meta-left">
+                        <div class="meta-item"><i class="fas fa-star"></i>Stars: 13.6k</div>
+                        <div class="meta-item"><i class="fas fa-code-branch"></i>Forks: 1.9k</div>
+                        <div class="meta-item"><i class="fas fa-eye"></i>Watchers: 153</div>
+                        <div class="meta-item"><i class="fas fa-exclamation-circle"></i>Issues: 61</div>
+                    </div>
+                    <div class="meta-right">
+                        <div class="meta-item"><i class="fas fa-code"></i>Lang: JN 100%</div>
+                        <div class="meta-item"><i class="fas fa-file-contract"></i>License: Apache-2.0</div>
+                        <div class="meta-item"><i class="fas fa-users"></i>Contributors: 76</div>
+                        <div class="meta-item"><i class="fas fa-upload"></i>Releases: 0</div>
+                    </div>
+                </div>
+                <div class="growth-analysis fragment" data-fragment-index="3">
+                    <i class="fas fa-chart-line"></i>
+                    <p><strong>增长分析：</strong>上榜3次总增2242星，当前42星低于平均，<strong class="text-color-accent-orange">近期增长势头可能减弱</strong>。</p>
+                </div>
+                <p class="text-left mt-6 fragment" data-fragment-index="4">
+                    <strong>项目速读：</strong>Google官方Gemini API实践指南。通过<strong class="highlight-text">Jupyter Notebook教程</strong>，帮助开发者快速掌握Gemini API。全面覆盖Gemini 2.5、<strong class="highlight-text">多模态输入、生成媒体内容</strong>等。是开发下一代AI应用不可或缺的宝贵资源。
+                </p>
+            </section>
+            
+            <!-- Project: pot-app/pot-desktop -->
+            <section>
+                <h3>14. pot-app/pot-desktop</h3>
+                <h4 class="text-color-primary">🌈一个跨平台的划词翻译和OCR软件。</h4>
+                <div class="repo-table-container fragment" data-fragment-index="1">
+                    <table class="repo-table">
+                        <thead>
+                            <tr>
+                                <th>语言</th><th>Star 数</th><th>在榜</th><th>日增</th><th>总增</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>JavaScript</td><td>13111 ⭐</td><td>1次</td><td>202 ⭐</td><td>202 ⭐</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="project-details mt-6 fragment" data-fragment-index="2">
+                    <div class="meta-left">
+                        <div class="meta-item"><i class="fas fa-star"></i>Stars: 13.1k</div>
+                        <div class="meta-item"><i class="fas fa-code-branch"></i>Forks: 603</div>
+                        <div class="meta-item"><i class="fas fa-eye"></i>Watchers: 51</div>
+                        <div class="meta-item"><i class="fas fa-exclamation-circle"></i>Issues: 347</div>
+                    </div>
+                    <div class="meta-right">
+                        <div class="meta-item"><i class="fas fa-code"></i>Lang: JS 86.7%</div>
+                        <div class="meta-item"><i class="fas fa-file-contract"></i>License: GPL-3.0</div>
+                        <div class="meta-item"><i class="fas fa-users"></i>Contributors: 47</div>
+                        <div class="meta-item"><i class="fas fa-upload"></i>Releases: 129</div>
+                    </div>
+                </div>
+                <p class="text-left mt-6 fragment" data-fragment-index="3">
+                    <strong>项目速读：</strong>跨平台桌面应用，核心功能是<strong class="highlight-text">高效划词翻译和OCR</strong>。最大亮点是<strong class="highlight-text">高度灵活性和可扩展性</strong>，可集成多种翻译引擎和AI模型，并通过插件系统自由扩展。显著提升阅读、学习和工作效率。
+                </p>
+            </section>
+
+            <!-- Final Slide -->
+            <section id="final-slide">
+                <h2 class="mb-4">感谢您的关注！</h2>
+                <p class="text-2xl mb-8">持续关注GitHub热榜，与AIChipEra一起，<br>发现更多技术灵感，加速您的技术旅程！</p>
+                <div class="flex flex-col items-center justify-center space-y-4">
+                    <img src="../../asserts/wx.jpg" alt="微信二维码" class="r-stretch centered" style="width: 250px; height: 250px; border-radius: 10px;">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-white text-3xl hover:underline">
+                        <i class="fab fa-github mr-4"></i>关注项目：github.com/aichipera/github-trend
+                    </a>
+                </div>
+                <aside class="notes">
+                    总结：希望今天的分享能给大家带来一些新的启发和灵感。GitHub是技术的宝库，持续关注它能让我们紧跟前沿。欢迎大家关注我的项目，一起学习，一起成长！
+                </aside>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <script>
+        // Mermaid initialization, if used. Not strictly used in this content, but good to have.
+        mermaid.initialize({ startOnLoad: false });
+
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            hash: true,
+            center: true,
+            transition: 'fade', // or 'slide', 'convex', 'concave', 'zoom'
+            backgroundTransition: 'fade',
+
+            // Optional: turn off if you don't need vertical slides
+            history: true,
+
+            // Learn about plugins: https://revealjs.com/plugins/
+            plugins: [ ]
+        });
+    </script>
+</body>
+</html>
