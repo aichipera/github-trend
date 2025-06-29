@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub趋势速览：AI工程化、提效工具，开发者都在关注啥？</title>
+    
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet" id="theme">
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --r-main-font: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: 'Noto Serif SC', 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-background-color: #111827;
+            --r-heading-color: #ffffff;
+            --r-main-color: #d1d5db;
+            --r-link-color: #60a5fa;
+            --r-link-color-hover: #93c5fd;
+            --r-selection-background-color: #60a5fa;
+            --r-code-font: monospace;
+        }
+
+        .reveal {
+            font-family: var(--r-main-font);
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: var(--r-heading-font);
+            font-weight: 600;
+        }
+        
+        .reveal h1 { font-size: 3rem; }
+        .reveal h2 { font-size: 2.2rem; }
+        .reveal h3 { font-size: 1.8rem; }
+        .reveal p, .reveal li { font-size: 1.1rem; }
+
+        .reveal section img {
+            border: none;
+            box-shadow: none;
+            background: none;
+        }
+
+        .reveal .footer {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.7rem;
+            color: #9ca3af;
+        }
+
+        .reveal .footer img {
+            width: 80px;
+            height: 80px;
+        }
+        
+        .reveal .footer a {
+            color: #9ca3af;
+        }
+        .reveal .footer a:hover {
+            color: var(--r-link-color);
+        }
+
+        .gradient-text {
+            background: -webkit-linear-gradient(45deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-title h2 {
+            padding: 0.5rem 1rem;
+            border-left: 5px solid #3b82f6;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+        }
+
+        .card {
+            background-color: rgba(31, 41, 55, 0.7);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: left;
+            border: 1px solid #374151;
+        }
+        
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            width: 100%;
+        }
+
+        .stat-item {
+            background: #1f2937;
+            padding: 0.8rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-item .value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #60a5fa;
+        }
+        .stat-item .label {
+            font-size: 0.8rem;
+            color: #9ca3af;
+        }
+
+        .bar-chart-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .bar-chart-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .bar-label {
+            width: 25%;
+            text-align: right;
+            color: #d1d5db;
+        }
+        .bar {
+            flex-grow: 1;
+            background-color: #374151;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .bar-fill {
+            height: 20px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 8px;
+            color: white;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- 封面 -->
+            <section data-background-gradient="linear-gradient(to bottom right, #1f2937, #111827)">
+                <h1 class="gradient-text !text-5xl tracking-wide">GitHub趋势速览</h1>
+                <h3 class="!text-gray-300 mt-4">AI工程化、提效工具，开发者都在关注啥？</h3>
+                <p class="mt-12 text-gray-400">
+                    演讲者：AIChipEra<br>
+                    <small>观测时间: 2025-06-29 21:24:16</small>
+                </p>
+                <aside class="notes">技术趋势别错过，快转发分享！</aside>
+                <div class="footer">
+                    <a href="https://github.com/aichipera/github-trend">github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+            <!-- 周报要点 -->
+            <section class="section-title">
+                <h2>周报要点</h2>
+                <blockquote class="mt-8 text-left !border-l-4 !border-blue-500 !bg-gray-800 p-6 rounded-lg shadow-lg">
+                    <p class="fragment" data-fragment-index="1">本周GitHub热榜显示，技术热点正从AI模型探索转向<strong class="text-blue-400">实际落地</strong>。</p>
+                    <p class="fragment" data-fragment-index="2">大量项目聚焦<strong class="text-blue-400">AI管理、成本控制与多模型路由</strong>，如AI Gateway和Code Router，反映出生产环境的迫切需求。</p>
+                    <p class="fragment" data-fragment-index="3">同时，Edit、Typst等基础开发者工具因<strong class="text-blue-400">高效、现代化</strong>特性持续走红。</p>
+                    <p class="fragment" data-fragment-index="4">这股趋势表明，技术社区正加速构建<strong class="text-blue-400">可扩展AI系统</strong>，并在AI工程化与基础体验优化上<strong class="text-blue-400">双管齐下</strong>。</p>
+                </blockquote>
+                 <p class="mt-6 fragment"><a href="https://aichipera.github.io/github-trend/weekly/2025-W26/ppt.html">PPT: https://aichipera.github.io/github-trend/weekly/2025-W26/ppt.html</a></p>
+            </section>
+
+            <!-- 热门项目趋势分析 -->
+            <section>
+                <section class="section-title">
+                    <h2>热门项目趋势分析</h2>
+                </section>
+                <section>
+                    <h3>本周整体趋势：从模型到工程</h3>
+                    <ul>
+                        <li class="fragment"><strong>焦点转移：</strong> 从基础模型探索 <i class="fas fa-arrow-right mx-2"></i> <span class="text-green-400">AI工程化与基础设施层</span>。</li>
+                        <li class="fragment"><strong>生产需求：</strong> <span class="text-yellow-400">Portkey AI Gateway, Claude Code Router</span> 等项目涌现，解决模型管理、成本、路由、安全等实际问题。</li>
+                        <li class="fragment"><strong>效率工具：</strong> <span class="text-yellow-400">Edit, Typst, JSON Crack</span> 等基础工具受热捧，追求现代化与高性能。</li>
+                        <li class="fragment"><strong>语言表现：</strong> <span class="text-purple-400">TypeScript</span> 主导Web与AI基建，<span class="text-purple-400">Rust</span> 驱动高性能工具，<span class="text-purple-400">Python</span> 仍是AI首选。</li>
+                        <li class="fragment"><strong>核心洞察：</strong> 技术社区正将AI能力<span class="text-red-400">深度融入工作流</span>，构建可靠、可扩展的AI系统。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>双周维度对比：新秀涌现</h3>
+                    <div class="card">
+                        <p class="fragment">榜单构成变化显著，<strong class="text-blue-400">11个新项目</strong>入榜，主要驱动力来自新项目涌现。</p>
+                        <p class="fragment">新项目领域广泛：<strong class="text-green-400">开发者工具、AI应用、基础设施</strong>。</p>
+                        <p class="fragment">语言变化：<strong class="text-yellow-400">C++, Java, Rust</strong> 项目增加；Shell, Go 等减少。</p>
+                        <p class="fragment">核心动态：榜单<strong class="text-red-400">更新速度加快</strong>，项目更迭频繁，显示出强大的社区活力。</li>
+                    </div>
+                </section>
+                <section>
+                    <h3>热点变化</h3>
+                    <div class="flex justify-around w-full">
+                        <div class="w-1/2 text-left px-4">
+                            <h4 class="text-green-400"><i class="fas fa-arrow-trend-up"></i> 新增热点</h4>
+                            <ul class="text-sm list-disc list-inside">
+                                <li class="fragment">ai-engineering-hub</li>
+                                <li class="fragment">claude-code-router</li>
+                                <li class="fragment">microsoft/edit</li>
+                                <li class="fragment">twentyhq/twenty</li>
+                                <li class="fragment">Portkey-AI/gateway</li>
+                                <li class="fragment">...and more</li>
+                            </ul>
+                        </div>
+                        <div class="w-1/2 text-left px-4">
+                            <h4 class="text-red-400"><i class="fas fa-arrow-trend-down"></i> 减退热点</h4>
+                            <ul class="text-sm list-disc list-inside">
+                               <li class="fragment">facebookresearch/vggt</li>
+                               <li class="fragment">deepseek-ai/deepep</li>
+                               <li class="fragment">anthropic-cookbook</li>
+                               <li class="fragment">prompt-optimizer</li>
+                               <li class="fragment">data-engineer-handbook</li>
+                                <li class="fragment">...and more</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3>技术栈分布</h3>
+                    <div class="flex w-full items-start gap-8">
+                        <div class="w-1/2 text-left">
+                            <h4 class="mb-4">编程语言分布</h4>
+                            <div class="bar-chart-container">
+                                <div class="bar-chart-item fragment"><span class="bar-label">TypeScript</span><div class="bar"><div class="bar-fill" style="width: 36.4%;">36.4%</div></div></div>
+                                <div class="bar-chart-item fragment"><span class="bar-label">Rust</span><div class="bar"><div class="bar-fill" style="width: 18.2%;">18.2%</div></div></div>
+                                <div class="bar-chart-item fragment"><span class="bar-label">Python</span><div class="bar"><div class="bar-fill" style="width: 18.2%;">18.2%</div></div></div>
+                                <div class="bar-chart-item fragment"><span class="bar-label">Java</span><div class="bar"><div class="bar-fill" style="width: 9.1%;">9.1%</div></div></div>
+                                <div class="bar-chart-item fragment"><span class="bar-label">C++</span><div class="bar"><div class="bar-fill" style="width: 9.1%;">9.1%</div></div></div>
+                            </div>
+                        </div>
+                        <div class="w-1/2 text-left">
+                            <h4 class="mb-4">Star 分布</h4>
+                            <div class="bar-chart-container">
+                                <div class="bar-chart-item fragment"><span class="bar-label">10k-50k</span><div class="bar"><div class="bar-fill bg-green-500" style="width: 63.6%;">63.6%</div></div></div>
+                                <div class="bar-chart-item fragment"><span class="bar-label">1k-5k</span><div class="bar"><div class="bar-fill" style="width: 18.2%;">18.2%</div></div></div>
+                                <div class="bar-chart-item fragment"><span class="bar-label">5k-10k</span><div class="bar"><div class="bar-fill" style="width: 9.1%;">9.1%</div></div></div>
+                                <div class="bar-chart-item fragment"><span class="bar-label"><1k</span><div class="bar"><div class="bar-fill" style="width: 9.1%;">9.1%</div></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+            
+            <!-- 热门项目排名 -->
+            <section>
+                <h3 class="mb-6">本周热门Top 10</h3>
+                <ol class="text-left w-full text-lg">
+                    <li class="fragment p-2 rounded hover:bg-gray-700"><strong>typst/typst</strong> <span class="text-yellow-400 ml-2"><i class="fas fa-star"></i>43k</span> - 新一代标记排版系统。</li>
+                    <li class="fragment p-2 rounded hover:bg-gray-700"><strong>AykutSarac/jsoncrack.com</strong> <span class="text-yellow-400 ml-2"><i class="fas fa-star"></i>38k</span> - 数据可视化神器。</li>
+                    <li class="fragment p-2 rounded hover:bg-gray-700"><strong>twentyhq/twenty</strong> <span class="text-yellow-400 ml-2"><i class="fas fa-star"></i>30k</span> - 现代开源CRM。</li>
+                    <li class="fragment p-2 rounded hover:bg-gray-700"><strong>DrKLO/Telegram</strong> <span class="text-yellow-400 ml-2"><i class="fas fa-star"></i>26k</span> - Telegram安卓源码。</li>
+                    <li class="fragment p-2 rounded hover:bg-gray-700"><strong>patchy631/ai-engineering-hub</strong> <span class="text-yellow-400 ml-2"><i class="fas fa-star"></i>12k</span> - AI工程深度教程。</li>
+                    <li class="fragment p-2 rounded hover:bg-gray-700"><strong>microsoft/edit</strong> <span class="text-yellow-400 ml-2"><i class="fas fa-star"></i>11k</span> - 微软出品的简单文本编辑器。</li>
+                    <li class="fragment p-2 rounded hover:bg-gray-700"><strong>cyclotruc/gitingest</strong> <span class="text-yellow-400 ml-2"><i class="fas fa-star"></i>10k</span> - 代码库Prompt友好提取工具。</li>
+                    <li class="fragment p-2 rounded hover:bg-gray-700"><strong>Portkey-AI/gateway</strong> <span class="text-yellow-400 ml-2"><i class="fas fa-star"></i>8k</span> - 极速AI网关。</li>
+                    <li class="fragment p-2 rounded hover:bg-gray-700"><strong>coleam00/ottomator-agents</strong> <span class="text-yellow-400 ml-2"><i class="fas fa-star"></i>3k</span> - 开源AI智能体集合。</li>
+                    <li class="fragment p-2 rounded hover:bg-gray-700"><strong>musistudio/claude-code-router</strong> <span class="text-yellow-400 ml-2"><i class="fas fa-star"></i>2k</span> - Claude Code智能路由。</li>
+                </ol>
+            </section>
+            
+            <!-- 每日热点回顾 -->
+            <section>
+                 <h3>本周每日热点回顾</h3>
+                 <table class="w-full mt-6 text-sm">
+                     <thead class="border-b-2 border-gray-500">
+                         <tr>
+                             <th class="p-2 text-left">时间</th>
+                             <th class="p-2 text-left">主题</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         <tr class="border-b border-gray-700 fragment">
+                             <td class="p-2">周一</td>
+                             <td class="p-2 text-left"><a href="https://mp.weixin.qq.com/s/UPulqkmgW-nkz3CdLrAbPw">爆火Rust/Zig项目，让你的效率突破天际！</a></td>
+                         </tr>
+                         <tr class="border-b border-gray-700 fragment">
+                             <td class="p-2">周二</td>
+                             <td class="p-2 text-left"><a href="https://mp.weixin.qq.com/s/MCaoVFBUrlGbjhq2N1haaw">爆火AI项目，手把手教你模型实战！</a></td>
+                         </tr>
+                         <tr class="border-b border-gray-700 fragment">
+                             <td class="p-2">周三</td>
+                             <td class="p-2 text-left"><a href="https://mp.weixin.qq.com/s/jj0ra7Bem_lT_WwfF-R5qA">10+个免费神器，帮你效率翻倍！</a></td>
+                         </tr>
+                         <tr class="border-b border-gray-700 fragment">
+                             <td class="p-2">周四</td>
+                             <td class="p-2 text-left"><a href="https://mp.weixin.qq.com/s/J3Dl8aOG2uTTy3ZQBIcTtw">微软官方课程+20万星爆款，掌握AI秘密武器！</a></td>
+                         </tr>
+                         <tr class="border-b border-gray-700 fragment">
+                             <td class="p-2">周五</td>
+                             <td class="p-2 text-left"><a href="https://mp.weixin.qq.com/s/chao2rWBCtjPWb8ND2uLEQ">AI智能体“杀疯了”，5个提效神器！</a></td>
+                         </tr>
+                         <tr class="border-b border-gray-700 fragment">
+                             <td class="p-2">周六</td>
+                             <td class="p-2 text-left"><a href="https://mp.weixin.qq.com/s/-MmHeayW_jgP-yhLKFMZMA">微软谷歌联手送你21节“实战秘籍”！</a></td>
+                         </tr>
+                         <tr class="fragment">
+                             <td class="p-2">周日</td>
+                             <td class="p-2 text-left"><a href="https://mp.weixin.qq.com/s/T8r2qEUUuu9dyCWIgiDxHA">GitHub“私人图书馆”神器，告别阅读焦虑！</a></td>
+                         </tr>
+                     </tbody>
+                 </table>
+            </section>
+
+
+            <!-- 详细仓库数据 -->
+            <section class="section-title">
+                <h2>详细仓库数据分析</h2>
+            </section>
+            
+            <!-- Project 1: twentyhq/twenty -->
+            <section>
+                <section>
+                    <h3>twentyhq/twenty</h3>
+                    <p class="text-lg text-gray-400">构建现代化 Salesforce 替代方案，由社区驱动。</p>
+                </section>
+                <section>
+                    <h4>项目速览</h4>
+                    <div class="card">
+                        <p><strong>核心解决：</strong>高昂成本、厂商锁定的传统CRM问题。</p>
+                        <p class="mt-2"><strong>关键优势：</strong><span class="text-blue-400">灵活数据模型</span>、<span class="text-blue-400">可定制视图</span>、<span class="text-blue-400">细粒度权限</span>、<span class="text-blue-400">自动化工作流</span>。</p>
+                        <p class="mt-2"><strong>技术栈：</strong>TypeScript, NestJS (后端), React (前端)。</p>
+                        <p class="mt-2"><strong>适合：</strong>寻求自主可控、深度定制CRM解决方案的企业。</p>
+                    </div>
+                </section>
+                <section>
+                    <h4>核心数据</h4>
+                    <div class="stat-grid">
+                        <div class="stat-item"><div class="value">30.9k</div><div class="label"><i class="fas fa-star"></i> Stars</div></div>
+                        <div class="stat-item"><div class="value">1570</div><div class="label"><i class="fas fa-arrow-up"></i> 本周新增</div></div>
+                        <div class="stat-item"><div class="value">TypeScript</div><div class="label"><i class="fas fa-code"></i> 主要语言</div></div>
+                        <div class="stat-item"><div class="value">479</div><div class="label"><i class="fas fa-users"></i> 贡献者</div></div>
+                    </div>
+                </section>
+            </section>
+            
+            <!-- Project 2: DrKLO/Telegram -->
+            <section>
+                <section>
+                    <h3>DrKLO/Telegram</h3>
+                    <p class="text-lg text-gray-400">Telegram 安卓版官方源代码。</p>
+                </section>
+                <section>
+                    <h4>项目速览</h4>
+                    <div class="card">
+                        <p><strong>核心价值：</strong>提供官方安卓客户端的<span class="text-blue-400">完整源代码</span>，允许全球开发者学习、定制和创建非官方客户端。</p>
+                        <p class="mt-2"><strong>技术基础：</strong>基于Telegram API和MTProto协议构建。</p>
+                        <p class="mt-2"><strong>使用规定：</strong>需使用自有App ID、不可仿冒官方标志、衍生应用<span class="text-red-400">必须开源</span>。</p>
+                        <p class="mt-2"><strong>意义：</strong>学习IM应用内部机制的核心资源，极大地丰富了Telegram生态。</p>
+                    </div>
+                </section>
+                <section>
+                    <h4>核心数据</h4>
+                    <div class="stat-grid">
+                        <div class="stat-item"><div class="value">26.9k</div><div class="label"><i class="fas fa-star"></i> Stars</div></div>
+                        <div class="stat-item"><div class="value">542</div><div class="label"><i class="fas fa-arrow-up"></i> 本周新增</div></div>
+                        <div class="stat-item"><div class="value">Java</div><div class="label"><i class="fas fa-code"></i> 主要语言</div></div>
+                        <div class="stat-item"><div class="value">GPL-2.0</div><div class="label"><i class="fas fa-scroll"></i> 许可证</div></div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project 3: musistudio/claude-code-router -->
+            <section>
+                <section>
+                    <h3>musistudio/claude-code-router</h3>
+                    <p class="text-lg text-gray-400">Claude Code 智能路由，打破模型限制。</p>
+                </section>
+                <section>
+                    <h4>项目速览</h4>
+                    <div class="card">
+                        <p><strong>核心功能：</strong>一个代理服务，将Claude Code的请求<span class="text-blue-400">动态路由</span>到多种第三方LLM服务商 (OpenAI, DeepSeek, Ollama等)。</p>
+                        <p class="mt-2"><strong>解决痛点：</strong>摆脱单一模型绑定，实现<span class="text-green-400">成本优化</span>和<span class="text-green-400">灵活性</span>。</p>
+                        <p class="mt-2"><strong>核心优势：</strong>通过简单配置，即可根据任务类型将请求导向最合适的模型。</p>
+                        <p class="mt-2"><strong>价值：</strong>极大地增强了Claude Code的实用性，是开发者的成本与效率优化利器。</p>
+                    </div>
+                </section>
+                <section>
+                    <h4>核心数据</h4>
+                    <div class="stat-grid">
+                        <div class="stat-item"><div class="value">2.2k</div><div class="label"><i class="fas fa-star"></i> Stars</div></div>
+                        <div class="stat-item"><div class="value">1175</div><div class="label"><i class="fas fa-arrow-up"></i> 本周新增</div></div>
+                        <div class="stat-item"><div class="value">TypeScript</div><div class="label"><i class="fas fa-code"></i> 主要语言</div></div>
+                        <div class="stat-item"><div class="value">MIT</div><div class="label"><i class="fas fa-scroll"></i> 许可证</div></div>
+                    </div>
+                </section>
+            </section>
+            
+            <!-- ... 其他项目可以按照这个模板继续添加 ... -->
+             <section>
+                <section>
+                    <h3>microsoft/edit</h3>
+                    <p class="text-lg text-gray-400">微软出品，简单、现代的文本编辑器。</p>
+                </section>
+                <section>
+                    <h4>项目速览</h4>
+                    <div class="card">
+                        <p><strong>设计灵感：</strong>汲取经典 MS-DOS Editor 灵感，融入 VS Code 般<span class="text-blue-400">现代交互逻辑</span>。</p>
+                        <p class="mt-2"><strong>核心目标：</strong>为不熟悉终端的用户提供<span class="text-green-400">直观易用</span>的基础文本编辑工具。</p>
+                        <p class="mt-2"><strong>技术栈：</strong>采用 <span class="text-orange-400">Rust</span> 构建，轻量且高效。</p>
+                        <p class="mt-2"><strong>价值：</strong>填补了复杂IDE与命令行编辑器之间的空白，是日常基础文本处理的友好选择。</p>
+                    </div>
+                </section>
+                 <section>
+                    <h4>核心数据</h4>
+                    <div class="stat-grid">
+                        <div class="stat-item"><div class="value">11k</div><div class="label"><i class="fas fa-star"></i> Stars</div></div>
+                        <div class="stat-item"><div class="value">2319</div><div class="label"><i class="fas fa-arrow-up"></i> 本周新增</div></div>
+                        <div class="stat-item"><div class="value">Rust</div><div class="label"><i class="fas fa-code"></i> 主要语言</div></div>
+                        <div class="stat-item"><div class="value">MIT</div><div class="label"><i class="fas fa-scroll"></i> 许可证</div></div>
+                    </div>
+                </section>
+            </section>
+
+             <section>
+                <section>
+                    <h3>AykutSarac/jsoncrack.com</h3>
+                    <p class="text-lg text-gray-400">将复杂数据转化为交互式图形的可视化神器。</p>
+                </section>
+                <section>
+                    <h4>项目速览</h4>
+                    <div class="card">
+                        <p><strong>解决痛点：</strong>直观理解复杂的 JSON, YAML, XML, CSV 等数据结构。</p>
+                        <p class="mt-2"><strong>核心功能：</strong>数据<span class="text-blue-400">可视化为交互图</span>，极大提升分析与调试效率。</p>
+                        <p class="mt-2"><strong>集成工具：</strong>格式化、验证、格式互转、代码生成、高级查询。</p>
+                        <p class="mt-2"><strong>优势：</strong>直观高效、格式支持广泛、<span class="text-green-400">重视隐私</span> (本地处理)。</p>
+                    </div>
+                </section>
+                <section>
+                    <h4>核心数据</h4>
+                    <div class="stat-grid">
+                        <div class="stat-item"><div class="value">38.6k</div><div class="label"><i class="fas fa-star"></i> Stars</div></div>
+                        <div class="stat-item"><div class="value">863</div><div class="label"><i class="fas fa-arrow-up"></i> 本周新增</div></div>
+                        <div class="stat-item"><div class="value">TypeScript</div><div class="label"><i class="fas fa-code"></i> 主要语言</div></div>
+                        <div class="stat-item"><div class="value">Apache-2.0</div><div class="label"><i class="fas fa-scroll"></i> 许可证</div></div>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>typst/typst</h3>
+                    <p class="text-lg text-gray-400">强大且易学的新一代标记排版系统。</p>
+                </section>
+                <section>
+                    <h4>项目速览</h4>
+                    <div class="card">
+                        <p><strong>定位：</strong>旨在成为 <span class="text-blue-400">LaTeX 的现代化替代品</span>。</p>
+                        <p class="mt-2"><strong>解决痛点：</strong>传统排版系统复杂难学、编译缓慢。</p>
+                        <p class="mt-2"><strong>核心优势：</strong>直观标记语法、强大函数、<span class="text-green-400">闪电般增量编译</span>、友好错误提示。</p>
+                        <p class="mt-2"><strong>适合：</strong>追求精美排版效果，又希望避免陡峭学习曲线的用户。</p>
+                    </div>
+                </section>
+                <section>
+                    <h4>核心数据</h4>
+                    <div class="stat-grid">
+                        <div class="stat-item"><div class="value">43.5k</div><div class="label"><i class="fas fa-star"></i> Stars</div></div>
+                        <div class="stat-item"><div class="value">1113</div><div class="label"><i class="fas fa-arrow-up"></i> 本周新增</div></div>
+                        <div class="stat-item"><div class="value">Rust</div><div class="label"><i class="fas fa-code"></i> 主要语言</div></div>
+                        <div class="stat-item"><div class="value">Apache-2.0</div><div class="label"><i class="fas fa-scroll"></i> 许可证</div></div>
+                    </div>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>Portkey-AI/gateway</h3>
+                    <p class="text-lg text-gray-400">企业级、极速AI网关，内置安全护栏。</p>
+                </section>
+                <section>
+                    <h4>项目速览</h4>
+                    <div class="card">
+                        <p><strong>核心价值：</strong>提供<span class="text-blue-400">统一API接口</span>，连接和路由到1600+ AI模型。</p>
+                        <p class="mt-2"><strong>解决问题：</strong>简化集成众多AI模型API的复杂性，充当<span class="text-purple-400">智能调度中心</span>。</p>
+                        <p class="mt-2"><strong>性能优势：</strong>延迟<1ms、高稳定性、支持重试和回退。</p>
+                        <p class="mt-2"><strong>其他特性：</strong>负载均衡、条件路由、<span class="text-green-400">内置安全护栏</span>，几分钟内完成集成。</p>
+                    </div>
+                </section>
+                 <section>
+                    <h4>核心数据</h4>
+                    <div class="stat-grid">
+                        <div class="stat-item"><div class="value">8.6k</div><div class="label"><i class="fas fa-star"></i> Stars</div></div>
+                        <div class="stat-item"><div class="value">404</div><div class="label"><i class="fas fa-arrow-up"></i> 本周新增</div></div>
+                        <div class="stat-item"><div class="value">TypeScript</div><div class="label"><i class="fas fa-code"></i> 主要语言</div></div>
+                        <div class="stat-item"><div class="value">MIT</div><div class="label"><i class="fas fa-scroll"></i> 许可证</div></div>
+                    </div>
+                </section>
+            </section>
+            
+            <!-- 结尾 -->
+            <section data-background-gradient="linear-gradient(to top left, #1f2937, #111827)">
+                <h2 class="gradient-text">感谢观看</h2>
+                <h3 class="!text-gray-300 mt-4">关注我们，获取更多前沿技术趋势</h3>
+                <div class="footer">
+                    <a href="https://github.com/aichipera/github-trend">github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            center: true,
+            margin: 0.04,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            backgroundTransition: 'fade',
+            // Learn about plugins: https://revealjs.com/plugins/
+        });
+    </script>
+</body>
+</html>
