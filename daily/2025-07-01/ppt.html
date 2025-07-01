@@ -1,0 +1,993 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>GitHub热榜：AI落地、效率提速与实用工具大盘点</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        :root {
+            --r-background-color: #f7f7f7; /* Light background for general slides */
+            --r-main-font: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: 'Noto Serif SC', serif;
+            --r-main-color: #333;
+            --r-link-color: #007bff;
+            --r-link-color-hover: #0056b3;
+            --r-selection-background-color: #98bdef;
+            
+            /* Custom Colors for theme */
+            --primary-color: #2c3e50; /* Dark Blue/Gray */
+            --accent-color: #3498db;  /* Bright Blue */
+            --highlight-color: #e74c3c; /* Red/Orange for emphasis */
+            --secondary-color: #95a5a6; /* Light Gray for sub-text */
+        }
+
+        .reveal {
+            font-family: var(--r-main-font);
+            color: var(--r-main-color);
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--primary-color);
+            letter-spacing: -0.02em;
+        }
+
+        .reveal h1 { font-size: 3.2rem; }
+        .reveal h2 { font-size: 2.5rem; }
+        .reveal h3 { font-size: 2rem; }
+        .reveal h4 { font-size: 1.5rem; }
+        .reveal h5 { font-size: 1.2rem; }
+        .reveal h6 { font-size: 1rem; }
+
+        .reveal p, .reveal li {
+            font-size: 1.15rem; /* Slightly larger for better readability */
+            line-height: 1.6;
+        }
+        .reveal strong {
+            color: var(--accent-color); /* Highlight key words */
+        }
+        .reveal em {
+            color: var(--highlight-color);
+        }
+
+        /* Cover Slide Specific Styling */
+        .reveal .slides section.cover-slide {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d); /* Deep blue to red to yellow gradient */
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+        }
+        .reveal .slides section.cover-slide h1 {
+            font-size: 3.8rem; /* Larger title on cover */
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        .reveal .slides section.cover-slide .subtitle {
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 40px;
+        }
+        .reveal .slides section.cover-slide .speaker-info {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 20px;
+        }
+        .reveal .slides section.cover-slide .date-info {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 10px;
+        }
+        .reveal .slides section.cover-slide .disclaimer {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 15px;
+            max-width: 70%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .reveal .slides section.cover-slide .ppt-link {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 10px;
+        }
+
+        /* Footer for link and QR */
+        .reveal .project-footer {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: flex-end;
+            gap: 15px;
+            opacity: 0.9;
+            z-index: 100; /* Ensure it's above other content */
+        }
+        .reveal .project-footer img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px; /* Slightly rounded corners for QR */
+        }
+        .reveal .project-footer a {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9em;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .reveal .project-footer a:hover {
+            color: var(--accent-color);
+        }
+        /* Make footer white on dark background and dark on white background */
+        .reveal .slides section.cover-slide .project-footer a,
+        .reveal .slides section.end-slide .project-footer a {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        .reveal .slides section:not(.cover-slide):not(.end-slide) .project-footer a {
+            color: var(--primary-color);
+        }
+
+        /* End Slide Specific Styling */
+        .reveal .slides section.end-slide {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+        }
+        .reveal .slides section.end-slide h2 {
+            font-size: 3rem;
+            color: #fff;
+            margin-bottom: 30px;
+        }
+        .reveal .slides section.end-slide p {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+        }
+        .reveal .slides section.end-slide .cta-text {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 30px;
+        }
+
+        /* Section Title Styling */
+        .reveal .slides section.section-title {
+            background: linear-gradient(45deg, #f0f4f8, #e0e8f0); /* Light gradient for section titles */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .reveal .slides section.section-title h2 {
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            text-align: center;
+            padding: 20px;
+            border-bottom: 4px solid var(--accent-color);
+            display: inline-block; /* To apply border only to text width */
+        }
+        
+        /* General content slide adjustments */
+        .reveal .slides section {
+            padding: 40px; /* Add some padding to all slides */
+            text-align: left;
+        }
+        .reveal .slides section h3 {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+        }
+        .reveal .slides section ul {
+            list-style: none;
+            padding: 0;
+        }
+        .reveal .slides section ul li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+        .reveal .slides section ul li:before {
+            content: '👉'; /* Custom bullet point */
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+
+        .reveal table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+        .reveal table th,
+        .reveal table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        .reveal table th {
+            background-color: var(--accent-color);
+            color: white;
+            font-weight: 500;
+        }
+        .reveal table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Icon styling */
+        .icon-text {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 15px;
+            font-size: 0.9em;
+        }
+        .icon-text i {
+            margin-right: 5px;
+            color: var(--accent-color);
+        }
+
+        /* Fragments for progressive disclosure */
+        .reveal .fragment.fade-in {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .reveal .fragment.fade-in.visible {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        /* Custom layout for project details */
+        .project-detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .project-detail-grid .metrics {
+            grid-column: span 2;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .project-detail-grid .metrics .metric-item {
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+        .project-detail-grid .metrics .metric-item i {
+            margin-right: 8px;
+            color: var(--accent-color);
+            font-size: 1.3em;
+        }
+        .project-detail-grid .description,
+        .project-detail-grid .growth-analysis {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        .project-detail-grid .growth-analysis {
+            border-left: 3px solid var(--highlight-color);
+            padding-left: 15px;
+            margin-top: 20px;
+        }
+
+        .language-breakdown {
+            margin-top: 20px;
+            font-size: 0.95rem;
+            color: var(--secondary-color);
+        }
+        .language-breakdown strong {
+            color: var(--primary-color);
+        }
+
+        /* Small adjustments for table in summary slide */
+        .reveal .slides section.summary-table table {
+            font-size: 0.85rem;
+        }
+        .reveal .slides section.summary-table table th,
+        .reveal .slides section.summary-table table td {
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Title Slide -->
+            <section class="cover-slide">
+                <h1 class="r-fit-text">GitHub热榜：AI落地、效率提速与实用工具大盘点</h1>
+                <p class="subtitle">看懂GitHub热榜，你的技术不掉队！</p>
+                <div class="speaker-info">演讲者: AIChipEra</div>
+                <div class="date-info">Github热门仓库日报观测时间: 2025-07-01 20:27:02</div>
+                <p class="disclaimer">以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</p>
+                <a href="https://aichipera.github.io/github-trend/daily/2025-07-01/ppt.html" target="_blank" class="ppt-link">PPT: https://aichipera.github.io/github-trend/daily/2025-07-01/ppt.html</a>
+
+                <div class="project-footer">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        <i class="fab fa-github fa-2x"></i>
+                        <span>github.com/aichipera/github-trend</span>
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra WeChat QR Code">
+                </div>
+            </section>
+
+            <!-- 日报要点 Section -->
+            <section class="section-title">
+                <h2><i class="fas fa-newspaper"></i> 日报要点</h2>
+            </section>
+            <section>
+                <h3><i class="fas fa-lightbulb"></i> 本期热榜概览：实用性与效率是核心驱动力</h3>
+                <ul class="fragment fade-in">
+                    <li>**AI应用深化**: AI不再停留在概念，聚焦**落地应用**与**评估优化**工具。</li>
+                    <li>**效率提速**: 开发者急需提升效率、简化工作流的工具（如节点式图形编辑器、可视化Web框架）。</li>
+                    <li>**资源共享**: 对高质量学习资源（免费AI课程）和实用工具（开源CRM）的**渴求**。</li>
+                    <li>**总结**: 趋势表明，当前技术发展核心在于**实用性**与**效率**。</li>
+                </ul>
+            </section>
+
+            <!-- 热门项目趋势分析 Section -->
+            <section class="section-title">
+                <h2><i class="fas fa-chart-line"></i> 热门项目趋势分析</h2>
+            </section>
+
+            <section>
+                <h3><i class="fas fa-magnifying-glass-chart"></i> 今日整体趋势：AI应用深化、效率工具崛起与资源共享</h3>
+                <ul class="fragment fade-in">
+                    <li>
+                        **AI重心转移**：从“能用AI”到“**用好AI**”。
+                        <ul>
+                            <li class="fragment fade-in">微软**生成式AI课程**：**449 Star**，入门需求旺盛。</li>
+                            <li class="fragment fade-in">**DeepEval**：LLM评估框架，关注应用质量与可靠性。</li>
+                            <li class="fragment fade-in">**Gemini API代理**：成本、效率、多密钥管理痛点解决。</li>
+                        </ul>
+                    </li>
+                    <li class="fragment fade-in">
+                        **开发效率优化**：直观、低代码/无代码工具受青睐。
+                        <ul>
+                            <li class="fragment fade-in">**Graphite**（Rust图形编辑器）：**1775 Star**，下一代创意工具探索。</li>
+                            <li class="fragment fade-in">**Onlook/tweakcn**：提升React/Next.js/shadcn/ui开发效率，弥合设计与代码鸿沟。</li>
+                        </ul>
+                    </li>
+                    <li class="fragment fade-in">
+                        **编程语言亮点**：
+                        <ul>
+                            <li class="fragment fade-in">**Python**：AI、数据科学、自动化（教程、评估、爬虫）。</li>
+                            <li class="fragment fade-in">**TypeScript**：现代Web应用（CRM、财务、可视化）。</li>
+                            <li class="fragment fade-in">**Rust**：性能要求苛刻领域（Graphite爆发增长）。</li>
+                        </ul>
+                    </li>
+                    <li class="fragment fade-in">**新旧趋势对比**：更侧重“**如何更好地应用**”和“**如何更高效率地构建**”。</li>
+                    <li class="fragment fade-in">**未来展望**：更智能的AI Agent、设计-开发自动化、集成AI的开源SaaS、Rust基础设施。</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3><i class="fas fa-arrow-right-arrow-left"></i> 热门项目双日维度对比分析：活力与更新</h3>
+                <ul class="fragment fade-in">
+                    <li>**热度变化**：**7个新项目**入榜，**7个项目**保持上升，无明确下降趋势。
+                        <br><small class="text-gray-500">（榜单热度得到新项目补充，显示活力和更新换代）</small>
+                    </li>
+                    <li class="fragment fade-in">**新项目特点**：类型多样，涵盖AI工具、Web模板、媒体抓取、教育资源、实用工具等。
+                        <br><small class="text-gray-500">（反映开发者社区兴趣点的广阔）</small>
+                    </li>
+                    <li class="fragment fade-in">**编程语言分布**：Python和TypeScript仍重要，但CSS、Roff等非传统语言项目也获关注。
+                        <br><small class="text-gray-500">（暗示UI/前端及非传统开发类型项目崭露头角）</small>
+                    </li>
+                    <li class="fragment fade-in">**显著增长**：
+                        <ul>
+                            <li>**GraphiteEditor/Graphite**：<strong class="text-highlight-color">爆发式增长</strong>，最突出亮点。</li>
+                            <li>**微软生成式AI指南** & **Twenty CRM**：持续显著增长，确认AI教育和业务应用吸引力。</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="summary-table">
+                <h3><i class="fas fa-fire"></i> 热点变化一览</h3>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-plus-circle text-green-500"></i> 新增热点</h4>
+                    <ul>
+                        <li><span class="text-green-600 font-bold">The-Cool-Coders/Project-Ideas-And-Resources</span> (编程想法与资源)</li>
+                        <li><span class="text-green-600 font-bold">ColorlibHQ/AdminLTE</span> (免费管理后台模板)</li>
+                        <li><span class="text-green-600 font-bold">jnsahaj/tweakcn</span> (shadcn/ui主题编辑器)</li>
+                        <li><span class="text-green-600 font-bold">onlook-dev/onlook</span> (可视化React编辑器)</li>
+                        <li><span class="text-green-600 font-bold">NanmiCoder/mediacrawler</span> (媒体爬虫)</li>
+                        <li><span class="text-green-600 font-bold">confident-ai/deepeval</span> (LLM评估框架)</li>
+                        <li><span class="text-green-600 font-bold">TapXWorld/ChinaTextbook</span> (小初高大学PDF教材)</li>
+                    </ul>
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-minus-circle text-red-500"></i> 减退热点</h4>
+                    <small>midday-ai/midday, mendableai/firecrawl, stanford-oval/storm, 007revad/synology_hdd_db, aldinokemal/go-whatsapp-web-multidevice, nextcloud/all-in-one, paperless-ngx/paperless-ngx, coleam00/ottomator-agents, visgl/deck.gl</small>
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-sync-alt text-blue-500"></i> 持续热门</h4>
+                    <ul>
+                        <li><span class="text-blue-600 font-bold">microsoft/generative-ai-for-beginners</span> (4次上榜)</li>
+                        <li><span class="text-blue-600 font-bold">GraphiteEditor/Graphite</span> (4次上榜)</li>
+                        <li><span class="text-blue-600 font-bold">octra-labs/wallet-gen</span> (3次上榜)</li>
+                        <li><span class="text-blue-600 font-bold">twentyhq/twenty</span> (6次上榜) <strong class="text-red-500">(高频)</strong></li>
+                        <li><span class="text-blue-600 font-bold">swisskyrepo/PayloadsAllTheThings</span> (4次上榜)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 详细仓库数据 Section -->
+            <section class="section-title">
+                <h2><i class="fas fa-database"></i> 详细仓库数据</h2>
+            </section>
+
+            <!-- Project 1: microsoft/generative-ai-for-beginners -->
+            <section data-background-color="#f8f9fa">
+                <h3><i class="fab fa-microsoft"></i> microsoft/generative-ai-for-beginners</h3>
+                <p>21 课，动手构建生成式 AI 🔗<a href="https://microsoft.github.io/generative-ai-for-beginners/" target="_blank">microsoft.github.io/generative-ai-for-beginners/</a></p>
+                <table class="summary-table">
+                    <thead>
+                        <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Jupyter Notebook</td><td>87358</td><td>4次</td><td>18次</td><td>449</td></tr>
+                    </tbody>
+                </table>
+                <div class="metrics">
+                    <span class="metric-item"><i class="fas fa-star"></i> 87.4k</span>
+                    <span class="metric-item"><i class="fas fa-code-branch"></i> 45.8k</span>
+                    <span class="metric-item"><i class="fas fa-eye"></i> 769</span>
+                    <span class="metric-item"><i class="fas fa-bug"></i> 6</span>
+                    <span class="metric-item"><i class="fas fa-code-pull-request"></i> 10</span>
+                    <span class="metric-item"><i class="fas fa-box-open"></i> 0</span>
+                    <span class="metric-item"><i class="fas fa-clipboard-list"></i> 1,456</span>
+                    <span class="metric-item"><i class="fas fa-scroll"></i> MIT license</span>
+                    <span class="metric-item"><i class="fas fa-users"></i> 125</span>
+                </div>
+                <div class="language-breakdown">
+                    <strong>编程语言占比:</strong> 
+                    Jupyter Notebook 86.4%, Python 8.2%, JavaScript 2.8%, TypeScript 1.5%, Shell 0.3%, PowerShell 0.3%, Other 0.5%
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-book-open"></i> 项目速读</h4>
+                    <p>这是微软推出的一个针对生成式AI初学者的免费教程，共21节课程。它系统地讲解了生成式AI的核心概念，并指导学习者通过实际编码（支持Python和TypeScript）来构建相关应用。课程设计理论与实践相结合，通过调用大型语言模型API完成项目练习，并特别支持自动化多语言翻译，极大地降低了全球学习者的门槛。凭借其清晰的结构、丰富的实战案例和易于上手的特性，本项目是希望快速入门并掌握生成式AI开发技能的绝佳起点。</p>
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                    <p>该仓库在18次上榜期间累计增长11640 Star，平均每次上榜增长275.2 Star。考虑到上榜次数有限，每次上榜的增长效率显著。今日新增<strong class="text-accent-color">449 Star</strong>远高于平均，表明近期增长势头非常强劲且呈加速趋势。</p>
+                </div>
+            </section>
+
+            <!-- Project 2: GraphiteEditor/Graphite -->
+            <section data-background-color="#f8f9fa">
+                <h3><i class="fas fa-vector-square"></i> GraphiteEditor/Graphite</h3>
+                <p>2025年推出的开源图形编辑器：用于图形设计、数字艺术和交互式实时动态图形的全面二维内容创作工具——采用基于节点的程序化编辑</p>
+                <table class="summary-table">
+                    <thead>
+                        <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Rust</td><td>16880</td><td>4次</td><td>4次</td><td>1775</td></tr>
+                    </tbody>
+                </table>
+                <div class="metrics">
+                    <span class="metric-item"><i class="fas fa-star"></i> 16.9k</span>
+                    <span class="metric-item"><i class="fas fa-code-branch"></i> 734</span>
+                    <span class="metric-item"><i class="fas fa-eye"></i> 118</span>
+                    <span class="metric-item"><i class="fas fa-bug"></i> 276</span>
+                    <span class="metric-item"><i class="fas fa-code-pull-request"></i> 50</span>
+                    <span class="metric-item"><i class="fas fa-box-open"></i> 0</span>
+                    <span class="metric-item"><i class="fas fa-clipboard-list"></i> 2,060</span>
+                    <span class="metric-item"><i class="fas fa-scroll"></i> Apache-2.0 license</span>
+                    <span class="metric-item"><i class="fas fa-users"></i> 153</span>
+                </div>
+                <div class="language-breakdown">
+                    <strong>编程语言占比:</strong> 
+                    Rust 84.3%, Svelte 8.3%, TypeScript 4.8%, SCSS 1.0%, JavaScript 0.9%, HTML 0.4%, Other 0.3%
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-book-open"></i> 项目速读</h4>
+                    <p>Graphite 是一个雄心勃勃的开源 2D 图形编辑器项目，目标是打造面向未来的综合内容创作工具。其最突出的特点是采用了类似游戏引擎的架构，构建了一个强大的节点图核心，实现了独特的非破坏性节点式程序化编辑工作流。这种创新方法使得复杂的图形设计、数字艺术及实时动态图形创作变得异常灵活且富有生成性。项目使用 Rust 语言开发，目前已提供在线体验版本。对于寻求现代化、强大生成能力和高度灵活编辑环境的 2D 创作者来说，Graphite 提供了一个充满前景的新选择，代表了图形编辑领域的一种前沿探索。</p>
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                    <p>该仓库在统计周期内连续4次上榜，显示持续的高曝光。总星增长3280，平均每次高达871.5，增长强劲。特别是今天新增<strong class="text-highlight-color">1775星</strong>，远超平均，表明增长呈加速趋势。</p>
+                </div>
+            </section>
+
+            <!-- Project 3: confident-ai/deepeval -->
+            <section data-background-color="#f8f9fa">
+                <h3><i class="fas fa-brain"></i> confident-ai/deepeval</h3>
+                <p>大语言模型评估框架</p>
+                <table class="summary-table">
+                    <thead>
+                        <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Python</td><td>8665</td><td>1次</td><td>6次</td><td>117</td></tr>
+                    </tbody>
+                </table>
+                <div class="metrics">
+                    <span class="metric-item"><i class="fas fa-star"></i> 8.7k</span>
+                    <span class="metric-item"><i class="fas fa-code-branch"></i> 747</span>
+                    <span class="metric-item"><i class="fas fa-eye"></i> 37</span>
+                    <span class="metric-item"><i class="fas fa-bug"></i> 166</span>
+                    <span class="metric-item"><i class="fas fa-code-pull-request"></i> 19</span>
+                    <span class="metric-item"><i class="fas fa-box-open"></i> 50</span>
+                    <span class="metric-item"><i class="fas fa-clipboard-list"></i> 5,359</span>
+                    <span class="metric-item"><i class="fas fa-scroll"></i> Apache-2.0 license</span>
+                    <span class="metric-item"><i class="fas fa-users"></i> 161</span>
+                </div>
+                <div class="language-breakdown">
+                    <strong>编程语言占比:</strong> Python 100.0%
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-book-open"></i> 项目速读</h4>
+                    <p>DeepEval 是一个开源的 LLM 评估框架，它专注于解决开发大型语言模型（LLM）应用时，难以量化和验证模型输出质量的核心痛点。你可以将其理解为专为 LLM 输出量身定制的“单元测试”框架。这个框架提供了丰富的内置评估指标，能全面覆盖 RAG（检索增强生成）、多步 Agent 工作流、以及幻觉、偏见等安全问题，还能支持自定义指标，从而帮助开发者对 LLM 的回答、推理过程或整体应用性能进行精确的量化评估。它最大的优势在于灵活地支持使用各种底层 LLM 或本地模型来执行这些评估，提供了极高的适应性。DeepEval 提供了一套系统化的工具链，帮助开发者在本地或 CI/CD 环境中持续地测试和优化 LLM 应用。通过它，开发者能更有效地迭代提示词、选择更优的模型或调整架构，从而构建出更可靠、更安全、更高性能的聊天机器人、AI Agent 或其他基于 LLM 的系统。对于任何希望提升 LLM 应用质量并保障其稳定性的开发者而言，DeepEval 都是一个极具价值的利器。</p>
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                    <p>该仓库在统计周期内6次上榜，表现出较高的关注度，是星数快速增长的主要驱动力。平均每次上榜带来约165.8 Star增长，总计增长1370 Star，增长势头稳健。</p>
+                </div>
+            </section>
+
+            <!-- Project 4: octra-labs/wallet-gen -->
+            <section data-background-color="#f8f9fa">
+                <h3><i class="fas fa-wallet"></i> octra-labs/wallet-gen</h3>
+                <p>Web UI 生成钱包的工具</p>
+                <table class="summary-table">
+                    <thead>
+                        <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>HTML</td><td>431</td><td>3次</td><td>3次</td><td>76</td></tr>
+                    </tbody>
+                </table>
+                <div class="metrics">
+                    <span class="metric-item"><i class="fas fa-star"></i> 431</span>
+                    <span class="metric-item"><i class="fas fa-code-branch"></i> 8.4k</span>
+                    <span class="metric-item"><i class="fas fa-eye"></i> 7</span>
+                    <span class="metric-item"><i class="fas fa-bug"></i> 2</span>
+                    <span class="metric-item"><i class="fas fa-code-pull-request"></i> 9</span>
+                    <span class="metric-item"><i class="fas fa-box-open"></i> 7</span>
+                    <span class="metric-item"><i class="fas fa-clipboard-list"></i> 34</span>
+                    <span class="metric-item"><i class="fas fa-scroll"></i> 未知</span>
+                    <span class="metric-item"><i class="fas fa-users"></i> 2</span>
+                </div>
+                <div class="language-breakdown">
+                    <strong>编程语言占比:</strong> HTML 46.0%, TypeScript 39.9%, PowerShell 8.0%, Shell 6.1%
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-book-open"></i> 项目速读</h4>
+                    <p>这是一个通过网页界面（Web UI）生成钱包的工具。它最大的特点是非常易用，用户只需执行一个简单的命令，即可在 Linux、macOS 或 Windows 上快速完成下载、构建、启动服务器并打开 Web UI，通过浏览器即可轻松操作。项目自动处理了下载、构建和安装过程，大大降低了使用门槛。该项目极高的 Fork 数（8401）表明它可能被广泛用作钱包生成的基础或参考，具有不错的可定制性和借鉴价值。对于需要便捷、跨平台钱包生成方案的用户或开发者来说，这是一个值得关注的项目。</p>
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                    <p>该仓库在极短周期内（3天上榜3次）实现显著增长，总计新增191个Star。平均每次上榜增加87个Star，显示持续吸引力。虽然最近一次增长（76个）略低于平均，但频繁上榜预示着强劲的近期增长势头。</p>
+                </div>
+            </section>
+
+            <!-- Project 5: ColorlibHQ/AdminLTE -->
+            <section data-background-color="#f8f9fa">
+                <h3><i class="fas fa-desktop"></i> ColorlibHQ/AdminLTE</h3>
+                <p>AdminLTE - 基于 Bootstrap 5 的免费管理后台模板</p>
+                <table class="summary-table">
+                    <thead>
+                        <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>CSS</td><td>44697</td><td>1次</td><td>1次</td><td>13</td></tr>
+                    </tbody>
+                </table>
+                <div class="metrics">
+                    <span class="metric-item"><i class="fas fa-star"></i> 44.7k</span>
+                    <span class="metric-item"><i class="fas fa-code-branch"></i> 18.2k</span>
+                    <span class="metric-item"><i class="fas fa-eye"></i> 2k</span>
+                    <span class="metric-item"><i class="fas fa-bug"></i> 135</span>
+                    <span class="metric-item"><i class="fas fa-code-pull-request"></i> 24</span>
+                    <span class="metric-item"><i class="fas fa-box-open"></i> 77</span>
+                    <span class="metric-item"><i class="fas fa-clipboard-list"></i> 2,713</span>
+                    <span class="metric-item"><i class="fas fa-scroll"></i> MIT license</span>
+                    <span class="metric-item"><i class="fas fa-users"></i> 107</span>
+                </div>
+                <div class="language-breakdown">
+                    <strong>编程语言占比:</strong> CSS 53.7%, Astro 30.6%, SCSS 10.6%, TypeScript 3.2%, MDX 1.6%, JavaScript 0.3%
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-book-open"></i> 项目速读</h4>
+                    <p>AdminLTE 是一个广受欢迎的免费管理后台模板，基于强大的 Bootstrap 5 框架构建。它提供了一套完整、响应式的 UI 组件和布局，帮助开发者快速搭建美观易用的控制面板或后台系统。其核心优势在于高度的可定制性、优秀的响应式设计，以及最新的版本在部署路径处理上的优化，确保了开发和生产环境的一致性和稳定性。凭借成熟的 Bootstrap 5 技术栈、宽松的 MIT 许可证以及庞大的用户社区，AdminLTE 是构建各类应用后台界面的高效、可靠选择，尤其适合需要快速开发响应式管理界面的项目。</p>
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                    <p>该项目是新上榜项目，虽然当日新增 Star 数量相对较少（13），但作为一款成熟且流行的后台模板，其再次上榜表明了社区对其长期以来稳定性和实用性的认可，以及持续的新用户流入。</p>
+                </div>
+            </section>
+
+            <!-- Project 6: twentyhq/twenty -->
+            <section data-background-color="#f8f9fa">
+                <h3><i class="fas fa-users-gear"></i> twentyhq/twenty</h3>
+                <p>社区驱动，打造现代 Salesforce 替代方案。</p>
+                <table class="summary-table">
+                    <thead>
+                        <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>TypeScript</td><td>32482</td><td>6次</td><td>6次</td><td>457</td></tr>
+                    </tbody>
+                </table>
+                <div class="metrics">
+                    <span class="metric-item"><i class="fas fa-star"></i> 32.5k</span>
+                    <span class="metric-item"><i class="fas fa-code-branch"></i> 3.6k</span>
+                    <span class="metric-item"><i class="fas fa-eye"></i> 150</span>
+                    <span class="metric-item"><i class="fas fa-bug"></i> 208</span>
+                    <span class="metric-item"><i class="fas fa-code-pull-request"></i> 24</span>
+                    <span class="metric-item"><i class="fas fa-box-open"></i> 42</span>
+                    <span class="metric-item"><i class="fas fa-clipboard-list"></i> 7,089</span>
+                    <span class="metric-item"><i class="fas fa-scroll"></i> 未知</span>
+                    <span class="metric-item"><i class="fas fa-users"></i> 479</span>
+                </div>
+                <div class="language-breakdown">
+                    <strong>编程语言占比:</strong> TypeScript 98.5%, MDX 1.1%, JavaScript 0.2%, HCL 0.1%, Shell 0.1%, Dockerfile 0.0%
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-book-open"></i> 项目速读</h4>
+                    <p>Twenty 是一个备受瞩目的开源客户关系管理（CRM）系统，旨在提供 Salesforce 等传统解决方案的现代化替代。它直面了传统 CRM 高昂的许可费用、数据锁定以及用户体验落后等痛点，致力于为企业提供一个成本效益高、数据自主可控且用户体验友好的选择。Twenty 借鉴了 Notion 和 Airtable 等现代工具的设计理念，提供了灵活、直观的用户界面和高度可定制的能力。其核心优势在于允许用户自由定义数据模型、字段及视图（如看板和表格），以精确匹配不同的业务需求；同时具备精细的权限管理和强大的工作流自动化功能，提升团队协作效率。项目采用 TypeScript、React、PostgreSQL 等现代技术栈构建，保证了系统的性能和扩展性，并依托活跃的社区力量进行持续迭代。总而言之，Twenty 是一个功能强大、灵活且社区驱动的开源 CRM，特别适合希望摆脱传统厂商锁定、需要一个现代化、可根据自身业务流程深度定制的客户管理平台的企业和团队。</p>
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                    <p>该仓库在短短6天内上榜6次，增长势头迅猛。总计新增3856 Star，平均每次上榜带来660.2 Star增长。持续、高频的上榜表明仓库具有极高的热度和可见性，这是其实现快速Star增长的关键驱动力。</p>
+                </div>
+            </section>
+
+            <!-- Project 7: actualbudget/actual -->
+            <section data-background-color="#f8f9fa">
+                <h3><i class="fas fa-wallet"></i> actualbudget/actual</h3>
+                <p>本地优先的个人理财应用</p>
+                <table class="summary-table">
+                    <thead>
+                        <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>TypeScript</td><td>19742</td><td>2次</td><td>2次</td><td>252</td></tr>
+                    </tbody>
+                </table>
+                <div class="metrics">
+                    <span class="metric-item"><i class="fas fa-star"></i> 19.7k</span>
+                    <span class="metric-item"><i class="fas fa-code-branch"></i> 1.6k</span>
+                    <span class="metric-item"><i class="fas fa-eye"></i> 70</span>
+                    <span class="metric-item"><i class="fas fa-bug"></i> 140</span>
+                    <span class="metric-item"><i class="fas fa-code-pull-request"></i> 38</span>
+                    <span class="metric-item"><i class="fas fa-box-open"></i> 42</span>
+                    <span class="metric-item"><i class="fas fa-clipboard-list"></i> 3,033</span>
+                    <span class="metric-item"><i class="fas fa-scroll"></i> MIT license</span>
+                    <span class="metric-item"><i class="fas fa-users"></i> 334</span>
+                </div>
+                <div class="language-breakdown">
+                    <strong>编程语言占比:</strong> TypeScript 87.0%, JavaScript 12.5%, Shell 0.2%, Dockerfile 0.1%, PEG.js 0.1%, HTML 0.1%
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-book-open"></i> 项目速读</h4>
+                    <p>Actual Budget 是一个本地优先（local-first）的个人财务管理和预算应用，旨在帮助用户掌控支出、制定预算，尤其适合采用信封预算方法的用户。该项目最突出的特点在于其“本地优先”架构：用户数据首先保存在自己的设备上，同时支持跨设备同步。这种设计完美结合了数据隐私和控制权与多设备使用的便利性。作为一个 100% 免费、开源且社区驱动的工具，它基于 NodeJS 和 TypeScript 构建，提供桌面客户端等多种使用方式。凭借开源、强调隐私保护的核心优势和灵活的部署选项，Actual Budget 为寻求自主、可靠财务管理方案的用户提供了一个极具价值的选择。其高 Star 数和强劲的增长势头印证了其受欢迎度和实用性。</p>
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                    <p>仓库两天内两次上榜，Star增长迅猛，尤其日增252颗，增长势头非常强劲。</p>
+                </div>
+            </section>
+
+            <!-- Project 8: NanmiCoder/MediaCrawler -->
+            <section data-background-color="#f8f9fa">
+                <h3><i class="fas fa-robot"></i> NanmiCoder/MediaCrawler</h3>
+                <p>小红书笔记 | 评论爬虫、抖音视频 | 评论爬虫、快手视频 | 评论爬虫、B 站视频 ｜ 评论爬虫、微博帖子 ｜ 评论爬虫、百度贴吧帖子 ｜ 百度贴吧评论回复爬虫 | 知乎问答文章｜评论爬虫</p>
+                <table class="summary-table">
+                    <thead>
+                        <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Python</td><td>24167</td><td>1次</td><td>1次</td><td>204</td></tr>
+                    </tbody>
+                </table>
+                <div class="metrics">
+                    <span class="metric-item"><i class="fas fa-star"></i> 24.2k</span>
+                    <span class="metric-item"><i class="fas fa-code-branch"></i> 6.6k</span>
+                    <span class="metric-item"><i class="fas fa-eye"></i> 131</span>
+                    <span class="metric-item"><i class="fas fa-bug"></i> 71</span>
+                    <span class="metric-item"><i class="fas fa-code-pull-request"></i> 0</span>
+                    <span class="metric-item"><i class="fas fa-box-open"></i> 0</span>
+                    <span class="metric-item"><i class="fas fa-clipboard-list"></i> 497</span>
+                    <span class="metric-item"><i class="fas fa-scroll"></i> 未知</span>
+                    <span class="metric-item"><i class="fas fa-users"></i> 41</span>
+                </div>
+                <div class="language-breakdown">
+                    <strong>编程语言占比:</strong> Python 100.0%
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-book-open"></i> 项目速读</h4>
+                    <p>NanmiCoder/MediaCrawler 是一个功能强大且备受欢迎的开源数据采集工具，专注于从中国主流的社交媒体平台抓取公开信息，包括小红书、抖音、快手、B站、微博、百度贴吧和知乎。它能够采集这些平台上的帖子、视频、文章以及它们关联的评论和回复等内容。该项目最核心的技术优势在于，它巧妙地利用 Playwright 浏览器自动化框架，通过模拟用户真实行为、维护登录状态并结合简单的 JavaScript 代码来获取数据所需的签名参数。这种方式有效绕过了复杂的反爬机制，尤其是避免了对加密算法进行困难且不稳定的 JS 逆向工程，极大地降低了实现和维护多平台爬虫的技术难度。MediaCrawler 为研究人员和开发者提供了一个相对便捷的数据获取途径，支持多种抓取方式并将数据输出为易于处理的格式。其价值主要体现在为个人学习、技术研究或学术分析提供了实用的数据基础。然而，使用者务必注意项目明确的免责声明，它仅供学习研究使用，严禁用于任何商业或非法目的，使用风险需自行承担。</p>
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                    <p>该仓库作为本次新上榜项目，当日新增204 Star，显示出强劲的初始吸引力，有望成为持续热门。</p>
+                </div>
+            </section>
+
+            <!-- Project 9: swisskyrepo/PayloadsAllTheThings -->
+            <section data-background-color="#f8f9fa">
+                <h3><i class="fas fa-shield-alt"></i> swisskyrepo/PayloadsAllTheThings</h3>
+                <p>Web应用安全和渗透测试/CTF中常用的payload和绕过列表</p>
+                <table class="summary-table">
+                    <thead>
+                        <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Python</td><td>66872</td><td>4次</td><td>4次</td><td>221</td></tr>
+                    </tbody>
+                </table>
+                <div class="metrics">
+                    <span class="metric-item"><i class="fas fa-star"></i> 66.9k</span>
+                    <span class="metric-item"><i class="fas fa-code-branch"></i> 15.5k</span>
+                    <span class="metric-item"><i class="fas fa-eye"></i> 1.9k</span>
+                    <span class="metric-item"><i class="fas fa-bug"></i> 0</span>
+                    <span class="metric-item"><i class="fas fa-code-pull-request"></i> 9</span>
+                    <span class="metric-item"><i class="fas fa-box-open"></i> 4</span>
+                    <span class="metric-item"><i class="fas fa-clipboard-list"></i> 2,077</span>
+                    <span class="metric-item"><i class="fas fa-scroll"></i> MIT license</span>
+                    <span class="metric-item"><i class="fas fa-users"></i> 283</span>
+                </div>
+                <div class="language-breakdown">
+                    <strong>编程语言占比:</strong> Python 83.7%, Ruby 6.3%, ASP.NET 3.8%, XSLT 2.6%, Classic ASP 1.4%, PHP 1.3%, Other 0.9%
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-book-open"></i> 项目速读</h4>
+                    <p>Payloads All The Things 是一个专注于Web应用安全领域的高价值开源项目，它像一个包罗万象的“工具箱”，汇集了针对各种常见Web漏洞的大量实用攻击载荷（payloads）和绕过技巧。项目旨在解决安全研究人员、渗透测试工程师和CTF爱好者在实际测试过程中，需要花费大量时间收集、整理和验证不同payload的痛点。该项目的核心优势在于其内容的极致全面性和高度结构化。它将各种payloads按漏洞类型（如SQL注入、XSS、文件包含、SSRF等）清晰地组织成独立的Markdown文档，方便用户快速查找和参考。同时，项目还包含针对特定安全工具优化的文件，提高了实际应用效率。作为一个社区积极贡献的项目，其内容得以持续更新和丰富，确保了实用性和时效性。Payloads All The Things 不仅是进行Web渗透测试、漏洞赏金、安全研究的强大辅助资源，也是学习和掌握Web漏洞利用技巧的绝佳参考资料，极大地提高了安全测试的效率，是Web安全从业者不可多得的宝库。</p>
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                    <p>该仓库短期内4次上榜，总增长596星，日均超130星。今日新增221星，增长势头强劲且呈加速趋势。</p>
+                </div>
+            </section>
+
+            <!-- Project 10: TapXWorld/ChinaTextbook -->
+            <section data-background-color="#f8f9fa">
+                <h3><i class="fas fa-school"></i> TapXWorld/ChinaTextbook</h3>
+                <p>所有小初高、大学PDF教材。</p>
+                <table class="summary-table">
+                    <thead>
+                        <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Roff</td><td>42422</td><td>1次</td><td>7次</td><td>283</td></tr>
+                    </tbody>
+                </table>
+                <div class="metrics">
+                    <span class="metric-item"><i class="fas fa-star"></i> 42.4k</span>
+                    <span class="metric-item"><i class="fas fa-code-branch"></i> 9.5k</span>
+                    <span class="metric-item"><i class="fas fa-eye"></i> 395</span>
+                    <span class="metric-item"><i class="fas fa-bug"></i> 53</span>
+                    <span class="metric-item"><i class="fas fa-code-pull-request"></i> 8</span>
+                    <span class="metric-item"><i class="fas fa-box-open"></i> 0</span>
+                    <span class="metric-item"><i class="fas fa-clipboard-list"></i> 137</span>
+                    <span class="metric-item"><i class="fas fa-scroll"></i> 未知</span>
+                    <span class="metric-item"><i class="fas fa-users"></i> 2</span>
+                </div>
+                <div class="language-breakdown">
+                    <strong>编程语言占比:</strong> Roff 100.0%
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-book-open"></i> 项目速读</h4>
+                    <p>中国教材ChinaTextbook项目是一个大型的在线教育资源库，汇集了中国大陆地区从小学到高中的官方PDF教材，并包含部分大学教材。项目旨在解决教材获取难、成本高或被商业销售的问题，提供一个免费、便捷的渠道，打破优质教育资源的壁垒。其核心是通过GitHub平台托管这些教材的电子版。由于GitHub的文件大小限制，较大的PDF文件被分割存储，用户需要使用项目提供的工具进行合并才能得到完整教材。这个项目对于促进教育公平、方便学生和家长免费获取学习资料、以及帮助海外华人子女了解国内教育体系，具有显著的社会价值，其极高的受欢迎度也印证了这一需求。</p>
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                    <p>上榜7次带来显著增长，1.5月总增2.8万星，每次平均超2千，仓库吸引力强。</p>
+                </div>
+            </section>
+
+            <!-- Project 11: The-Cool-Coders/Project-Ideas-And-Resources -->
+            <section data-background-color="#f8f9fa">
+                <h3><i class="fas fa-lightbulb"></i> The-Cool-Coders/Project-Ideas-And-Resources</h3>
+                <p>提升编程技能的应用想法集合 ❤</p>
+                <table class="summary-table">
+                    <thead>
+                        <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td></td><td>6940</td><td>1次</td><td>1次</td><td>84</td></tr>
+                    </tbody>
+                </table>
+                <div class="metrics">
+                    <span class="metric-item"><i class="fas fa-star"></i> 6.9k</span>
+                    <span class="metric-item"><i class="fas fa-code-branch"></i> 613</span>
+                    <span class="metric-item"><i class="fas fa-eye"></i> 90</span>
+                    <span class="metric-item"><i class="fas fa-bug"></i> 14</span>
+                    <span class="metric-item"><i class="fas fa-code-pull-request"></i> 11</span>
+                    <span class="metric-item"><i class="fas fa-box-open"></i> 0</span>
+                    <span class="metric-item"><i class="fas fa-clipboard-list"></i> 108</span>
+                    <span class="metric-item"><i class="fas fa-scroll"></i> MIT license</span>
+                    <span class="metric-item"><i class="fas fa-users"></i> 5</span>
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-book-open"></i> 项目速读</h4>
+                    <p>Project Ideas and Resources 是一个 GitHub 仓库，旨在帮助开发者克服瓶颈，通过提供丰富的编程项目点子和相关资源来提升技能。仓库的核心优势在于其结构化的项目列表，根据初级到高级不同难度分级，每个项目点子都配有清晰的目标、用户故事及资源链接，覆盖 JavaScript、Python、React、区块链等多种技术。它为希望通过实践学习、构建作品集或尝试新技术的开发者提供了宝贵的灵感和指导，是一个易于查阅、实用性强的学习与实践资源库。</p>
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                    <p>该仓库作为新上榜项目，当日新增84 Star，表明其为开发者提供了有价值的学习和实践资源，获得了社区的初步认可。</p>
+                </div>
+            </section>
+
+            <!-- Project 12: onlook-dev/onlook -->
+            <section data-background-color="#f8f9fa">
+                <h3><i class="fas fa-eye"></i> onlook-dev/onlook</h3>
+                <p>面向设计师的 Cursor • 一个开源的可视化 Vibecoding 编辑器 • 利用 AI 可视化构建、样式设计和编辑你的 React 应用</p>
+                <table class="summary-table">
+                    <thead>
+                        <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>TypeScript</td><td>19676</td><td>1次</td><td>8次</td><td>99</td></tr>
+                    </tbody>
+                </table>
+                <div class="metrics">
+                    <span class="metric-item"><i class="fas fa-star"></i> 19.7k</span>
+                    <span class="metric-item"><i class="fas fa-code-branch"></i> 1.3k</span>
+                    <span class="metric-item"><i class="fas fa-eye"></i> 84</span>
+                    <span class="metric-item"><i class="fas fa-bug"></i> 229</span>
+                    <span class="metric-item"><i class="fas fa-code-pull-request"></i> 23</span>
+                    <span class="metric-item"><i class="fas fa-box-open"></i> 147</span>
+                    <span class="metric-item"><i class="fas fa-clipboard-list"></i> 1,234</span>
+                    <span class="metric-item"><i class="fas fa-scroll"></i> Apache-2.0 license</span>
+                    <span class="metric-item"><i class="fas fa-users"></i> 90</span>
+                </div>
+                <div class="language-breakdown">
+                    <strong>编程语言占比:</strong> TypeScript 99.2%, Other 0.8%
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-book-open"></i> 项目速读</h4>
+                    <p>Onlook，自称为“设计师的光标”，是一个开源的可视化代码编辑器，旨在彻底改变基于 React、特别是 Next.js 和 TailwindCSS 应用的构建方式。它核心解决了设计与代码脱节的问题，提供了一个直观的界面，让用户可以直接在可视化画布上像使用设计工具一样编辑应用，而背后的代码会实时同步更新。项目最显著的特点是其“可视化优先”的工作流，你无需深入命令行或纯代码界面，就能通过光标直接点选、修改页面元素，进行样式调整和布局构建。同时，集成 AI 能力进一步提升了开发效率，可以辅助生成或修改代码片段。Onlook 的价值在于为设计师和开发者搭建了一座桥梁，简化了现代 Web 应用的开发流程。它特别适用于需要快速原型迭代、设计与开发紧密协作，或者希望通过可视化方式降低前端门槛（尤其是样式调整）的场景。作为一个积极开发的开源项目，它为追求效率和协同的团队提供了一个强大且灵活的选择。</p>
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                    <p>该仓库在约一个月内上榜8次，每次上榜平均增加731.1 Star，总计增长9908。表明其在趋势榜上表现强劲，能持续吸引大量关注。但今日新增99，低于平均水平。</p>
+                </div>
+            </section>
+
+            <!-- Project 13: jnsahaj/tweakcn -->
+            <section data-background-color="#f8f9fa">
+                <h3><i class="fas fa-paint-brush"></i> jnsahaj/tweakcn</h3>
+                <p>用于 shadcn/ui 组件的视觉化无代码主题编辑器</p>
+                <table class="summary-table">
+                    <thead>
+                        <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>TypeScript</td><td>4828</td><td>1次</td><td>2次</td><td>352</td></tr>
+                    </tbody>
+                </table>
+                <div class="metrics">
+                    <span class="metric-item"><i class="fas fa-star"></i> 4.8k</span>
+                    <span class="metric-item"><i class="fas fa-code-branch"></i> 248</span>
+                    <span class="metric-item"><i class="fas fa-eye"></i> 11</span>
+                    <span class="metric-item"><i class="fas fa-bug"></i> 9</span>
+                    <span class="metric-item"><i class="fas fa-code-pull-request"></i> 8</span>
+                    <span class="metric-item"><i class="fas fa-box-open"></i> 0</span>
+                    <span class="metric-item"><i class="fas fa-clipboard-list"></i> 621</span>
+                    <span class="metric-item"><i class="fas fa-scroll"></i> Apache-2.0 license</span>
+                    <span class="metric-item"><i class="fas fa-users"></i> 21</span>
+                </div>
+                <div class="language-breakdown">
+                    <strong>编程语言占比:</strong> TypeScript 99.4%, Other 0.6%
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-book-open"></i> 项目速读</h4>
+                    <p>tweakcn 是一个为 shadcn/ui 组件量身打造的可视化主题编辑器。它旨在解决使用 shadcn/ui 容易导致界面风格同质化的问题，通过提供直观的无代码编辑界面，让开发者能够轻松、快速地定制组件外观和主题。项目集成了强大的自定义选项和精美预设，极大简化了主题美化过程，帮助用户摆脱千篇一律，打造更具个性和独特性的用户界面。对于希望高效定制 shadcn/ui 组件风格的开发者来说，tweakcn 是一个极具价值的效率工具。</p>
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                    <p>基于上榜2次，仓库增长强劲。总星增485，今日352，显示持续关注及加速增长。</p>
+                </div>
+            </section>
+
+            <!-- Project 14: snailyp/gemini-balance -->
+            <section data-background-color="#f8f9fa">
+                <h3><i class="fas fa-infinity"></i> snailyp/gemini-balance</h3>
+                <p>Gemini 轮询代理服务</p>
+                <table class="summary-table">
+                    <thead>
+                        <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Python</td><td>2067</td><td>2次</td><td>2次</td><td>162</td></tr>
+                    </tbody>
+                </table>
+                <div class="metrics">
+                    <span class="metric-item"><i class="fas fa-star"></i> 2.1k</span>
+                    <span class="metric-item"><i class="fas fa-code-branch"></i> 356</span>
+                    <span class="metric-item"><i class="fas fa-eye"></i> 9</span>
+                    <span class="metric-item"><i class="fas fa-bug"></i> 32</span>
+                    <span class="metric-item"><i class="fas fa-code-pull-request"></i> 1</span>
+                    <span class="metric-item"><i class="fas fa-box-open"></i> 57</span>
+                    <span class="metric-item"><i class="fas fa-clipboard-list"></i> 283</span>
+                    <span class="metric-item"><i class="fas fa-scroll"></i> 未知</span>
+                    <span class="metric-item"><i class="fas fa-users"></i> 16</span>
+                </div>
+                <div class="language-breakdown">
+                    <strong>编程语言占比:</strong> Python 43.4%, HTML 30.8%, JavaScript 25.7%, Dockerfile 0.1%
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-book-open"></i> 项目速读</h4>
+                    <p>Gemini Balance 是一个基于 Python FastAPI 开发的 Gemini API 代理服务。它旨在帮助用户有效地管理和使用多个 Google Gemini API Key，通过智能的负载均衡、密钥轮换和故障切换，显著提升 API 的可用性和稳定性。项目提供了便捷的可视化配置界面，支持实时监控密钥状态和请求日志。其重要亮点在于高度兼容 OpenAI API 的部分接口格式（如对话、嵌入），使得原本对接 OpenAI 的应用可以方便地切换到 Gemini。它还支持多种代理设置、流式响应优化和 Docker 快速部署。这对于需要大量调用 Gemini API 的个人开发者或非商业项目而言，提供了一个强大的工具来降低成本、提高效率。需要注意的是，项目采用 CC BY-NC 4.0 许可证，仅限非商业用途。</p>
+                </div>
+                <div class="fragment fade-in">
+                    <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                    <p>该仓库在短周期内（实际上榜2次）获得持续曝光。平均每次上榜新增近百Star，特别是今日增长162 Star，远超平均值。这表明仓库增长势头强劲，近期表现突出。</p>
+                </div>
+            </section>
+
+            <!-- End Slide -->
+            <section class="end-slide">
+                <h2><i class="fas fa-heart"></i> 感谢观看！</h2>
+                <p>探索更多技术趋势，掌握未来脉搏</p>
+                <div class="cta-text">
+                    期待您的关注与Star！
+                </div>
+                <div class="project-footer">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        <i class="fab fa-github fa-2x"></i>
+                        <span>github.com/aichipera/github-trend</span>
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra WeChat QR Code">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        // Adjust the path to reveal.js plugins if necessary
+        // For local development, you might need to load them from a local folder or change CDN URLs
+        // Currently, no specific plugins like Markdown or Highlight are explicitly used in the HTML directly,
+        // but it's good practice to list them if they might be enabled for future content.
+        // For this specific content, only Reveal core and basic fragments are used.
+        // Remove plugins that are not actually being used to avoid unnecessary network requests.
+
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            hash: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            transitionSpeed: 'fast', // default/fast/slow
+            
+            // Plugins not strictly needed for this direct HTML, but left as reference if content changes
+            // plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom, RevealMath ],
+
+            // Mermaid Configuration (if using mermaid diagrams)
+            mermaid: {
+                theme: 'dark' // or 'forest', 'default', 'neutral'
+            }
+        });
+    </script>
+</body>
+</html>
