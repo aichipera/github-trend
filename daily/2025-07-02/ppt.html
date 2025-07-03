@@ -1,0 +1,744 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub最新趋势深度解析：重塑开发工作流</title>
+
+    <!-- Core Reveal.js Framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- Font-Awesome for Icons -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Tailwind CSS (for quick utilities and spacing) -->
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <!-- Google Fonts for Chinese characters and serif/sans-serif differentiation -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --r-main-font-size: 36px;
+            --r-main-color: #333;
+            --r-heading-color: #1a202c; /* Darker for headings */
+            --r-link-color: #4299e1; /* Tailwind blue-500 */
+            --r-link-color-hover: #2b6cb0; /* Tailwind blue-700 */
+        }
+
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback",
+                          "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--r-main-color);
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--r-heading-color);
+            margin-bottom: 0.5em; /* Adjust margin for better spacing */
+            text-shadow: none; /* Remove default text shadow for cleaner look */
+        }
+
+        .reveal h1 { font-size: 3rem; } /* ~48px */
+        .reveal h2 { font-size: 2.5rem; } /* ~40px */
+        .reveal h3 { font-size: 2rem; } /* ~32px */
+        .reveal p,
+        .reveal li { font-size: 1.1rem; line-height: 1.6; } /* ~17.6px */
+        .reveal small { font-size: 0.8rem; }
+
+        .reveal .slides section {
+            padding: 40px;
+            text-align: left;
+        }
+
+        .reveal .slides section.center {
+            text-align: center;
+        }
+
+        .reveal .slides section.cover {
+            background: linear-gradient(135deg, #a7b7eb, #e4a7eb); /* Subtle gradient for cover */
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .reveal .slides section.cover h1 {
+            font-size: 3.8rem;
+            color: #fff;
+            margin-bottom: 0.5em;
+            text-align: center;
+        }
+
+        .reveal .slides section.cover h2 {
+            font-size: 1.8rem;
+            color: #fff;
+            text-align: center;
+        }
+
+        .reveal .slides section .qrcode-link-container {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .reveal .slides section.cover .qrcode-link-container {
+            color: #eee;
+        }
+
+        .reveal .slides section .qrcode-link-container a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .reveal .slides section .qrcode-link-container img {
+            width: 80px;
+            height: 80px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .reveal table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5em;
+        }
+
+        .reveal table th,
+        .reveal table td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+            font-size: 0.9em;
+        }
+
+        .reveal table th {
+            background-color: #f2f2f2;
+            font-weight: 600;
+        }
+
+        .reveal table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .reveal .r-stack {
+            text-align: left;
+        }
+
+        .reveal .project-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 1em;
+            font-size: 0.9em;
+        }
+
+        .reveal .project-stats div {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .reveal .project-stats i {
+            color: var(--r-link-color);
+        }
+
+        .reveal .language-distribution {
+            margin-top: 1em;
+            font-size: 0.9em;
+        }
+
+        .reveal .language-distribution span {
+            display: inline-block;
+            margin-right: 15px;
+            background-color: #e0e7ff; /* light blue background for tags */
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: #4338ca; /* darker blue text */
+        }
+
+        .reveal ul {
+            list-style-type: none; /* Remove default bullet */
+            padding-left: 0;
+        }
+
+        .reveal ul li {
+            position: relative;
+            padding-left: 1.5em;
+            margin-bottom: 0.5em;
+        }
+
+        .reveal ul li::before {
+            content: "\f00c"; /* FontAwesome checkmark */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: #4299e1; /* Blue checkmark */
+        }
+
+        .reveal .fragment.fade-in {
+            opacity: 0;
+        }
+        .reveal .fragment.fade-in.visible {
+            opacity: 1;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .reveal .aha-spark {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #e53e3e; /* Red accent */
+            text-shadow: 0 0 5px rgba(229, 62, 62, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover Page -->
+            <section class="cover center">
+                <h1 class="font-serif">GitHub最新趋势深度解析：<br>这些项目正重塑开发工作流！</h1>
+                <h2 class="font-sans mb-4">码住！分享给你的技术好友！</h2>
+                <p class="text-white text-lg mt-4 opacity-80">Github热门仓库<span class="font-bold">日报</span>观测时间为 2025-07-02 20:26:47</p>
+                <p class="text-white text-sm mt-2 opacity-70"><strong>以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</strong></p>
+                <p class="text-white text-md mt-4 opacity-90">PPT: <a href="https://aichipera.github.io/github-trend/daily/2025-07-02/ppt.html" class="text-white underline">https://aichipera.github.io/github-trend/daily/2025-07-02/ppt.html</a></p>
+                <p class="text-white text-sm mt-8 opacity-60">演讲者：AIChipEra</p>
+
+                <div class="qrcode-link-container">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-white hover:underline">
+                        <i class="fab fa-github mr-1"></i> 项目链接
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+            <!-- Slide 2: 日报要点 (Daily Highlights) -->
+            <section>
+                <h2 class="font-serif">今日日报要点：趋势与洞察</h2>
+                <div class="mt-8 text-gray-700">
+                    <p class="mb-4 text-xl">
+                        本期GitHub趋势揭示，开发者关注焦点正从基础理论转向<span class="aha-spark">实用工具与高效集成</span>。
+                        大量项目旨在将前沿技术融入日常开发，显著提升效率。
+                    </p>
+                    <ul class="list-none pl-0">
+                        <li class="fragment fade-in"><i class="fas fa-microchip mr-2 text-blue-500"></i> 从智能编程助手到系统管理，再到便捷的学习资源，无一不体现<span class="font-semibold text-purple-600">技术下沉与普惠</span>。</li>
+                        <li class="fragment fade-in"><i class="fas fa-code mr-2 text-green-500"></i> Python、JavaScript依然是主力，同时涌现了<span class="font-semibold text-yellow-600">性能优异的基础组件</span>。</li>
+                        <li class="fragment fade-in"><i class="fas fa-graduation-cap mr-2 text-red-500"></i> 尤其值得关注的是，面向<span class="font-semibold text-blue-600">初学者的实用技术课程热度飙升</span>，显示社区渴望快速掌握并应用新技术。</li>
+                    </ul>
+                    <p class="mt-6 text-lg">
+                        这些项目不仅是代码，更是提升技能、解决实际问题的利器，预示着更智能、更高效的开发时代正在加速到来。
+                    </p>
+                </div>
+            </section>
+
+            <!-- Slide 3: 热门项目趋势分析 - 今日整体趋势 -->
+            <section>
+                <h2 class="font-serif">热门项目趋势分析：今日整体洞察</h2>
+                <h3 class="font-serif text-2xl mt-6 mb-4">AI技术深度渗透与应用</h3>
+                <ul class="list-none pl-0 text-lg">
+                    <li class="fragment fade-in"><i class="fas fa-lightbulb mr-2 text-yellow-500"></i> AI占据核心：微软AI入门课、GitHub Copilot结对编程、AI驱动搜索、AI提示框架等。</li>
+                    <li class="fragment fade-in"><i class="fas fa-globe mr-2 text-purple-500"></i> 编程语言：Python和JavaScript/TypeScript依然是绝对主力，Rust/Go在特定领域发力。</li>
+                    <li class="fragment fade-in"><i class="fas fa-tools mr-2 text-red-500"></i> 技术需求：AI能力集成、降低技术门槛、高质量学习资源、解决特定领域痛点。</li>
+                </ul>
+                <h3 class="font-serif text-2xl mt-8 mb-4 fragment fade-in">显著特点：从"研究"到"应用"的重心转移</h3>
+                <ul class="list-none pl-0 text-lg">
+                    <li class="fragment fade-in"><i class="fas fa-chart-line mr-2 text-green-500"></i> AI相关项目更聚焦于<span class="font-semibold text-teal-600">如何实际使用AI</span>，将其作为工具融入开发。</li>
+                    <li class="fragment fade-in"><i class="fas fa-book-open mr-2 text-blue-500"></i> 高度的<span class="font-semibold text-orange-600">实用性和教育导向</span>：大量项目同时也是学习平台，推动技术民主化。</li>
+                </ul>
+            </section>
+
+            <!-- Slide 4: 热门项目双日维度对比分析 -->
+            <section>
+                <h2 class="font-serif">热门项目对比分析：动态变化</h2>
+                <h3 class="font-serif text-2xl mt-6 mb-4">整体活跃度</h3>
+                <ul class="list-none pl-0 text-lg">
+                    <li class="fragment fade-in"><i class="fas fa-arrow-up mr-2 text-green-500"></i> 列表整体处于<span class="font-semibold text-green-700">活跃上升状态</span>。</li>
+                    <li class="fragment fade-in"><i class="fas fa-plus-circle mr-2 text-blue-500"></i> 新上榜项目：9个。</li>
+                    <li class="fragment fade-in"><i class="fas fa-fire mr-2 text-red-500"></i> 热度显著攀升项目：7个。</li>
+                </ul>
+                <h3 class="font-serif text-2xl mt-8 mb-4 fragment fade-in">语言分布变动</h3>
+                <ul class="list-none pl-0 text-lg">
+                    <li class="fragment fade-in"><i class="fas fa-code mr-2 text-purple-500"></i> JavaScript净增3个项目，表现突出。</li>
+                    <li class="fragment fade-in"><i class="fas fa-cogs mr-2 text-gray-500"></i> Python、C、Go 也有增加，显示热点转向后端、基础架构。</li>
+                </ul>
+                <h3 class="font-serif text-2xl mt-8 mb-4 fragment fade-in">显著变化：生成式AI学习需求飙升</h3>
+                <p class="text-lg fragment fade-in">
+                    <i class="fas fa-chart-line mr-2 text-yellow-500"></i> <strong>`microsoft/generative-ai-for-beginners`</strong> 热度激增，社区对AI学习的强烈渴望。
+                </p>
+            </section>
+
+            <!-- Slide 5: 热点变化 (Hotspot Changes) -->
+            <section>
+                <h2 class="font-serif">近期热点项目变化</h2>
+                <h3 class="font-serif text-2xl mt-6 mb-4 fragment fade-in">新增热点 <i class="fas fa-plus text-green-500 ml-2"></i></h3>
+                <ul class="list-none pl-0 text-lg fragment fade-in">
+                    <li><i class="fas fa-circle-notch mr-2 text-gray-400"></i> openssl/openssl</li>
+                    <li><i class="fas fa-circle-notch mr-2 text-gray-400"></i> danielmiessler/fabric</li>
+                    <li><i class="fas fa-circle-notch mr-2 text-gray-400"></i> zaidmukaddam/scira</li>
+                    <li><i class="fas fa-circle-notch mr-2 text-gray-400"></i> binwiederhier/ntfy</li>
+                    <li><i class="fas fa-circle-notch mr-2 text-gray-400"></i> paddlepaddle/ernie</li>
+                    <li><i class="fas fa-circle-notch mr-2 text-gray-400"></i> microsoft/mastering-github-copilot-for-paired-programming</li>
+                    <li><i class="fas fa-circle-notch mr-2 text-gray-400"></i> nginxproxymanager/nginx-proxy-manager</li>
+                    <li><i class="fas fa-circle-notch mr-2 text-gray-400"></i> tadata-org/fastapi_mcp</li>
+                    <li><i class="fas fa-circle-notch mr-2 text-gray-400"></i> mrdoob/three.js</li>
+                </ul>
+
+                <h3 class="font-serif text-2xl mt-8 mb-4 fragment fade-in">减退热点 <i class="fas fa-minus text-red-500 ml-2"></i></h3>
+                <ul class="list-none pl-0 text-lg fragment fade-in">
+                    <li><i class="fas fa-circle-notch mr-2 text-gray-400"></i> actualbudget/actual, octra-labs/wallet-gen, confident-ai/deepeval, jnsahaj/tweakcn, colorlibhq/adminlte, swisskyrepo/payloadsallthethings, twentyhq/twenty</li>
+                </ul>
+
+                <h3 class="font-serif text-2xl mt-8 mb-4 fragment fade-in">持续热门 <i class="fas fa-sync-alt text-blue-500 ml-2"></i></h3>
+                <ul class="list-none pl-0 text-lg fragment fade-in">
+                    <li><i class="fas fa-circle-notch mr-2 text-gray-400"></i> microsoft/generative-ai-for-beginners (5次)</li>
+                    <li><i class="fas fa-circle-notch mr-2 text-gray-400"></i> GraphiteEditor/Graphite (5次)</li>
+                    <li><i class="fas fa-circle-notch mr-2 text-gray-400"></i> snailyp/gemini-balance (3次)</li>
+                </ul>
+            </section>
+
+            <!-- Detailed Repository Data (Vertical Slides) -->
+            <section>
+                <section>
+                    <h2 class="font-serif">详细仓库数据：深入项目</h2>
+                    <p class="text-xl mt-4">以下是对今日热门GitHub项目的详细解读，探索它们为何备受关注。</p>
+                    <div class="mt-8">
+                        <i class="fas fa-arrow-down fa-2x text-gray-500 animate-bounce"></i>
+                        <p class="text-lg mt-2 text-gray-600">下滑查看每个项目的深度解析...</p>
+                    </div>
+                </section>
+
+                <!-- Project: microsoft/generative-ai-for-beginners -->
+                <section>
+                    <h3 class="font-serif text-3xl">microsoft/generative-ai-for-beginners</h3>
+                    <p class="text-gray-600 italic">21 讲：生成式 AI 构建入门 🔗<a href="https://microsoft.github.io/generative-ai-for-beginners/" target="_blank" class="text-blue-500 hover:underline">microsoft.github.io/generative-ai-for-beginners/</a></p>
+
+                    <table class="mt-6">
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Jupyter Notebook</td>
+                                <td>89188</td>
+                                <td>5次</td>
+                                <td>19次</td>
+                                <td>1880</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="project-stats">
+                        <div><i class="fas fa-star"></i> 89.2k</div>
+                        <div><i class="fas fa-code-branch"></i> 46.1k</div>
+                        <div><i class="fas fa-eye"></i> 782</div>
+                        <div><i class="fas fa-exclamation-circle"></i> 6</div>
+                        <div><i class="fas fa-code-fork"></i> 13</div>
+                        <div><i class="fas fa-box-open"></i> 0</div>
+                        <div><i class="fas fa-file-alt"></i> 1,456</div>
+                        <div><i class="fas fa-file-contract"></i> MIT license</div>
+                        <div><i class="fas fa-users"></i> 125</div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <span class="bg-purple-200 text-purple-800">Jupyter Notebook 86.4%</span>
+                        <span class="bg-blue-200 text-blue-800">Python 8.2%</span>
+                        <span class="bg-yellow-200 text-yellow-800">JavaScript 2.8%</span>
+                    </div>
+
+                    <h4 class="font-serif text-xl mt-6">项目速读：</h4>
+                    <p class="text-gray-800 text-base">
+                        微软开源的“生成式AI入门”课程，21节系统学习资源，专为技术初学者设计。通过理论与Python/TypeScript代码实践，教授如何利用现有AI服务构建应用。核心价值是提供清晰、动手的学习路径，将复杂AI概念转化为可操作的应用开发技能。
+                    </p>
+                    <h4 class="font-serif text-xl mt-4">增长分析：</h4>
+                    <p class="text-gray-800 text-base">总增13470 Star，上榜19次，平均增359.6。今日激增1880，近期势头强劲。</p>
+                </section>
+
+                <!-- Project: NanmiCoder/MediaCrawler -->
+                <section>
+                    <h3 class="font-serif text-3xl">NanmiCoder/MediaCrawler</h3>
+                    <p class="text-gray-600 italic">{'小红书笔记 | 评论爬虫、抖音视频 | 评论爬虫、快手视频 | 评论爬虫、B 站视频 ｜ 评论爬虫、微博帖子 ｜ 评论爬虫、百度贴吧帖子 ｜ 百度贴吧评论回复爬虫 | 知乎问答文章｜评论爬虫'}</p>
+
+                    <table class="mt-6">
+                        <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                        <tbody><tr><td>Python</td><td>24731</td><td>2次</td><td>2次</td><td>570</td></tr></tbody>
+                    </table>
+                    <div class="project-stats">
+                        <div><i class="fas fa-star"></i> 24.7k</div><div><i class="fas fa-code-branch"></i> 6.7k</div><div><i class="fas fa-eye"></i> 135</div><div><i class="fas fa-exclamation-circle"></i> 70</div><div><i class="fas fa-code-fork"></i> 0</div><div><i class="fas fa-box-open"></i> 0</div><div><i class="fas fa-file-alt"></i> 498</div><div><i class="fas fa-file-contract"></i> 未知</div><div><i class="fas fa-users"></i> 41</div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <span class="bg-blue-200 text-blue-800">Python 100.0%</span>
+                    </div>
+                    <h4 class="font-serif text-xl mt-6">项目速读：</h4>
+                    <p class="text-gray-800 text-base">MediaCrawler是一款基于Python的跨平台自媒体爬虫利器，能高效抓取小红书、抖音、B站、微博、知乎等主流平台的内容和评论。利用Playwright自动化浏览器，巧妙绕过JS逆向和登录，降低技术门槛。仅供学习研究，严禁商业或非法用途。</p>
+                    <h4 class="font-serif text-xl mt-4">增长分析：</h4>
+                    <p class="text-gray-800 text-base">该仓库在短短两天内两次上榜，增长势头非常强劲且持续。特别是最新一天新增了570个Star，表明近期增长速度显著，发展态势良好。</p>
+                </section>
+
+                <!-- Project: zaidmukaddam/scira -->
+                <section>
+                    <h3 class="font-serif text-3xl">zaidmukaddam/scira</h3>
+                    <p class="text-gray-600 italic">Scira（前称 MiniPerplx）是一个极简风格的 AI 驱动搜索弓|擎，帮助你在互联网上查找信息并提供引用来源。由 Vercel AI SDK 提供技术支持！可使用 xAI 的 Grok 3 等模型进行搜索。</p>
+
+                    <table class="mt-6">
+                        <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                        <tbody><tr><td>TypeScript</td><td>8790</td><td>1次</td><td>1次</td><td>226</td></tr></tbody>
+                    </table>
+                    <div class="project-stats">
+                        <div><i class="fas fa-star"></i> 8.8k</div><div><i class="fas fa-code-branch"></i> 1.1k</div><div><i class="fas fa-eye"></i> 55</div><div><i class="fas fa-exclamation-circle"></i> 13</div><div><i class="fas fa-code-fork"></i> 4</div><div><i class="fas fa-box-open"></i> 0</div><div><i class="fas fa-file-alt"></i> 470</div><div><i class="fas fa-file-contract"></i> Apache-2.0 license</div><div><i class="fas fa-users"></i> 19</div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <span class="bg-teal-200 text-teal-800">TypeScript 99.1%</span>
+                    </div>
+                    <h4 class="font-serif text-xl mt-6">项目速读：</h4>
+                    <p class="text-gray-800 text-base">Scira是极简AI驱动搜索引擎，通过Vercel AI SDK调用Grok、Claude等模型，整合网页、学术、金融、地图等多元信息源，自动生成带引用来源的综合搜索结果。解决了传统搜索信息零散、缺乏整合和来源引用的痛点，是高效、跨领域且重视可靠性的智能搜索工具。</p>
+                </section>
+
+                <!-- Project: microsoft/Mastering-GitHub-Copilot-for-Paired-Programming -->
+                <section>
+                    <h3 class="font-serif text-3xl">microsoft/Mastering-GitHub-Copilot-for-Paired-Programming</h3>
+                    <p class="text-gray-600 italic">一个多模块课程，全面讲授如何将 GitHub Copilot 用作 AI 结对编程资源。</p>
+
+                    <table class="mt-6">
+                        <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                        <tbody><tr><td>Python</td><td>6088</td><td>1次</td><td>1次</td><td>114</td></tr></tbody>
+                    </table>
+                    <div class="project-stats">
+                        <div><i class="fas fa-star"></i> 6.1k</div><div><i class="fas fa-code-branch"></i> 1.2k</div><div><i class="fas fa-eye"></i> 73</div><div><i class="fas fa-exclamation-circle"></i> 1</div><div><i class="fas fa-code-fork"></i> 6</div><div><i class="fas fa-box-open"></i> 0</div><div><i class="fas fa-file-alt"></i> 269</div><div><i class="fas fa-file-contract"></i> MIT license</div><div><i class="fas fa-users"></i> 9</div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <span class="bg-blue-200 text-blue-800">Python 100.0%</span>
+                    </div>
+                    <h4 class="font-serif text-xl mt-6">项目速读：</h4>
+                    <p class="text-gray-800 text-base">微软出品的“Mastering GitHub Copilot”深度培训课程，系统教会开发者如何将Copilot作为智能AI结对编程伙伴高效使用。课程聚焦利用Copilot的AI能力，通过自然语言提示词完成代码规划、生成、测试到迭代。强调Agent Mode，提升编程效率和代码质量。需Copilot订阅，适合希望深入挖掘AI潜力的开发者。</p>
+                </section>
+
+                <!-- Project: binwiederhier/ntfy -->
+                <section>
+                    <h3 class="font-serif text-3xl">binwiederhier/ntfy</h3>
+                    <p class="text-gray-600 italic">通过 PUT/POST 向您的手机或桌面发送推送通知</p>
+
+                    <table class="mt-6">
+                        <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                        <tbody><tr><td>Go</td><td>24167</td><td>1次</td><td>1次</td><td>254</td></tr></tbody>
+                    </table>
+                    <div class="project-stats">
+                        <div><i class="fas fa-star"></i> 24.2k</div><div><i class="fas fa-code-branch"></i> 951</div><div><i class="fas fa-eye"></i> 97</div><div><i class="fas fa-exclamation-circle"></i> 350</div><div><i class="fas fa-code-fork"></i> 17</div><div><i class="fas fa-box-open"></i> 89</div><div><i class="fas fa-file-alt"></i> 2,970</div><div><i class="fas fa-file-contract"></i> Apache-2.0 license</div><div><i class="fas fa-users"></i> 265</div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <span class="bg-cyan-200 text-cyan-800">Go 63.0%</span>
+                        <span class="bg-yellow-200 text-yellow-800">JavaScript 35.8%</span>
+                    </div>
+                    <h4 class="font-serif text-xl mt-6">项目速读：</h4>
+                    <p class="text-gray-800 text-base">ntfy 是一个简洁高效的基于 HTTP 的发布/订阅通知服务，能通过简单的 HTTP 请求从任何脚本、服务器或自动化任务向手机/桌面发送推送通知。优势在于无需注册、易集成、开源且支持自托管。解决了从自动化系统获取提醒的痛点，是接收脚本运行状态、系统报警等各类通知的便捷、免费、可靠工具。</p>
+                </section>
+
+                <!-- Project: GraphiteEditor/Graphite -->
+                <section>
+                    <h3 class="font-serif text-3xl">GraphiteEditor/Graphite</h3>
+                    <p class="text-gray-600 italic">针对 2025 年的开源图形编辑器：用于图形设计、数字艺术和交互式实时动态图形的全面 2D 内容创作工具套件 — 支持基于节点的程序化编辑</p>
+
+                    <table class="mt-6">
+                        <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                        <tbody><tr><td>Rust</td><td>17546</td><td>5次</td><td>5次</td><td>686</td></tr></tbody>
+                    </table>
+                    <div class="project-stats">
+                        <div><i class="fas fa-star"></i> 17.5k</div><div><i class="fas fa-code-branch"></i> 762</div><div><i class="fas fa-eye"></i> 120</div><div><i class="fas fa-exclamation-circle"></i> 277</div><div><i class="fas fa-code-fork"></i> 49</div><div><i class="fas fa-box-open"></i> 0</div><div><i class="fas fa-file-alt"></i> 2,066</div><div><i class="fas fa-file-contract"></i> Apache-2.0 license</div><div><i class="fas fa-users"></i> 153</div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <span class="bg-red-200 text-red-800">Rust 84.3%</span>
+                        <span class="bg-purple-200 text-purple-800">Svelte 8.3%</span>
+                        <span class="bg-teal-200 text-teal-800">TypeScript 4.8%</span>
+                    </div>
+                    <h4 class="font-serif text-xl mt-6">项目速读：</h4>
+                    <p class="text-gray-800 text-base">Graphite是一个面向未来的开源二维图形编辑器，正在发展为涵盖平面设计、数字艺术和实时动态图形的创作套件。核心在于无损工作流，结合图层合成和强大的基于节点的生成式编辑，底层为灵活的节点图，编辑更自由强大。采用Rust开发，旨在成为下一代创意工具，带来现代化、高效创作体验。</p>
+                    <h4 class="font-serif text-xl mt-4">增长分析：</h4>
+                    <p class="text-gray-800 text-base">该仓库连续5天上榜，总增星3946颗，日均增长超800，增长强劲且稳定。</p>
+                </section>
+
+                <!-- Project: The-Cool-Coders/Project-Ideas-And-Resources -->
+                <section>
+                    <h3 class="font-serif text-3xl">The-Cool-Coders/Project-Ideas-And-Resources</h3>
+                    <p class="text-gray-600 italic">提升编程技能的应用创意合集 ❤</p>
+
+                    <table class="mt-6">
+                        <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                        <tbody><tr><td></td><td>7476</td><td>2次</td><td>2次</td><td>547</td></tr></tbody>
+                    </table>
+                    <div class="project-stats">
+                        <div><i class="fas fa-star"></i> 7.5k</div><div><i class="fas fa-code-branch"></i> 638</div><div><i class="fas fa-eye"></i> 96</div><div><i class="fas fa-exclamation-circle"></i> 15</div><div><i class="fas fa-code-fork"></i> 11</div><div><i class="fas fa-box-open"></i> 0</div><div><i class="fas fa-file-alt"></i> 108</div><div><i class="fas fa-file-contract"></i> MIT license</div><div><i class="fas fa-users"></i> 5</div>
+                    </div>
+                    <h4 class="font-serif text-xl mt-6">项目速读：</h4>
+                    <p class="text-gray-800 text-base">这个GitHub仓库是一个精心策划的项目创意和资源集合，旨在通过实践提升编程技能。特点是提供详细的项目描述、明确目标、可选进阶功能、所需资源。创意按难度分级，涵盖广泛技术栈。是极其实用的开发者灵感库和学习工具，适合新手寻求实践或有经验开发者寻找新挑战，高Star数印证其社区价值。</p>
+                    <h4 class="font-serif text-xl mt-4">增长分析：</h4>
+                    <p class="text-gray-800 text-base">两天内两次上榜是关键驱动，该仓库Star增长强劲，总计增加536，平均每次上榜贡献315.5。</p>
+                </section>
+
+                <!-- Project: TapXWorld/ChinaTextbook -->
+                <section>
+                    <h3 class="font-serif text-3xl">TapXWorld/ChinaTextbook</h3>
+                    <p class="text-gray-600 italic">{'所有小初高、大学PDF教材。'}</p>
+
+                    <table class="mt-6">
+                        <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                        <tbody><tr><td>Roff</td><td>42839</td><td>2次</td><td>8次</td><td>422</td></tr></tbody>
+                    </table>
+                    <div class="project-stats">
+                        <div><i class="fas fa-star"></i> 42.8k</div><div><i class="fas fa-code-branch"></i> 9.5k</div><div><i class="fas fa-eye"></i> 396</div><div><i class="fas fa-exclamation-circle"></i> 54</div><div><i class="fas fa-code-fork"></i> 8</div><div><i class="fas fa-box-open"></i> 0</div><div><i class="fas fa-file-alt"></i> 137</div><div><i class="fas fa-file-contract"></i> 未知</div><div><i class="fas fa-users"></i> 2</div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <span class="bg-orange-200 text-orange-800">Roff 100.0%</span>
+                    </div>
+                    <h4 class="font-serif text-xl mt-6">项目速读：</h4>
+                    <p class="text-gray-800 text-base">ChinaTextbook是一个公益性开源项目，免费分享中国小学到大学（尤其数学）电子教材PDF。解决了优质资源难获取或付费问题，为资源受限群体和海外华人子女提供便利，对抗盗版销售。汇集大量无水印教材，提供工具合并大文件。通过共享降低教育门槛，推动教育公平。</p>
+                    <h4 class="font-serif text-xl mt-4">增长分析：</h4>
+                    <p class="text-gray-800 text-base">仓库频繁上榜8次，每次平均新增Star近两千，驱动总Star增长显著，增长态势强劲。</p>
+                </section>
+
+                <!-- Project: NginxProxyManager/nginx-proxy-manager -->
+                <section>
+                    <h3 class="font-serif text-3xl">NginxProxyManager/nginx-proxy-manager</h3>
+                    <p class="text-gray-600 italic">一个用于通过简单强大界面管理 Nginx 代理主机的 Docker 容器</p>
+
+                    <table class="mt-6">
+                        <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                        <tbody><tr><td>JavaScript</td><td>26908</td><td>1次</td><td>1次</td><td>39</td></tr></tbody>
+                    </table>
+                    <div class="project-stats">
+                        <div><i class="fas fa-star"></i> 26.9k</div><div><i class="fas fa-code-branch"></i> 3.1k</div><div><i class="fas fa-eye"></i> 199</div><div><i class="fas fa-exclamation-circle"></i> 923</div><div><i class="fas fa-code-fork"></i> 63</div><div><i class="fas fa-box-open"></i> 75</div><div><i class="fas fa-file-alt"></i> 1,699</div><div><i class="fas fa-file-contract"></i> MIT license</div><div><i class="fas fa-users"></i> 204</div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <span class="bg-yellow-200 text-yellow-800">JavaScript 72.2%</span>
+                        <span class="bg-gray-200 text-gray-800">EJS 22.4%</span>
+                    </div>
+                    <h4 class="font-serif text-xl mt-6">项目速读：</h4>
+                    <p class="text-gray-800 text-base">Nginx Proxy Manager是基于Docker的图形化Nginx反向代理管理工具。通过直观Web界面，简化网站代理、重定向、Let's Encrypt SSL证书配置。用户无需接触复杂Nginx配置，即可轻松发布内网服务、启用HTTPS。适合个人用户、小型团队或不愿深入研究Nginx配置的人，是快速部署、管理和保护网站的强大便捷方案。</p>
+                </section>
+
+                <!-- Project: snailyp/gemini-balance -->
+                <section>
+                    <h3 class="font-serif text-3xl">snailyp/gemini-balance</h3>
+                    <p class="text-gray-600 italic">Gemini 轮询代理服务</p>
+
+                    <table class="mt-6">
+                        <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                        <tbody><tr><td>Python</td><td>2219</td><td>3次</td><td>3次</td><td>155</td></tr></tbody>
+                    </table>
+                    <div class="project-stats">
+                        <div><i class="fas fa-star"></i> 2.2k</div><div><i class="fas fa-code-branch"></i> 368</div><div><i class="fas fa-eye"></i> 11</div><div><i class="fas fa-exclamation-circle"></i> 33</div><div><i class="fas fa-code-fork"></i> 2</div><div><i class="fas fa-box-open"></i> 57</div><div><i class="fas fa-file-alt"></i> 283</div><div><i class="fas fa-file-contract"></i> 未知</div><div><i class="fas fa-users"></i> 16</div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <span class="bg-blue-200 text-blue-800">Python 43.4%</span>
+                        <span class="bg-red-200 text-red-800">HTML 30.8%</span>
+                        <span class="bg-yellow-200 text-yellow-800">JavaScript 25.7%</span>
+                    </div>
+                    <h4 class="font-serif text-xl mt-6">项目速读：</h4>
+                    <p class="text-gray-800 text-base">Gemini Balance是基于Python的Gemini API轮询代理服务。核心价值在于帮助用户管理多个Gemini API Key，通过自动轮询实现负载均衡，提高API可用性和并发性。兼容OpenAI API调用格式，现有应用可轻松切换或同时使用Gemini。提供Key状态监控、用量统计。仅限非商业用途（CC BY-NC 4.0），适合非商业开发者或个人提升Gemini API使用体验。</p>
+                    <h4 class="font-serif text-xl mt-4">增长分析：</h4>
+                    <p class="text-gray-800 text-base">仓库在三天内连续上榜3次，显示持续活跃。此期间总星增长313，平均每次上榜增长117.3。今日新增155星，高于平均，表明增长势头正加速，未来表现值得关注。</p>
+                </section>
+
+                <!-- Project: danielmiessler/Fabric -->
+                <section>
+                    <h3 class="font-serif text-3xl">danielmiessler/Fabric</h3>
+                    <p class="text-gray-600 italic">Fabric 是一个利用AI增强人类的开源框架。它提供了一个模块化系统，利用众包的AI提示集解决特定问题，该提示集可在任何地方使用。</p>
+
+                    <table class="mt-6">
+                        <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                        <tbody><tr><td>JavaScript</td><td>32019</td><td>1次</td><td>1次</td><td>131</td></tr></tbody>
+                    </table>
+                    <div class="project-stats">
+                        <div><i class="fas fa-star"></i> 32k</div><div><i class="fas fa-code-branch"></i> 3.3k</div><div><i class="fas fa-eye"></i> 370</div><div><i class="fas fa-exclamation-circle"></i> 199</div><div><i class="fas fa-code-fork"></i> 1</div><div><i class="fas fa-box-open"></i> 178</div><div><i class="fas fa-file-alt"></i> 2,556</div><div><i class="fas fa-file-contract"></i> MIT license</div><div><i class="fas fa-users"></i> 193</div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <span class="bg-yellow-200 text-yellow-800">JavaScript 66.0%</span>
+                        <span class="bg-cyan-200 text-cyan-800">Go 16.7%</span>
+                        <span class="bg-purple-200 text-purple-800">Svelte 7.9%</span>
+                    </div>
+                    <h4 class="font-serif text-xl mt-6">项目速读：</h4>
+                    <p class="text-gray-800 text-base">Fabric是开源框架，通过系统化AI提示（Patterns）增强人类能力。解决用户难以有效管理、集成零散AI功能的问题。它将AI提示按任务分类结构化，构建众包驱动的AI解决方案库。优势在于提供统一模块化平台，无需从头编写复杂提示，即可调用或定制Patterns，简化AI使用，提升效率和灵活性。通过调用大型语言模型API工作，提供CLI和GUI，将AI能力结构化、易用化，是提升生产力的“增强剂”。</p>
+                </section>
+
+                <!-- Project: onlook-dev/onlook -->
+                <section>
+                    <h3 class="font-serif text-3xl">onlook-dev/onlook</h3>
+                    <p class="text-gray-600 italic">面向设计师的 Cursor • 一个开源的可视化 Vibecoding 编辑器 • 使用 AI 可视化地构建、设计和编辑你的 React 应用</p>
+
+                    <table class="mt-6">
+                        <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                        <tbody><tr><td>TypeScript</td><td>19949</td><td>2次</td><td>9次</td><td>283</td></tr></tbody>
+                    </table>
+                    <div class="project-stats">
+                        <div><i class="fas fa-star"></i> 19.9k</div><div><i class="fas fa-code-branch"></i> 1.3k</div><div><i class="fas fa-eye"></i> 86</div><div><i class="fas fa-exclamation-circle"></i> 229</div><div><i class="fas fa-code-fork"></i> 19</div><div><i class="fas fa-box-open"></i> 147</div><div><i class="fas fa-file-alt"></i> 1,239</div><div><i class="fas fa-file-contract"></i> Apache-2.0 license</div><div><i class="fas fa-users"></i> 91</div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <span class="bg-teal-200 text-teal-800">TypeScript 99.2%</span>
+                    </div>
+                    <h4 class="font-serif text-xl mt-6">项目速读：</h4>
+                    <p class="text-gray-800 text-base">Onlook是开源可视化代码编辑器，旨在弥合设计与开发壁垒。允许用户像设计工具一样直观拖拽、调整和编辑React (Next.js) 应用界面/样式 (TailwindCSS)，实现可视化与代码实时双向同步。最突出特点是集成强大AI辅助能力，通过文字或图片指令快速生成/修改代码，极大提升UI和原型构建效率。提供高效透明的Web开发新范式，尤其适合需快速迭代和可视化控制前端项目的团队/个人，是Webflow或V0的有力开源替代品。</p>
+                    <h4 class="font-serif text-xl mt-4">增长分析：</h4>
+                    <p class="text-gray-800 text-base">近一个月内9次上榜，总星数增长10181，平均每次新增681，显示该仓库增长快速且持续受欢迎。</p>
+                </section>
+
+                <!-- Project: PaddlePaddle/ERNIE -->
+                <section>
+                    <h3 class="font-serif text-3xl">PaddlePaddle/ERNIE</h3>
+                    <p class="text-gray-600 italic">ERNIE 4.5 及其基于飞桨的工业级开发工具包 ERNIEKit 的官方仓库。</p>
+
+                    <table class="mt-6">
+                        <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                        <tbody><tr><td>Python</td><td>7003</td><td>1次</td><td>1次</td><td>94</td></tr></tbody>
+                    </table>
+                    <div class="project-stats">
+                        <div><i class="fas fa-star"></i> 7k</div><div><i class="fas fa-code-branch"></i> 1.3k</div><div><i class="fas fa-eye"></i> 199</div><div><i class="fas fa-exclamation-circle"></i> 6</div><div><i class="fas fa-code-fork"></i> 6</div><div><i class="fas fa-box-open"></i> 6</div><div><i class="fas fa-file-alt"></i> 34</div><div><i class="fas fa-file-contract"></i> Apache-2.0 license</div><div><i class="fas fa-users"></i> 11</div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <span class="bg-blue-200 text-blue-800">Python 66.3%</span>
+                        <span class="bg-purple-200 text-purple-800">Jupyter Notebook 33.5%</span>
+                    </div>
+                    <h4 class="font-serif text-xl mt-6">项目速读：</h4>
+                    <p class="text-gray-800 text-base">ERNIE 4.5是百度开源的大规模多模态模型系列，能处理文本、图像、视频输入并生成文本，实现通用语言和多模态理解与生成。核心创新在于采用多模态异构MoE架构，增强多模态能力同时保持高效性，并依托PaddlePaddle的ERNIEKit，提供高效训练推理流程和卓越性能。为研究和工业应用提供了强大SOTA多模态能力基础，适合需要高性能、易部署的开发者，是构建下一代多模态应用的有力工具。</p>
+                </section>
+
+                <!-- Project: openssl/openssl -->
+                <section>
+                    <h3 class="font-serif text-3xl">openssl/openssl</h3>
+                    <p class="text-gray-600 italic">TLS/SSL 和密码库</p>
+
+                    <table class="mt-6">
+                        <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                        <tbody><tr><td>C</td><td>27708</td><td>1次</td><td>1次</td><td>4</td></tr></tbody>
+                    </table>
+                    <div class="project-stats">
+                        <div><i class="fas fa-star"></i> 27.7k</div><div><i class="fas fa-code-branch"></i> 10.6k</div><div><i class="fas fa-eye"></i> 1k</div><div><i class="fas fa-exclamation-circle"></i> 1.7k</div><div><i class="fas fa-code-fork"></i> 282</div><div><i class="fas fa-box-open"></i> 282</div><div><i class="fas fa-file-alt"></i> 37,465</div><div><i class="fas fa-file-contract"></i> Apache-2.0 license</div><div><i class="fas fa-users"></i> 1,052</div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <span class="bg-green-200 text-green-800">C 74.7%</span>
+                        <span class="bg-pink-200 text-pink-800">Perl 22.3%</span>
+                    </div>
+                    <h4 class="font-serif text-xl mt-6">项目速读：</h4>
+                    <p class="text-gray-800 text-base">OpenSSL是强大、商业级、全功能的开源工具包，用于实现TLS/SSL、DTLS和QUIC等安全通信协议。包含处理协议的libssl和通用密码学库libcrypto。核心是提供稳健的加密功能和安全协议实现，支持最新TLS/QUIC标准，并提供命令行工具。作为保障网络通信安全的基石，广泛应用于各种软件和系统，提供可靠数据加密、身份验证和完整性保护。采用宽松Apache 2.0许可。</p>
+                </section>
+
+                <!-- Project: tadata-org/fastapi_mcp -->
+                <section>
+                    <h3 class="font-serif text-3xl">tadata-org/fastapi_mcp</h3>
+                    <p class="text-gray-600 italic">将您的 FastAPI 端点暴露为 Model Context Protocol (MCP) 工具，带认证！</p>
+
+                    <table class="mt-6">
+                        <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                        <tbody><tr><td>Python</td><td>5918</td><td>1次</td><td>1次</td><td>54</td></tr></tbody>
+                    </table>
+                    <div class="project-stats">
+                        <div><i class="fas fa-star"></i> 5.9k</div><div><i class="fas fa-code-branch"></i> 500</div><div><i class="fas fa-eye"></i> 42</div><div><i class="fas fa-exclamation-circle"></i> 60</div><div><i class="fas fa-code-fork"></i> 30</div><div><i class="fas fa-box-open"></i> 7</div><div><i class="fas fa-file-alt"></i> 212</div><div><i class="fas fa-file-contract"></i> MIT license</div><div><i class="fas fa-users"></i> 12</div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <span class="bg-blue-200 text-blue-800">Python 100.0%</span>
+                    </div>
+                    <h4 class="font-serif text-xl mt-6">项目速读：</h4>
+                    <p class="text-gray-800 text-base">FastAPI-MCP项目核心是将FastAPI接口转换为符合Model Context Protocol (MCP) 标准的工具，并无缝集成FastAPI原生认证授权。解决了将现有或新建FastAPI服务暴露给支持MCP的AI模型或系统作为可调用工具的难题。突出优势在于对FastAPI的深度集成、利用FastAPI依赖注入实现强大认证、以及通过ASGI实现高效内部传输。使得FastAPI应用能快速、安全、便捷地变身为AI可用的“函数”或“工具”，极大地拓宽了FastAPI在AI集成场景下的应用边界和价值。</p>
+                </section>
+
+                <!-- Project: mrdoob/three.js -->
+                <section>
+                    <h3 class="font-serif text-3xl">mrdoob/three.js</h3>
+                    <p class="text-gray-600 italic">JavaScript 3D 库</p>
+
+                    <table class="mt-6">
+                        <thead><tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th></tr></thead>
+                        <tbody><tr><td>JavaScript</td><td>106973</td><td>1次</td><td>1次</td><td>28</td></tr></tbody>
+                    </table>
+                    <div class="project-stats">
+                        <div><i class="fas fa-star"></i> 107k</div><div><i class="fas fa-code-branch"></i> 35.8k</div><div><i class="fas fa-eye"></i> 2.5k</div><div><i class="fas fa-exclamation-circle"></i> 429</div><div><i class="fas fa-code-fork"></i> 140</div><div><i class="fas fa-box-open"></i> 170</div><div><i class="fas fa-file-alt"></i> 45,483</div><div><i class="fas fa-file-contract"></i> MIT license</div><div><i class="fas fa-users"></i> 1,967</div>
+                    </div>
+                    <div class="language-distribution mt-4">
+                        <span class="bg-yellow-200 text-yellow-800">JavaScript 62.4%</span>
+                        <span class="bg-red-200 text-red-800">HTML 32.4%</span>
+                    </div>
+                    <h4 class="font-serif text-xl mt-6">项目速读：</h4>
+                    <p class="text-gray-800 text-base">three.js是功能强大且广泛使用的JavaScript 3D库，旨在极大地简化在网页浏览器中创建、显示和交互3D图形与动画的过程。通过提供一套高级且直观的API，巧妙抽象底层WebGL或WebGPU等原生3D图形技术复杂性，实现出色易用性、轻量化和跨浏览器兼容性。围绕场景、相机、渲染器及构成3D对象元素构建核心架构。凭借其优异性能、庞大用户群、完善文档、丰富示例和活跃社区支持，已成为Web平台实现高性能、视觉效果丰富3D应用的首选工具，极大扩展Web浏览器表现能力，是现代Web 3D开发的基石之一。</p>
+                </section>
+
+            </section>
+
+            <!-- Final Slide: Call to Action -->
+            <section class="center">
+                <h2 class="font-serif text-4xl text-blue-800">感谢您的观看！</h2>
+                <p class="text-xl mt-8 mb-12 text-gray-700">希望这次GitHub趋势深度解析能为您带来新的启发！</p>
+                <div class="flex flex-col items-center justify-center gap-6">
+                    <p class="text-2xl font-bold text-gray-800">
+                        <i class="fab fa-github mr-3 text-gray-700"></i>
+                        立即访问项目，获取更多趋势！
+                    </p>
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline text-2xl font-semibold transition-colors duration-300">
+                        https://github.com/aichipera/github-trend
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="Scan QR Code to connect" class="w-40 h-40 rounded-lg shadow-lg mt-6 transform hover:scale-105 transition-transform duration-300">
+                    <p class="text-lg text-gray-500 mt-4">扫描二维码，关注我们，获取最新技术动态！</p>
+                </div>
+                <div class="qrcode-link-container">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        <i class="fab fa-github mr-1"></i> 项目链接
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Mermaid JS (for diagrams, if any were present) -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <script>
+        // Initialize Mermaid for code blocks with class 'mermaid'
+        mermaid.initialize({ startOnLoad: true });
+
+        // Initialize Reveal.js
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            hash: true,
+            history: true,
+            center: true,
+            transition: 'slide', // Fades are good too: 'fade'
+            transitionSpeed: 'fast', // or 'slow', 'default'
+
+            // Optional Reveal.js plugins
+            plugins: [
+                // RevealMarkdown, // Not strictly needed as content is already HTML
+                // RevealHighlight, // For code highlighting, not needed for this text content
+                // RevealNotes, // For speaker notes
+                // RevealZoom // For zooming
+            ],
+
+            // Enable slide fragments (for revealing content step-by-step)
+            fragments: true,
+
+            // Vertical scrolling for detailed slides
+            // Set `linear: true` for horizontal presentation of top-level sections
+            // and vertical presentation of nested sections
+            linear: false
+        });
+    </script>
+</body>
+</html>
