@@ -1,0 +1,1241 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>GitHub热榜深度分析：开发者都在狂学哪些热门技能？</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #2E3A59; /* Deep Blue/Grey */
+            --accent-color-1: #5D70E4; /* Vibrant Blue */
+            --accent-color-2: #F7931E; /* Warm Orange */
+            --text-color: #343A40; /* Dark Gray */
+            --light-background: #F8F9FA; /* Off-white */
+            --border-color: #E0E0E0; /* Light Gray for borders */
+        }
+
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--text-color);
+        }
+
+        .reveal {
+            font-size: 32px; /* Base font size for Reveal.js */
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            font-family: 'Noto Serif SC', Georgia, "Times New Roman", Times, serif;
+            color: var(--primary-color);
+            text-shadow: none; /* Remove default text shadow */
+        }
+
+        .reveal h1 { font-size: 2.8rem; } /* ~90px */
+        .reveal h2 { font-size: 2.2rem; } /* ~70px */
+        .reveal h3 { font-size: 1.8rem; } /* ~57px */
+        .reveal h4 { font-size: 1.4rem; } /* ~45px */
+        .reveal p { font-size: 1.1rem; } /* ~35px */
+        .reveal li { font-size: 1.0rem; } /* ~32px */
+        .reveal small { font-size: 0.8rem; }
+
+        /* Custom Cover Slide Style */
+        .reveal .slides section.cover-slide {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color-1) 100%);
+            color: var(--light-background);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 10%;
+        }
+        .reveal .slides section.cover-slide h1 {
+            color: var(--light-background);
+            font-size: 3.2rem; /* Adjusted for visual impact */
+            margin-bottom: 0.5em;
+            line-height: 1.2;
+        }
+        .reveal .slides section.cover-slide h2 {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.8rem;
+            margin-top: 0;
+            line-height: 1.3;
+        }
+        .reveal .slides section.cover-slide p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            margin-top: 1em;
+        }
+
+        /* General Slide Layout */
+        .reveal .slides section {
+            text-align: left;
+            padding: 0 5%;
+        }
+
+        /* Footer for link/QR */
+        .footer-info {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: flex-end;
+            gap: 15px;
+            z-index: 100;
+        }
+        .footer-info img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .footer-info a {
+            color: var(--accent-color-1);
+            font-size: 0.7em;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .footer-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Table Styling */
+        .reveal table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1em 0;
+        }
+        .reveal th, .reveal td {
+            border: 1px solid var(--border-color);
+            padding: 0.6em 0.8em;
+            text-align: left;
+            font-size: 0.9em;
+        }
+        .reveal th {
+            background-color: var(--light-background);
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        .reveal tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Icon Styling */
+        .reveal .fa {
+            color: var(--accent-color-1);
+            margin-right: 0.3em;
+        }
+
+        /* Fragment Styling */
+        .reveal .fragment.fade-in {
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+        }
+        .reveal .fragment.fade-in.visible {
+            opacity: 1;
+        }
+
+        /* Custom Card/Box Style for detailed stats */
+        .repo-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 1.5em;
+            padding: 1em;
+            background-color: var(--light-background);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .repo-stats div {
+            padding: 0.5em 0;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+        }
+        .repo-stats .icon {
+            color: var(--accent-color-2);
+            margin-right: 8px;
+        }
+
+        /* Language Distribution Bar */
+        .lang-dist-bar {
+            background: var(--border-color);
+            height: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 1em;
+            display: flex;
+        }
+        .lang-segment {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7em;
+            color: white;
+            white-space: nowrap;
+        }
+        .lang-segment:nth-child(1) { background-color: #FF5733; }
+        .lang-segment:nth-child(2) { background-color: #33FF57; }
+        .lang-segment:nth-child(3) { background-color: #3357FF; }
+        .lang-segment:nth-child(4) { background-color: #FF33F5; }
+        .lang-segment:nth-child(5) { background-color: #33FFF5; }
+        .lang-segment:nth-child(6) { background-color: #F5FF33; }
+        .lang-segment:nth-child(7) { background-color: #FF8333; }
+        .lang-segment:nth-child(8) { background-color: #8333FF; }
+        /* Add more colors if needed */
+
+        /* Specific styles for different sections for "Aha" moments */
+        .reveal .slides section.trends-section h2 {
+            color: var(--accent-color-1);
+        }
+        .reveal .slides section.analysis-section {
+            background-color: var(--light-background);
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- 封面页 -->
+            <section class="cover-slide" data-background-image="https://images.unsplash.com/photo-1606240212001-c88f117c093a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNTY3Nzh8MHwxfHNlYXJjaHwzMHx8dGVjaCUyMGdhbGF4eXxlbnwwfHx8fDE2NzUwNzI1OTQ&ixlib=rb-4.0.3&q=80&w=1920" data-background-position="center" data-background-size="cover">
+                <h1>GitHub热榜深度分析：<br>开发者都在狂学哪些热门技能？</h1>
+                <h2>GitHub热门趋势，速速分享给伙伴！</h2>
+                <p class="fragment fade-in">Github热门仓库**日报**观测时间为 **2025-07-03 20:27:20**</p>
+                <p class="fragment fade-in">**以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！**</p>
+                <p class="fragment fade-in" style="margin-top: 2em;"><a href="https://aichipera.github.io/github-trend/daily/2025-07-03/ppt.html" target="_blank" style="color: rgba(255, 255, 255, 0.9); text-decoration: underline;">PPT 在线观看：https://aichipera.github.io/github-trend/daily/2025-07-03/ppt.html</a></p>
+                <small class="absolute bottom-10 left-10 text-white opacity-75">演讲者：AIChipEra</small>
+                <div class="footer-info">
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        项目主页：github.com/aichipera/github-trend
+                    </a>
+                </div>
+            </section>
+
+            <!-- 日报要点 -->
+            <section>
+                <h2><i class="fa-solid fa-lightbulb"></i> 日报要点：告别迷茫，抓住机遇！</h2>
+                <p class="fragment fade-in">GitHub最新趋势报告揭示：开发者社区正掀起一股前所未有的学习热潮！</p>
+                <ul class="text-left leading-relaxed">
+                    <li class="fragment fade-in"><strong>核心趋势：</strong> 最受关注的并非单一技术，而是海量高质量的<strong>学习资源和项目实践</strong>。</li>
+                    <li class="fragment fade-in"><strong>主导领域：</strong> 从前沿计算到效率工具，特别是<strong>人工智能（AI）和大型语言模型（LLM）</strong>。</li>
+                    <li class="fragment fade-in"><strong>社区渴望：</strong> 榜单反映出大家对<strong>实用技能和系统化学习路径</strong>的强烈渴望。</li>
+                    <li class="fragment fade-in"><strong>本文解读：</strong> 深入解读热门项目，助你把握技术脉搏，告别迷茫，抓住下一波职业发展机遇！</li>
+                </ul>
+            </section>
+
+            <!-- 热门项目趋势分析 -->
+            <section class="trends-section">
+                <h2><i class="fa-solid fa-chart-line"></i> 热门项目趋势分析</h2>
+                <h3 class="fragment fade-in">今日整体趋势：AI普惠化与实践热潮</h3>
+                <p class="fragment fade-in">今日GitHub热门项目榜单呈现出几个鲜明且相互关联的技术热点与趋势。</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                    <div class="fragment fade-in p-6 bg-white rounded-lg shadow-md">
+                        <h4 class="text-xl font-semibold mb-3 text-blue-700"><i class="fa-solid fa-microchip"></i> 最受关注的技术领域与主题</h4>
+                        <ul class="list-disc list-inside text-sm">
+                            <li><strong>人工智能：</strong> LLM、生成式AI课程 (generative-ai-for-beginners, happy-llm, llmware, LibreChat)</li>
+                            <li><strong>机器人学习与具身智能：</strong> 高性能物理模拟 (IsaacLab, Genesis)</li>
+                            <li><strong>学习与资源分享：</strong> 免费认证、项目创意 (Free-Certifications, Project-Ideas-And-Resources)</li>
+                            <li><strong>效率工具：</strong> Web技术、爬虫、安全组件 (three.js, Motia, MediaCrawler, OpenSSL)</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in p-6 bg-white rounded-lg shadow-md">
+                        <h4 class="text-xl font-semibold mb-3 text-orange-600"><i class="fa-solid fa-code"></i> 主要编程语言与技术栈特点</h4>
+                        <ul class="list-disc list-inside text-sm">
+                            <li><strong>Python：</strong> AI/ML、数据处理、机器人仿真、爬虫领域主导。</li>
+                            <li><strong>TypeScript/JavaScript：</strong> 前端、后端框架、AI应用界面。</li>
+                            <li><strong>C/C++：</strong> 底层基础设施、基础技术项目 (OpenSSL, Ladybird)。</li>
+                            <li><strong>特点：</strong> 高度依赖成熟框架、重视资源整合、新兴技术需高性能平台。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="trends-section">
+                <h2><i class="fa-solid fa-chart-line"></i> 热门项目趋势分析</h2>
+                <h3 class="fragment fade-in">技术需求与发展方向分析</h3>
+                <ul class="text-left leading-relaxed">
+                    <li class="fragment fade-in"><strong><i class="fa-solid fa-cubes"></i> AI普惠化与应用深化：</strong> 巨大学习需求，侧重实践应用。企业对私有、安全、高效AI应用增长。</li>
+                    <li class="fragment fade-in"><strong><i class="fa-solid fa-rocket"></i> 提高开发效率与降低门槛：</strong> 通过工具和抽象提升效率 (Motia, three.js, MediaCrawler)。</li>
+                    <li class="fragment fade-in"><strong><i class="fa-solid fa-book-open"></i> 系统化学习路径：</strong> 开发者渴求结构化、易理解的学习路径，尤其AI领域。</li>
+                    <li class="fragment fade-in"><strong><i class="fa-solid fa-robot"></i> 仿真在复杂系统开发中的重要性：</strong> 机器人与具身智能领域对高保真、高效率物理仿真的依赖加深。</li>
+                </ul>
+
+                <h3 class="fragment fade-in pt-8">今日特有的技术趋势特点</h3>
+                <p class="fragment fade-in">AI相关学习资源的“井喷”式增长和极高热度，不仅仅是AI技术本身的热，更是全行业对AI技能的渴求在社区层面的集中体现。</p>
+                <p class="fragment fade-in">免费证书、项目创意等资源的流行，进一步强化了“学以致用”和“提升技能”的趋势主题。</p>
+            </section>
+
+            <section class="trends-section">
+                <h2><i class="fa-solid fa-chart-line"></i> 热门项目趋势分析</h2>
+                <h3 class="fragment fade-in">未来技术热点预测</h3>
+                <ul class="text-left leading-relaxed">
+                    <li class="fragment fade-in"><strong><i class="fa-solid fa-brain"></i> AI Agents与自主系统：</strong> 将AI能力整合进更复杂的、能自主完成任务的工作流或系统中。</li>
+                    <li class="fragment fade-in"><strong><i class="fa-solid fa-microchip"></i> 边缘AI与小型化模型：</strong> 提升AI在资源受限环境下的运行效率。</li>
+                    <li class="fragment fade-in"><strong><i class="fa-solid fa-cube"></i> 高性能、跨模态的仿真技术：</strong> 支持更复杂物理现象和多模态交互的虚拟环境。</li>
+                    <li class="fragment fade-in"><strong><i class="fa-solid fa-desktop"></i> 开发者友好型AI开发平台：</strong> 简化AI模型部署、管理和监控的工具和服务。</li>
+                    <li class="fragment fade-in"><strong><i class="fa-solid fa-globe"></i> Web3.0与去中心化应用：</strong> 围绕数据主权、去中心化身份和计算的技术栈仍是潜在热点。</li>
+                </ul>
+                <p class="fragment fade-in pt-8 text-center text-sm opacity-80">
+                    总结：AI技术驱动、学习热情高涨、注重实践应用和效率提升是当前GitHub热门榜单的核心图景。<br>AI正从少数专家的领域走向大众，成为开发者必备技能。
+                </p>
+            </section>
+
+            <section class="analysis-section">
+                <h2><i class="fa-solid fa-arrow-right-arrow-left"></i> 热门项目双日维度对比分析</h2>
+                <p class="fragment fade-in">今日GitHub热门项目榜单呈现活跃态势：</p>
+                <ul class="text-left leading-relaxed">
+                    <li class="fragment fade-in"><strong><i class="fa-solid fa-plus-circle text-green-500"></i> 新项目上榜：</strong> 11个新项目，显著特征是人工智能相关内容占据主导。</li>
+                    <li class="fragment fade-in"><strong><i class="fa-solid fa-arrow-up text-blue-500"></i> 热度上升：</strong> 5个项目热度上升，且无项目热度明显下降。</li>
+                    <li class="fragment fade-in"><strong><i class="fa-solid fa-code text-purple-500"></i> 编程语言分布：</strong> C++和TypeScript各增1，Python、Go、Rust、JS各减1。</li>
+                    <li class="fragment fade-in"><strong><i class="fa-solid fa-star text-yellow-500"></i> 涨幅最大项目：</strong> 微软的生成式AI入门项目 (generative-ai-for-beginners) 反映强劲学习需求。</li>
+                </ul>
+                <p class="fragment fade-in pt-8 text-sm opacity-80">
+                    这表明社区关注焦点在扩散，新项目涌现势头强劲，而既有热门项目表现稳健。
+                </p>
+            </section>
+
+            <section class="analysis-section">
+                <h2><i class="fa-solid fa-fire"></i> 热点变化</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 text-sm">
+                    <div class="fragment fade-in bg-white p-4 rounded-lg shadow-sm">
+                        <h4 class="text-lg font-bold mb-2 text-green-600"><i class="fa-solid fa-circle-plus"></i> 新增热点</h4>
+                        <ul class="list-none p-0 m-0">
+                            <li>llmware-ai/llmware</li>
+                            <li>btjawa/bilitools</li>
+                            <li>danny-avila/librechat</li>
+                            <li>genesis-embodied-ai/genesis</li>
+                            <li>motiadev/motia</li>
+                            <li>datawhalechina/happy-llm</li>
+                            <li>isaac-sim/isaaclab</li>
+                            <li>swagger-api/swagger-ui</li>
+                            <li>ashishpatel26/500-ai-machine-learning-deep-learning-computer-vision-nlp-projects-with-code</li>
+                            <li>ladybirdbrowser/ladybird</li>
+                            <li>cloudcommunity/free-certifications</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in bg-white p-4 rounded-lg shadow-sm">
+                        <h4 class="text-lg font-bold mb-2 text-red-600"><i class="fa-solid fa-circle-minus"></i> 减退热点</h4>
+                        <ul class="list-none p-0 m-0">
+                            <li>danielmiessler/fabric</li>
+                            <li>tapxworld/chinatextbook</li>
+                            <li>nginxproxymanager/nginx-proxy-manager</li>
+                            <li>paddlepaddle/ernie</li>
+                            <li>binwiederhier/ntfy</li>
+                            <li>microsoft/mastering-github-copilot-for-paired-programming</li>
+                            <li>tadata-org/fastapi_mcp</li>
+                            <li>zaidmukaddam/scira</li>
+                            <li>snailyp/gemini-balance</li>
+                            <li>graphiteeditor/graphite</li>
+                            <li>onlook-dev/onlook</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in bg-white p-4 rounded-lg shadow-sm">
+                        <h4 class="text-lg font-bold mb-2 text-blue-600"><i class="fa-solid fa-circle-check"></i> 持续热门</h4>
+                        <ul class="list-none p-0 m-0">
+                            <li>NanmiCoder/MediaCrawler (3次)</li>
+                            <li>microsoft/generative-ai-for-beginners (6次)</li>
+                            <li>The-Cool-Coders/Project-Ideas-And-Resources (3次)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 详细仓库数据 引导页 -->
+            <section data-background-image="https://images.unsplash.com/photo-1516104760424-c1ce013143c6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNTY3Nzh8MHwxfHNlYXJjaHwyMHx8Y29kZSUyMGxvb3B8ZW58MHx8fHwxNjc1MDczMDAy&ixlib=rb-4.0.3&q=80&w=1920" data-background-position="center" data-background-size="cover" data-background-opacity="0.2">
+                <h2 style="color: var(--primary-color); text-align: center;"><i class="fa-solid fa-database"></i> 详细仓库数据：深入解读</h2>
+                <p class="fragment fade-in text-center text-xl mt-8" style="color: var(--text-color);">
+                    告别泛泛而谈，让我们逐一剖析这些GitHub上的明星项目，<br>
+                    揭示它们为何备受关注，以及能给开发者带来什么价值。
+                </p>
+            </section>
+
+            <!-- 每个项目的详细数据 (垂直幻灯片) -->
+
+            <!-- NanmiCoder/MediaCrawler -->
+            <section>
+                <section>
+                    <h3><i class="fa-solid fa-spider"></i> NanmiCoder/MediaCrawler</h3>
+                    <p class="text-lg opacity-90">{'小红书笔记 | 评论爬虫、抖音视频 | 评论爬虫、快手视频 | 评论爬虫、B 站视频 ｜ 评论爬虫、微博帖子 ｜ 评论爬虫、百度贴吧帖子 ｜ 百度贴吧评论回复爬虫 | 知乎问答文章｜评论爬虫'}</p>
+                    <table class="fragment fade-in">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/NanmiCoder/MediaCrawler" target="_blank">NanmiCoder/MediaCrawler</a></td><td>Python</td><td>25286</td><td>3次</td><td>3次</td><td>571</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-chart-simple"></i> NanmiCoder/MediaCrawler 详情</h3>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="icon fa-solid fa-star"></i> Stars: 25.3k</div>
+                        <div><i class="icon fa-solid fa-code-branch"></i> Forks: 6.8k</div>
+                        <div><i class="icon fa-solid fa-eye"></i> Watchers: 136</div>
+                        <div><i class="icon fa-solid fa-circle-exclamation"></i> Issues: 71</div>
+                        <div><i class="icon fa-solid fa-code-pull-request"></i> Pull Requests: 0</div>
+                        <div><i class="icon fa-solid fa-box-archive"></i> Releases: 0</div>
+                        <div><i class="icon fa-solid fa-file-signature"></i> Commits: 501</div>
+                        <div><i class="icon fa-solid fa-certificate"></i> License: 未知</div>
+                        <div><i class="icon fa-solid fa-users"></i> Contributors: 41</div>
+                    </div>
+                    <h4 class="fragment fade-in mt-6">编程语言占比:</h4>
+                    <div class="lang-dist-bar fragment fade-in">
+                        <div class="lang-segment" style="width: 100%;">Python 100.0%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-book"></i> NanmiCoder/MediaCrawler 速读</h3>
+                    <p class="fragment fade-in">MediaCrawler 是一个功能强大的开源爬虫项目，旨在便捷地抓取中国多个主流自媒体平台（包括小红书、抖音、快手、B站、微博、贴吧、知乎）的公开内容及评论数据。</p>
+                    <p class="fragment fade-in"><strong>核心创新：</strong> 巧妙利用 Playwright 浏览器自动化框架，在维持用户登录状态前提下，通过直接在浏览器环境中执行 JavaScript 代码获取动态参数，彻底避免了复杂繁琐的 JS 逆向工程。</p>
+                    <p class="fragment fade-in">该项目极大地降低了技术门槛，让数据采集变得更加高效可行。对于希望学习现代网页数据采集技术，尤其想规避传统 JS 逆向难题的开发者和研究人员来说，提供了一个非常有价值的工具和实践范例。</p>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-signal"></i> NanmiCoder/MediaCrawler 增长分析</h3>
+                    <p class="fragment fade-in">仓库在统计期内<strong>连续3天上榜</strong>，表现持续活跃。总计增长<strong>1119 Star</strong>，日均448.3。</p>
+                    <p class="fragment fade-in">末日增长<strong>571 Star</strong>高于平均，显示出明显的加速增长趋势。</p>
+                </section>
+            </section>
+
+            <!-- mrdoob/three.js -->
+            <section>
+                <section>
+                    <h3><i class="fa-solid fa-cube"></i> mrdoob/three.js</h3>
+                    <p class="text-lg opacity-90">JavaScript 三维库</p>
+                    <table class="fragment fade-in">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/mrdoob/three.js" target="_blank">mrdoob/three.js</a></td><td>JavaScript</td><td>107154</td><td>2次</td><td>2次</td><td>39</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-chart-simple"></i> mrdoob/three.js 详情</h3>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="icon fa-solid fa-star"></i> Stars: 107k</div>
+                        <div><i class="icon fa-solid fa-code-branch"></i> Forks: 35.9k</div>
+                        <div><i class="icon fa-solid fa-eye"></i> Watchers: 2.5k</div>
+                        <div><i class="icon fa-solid fa-circle-exclamation"></i> Issues: 430</div>
+                        <div><i class="icon fa-solid fa-code-pull-request"></i> Pull Requests: 137</div>
+                        <div><i class="icon fa-solid fa-box-archive"></i> Releases: 170</div>
+                        <div><i class="icon fa-solid fa-file-signature"></i> Commits: 45,486</div>
+                        <div><i class="icon fa-solid fa-certificate"></i> License: MIT license</div>
+                        <div><i class="icon fa-solid fa-users"></i> Contributors: 1,967</div>
+                    </div>
+                    <h4 class="fragment fade-in mt-6">编程语言占比:</h4>
+                    <div class="lang-dist-bar fragment fade-in">
+                        <div class="lang-segment" style="width: 62.4%;">JavaScript 62.4%</div>
+                        <div class="lang-segment" style="width: 32.4%;">HTML 32.4%</div>
+                        <div class="lang-segment" style="width: 2.1%;">Roff 2.1%</div>
+                        <div class="lang-segment" style="width: 2.0%;">SCSS 2.0%</div>
+                        <div class="lang-segment" style="width: 1.1%;">CSS 1.1%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-book"></i> mrdoob/three.js 速读</h3>
+                    <p class="fragment fade-in">three.js 是一个功能强大且易用的 JavaScript 3D 库，旨在简化网页上创建、显示和操作三维图形及动画的过程。</p>
+                    <p class="fragment fade-in">它解决了浏览器端 3D 编程的复杂性，通过提供高级 API 和灵活的组件模型（如场景、相机、渲染器），极大地降低了开发门槛。</p>
+                    <p class="fragment fade-in">该库轻量、跨浏览器兼容，支持 WebGL、WebGPU 等多种渲染技术，适用于开发各种交互式 3D 应用。凭借其出色的易用性和广泛的应用潜力，three.js 已成为 Web 3D 领域的标杆。</p>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-signal"></i> mrdoob/three.js 增长分析</h3>
+                    <p class="fragment fade-in">两天内上榜2次，总增181星，平均每次33.5星，增长稳定。</p>
+                </section>
+            </section>
+
+            <!-- microsoft/generative-ai-for-beginners -->
+            <section>
+                <section>
+                    <h3><i class="fa-solid fa-seedling"></i> microsoft/generative-ai-for-beginners</h3>
+                    <p class="text-lg opacity-90">21 讲，生成式 AI 动手实践入门</p>
+                    <table class="fragment fade-in">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/microsoft/generative-ai-for-beginners" target="_blank">microsoft/generative-ai-for-beginners</a></td><td>Jupyter Notebook</td><td>90743</td><td>6次</td><td>20次</td><td>1862</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-chart-simple"></i> microsoft/generative-ai-for-beginners 详情</h3>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="icon fa-solid fa-star"></i> Stars: 90.7k</div>
+                        <div><i class="icon fa-solid fa-code-branch"></i> Forks: 46.3k</div>
+                        <div><i class="icon fa-solid fa-eye"></i> Watchers: 792</div>
+                        <div><i class="icon fa-solid fa-circle-exclamation"></i> Issues: 7</div>
+                        <div><i class="icon fa-solid fa-code-pull-request"></i> Pull Requests: 13</div>
+                        <div><i class="icon fa-solid fa-box-archive"></i> Releases: 0</div>
+                        <div><i class="icon fa-solid fa-file-signature"></i> Commits: 1,456</div>
+                        <div><i class="icon fa-solid fa-certificate"></i> License: MIT license</div>
+                        <div><i class="icon fa-solid fa-users"></i> Contributors: 125</div>
+                    </div>
+                    <h4 class="fragment fade-in mt-6">编程语言占比:</h4>
+                    <div class="lang-dist-bar fragment fade-in">
+                        <div class="lang-segment" style="width: 86.4%;">Jupyter Notebook 86.4%</div>
+                        <div class="lang-segment" style="width: 8.2%;">Python 8.2%</div>
+                        <div class="lang-segment" style="width: 2.8%;">JavaScript 2.8%</div>
+                        <div class="lang-segment" style="width: 1.5%;">TypeScript 1.5%</div>
+                        <div class="lang-segment" style="width: 0.3%;">Shell 0.3%</div>
+                        <div class="lang-segment" style="width: 0.3%;">PowerShell 0.3%</div>
+                        <div class="lang-segment" style="width: 0.5%;">Other 0.5%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-book"></i> microsoft/generative-ai-for-beginners 速读</h3>
+                    <p class="fragment fade-in">这是一个由微软推出的、针对初学者的生成式AI应用开发系列课程项目。包含21节结构化课程。</p>
+                    <p class="fragment fade-in">旨在通过结合理论讲解和动手实践（使用Python和TypeScript语言），帮助学习者快速掌握构建基于Azure OpenAI、OpenAI API等服务的生成式AI应用所需的核心概念和编程技能。</p>
+                    <p class="fragment fade-in">项目的一大亮点是支持多语言（包括中文），且翻译内容通过自动化流程保持更新。为希望零基础或有一定编程基础的开发者提供了一条清晰、高效的入门路径。</p>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-signal"></i> microsoft/generative-ai-for-beginners 增长分析</h3>
+                    <p class="fragment fade-in">总增1.5万星，20次上榜显持续热门。</p>
+                    <p class="fragment fade-in">日增<strong>1862</strong>远超平均，增长势头强劲。</p>
+                </section>
+            </section>
+
+            <!-- LadybirdBrowser/ladybird -->
+            <section>
+                <section>
+                    <h3><i class="fa-solid fa-globe"></i> LadybirdBrowser/ladybird</h3>
+                    <p class="text-lg opacity-90">真正独立的浏览器</p>
+                    <table class="fragment fade-in">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/LadybirdBrowser/ladybird" target="_blank">LadybirdBrowser/ladybird</a></td><td>C++</td><td>44334</td><td>1次</td><td>9次</td><td>96</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-chart-simple"></i> LadybirdBrowser/ladybird 详情</h3>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="icon fa-solid fa-star"></i> Stars: 44.3k</div>
+                        <div><i class="icon fa-solid fa-code-branch"></i> Forks: 1.9k</div>
+                        <div><i class="icon fa-solid fa-eye"></i> Watchers: 228</div>
+                        <div><i class="icon fa-solid fa-circle-exclamation"></i> Issues: 433</div>
+                        <div><i class="icon fa-solid fa-code-pull-request"></i> Pull Requests: 43</div>
+                        <div><i class="icon fa-solid fa-box-archive"></i> Releases: 0</div>
+                        <div><i class="icon fa-solid fa-file-signature"></i> Commits: 70,061</div>
+                        <div><i class="icon fa-solid fa-certificate"></i> License: BSD-2-Clause license</div>
+                        <div><i class="icon fa-solid fa-users"></i> Contributors: 1,179</div>
+                    </div>
+                    <h4 class="fragment fade-in mt-6">编程语言占比:</h4>
+                    <div class="lang-dist-bar fragment fade-in">
+                        <div class="lang-segment" style="width: 63.9%;">C++ 63.9%</div>
+                        <div class="lang-segment" style="width: 22.9%;">HTML 22.9%</div>
+                        <div class="lang-segment" style="width: 11.0%;">JavaScript 11.0%</div>
+                        <div class="lang-segment" style="width: 0.8%;">CMake 0.8%</div>
+                        <div class="lang-segment" style="width: 0.5%;">Objective-C++ 0.5%</div>
+                        <div class="lang-segment" style="width: 0.3%;">Swift 0.3%</div>
+                        <div class="lang-segment" style="width: 0.6%;">Other 0.6%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-book"></i> LadybirdBrowser/ladybird 速读</h3>
+                    <p class="fragment fade-in">Ladybird 是一个雄心勃勃的实验性浏览器项目，致力于完全从零开始构建一个不依赖现有大型引擎的独立网页浏览器。</p>
+                    <p class="fragment fade-in">它旨在挑战当前由少数引擎主导的浏览器生态，为网页技术的发展提供一个全新的自主实现。</p>
+                    <p class="fragment fade-in">项目采用多进程架构，通过隔离各组件来提升整体的安全性和稳定性。处于早期开发阶段，是深入理解和构建现代网页技术的宝贵实践平台。</p>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-signal"></i> LadybirdBrowser/ladybird 增长分析</h3>
+                    <p class="fragment fade-in">仓库在统计期内9次上榜，平均每次增长374.1星，总增长7478，增长趋势良好，显示持续吸引力。</p>
+                </section>
+            </section>
+
+            <!-- isaac-sim/IsaacLab -->
+            <section>
+                <section>
+                    <h3><i class="fa-solid fa-robot"></i> isaac-sim/IsaacLab</h3>
+                    <p class="text-lg opacity-90">基于 NVIDIA Isaac Sim 构建的机器人学习统一框架</p>
+                    <table class="fragment fade-in">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/isaac-sim/IsaacLab" target="_blank">isaac-sim/IsaacLab</a></td><td>Python</td><td>4068</td><td>1次</td><td>1次</td><td>7</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-chart-simple"></i> isaac-sim/IsaacLab 详情</h3>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="icon fa-solid fa-star"></i> Stars: 4.1k</div>
+                        <div><i class="icon fa-solid fa-code-branch"></i> Forks: 1.9k</div>
+                        <div><i class="icon fa-solid fa-eye"></i> Watchers: 49</div>
+                        <div><i class="icon fa-solid fa-circle-exclamation"></i> Issues: 212</div>
+                        <div><i class="icon fa-solid fa-code-pull-request"></i> Pull Requests: 85</div>
+                        <div><i class="icon fa-solid fa-box-archive"></i> Releases: 14</div>
+                        <div><i class="icon fa-solid fa-file-signature"></i> Commits: 1,048</div>
+                        <div><i class="icon fa-solid fa-certificate"></i> License: BSD-3-Clause license</div>
+                        <div><i class="icon fa-solid fa-users"></i> Contributors: 135</div>
+                    </div>
+                    <h4 class="fragment fade-in mt-6">编程语言占比:</h4>
+                    <div class="lang-dist-bar fragment fade-in">
+                        <div class="lang-segment" style="width: 98.3%;">Python 98.3%</div>
+                        <div class="lang-segment" style="width: 1.7%;">Other 1.7%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-book"></i> isaac-sim/IsaacLab 速读</h3>
+                    <p class="fragment fade-in">Isaac Lab 是一个构建在 NVIDIA Isaac Sim 平台之上的开源框架，旨在统一和加速机器人学习的研究工作流程。</p>
+                    <p class="fragment fade-in">利用 Isaac Sim 的 GPU 加速能力，提供快速、准确且高保真的物理模拟和传感器模拟，支持复杂交互。</p>
+                    <p class="fragment fade-in">内置了超过 16 种多样化的机器人模型和 30 多个开箱即用的训练环境，并兼容主流的强化学习库。为推动机器人智能算法的研发提供了一个坚实的基础工具。</p>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-signal"></i> isaac-sim/IsaacLab 增长分析</h3>
+                    <p class="fragment fade-in">首次上榜，日增7星，显示其在机器人仿真领域的初步关注度。</p>
+                </section>
+            </section>
+
+            <!-- openssl/openssl -->
+            <section>
+                <section>
+                    <h3><i class="fa-solid fa-lock"></i> openssl/openssl</h3>
+                    <p class="text-lg opacity-90">TLS/SSL 和密码库</p>
+                    <table class="fragment fade-in">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/openssl/openssl" target="_blank">openssl/openssl</a></td><td>C</td><td>27795</td><td>2次</td><td>2次</td><td>11</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-chart-simple"></i> openssl/openssl 详情</h3>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="icon fa-solid fa-star"></i> Stars: 27.8k</div>
+                        <div><i class="icon fa-solid fa-code-branch"></i> Forks: 10.6k</div>
+                        <div><i class="icon fa-solid fa-eye"></i> Watchers: 1k</div>
+                        <div><i class="icon fa-solid fa-circle-exclamation"></i> Issues: 1.7k</div>
+                        <div><i class="icon fa-solid fa-code-pull-request"></i> Pull Requests: 282</div>
+                        <div><i class="icon fa-solid fa-box-archive"></i> Releases: 282</div>
+                        <div><i class="icon fa-solid fa-file-signature"></i> Commits: 37,479</div>
+                        <div><i class="icon fa-solid fa-certificate"></i> License: Apache-2.0 license</div>
+                        <div><i class="icon fa-solid fa-users"></i> Contributors: 1,052</div>
+                    </div>
+                    <h4 class="fragment fade-in mt-6">编程语言占比:</h4>
+                    <div class="lang-dist-bar fragment fade-in">
+                        <div class="lang-segment" style="width: 74.7%;">C 74.7%</div>
+                        <div class="lang-segment" style="width: 22.3%;">Perl 22.3%</div>
+                        <div class="lang-segment" style="width: 1.5%;">C++ 1.5%</div>
+                        <div class="lang-segment" style="width: 0.5%;">Raku 0.5%</div>
+                        <div class="lang-segment" style="width: 0.5%;">Assembly 0.5%</div>
+                        <div class="lang-segment" style="width: 0.3%;">Shell 0.3%</div>
+                        <div class="lang-segment" style="width: 0.2%;">Other 0.2%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-book"></i> openssl/openssl 速读</h3>
+                    <p class="fragment fade-in">OpenSSL 是一个功能强大、被广泛使用的开源工具包，专注于实现 TLS/SSL、DTLS 和 QUIC 等网络安全协议，并提供一套全面的密码学库。</p>
+                    <p class="fragment fade-in">它是保障互联网通信安全的关键基础设施之一，为各种应用程序和服务提供加密、认证和完整性保护。</p>
+                    <p class="fragment fade-in">凭借其鲁棒性、全面性和在各种平台上的可用性，OpenSSL 已成为事实上的行业标准，是无数服务器、浏览器、VPN 和其他网络应用依赖的基础组件。</p>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-signal"></i> openssl/openssl 增长分析</h3>
+                    <p class="fragment fade-in">该仓库在两天统计期内稳定上榜两次，显示了持续的关注度。</p>
+                    <p class="fragment fade-in">总Star增长87颗，增长势头强劲。当次新增11星，高于平均每次上榜增长的7.5星，表明近期增长势头良好并有所加速。</p>
+                </section>
+            </section>
+
+            <!-- Genesis-Embodied-AI/Genesis -->
+            <section>
+                <section>
+                    <h3><i class="fa-solid fa-dna"></i> Genesis-Embodied-AI/Genesis</h3>
+                    <p class="text-lg opacity-90">一个用于通用机器人和具身智能学习的生成世界。</p>
+                    <table class="fragment fade-in">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/Genesis-Embodied-AI/Genesis" target="_blank">Genesis-Embodied-AI/Genesis</a></td><td>Python</td><td>25478</td><td>1次</td><td>1次</td><td>61</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-chart-simple"></i> Genesis-Embodied-AI/Genesis 详情</h3>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="icon fa-solid fa-star"></i> Stars: 25.5k</div>
+                        <div><i class="icon fa-solid fa-code-branch"></i> Forks: 2.3k</div>
+                        <div><i class="icon fa-solid fa-eye"></i> Watchers: 236</div>
+                        <div><i class="icon fa-solid fa-circle-exclamation"></i> Issues: 107</div>
+                        <div><i class="icon fa-solid fa-code-pull-request"></i> Pull Requests: 12</div>
+                        <div><i class="icon fa-solid fa-box-archive"></i> Releases: 1</div>
+                        <div><i class="icon fa-solid fa-file-signature"></i> Commits: 579</div>
+                        <div><i class="icon fa-solid fa-certificate"></i> License: Apache-2.0 license</div>
+                        <div><i class="icon fa-solid fa-users"></i> Contributors: 63</div>
+                    </div>
+                    <h4 class="fragment fade-in mt-6">编程语言占比:</h4>
+                    <div class="lang-dist-bar fragment fade-in">
+                        <div class="lang-segment" style="width: 96.8%;">Python 96.8%</div>
+                        <div class="lang-segment" style="width: 1.6%;">C++ 1.6%</div>
+                        <div class="lang-segment" style="width: 1.1%;">GLSL 1.1%</div>
+                        <div class="lang-segment" style="width: 0.3%;">Cython 0.3%</div>
+                        <div class="lang-segment" style="width: 0.1%;">Dockerfile 0.1%</div>
+                        <div class="lang-segment" style="width: 0.1%;">HTML 0.1%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-book"></i> Genesis-Embodied-AI/Genesis 速读</h3>
+                    <p class="fragment fade-in">Genesis是一个专为通用机器人学和具身智能（Embodied AI）学习打造的高性能物理模拟平台。</p>
+                    <p class="fragment fade-in">其核心目标是降低物理仿真的使用门槛，通过统一集成的物理引擎，以超高速度和逼真度重建复杂的物理世界。</p>
+                    <p class="fragment fade-in">显著优势在于其惊人的模拟速度，单张RTX 4090即可实现每秒高达四千三百万帧的模拟性能。为研究和开发下一代需要与物理世界交互的智能机器人和AI系统提供了理想工具。</p>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-signal"></i> Genesis-Embodied-AI/Genesis 增长分析</h3>
+                    <p class="fragment fade-in">首次上榜，日增61星，显示其在具身智能和机器人仿真领域受到了高度关注。</p>
+                </section>
+            </section>
+
+            <!-- cloudcommunity/Free-Certifications -->
+            <section>
+                <section>
+                    <h3><i class="fa-solid fa-award"></i> cloudcommunity/Free-Certifications</h3>
+                    <p class="text-lg opacity-90">精选的免费认证课程列表。</p>
+                    <table class="fragment fade-in">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/cloudcommunity/Free-Certifications" target="_blank">cloudcommunity/Free-Certifications</a></td><td></td><td>34865</td><td>1次</td><td>4次</td><td>894</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-chart-simple"></i> cloudcommunity/Free-Certifications 详情</h3>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="icon fa-solid fa-star"></i> Stars: 34.9k</div>
+                        <div><i class="icon fa-solid fa-code-branch"></i> Forks: 2.5k</div>
+                        <div><i class="icon fa-solid fa-eye"></i> Watchers: 715</div>
+                        <div><i class="icon fa-solid fa-circle-exclamation"></i> Issues: 35</div>
+                        <div><i class="icon fa-solid fa-code-pull-request"></i> Pull Requests: 13</div>
+                        <div><i class="icon fa-solid fa-box-archive"></i> Releases: 0</div>
+                        <div><i class="icon fa-solid fa-file-signature"></i> Commits: 328</div>
+                        <div><i class="icon fa-solid fa-certificate"></i> License: MIT license</div>
+                        <div><i class="icon fa-solid fa-users"></i> Contributors: 78</div>
+                    </div>
+                    <h4 class="fragment fade-in mt-6">编程语言占比:</h4>
+                    <p class="fragment fade-in">该项目无主要编程语言统计。</p>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-book"></i> cloudcommunity/Free-Certifications 速读</h3>
+                    <p class="fragment fade-in">Free Certifications 项目是一个精心 curated 的在线资源集合，专注于提供<strong>免费在线课程，并且完成学习后可以获得官方或第三方颁发的证书。</strong></p>
+                    <p class="fragment fade-in">它旨在打破学习成本的壁垒，让全球的学习者能够方便快捷地找到无需付费即可提升技能、学习新技术并获得认可的机会。</p>
+                    <p class="fragment fade-in">项目最大的特点在于其免费带证的聚焦性，并且涵盖技术、管理、市场等广泛领域。其高关注度证明了其作为免费学习资源导航库的巨大价值。</p>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-signal"></i> cloudcommunity/Free-Certifications 增长分析</h3>
+                    <p class="fragment fade-in">该仓库在统计期内累计增长5631 Star，上榜4次，平均每次增长660 Star。</p>
+                    <p class="fragment fade-in">今日新增<strong>894 Star</strong>，增长势头良好，尽管上榜频率不高。</p>
+                </section>
+            </section>
+
+            <!-- The-Cool-Coders/Project-Ideas-And-Resources -->
+            <section>
+                <section>
+                    <h3><i class="fa-solid fa-lightbulb"></i> The-Cool-Coders/Project-Ideas-And-Resources</h3>
+                    <p class="text-lg opacity-90">一系列可用于提升编程技能的应用构思。</p>
+                    <table class="fragment fade-in">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/The-Cool-Coders/Project-Ideas-And-Resources" target="_blank">The-Cool-Coders/Project-Ideas-And-Resources</a></td><td></td><td>7930</td><td>3次</td><td>3次</td><td>544</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-chart-simple"></i> Project-Ideas-And-Resources 详情</h3>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="icon fa-solid fa-star"></i> Stars: 7.9k</div>
+                        <div><i class="icon fa-solid fa-code-branch"></i> Forks: 663</div>
+                        <div><i class="icon fa-solid fa-eye"></i> Watchers: 97</div>
+                        <div><i class="icon fa-solid fa-circle-exclamation"></i> Issues: 15</div>
+                        <div><i class="icon fa-solid fa-code-pull-request"></i> Pull Requests: 12</div>
+                        <div><i class="icon fa-solid fa-box-archive"></i> Releases: 0</div>
+                        <div><i class="icon fa-solid fa-file-signature"></i> Commits: 108</div>
+                        <div><i class="icon fa-solid fa-certificate"></i> License: MIT license</div>
+                        <div><i class="icon fa-solid fa-users"></i> Contributors: 5</div>
+                    </div>
+                    <h4 class="fragment fade-in mt-6">编程语言占比:</h4>
+                    <p class="fragment fade-in">该项目无主要编程语言统计。</p>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-book"></i> Project-Ideas-And-Resources 速读</h3>
+                    <p class="fragment fade-in">这个 GitHub 仓库就像一个“编程项目创意库”，专门为开发者提供实战练习的机会。</p>
+                    <p class="fragment fade-in">它收集了海量按难度精心分级的应用开发点子和配套学习资源，旨在帮助程序员解决不知道做什么项目、如何实践技术难题。</p>
+                    <p class="fragment fade-in">每个项目都有清晰的目标、用户故事和推荐资源，覆盖前端、后端、AI、区块链等众多技术方向。无论是新手还是资深开发者，这里都能找到提升技能、丰富作品集的绝佳素材。</p>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-signal"></i> Project-Ideas-And-Resources 增长分析</h3>
+                    <p class="fragment fade-in">仓库3天内上榜3次，星数增长显著，特别是最新一天新增<strong>544星</strong>，增长势头强劲。</p>
+                </section>
+            </section>
+
+            <!-- danny-avila/LibreChat -->
+            <section>
+                <section>
+                    <h3><i class="fa-solid fa-comments"></i> danny-avila/LibreChat</h3>
+                    <p class="text-lg opacity-90">增强型 ChatGPT 克隆：功能包括 智能体，DeepSeek，Anthropic，AWS，OpenAI，Assistants API，Azure，Groq，o1，GPT-4o，Mistral，OpenRouter，Vertex AI，Gemini，制品，AI模型切换，消息搜索，代码解释器，langchain，DALL-E-3，OpenAPI Actions，Functions，安全多用户认证，预设，开源支持自托管。活跃项目。</p>
+                    <table class="fragment fade-in">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/danny-avila/LibreChat" target="_blank">danny-avila/LibreChat</a></td><td>TypeScript</td><td>27401</td><td>1次</td><td>1次</td><td>55</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-chart-simple"></i> danny-avila/LibreChat 详情</h3>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="icon fa-solid fa-star"></i> Stars: 27.4k</div>
+                        <div><i class="icon fa-solid fa-code-branch"></i> Forks: 4.9k</div>
+                        <div><i class="icon fa-solid fa-eye"></i> Watchers: 160</div>
+                        <div><i class="icon fa-solid fa-circle-exclamation"></i> Issues: 168</div>
+                        <div><i class="icon fa-solid fa-code-pull-request"></i> Pull Requests: 65</div>
+                        <div><i class="icon fa-solid fa-box-archive"></i> Releases: 0</div>
+                        <div><i class="icon fa-solid fa-file-signature"></i> Commits: 2,769</div>
+                        <div><i class="icon fa-solid fa-certificate"></i> License: MIT license</div>
+                        <div><i class="icon fa-solid fa-users"></i> Contributors: 254</div>
+                    </div>
+                    <h4 class="fragment fade-in mt-6">编程语言占比:</h4>
+                    <div class="lang-dist-bar fragment fade-in">
+                        <div class="lang-segment" style="width: 61.8%;">TypeScript 61.8%</div>
+                        <div class="lang-segment" style="width: 36.1%;">JavaScript 36.1%</div>
+                        <div class="lang-segment" style="width: 1.0%;">CSS 1.0%</div>
+                        <div class="lang-segment" style="width: 0.8%;">Handlebars 0.8%</div>
+                        <div class="lang-segment" style="width: 0.1%;">Shell 0.1%</div>
+                        <div class="lang-segment" style="width: 0.1%;">Smarty 0.1%</div>
+                        <div class="lang-segment" style="width: 0.1%;">Other 0.1%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-book"></i> danny-avila/LibreChat 速读</h3>
+                    <p class="fragment fade-in">LibreChat 是一个开源的增强型 ChatGPT 克隆平台，核心目标是提供一个统一、可自托管的界面，让用户能便捷地接入并管理与多种不同 AI 模型（如 OpenAI, Anthropic, Google, Groq 等）的交互。</p>
+                    <p class="fragment fade-in">它解决了依赖单一官方客户端功能受限的问题，并整合了代码解释器、智能体、文件分析、多模态支持、高级会话管理以及安全多用户认证等强大功能。</p>
+                    <p class="fragment fade-in">LibreChat 的价值在于为个人和团队提供了一个高度灵活、功能集成度高且可控的 AI 对话解决方案。</p>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-signal"></i> danny-avila/LibreChat 增长分析</h3>
+                    <p class="fragment fade-in">首次上榜，日增55星，作为一个功能丰富的AI对话平台，展示出良好的初期关注度。</p>
+                </section>
+            </section>
+
+            <!-- btjawa/BiliTools -->
+            <section>
+                <section>
+                    <h3><i class="fa-solid fa-download"></i> btjawa/BiliTools</h3>
+                    <p class="text-lg opacity-90">{'A cross-platform bilibili toolbox. 跨平台哔哩哔哩工具箱，支持下载视频、番剧等等各类资源'}</p>
+                    <table class="fragment fade-in">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/btjawa/BiliTools" target="_blank">btjawa/BiliTools</a></td><td>TypeScript</td><td>1641</td><td>1次</td><td>1次</td><td>84</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-chart-simple"></i> btjawa/BiliTools 详情</h3>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="icon fa-solid fa-star"></i> Stars: 1.6k</div>
+                        <div><i class="icon fa-solid fa-code-branch"></i> Forks: 98</div>
+                        <div><i class="icon fa-solid fa-eye"></i> Watchers: 11</div>
+                        <div><i class="icon fa-solid fa-circle-exclamation"></i> Issues: 16</div>
+                        <div><i class="icon fa-solid fa-code-pull-request"></i> Pull Requests: 0</div>
+                        <div><i class="icon fa-solid fa-box-archive"></i> Releases: 19</div>
+                        <div><i class="icon fa-solid fa-file-signature"></i> Commits: 232</div>
+                        <div><i class="icon fa-solid fa-certificate"></i> License: GPL-3.0 license</div>
+                        <div><i class="icon fa-solid fa-users"></i> Contributors: 3</div>
+                    </div>
+                    <h4 class="fragment fade-in mt-6">编程语言占比:</h4>
+                    <div class="lang-dist-bar fragment fade-in">
+                        <div class="lang-segment" style="width: 34.1%;">TypeScript 34.1%</div>
+                        <div class="lang-segment" style="width: 29.8%;">Rust 29.8%</div>
+                        <div class="lang-segment" style="width: 29.8%;">Vue 29.8%</div>
+                        <div class="lang-segment" style="width: 4.8%;">JavaScript 4.8%</div>
+                        <div class="lang-segment" style="width: 1.4%;">CSS 1.4%</div>
+                        <div class="lang-segment" style="width: 0.1%;">HTML 0.1%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-book"></i> btjawa/BiliTools 速读</h3>
+                    <p class="fragment fade-in">BiliTools 是一款基于 Tauri 的跨平台桌面工具箱，旨在为用户提供一个便捷的方式来下载和管理哔哩哔哩（B站）的各类资源。</p>
+                    <p class="fragment fade-in">它解决了用户离线保存 B 站视频、番剧、音乐、弹幕等内容的需求，支持多种格式和高品质选项。</p>
+                    <p class="fragment fade-in">项目核心优势在于利用 aria2 和 ffmpeg 实现高效的多线程下载与媒体处理。作为一款免费开源工具，为有内容访问权限的用户提供了一个强大的本地化备份方案。</p>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-signal"></i> btjawa/BiliTools 增长分析</h3>
+                    <p class="fragment fade-in">首次上榜，日增84星，显示出用户对B站资源下载工具的持续需求。</p>
+                </section>
+            </section>
+
+            <!-- MotiaDev/motia -->
+            <section>
+                <section>
+                    <h3><i class="fa-solid fa-cubes"></i> MotiaDev/motia</h3>
+                    <p class="text-lg opacity-90">用于 API、事件和 AI 代理的统一后端框架</p>
+                    <table class="fragment fade-in">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/MotiaDev/motia" target="_blank">MotiaDev/motia</a></td><td>TypeScript</td><td>2958</td><td>1次</td><td>1次</td><td>174</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-chart-simple"></i> MotiaDev/motia 详情</h3>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="icon fa-solid fa-star"></i> Stars: 3k</div>
+                        <div><i class="icon fa-solid fa-code-branch"></i> Forks: 250</div>
+                        <div><i class="icon fa-solid fa-eye"></i> Watchers: 31</div>
+                        <div><i class="icon fa-solid fa-circle-exclamation"></i> Issues: 9</div>
+                        <div><i class="icon fa-solid fa-code-pull-request"></i> Pull Requests: 4</div>
+                        <div><i class="icon fa-solid fa-box-archive"></i> Releases: 79</div>
+                        <div><i class="icon fa-solid fa-file-signature"></i> Commits: 644</div>
+                        <div><i class="icon fa-solid fa-certificate"></i> License: MIT license</div>
+                        <div><i class="icon fa-solid fa-users"></i> Contributors: 15</div>
+                    </div>
+                    <h4 class="fragment fade-in mt-6">编程语言占比:</h4>
+                    <div class="lang-dist-bar fragment fade-in">
+                        <div class="lang-segment" style="width: 77.8%;">TypeScript 77.8%</div>
+                        <div class="lang-segment" style="width: 13.9%;">MDX 13.9%</div>
+                        <div class="lang-segment" style="width: 3.7%;">Python 3.7%</div>
+                        <div class="lang-segment" style="width: 1.8%;">JavaScript 1.8%</div>
+                        <div class="lang-segment" style="width: 1.7%;">CSS 1.7%</div>
+                        <div class="lang-segment" style="width: 0.7%;">Ruby 0.7%</div>
+                        <div class="lang-segment" style="width: 0.4%;">Other 0.4%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-book"></i> MotiaDev/motia 速读</h3>
+                    <p class="fragment fade-in">Motia 是一个现代后端框架，旨在解决传统后端开发中 API、事件处理、后台任务和 AI 代理相互割裂、各自为政的问题。</p>
+                    <p class="fragment fade-in">它将这些不同类型的业务逻辑统一到一个内聚、事件驱动的系统中，极大地减少了开发和运维的碎片化。</p>
+                    <p class="fragment fade-in">一大亮点在于其灵活的多语言支持，允许开发者在同一个项目中混合使用 JavaScript、TypeScript 和 Python。特别适用于构建复杂的、需要集成多种服务类型且可能涉及多语言环境的后端应用。</p>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-signal"></i> MotiaDev/motia 增长分析</h3>
+                    <p class="fragment fade-in">首次上榜，日增174星，表明其作为统一后端框架的创新理念和实用性得到了开发者的认可，增长势头强劲。</p>
+                </section>
+            </section>
+
+            <!-- datawhalechina/happy-llm -->
+            <section>
+                <section>
+                    <h3><i class="fa-solid fa-graduation-cap"></i> datawhalechina/happy-llm</h3>
+                    <p class="text-lg opacity-90">{'📚 从零开始的大语言模型原理与实践教程'}</p>
+                    <table class="fragment fade-in">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/datawhalechina/happy-llm" target="_blank">datawhalechina/happy-llm</a></td><td></td><td>6677</td><td>1次</td><td>1次</td><td>1041</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-chart-simple"></i> datawhalechina/happy-llm 详情</h3>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="icon fa-solid fa-star"></i> Stars: 6.7k</div>
+                        <div><i class="icon fa-solid fa-code-branch"></i> Forks: 479</div>
+                        <div><i class="icon fa-solid fa-eye"></i> Watchers: 25</div>
+                        <div><i class="icon fa-solid fa-circle-exclamation"></i> Issues: 7</div>
+                        <div><i class="icon fa-solid fa-code-pull-request"></i> Pull Requests: 2</div>
+                        <div><i class="icon fa-solid fa-box-archive"></i> Releases: 1</div>
+                        <div><i class="icon fa-solid fa-file-signature"></i> Commits: 167</div>
+                        <div><i class="icon fa-solid fa-certificate"></i> License: 未知</div>
+                        <div><i class="icon fa-solid fa-users"></i> Contributors: 6</div>
+                    </div>
+                    <h4 class="fragment fade-in mt-6">编程语言占比:</h4>
+                    <p class="fragment fade-in">该项目无主要编程语言统计。</p>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-book"></i> datawhalechina/happy-llm 速读</h3>
+                    <p class="fragment fade-in">happy-llm 是 Datawhale 推出的一个开源教程项目，旨在提供一个从零开始学习大语言模型（LLM）的系统性路径。</p>
+                    <p class="fragment fade-in">它深入讲解 LLM 的核心原理，特别是 Transformer 架构，并通过大量动手实践，指导学习者使用 PyTorch 和 Transformers 框架，构建、训练及微调自己的模型。</p>
+                    <p class="fragment fade-in">教程内容全面覆盖从理论基础到高级应用（如 RAG、Agent），有效弥合了理论与实践之间的鸿沟。对于希望系统化掌握 LLM 技术栈、获得实际开发经验的学习者来说，这是一个极具价值的免费学习资源。</p>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-signal"></i> datawhalechina/happy-llm 增长分析</h3>
+                    <p class="fragment fade-in">首次上榜，日增<strong>1041星</strong>，作为LLM实践教程展现出极高的热门度，反映了社区对系统性LLM学习资源的巨大需求。</p>
+                </section>
+            </section>
+
+            <!-- llmware-ai/llmware -->
+            <section>
+                <section>
+                    <h3><i class="fa-solid fa-industry"></i> llmware-ai/llmware</h3>
+                    <p class="text-lg opacity-90">使用小型、专用模型构建企业级 RAG 管线的统一框架</p>
+                    <table class="fragment fade-in">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/llmware-ai/llmware" target="_blank">llmware-ai/llmware</a></td><td>Python</td><td>13926</td><td>1次</td><td>1次</td><td>62</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-chart-simple"></i> llmware-ai/llmware 详情</h3>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="icon fa-solid fa-star"></i> Stars: 13.9k</div>
+                        <div><i class="icon fa-solid fa-code-branch"></i> Forks: 2.8k</div>
+                        <div><i class="icon fa-solid fa-eye"></i> Watchers: 57</div>
+                        <div><i class="icon fa-solid fa-circle-exclamation"></i> Issues: 65</div>
+                        <div><i class="icon fa-solid fa-code-pull-request"></i> Pull Requests: 17</div>
+                        <div><i class="icon fa-solid fa-box-archive"></i> Releases: 0</div>
+                        <div><i class="icon fa-solid fa-file-signature"></i> Commits: 2,234</div>
+                        <div><i class="icon fa-solid fa-certificate"></i> License: Apache-2.0 license</div>
+                        <div><i class="icon fa-solid fa-users"></i> Contributors: 75</div>
+                    </div>
+                    <h4 class="fragment fade-in mt-6">编程语言占比:</h4>
+                    <div class="lang-dist-bar fragment fade-in">
+                        <div class="lang-segment" style="width: 97.2%;">Python 97.2%</div>
+                        <div class="lang-segment" style="width: 2.4%;">Jupyter Notebook 2.4%</div>
+                        <div class="lang-segment" style="width: 0.4%;">Other 0.4%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-book"></i> llmware-ai/llmware 速读</h3>
+                    <p class="fragment fade-in">llmware 是一个统一的 Python 框架，专为企业安全、私密且经济高效地构建检索增强生成（RAG）管线及智能应用而设计。</p>
+                    <p class="fragment fade-in">它解决了在利用大型语言模型时，如何安全地连接企业内部数据并降低部署成本的问题。</p>
+                    <p class="fragment fade-in">项目核心优势在于提供端到端的 RAG 工具集，特别是预置和支持大量针对特定任务优化的小型专用模型，显著降低对高性能硬件的依赖。</p>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-signal"></i> llmware-ai/llmware 增长分析</h3>
+                    <p class="fragment fade-in">首次上榜，日增62星，表明企业级RAG解决方案受到广泛关注，尤其对小型化、专用模型的需求。</p>
+                </section>
+            </section>
+
+            <!-- swagger-api/swagger-ui -->
+            <section>
+                <section>
+                    <h3><i class="fa-solid fa-file-code"></i> swagger-api/swagger-ui</h3>
+                    <p class="text-lg opacity-90">Swagger UI 是一个 HTML、JavaScript 和 CSS 资产的集合，用于动态生成源自符合 Swagger 规范的 API 的精美文档。</p>
+                    <table class="fragment fade-in">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/swagger-api/swagger-ui" target="_blank">swagger-api/swagger-ui</a></td><td>JavaScript</td><td>27590</td><td>1次</td><td>1次</td><td>37</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-chart-simple"></i> swagger-api/swagger-ui 详情</h3>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="icon fa-solid fa-star"></i> Stars: 27.6k</div>
+                        <div><i class="icon fa-solid fa-code-branch"></i> Forks: 9.1k</div>
+                        <div><i class="icon fa-solid fa-eye"></i> Watchers: 640</div>
+                        <div><i class="icon fa-solid fa-circle-exclamation"></i> Issues: 1.2k</div>
+                        <div><i class="icon fa-solid fa-code-pull-request"></i> Pull Requests: 93</div>
+                        <div><i class="icon fa-solid fa-box-archive"></i> Releases: 372</div>
+                        <div><i class="icon fa-solid fa-file-signature"></i> Commits: 6,735</div>
+                        <div><i class="icon fa-solid fa-certificate"></i> License: Apache-2.0 license</div>
+                        <div><i class="icon fa-solid fa-users"></i> Contributors: 519</div>
+                    </div>
+                    <h4 class="fragment fade-in mt-6">编程语言占比:</h4>
+                    <div class="lang-dist-bar fragment fade-in">
+                        <div class="lang-segment" style="width: 95.3%;">JavaScript 95.3%</div>
+                        <div class="lang-segment" style="width: 3.4%;">SCSS 3.4%</div>
+                        <div class="lang-segment" style="width: 1.3%;">Other 1.3%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-book"></i> swagger-api/swagger-ui 速读</h3>
+                    <p class="fragment fade-in">Swagger UI 是一个基于前端技术（HTML、JavaScript 和 CSS）的项目，其核心功能是将遵循 OpenAPI (Swagger) 规范的 API 定义文件，动态地转化为美观、交互式的可视化文档。</p>
+                    <p class="fragment fade-in">它彻底改变了传统的 API 文档方式，解决了静态文档维护困难、互动性差的问题。</p>
+                    <p class="fragment fade-in">通过 Swagger UI，开发者和 API 消费者无需了解底层实现细节，就能通过直观的界面轻松地理解 API 的结构、参数和响应，甚至直接在浏览器中发起真实的 API 请求并查看结果。已成为 API 生态中重要的组成部分。</p>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-signal"></i> swagger-api/swagger-ui 增长分析</h3>
+                    <p class="fragment fade-in">首次上榜，日增37星，作为API文档的事实标准工具，持续保持着稳定的关注度。</p>
+                </section>
+            </section>
+
+            <!-- ashishpatel26/500-AI-Machine-learning-Deep-learning-Computer-vision-NLP-Projects-with-code -->
+            <section>
+                <section>
+                    <h3><i class="fa-solid fa-flask"></i> ashishpatel26/500-AI-Projects-with-code</h3>
+                    <p class="text-lg opacity-90">500个附带代码的AI、机器学习、深度学习、计算机视觉、NLP项目</p>
+                    <table class="fragment fade-in">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/ashishpatel26/500-AI-Machine-learning-Deep-learning-Computer-vision-NLP-Projects-with-code" target="_blank">ashishpatel26/500-AI-Machine-learning-Deep-learning-Computer-vision-NLP-Projects-with-code</a></td><td></td><td>24577</td><td>1次</td><td>1次</td><td>140</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-chart-simple"></i> 500-AI-Projects-with-code 详情</h3>
+                    <div class="repo-stats fragment fade-in">
+                        <div><i class="icon fa-solid fa-star"></i> Stars: 24.6k</div>
+                        <div><i class="icon fa-solid fa-code-branch"></i> Forks: 5.8k</div>
+                        <div><i class="icon fa-solid fa-eye"></i> Watchers: 627</div>
+                        <div><i class="icon fa-solid fa-circle-exclamation"></i> Issues: 42</div>
+                        <div><i class="icon fa-solid fa-code-pull-request"></i> Pull Requests: 11</div>
+                        <div><i class="icon fa-solid fa-box-archive"></i> Releases: 0</div>
+                        <div><i class="icon fa-solid fa-file-signature"></i> Commits: 29</div>
+                        <div><i class="icon fa-solid fa-certificate"></i> License: 未知</div>
+                        <div><i class="icon fa-solid fa-users"></i> Contributors: 3</div>
+                    </div>
+                    <h4 class="fragment fade-in mt-6">编程语言占比:</h4>
+                    <p class="fragment fade-in">该项目无主要编程语言统计。</p>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-book"></i> 500-AI-Projects-with-code 速读</h3>
+                    <p class="fragment fade-in">这是一个汇集了超过 500 个与人工智能、机器学习、深度学习、计算机视觉和自然语言处理相关的项目、代码和学习资源的精选列表。</p>
+                    <p class="fragment fade-in">它作为一个中心化的导航页，极大地解决了开发者、学生和研究人员在海量信息中寻找带有实际代码的实践项目和学习资料的痛点。</p>
+                    <p class="fragment fade-in">项目的核心优势在于其内容的广泛性、实用性和持续更新性。它涵盖了 AI 各个子领域的众多主题和应用，特别强调所收录的资源都包含可用的代码，这对动手实践和学习至关重要。</p>
+                </section>
+                <section>
+                    <h3><i class="fa-solid fa-signal"></i> 500-AI-Projects-with-code 增长分析</h3>
+                    <p class="fragment fade-in">首次上榜，日增140星，作为一个AI项目资源聚合类仓库，其高星标和增长速度反映了市场对AI实践和学习资源的巨大需求。</p>
+                </section>
+            </section>
+
+            <!-- 结束页 -->
+            <section class="cover-slide" data-background-image="https://images.unsplash.com/photo-1510519138101-570d1dca3d66?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNTY3Nzh8MHwxfHNlYXJjaHw0OXx8Y29kaW5nJTIwZ2FsYXh5fGVufDB8fHx8MTY3NTA3MzExOA&ixlib=rb-4.0.3&q=80&w=1920" data-background-position="center" data-background-size="cover">
+                <h1>感谢您的聆听！</h1>
+                <h2>把握技术脉搏，共创美好未来！</h2>
+                <p class="fragment fade-in" style="margin-top: 2em; color: rgba(255, 255, 255, 0.9);">
+                    希望今天的分享能为您带来新的启发与思考。<br>
+                    持续学习，永不止步！
+                </p>
+                <div class="footer-info">
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        项目主页：github.com/aichipera/github-trend
+                    </a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js"></script>
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js"></script>
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js"></script>
+
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            hash: true,
+            center: true,
+            transition: 'slide', // 'slide' 'fade' 'zoom' 'convex' 'concave' 'linear'
+            history: true,
+            transitionSpeed: 'default',
+            backgroundTransition: 'fade', // 'slide' 'fade' 'none'
+
+            // Learn about plugins: https://revealjs.com/plugins/
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ],
+
+            // Mermaid Configuration
+            mermaid: {
+                theme: 'neutral', // default, dark, forest, neutral
+                fontSize: 16,
+                sequence: {
+                    diagramMarginX: 50,
+                    diagramMarginY: 10
+                },
+                flowchart: {
+                    htmlLabels: true,
+                    curve: 'basis'
+                }
+            }
+        });
+    </script>
+</body>
+</html>
