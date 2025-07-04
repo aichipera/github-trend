@@ -1,0 +1,865 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>看懂GitHub热榜，快人一步！</title>
+
+    <!-- Core Reveal.js Framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <!-- Theme: white.min.css as base, then custom styles for modern feel -->
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+
+    <!-- Extended Dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Tailwind CSS (for utility classes, though custom CSS will override many) -->
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <!-- Google Fonts for Noto Serif SC and Noto Sans SC -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom CSS for modern design and font hierarchy */
+        :root {
+            --r-background-color: #f8f8f8; /* Light background */
+            --r-main-font-size: 1.2rem;
+            --r-main-color: #333; /* Dark text */
+            --r-heading-color: #2B3E50; /* Dark Slate Blue for headings */
+            --r-link-color: #66B0B9; /* Teal for links */
+            --r-link-color-hover: #4A2B70; /* Deep Violet on hover */
+            --r-selection-background-color: #66B0B9; /* Teal selection */
+        }
+
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--r-main-color);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--r-heading-color);
+        }
+
+        /* Font sizes based on requirements */
+        .reveal h1 { font-size: 3rem; margin-bottom: 0.5em; }
+        .reveal h2 { font-size: 2.2rem; margin-bottom: 0.4em; }
+        .reveal h3 { font-size: 1.8rem; margin-bottom: 0.3em; }
+        .reveal h4 { font-size: 1.5rem; margin-bottom: 0.2em; }
+        .reveal p, .reveal li { font-size: var(--r-main-font-size); line-height: 1.6; }
+        .reveal ul { list-style: none; padding-left: 0; } /* Remove default list style for custom icon lists */
+        .reveal ul li { padding-left: 1.5em; position: relative; }
+        .reveal ul li::before {
+            content: "\f00c"; /* Font Awesome checkmark */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--r-link-color);
+            position: absolute;
+            left: 0;
+            top: 0.2em;
+            font-size: 0.8em;
+        }
+
+        /* Custom list styles for project details */
+        .project-details ul {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        .project-details ul li {
+            font-size: 1.1rem;
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .project-details ul li .fa-solid {
+            color: var(--r-link-color);
+            position: absolute;
+            left: 0;
+            top: 0.1em;
+            font-size: 0.9em;
+        }
+        .project-details .lang-breakdown {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #eee;
+            border-radius: 5px;
+            font-size: 1rem;
+            color: #666;
+        }
+        .project-details .lang-breakdown strong {
+            color: #333;
+        }
+
+        /* Layout and spacing */
+        .reveal .slides section {
+            padding: 20px 50px;
+            text-align: left;
+        }
+        .reveal .slides section.center-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Backgrounds */
+        .reveal .slides section[data-background] {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .reveal .slides section.cover-slide {
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('https://source.unsplash.com/random/1600x900?technology,abstract,data'); /* High-quality abstract tech image */
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .reveal .slides section.cover-slide h1,
+        .reveal .slides section.cover-slide h2 {
+            color: #fff;
+        }
+        .reveal .slides section.section-intro {
+             background-image: linear-gradient(to right, rgba(230, 240, 245, 0.9), rgba(255,255,255,0.9)), url('https://source.unsplash.com/random/1600x900?innovation,lightbulb,brain');
+        }
+         .reveal .slides section.trend-analysis {
+            background-image: linear-gradient(to right, rgba(250, 245, 235, 0.9), rgba(255,255,255,0.9)), url('https://source.unsplash.com/random/1600x900?data,trends,charts');
+        }
+        .reveal .slides section.project-details-intro {
+            background-image: linear-gradient(to right, rgba(235, 245, 250, 0.9), rgba(255,255,255,0.9)), url('https://source.unsplash.com/random/1600x900?code,developer,projects');
+        }
+
+        /* Footer for QR and Link */
+        .reveal .controls,
+        .reveal .progress {
+            z-index: 100; /* Ensure controls are above background content */
+        }
+        .footer-info {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: flex-end;
+            z-index: 99; /* Below controls, above general slide content */
+            color: #fff; /* Default for dark background, adjust per slide */
+            font-size: 0.9em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        .footer-info img {
+            height: 80px; /* Adjust size as needed */
+            width: 80px;
+            margin-left: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        .footer-info a {
+            color: inherit;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .footer-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Adjust footer color for light background slides */
+        .reveal .slides section:not(.cover-slide):not(.final-slide) .footer-info {
+            color: #666;
+            text-shadow: none;
+        }
+
+        /* Aha moment styling */
+        .aha-moment {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--r-link-color-hover);
+            text-align: center;
+            margin-top: 100px;
+            animation: bounceIn 1s ease-out;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.1); opacity: 0; }
+            60% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+
+        /* Fragments specific styling */
+        .reveal .fragment.fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        .reveal .fragment.fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- 1. 封面页 (Cover Slide) -->
+            <section class="cover-slide center-content">
+                <h1>看懂GitHub热榜，快人一步！</h1>
+                <h2 style="margin-top: 20px;">今日GitHub热榜：开发者疯抢的实用工具和AI学习资源</h2>
+                <p class="mt-8 text-xl">演讲者：AIChipEra</p>
+                <div class="footer-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra WeChat QR Code">
+                </div>
+            </section>
+
+            <!-- 2. 日报要点与免责声明 -->
+            <section class="section-intro">
+                <h2 class="mb-6">今日GitHub热榜：日报要点</h2>
+                <p>Github热门仓库<strong>日报</strong>观测时间为 <strong>2025-07-04 20:27:02</strong></p>
+                <p class="text-lg text-red-600 font-bold mt-4">注意：以下内容仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</p>
+
+                <h3 class="mt-10">核心洞察</h3>
+                <p class="fragment fade-up">想知道GitHub上哪些项目正引爆技术圈？</p>
+                <p class="fragment fade-up">我们深度分析今日热门榜单，发现开发者正疯狂追逐：</p>
+                <ul class="mt-4">
+                    <li class="fragment fade-up"><i class="fa-solid fa-rocket mr-2"></i><strong>高效率工具：</strong> 提升开发效能与简化复杂流程</li>
+                    <li class="fragment fade-up"><i class="fa-solid fa-brain mr-2"></i><strong>最in的AI学习资源：</strong> 紧跟前沿技术，掌握大模型应用</li>
+                    <li class="fragment fade-up"><i class="fa-solid fa-lock mr-2"></i><strong>安全可靠的基础设施：</strong> 强化系统可控性和数据隐私</li>
+                </ul>
+                <p class="fragment fade-up mt-6 text-lg">这篇分析带你洞察趋势，把握未来技术方向，告别盲目追赶，成为技术弄潮儿！</p>
+                <p class="fragment fade-up mt-4 text-sm text-gray-500">PPT: <a href="https://aichipera.github.io/github-trend/daily/2025-07-04/ppt.html" target="_blank">https://aichipera.github.io/github-trend/daily/2025-07-04/ppt.html</a></p>
+            </section>
+
+            <!-- 3. 热门项目趋势分析 - 今日整体趋势 -->
+            <section class="trend-analysis">
+                <h2>热门项目趋势分析：今日整体洞察</h2>
+                <div class="text-left">
+                    <p class="fragment fade-up">基于对今日GitHub热门项目列表的观察，当前技术社区的鲜明倾向和活跃领域主要集中在：</p>
+                    <ul class="mt-4">
+                        <li class="fragment fade-up"><i class="fa-solid fa-screwdriver-wrench mr-2"></i><strong>开发工具与基础设施：</strong> 提升效率、简化流程、增强可控性与安全性。</li>
+                        <li class="fragment fade-up"><i class="fa-solid fa-robot mr-2"></i><strong>人工智能（特别是大模型LLM）：</strong> 研究走向应用，LLM原理与实践备受追捧。</li>
+                        <li class="fragment fade-up"><i class="fa-solid fa-code-branch mr-2"></i><strong>底层技术自主性探索：</strong> 关注用户隐私、数据自主性，自托管/本地优先方案兴起。</li>
+                    </ul>
+                    <p class="fragment fade-up mt-6"><strong>语言趋势：</strong></p>
+                    <ul class="mt-2">
+                        <li class="fragment fade-up"><i class="fa-brands fa-js-square mr-2"></i><strong>TypeScript：</strong> 在前端、后端框架、工具和跨平台应用中占据主导地位。</li>
+                        <li class="fragment fade-up"><i class="fa-brands fa-python mr-2"></i><strong>Python：</strong> AI、数据处理和仿真领域的首选语言。</li>
+                        <li class="fragment fade-up"><i class="fa-solid fa-gears mr-2"></i><strong>Rust & Go：</strong> 在性能、并发和云原生工具中崭露头角。</li>
+                    </ul>
+                    <p class="fragment fade-up mt-6 text-lg font-bold text-gray-700">Aha! Moment: LLM学习资源星标暴涨，TypeScript成香饽饽，揭示开发者对<strong>高效率、AI赋能和底层掌控</strong>的强烈追求！</p>
+                </div>
+            </section>
+
+            <!-- 4. 热门项目双日维度对比分析 -->
+            <section class="trend-analysis">
+                <h2>热门项目双日维度对比分析</h2>
+                <div class="text-left">
+                    <p class="fragment fade-up"><strong>热度变化趋势：</strong></p>
+                    <ul class="mt-2">
+                        <li class="fragment fade-up"><i class="fa-solid fa-chart-line mr-2"></i>整体呈现<strong>积极上升态势</strong>。</li>
+                        <li class="fragment fade-up"><i class="fa-solid fa-plus-circle mr-2"></i>新增项目数高达<strong>10个</strong>，7个项目延续昨日增长。</li>
+                        <li class="fragment fade-up"><i class="fa-solid fa-arrow-up mr-2"></i><strong>无下降趋势项目</strong>，榜单活跃度显著增强。</li>
+                    </ul>
+
+                    <p class="fragment fade-up mt-6"><strong>新项目特点：</strong></p>
+                    <ul class="mt-2">
+                        <li class="fragment fade-up"><i class="fa-solid fa-cubes mr-2"></i>领域多样：开发者工具、云原生/DevOps、数据处理、知识管理、基础算法。</li>
+                        <li class="fragment fade-up"><i class="fa-solid fa-lightbulb mr-2"></i>核心关注：提升开发效率、优化基础设施、数据应用。</li>
+                    </ul>
+
+                    <p class="fragment fade-up mt-6"><strong>编程语言分布变化：</strong></p>
+                    <ul class="mt-2">
+                        <li class="fragment fade-up"><i class="fa-solid fa-arrow-alt-circle-up mr-2"></i><strong>TypeScript、JavaScript：</strong> 增长最快，热度提升。</li>
+                        <li class="fragment fade-up"><i class="fa-solid fa-arrow-alt-circle-right mr-2"></i>Rust、Go、Shell：有新增项目。</li>
+                        <li class="fragment fade-up"><i class="fa-solid fa-arrow-alt-circle-down mr-2"></i>Python、C等：项目数有所减少。</li>
+                    </ul>
+
+                    <p class="fragment fade-up mt-6"><strong>显著变化：</strong></p>
+                    <ul class="mt-2">
+                        <li class="fragment fade-up"><i class="fa-solid fa-fire mr-2"></i><strong><code>datawhalechina/happy-llm</code>：</strong> 星标增长近千，增幅高达<strong>14.6%</strong>，远超其他项目。</li>
+                        <li class="fragment fade-up"><i class="fa-solid fa-magnifying-glass-chart mr-2"></i>印证人工智能和LLM仍是当前技术社区最受瞩目的焦点。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 5. 热点变化与展望 -->
+            <section class="trend-analysis">
+                <h2>热点变化与未来展望</h2>
+                <div class="text-left">
+                    <p class="fragment fade-up"><strong>新增热点项目：</strong></p>
+                    <ul class="grid grid-cols-2 gap-2 mt-2">
+                        <li class="fragment fade-up"><i class="fa-solid fa-plus mr-2"></i> Infisical (秘密管理)</li>
+                        <li class="fragment fade-up"><i class="fa-solid fa-plus mr-2"></i> dockur/macos (Docker内macOS)</li>
+                        <li class="fragment fade-up"><i class="fa-solid fa-plus mr-2"></i> omni-tools (自托管Web工具)</li>
+                        <li class="fragment fade-up"><i class="fa-solid fa-plus mr-2"></i> drawdb (数据库图编辑器)</li>
+                        <li class="fragment fade-up"><i class="fa-solid fa-plus mr-2"></i> Hyperswitch (Rust支付系统)</li>
+                        <li class="fragment fade-up"><i class="fa-solid fa-plus mr-2"></i> Argo Rollouts (K8s渐进交付)</li>
+                        <li class="fragment fade-up"><i class="fa-solid fa-plus mr-2"></i> Onlook (AI可视化React编辑器)</li>
+                        <li class="fragment fade-up"><i class="fa-solid fa-plus mr-2"></i> JavaScript Algorithms (算法学习)</li>
+                        <li class="fragment fade-up"><i class="fa-solid fa-plus mr-2"></i> Label Studio (数据标注)</li>
+                        <li class="fragment fade-up"><i class="fa-solid fa-plus mr-2"></i> AFFiNE (知识库)</li>
+                    </ul>
+
+                    <p class="fragment fade-up mt-6"><strong>持续热门项目：</strong></p>
+                    <ul class="mt-2">
+                        <li class="fragment fade-up"><i class="fa-solid fa-repeat mr-2"></i> <strong>NanmiCoder/MediaCrawler</strong> (数据爬虫，连续4次上榜)</li>
+                    </ul>
+
+                    <p class="fragment fade-up mt-6"><strong>未来展望：</strong></p>
+                    <ul class="mt-2">
+                        <li class="fragment fade-up"><i class="fa-solid fa-lightbulb mr-2"></i> 更智能、更易用的<strong>AI原生应用和集成AI开发工具</strong>将爆发。</li>
+                        <li class="fragment fade-up"><i class="fa-solid fa-shield-alt mr-2"></i> <strong>去中心化、隐私保护</strong>和个人数据主权相关技术持续受关注。</li>
+                        <li class="fragment fade-up"><i class="fa-solid fa-cubes mr-2"></i> 更多模块化、可组合的<strong>开源基础设施组件</strong>涌现。</li>
+                        <li class="fragment fade-up"><i class="fa-solid fa-robot mr-2"></i> <strong>具身智能和机器人</strong>领域的仿真、开发框架将迎更多突破。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 6. 详细仓库数据 (垂直幻灯片组) -->
+            <section class="project-details-intro center-content">
+                <h2>详细仓库数据</h2>
+                <p class="mt-4 text-xl">以下是今日热门GitHub项目的详细解读</p>
+                <p class="mt-8 aha-moment fragment fade-up">深入洞察，发现宝藏！</p>
+            </section>
+
+            <!-- Project 1: NanmiCoder/MediaCrawler -->
+            <section>
+                <h3><i class="fa-solid fa-star mr-2 text-yellow-500"></i> NanmiCoder/MediaCrawler <small>(持续热门)</small></h3>
+                <p class="text-sm italic text-gray-600">小红书笔记 | 评论爬虫、抖音视频 | 评论爬虫、快手视频 | 评论爬虫、B 站视频 ｜ 评论爬虫、微博帖子 ｜ 评论爬虫、百度贴吧帖子 ｜ 百度贴吧评论回复爬虫 | 知乎问答文章｜评论爬虫</p>
+                <div class="project-details mt-4">
+                    <ul>
+                        <li><i class="fa-solid fa-code"></i> Python</li>
+                        <li><i class="fa-solid fa-star"></i> 26028 Stars</li>
+                        <li><i class="fa-solid fa-hourglass-half"></i> 连续在榜: 4次</li>
+                        <li><i class="fa-solid fa-calendar-alt"></i> 总上榜: 4次</li>
+                        <li><i class="fa-solid fa-chart-line"></i> 当日增: 561 Stars</li>
+                        <li><i class="fa-solid fa-code-fork"></i> 6.8k Forks</li>
+                        <li><i class="fa-solid fa-eye"></i> 140 Watchers</li>
+                        <li><i class="fa-solid fa-bug"></i> 72 Issues</li>
+                        <li><i class="fa-solid fa-code-pull-request"></i> 0 PRs</li>
+                        <li><i class="fa-solid fa-box"></i> 0 Releases</li>
+                        <li><i class="fa-solid fa-clipboard-check"></i> 505 Commits</li>
+                        <li><i class="fa-solid fa-gavel"></i> 未知 License</li>
+                        <li><i class="fa-solid fa-users"></i> 41 Contributors</li>
+                    </ul>
+                    <p class="lang-breakdown mt-4"><strong>编程语言占比:</strong> Python 100.0%</p>
+                </div>
+                <h4 class="mt-6">项目速读：</h4>
+                <p class="fragment fade-up">多平台自媒体数据抓取工具，稳定高效。采用Playwright模拟浏览器行为，智能保持登录，有效绕过反爬。</p>
+                <p class="fragment fade-up">降低网络数据采集技术壁垒，为非商业性内容研究提供便利，是数据分析前获取原始信息的利器。<strong>仅限学习研究使用。</strong></p>
+                <h4 class="mt-4">增长分析：</h4>
+                <p class="fragment fade-up">4天内4次上榜，增长活跃且稳定。今日新增561 Star高于平均，显示增长势头强劲，可能正在加速。</p>
+            </section>
+
+            <!-- Project 2: Genesis-Embodied-AI/Genesis -->
+            <section>
+                <h3><i class="fa-solid fa-star mr-2 text-yellow-500"></i> Genesis-Embodied-AI/Genesis</h3>
+                <p class="text-sm italic text-gray-600">用于通用机器人和具身智能学习的生成式世界</p>
+                <div class="project-details mt-4">
+                    <ul>
+                        <li><i class="fa-solid fa-code"></i> Python</li>
+                        <li><i class="fa-solid fa-star"></i> 25608 Stars</li>
+                        <li><i class="fa-solid fa-hourglass-half"></i> 连续在榜: 2次</li>
+                        <li><i class="fa-solid fa-calendar-alt"></i> 总上榜: 2次</li>
+                        <li><i class="fa-solid fa-chart-line"></i> 当日增: 50 Stars</li>
+                        <li><i class="fa-solid fa-code-fork"></i> 2.3k Forks</li>
+                        <li><i class="fa-solid fa-eye"></i> 236 Watchers</li>
+                        <li><i class="fa-solid fa-bug"></i> 109 Issues</li>
+                        <li><i class="fa-solid fa-code-pull-request"></i> 12 PRs</li>
+                        <li><i class="fa-solid fa-box"></i> 1 Release</li>
+                        <li><i class="fa-solid fa-clipboard-check"></i> 583 Commits</li>
+                        <li><i class="fa-solid fa-gavel"></i> Apache-2.0</li>
+                        <li><i class="fa-solid fa-users"></i> 63 Contributors</li>
+                    </ul>
+                    <p class="lang-breakdown mt-4"><strong>编程语言占比:</strong> Python 96.8%, C++ 1.6%, GLSL 1.1%, Cython 0.3%, Dockerfile 0.1%, HTML 0.1%</p>
+                </div>
+                <h4 class="mt-6">项目速读：</h4>
+                <p class="fragment fade-up">专为通用机器人和具身智能学习设计的物理仿真平台。从头构建通用物理引擎，高保真模拟多样物理对象。</p>
+                <p class="fragment fade-up">极其轻量、超快且跨平台，集成快速光线追踪渲染。加速具身智能和物理AI研究开发的关键基础设施。</p>
+                <h4 class="mt-4">增长分析：</h4>
+                <p class="fragment fade-up">两天内两次上榜，受关注后快速增长，总增130星。</p>
+            </section>
+
+            <!-- Project 3: LadybirdBrowser/ladybird -->
+            <section>
+                <h3><i class="fa-solid fa-star mr-2 text-yellow-500"></i> LadybirdBrowser/ladybird</h3>
+                <p class="text-sm italic text-gray-600">真正独立的浏览器</p>
+                <div class="project-details mt-4">
+                    <ul>
+                        <li><i class="fa-solid fa-code"></i> C++</li>
+                        <li><i class="fa-solid fa-star"></i> 44625 Stars</li>
+                        <li><i class="fa-solid fa-hourglass-half"></i> 连续在榜: 2次</li>
+                        <li><i class="fa-solid fa-calendar-alt"></i> 总上榜: 10次</li>
+                        <li><i class="fa-solid fa-chart-line"></i> 当日增: 198 Stars</li>
+                        <li><i class="fa-solid fa-code-fork"></i> 1.9k Forks</li>
+                        <li><i class="fa-solid fa-eye"></i> 228 Watchers</li>
+                        <li><i class="fa-solid fa-bug"></i> 435 Issues</li>
+                        <li><i class="fa-solid fa-code-pull-request"></i> 43 PRs</li>
+                        <li><i class="fa-solid fa-box"></i> 0 Releases</li>
+                        <li><i class="fa-solid fa-clipboard-check"></i> 70,089 Commits</li>
+                        <li><i class="fa-solid fa-gavel"></i> BSD-2-Clause</li>
+                        <li><i class="fa-solid fa-users"></i> 1,179 Contributors</li>
+                    </ul>
+                    <p class="lang-breakdown mt-4"><strong>编程语言占比:</strong> C++ 63.8%, HTML 23.0%, JavaScript 11.0%, CMake 0.8%, Objective-C++ 0.5%, Swift 0.3%, Other 0.6%</p>
+                </div>
+                <h4 class="mt-6">项目速读：</h4>
+                <p class="fragment fade-up">旨在从零构建独立于现有主流引擎的现代浏览器。采用全新引擎和多进程架构，提升安全性与稳定性。</p>
+                <p class="fragment fade-up">源自SerenityOS核心库，处于pre-alpha探索阶段，对技术爱好者极具吸引力。</p>
+                <h4 class="mt-4">增长分析：</h4>
+                <p class="fragment fade-up">近3月总增7769 Star，上榜10次，增长强劲且不过度依赖列表曝光。</p>
+            </section>
+
+            <!-- Project 4: swagger-api/swagger-ui -->
+            <section>
+                <h3><i class="fa-solid fa-star mr-2 text-yellow-500"></i> swagger-api/swagger-ui</h3>
+                <p class="text-sm italic text-gray-600">根据符合 Swagger 规范的 API 动态生成精美文档。</p>
+                <div class="project-details mt-4">
+                    <ul>
+                        <li><i class="fa-solid fa-code"></i> JavaScript</li>
+                        <li><i class="fa-solid fa-star"></i> 27751 Stars</li>
+                        <li><i class="fa-solid fa-hourglass-half"></i> 连续在榜: 2次</li>
+                        <li><i class="fa-solid fa-calendar-alt"></i> 总上榜: 2次</li>
+                        <li><i class="fa-solid fa-chart-line"></i> 当日增: 38 Stars</li>
+                        <li><i class="fa-solid fa-code-fork"></i> 9.1k Forks</li>
+                        <li><i class="fa-solid fa-eye"></i> 641 Watchers</li>
+                        <li><i class="fa-solid fa-bug"></i> 1.2k Issues</li>
+                        <li><i class="fa-solid fa-code-pull-request"></i> 96 PRs</li>
+                        <li><i class="fa-solid fa-box"></i> 372 Releases</li>
+                        <li><i class="fa-solid fa-clipboard-check"></i> 6,736 Commits</li>
+                        <li><i class="fa-solid fa-gavel"></i> Apache-2.0</li>
+                        <li><i class="fa-solid fa-users"></i> 519 Contributors</li>
+                    </ul>
+                    <p class="lang-breakdown mt-4"><strong>编程语言占比:</strong> JavaScript 95.3%, SCSS 3.4%, Other 1.3%</p>
+                </div>
+                <h4 class="mt-6">项目速读：</h4>
+                <p class="fragment fade-up">流行的开源前端工具集，解析OpenAPI规范，自动生成美观、互动API文档界面。</p>
+                <p class="fragment fade-up">用户可在线查看端点、参数、响应，甚至发起请求测试。极大提升API可发现性、理解效率和测试便利性。</p>
+                <h4 class="mt-4">增长分析：</h4>
+                <p class="fragment fade-up">两天内两次上榜，增长势头良好。持续上榜反映较高热度。</p>
+            </section>
+
+            <!-- Project 5: HumanSignal/label-studio -->
+            <section>
+                <h3><i class="fa-solid fa-star mr-2 text-yellow-500"></i> HumanSignal/label-studio</h3>
+                <p class="text-sm italic text-gray-600">多类型数据标注和注释工具。</p>
+                <div class="project-details mt-4">
+                    <ul>
+                        <li><i class="fa-solid fa-code"></i> JavaScript</li>
+                        <li><i class="fa-solid fa-star"></i> 22859 Stars</li>
+                        <li><i class="fa-solid fa-hourglass-half"></i> 连续在榜: 1次</li>
+                        <li><i class="fa-solid fa-calendar-alt"></i> 总上榜: 1次</li>
+                        <li><i class="fa-solid fa-chart-line"></i> 当日增: 28 Stars</li>
+                        <li><i class="fa-solid fa-code-fork"></i> 2.9k Forks</li>
+                        <li><i class="fa-solid fa-eye"></i> 184 Watchers</li>
+                        <li><i class="fa-solid fa-bug"></i> 956 Issues</li>
+                        <li><i class="fa-solid fa-code-pull-request"></i> 79 PRs</li>
+                        <li><i class="fa-solid fa-box"></i> 83 Releases</li>
+                        <li><i class="fa-solid fa-clipboard-check"></i> 5,122 Commits</li>
+                        <li><i class="fa-solid fa-gavel"></i> Apache-2.0</li>
+                        <li><i class="fa-solid fa-users"></i> 167 Contributors</li>
+                    </ul>
+                    <p class="lang-breakdown mt-4"><strong>编程语言占比:</strong> JavaScript 34.2%, Python 24.7%, TypeScript 24.7%, CSS 8.1%, SCSS 5.1%, HTML 2.9%, Other 0.3%</p>
+                </div>
+                <h4 class="mt-6">项目速读：</h4>
+                <p class="fragment fade-up">功能强大的开源数据标注平台，支持图像、文本、音频、视频等多种模态数据，界面直观易用且高度可定制。</p>
+                <p class="fragment fade-up">能方便集成机器学习模型辅助标注，是构建高质量AI数据集的理想选择。</p>
+            </section>
+
+            <!-- Project 6: toeverything/AFFiNE -->
+            <section>
+                <h3><i class="fa-solid fa-star mr-2 text-yellow-500"></i> toeverything/AFFiNE</h3>
+                <p class="text-sm italic text-gray-600">下一代知识库，集规划、整理和创作于一身。隐私优先、开源、可定制且开箱即用。</p>
+                <div class="project-details mt-4">
+                    <ul>
+                        <li><i class="fa-solid fa-code"></i> TypeScript</li>
+                        <li><i class="fa-solid fa-star"></i> 52444 Stars</li>
+                        <li><i class="fa-solid fa-hourglass-half"></i> 连续在榜: 1次</li>
+                        <li><i class="fa-solid fa-calendar-alt"></i> 总上榜: 4次</li>
+                        <li><i class="fa-solid fa-chart-line"></i> 当日增: 145 Stars</li>
+                        <li><i class="fa-solid fa-code-fork"></i> 3.5k Forks</li>
+                        <li><i class="fa-solid fa-eye"></i> 242 Watchers</li>
+                        <li><i class="fa-solid fa-bug"></i> 167 Issues</li>
+                        <li><i class="fa-solid fa-code-pull-request"></i> 60 PRs</li>
+                        <li><i class="fa-solid fa-box"></i> 502 Releases</li>
+                        <li><i class="fa-solid fa-clipboard-check"></i> 10,413 Commits</li>
+                        <li><i class="fa-solid fa-gavel"></i> 未知 License</li>
+                        <li><i class="fa-solid fa-users"></i> 181 Contributors</li>
+                    </ul>
+                    <p class="lang-breakdown mt-4"><strong>编程语言占比:</strong> TypeScript 91.9%, Swift 3.3%, Rust 2.9%, Kotlin 1.0%, JavaScript 0.4%, C 0.2%, Other 0.3%</p>
+                </div>
+                <h4 class="mt-6">项目速读：</h4>
+                <p class="fragment fade-up">开源下一代知识库和工作空间，融合规划、整理和创作，提供独特无边画布，无缝结合文档、白板、表格。</p>
+                <p class="fragment fade-up">强调本地优先和用户隐私，数据默认本地存储，支持实时协作和自托管。内置AI助手，Notion/Miro有力竞争者。</p>
+                <h4 class="mt-4">增长分析：</h4>
+                <p class="fragment fade-up">增长高度依赖上榜事件，平均每次上榜带来约380星，增长呈阶段性爆发。</p>
+            </section>
+
+            <!-- Project 7: juspay/hyperswitch -->
+            <section>
+                <h3><i class="fa-solid fa-star mr-2 text-yellow-500"></i> juspay/hyperswitch</h3>
+                <p class="text-sm italic text-gray-600">一个基于 Rust 开发的开源支付交换系统，旨在使支付快速、可靠且经济实惠。</p>
+                <div class="project-details mt-4">
+                    <ul>
+                        <li><i class="fa-solid fa-code"></i> Rust</li>
+                        <li><i class="fa-solid fa-star"></i> 21384 Stars</li>
+                        <li><i class="fa-solid fa-hourglass-half"></i> 连续在榜: 1次</li>
+                        <li><i class="fa-solid fa-calendar-alt"></i> 总上榜: 11次</li>
+                        <li><i class="fa-solid fa-chart-line"></i> 当日增: 6 Stars</li>
+                        <li><i class="fa-solid fa-code-fork"></i> 3.7k Forks</li>
+                        <li><i class="fa-solid fa-eye"></i> 92 Watchers</li>
+                        <li><i class="fa-solid fa-bug"></i> 647 Issues</li>
+                        <li><i class="fa-solid fa-code-pull-request"></i> 275 PRs</li>
+                        <li><i class="fa-solid fa-box"></i> 146 Releases</li>
+                        <li><i class="fa-solid fa-clipboard-check"></i> 5,237 Commits</li>
+                        <li><i class="fa-solid fa-gavel"></i> Apache-2.0</li>
+                        <li><i class="fa-solid fa-users"></i> 230 Contributors</li>
+                    </ul>
+                    <p class="lang-breakdown mt-4"><strong>编程语言占比:</strong> Rust 80.4%, JavaScript 18.7%, MDX 0.2%, Shell 0.2%, PLpgSQL 0.2%, HTML 0.2%, Other 0.1%</p>
+                </div>
+                <h4 class="mt-6">项目速读：</h4>
+                <p class="fragment fade-up">基于高性能Rust构建的开源支付基础设施，提供快速、可靠、经济的支付处理方案。</p>
+                <p class="fragment fade-up">模块化设计，允许企业选择集成智能路由、支付保险库等功能，避免厂商锁定，优化支付链路。</p>
+                <h4 class="mt-4">增长分析：</h4>
+                <p class="fragment fade-up">约3个月内上榜11次，总增7213 Star。尽管今日新增低于平均，但呈现周期性爆发增长趋势。</p>
+            </section>
+
+            <!-- Project 8: datawhalechina/happy-llm -->
+            <section>
+                <h3><i class="fa-solid fa-star mr-2 text-yellow-500"></i> datawhalechina/happy-llm</h3>
+                <p class="text-sm italic text-gray-600">📚 从零开始的大语言模型原理与实践教程</p>
+                <div class="project-details mt-4">
+                    <ul>
+                        <li><i class="fa-solid fa-code"></i> N/A (Jupyter Notebooks)</li>
+                        <li><i class="fa-solid fa-star"></i> 7649 Stars</li>
+                        <li><i class="fa-solid fa-hourglass-half"></i> 连续在榜: 2次</li>
+                        <li><i class="fa-solid fa-calendar-alt"></i> 总上榜: 2次</li>
+                        <li><i class="fa-solid fa-chart-line"></i> 当日增: 793 Stars</li>
+                        <li><i class="fa-solid fa-code-fork"></i> 543 Forks</li>
+                        <li><i class="fa-solid fa-eye"></i> 35 Watchers</li>
+                        <li><i class="fa-solid fa-bug"></i> 5 Issues</li>
+                        <li><i class="fa-solid fa-code-pull-request"></i> 0 PRs</li>
+                        <li><i class="fa-solid fa-box"></i> 1 Release</li>
+                        <li><i class="fa-solid fa-clipboard-check"></i> 171 Commits</li>
+                        <li><i class="fa-solid fa-gavel"></i> 未知 License</li>
+                        <li><i class="fa-solid fa-users"></i> 6 Contributors</li>
+                    </ul>
+                    <!-- No language breakdown provided, so omit if not in source -->
+                </div>
+                <h4 class="mt-6">项目速读：</h4>
+                <p class="fragment fade-up">Datawhale开源的系统性LLM原理与实践教程，涵盖Transformer、注意力机制等基础理论。</p>
+                <p class="fragment fade-up">手把手实现LLaMA2模型、训练Tokenizer、预训练/微调（LoRA/QLoRA），涉及RAG、Agent等应用。</p>
+                <h4 class="mt-4">增长分析：</h4>
+                <p class="fragment fade-up">极短时间内（2天）上榜2次，持续强劲增长，总增972星。趋势良好。</p>
+            </section>
+
+            <!-- Project 9: MotiaDev/motia -->
+            <section>
+                <h3><i class="fa-solid fa-star mr-2 text-yellow-500"></i> MotiaDev/motia</h3>
+                <p class="text-sm italic text-gray-600">统一后端框架，用于 API、事件与 AI 代理</p>
+                <div class="project-details mt-4">
+                    <ul>
+                        <li><i class="fa-solid fa-code"></i> TypeScript</li>
+                        <li><i class="fa-solid fa-star"></i> 3271 Stars</li>
+                        <li><i class="fa-solid fa-hourglass-half"></i> 连续在榜: 2次</li>
+                        <li><i class="fa-solid fa-calendar-alt"></i> 总上榜: 2次</li>
+                        <li><i class="fa-solid fa-chart-line"></i> 当日增: 196 Stars</li>
+                        <li><i class="fa-solid fa-code-fork"></i> 267 Forks</li>
+                        <li><i class="fa-solid fa-eye"></i> 34 Watchers</li>
+                        <li><i class="fa-solid fa-bug"></i> 11 Issues</li>
+                        <li><i class="fa-solid fa-code-pull-request"></i> 5 PRs</li>
+                        <li><i class="fa-solid fa-box"></i> 80 Releases</li>
+                        <li><i class="fa-solid fa-clipboard-check"></i> 650 Commits</li>
+                        <li><i class="fa-solid fa-gavel"></i> MIT License</li>
+                        <li><i class="fa-solid fa-users"></i> 15 Contributors</li>
+                    </ul>
+                    <p class="lang-breakdown mt-4"><strong>编程语言占比:</strong> TypeScript 77.8%, MDX 13.9%, Python 3.7%, JavaScript 1.8%, CSS 1.7%, Ruby 0.7%, Other 0.4%</p>
+                </div>
+                <h4 class="mt-6">项目速读：</h4>
+                <p class="fragment fade-up">现代化后端框架，通过“Step”概念统一API、事件处理、后台任务和AI Agent。</p>
+                <p class="fragment fade-up">支持多语言混合开发，内置统一状态管理、端到端可观察性和事件驱动能力。简化后端架构，高效构建现代化应用。</p>
+                <h4 class="mt-4">增长分析：</h4>
+                <p class="fragment fade-up">两天内两次上榜，持续强劲增长。高关注度持续，增长势头良好。</p>
+            </section>
+
+            <!-- Project 10: drawdb-io/drawdb -->
+            <section>
+                <h3><i class="fa-solid fa-star mr-2 text-yellow-500"></i> drawdb-io/drawdb</h3>
+                <p class="text-sm italic text-gray-600">免费、简单、直观的在线数据库图编辑器和 SQL 生成器。</p>
+                <div class="project-details mt-4">
+                    <ul>
+                        <li><i class="fa-solid fa-code"></i> JavaScript</li>
+                        <li><i class="fa-solid fa-star"></i> 31208 Stars</li>
+                        <li><i class="fa-solid fa-hourglass-half"></i> 连续在榜: 1次</li>
+                        <li><i class="fa-solid fa-calendar-alt"></i> 总上榜: 6次</li>
+                        <li><i class="fa-solid fa-chart-line"></i> 当日增: 299 Stars</li>
+                        <li><i class="fa-solid fa-code-fork"></i> 2.2k Forks</li>
+                        <li><i class="fa-solid fa-eye"></i> 122 Watchers</li>
+                        <li><i class="fa-solid fa-bug"></i> 80 Issues</li>
+                        <li><i class="fa-solid fa-code-pull-request"></i> 15 PRs</li>
+                        <li><i class="fa-solid fa-box"></i> 0 Releases</li>
+                        <li><i class="fa-solid fa-clipboard-check"></i> 982 Commits</li>
+                        <li><i class="fa-solid fa-gavel"></i> AGPL-3.0</li>
+                        <li><i class="fa-solid fa-users"></i> 81 Contributors</li>
+                    </ul>
+                    <p class="lang-breakdown mt-4"><strong>编程语言占比:</strong> JavaScript 98.8%, Other 1.2%</p>
+                </div>
+                <h4 class="mt-6">项目速读：</h4>
+                <p class="fragment fade-up">免费、简单、直观的在线工具，在浏览器中设计数据库模式并生成SQL脚本。</p>
+                <p class="fragment fade-up">无需注册，可视化操作简化复杂数据库结构设计，一键导出SQL代码。提高数据库设计效率的实用利器。</p>
+                <h4 class="mt-4">增长分析：</h4>
+                <p class="fragment fade-up">增长势头强劲，总增4003 Star。每次上榜显著带动增长，增长趋势健康。</p>
+            </section>
+
+            <!-- Project 11: argoproj/argo-rollouts -->
+            <section>
+                <h3><i class="fa-solid fa-star mr-2 text-yellow-500"></i> argoproj/argo-rollouts</h3>
+                <p class="text-sm italic text-gray-600">用于 Kubernetes 的渐进式交付</p>
+                <div class="project-details mt-4">
+                    <ul>
+                        <li><i class="fa-solid fa-code"></i> Go</li>
+                        <li><i class="fa-solid fa-star"></i> 3084 Stars</li>
+                        <li><i class="fa-solid fa-hourglass-half"></i> 连续在榜: 1次</li>
+                        <li><i class="fa-solid fa-calendar-alt"></i> 总上榜: 1次</li>
+                        <li><i class="fa-solid fa-chart-line"></i> 当日增: 4 Stars</li>
+                        <li><i class="fa-solid fa-code-fork"></i> 983 Forks</li>
+                        <li><i class="fa-solid fa-eye"></i> 38 Watchers</li>
+                        <li><i class="fa-solid fa-bug"></i> 438 Issues</li>
+                        <li><i class="fa-solid fa-code-pull-request"></i> 105 PRs</li>
+                        <li><i class="fa-solid fa-box"></i> 77 Releases</li>
+                        <li><i class="fa-solid fa-clipboard-check"></i> 2,002 Commits</li>
+                        <li><i class="fa-solid fa-gavel"></i> Apache-2.0</li>
+                        <li><i class="fa-solid fa-users"></i> 322 Contributors</li>
+                    </ul>
+                    <p class="lang-breakdown mt-4"><strong>编程语言占比:</strong> Go 86.6%, TypeScript 11.8%, SCSS 0.8%, Shell 0.3%, Makefile 0.3%, JavaScript 0.1%, Other 0.1%</p>
+                </div>
+                <h4 class="mt-6">项目速读：</h4>
+                <p class="fragment fade-up">针对Kubernetes的渐进式交付工具，提供蓝绿部署和金丝雀发布等高级策略。</p>
+                <p class="fragment fade-up">整合Ingress、服务网格、外部指标系统，实现基于流量控制和指标分析的自动化发布验证与回滚。提升生产环境应用更新安全性。</p>
+            </section>
+
+            <!-- Project 12: dockur/macos -->
+            <section>
+                <h3><i class="fa-solid fa-star mr-2 text-yellow-500"></i> dockur/macos</h3>
+                <p class="text-sm italic text-gray-600">Docker 容器内的 macOS</p>
+                <div class="project-details mt-4">
+                    <ul>
+                        <li><i class="fa-solid fa-code"></i> Shell</li>
+                        <li><i class="fa-solid fa-star"></i> 12279 Stars</li>
+                        <li><i class="fa-solid fa-hourglass-half"></i> 连续在榜: 1次</li>
+                        <li><i class="fa-solid fa-calendar-alt"></i> 总上榜: 1次</li>
+                        <li><i class="fa-solid fa-chart-line"></i> 当日增: 228 Stars</li>
+                        <li><i class="fa-solid fa-code-fork"></i> 485 Forks</li>
+                        <li><i class="fa-solid fa-eye"></i> 44 Watchers</li>
+                        <li><i class="fa-solid fa-bug"></i> 17 Issues</li>
+                        <li><i class="fa-solid fa-code-pull-request"></i> 3 PRs</li>
+                        <li><i class="fa-solid fa-box"></i> 0 Releases</li>
+                        <li><i class="fa-solid fa-clipboard-check"></i> 395 Commits</li>
+                        <li><i class="fa-solid fa-gavel"></i> 未知 License</li>
+                        <li><i class="fa-solid fa-users"></i> 14 Contributors</li>
+                    </ul>
+                    <p class="lang-breakdown mt-4"><strong>编程语言占比:</strong> Shell 89.0%, Dockerfile 11.0%</p>
+                </div>
+                <h4 class="mt-6">项目速读：</h4>
+                <p class="fragment fade-up">通过Docker容器在Linux宿主机上运行macOS的便捷方案，利用KVM硬件虚拟化提供接近原生性能。</p>
+                <p class="fragment fade-up">简化macOS虚拟环境构建，通过Web图形界面远程访问。<strong>注意：可能违反苹果EULA，建议在苹果硬件上运行。</strong></p>
+            </section>
+
+            <!-- Project 13: onlook-dev/onlook -->
+            <section>
+                <h3><i class="fa-solid fa-star mr-2 text-yellow-500"></i> onlook-dev/onlook</h3>
+                <p class="text-sm italic text-gray-600">面向设计师的光标 • 开源可视化 Vibecoding 编辑器 • 借助 AI 可视化构建、样式化和编辑你的 React 应用</p>
+                <div class="project-details mt-4">
+                    <ul>
+                        <li><i class="fa-solid fa-code"></i> TypeScript</li>
+                        <li><i class="fa-solid fa-star"></i> 20250 Stars</li>
+                        <li><i class="fa-solid fa-hourglass-half"></i> 连续在榜: 1次</li>
+                        <li><i class="fa-solid fa-calendar-alt"></i> 总上榜: 10次</li>
+                        <li><i class="fa-solid fa-chart-line"></i> 当日增: 194 Stars</li>
+                        <li><i class="fa-solid fa-code-fork"></i> 1.3k Forks</li>
+                        <li><i class="fa-solid fa-eye"></i> 87 Watchers</li>
+                        <li><i class="fa-solid fa-bug"></i> 231 Issues</li>
+                        <li><i class="fa-solid fa-code-pull-request"></i> 19 PRs</li>
+                        <li><i class="fa-solid fa-box"></i> 147 Releases</li>
+                        <li><i class="fa-solid fa-clipboard-check"></i> 1,249 Commits</li>
+                        <li><i class="fa-solid fa-gavel"></i> Apache-2.0</li>
+                        <li><i class="fa-solid fa-users"></i> 91 Contributors</li>
+                    </ul>
+                    <p class="lang-breakdown mt-4"><strong>编程语言占比:</strong> TypeScript 99.2%, Other 0.8%</p>
+                </div>
+                <h4 class="mt-6">项目速读：</h4>
+                <p class="fragment fade-up">面向Next.js和TailwindCSS的设计/开发者开源可视化编辑器，解决设计与代码脱节问题。</p>
+                <p class="fragment fade-up">可视化操作与底层代码实时双向同步，AI辅助功能智能生成编辑代码，提升效率。Webflow等商业工具的有力开源替代。</p>
+                <h4 class="mt-4">增长分析：</h4>
+                <p class="fragment fade-up">近期一个月内上榜10次，总增10482星，增长势头强劲且稳定。</p>
+            </section>
+
+            <!-- Project 14: iib0011/omni-tools -->
+            <section>
+                <h3><i class="fa-solid fa-star mr-2 text-yellow-500"></i> iib0011/omni-tools</h3>
+                <p class="text-sm italic text-gray-600">自托管的强大Web工具集合，助你完成日常任务。无广告，无追踪，直接通过浏览器即可快速便捷地使用！</p>
+                <div class="project-details mt-4">
+                    <ul>
+                        <li><i class="fa-solid fa-code"></i> TypeScript</li>
+                        <li><i class="fa-solid fa-star"></i> 4076 Stars</li>
+                        <li><i class="fa-solid fa-hourglass-half"></i> 连续在榜: 1次</li>
+                        <li><i class="fa-solid fa-calendar-alt"></i> 总上榜: 3次</li>
+                        <li><i class="fa-solid fa-chart-line"></i> 当日增: 83 Stars</li>
+                        <li><i class="fa-solid fa-code-fork"></i> 198 Forks</li>
+                        <li><i class="fa-solid fa-eye"></i> 13 Watchers</li>
+                        <li><i class="fa-solid fa-bug"></i> 30 Issues</li>
+                        <li><i class="fa-solid fa-code-pull-request"></i> 9 PRs</li>
+                        <li><i class="fa-solid fa-box"></i> 4 Releases</li>
+                        <li><i class="fa-solid fa-clipboard-check"></i> 582 Commits</li>
+                        <li><i class="fa-solid fa-gavel"></i> MIT License</li>
+                        <li><i class="fa-solid fa-users"></i> 16 Contributors</li>
+                    </ul>
+                    <p class="lang-breakdown mt-4"><strong>编程语言占比:</strong> TypeScript 81.7%, JavaScript 18.2%, Other 0.1%</p>
+                </div>
+                <h4 class="mt-6">项目速读：</h4>
+                <p class="fragment fade-up">自托管Web工具集合，解决公共在线服务广告、追踪、隐私问题。强调隐私保护，数据本地处理。</p>
+                <p class="fragment fade-up">React和TypeScript构建，轻量Docker镜像快速部署。功能多样、注重隐私且部署简便。</p>
+                <h4 class="mt-4">增长分析：</h4>
+                <p class="fragment fade-up">上榜3次，总增1567 Star，增长爆发力强，但非持续高位。</p>
+            </section>
+
+            <!-- Project 15: btjawa/BiliTools -->
+            <section>
+                <h3><i class="fa-solid fa-star mr-2 text-yellow-500"></i> btjawa/BiliTools</h3>
+                <p class="text-sm italic text-gray-600">跨平台哔哩哔哩工具箱，支持下载视频、番剧等等各类资源</p>
+                <div class="project-details mt-4">
+                    <ul>
+                        <li><i class="fa-solid fa-code"></i> TypeScript</li>
+                        <li><i class="fa-solid fa-star"></i> 1888 Stars</li>
+                        <li><i class="fa-solid fa-hourglass-half"></i> 连续在榜: 2次</li>
+                        <li><i class="fa-solid fa-calendar-alt"></i> 总上榜: 2次</li>
+                        <li><i class="fa-solid fa-chart-line"></i> 当日增: 90 Stars</li>
+                        <li><i class="fa-solid fa-code-fork"></i> 112 Forks</li>
+                        <li><i class="fa-solid fa-eye"></i> 12 Watchers</li>
+                        <li><i class="fa-solid fa-bug"></i> 18 Issues</li>
+                        <li><i class="fa-solid fa-code-pull-request"></i> 0 PRs</li>
+                        <li><i class="fa-solid fa-box"></i> 19 Releases</li>
+                        <li><i class="fa-solid fa-clipboard-check"></i> 232 Commits</li>
+                        <li><i class="fa-solid fa-gavel"></i> GPL-3.0</li>
+                        <li><i class="fa-solid fa-users"></i> 3 Contributors</li>
+                    </ul>
+                    <p class="lang-breakdown mt-4"><strong>编程语言占比:</strong> TypeScript 34.1%, Rust 29.8%, Vue 29.8%, JavaScript 4.8%, CSS 1.4%, HTML 0.1%</p>
+                </div>
+                <h4 class="mt-6">项目速读：</h4>
+                <p class="fragment fade-up">基于Tauri框架的跨平台哔哩哔哩桌面工具箱，专注于便捷高效下载和解析B站各类资源。</p>
+                <p class="fragment fade-up">支持高清视频、番剧、电影、课程、音频、弹幕、封面、字幕下载，集成aria2、ffmpeg，实现高速下载和灵活媒体处理。</p>
+                <h4 class="mt-4">增长分析：</h4>
+                <p class="fragment fade-up">短期内（2天）两次上榜，近期高可见度。上榜有效驱动增长，趋势良好。</p>
+            </section>
+
+            <!-- Project 16: Infisical/infisical -->
+            <section>
+                <h3><i class="fa-solid fa-star mr-2 text-yellow-500"></i> Infisical/infisical</h3>
+                <p class="text-sm italic text-gray-600">开源的秘密管理、PKI 和 SSH 访问平台。</p>
+                <div class="project-details mt-4">
+                    <ul>
+                        <li><i class="fa-solid fa-code"></i> TypeScript</li>
+                        <li><i class="fa-solid fa-star"></i> 18345 Stars</li>
+                        <li><i class="fa-solid fa-hourglass-half"></i> 连续在榜: 1次</li>
+                        <li><i class="fa-solid fa-calendar-alt"></i> 总上榜: 1次</li>
+                        <li><i class="fa-solid fa-chart-line"></i> 当日增: 63 Stars</li>
+                        <li><i class="fa-solid fa-code-fork"></i> 1.2k Forks</li>
+                        <li><i class="fa-solid fa-eye"></i> 49 Watchers</li>
+                        <li><i class="fa-solid fa-bug"></i> 307 Issues</li>
+                        <li><i class="fa-solid fa-code-pull-request"></i> 133 PRs</li>
+                        <li><i class="fa-solid fa-box"></i> 327 Releases</li>
+                        <li><i class="fa-solid fa-clipboard-check"></i> 13,773 Commits</li>
+                        <li><i class="fa-solid fa-gavel"></i> 未知 License</li>
+                        <li><i class="fa-solid fa-users"></i> 187 Contributors</li>
+                    </ul>
+                    <p class="lang-breakdown mt-4"><strong>编程语言占比:</strong> TypeScript 94.5%, Go 4.9%, Shell 0.2%, JavaScript 0.2%, MDX 0.1%, Makefile 0.1%</p>
+                </div>
+                <h4 class="mt-6">项目速读：</h4>
+                <p class="fragment fade-up">开源秘密管理平台，集中管理应用程序配置和敏感信息，防止泄露。</p>
+                <p class="fragment fade-up">提供秘密生命周期管理、版本控制、轮换和动态生成，内置扫描防泄露。扩展到PKI和SSH访问控制。适合需安全管理敏感配置的团队。</p>
+            </section>
+
+            <!-- Project 17: trekhleb/javascript-algorithms -->
+            <section>
+                <h3><i class="fa-solid fa-star mr-2 text-yellow-500"></i> trekhleb/javascript-algorithms</h3>
+                <p class="text-sm italic text-gray-600">JavaScript 算法与数据结构实现，附带解释和延伸阅读链接</p>
+                <div class="project-details mt-4">
+                    <ul>
+                        <li><i class="fa-solid fa-code"></i> JavaScript</li>
+                        <li><i class="fa-solid fa-star"></i> 191715 Stars</li>
+                        <li><i class="fa-solid fa-hourglass-half"></i> 连续在榜: 1次</li>
+                        <li><i class="fa-solid fa-calendar-alt"></i> 总上榜: 1次</li>
+                        <li><i class="fa-solid fa-chart-line"></i> 当日增: 46 Stars</li>
+                        <li><i class="fa-solid fa-code-fork"></i> 30.7k Forks</li>
+                        <li><i class="fa-solid fa-eye"></i> 4.3k Watchers</li>
+                        <li><i class="fa-solid fa-bug"></i> 136 Issues</li>
+                        <li><i class="fa-solid fa-code-pull-request"></i> 228 PRs</li>
+                        <li><i class="fa-solid fa-box"></i> 0 Releases</li>
+                        <li><i class="fa-solid fa-clipboard-check"></i> 1,120 Commits</li>
+                        <li><i class="fa-solid fa-gavel"></i> MIT License</li>
+                        <li><i class="fa-solid fa-users"></i> 215 Contributors</li>
+                    </ul>
+                    <p class="lang-breakdown mt-4"><strong>编程语言占比:</strong> JavaScript 100.0%</p>
+                </div>
+                <h4 class="mt-6">项目速读：</h4>
+                <p class="fragment fade-up">全面的JavaScript算法与数据结构学习资源库。提供大量流行算法和数据结构实现示例，附详细解释、原理分析和外部学习链接。</p>
+                <p class="fragment fade-up">内容覆盖广泛，帮助深入理解计算机科学核心概念。适用于教育和研究目的，<strong>不应用于生产环境。</strong></p>
+            </section>
+
+            <!-- 最后一页 (Final Slide) -->
+            <section class="cover-slide center-content final-slide">
+                <h1>感谢聆听！</h1>
+                <h2 style="margin-top: 20px;">期待您的关注与 ⭐ Star！</h2>
+                <p class="mt-8 text-xl">演讲者：AIChipEra</p>
+                <div class="footer-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra WeChat QR Code">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Reveal.js Core -->
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- Reveal.js Plugins -->
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js"></script>
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/zoom/zoom.min.js"></script>
+
+    <!-- Mermaid.js for diagrams (not directly used in this content, but included as per requirements) -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <script>
+        // Configure Mermaid
+        mermaid.initialize({ startOnLoad: true });
+
+        // Initialize Reveal.js
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            hash: true,
+            transition: 'slide', // Fades/slides between slides
+            transitionSpeed: 'fast', // 'default', 'fast', 'slow'
+
+            // Optional: The "normal" slide transition style.
+            backgroundTransition: 'fade', // 'default', 'fade', 'slide', 'convex', 'concave', 'zoom'
+
+            // Enable vertical slides (nested slides)
+            // You can use a vertical separator like `<section>` inside a parent `<section>`
+            // when you want to group related content.
+            // Example:
+            // <section>
+            //     <section>Parent slide 1</section>
+            //     <section>Child slide 1.1</section>
+            //     <section>Child slide 1.2</section>
+            // </section>
+
+            // Configure fragments
+            fragments: true,
+
+            // Plugins
+            plugins: [ RevealNotes, RevealZoom ] 
+        });
+    </script>
+</body>
+</html>
