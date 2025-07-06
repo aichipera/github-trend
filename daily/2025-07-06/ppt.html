@@ -1,0 +1,566 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>GitHub热点速览：打破GPU壁垒、容器跑macOS，硬核技术正在崛起</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #007bff; /* A vibrant blue for accents, e.g., Bootstrap primary blue */
+            --secondary-color: #6c757d; /* Muted grey for secondary text/borders */
+            --text-color: #343a40; /* Dark grey for body text */
+            --heading-color: #212529; /* Very dark grey for headings */
+            --background-light: #f8f9fa; /* Light background for general slides */
+            --background-dark: #e9ecef; /* Slightly darker background for contrast sections */
+        }
+
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback",
+                         "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--text-color);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--heading-color);
+            line-height: 1.2;
+        }
+
+        .reveal h1 {
+            font-size: 2.8rem; /* Target 2-3rem range */
+            margin-bottom: 0.5em;
+        }
+        .reveal h2 {
+            font-size: 2.2rem; /* Target 2-3rem range */
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+        }
+        .reveal h3 {
+            font-size: 1.8rem; /* Target 1.5-2rem range */
+            margin-top: 0.8em;
+            margin-bottom: 0.4em;
+        }
+        .reveal p, .reveal li {
+            font-size: 1.15rem; /* Target 1-1.2rem range */
+            line-height: 1.6;
+        }
+
+        .reveal .slides section {
+            padding: 40px; /* Consistent padding */
+            text-align: left;
+        }
+        
+        .reveal .slides section.center-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .reveal .slides section.cover-slide {
+            background: linear-gradient(135deg, #a8dadc, #457b9d); /* Subtle gradient for cover */
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .reveal .slides section.cover-slide h1, 
+        .reveal .slides section.cover-slide h2 {
+            color: white;
+        }
+
+        .reveal .slides section .qr-code {
+            position: absolute;
+            right: 40px;
+            bottom: 40px;
+            width: 80px;
+            height: 80px;
+        }
+
+        .reveal .slides section .project-link {
+            position: absolute;
+            right: 40px;
+            bottom: 120px;
+            color: white; /* White on dark cover */
+            font-size: 0.9em;
+            text-decoration: none;
+        }
+
+        /* Specific for general content slides */
+        .reveal .slides section:not(.cover-slide) {
+             background-color: var(--background-light);
+             color: var(--text-color);
+        }
+
+        /* Enhancements for aha moment/visual appeal */
+        .reveal .slides h2 strong {
+            color: var(--primary-color);
+        }
+
+        .reveal .slides ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .reveal .slides ul li {
+            position: relative;
+            margin-bottom: 0.8em;
+            padding-left: 1.8em; /* Space for icon */
+        }
+        
+        .reveal .slides .icon-list li::before {
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1em;
+        }
+        .reveal .slides .icon-list li.trend-item::before { content: "\f0a1"; } /* lightbulb */
+        .reveal .slides .icon-list li.tech-item::before { content: "\f121"; } /* code */
+        .reveal .slides .icon-list li.need-item::before { content: "\f0eb"; } /* lightbulb-o for needs */
+        .reveal .slides .icon-list li.compare-item::before { content: "\f0ae"; } /* list-alt */
+        .reveal .slides .icon-list li.future-item::before { content: "\f0e7"; } /* lightning */
+
+
+        /* Project card like display */
+        .project-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 2em;
+            margin-bottom: 1.5em;
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+            transition: transform 0.3s ease-in-out;
+            text-align: left; /* Ensure text within card is left-aligned */
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+        .project-card h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.5rem; /* Adjust for card context */
+        }
+        .project-card p {
+            font-size: 1rem;
+        }
+        .project-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5em; /* Space between meta items */
+        }
+        .project-meta span {
+            font-size: 0.9em;
+            color: var(--secondary-color);
+        }
+        .project-meta span i {
+            color: var(--primary-color);
+            margin-right: 0.3em;
+        }
+
+        .growth-analysis {
+            background-color: var(--background-dark);
+            border-left: 5px solid var(--primary-color);
+            padding: 1.5em;
+            border-radius: 8px;
+            margin-top: 2em;
+            text-align: left;
+        }
+        .growth-analysis p {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        .growth-analysis h4 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.4rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover Page -->
+            <section class="cover-slide center-content" data-background-image="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-background-size="cover" data-background-position="center">
+                <h1 class="text-white">GitHub热点速览</h1>
+                <h2 class="text-white">打破GPU壁垒、容器跑macOS，硬核技术正在崛起</h2>
+                <p class="text-white text-lg mt-8 mb-2">这篇干货，速转给你的技术好友！</p>
+                <p class="text-white text-md">演讲者：AIChipEra</p>
+
+                <a href="https://github.com/aichipera/github-trend" target="_blank" class="project-link">
+                    <i class="fab fa-github mr-2"></i> 项目地址：aichipera/github-trend
+                </a>
+                <img src="../../asserts/wx.jpg" alt="QR Code" class="qr-code">
+            </section>
+
+            <!-- Slide 2: 日报要点 (Key Highlights) -->
+            <section>
+                <h2><i class="fas fa-bullhorn text-primary-color mr-3"></i> 日报要点</h2>
+                <p class="text-lg">本期GitHub热榜揭示了开发者们对技术边界的持续探索。总览要点：</p>
+                <ul class="icon-list mt-8">
+                    <li class="trend-item fragment fade-in"><i class="fas fa-microchip mr-3"></i> **GPU壁垒突破**: ZLUDA项目实现非英伟达GPU运行CUDA。</li>
+                    <li class="trend-item fragment fade-in"><i class="fas fa-boxes mr-3"></i> **容器化新高度**: dockur/macos让macOS在Docker中运行。</li>
+                    <li class="trend-item fragment fade-in"><i class="fas fa-robot mr-3"></i> **AI Prompt工程火热**: 交互式教程助力AI高效协作。</li>
+                    <li class="trend-item fragment fade-in"><i class="fas fa-shield-alt mr-3"></i> **隐私保护与效率工具**: 本地化通用工具集受关注。</li>
+                    <li class="trend-item fragment fade-in"><i class="fas fa-desktop mr-3"></i> **系统级实用工具**: 网络监控、浏览器优化等。</li>
+                </ul>
+                <p class="text-base mt-8 text-secondary-color">深入分析这些硬核趋势，带你了解技术前沿，把握下一波浪潮！</p>
+                <p class="text-base mt-4 text-primary-color"><i class="fas fa-file-powerpoint mr-2"></i> PPT链接: <a href="https://aichipera.github.io/github-trend/daily/2025-07-06/ppt.html" target="_blank" class="text-primary-color">https://aichipera.github.io/github-trend/daily/2025-07-06/ppt.html</a></p>
+            </section>
+
+            <!-- Slide 3: 热门项目趋势分析 - 今日整体趋势 -->
+            <section>
+                <h2><i class="fas fa-chart-line text-primary-color mr-3"></i> 热门项目趋势分析：今日整体趋势</h2>
+                <p class="text-lg">今日GitHub热门项目列表，如同技术社区的晴雨表，呈现出：</p>
+                <ul class="icon-list mt-8">
+                    <li class="trend-item fragment fade-in"><i class="fas fa-lightbulb mr-3"></i> **多点开花**: 追逐前沿热点与优化基础工具并存。</li>
+                    <li class="trend-item fragment fade-in"><i class="fas fa-rocket mr-3"></i> **积极追逐**: AI、硬件突破等前沿领域受青睐。</li>
+                    <li class="trend-item fragment fade-in"><i class="fas fa-tools mr-3"></i> **持续优化**: 开发效率、隐私保护是焦点。</li>
+                    <li class="trend-item fragment fade-in"><i class="fas fa-users-cog mr-3"></i> **社区活力**: 展现开发者群体广泛的关注焦点和活跃方向。</li>
+                </ul>
+            </section>
+
+            <!-- Slide 4: 今日热门技术领域概览 -->
+            <section>
+                <h2><i class="fas fa-laptop-code text-primary-color mr-3"></i> 今日热门技术领域概览</h2>
+                <ul class="icon-list mt-8">
+                    <li class="tech-item fragment fade-in"><i class="fas fa-database mr-3"></i> **数据采集与自动化**: 无头浏览器规避反爬，高效获取多平台内容。</li>
+                    <li class="tech-item fragment fade-in"><i class="fas fa-microchip mr-3"></i> **底层技术与硬件兼容**: 非英伟达GPU运行CUDA (ZLUDA), Docker跑macOS (dockur/macos)。</li>
+                    <li class="tech-item fragment fade-in"><i class="fas fa-brain mr-3"></i> **人工智能 (LLM)**: 交互式提示词工程教程迅速受关注。</li>
+                    <li class="tech-item fragment fade-in"><i class="fas fa-wrench mr-3"></i> **系统工具与实用程序**: 网络监控、浏览器性能优化、隐私保护。</li>
+                    <li class="tech-item fragment fade-in"><i class="fas fa-book-open mr-3"></i> **高质量学习资源**: 深度理解和系统构建能力培养。</li>
+                </ul>
+            </section>
+
+            <!-- Slide 5: 技术栈与语言分布 -->
+            <section>
+                <h2><i class="fas fa-code text-primary-color mr-3"></i> 技术栈与语言分布</h2>
+                <ul class="icon-list mt-8">
+                    <li class="tech-item fragment fade-in"><i class="fab fa-python mr-3"></i> **Python**: 数据处理、自动化、快速原型开发首选。</li>
+                    <li class="tech-item fragment fade-in"><i class="fab fa-rust mr-3"></i> **Rust**: 性能敏感、系统级工具（GPU兼容层、网络监控）。</li>
+                    <li class="tech-item fragment fade-in"><i class="fas fa-globe mr-3"></i> **Web技术 (TypeScript, HTML, Markdown)**: 构建应用工具、UI、文档。</li>
+                    <li class="tech-item fragment fade-in"><i class="fab fa-dev mr-3"></i> **C++**: 极致性能的底层应用（如浏览器引擎）。</li>
+                    <li class="tech-item fragment fade-in"><i class="fas fa-terminal mr-3"></i> **Shell脚本**: 系统环境搭建、自动化部署。</li>
+                </ul>
+                <p class="text-base mt-8 text-secondary-color">技术栈选择基于项目需求和性能考量，呈现多样化和特定领域优选语言的特点。</p>
+            </section>
+
+            <!-- Slide 6: 背后需求与发展脉络 -->
+            <section>
+                <h2><i class="fas fa-compass text-primary-color mr-3"></i> 背后需求与发展脉络</h2>
+                <p class="text-lg">这些热门项目反映了几个核心技术需求：</p>
+                <ul class="icon-list mt-8">
+                    <li class="need-item fragment fade-in"><i class="fas fa-hourglass-half mr-3"></i> **提高开发与工作效率**: 数据采集、便捷开发环境、集成工具集。</li>
+                    <li class="need-item fragment fade-in"><i class="fas fa-sliders-h mr-3"></i> **打破硬件或平台限制**: 追求更高性能和更灵活软硬件组合。</li>
+                    <li class="need-item fragment fade-in"><i class="fas fa-hat-wizard mr-3"></i> **掌握与应用新兴技术**: 特别是AI，渴望通过实践驾驭AI工具。</li>
+                    <li class="need-item fragment fade-in"><i class="fas fa-user-secret mr-3"></i> **隐私与安全意识增强**: 本地处理、无追踪浏览器的需求。</li>
+                    <li class="need-item fragment fade-in"><i class="fas fa-layer-group mr-3"></i> **深度理解与系统构建**: 基础知识和系统构建能力的培养。</li>
+                </ul>
+            </section>
+
+            <!-- Slide 7: 与过往趋势的对比及今日特点 -->
+            <section>
+                <h2><i class="fas fa-chart-area text-primary-color mr-3"></i> 与过往趋势的对比及今日特点</h2>
+                <ul class="icon-list mt-8">
+                    <li class="compare-item fragment fade-in"><i class="fas fa-sync-alt mr-3"></i> **持续热门**: AI、效率工具、系统学习等主题。</li>
+                    <li class="compare-item fragment fade-in"><i class="fas fa-link mr-3"></i> **今日突出**: 对“异构计算兼容”更强关注 (ZLUDA)。</li>
+                    <li class="compare-item fragment fade-in"><i class="fas fa-cubes mr-3"></i> **今日突出**: 对“容器化高级应用场景”更强关注 (dockur/macos)。</li>
+                    <li class="compare-item fragment fade-in"><i class="fas fa-user-lock mr-3"></i> **用户数据主权**: 隐私和数据本地处理的强调 (omni-tools)。</li>
+                </ul>
+                <p class="text-base mt-8 text-secondary-color">技术发展到一定阶段，用户对数据主权和使用体验提出更高要求。</p>
+            </section>
+
+            <!-- Slide 8: 对未来热点的展望 -->
+            <section>
+                <h2><i class="fas fa-forward text-primary-color mr-3"></i> 对未来热点的展望</h2>
+                <p class="text-lg">基于今天的趋势，可以预测未来以下领域将持续成为热点：</p>
+                <ul class="icon-list mt-8">
+                    <li class="future-item fragment fade-in"><i class="fas fa-magic mr-3"></i> **更易用的AI交互与应用开发工具**。</li>
+                    <li class="future-item fragment fade-in"><i class="fas fa-cogs mr-3"></i> **跨平台、跨硬件兼容与性能优化技术** (尤其AI计算和图形处理)。</li>
+                    <li class="future-item fragment fade-in"><i class="fas fa-lock mr-3"></i> **高度集成、注重隐私和安全、易于自托管的效率工具**。</li>
+                    <li class="future-item fragment fade-in"><i class="fas fa-graduation-cap mr-3"></i> **提供深度、实践性学习体验的教育资源平台**。</li>
+                    <li class="future-item fragment fade-in"><i class="fas fa-docker mr-3"></i> **容器化和虚拟化技术深入复杂应用场景**。</li>
+                </ul>
+                <p class="text-base mt-8 text-secondary-color">这是一个充满活力和实用主义的社区快照！</p>
+            </section>
+
+            <!-- Slide 9: 热门项目双日维度对比分析 -->
+            <section>
+                <h2><i class="fas fa-arrows-alt-h text-primary-color mr-3"></i> 热门项目双日维度对比分析</h2>
+                <p class="text-lg">对比数据显示，今日GitHub热门项目列表变动活跃：</p>
+                <ul class="icon-list mt-8">
+                    <li class="compare-item fragment fade-in"><i class="fas fa-sparkles mr-3"></i> **新晋项目突出**: 7个新项目入榜，开发者兴趣快速迁移。</li>
+                    <li class="compare-item fragment fade-in"><i class="fas fa-arrow-up mr-3"></i> **少数持续上升**: 榜单整体未出现明显滑落。</li>
+                    <li class="compare-item fragment fade-in"><i class="fas fa-shapes mr-3"></i> **新入榜类型多样**: 系统级、AI、桌面应用、基础设施、教育。</li>
+                    <li class="compare-item fragment fade-in"><i class="fas fa-palette mr-3"></i> **编程语言分散**: Rust, Jupyter Notebook, Shell, HTML 等有所增加。</li>
+                    <li class="compare-item fragment fade-in"><i class="fas fa-star mr-3"></i> **技术热点鲜明**: AI交互教程、系统底层工具等。</li>
+                </ul>
+            </section>
+
+            <!-- Slide 10: 热点变化 -->
+            <section>
+                <h2><i class="fas fa-fire text-primary-color mr-3"></i> 热点变化</h2>
+                <div class="grid grid-cols-2 gap-8 mt-8">
+                    <div class="col-span-1">
+                        <h3 class="text-primary-color"><i class="fas fa-plus-circle mr-2"></i> 新增热点</h3>
+                        <ul class="text-base">
+                            <li class="fragment fade-in">iib0011/omni-tools</li>
+                            <li class="fragment fade-in">home-assistant/home-assistant.io</li>
+                            <li class="fragment fade-in">gyulyvgc/sniffnet</li>
+                            <li class="fragment fade-in">anthropics/prompt-eng-interactive-tutorial</li>
+                            <li class="fragment fade-in">alex313031/thorium</li>
+                            <li class="fragment fade-in">vosen/zluda</li>
+                            <li class="fragment fade-in">dockur/macos</li>
+                        </ul>
+                    </div>
+                    <div class="col-span-1">
+                        <h3 class="text-secondary-color"><i class="fas fa-minus-circle mr-2"></i> 减退热点</h3>
+                        <ul class="text-base">
+                            <li class="fragment fade-in">ladybirdbrowser/ladybird</li>
+                            <li class="fragment fade-in">rustfs/rustfs</li>
+                            <li class="fragment fade-in">universidade-livre/ciencia-da-computacao</li>
+                            <li class="fragment fade-in">motiadev/motia</li>
+                            <li class="fragment fade-in">google/perfetto</li>
+                            <li class="fragment fade-in">megadose/toutatis</li>
+                            <li class="fragment fade-in">datawhalechina/happy-llm</li>
+                            <li class="fragment fade-in">directus/directus</li>
+                        </ul>
+                    </div>
+                </div>
+                <h3 class="text-green-600 mt-8"><i class="fas fa-arrow-alt-circle-right mr-2"></i> 持续热门</h3>
+                <ul class="text-base">
+                    <li class="fragment fade-in">NanmiCoder/MediaCrawler (<span class="text-primary-color">6次</span>)</li>
+                </ul>
+            </section>
+
+            <!-- Detailed Repo Data Section Intro -->
+            <section>
+                <h2><i class="fas fa-boxes text-primary-color mr-3"></i> 详细仓库数据</h2>
+                <p>探索今日热门项目的核心亮点与增长表现，点击项目卡片可查看增长分析。</p>
+            </section>
+
+            <!-- Project 1: NanmiCoder/MediaCrawler -->
+            <section>
+                <section class="project-card">
+                    <h3><i class="fas fa-spider mr-2"></i> NanmiCoder/MediaCrawler</h3>
+                    <p class="text-gray-600">小红书笔记 | 评论爬虫、抖音视频 | 评论爬虫等</p>
+                    <div class="project-meta text-sm">
+                        <span><i class="fas fa-code"></i> Python</span>
+                        <span><i class="fas fa-star"></i> 27.5k</span>
+                        <span><i class="fas fa-history"></i> 连续在榜: 6次</span>
+                        <span><i class="fas fa-chart-line"></i> 当日新增: 1037</span>
+                    </div>
+                    <p class="text-base text-gray-700"><strong>项目速读:</strong> MediaCrawler 是一个高效的多平台自媒体数据采集工具，利用 Playwright 模拟真实用户行为，避开 JS 逆向，轻松保持登录态并获取数据。适合个人数据分析、技术研究或学习，但需遵守非商业用途规定。</p>
+                </section>
+                <section class="growth-analysis">
+                    <h4><i class="fas fa-arrow-up mr-2"></i> 增长分析</h4>
+                    <p>在6天统计期内，该仓库连续上榜6次，增长持续且强劲。总增长3357星，平均每日约629星。尤其当日新增1037星，远超平均，表明增长势头正加速。</p>
+                </section>
+            </section>
+
+            <!-- Project 2: dockur/macos -->
+            <section>
+                <section class="project-card">
+                    <h3><i class="fab fa-apple mr-2"></i> dockur/macos</h3>
+                    <p class="text-gray-600">Docker 容器中的 macOS</p>
+                    <div class="project-meta text-sm">
+                        <span><i class="fas fa-code"></i> Shell</span>
+                        <span><i class="fas fa-star"></i> 13.9k</span>
+                        <span><i class="fas fa-history"></i> 连续在榜: 1次</span>
+                        <span><i class="fas fa-chart-line"></i> 当日新增: 932</span>
+                    </div>
+                    <p class="text-base text-gray-700"><strong>项目速读:</strong> dockur/macos 在 Docker 容器中运行 macOS，利用 KVM 硬件加速，提供便捷高性能的macOS虚拟机环境。容器化部署简单快捷，通过 Web 界面访问，支持灵活配置资源。为开发者和测试人员提供标准化、隔离的macOS工作环境。<strong>注意：仅限在 Apple 硬件上使用。</strong></p>
+                </section>
+                <section class="growth-analysis">
+                    <h4><i class="fas fa-arrow-up mr-2"></i> 增长分析</h4>
+                    <p>仓库三天内上榜2次，总Star增长1634，平均每次上榜贡献580 Star。今日新增932 Star远超平均，显示上榜是主要增长驱动，且近期增长加速趋势明显，效率极高。</p>
+                </section>
+            </section>
+
+            <!-- Project 3: anthropics/prompt-eng-interactive-tutorial -->
+            <section>
+                <section class="project-card">
+                    <h3><i class="fas fa-robot mr-2"></i> anthropics/prompt-eng-interactive-tutorial</h3>
+                    <p class="text-gray-600">Anthropic 的交互式提示工程教程</p>
+                    <div class="project-meta text-sm">
+                        <span><i class="fas fa-code"></i> Jupyter Notebook</span>
+                        <span><i class="fas fa-star"></i> 14.6k</span>
+                        <span><i class="fas fa-history"></i> 连续在榜: 1次</span>
+                        <span><i class="fas fa-chart-line"></i> 当日新增: 230</span>
+                    </div>
+                    <p class="text-base text-gray-700"><strong>项目速读:</strong> 这是一个由 Anthropic 发布的交互式教程，专门指导用户如何为其 Claude 大语言模型设计和优化提示词（Prompt Engineering）。其“交互式”和“实践导向”是最大特点，内置实验区可即时测试。帮助用户从零开始或提升AI提示技巧，有效“驾驭”模型。</p>
+                </section>
+                <section class="growth-analysis">
+                    <h4><i class="fas fa-arrow-up mr-2"></i> 增长分析</h4>
+                    <p>6次上榜显著驱动增长，总增超1万星，平均每次增约855星，增长强劲。</p>
+                </section>
+            </section>
+
+            <!-- Project 4: vosen/ZLUDA -->
+            <section>
+                <section class="project-card">
+                    <h3><i class="fas fa-microchip mr-2"></i> vosen/ZLUDA</h3>
+                    <p class="text-gray-600">非英伟达 GPU 上的 CUDA</p>
+                    <div class="project-meta text-sm">
+                        <span><i class="fas fa-code"></i> Rust</span>
+                        <span><i class="fas fa-star"></i> 11.9k</span>
+                        <span><i class="fas fa-history"></i> 连续在榜: 1次</span>
+                        <span><i class="fas fa-chart-line"></i> 当日新增: 137</span>
+                    </div>
+                    <p class="text-base text-gray-700"><strong>项目速读:</strong> ZLUDA 旨在将原本依赖英伟达GPU的CUDA应用带到非英伟达硬件上，特别是AMD Radeon显卡。其核心亮点在于提供一个“即插即用”兼容层，无需修改CUDA应用代码，通过模拟CUDA API欺骗程序。这为寻求在不同GPU上运行CUDA工作负载的用户打破了硬件限制。</p>
+                </section>
+                <section class="growth-analysis">
+                    <h4><i class="fas fa-arrow-up mr-2"></i> 增长分析</h4>
+                    <p>首次上榜即达到11.9k星，显示项目具有巨大的潜在吸引力。当日新增137星，作为新上榜项目表现稳定，未来增长潜力大。</p>
+                </section>
+            </section>
+
+            <!-- Project 5: GyulyVGC/sniffnet -->
+            <section>
+                <section class="project-card">
+                    <h3><i class="fas fa-network-wired mr-2"></i> GyulyVGC/sniffnet</h3>
+                    <p class="text-gray-600">轻松监控你的网络流量</p>
+                    <div class="project-meta text-sm">
+                        <span><i class="fas fa-code"></i> Rust</span>
+                        <span><i class="fas fa-star"></i> 26.1k</span>
+                        <span><i class="fas fa-history"></i> 连续在榜: 1次</span>
+                        <span><i class="fas fa-chart-line"></i> 当日新增: 218</span>
+                    </div>
+                    <p class="text-base text-gray-700"><strong>项目速读:</strong> Sniffnet 是一款功能强大且用户友好的跨平台应用，致力于让用户舒适地监控和深入分析其互联网流量。利用 Rust 语言的高性能和安全性，结合 iced 构建直观 GUI。它提供实时流量统计、详细连接信息、智能服务识别等核心功能。作为一个完全免费开源的工具，为个人用户提供了一个可靠且易用的途径来洞察和管理他们的网络连接。</p>
+                </section>
+                <section class="growth-analysis">
+                    <h4><i class="fas fa-arrow-up mr-2"></i> 增长分析</h4>
+                    <p>该仓库上榜频率较低（仅2次），但总Star增长1414，显示其具有稳定的吸引力。今日新增218星，表明近期增长加速，整体趋势积极。</p>
+                </section>
+            </section>
+
+            <!-- Project 6: Alex313031/thorium -->
+            <section>
+                <section class="project-card">
+                    <h3><i class="fab fa-chrome mr-2"></i> Alex313031/thorium</h3>
+                    <p class="text-gray-600">命名自第90号放射性元素的 Chromium 分支。</p>
+                    <div class="project-meta text-sm">
+                        <span><i class="fas fa-code"></i> C++</span>
+                        <span><i class="fas fa-star"></i> 6k</span>
+                        <span><i class="fas fa-history"></i> 连续在榜: 1次</span>
+                        <span><i class="fas fa-chart-line"></i> 当日新增: 27</span>
+                    </div>
+                    <p class="text-base text-gray-700"><strong>项目速读:</strong> Thorium 是一个基于最新稳定版 Chromium 构建的高性能网页浏览器分支。项目旨在通过积极的编译器优化和充分利用现代CPU指令集，提供比标准Chromium更快的速度和更流畅的体验。集成了丰富的内置功能和增强，包括媒体解码器支持、隐私增强等。主要面向Linux用户，也提供其他平台构建。</p>
+                </section>
+                <section class="growth-analysis">
+                    <h4><i class="fas fa-arrow-up mr-2"></i> 增长分析</h4>
+                    <p>首次上榜，达到6k星，显示项目在特定用户群体中已有一定知名度。当日新增27星，作为新晋项目，增长表现稳健，但需更多曝光以加速传播。</p>
+                </section>
+            </section>
+
+            <!-- Project 7: codecrafters-io/build-your-own-x -->
+            <section>
+                <section class="project-card">
+                    <h3><i class="fas fa-book mr-2"></i> codecrafters-io/build-your-own-x</h3>
+                    <p class="text-gray-600">通过从头开始实现你最喜欢的技术来精通编程。</p>
+                    <div class="project-meta text-sm">
+                        <span><i class="fas fa-code"></i> Markdown</span>
+                        <span><i class="fas fa-star"></i> 396k</span>
+                        <span><i class="fas fa-history"></i> 连续在榜: 2次</span>
+                        <span><i class="fas fa-chart-line"></i> 当日新增: 454</span>
+                    </div>
+                    <p class="text-base text-gray-700"><strong>项目速读:</strong> codecrafters-io/build-your-own-x 仓库是一个极具价值的学习资源精选集，其核心使命是通过“从零开始”亲手构建流行技术的方式，帮助开发者真正深入理解其内部原理。它精心汇集了大量高质量、循序渐进的外部教程链接，覆盖图形渲染、网络、数据库等众多硬核技术领域。高达近40万的Star数强有力地证明了这种学习理念及其提供的资源对全球开发者的巨大吸引力和实际帮助。</p>
+                </section>
+                <section class="growth-analysis">
+                    <h4><i class="fas fa-arrow-up mr-2"></i> 增长分析</h4>
+                    <p>该仓库在14次上榜周期内增长强劲，累计新增43515星，平均每次上榜贡献676.7星。频繁上榜（14次）显示其持续受到关注，增长稳定。尽管今日新增454星低于平均，整体趋势积极。</p>
+                </section>
+            </section>
+
+            <!-- Project 8: iib0011/omni-tools -->
+            <section>
+                <section class="project-card">
+                    <h3><i class="fas fa-tools mr-2"></i> iib0011/omni-tools</h3>
+                    <p class="text-gray-600">自托管的强大网页工具集，用于日常任务。</p>
+                    <div class="project-meta text-sm">
+                        <span><i class="fas fa-code"></i> TypeScript</span>
+                        <span><i class="fas fa-star"></i> 4.3k</span>
+                        <span><i class="fas fa-history"></i> 连续在榜: 1次</span>
+                        <span><i class="fas fa-chart-line"></i> 当日新增: 163</span>
+                    </div>
+                    <p class="text-base text-gray-700"><strong>项目速读:</strong> OmniTools 是一个自托管的网页工具集合，旨在为用户提供一套强大、私密且无干扰的日常任务处理方案。它彻底摆脱了传统在线工具的广告和追踪，所有文件处理均在用户浏览器本地完成，数据不会离开设备，极大地保障了隐私安全。项目提供了仅28MB的超轻量Docker镜像，使得部署和自托管过程极为简单快速。涵盖图像、文本、日期、数学等多种工具。</p>
+                </section>
+                <section class="growth-analysis">
+                    <h4><i class="fas fa-arrow-up mr-2"></i> 增长分析</h4>
+                    <p>上榜4次有效拉动总星数增长1802，平均每次贡献244星，增长势头良好且依赖曝光。今日新增163星，表明曝光效应持续。</p>
+                </section>
+            </section>
+
+            <!-- Project 9: home-assistant/home-assistant.io -->
+            <section>
+                <section class="project-card">
+                    <h3><i class="fas fa-home mr-2"></i> home-assistant/home-assistant.io</h3>
+                    <p class="text-gray-600">Home Assistant 用户文档</p>
+                    <div class="project-meta text-sm">
+                        <span><i class="fas fa-code"></i> HTML</span>
+                        <span><i class="fas fa-star"></i> 6.7k</span>
+                        <span><i class="fas fa-history"></i> 连续在榜: 1次</span>
+                        <span><i class="fas fa-chart-line"></i> 当日新增: 9</span>
+                    </div>
+                    <p class="text-base text-gray-700"><strong>项目速读:</strong> 这个GitHub仓库是Home Assistant官方网站Home-Assistant.io的源代码所在地，它是承载所有官方用户文档、博客文章和重要信息的基石。它并非一个简单的静态页面集合，而是一个配备了强大构建和管理工具的项目，使得社区能够高效地参与到官方文档和网站内容的完善中，确保信息的准确性和及时性。遵循CC BY-NC-SA 4.0许可证，鼓励非商业性的学习和贡献。</p>
+                </section>
+                <section class="growth-analysis">
+                    <h4><i class="fas fa-arrow-up mr-2"></i> 增长分析</h4>
+                    <p>首次上榜，达到6.7k星。虽然当日新增9星相对较低，但作为文档类项目，其核心价值在于持续更新和社区贡献，而非单纯星数增长。其稳定性证明了Home Assistant社区的活跃。</p>
+                </section>
+            </section>
+
+            <!-- Final Slide: Thanks/Q&A -->
+            <section class="center-content" data-background-color="#457b9d">
+                <h2 class="text-white">感谢聆听！</h2>
+                <p class="text-white text-xl mt-4">希望今天的分享能为您带来启发。</p>
+                <p class="text-white text-xl mt-8"><i class="far fa-question-circle mr-2"></i> 提问与交流</p>
+
+                <div class="flex flex-col items-center mt-12">
+                    <p class="text-white text-lg mb-2"><i class="fas fa-star mr-2"></i> 欢迎Star项目，持续关注最新技术趋势！</p>
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-white text-xl font-bold hover:underline">
+                        https://github.com/aichipera/github-trend
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code" class="w-32 h-32 mt-6">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <script>
+        // Mermaid initialization for any diagrams if needed (not explicitly used in this content)
+        mermaid.initialize({ startOnLoad: false }); 
+
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            hash: true,
+
+            transition: 'slide', // Slide transition
+            backgroundTransition: 'fade', // Fade for background changes
+
+            // fragments allow parts of a slide to appear one by one
+            fragments: true, 
+        });
+    </script>
+</body>
+</html>
