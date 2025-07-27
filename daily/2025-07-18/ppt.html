@@ -1,0 +1,1030 @@
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub技术风向标：文档智能工具爆发，安全与AI创新领跑</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #2C3E50; /* 深木炭色 - 主标题、深色背景 */
+            --secondary-color: #34495E; /* 深蓝灰色 - 副标题、重点文本 */
+            --accent-color: #3498DB; /* 明亮蓝色 - 强调色、链接、图标 */
+            --background-color: #ECF0F1; /* 浅灰色 - 主背景 */
+            --text-color: #34495E; /* 主文本颜色 */
+            --growth-color: #2ECC71; /* 绿色 - 积极增长 */
+            --decline-color: #E74C3C; /* 红色 - 负面/警告 */
+        }
+
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback",
+                         "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .reveal .slides section h1 { font-size: 2.8rem; line-height: 1.2; margin-bottom: 0.5rem; color: var(--primary-color); }
+        .reveal .slides section h2 { font-size: 2.2rem; line-height: 1.3; margin-top: 1rem; color: var(--secondary-color); }
+        .reveal .slides section h3 { font-size: 1.8rem; line-height: 1.4; color: var(--secondary-color); }
+        .reveal .slides section h4 { font-size: 1.6rem; line-height: 1.5; color: var(--secondary-color); }
+        .reveal .slides section p, .reveal .slides section li, .reveal .slides section table { font-size: 1.1rem; line-height: 1.6; }
+        .reveal .slides section table th, .reveal .slides section table td { font-size: 1rem; }
+
+        .reveal .slides section .subtitle {
+            font-size: 1.8rem; 
+            color: var(--accent-color);
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        /* 封面页样式 */
+        .cover-slide {
+            background-image: url('https://source.unsplash.com/1600x900/?tech,abstract,data,ai,futuristic'); /* 科技抽象背景 */
+            background-size: cover;
+            background-position: center;
+            color: #ffffff; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); 
+            position: relative;
+        }
+        .cover-slide h1, .cover-slide h2, .cover-slide .subtitle, .cover-slide p {
+            color: #ffffff;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+        }
+        .cover-slide .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.55); /* 半透明深色覆盖层 */
+            z-index: 0;
+        }
+        .cover-slide .content {
+            position: relative;
+            z-index: 1;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+        }
+        .bottom-right {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        .bottom-right a {
+            color: #ffffff;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            text-decoration: none;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+        }
+        .bottom-right img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        /* 结束页样式 */
+        .end-slide {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            position: relative;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+        }
+        .end-slide h2 { color: #ffffff; }
+        
+        .reveal .slides section {
+            padding: 0 4rem; 
+            box-sizing: border-box;
+        }
+
+        /* 项目表格样式 */
+        .project-table {
+            width: 100%;
+            margin-top: 1.5rem;
+            border-collapse: collapse;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            overflow: hidden; /* Ensures rounded corners apply to content */
+        }
+        .project-table th, .project-table td {
+            border: 1px solid rgba(0,0,0,0.08);
+            padding: 0.8rem;
+            text-align: left;
+        }
+        .project-table th {
+            background-color: rgba(52, 73, 94, 0.1); 
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+        .project-table td {
+            background-color: rgba(255,255,255,0.9); /* 略微透明的白色，增加层次感 */
+        }
+        .project-table .star-gain {
+            color: var(--growth-color);
+            font-weight: 700;
+        }
+        .project-table .star-decline {
+            color: var(--decline-color);
+            font-weight: 700;
+        }
+
+        /* 增长分析高亮 */
+        .growth-highlight {
+            color: var(--growth-color);
+            font-weight: 700;
+        }
+        .decline-highlight {
+            color: var(--decline-color);
+            font-weight: 700;
+        }
+        .stable-highlight {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+
+        /* 列表样式 */
+        .reveal ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .reveal ul li {
+            position: relative;
+            padding-left: 2em; 
+            margin-bottom: 0.8em;
+        }
+        .reveal ul li::before {
+            content: "\f058"; /* Font Awesome check circle */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900; 
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.1em;
+        }
+        .reveal ul.no-bullet li::before {
+            content: none;
+        }
+        .reveal ul.no-bullet {
+             list-style: none;
+        }
+
+        /* Reveal.js fragment customizations */
+        .reveal .fragment.fade-in {
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+        .reveal .fragment.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- 封面页 -->
+            <section class="cover-slide">
+                <div class="overlay"></div>
+                <div class="content">
+                    <p class="subtitle fragment fade-in">🔥 今日最火爆的开源项目都在这 ⭐️</p>
+                    <h1 class="fragment fade-in">GitHub技术风向标：<br>文档智能工具爆发，安全与AI创新领跑</h1>
+                    <p class="fragment fade-in text-lg mt-4">Github热门仓库日报观测时间： 2025-07-18 20:28:28</p>
+                    <p class="fragment fade-in text-base mt-2 mb-8 opacity-75">以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</p>
+                    <p class="fragment fade-in text-xl font-bold">演讲者: AIChipEra</p>
+                </div>
+                <div class="bottom-right">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+            <!-- 日报要点 Slide -->
+            <section>
+                <h2>📊 日报核心要点</h2>
+                <ul class="no-bullet">
+                    <li class="fragment fade-in">
+                        <i class="fa-solid fa-file-invoice text-accent-color mr-2"></i>
+                        <span class="font-semibold text-secondary-color">文档智能处理革命：</span>
+                        微软MarkItDown引领非结构化数据治理，LocalGPT、DocsGPT深化隐私优先应用。
+                    </li>
+                    <li class="fragment fade-in">
+                        <i class="fa-solid fa-shield-halved text-accent-color mr-2"></i>
+                        <span class="font-semibold text-secondary-color">安全工具升级：</span>
+                        Gitleaks与maigret实现从代码审计到数字足迹追踪的全链路防护。
+                    </li>
+                    <li class="fragment fade-in">
+                        <i class="fa-solid fa-robot text-accent-color mr-2"></i>
+                        <span class="font-semibold text-secondary-color">生成式AI专业化：</span>
+                        Meta SAM2聚焦医疗影像分割，LTX-Video突破长视频生成。
+                    </li>
+                    <li class="fragment fade-in">
+                        <i class="fa-solid fa-code text-accent-color mr-2"></i>
+                        <span class="font-semibold text-secondary-color">语言与生态：</span>
+                        Python以7个项目占据AI工具链主导地位，Go在安全工具渗透率提升，TypeScript保持交互层优势。
+                    </li>
+                    <li class="fragment fade-in">
+                        <i class="fa-solid fa-chart-line text-accent-color mr-2"></i>
+                        <span class="font-semibold text-secondary-color">新兴趋势：</span>
+                        隐私优先（LocalGPT）与效率美学（RunCat365）同步走红。
+                    </li>
+                    <li class="fragment fade-in">
+                        <i class="fa-solid fa-flask-vial text-accent-color mr-2"></i>
+                        <span class="font-semibold text-secondary-color">未来展望：</span>
+                        多模态文档、自动化研究平台、边缘生成式AI将是下一波热点。
+                    </li>
+                </ul>
+            </section>
+
+            <!-- 热门项目趋势分析 (垂直幻灯片) -->
+            <section>
+                <section>
+                    <h2>📈 热门项目趋势分析：今日整体趋势</h2>
+                    <h3 class="mt-4 text-secondary-color">核心领域与主题：</h3>
+                    <ul class="no-bullet text-left text-base">
+                        <li class="fragment fade-in"><i class="fa-solid fa-file-invoice text-accent-color mr-2"></i><span class="font-semibold">文档智能处理与自动化：</span> MarkItDown, LocalGPT, DocsGPT 领先，需求激增。</li>
+                        <li class="fragment fade-in"><i class="fa-solid fa-lock text-accent-color mr-2"></i><span class="font-semibold">安全与数据治理：</span> Gitleaks, maigret，从代码审计到数字足迹追踪。</li>
+                        <li class="fragment fade-in"><i class="fa-solid fa-video text-accent-color mr-2"></i><span class="font-semibold">生成式AI与视觉交互：</span> Meta SAM2, LTX-Video，专业领域深化。</li>
+                    </ul>
+
+                    <h3 class="mt-6 text-secondary-color">编程语言与技术栈：</h3>
+                    <ul class="no-bullet text-left text-base">
+                        <li class="fragment fade-in"><i class="fa-brands fa-python text-accent-color mr-2"></i><span class="font-semibold">Python：</span> 绝对优势（7项），AI工具标配，LangChain、Pydantic 支撑。</li>
+                        <li class="fragment fade-in"><i class="fa-brands fa-golang text-accent-color mr-2"></i><span class="font-semibold">Go：</span> 安全与系统工具，高性能优势（Gitleaks, Telegraf）。</li>
+                        <li class="fragment fade-in"><i class="fa-brands fa-react text-accent-color mr-2"></i><span class="font-semibold">TypeScript：</span> 前端交互与CMS（Strapi, DocsGPT）主导。</li>
+                        <li class="fragment fade-in"><i class="fa-brands fa-dev text-accent-color mr-2"></i><span class="font-semibold">C++/C#：</span> 系统级开发（Hyprland, RunCat365）。</li>
+                        <li class="fragment fade-in"><i class="fa-solid fa-layer-group text-accent-color mr-2"></i><span class="font-semibold">分层趋势：</span> “AI工具Python化、安全工具Go化、交互层TypeScript化”。</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>📈 热门项目趋势分析：需求与演进</h2>
+                    <h3 class="mt-4 text-secondary-color">技术需求与演进方向：</h3>
+                    <ul class="no-bullet text-left text-base">
+                        <li class="fragment fade-in"><i class="fa-solid fa-server text-accent-color mr-2"></i><span class="font-semibold">数据治理前置化：</span> MarkItDown (多格式解析), Gitleaks (敏感信息拦截)。</li>
+                        <li class="fragment fade-in"><i class="fa-solid fa-arrow-right-arrow-left text-accent-color mr-2"></i><span class="font-semibold">自动化流程智能化：</span> Open Deep Research (多模型协作), n8n (工作流编排)。</li>
+                        <li class="fragment fade-in"><i class="fa-solid fa-wand-magic-sparkles text-accent-color mr-2"></i><span class="font-semibold">生成式AI工具链专业化：</span> SAM2 (医疗影像分割), LTX-Video (长视频生成)。</li>
+                        <li class="fragment fade-in"><i class="fa-solid fa-gears text-accent-color mr-2"></i><span class="font-semibold">演进方向：</span> 从“模型调用”转向“工具链构建”，强调模块化与可扩展性。</li>
+                    </ul>
+
+                    <h3 class="mt-6 text-secondary-color">趋势对比与变化：</h3>
+                    <ul class="no-bullet text-left text-base">
+                        <li class="fragment fade-in"><i class="fa-solid fa-user-secret text-accent-color mr-2"></i><span class="font-semibold">隐私优先工具崛起：</span> LocalGPT (本地化部署), DocsGPT (混合部署)。</li>
+                        <li class="fragment fade-in"><i class="fa-solid fa-rocket text-accent-color mr-2"></i><span class="font-semibold">轻量化创意工具走红：</span> RunCat365 (任务栏动画), SwiftFormat (代码美化)。</li>
+                        <li class="fragment fade-in"><i class="fa-solid fa-chart-pie text-accent-color mr-2"></i><span class="font-semibold">生态格局：</span> “创新工具 + 成熟系统”并行。</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>📈 热门项目趋势分析：预测与特有趋势</h2>
+                    <h3 class="mt-4 text-secondary-color">未来热点预测：</h3>
+                    <ul class="no-bullet text-left text-base">
+                        <li class="fragment fade-in"><i class="fa-solid fa-braille text-accent-color mr-2"></i><span class="font-semibold">多模态文档处理：</span> 融合文本、图像、表格的端到端解析。</li>
+                        <li class="fragment fade-in"><i class="fa-solid fa-microchip text-accent-color mr-2"></i><span class="font-semibold">边缘生成式AI：</span> 轻量化视频生成与实时分割的边缘设备适配。</li>
+                        <li class="fragment fade-in"><i class="fa-solid fa-code-merge text-accent-color mr-2"></i><span class="font-semibold">开发者体验优化：</span> RunCat365 类创意工具。</li>
+                        <li class="fragment fade-in"><i class="fa-solid fa-eye text-accent-color mr-2"></i><span class="font-semibold">低代码安全审计：</span> maigret 的自动化情报分析。</li>
+                    </ul>
+
+                    <h3 class="mt-6 text-secondary-color">今日特有趋势：</h3>
+                    <ul class="no-bullet text-left text-base">
+                        <li class="fragment fade-in"><i class="fa-solid fa-star-of-life text-accent-color mr-2"></i><span class="font-semibold">Python与Go：</span> Python在AI链统治地位强化，Go在安全领域渗透提升。</li>
+                        <li class="fragment fade-in"><i class="fa-solid fa-sitemap text-accent-color mr-2"></i><span class="font-semibold">文档处理：</span> 从“格式转换”向“语义结构化”升级，与RAG技术深度融合。</li>
+                        <li class="fragment fade-in"><i class="fa-solid fa-cube text-accent-color mr-2"></i><span class="font-semibold">生成式AI：</span> “专业场景 + 轻量化部署”双轮驱动（SAM2医疗，LTX-Video低配适配）。</li>
+                        <li class="fragment fade-in"><i class="fa-solid fa-people-arrows text-accent-color mr-2"></i><span class="font-semibold">社区转向：</span> 从“模型为中心”转向“工具链为中心”。</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>📊 热门项目双日维度对比分析</h2>
+                    <h3 class="mt-4 text-secondary-color">热度变化趋势：</h3>
+                    <ul class="no-bullet text-left text-base">
+                        <li class="fragment fade-in"><i class="fa-solid fa-arrow-up text-growth-color mr-2"></i><span class="font-semibold">整体活跃度：</span> 持续上升，昨日无项目退出，7个上升，9个新晋。</li>
+                        <li class="fragment fade-in"><i class="fa-solid fa-code-fork text-accent-color mr-2"></i><span class="font-semibold">新晋项目：</span> AI、基础设施及开发工具多元化扩张。</li>
+                    </ul>
+                    
+                    <h3 class="mt-6 text-secondary-color">新项目特点与语言分布：</h3>
+                    <ul class="no-bullet text-left text-base">
+                        <li class="fragment fade-in"><i class="fa-brands fa-python text-accent-color mr-2"></i><span class="font-semibold">Python/TypeScript：</span> 新晋主力，Python、Go、Jupyter Notebook 占比提升。</li>
+                        <li class="fragment fade-in"><i class="fa-solid fa-heart-pulse text-accent-color mr-2"></i><span class="font-semibold">AI深度渗透：</span> Meta `segment-anything` (AI图像分割), `DocsGPT` (文档生成)。</li>
+                        <li class="fragment fade-in"><i class="fa-brands fa-linux text-accent-color mr-2"></i><span class="font-semibold">Linux生态创新：</span> `Hyprland` (C++窗口管理器)。</li>
+                    </ul>
+
+                    <h3 class="mt-6 text-secondary-color">值得关注的显著变化：</h3>
+                    <ul class="no-bullet text-left text-base">
+                        <li class="fragment fade-in"><i class="fa-solid fa-user-shield text-growth-color mr-2"></i><span class="font-semibold">安全工具涨幅突出：</span>
+                            <span class="growth-highlight">maigret</span> (<span class="growth-highlight">+518</span> Star),
+                            <span class="growth-highlight">gitleaks</span> (<span class="growth-highlight">+324</span> Star)，隐私安全关注度激增。
+                        </li>
+                        <li class="fragment fade-in"><i class="fa-solid fa-file-word text-growth-color mr-2"></i><span class="font-semibold">文档工具迫切需求：</span>
+                            微软 <span class="growth-highlight">markitdown</span> (<span class="growth-highlight">+1354</span> Star)。
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>🔄 热点项目变化概览</h2>
+                    <div class="flex justify-around items-start mt-8">
+                        <div class="w-1/3 mr-4">
+                            <h3 class="text-accent-color mb-4">🆕 新增热点</h3>
+                            <ul class="no-bullet text-left text-base">
+                                <li class="fragment fade-in"><i class="fa-solid fa-plus-circle text-growth-color mr-2"></i> influxdata/telegraf</li>
+                                <li class="fragment fade-in"><i class="fa-solid fa-plus-circle text-growth-color mr-2"></i> arc53/docsgpt</li>
+                                <li class="fragment fade-in"><i class="fa-solid fa-plus-circle text-growth-color mr-2"></i> pydantic/pydantic-ai</li>
+                                <li class="fragment fade-in"><i class="fa-solid fa-plus-circle text-growth-color mr-2"></i> remoteintech/remote-jobs</li>
+                                <li class="fragment fade-in"><i class="fa-solid fa-plus-circle text-growth-color mr-2"></i> n8n-io/n8n</li>
+                                <li class="fragment fade-in"><i class="fa-solid fa-plus-circle text-growth-color mr-2"></i> lightricks/ltx-video</li>
+                                <li class="fragment fade-in"><i class="fa-solid fa-plus-circle text-growth-color mr-2"></i> facebookresearch/segment-anything</li>
+                                <li class="fragment fade-in"><i class="fa-solid fa-plus-circle text-growth-color mr-2"></i> nicklockwood/swiftformat</li>
+                                <li class="fragment fade-in"><i class="fa-solid fa-plus-circle text-growth-color mr-2"></i> hyprwm/hyprland</li>
+                            </ul>
+                        </div>
+                        <div class="w-1/3 mr-4">
+                            <h3 class="text-secondary-color mb-4">📉 减退热点</h3>
+                            <ul class="no-bullet text-left text-base">
+                                <li class="fragment fade-in"><i class="fa-solid fa-minus-circle text-decline-color mr-2"></i> wasmedge/wasmedge</li>
+                                <li class="fragment fade-in"><i class="fa-solid fa-minus-circle text-decline-color mr-2"></i> aykutsarac/jsoncrack.com</li>
+                                <li class="fragment fade-in"><i class="fa-solid fa-minus-circle text-decline-color mr-2"></i> cloudcommunity/free-certifications</li>
+                                <li class="fragment fade-in"><i class="fa-solid fa-minus-circle text-decline-color mr-2"></i> musistudio/claude-code-router</li>
+                                <li class="fragment fade-in"><i class="fa-solid fa-minus-circle text-decline-color mr-2"></i> maotoumao/musicfree</li>
+                                <li class="fragment fade-in"><i class="fa-solid fa-minus-circle text-decline-color mr-2"></i> helix-editor/helix</li>
+                                <li class="fragment fade-in"><i class="fa-solid fa-minus-circle text-decline-color mr-2"></i> freecodecamp/devdocs</li>
+                                <li class="fragment fade-in"><i class="fa-solid fa-minus-circle text-decline-color mr-2"></i> vanna-ai/vanna</li>
+                            </ul>
+                        </div>
+                        <div class="w-1/3">
+                            <h3 class="text-growth-color mb-4">✨ 持续热门</h3>
+                            <ul class="no-bullet text-left text-base">
+                                <li class="fragment fade-in"><i class="fa-solid fa-fire text-growth-color mr-2"></i> microsoft/markitdown <span class="stable-highlight">(5次)</span></li>
+                                <li class="fragment fade-in"><i class="fa-solid fa-fire text-growth-color mr-2"></i> PromtEngineer/localGPT <span class="stable-highlight">(3次)</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- 详细仓库数据 (每个项目一个垂直幻灯片) -->
+            <section>
+                <section>
+                    <h2>🚀 详细仓库数据</h2>
+                    <h3><a href="https://github.com/microsoft/markitdown" target="_blank" class="text-accent-color hover:underline">microsoft/markitdown</a></h3>
+                    <p class="text-base italic">用于将文件和办公文档转换为Markdown的Python工具。</p>
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Python</td>
+                                <td>67273</td>
+                                <td>5次</td>
+                                <td>15次</td>
+                                <td class="star-gain">1870</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="text-sm mt-2"><i class="fa-solid fa-star text-yellow-500 mr-1"></i> Stars: 67.3k | <i class="fa-solid fa-code-branch text-blue-500 mr-1"></i> Forks: 3.6k | <i class="fa-solid fa-eye text-green-500 mr-1"></i> Watchers: 238 | <i class="fa-solid fa-bug text-red-500 mr-1"></i> Issues: 233 | <i class="fa-solid fa-code-pull-request text-purple-500 mr-1"></i> Pull Requests: 90</p>
+                    <p class="text-sm">编程语言占比: <span class="font-semibold text-accent-color">Python 99.4%</span>, Dockerfile 0.6%</p>
+                    
+                    <h4 class="mt-4 text-secondary-color">项目速读：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        微软MarkItDown是面向<span class="font-semibold text-accent-color">大型语言模型（LLM）的文档转换利器</span>，自动化将PDF、Office、图像等15+异构文件转为Markdown，为机器解析构建<span class="font-semibold text-accent-color">结构化文本桥梁</span>，而非追求视觉还原。其核心价值在于<span class="font-semibold text-accent-color">提升LLM对非结构化数据的理解效率</span>。模块化架构、内存优化、LLM增强能力（集成Azure Document Intelligence和GPT-4o）、以及插件扩展机制，使其成为LLM数据预处理、自动化办公、知识库构建的理想工具。Docker和CLI接口兼顾专业与轻量化使用。
+                    </p>
+                    <h4 class="mt-2 text-secondary-color">增长分析：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        15次上榜总增26571星，平均1067.3星/次，<span class="growth-highlight font-bold">最近单次新增1870星</span>，显示<span class="growth-highlight font-bold">持续且加速的增长趋势</span>。
+                    </p>
+                </section>
+
+                <section>
+                    <h2>🚀 详细仓库数据</h2>
+                    <h3><a href="https://github.com/langchain-ai/open_deep_research" target="_blank" class="text-accent-color hover:underline">langchain-ai/open_deep_research</a></h3>
+                    <p class="text-base italic">开源的深度研究代理系统，通过多模型协作与自动化搜索分析技术，为复杂研究任务提供高效解决方案。</p>
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Python</td>
+                                <td>4912</td>
+                                <td>2次</td>
+                                <td>2次</td>
+                                <td class="star-gain">221</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="text-sm mt-2"><i class="fa-solid fa-star text-yellow-500 mr-1"></i> Stars: 4.9k | <i class="fa-solid fa-code-branch text-blue-500 mr-1"></i> Forks: 704 | <i class="fa-solid fa-eye text-green-500 mr-1"></i> Watchers: 43 | <i class="fa-solid fa-bug text-red-500 mr-1"></i> Issues: 17 | <i class="fa-solid fa-code-pull-request text-purple-500 mr-1"></i> Pull Requests: 4</p>
+                    <p class="text-sm">编程语言占比: <span class="font-semibold text-accent-color">Python 67.5%</span>, Jupyter Notebook 32.5%</p>
+
+                    <h4 class="mt-4 text-secondary-color">项目速读：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        Open Deep Research是基于<span class="font-semibold text-accent-color">LangChain生态的深度研究代理系统</span>，通过多模型协作（OpenAI, Anthropic）、搜索工具（Tavily）及文件操作实现<span class="font-semibold text-accent-color">研究全流程自动化</span>。解决了传统研究效率低、工具协同难的痛点。其核心在于<span class="font-semibold text-accent-color">模块化架构（LangGraph）</span>、结构化输出、工具调用，配合本地文件系统与多维评分系统，实现<span class="font-semibold text-accent-color">研究结果的量化评估与自动化反思</span>。适用于市场分析、学术综述等需要快速生成结构化报告的场景。
+                    </p>
+                    <h4 class="mt-2 text-secondary-color">增长分析：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        2次上榜总增318星，今日新增<span class="growth-highlight font-bold">221星，超均值表现</span>，显示榜单效应显著且增长动能持续增强，短期热度攀升。
+                    </p>
+                </section>
+
+                <section>
+                    <h2>🚀 详细仓库数据</h2>
+                    <h3><a href="https://github.com/facebookresearch/segment-anything" target="_blank" class="text-accent-color hover:underline">facebookresearch/segment-anything</a></h3>
+                    <p class="text-base italic">该仓库提供用于运行Segment Anything模型（SAM）的代码、下载训练模型检查点的链接以及展示如何使用该模型的示例笔记本。</p>
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Jupyter Notebook</td>
+                                <td>51053</td>
+                                <td>1次</td>
+                                <td>2次</td>
+                                <td class="star-gain">138</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="text-sm mt-2"><i class="fa-solid fa-star text-yellow-500 mr-1"></i> Stars: 51.1k | <i class="fa-solid fa-code-branch text-blue-500 mr-1"></i> Forks: 6k | <i class="fa-solid fa-eye text-green-500 mr-1"></i> Watchers: 315 | <i class="fa-solid fa-bug text-red-500 mr-1"></i> Issues: 523 | <i class="fa-solid fa-code-pull-request text-purple-500 mr-1"></i> Pull Requests: 55</p>
+                    <p class="text-sm">编程语言占比: <span class="font-semibold text-accent-color">Jupyter Notebook 99.1%</span>, Other 0.9%</p>
+
+                    <h4 class="mt-4 text-secondary-color">项目速读：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        Meta的<span class="font-semibold text-accent-color">SAM 2重新定义通用视觉分割</span>，统一架构实现图像与视频精准分割。基于Transformer构建<span class="font-semibold text-accent-color">轻量化模型</span>，引入流式内存机制，解决视频时序信息处理效率痛点，<span class="font-semibold text-accent-color">单帧23ms实时分割</span>。技术突破在于超大规模训练（1100万图像/11亿掩码）、<span class="font-semibold text-accent-color">零样本迁移能力</span>（医疗影像、卫星遥感），以及ONNX格式与React前端支持全场景部署。其价值是将分割技术升级为<span class="font-semibold text-accent-color">通用视觉基础能力</span>。
+                    </p>
+                    <h4 class="mt-2 text-secondary-color">增长分析：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        3天内2次上榜，总增192星（平均80.5/次），其中今日新增<span class="growth-highlight font-bold">138星占比超70%</span>，显示<span class="growth-highlight font-bold">增长加速显著，短期热度持续攀升</span>。
+                    </p>
+                </section>
+
+                <section>
+                    <h2>🚀 详细仓库数据</h2>
+                    <h3><a href="https://github.com/hyprwm/Hyprland" target="_blank" class="text-accent-color hover:underline">hyprwm/Hyprland</a></h3>
+                    <p class="text-base italic">Hyprland 是一款独立开发的、高度可定制的动态平铺 Wayland 图形合成器，在外观上不妥协。</p>
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>C++</td>
+                                <td>27094</td>
+                                <td>1次</td>
+                                <td>1次</td>
+                                <td class="star-gain">66</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="text-sm mt-2"><i class="fa-solid fa-star text-yellow-500 mr-1"></i> Stars: 27.1k | <i class="fa-solid fa-code-branch text-blue-500 mr-1"></i> Forks: 1.1k | <i class="fa-solid fa-eye text-green-500 mr-1"></i> Watchers: 114 | <i class="fa-solid fa-bug text-red-500 mr-1"></i> Issues: 53 | <i class="fa-solid fa-code-pull-request text-purple-500 mr-1"></i> Pull Requests: 30</p>
+                    <p class="text-sm">编程语言占比: <span class="font-semibold text-accent-color">C++ 95.5%</span>, Shell 1.6%, GLSL 1.0%, Nix 0.9%, CMake 0.5%, Meson 0.4%, Other 0.1%</p>
+
+                    <h4 class="mt-4 text-secondary-color">项目速读：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        Hyprland是面向Wayland协议的新型<span class="font-semibold text-accent-color">动态平铺合成器</span>，解决传统窗口管理器灵活性与美观性不足。自研内核实现<span class="font-semibold text-accent-color">动态窗口布局切换</span>与贝塞尔曲线动画等视觉特效。最大亮点是<span class="font-semibold text-accent-color">完全独立于wlroots等现有框架</span>，从零构建，通过Socket-based IPC实现毫秒级配置热加载。其核心价值在<span class="font-semibold text-accent-color">动态平铺架构、MIT开源插件生态</span>、以及<span class="font-semibold text-accent-color">内建撕裂防护与GPU加速渲染</span>，为开发者和设计师提供兼顾生产力与审美的Wayland桌面体验。
+                    </p>
+                    <h4 class="mt-2 text-secondary-color">增长分析：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        首次上榜，单日新增66星，显示良好启动热度，社区关注度正快速积累。
+                    </p>
+                </section>
+
+                <section>
+                    <h2>🚀 详细仓库数据</h2>
+                    <h3><a href="https://github.com/gitleaks/gitleaks" target="_blank" class="text-accent-color hover:underline">gitleaks/gitleaks</a></h3>
+                    <p class="text-base italic">使用Gitleaks查找敏感信息 🔑</p>
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Go</td>
+                                <td>21875</td>
+                                <td>2次</td>
+                                <td>5次</td>
+                                <td class="star-gain">67</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="text-sm mt-2"><i class="fa-solid fa-star text-yellow-500 mr-1"></i> Stars: 21.9k | <i class="fa-solid fa-code-branch text-blue-500 mr-1"></i> Forks: 1.7k | <i class="fa-solid fa-eye text-green-500 mr-1"></i> Watchers: 167 | <i class="fa-solid fa-bug text-red-500 mr-1"></i> Issues: 207 | <i class="fa-solid fa-code-pull-request text-purple-500 mr-1"></i> Pull Requests: 83</p>
+                    <p class="text-sm">编程语言占比: <span class="font-semibold text-accent-color">Go 99.3%</span>, Other 0.7%</p>
+
+                    <h4 class="mt-4 text-secondary-color">项目速读：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        Gitleaks是Go语言构建的开源<span class="font-semibold text-accent-color">代码仓库敏感信息检测工具</span>，旨在开发阶段拦截误提交的密码、API密钥等敏感数据，解决安全隐患。其核心价值在于<span class="font-semibold text-accent-color">将安全检测前移至DevSecOps流水线</span>。技术优势包括<span class="font-semibold text-accent-color">正则匹配与熵值计算混合检测引擎</span>、Git历史追溯、目录递归扫描、实时数据流分析，配合可扩展TOML规则库，实现轻量化、毫秒级响应的精准识别。作为MIT许可工具，Docker、GitHub Action等多元部署，已成为云原生时代代码安全防护的标准组件。
+                    </p>
+                    <h4 class="mt-2 text-secondary-color">增长分析：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        5次上榜平均每日增150星，总增1496星。但今日新增<span class="decline-highlight font-bold">骤降至67星</span>，显示增长动能明显衰减，需警惕热度下滑风险。
+                    </p>
+                </section>
+
+                <section>
+                    <h2>🚀 详细仓库数据</h2>
+                    <h3><a href="https://github.com/soxoj/maigret" target="_blank" class="text-accent-color hover:underline">soxoj/maigret</a></h3>
+                    <p class="text-base italic">通过用户名从数千个网站收集个人资料</p>
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Python</td>
+                                <td>16315</td>
+                                <td>2次</td>
+                                <td>2次</td>
+                                <td class="star-gain">208</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="text-sm mt-2"><i class="fa-solid fa-star text-yellow-500 mr-1"></i> Stars: 16.3k | <i class="fa-solid fa-code-branch text-blue-500 mr-1"></i> Forks: 1.1k | <i class="fa-solid fa-eye text-green-500 mr-1"></i> Watchers: 116 | <i class="fa-solid fa-bug text-red-500 mr-1"></i> Issues: 272 | <i class="fa-solid fa-code-pull-request text-purple-500 mr-1"></i> Pull Requests: 6</p>
+                    <p class="text-sm">编程语言占比: <span class="font-semibold text-accent-color">Python 66.1%</span>, HTML 29.6%, Smarty 2.8%, Batchfile 0.9%, Makefile 0.2%, Jupyter Notebook 0.2%, Other 0.2%</p>
+
+                    <h4 class="mt-4 text-secondary-color">项目速读：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        maigret是Python开源<span class="font-semibold text-accent-color">开源情报（OSINT）工具</span>，通过用户名自动化检索3000+网站（含暗网）的社交足迹，解决数字身份关联与公开信息整合难题。其核心优势在于<span class="font-semibold text-accent-color">异步网络请求与递归搜索机制</span>，配合智能标签过滤，提升信息定位效率。项目采用<span class="font-semibold text-accent-color">模块化架构</span>，支持自定义站点、多格式报告，提供Docker、Telegram机器人等开箱即用方案。在网络安全调查、社交媒体分析等领域具双重价值。
+                    </p>
+                    <h4 class="mt-2 text-secondary-color">增长分析：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        两次上榜日均增186.5星，总增长518星，其中今日新增<span class="growth-highlight font-bold">208星</span>。连续上榜推动<span class="growth-highlight font-bold">增长加速，短期热度显著攀升</span>。
+                    </p>
+                </section>
+
+                <section>
+                    <h2>🚀 详细仓库数据</h2>
+                    <h3><a href="https://github.com/arc53/DocsGPT" target="_blank" class="text-accent-color hover:underline">arc53/DocsGPT</a></h3>
+                    <p class="text-base italic">DocsGPT 是一款开源生成式AI工具，帮助用户从知识源获取可靠答案并避免幻觉。</p>
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>TypeScript</td>
+                                <td>16299</td>
+                                <td>1次</td>
+                                <td>2次</td>
+                                <td class="star-gain">276</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="text-sm mt-2"><i class="fa-solid fa-star text-yellow-500 mr-1"></i> Stars: 16.3k | <i class="fa-solid fa-code-branch text-blue-500 mr-1"></i> Forks: 1.7k | <i class="fa-solid fa-eye text-green-500 mr-1"></i> Watchers: 94 | <i class="fa-solid fa-bug text-red-500 mr-1"></i> Issues: 24 | <i class="fa-solid fa-code-pull-request text-purple-500 mr-1"></i> Pull Requests: 20</p>
+                    <p class="text-sm">编程语言占比: <span class="font-semibold text-accent-color">TypeScript 52.7%</span>, Python 40.6%, PowerShell 2.5%, Shell 1.9%, CSS 1.2%, HTML 0.5%, Other 0.6%</p>
+
+                    <h4 class="mt-4 text-secondary-color">项目速读：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        DocsGPT是开源<span class="font-semibold text-accent-color">生成式AI工具（RAG助手）</span>，解决大模型幻觉问题，从多元知识源获取<span class="font-semibold text-accent-color">可溯源的可靠答案</span>。核心优势在于<span class="font-semibold text-accent-color">混合部署架构</span>（本地模型/云服务），兼顾效率与安全；通过<span class="font-semibold text-accent-color">源引用标注机制</span>实现答案可验证性；内置网络爬虫与20+文件格式解析能力，配合Kubernetes容器化满足企业私有化需求。MIT许可、Docker部署降低门槛，通过Lighthouse计划推动企业级应用，具替代传统问答系统潜力。
+                    </p>
+                    <h4 class="mt-2 text-secondary-color">增长分析：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        三次统计期两次上榜，总增349星（均148.5/次），今日增<span class="growth-highlight font-bold">276星，显示上榜驱动增长加速</span>。
+                    </p>
+                </section>
+
+                <section>
+                    <h2>🚀 详细仓库数据</h2>
+                    <h3><a href="https://github.com/Lightricks/LTX-Video" target="_blank" class="text-accent-color hover:underline">Lightricks/LTX-Video</a></h3>
+                    <p class="text-base italic">LTX-Video的官方仓库</p>
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Python</td>
+                                <td>7193</td>
+                                <td>1次</td>
+                                <td>5次</td>
+                                <td class="star-gain">98</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="text-sm mt-2"><i class="fa-solid fa-star text-yellow-500 mr-1"></i> Stars: 7.2k | <i class="fa-solid fa-code-branch text-blue-500 mr-1"></i> Forks: 621 | <i class="fa-solid fa-eye text-green-500 mr-1"></i> Watchers: 79 | <i class="fa-solid fa-bug text-red-500 mr-1"></i> Issues: 55 | <i class="fa-solid fa-code-pull-request text-purple-500 mr-1"></i> Pull Requests: 8</p>
+                    <p class="text-sm">编程语言占比: <span class="font-semibold text-accent-color">Python 100.0%</span></p>
+
+                    <h4 class="mt-4 text-secondary-color">项目速读：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        LTX-Video是基于<span class="font-semibold text-accent-color">扩散变换器架构的高效视频生成系统</span>，通过创新时空扩散机制突破长视频生成瓶颈。以DiT为核心，结合时空引导模块和TeaCache优化，实现<span class="font-semibold text-accent-color">30FPS、1216×704高清视频实时生成</span>，最长支持60秒，并支持<span class="font-semibold text-accent-color">深度/姿态/边缘多模态控制</span>。技术亮点在于性能与质量平衡：13B/2B蒸馏模型配合FP8量化，使10秒HD视频仅需单块1GB显存运行。OpenRail-M许可证下，适用于影视创作、广告设计等，推动视频生成技术普及。
+                    </p>
+                    <h4 class="mt-2 text-secondary-color">增长分析：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        5次上榜平均单次增240星，总增3043星。当前日增98星，较均值下降<span class="decline-highlight font-bold">35%</span>，需关注活跃度变化，但整体仍保持正向增长。
+                    </p>
+                </section>
+
+                <section>
+                    <h2>🚀 详细仓库数据</h2>
+                    <h3><a href="https://github.com/influxdata/telegraf" target="_blank" class="text-accent-color hover:underline">influxdata/telegraf</a></h3>
+                    <p class="text-base italic">用于收集、处理、聚合和写入指标、日志及其他任意数据的代理</p>
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Go</td>
+                                <td>15767</td>
+                                <td>1次</td>
+                                <td>1次</td>
+                                <td class="star-gain">4</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="text-sm mt-2"><i class="fa-solid fa-star text-yellow-500 mr-1"></i> Stars: 15.8k | <i class="fa-solid fa-code-branch text-blue-500 mr-1"></i> Forks: 5.7k | <i class="fa-solid fa-eye text-green-500 mr-1"></i> Watchers: 304 | <i class="fa-solid fa-bug text-red-500 mr-1"></i> Issues: 386 | <i class="fa-solid fa-code-pull-request text-purple-500 mr-1"></i> Pull Requests: 27</p>
+                    <p class="text-sm">编程语言占比: <span class="font-semibold text-accent-color">Go 99.5%</span>, Shell 0.3%, Makefile 0.1%, Ragel 0.1%, Python 0.0%, Ruby 0.0%</p>
+
+                    <h4 class="mt-4 text-secondary-color">项目速读：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        Telegraf是InfluxData开发的开源<span class="font-semibold text-accent-color">数据代理工具</span>，轻量级Go项目，解决多源数据采集与处理复杂性。通过统一框架高效整合服务器、云服务、IoT设备的指标、日志及自定义数据，输出至数据库或监控平台。技术优势在于<span class="font-semibold text-accent-color">插件化架构</span>（300+内置插件，Exec插件扩展）、<span class="font-semibold text-accent-color">高性能处理能力</span>（多线程异步），静态编译与TOML配置大幅降低部署复杂度。作为CNCF监控重要基础设施，适配主流监控系统，降低异构系统集成成本，是构建可观测性体系的理想数据前置处理层。
+                    </p>
+                    <h4 class="mt-2 text-secondary-color">增长分析：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        首次上榜，单日新增4星。尽管增长数不高，但作为<span class="stable-highlight font-bold">成熟的基础设施项目</span>，其稳定性和广泛应用是其核心价值。
+                    </p>
+                </section>
+
+                <section>
+                    <h2>🚀 详细仓库数据</h2>
+                    <h3><a href="https://github.com/PromtEngineer/localGPT" target="_blank" class="text-accent-color hover:underline">PromtEngineer/localGPT</a></h3>
+                    <p class="text-base italic">在本地设备上使用GPT模型与文档聊天。数据不会离开您的设备，100%私密。</p>
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Python</td>
+                                <td>21499</td>
+                                <td>3次</td>
+                                <td>3次</td>
+                                <td class="star-gain">354</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="text-sm mt-2"><i class="fa-solid fa-star text-yellow-500 mr-1"></i> Stars: 21.5k | <i class="fa-solid fa-code-branch text-blue-500 mr-1"></i> Forks: 2.4k | <i class="fa-solid fa-eye text-green-500 mr-1"></i> Watchers: 174 | <i class="fa-solid fa-bug text-red-500 mr-1"></i> Issues: 7 | <i class="fa-solid fa-code-pull-request text-purple-500 mr-1"></i> Pull Requests: 2</p>
+                    <p class="text-sm">编程语言占比: <span class="font-semibold text-accent-color">Python 72.0%</span>, HTML 26.4%, Dockerfile 1.5%, Roff 0.1%</p>
+
+                    <h4 class="mt-4 text-secondary-color">项目速读：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        LocalGPT是开源<span class="font-semibold text-accent-color">本地化文档交互工具</span>，通过整合大语言模型与向量数据库，提供<span class="font-semibold text-accent-color">完全离线的文档问答</span>，解决数据隐私泄露风险。核心优势在于：<span class="font-semibold text-accent-color">LangChain框架</span>实现多格式文档本地解析与向量存储（ChromaDB）；支持Llama3、GPTQ等<span class="font-semibold text-accent-color">多种开源模型本地部署</span>；集成Streamlit可视化界面和API接口。其价值是<span class="font-semibold text-accent-color">开创性地将RAG技术本地化</span>，为数据安全与模型效能平衡提供可行路径。
+                    </p>
+                    <h4 class="mt-2 text-secondary-color">增长分析：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        3日3次上榜驱动稳定增长，日均增160星，总增600星。末日<span class="growth-highlight font-bold">暴增354星</span>，环比增幅达223%，显示<span class="growth-highlight font-bold">爆发式增长拐点出现</span>。
+                    </p>
+                </section>
+
+                <section>
+                    <h2>🚀 详细仓库数据</h2>
+                    <h3><a href="https://github.com/n8n-io/n8n" target="_blank" class="text-accent-color hover:underline">n8n-io/n8n</a></h3>
+                    <p class="text-base italic">公平代码工作流自动化平台，具备原生AI能力。</p>
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>TypeScript</td>
+                                <td>120045</td>
+                                <td>1次</td>
+                                <td>15次</td>
+                                <td class="star-gain">741</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="text-sm mt-2"><i class="fa-solid fa-star text-yellow-500 mr-1"></i> Stars: 120k | <i class="fa-solid fa-code-branch text-blue-500 mr-1"></i> Forks: 36.1k | <i class="fa-solid fa-eye text-green-500 mr-1"></i> Watchers: 732 | <i class="fa-solid fa-bug text-red-500 mr-1"></i> Issues: 556 | <i class="fa-solid fa-code-pull-request text-purple-500 mr-1"></i> Pull Requests: 415</p>
+                    <p class="text-sm">编程语言占比: <span class="font-semibold text-accent-color">TypeScript 90.3%</span>, Vue 8.0%, SCSS 1.1%, JavaScript 0.3%, Handlebars 0.2%, HTML 0.1%</p>
+
+                    <h4 class="mt-4 text-secondary-color">项目速读：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        n8n是面向技术团队的<span class="font-semibold text-accent-color">工作流自动化平台</span>，融合代码灵活性与无代码效率，解决跨系统业务流程自动化与数据整合。核心创新是<span class="font-semibold text-accent-color">可视化编辑器与代码扩展的混合开发模式</span>，允许拖拽快速搭建，同时保留JavaScript/Python深度定制能力。技术突破在于<span class="font-semibold text-accent-color">AI原生架构（基于LangChain）</span>，使自动化流程具备智能决策属性，将RPA升级为具备上下文感知的智能代理。其价值在于为数据主权敏感型企业提供兼具控制力与扩展性的解决方案，适合金融、医疗等合规行业。
+                    </p>
+                    <h4 class="mt-2 text-secondary-color">增长分析：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        15次上榜期间平均单日增594星，累计获5.4万Star。<span class="growth-highlight font-bold">近期增速提升明显，当前日增达741星</span>，反映持续增长动能与活跃用户关注度。
+                    </p>
+                </section>
+
+                <section>
+                    <h2>🚀 详细仓库数据</h2>
+                    <h3><a href="https://github.com/remoteintech/remote-jobs" target="_blank" class="text-accent-color hover:underline">remoteintech/remote-jobs</a></h3>
+                    <p class="text-base italic">科技行业半远程至全远程办公友好型公司（职位）列表</p>
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>JavaScript</td>
+                                <td>32075</td>
+                                <td>1次</td>
+                                <td>1次</td>
+                                <td class="star-gain">60</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="text-sm mt-2"><i class="fa-solid fa-star text-yellow-500 mr-1"></i> Stars: 32.1k | <i class="fa-solid fa-code-branch text-blue-500 mr-1"></i> Forks: 3.4k | <i class="fa-solid fa-eye text-green-500 mr-1"></i> Watchers: 969 | <i class="fa-solid fa-bug text-red-500 mr-1"></i> Issues: 21 | <i class="fa-solid fa-code-pull-request text-purple-500 mr-1"></i> Pull Requests: 33</p>
+                    <p class="text-sm">编程语言占比: <span class="font-semibold text-accent-color">JavaScript 66.7%</span>, HTML 20.6%, CSS 11.7%, Other 1.0%</p>
+
+                    <h4 class="mt-4 text-secondary-color">项目速读：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        remoteintech/remote-jobs是聚焦科技领域的<span class="font-semibold text-accent-color">远程工作机会数据库</span>，解决远程求职者与企业信息不对称问题。通过整合200+支持远程办公的科技企业信息，提供精准求职导航，同时帮助远程优先企业触达人才。项目采用<span class="font-semibold text-accent-color">极简技术架构</span>，GitHub Pages静态托管，Markdown文件构建数据表单。核心优势在于<span class="font-semibold text-accent-color">社区驱动的协作模式</span>（用户PR更新），形成持续迭代数据生态。作为远程经济基础设施，其价值体现在职业机会窗口、品牌推广渠道和行业趋势记录。
+                    </p>
+                    <h4 class="mt-2 text-secondary-color">增长分析：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        首次上榜，单日新增60星。作为<span class="stable-highlight font-bold">非技术工具类项目</span>，其高实用性决定了稳定增长潜力。
+                    </p>
+                </section>
+
+                <section>
+                    <h2>🚀 详细仓库数据</h2>
+                    <h3><a href="https://github.com/nicklockwood/SwiftFormat" target="_blank" class="text-accent-color hover:underline">nicklockwood/SwiftFormat</a></h3>
+                    <p class="text-base italic">用于格式化Swift代码的命令行工具和Xcode扩展</p>
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Swift</td>
+                                <td>8421</td>
+                                <td>1次</td>
+                                <td>2次</td>
+                                <td class="star-gain">42</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="text-sm mt-2"><i class="fa-solid fa-star text-yellow-500 mr-1"></i> Stars: 8.4k | <i class="fa-solid fa-code-branch text-blue-500 mr-1"></i> Forks: 655 | <i class="fa-solid fa-eye text-green-500 mr-1"></i> Watchers: 77 | <i class="fa-solid fa-bug text-red-500 mr-1"></i> Issues: 319 | <i class="fa-solid fa-code-pull-request text-purple-500 mr-1"></i> Pull Requests: 2</p>
+                    <p class="text-sm">编程语言占比: <span class="font-semibold text-accent-color">Swift 99.8%</span>, Other 0.2%</p>
+
+                    <h4 class="mt-4 text-secondary-color">项目速读：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        SwiftFormat是面向Swift开发者的<span class="font-semibold text-accent-color">开源代码格式化工具</span>，通过自动化统一代码风格，解决团队协作分歧。基于<span class="font-semibold text-accent-color">抽象语法树（AST）分析</span>实现精准重构，智能修正隐式self、冗余括号等。最大亮点在于<span class="font-semibold text-accent-color">跨平台能力</span>——提供命令行工具，深度集成Xcode、VSCode，兼容CI/CD流程。MIT许可证下保持高度开放性，通过配置文件实现灵活定制。作为Swift生态星标数最高的工具之一，已成为大型团队标准化代码风格标准配置，提升开发效率和代码可维护性。
+                    </p>
+                    <h4 class="mt-2 text-secondary-color">增长分析：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        近3日上榜2次，平均增24星，累计50星。今日<span class="growth-highlight font-bold">激增42星</span>，增幅显著高于均值，显示增长趋势强劲，榜单曝光有效拉动Star增长。
+                    </p>
+                </section>
+
+                <section>
+                    <h2>🚀 详细仓库数据</h2>
+                    <h3><a href="https://github.com/Kyome22/RunCat365" target="_blank" class="text-accent-color hover:underline">Kyome22/RunCat365</a></h3>
+                    <p class="text-base italic">在您的Windows任务栏上有一个可爱的奔跑猫咪动画。</p>
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>C#</td>
+                                <td>8272</td>
+                                <td>2次</td>
+                                <td>2次</td>
+                                <td class="star-gain">205</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="text-sm mt-2"><i class="fa-solid fa-star text-yellow-500 mr-1"></i> Stars: 8.3k | <i class="fa-solid fa-code-branch text-blue-500 mr-1"></i> Forks: 691 | <i class="fa-solid fa-eye text-green-500 mr-1"></i> Watchers: 47 | <i class="fa-solid fa-bug text-red-500 mr-1"></i> Issues: 16 | <i class="fa-solid fa-code-pull-request text-purple-500 mr-1"></i> Pull Requests: 2</p>
+                    <p class="text-sm">编程语言占比: <span class="font-semibold text-accent-color">C# 100.0%</span></p>
+
+                    <h4 class="mt-4 text-secondary-color">项目速读：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        RunCat365是运行于Windows任务栏的<span class="font-semibold text-accent-color">创意动画工具</span>，通过C#与.NET 9.0实现动态猫咪奔跑，将静态任务栏转化为趣味视觉场景。轻量级架构、低资源占用动画渲染，提供个性化交互体验（鼠标悬停/点击加速）。核心技术优势在于<span class="font-semibold text-accent-color">精巧的跨层设计</span>：高效帧率控制动画引擎、智能识别任务栏坐标、事件监听即时响应。MIT开源协议与模块化代码降低二次开发门槛。其价值是<span class="font-semibold text-accent-color">技术实用性与情感化设计结合</span>，为Windows用户提供低成本桌面氛围改造，成为“小而美”美化工具代表作。
+                    </p>
+                    <h4 class="mt-2 text-secondary-color">增长分析：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        2次上榜期间Star数日均增194.5，总增234（首日29、次日<span class="growth-highlight font-bold">205</span>），显示增长集中于第二日，<span class="growth-highlight font-bold">热度显著提升</span>。
+                    </p>
+                </section>
+
+                <section>
+                    <h2>🚀 详细仓库数据</h2>
+                    <h3><a href="https://github.com/pydantic/pydantic-ai" target="_blank" class="text-accent-color hover:underline">pydantic/pydantic-ai</a></h3>
+                    <p class="text-base italic">代理框架 / 用于将 Pydantic 与大型语言模型结合使用的适配层</p>
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Python</td>
+                                <td>10916</td>
+                                <td>1次</td>
+                                <td>1次</td>
+                                <td class="star-gain">49</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="text-sm mt-2"><i class="fa-solid fa-star text-yellow-500 mr-1"></i> Stars: 10.9k | <i class="fa-solid fa-code-branch text-blue-500 mr-1"></i> Forks: 1k | <i class="fa-solid fa-eye text-green-500 mr-1"></i> Watchers: 82 | <i class="fa-solid fa-bug text-red-500 mr-1"></i> Issues: 288 | <i class="fa-solid fa-code-pull-request text-purple-500 mr-1"></i> Pull Requests: 38</p>
+                    <p class="text-sm">编程语言占比: <span class="font-semibold text-accent-color">Python 99.3%</span>, Other 0.7%</p>
+
+                    <h4 class="mt-4 text-secondary-color">项目速读：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        pydantic-ai是面向生成式AI应用的<span class="font-semibold text-accent-color">Python代理框架</span>，通过<span class="font-semibold text-accent-color">类型安全与结构化设计</span>降低LLM驱动应用的开发复杂度，解决输出格式不统一、流程控制混乱等痛点。核心创新在于<span class="font-semibold text-accent-color">Pydantic数据验证机制深度融入LLM交互</span>，通过类型模型强制约束输出格式，确保每次响应符合预定义结构。多模型兼容性、依赖注入系统、异步调用能力提升性能稳定性。在金融、医疗等领域，有效复用Python工程化实践，降低AI应用开发门槛，需注意第三方API依赖和类型建模学习成本。
+                    </p>
+                    <h4 class="mt-2 text-secondary-color">增长分析：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        首次上榜，单日新增49星，显示项目获得<span class="stable-highlight font-bold">初期关注</span>，Pydantic的强大生态基础有望带来持续增长。
+                    </p>
+                </section>
+
+                <section>
+                    <h2>🚀 详细仓库数据</h2>
+                    <h3><a href="https://github.com/strapi/strapi" target="_blank" class="text-accent-color hover:underline">strapi/strapi</a></h3>
+                    <p class="text-base italic">🚀 Strapi 是领先的开源无头内容管理系统。它100%基于JavaScript/TypeScript，完全可定制，以开发者为中心。</p>
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>TypeScript</td>
+                                <td>68102</td>
+                                <td>2次</td>
+                                <td>3次</td>
+                                <td class="star-gain">59</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="text-sm mt-2"><i class="fa-solid fa-star text-yellow-500 mr-1"></i> Stars: 68.1k | <i class="fa-solid fa-code-branch text-blue-500 mr-1"></i> Forks: 8.8k | <i class="fa-solid fa-eye text-green-500 mr-1"></i> Watchers: 659 | <i class="fa-solid fa-bug text-red-500 mr-1"></i> Issues: 996 | <i class="fa-solid fa-code-pull-request text-purple-500 mr-1"></i> Pull Requests: 156</p>
+                    <p class="text-sm">编程语言占比: <span class="font-semibold text-accent-color">TypeScript 84.7%</span>, JavaScript 15.2%, Other 0.1%</p>
+
+                    <h4 class="mt-4 text-secondary-color">项目速读：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        Strapi是开源<span class="font-semibold text-accent-color">无头内容管理系统（CMS）</span>，通过API驱动解耦前后端，为网站、移动应用及IoT设备提供灵活高效内容管理。核心竞争力在于<span class="font-semibold text-accent-color">模块化架构设计</span>（Node.js/TypeScript，多数据库适配）、<span class="font-semibold text-accent-color">可视化内容模型构建工具</span>和开箱即用的权限系统。通过插件化生态与CLI工具实现技术纵深，支持GraphQL/REST，兼顾开发效率与安全性。MIT开源社区版与企业级云服务并存，适合MVP到高并发场景，是无头CMS领域的标杆。
+                    </p>
+                    <h4 class="mt-2 text-secondary-color">增长分析：</h4>
+                    <p class="text-base text-left fragment fade-in">
+                        三次上榜驱动稳步增长，平均每次新增42.7星，总增766。最新单日<span class="growth-highlight font-bold">激增59星</span>，榜单效应显著且持续增强，非上榜期自然增长亦具潜力。
+                    </p>
+                </section>
+            </section>
+
+            <!-- 结束页 -->
+            <section class="end-slide">
+                <div class="content">
+                    <h2 class="mb-4">感谢您的关注！</h2>
+                    <p class="text-lg">期待与您共同探索GitHub的无限可能。</p>
+                    <p class="text-2xl mt-8 mb-4 font-bold">持续关注GitHub技术风向标 ⭐️</p>
+                </div>
+                <div class="bottom-right">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            hash: true,
+            
+            transition: 'slide', 
+            transitionSpeed: 'default', 
+            
+            fragments: true,
+
+            // Reveal.js 4.x版本通常会默认集成这些基础插件或提供更简化的API
+            // 由于用户未提供额外插件文件，故不在此处显式加载
+            // Mermaid.js 需单独初始化
+        });
+
+        // Initialize Mermaid for any diagrams (if used)
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+</html>

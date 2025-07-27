@@ -1,0 +1,855 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GitHub最新风向：实用AI Agent与效率神器正流行</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        :root {
+            /* 主色调：3-4种互补颜色 */
+            --primary-color: #6F42C1; /* 深紫，主强调色 */
+            --secondary-color: #00BCD4; /* 青色，辅助强调色 */
+            --accent-color: #6C757D; /* 灰色，用于次要信息 */
+            --text-dark: #2C3E50; /* 深灰，正文颜色 */
+            --text-light: #F8F8F8; /* 亮灰，用于深色背景上的文字 */
+            --bg-light: #FFFFFF; /* 浅色背景 */
+            --bg-neutral: #F5F7FA; /* 中性背景，用于区分部分内容 */
+
+            /* 字体设置 */
+            --r-main-font: "Noto Sans SC", Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: "Noto Serif SC", serif;
+            
+            /* 字体大小（rem映射至em） */
+            --r-main-font-size: 1.1em; /* 正文：1-1.2rem */
+            --r-heading1-size: 3em; /* 标题：2-3rem */
+            --r-heading2-size: 2.2em; /* 副标题：1.5-2rem */
+            --r-heading3-size: 1.6em; /* 副标题：1.5-2rem */
+            --r-heading4-size: 1.2em;
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: var(--r-heading-font);
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5em; /* 增加标题下间距 */
+            line-height: 1.2;
+        }
+        .reveal h1 { font-size: var(--r-heading1-size); }
+        .reveal h2 { font-size: var(--r-heading2-size); }
+        .reveal h3 { font-size: var(--r-heading3-size); }
+
+        .reveal {
+            font-family: var(--r-main-font);
+            color: var(--text-dark);
+            font-size: var(--r-main-font-size);
+            background-color: var(--bg-neutral); /* 整体背景 */
+        }
+        
+        /* 幻灯片内容区域样式 */
+        .reveal .slides section {
+            background-color: var(--bg-light); /* 内容卡片背景 */
+            border-radius: 12px; /* 圆角 */
+            padding: 2.5em 3.5em; /* 内边距 */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08); /* 柔和阴影 */
+            text-align: left; /* 内容左对齐 */
+        }
+
+        /* 封面页设计 */
+        .reveal .slides section.cover-slide {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--text-light);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            box-shadow: none;
+            border-radius: 0;
+            height: 100vh; /* 确保全屏显示 */
+            padding: 0;
+        }
+        .reveal .slides section.cover-slide h1,
+        .reveal .slides section.cover-slide h2,
+        .reveal .slides section.cover-slide p {
+            color: var(--text-light);
+        }
+        .reveal .slides section.cover-slide h1 {
+            font-size: 4em; /* 更大的标题 */
+            margin-bottom: 0.2em;
+        }
+        .reveal .slides section.cover-slide h2 {
+            font-size: 1.8em;
+            font-weight: 500;
+            margin-top: 0;
+            opacity: 0.9;
+        }
+        .reveal .slides section.cover-slide p {
+            font-size: 0.9em;
+            margin-top: 1em;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+
+        /* 底部页设计 */
+        .reveal .slides section.footer-slide {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%); /* 反转渐变 */
+            color: var(--text-light);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            box-shadow: none;
+            border-radius: 0;
+            height: 100vh;
+            padding: 0;
+        }
+        .reveal .slides section.footer-slide h2 {
+            color: var(--text-light);
+            font-size: 2.5em;
+        }
+        .reveal .slides section.footer-slide p {
+            color: var(--text-light);
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-top: 0.8em;
+        }
+
+        /* QR Code & Project Link */
+        .qr-info {
+            position: absolute;
+            bottom: 25px;
+            right: 25px;
+            display: flex;
+            align-items: flex-end;
+            gap: 15px;
+            color: var(--text-light); /* 封面和尾页使用亮色文字 */
+            font-size: 0.85em;
+            text-shadow: none;
+            z-index: 1000; /* 确保在最上层 */
+        }
+        .qr-info img {
+            width: 90px;
+            height: 90px;
+            border-radius: 8px;
+            border: 3px solid rgba(255,255,255,0.8);
+            transition: transform 0.3s ease-in-out;
+        }
+        .qr-info img:hover {
+            transform: scale(1.05);
+        }
+        .qr-info a {
+            color: inherit;
+            text-decoration: none;
+            font-size: 0.9em;
+            font-family: var(--r-main-font);
+            font-weight: 300;
+            transition: color 0.3s ease-in-out;
+        }
+        .qr-info a:hover {
+            color: #d6b3ff; /* 浅紫，在深色背景上更显眼 */
+            text-decoration: underline;
+        }
+        
+        /* 通用内容元素样式 */
+        .reveal ul {
+            list-style: none; /* 移除默认列表点 */
+            padding-left: 0;
+            margin-top: 1.2em;
+        }
+        .reveal ul li {
+            position: relative;
+            padding-left: 2em; /* 为图标留出空间 */
+            margin-bottom: 0.8em;
+            line-height: 1.5;
+        }
+        .reveal ul li:before {
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--secondary-color);
+            position: absolute;
+            left: 0;
+            top: 0.1em;
+            font-size: 1em;
+        }
+
+        .icon-list li:before { content: "\f058"; /* Check-circle icon */ } /* 默认列表项图标 */
+        .icon-list li.fragment:before { content: "\f111"; /* Circle icon for fragments to be revealed */ }
+        .icon-list li.fragment.visible:before { content: "\f058"; /* Check-circle when visible */ }
+
+
+        .reveal p {
+            margin-bottom: 0.8em;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        .sub-highlight {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+
+        /* 表格样式 */
+        .reveal table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5em 0;
+            font-size: 0.95em;
+        }
+        .reveal th, .reveal td {
+            border: 1px solid #E0E0E0;
+            padding: 10px 15px;
+            text-align: left;
+        }
+        .reveal th {
+            background-color: var(--bg-neutral);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        .reveal tr:nth-child(even) {
+            background-color: #FBFBFB;
+        }
+        
+        /* 项目元数据表格 */
+        .project-meta-table {
+            margin-top: 1.5em;
+            font-size: 0.9em;
+            border: none;
+        }
+        .project-meta-table td {
+            border: none;
+            padding: 6px 10px;
+            border-bottom: 1px dashed #E0E0E0; /* 虚线分隔 */
+        }
+        .project-meta-table td:first-child {
+            font-weight: 600;
+            color: var(--primary-color);
+            width: 30%;
+        }
+        .project-meta-table tr:last-child td {
+            border-bottom: none;
+        }
+        .project-meta-table i {
+            margin-right: 8px;
+            color: var(--secondary-color);
+        }
+
+        /* 语言占比显示 */
+        .project-language-breakdown {
+            margin-top: 1.5em;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 0.85em;
+            justify-content: center;
+        }
+        .project-language-breakdown span {
+            background-color: var(--secondary-color);
+            color: var(--text-light);
+            padding: 5px 12px;
+            border-radius: 20px;
+            opacity: 0.9;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* 热点变化网格 */
+        .hot-changes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 2em;
+        }
+
+        .hot-changes-item {
+            background-color: var(--bg-light);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+        .hot-changes-item:hover {
+            transform: translateY(-5px);
+        }
+        .hot-changes-item i {
+            font-size: 3em;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        .hot-changes-item h4 {
+            font-size: 1.3em;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .hot-changes-item ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            width: 100%;
+        }
+        .hot-changes-item ul li {
+            font-size: 0.9em;
+            margin-bottom: 8px;
+            padding-left: 0;
+            color: var(--text-dark);
+            line-height: 1.4;
+        }
+        .hot-changes-item ul li::before {
+            content: none; /* 移除列表项前面的图标 */
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- 封面页 -->
+            <section class="cover-slide">
+                <h1 class="text-white">GitHub最新风向：实用AI Agent与效率神器正流行</h1>
+                <h2 class="text-white">实用AI、效率神器，都在这！</h2>
+                <p class="mt-8 text-white text-lg">演讲者：AIChipEra</p>
+                <p class="text-white text-sm opacity-80">Github热门仓库**日报**观测时间：2025-07-14 20:29:30</p>
+                <p class="text-white text-xs opacity-60 mt-4">以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</p>
+                <div class="qr-info">
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra WeChat QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+            <!-- 日报要点 -->
+            <section>
+                <h2><i class="fas fa-chart-line mr-3"></i>日报要点：趋势速览</h2>
+                <div class="mt-8 text-left">
+                    <p class="fragment fade-in">想知道技术圈最近在追捧什么？GitHub热门项目榜单为您揭晓！</p>
+                    <ul class="icon-list mt-6">
+                        <li class="fragment slide-in"><i class="fas fa-robot"></i>技术焦点已从理论转向<span class="highlight">实用AI落地和开发者效率提升</span>。</li>
+                        <li class="fragment slide-in"><i class="fas fa-tools"></i><span class="highlight">AI Agent工具</span>迅速崛起，辅助编码、自动化文档、构建AI工作流。</li>
+                        <li class="fragment slide-in"><i class="fas fa-star"></i>汇集各类<span class="highlight">免费服务和精选知识</span>的项目星标暴涨，反映开发者对<span class="highlight">高效实用工具和精炼信息</span>的渴望。</li>
+                        <li class="fragment slide-in"><i class="fas fa-lightbulb"></i>本分析助您快速掌握技术前沿，了解AI如何融入并改变您的工作日常。</li>
+                    </ul>
+                    <p class="mt-8 text-center text-sm opacity-70 fragment fade-in">PPT地址: <a href="https://aichipera.github.io/github-trend/daily/2025-07-14/ppt.html" target="_blank">https://aichipera.github.io/github-trend/daily/2025-07-14/ppt.html</a></p>
+                </div>
+            </section>
+
+            <!-- 热门项目趋势分析 - 今日整体趋势 -->
+            <section>
+                <h2><i class="fas fa-bullseye mr-3"></i>今日整体趋势：AI落地与效率至上</h2>
+                <div class="mt-8 text-left">
+                    <h3 class="fragment fade-in"><i class="fas fa-cogs mr-2"></i>核心焦点：AI实际应用与效率工具</h3>
+                    <ul class="icon-list mt-4">
+                        <li class="fragment slide-in"><i class="fas fa-microchip"></i>大量项目围绕<span class="highlight">AI Agent</span>展开，从终端协助编码（Claude Code）到自动化文档（MarkItDown）。</li>
+                        <li class="fragment slide-in"><i class="fas fa-building"></i>构建AI Agent所需的基础设施，如知识图谱（Graphiti）、训练框架（ART）、路由工具（Claude Code Router）等，表明AI已进入<span class="highlight">落地与效率提升阶段</span>。</li>
+                    </ul>
+                    <h3 class="mt-6 fragment fade-in"><i class="fas fa-users-cog mr-2"></i>另一个极端热门：开发者生产力与资源整合</h3>
+                    <ul class="icon-list mt-4">
+                        <li class="fragment slide-in"><i class="fas fa-gift"></i>免费服务列表（free-for-dev）和技术知识合集（the-book-of-secret-knowledge）星标暴涨。</li>
+                        <li class="fragment slide-in"><i class="fas fa-search"></i>开发者迫切需求<span class="highlight">高质量、经过筛选的实用信息和工具</span>，以节省时间、降低成本。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 热门项目趋势分析 - 技术栈特点与语言分布 -->
+            <section>
+                <h2><i class="fas fa-code mr-3"></i>技术栈特点：语言分布</h2>
+                <div class="mt-8 text-left grid grid-cols-2 gap-8">
+                    <div class="fragment fade-in">
+                        <h3><i class="fab fa-python mr-2"></i>Python：AI/ML领域主导</h3>
+                        <ul class="icon-list">
+                            <li><i class="fas fa-check"></i>地位巩固，AI模型、数据处理、Agent框架多基于Python。</li>
+                            <li><i class="fas fa-check"></i>（MarkItDown, Qlib, MindsDB, ART, Graphiti, ComfyUI）</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h3><i class="fab fa-js-square mr-2"></i>JavaScript/TypeScript：Web平台核心</h3>
+                        <ul class="icon-list">
+                            <li><i class="fas fa-check"></i>Web开发、前端、浏览器工具首选。</li>
+                            <li><i class="fas fa-check"></i>（Next.js Commerce, uBlock, WebVM, Claude Code Router）</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h3><i class="fas fa-ellipsis-h mr-2"></i>其他：特定应用需求</h3>
+                        <ul class="icon-list">
+                            <li><i class="fas fa-check"></i>资源列表依赖Markdown/HTML。</li>
+                            <li><i class="fas fa-check"></i>跨平台应用（Dart如KitchenOwl），DIY硬件（C++）。</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h3><i class="fas fa-chart-pie mr-2"></i>总结：双引擎驱动</h3>
+                        <ul class="icon-list">
+                            <li><i class="fas fa-check"></i>Python与JS/TS是当前热门技术趋势的两大引擎。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 热门项目趋势分析 - 技术需求与发展方向 -->
+            <section>
+                <h2><i class="fas fa-compass mr-3"></i>技术需求与发展方向</h2>
+                <div class="mt-8 text-left">
+                    <ul class="icon-list">
+                        <li class="fragment slide-in"><i class="fas fa-brain"></i><span class="highlight">AI Agent化与工作流整合：</span>具备自主性、执行多步骤任务，并融入现有工作流。</li>
+                        <li class="fragment slide-in"><i class="fas fa-database"></i><span class="highlight">异构数据与知识管理：</span>高效整合、处理分散数据，转化为AI可用知识（MindsDB, MarkItDown）。</li>
+                        <li class="fragment slide-in"><i class="fas fa-tachometer-alt"></i><span class="highlight">开发者效率提升：</span>AI辅助编码、自动化流程，提供精炼知识资源。</li>
+                        <li class="fragment slide-in"><i class="fas fa-sliders-h"></i><span class="highlight">性能与可定制性：</span>AI应用和Web服务对性能和模块化、可定制性要求不减。</li>
+                        <li class="fragment slide-in"><i class="fas fa-lock"></i><span class="highlight">隐私与自托管：</span>用户重视数据控制和隐私保护（KitchenOwl, uBlock Origin）。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 热门项目趋势分析 - 今日特有趋势特点 & 下一波技术热点预测 -->
+            <section>
+                <h2><i class="fas fa-fire mr-3"></i>今日特有趋势与未来预测</h2>
+                <div class="mt-8 text-left grid grid-cols-2 gap-8">
+                    <div class="fragment fade-in">
+                        <h3><i class="fas fa-bolt mr-2"></i>今日特有趋势特点</h3>
+                        <ul class="icon-list">
+                            <li class="fragment slide-in"><i class="fas fa-star-of-life"></i>AI Agent<span class="sub-highlight">工具化和实用化落地</span>项目激增。</li>
+                            <li class="fragment slide-in"><i class="fas fa-sitemap"></i>出现<span class="sub-highlight">Agent生态系统组件</span>（训练、记忆、路由）。</li>
+                            <li class="fragment slide-in"><i class="fas fa-life-ring"></i>开发者“自救”式<span class="sub-highlight">资源整合项目</span>前所未有地获得关注。</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h3><i class="fas fa-lightbulb mr-2"></i>下一波技术热点预测</h3>
+                        <ul class="icon-list">
+                            <li class="fragment slide-in"><i class="fas fa-cubes"></i><span class="highlight">通用Agent框架与编排：</span>更灵活、可靠的多Agent协作平台。</li>
+                            <li class="fragment slide-in"><i class="fas fa-industry"></i><span class="highlight">Agent与垂直领域深度结合：</span>应用于特定行业，解决具体问题。</li>
+                            <li class="fragment slide-in"><i class="fas fa-mobile-alt"></i><span class="highlight">本地化与边缘AI Agent：</span>提升响应速度和数据隐私。</li>
+                            <li class="fragment slide-in"><i class="fas fa-chart-network"></i><span class="highlight">AI驱动的知识发现与管理工具：</span>超越简单列表汇编。</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="mt-8 text-center text-sm opacity-70 fragment fade-in">AI技术正加速融入开发者日常，社区积极应对变革挑战。</p>
+            </section>
+
+            <!-- 热门项目双日维度对比分析 -->
+            <section>
+                <h2><i class="fas fa-chart-bar mr-3"></i>热门项目双日维度对比分析</h2>
+                <div class="mt-8 text-left">
+                    <ul class="icon-list">
+                        <li class="fragment slide-in"><i class="fas fa-arrow-up"></i><span class="highlight">整体热度：</span>新增8个项目，7个现有项目呈上升趋势，无显著下降项目，榜单整体增长或稳定。</li>
+                        <li class="fragment slide-in"><i class="fas fa-seedling"></i><span class="highlight">新晋项目：</span>多元化，但AI/ML相关主题突出（AI数据库集成、训练工具、用户界面）。</li>
+                        <li class="fragment slide-in"><i class="fab fa-python"></i><span class="highlight">编程语言：</span>Python强势，净增3个项目，巩固AI领域主导地位；JS/Dart增长，Rust/Go略减。</li>
+                        <li class="fragment slide-in"><i class="fas fa-star"></i><span class="highlight">最受关注：</span><span class="sub-highlight">anthropics/claude-code</span> 惊人增长近1900星标，反映大模型及工具持续热度。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 热点变化 -->
+            <section>
+                <h2><i class="fas fa-sync-alt mr-3"></i>热点变化概览</h2>
+                <div class="hot-changes-grid mt-8">
+                    <div class="hot-changes-item fragment fade-in">
+                        <i class="fas fa-plus-circle"></i>
+                        <h4>新增热点</h4>
+                        <ul>
+                            <li>musistudio/claude-code-router</li>
+                            <li>mindsdb/mindsdb</li>
+                            <li>openpipe/art</li>
+                            <li>nisargjhaveri/wirelessandroidautodongle</li>
+                            <li>tombursch/kitchenowl</li>
+                            <li>comfyanonymous/comfyui</li>
+                            <li>microsoft/markitdown</li>
+                            <li>leaningtech/webvm</li>
+                        </ul>
+                    </div>
+                    <div class="hot-changes-item fragment fade-in">
+                        <i class="fas fa-minus-circle"></i>
+                        <h4>减退热点</h4>
+                        <ul>
+                            <li>nvidia/cutlass</li>
+                            <li>block/goose</li>
+                            <li>rezasi/go-interview-practice</li>
+                            <li>browserbase/stagehand</li>
+                            <li>landing-ai/agentic-doc</li>
+                            <li>farhanashrafdev/90daysofcybersecurity</li>
+                        </ul>
+                    </div>
+                    <div class="hot-changes-item fragment fade-in">
+                        <i class="fas fa-fire-alt"></i>
+                        <h4>持续热门</h4>
+                        <ul>
+                            <li>gorhill/uBlock (<span class="sub-highlight">3次上榜</span>)</li>
+                            <li>getzep/graphiti (<span class="sub-highlight">3次上榜</span>)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 详细仓库数据 (Vertical Slides) -->
+            <section>
+                <section>
+                    <h2><i class="fas fa-code-branch mr-3"></i>详细仓库数据</h2>
+                    <p class="mt-8 text-lg">以下将为您逐一介绍今日热门的GitHub仓库及其亮点。</p>
+                    <p class="text-sm opacity-70 mt-4">点击向下箭头查看每个项目的详细信息。</p>
+                </section>
+
+                <!-- Project 1: anthropics/claude-code -->
+                <section>
+                    <h3><i class="fab fa-github mr-2"></i>anthropics/claude-code</h3>
+                    <p class="text-lg mt-4">Claude Code 是一个智能体编码工具，它驻留在你的终端中，理解你的代码库，并通过执行常规任务、解释复杂代码和处理 Git 工作流程来帮助你更快地编码——所有这些都通过自然语言命令完成。</p>
+                    <table class="project-meta-table mt-6">
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>21223</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 当日 Star 增加</td><td>347</td></tr>
+                        <tr><td><i class="fas fa-sync-alt"></i> 连续在榜</td><td>2次</td></tr>
+                        <tr><td><i class="fas fa-trophy"></i> 总上榜次数</td><td>6次</td></tr>
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>PowerShell</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>1.2k</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>22</td></tr>
+                    </table>
+                    <div class="project-language-breakdown">
+                        <span>PowerShell 43.8%</span>
+                        <span>Shell 36.0%</span>
+                        <span>Dockerfile 20.2%</span>
+                    </div>
+                    <p class="text-sm opacity-80 mt-6"><span class="sub-highlight">项目速读：</span>Anthropic Claude Code 是一款AI代理式编码工具，通过自然语言交互提升编码效率，理解代码库上下文，自动化任务、解释复杂逻辑、处理Git。基于Node.js，依托Claude AI模型，提供无缝高效开发体验。</p>
+                    <p class="text-sm opacity-80 mt-2"><span class="sub-highlight">增长分析：</span>该仓库在统计周期内六次上榜，表现稳定且持续获得曝光。平均每次上榜带来275.3 Star增长，总增长达12109。值得关注的是，今日新增347 Star高于平均水平，显示近期增长势头强劲，潜力良好。</p>
+                </section>
+
+                <!-- Project 2: microsoft/markitdown -->
+                <section>
+                    <h3><i class="fab fa-github mr-2"></i>microsoft/markitdown</h3>
+                    <p class="text-lg mt-4">将文件和办公文档转换为 Markdown 的 Python 工具。</p>
+                    <table class="project-meta-table mt-6">
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>60805</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 当日 Star 增加</td><td>492</td></tr>
+                        <tr><td><i class="fas fa-sync-alt"></i> 连续在榜</td><td>1次</td></tr>
+                        <tr><td><i class="fas fa-trophy"></i> 总上榜次数</td><td>11次</td></tr>
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>Python</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>3.2k</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>65</td></tr>
+                    </table>
+                    <div class="project-language-breakdown">
+                        <span>Python 99.4%</span>
+                        <span>Dockerfile 0.6%</span>
+                    </div>
+                    <p class="text-sm opacity-80 mt-6"><span class="sub-highlight">项目速读：</span>MarkItDown是一个Python工具，能将PDF、Word、Excel、图像等异构文件转换为结构清晰、高度精简的Markdown格式。它精确捕捉并保留文档结构，为LLM和自动化文本分析提供理想输入，简化从复杂文档中提取信息并进行程序化处理的难度，是AI模型处理大规模文档数据集的关键工具。</p>
+                    <p class="text-sm opacity-80 mt-2"><span class="sub-highlight">增长分析：</span>11次上榜期间，平均每次增星约885，总增长超2万，增长强劲且与上榜高度相关。</p>
+                </section>
+
+                <!-- Project 3: gorhill/uBlock -->
+                <section>
+                    <h3><i class="fab fa-github mr-2"></i>gorhill/uBlock</h3>
+                    <p class="text-lg mt-4">uBlock Origin - 一个适用于 Chromium 和 Firefox 的高效拦截器。快速且轻量。</p>
+                    <table class="project-meta-table mt-6">
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>55829</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 当日 Star 增加</td><td>270</td></tr>
+                        <tr><td><i class="fas fa-sync-alt"></i> 连续在榜</td><td>3次</td></tr>
+                        <tr><td><i class="fas fa-trophy"></i> 总上榜次数</td><td>3次</td></tr>
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>JavaScript</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>3.6k</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>109</td></tr>
+                    </table>
+                    <div class="project-language-breakdown">
+                        <span>JavaScript 88.8%</span>
+                        <span>CSS 4.8%</span>
+                        <span>HTML 3.5%</span>
+                        <span>WebAssembly 2.1%</span>
+                        <span>Shell 0.6%</span>
+                    </div>
+                    <p class="text-sm opacity-80 mt-6"><span class="sub-highlight">项目速读：</span>uBlock Origin (uBO) 是一个高效的浏览器扩展，旨在阻止广告、跟踪器、挖矿脚本和恶意网站。它不仅是广告拦截器，更是保护用户在线隐私的工具。核心优势在于卓越的性能，对CPU和内存占用极低，同时通过集成多种过滤列表提供强大的拦截能力。开源特性使其为用户提供更干净、安全、私密的上网体验。</p>
+                    <p class="text-sm opacity-80 mt-2"><span class="sub-highlight">增长分析：</span>仓库3天3次上榜，增长强劲，最新增长超平均，呈加速趋势。</p>
+                </section>
+
+                <!-- Project 4: microsoft/qlib -->
+                <section>
+                    <h3><i class="fab fa-github mr-2"></i>microsoft/qlib</h3>
+                    <p class="text-lg mt-4">Qlib 是一个面向 AI 的量化投资平台，旨在利用 AI 技术赋能量化研究，从探索想法到实现生产。</p>
+                    <table class="project-meta-table mt-6">
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>26846</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 当日 Star 增加</td><td>53</td></tr>
+                        <tr><td><i class="fas fa-sync-alt"></i> 连续在榜</td><td>2次</td></tr>
+                        <tr><td><i class="fas fa-trophy"></i> 总上榜次数</td><td>8次</td></tr>
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>Python</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>4.1k</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>137</td></tr>
+                    </table>
+                    <div class="project-language-breakdown">
+                        <span>Python 99.2%</span>
+                    </div>
+                    <p class="text-sm opacity-80 mt-6"><span class="sub-highlight">项目速读：</span>Qlib是微软开源的AI量化投资平台，运用AI赋力量化研究全流程，支持监督学习、强化学习。提供数据处理到模型构建的完整工作流，集成先进AI模型。近期整合LLM多智能体框架RDAgent，用于自动化因子挖掘和模型优化，为量化投资研究提供高效平台。</p>
+                    <p class="text-sm opacity-80 mt-2"><span class="sub-highlight">增长分析：</span>基于8次上榜，该仓库Star增长显著，总计6879，平均每次近400，显示强劲增长。</p>
+                </section>
+
+                <!-- Project 5: vercel/commerce -->
+                <section>
+                    <h3><i class="fab fa-github mr-2"></i>vercel/commerce</h3>
+                    <p class="text-lg mt-4">Next.js 电商</p>
+                    <table class="project-meta-table mt-6">
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>13017</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 当日 Star 增加</td><td>209</td></tr>
+                        <tr><td><i class="fas fa-sync-alt"></i> 连续在榜</td><td>2次</td></tr>
+                        <tr><td><i class="fas fa-trophy"></i> 总上榜次数</td><td>2次</td></tr>
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>TypeScript</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>4.9k</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>145</td></tr>
+                    </table>
+                    <div class="project-language-breakdown">
+                        <span>TypeScript 99.2%</span>
+                    </div>
+                    <p class="text-sm opacity-80 mt-6"><span class="sub-highlight">项目速读：</span>Next.js Commerce是一个高性能、现代化的电商前端模板，基于Next.js App Router构建。利用RSC、Server Actions实现极致性能，灵活数据层设计可适配多种后端电商服务，是构建可定制、高性能“无头电商”前端的理想选择。</p>
+                    <p class="text-sm opacity-80 mt-2"><span class="sub-highlight">增长分析：</span>该仓库在短短两天内两次上榜，表明其增长势头强劲且可见度高。平均每次上榜约增加200星，总计增长365星，增长速度显著。</p>
+                </section>
+                
+                <!-- Project 6: mindsdb/mindsdb -->
+                <section>
+                    <h3><i class="fab fa-github mr-2"></i>mindsdb/mindsdb</h3>
+                    <p class="text-lg mt-4">AI查询引擎 - 用于构建处理大规模联邦数据并进行问答的AI平台。</p>
+                    <table class="project-meta-table mt-6">
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>33954</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 当日 Star 增加</td><td>374</td></tr>
+                        <tr><td><i class="fas fa-sync-alt"></i> 连续在榜</td><td>1次</td></tr>
+                        <tr><td><i class="fas fa-trophy"></i> 总上榜次数</td><td>6次</td></tr>
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>Python</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>5.5k</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>797</td></tr>
+                    </table>
+                    <div class="project-language-breakdown">
+                        <span>Python 99.8%</span>
+                        <span>Dockerfile 0.1%</span>
+                        <span>HCL 0.1%</span>
+                    </div>
+                    <p class="text-sm opacity-80 mt-6"><span class="sub-highlight">项目速读：</span>MindsDB是一个强大的开源AI查询引擎，无缝连接数百种企业数据源，通过SQL统一查询分散数据。允许直接在整合数据上构建和部署AI模型及代理，实现基于数据的智能问答。大幅简化从异构、大规模数据中获取洞察和构建智能应用的过程，是处理联邦数据、驱动AI决策的理想平台。</p>
+                    <p class="text-sm opacity-80 mt-2"><span class="sub-highlight">增长分析：</span>该仓库在短短6次上榜期间，展现出强劲增长势头。平均每次上榜贡献386.3颗星，总星数显著增长5189。考虑到上榜次数不多，此增长率体现了仓库的持续吸引力和潜力。</p>
+                </section>
+
+                <!-- Project 7: ripienaar/free-for-dev -->
+                <section>
+                    <h3><i class="fab fa-github mr-2"></i>ripienaar/free-for-dev</h3>
+                    <p class="text-lg mt-4">提供免费层的SaaS、PaaS和IaaS服务列表，对DevOps和infradev有价值。</p>
+                    <table class="project-meta-table mt-6">
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>105112</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 当日 Star 增加</td><td>1353</td></tr>
+                        <tr><td><i class="fas fa-sync-alt"></i> 连续在榜</td><td>2次</td></tr>
+                        <tr><td><i class="fas fa-trophy"></i> 总上榜次数</td><td>8次</td></tr>
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>HTML</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>11k</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>1,775</td></tr>
+                    </table>
+                    <div class="project-language-breakdown">
+                        <span>HTML 100.0%</span>
+                    </div>
+                    <p class="text-sm opacity-80 mt-6"><span class="sub-highlight">项目速读：</span>这是一个为开发者精心汇编的实用资源列表，专注于收集各种提供免费服务层级（Free Tier）的SaaS、PaaS、IaaS。解决开发者寻找无需付费即可长期使用的开发工具和服务的需求。优势在于内容的精准性和社区驱动的维护模式，筛选真实免费层级服务，确保高质量和实用性。极大节省开发者时间，是高度实用的共享知识库。</p>
+                    <p class="text-sm opacity-80 mt-2"><span class="sub-highlight">增长分析：</span>约3月内上榜8次，累计增长11292星。平均增幅稳定，末次增长远超平均，增长加速。</p>
+                </section>
+
+                <!-- Project 8: leaningtech/webvm -->
+                <section>
+                    <h3><i class="fab fa-github mr-2"></i>leaningtech/webvm</h3>
+                    <p class="text-lg mt-4">Web 虚拟机</p>
+                    <table class="project-meta-table mt-6">
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>14749</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 当日 Star 增加</td><td>143</td></tr>
+                        <tr><td><i class="fas fa-sync-alt"></i> 连续在榜</td><td>1次</td></tr>
+                        <tr><td><i class="fas fa-trophy"></i> 总上榜次数</td><td>1次</td></tr>
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>JavaScript</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>2.6k</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>17</td></tr>
+                    </table>
+                    <div class="project-language-breakdown">
+                        <span>JavaScript 43.9%</span>
+                        <span>Svelte 43.5%</span>
+                        <span>CSS 9.1%</span>
+                        <span>HTML 3.5%</span>
+                    </div>
+                    <p class="text-sm opacity-80 mt-6"><span class="sub-highlight">项目速读：</span>WebVM是一个创新项目，将完整Linux虚拟机环境直接带入浏览器。利用WebAssembly和CheerpX引擎，在客户端运行Debian系统和x86原生程序，无需后端服务器。提供安全、独立的沙箱环境，适合在线技术探索、代码片段测试、运行轻量级Linux应用。核心价值在于高效的x86到WebAssembly JIT编译和系统调用模拟技术，扩展了浏览器作为计算平台的边界。</p>
+                </section>
+                
+                <!-- Project 9: OpenPipe/ART -->
+                <section>
+                    <h3><i class="fab fa-github mr-2"></i>OpenPipe/ART</h3>
+                    <p class="text-lg mt-4">智能体强化训练器：使用 GRPO 训练用于真实世界任务的多步智能体。</p>
+                    <table class="project-meta-table mt-6">
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>1580</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 当日 Star 增加</td><td>240</td></tr>
+                        <tr><td><i class="fas fa-sync-alt"></i> 连续在榜</td><td>1次</td></tr>
+                        <tr><td><i class="fas fa-trophy"></i> 总上榜次数</td><td>1次</td></tr>
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>Python</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>110</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>9</td></tr>
+                    </table>
+                    <div class="project-language-breakdown">
+                        <span>Python 91.7%</span>
+                        <span>Jupyter Notebook 8.0%</span>
+                        <span>Shell 0.3%</span>
+                    </div>
+                    <p class="text-sm opacity-80 mt-6"><span class="sub-highlight">项目速读：</span>OpenPipe ART 是一个强化学习框架，专门用于通过“在职培训”训练AI Agent执行复杂多步骤真实任务。其RULER功能让大模型自动为Agent行动轨迹打分生成奖励，无需人工干预即可从经验中快速学习和纠正行为，显著提升训练效率和Agent鲁棒性。支持基于Qwen、Llama等多种大模型的Agent训练，提供高效、智能的Agent构建方式。</p>
+                </section>
+
+                <!-- Project 10: trimstray/the-book-of-secret-knowledge -->
+                <section>
+                    <h3><i class="fab fa-github mr-2"></i>trimstray/the-book-of-secret-knowledge</h3>
+                    <p class="text-lg mt-4">汇集了实用的列表、手册、速查表、博客、技巧、一行命令、命令行/Web工具等资源。</p>
+                    <table class="project-meta-table mt-6">
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>177702</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 当日 Star 增加</td><td>934</td></tr>
+                        <tr><td><i class="fas fa-sync-alt"></i> 连续在榜</td><td>2次</td></tr>
+                        <tr><td><i class="fas fa-trophy"></i> 总上榜次数</td><td>9次</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>11.1k</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>100</td></tr>
+                    </table>
+                    <p class="text-sm opacity-80 mt-6"><span class="sub-highlight">项目速读：</span>《秘籍大全》是GitHub上的技术知识集合，为系统/网络管理员、DevOps工程师、安全专家精心打造。汇集海量实用资源，包括精选列表、操作手册、速查表、技术博客、实战技巧、命令行/Web工具索引，解决技术信息爆炸时代寻找高质量实用信息的难题。内容广度深度兼具，通过Markdown结构呈现，社区共同维护，是技术社区不可多得的工具箱和灵感源泉。</p>
+                    <p class="text-sm opacity-80 mt-2"><span class="sub-highlight">增长分析：</span>仓库在统计周期内实际上榜9次，平均每次增长706.8星，总增12352星。高频上榜和显著的单次增长表明仓库持续受到关注，增长势头强劲且稳定。</p>
+                </section>
+                
+                <!-- Project 11: nisargjhaveri/WirelessAndroidAutoDongle -->
+                <section>
+                    <h3><i class="fab fa-github mr-2"></i>nisargjhaveri/WirelessAndroidAutoDongle</h3>
+                    <p class="text-lg mt-4">使用 Raspberry Pi 在仅支持有线 Android Auto 的汽车上使用无线 Android Auto。</p>
+                    <table class="project-meta-table mt-6">
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>1407</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 当日 Star 增加</td><td>103</td></tr>
+                        <tr><td><i class="fas fa-sync-alt"></i> 连续在榜</td><td>1次</td></tr>
+                        <tr><td><i class="fas fa-trophy"></i> 总上榜次数</td><td>1次</td></tr>
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>C++</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>138</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>9</td></tr>
+                    </table>
+                    <div class="project-language-breakdown">
+                        <span>C++ 81.6%</span>
+                        <span>Shell 13.3%</span>
+                        <span>Makefile 3.9%</span>
+                    </div>
+                    <p class="text-sm opacity-80 mt-6"><span class="sub-highlight">项目速读：</span>一个基于树莓派的DIY项目，旨在将仅支持有线连接的汽车Android Auto系统升级为无线连接。通过将树莓派变身为适配器，插在汽车USB接口上，手机无需额外应用即可实现原生无线Android Auto体验。利用树莓派的USB OTG、Wifi和蓝牙功能，提供快速且安全的数据传输。对于希望为旧车升级无线连接功能、享受更便捷体验、且乐于自己动手制作的车主来说，这是一个实用且经济的选择。</p>
+                </section>
+
+                <!-- Project 12: musistudio/claude-code-router -->
+                <section>
+                    <h3><i class="fab fa-github mr-2"></i>musistudio/claude-code-router</h3>
+                    <p class="text-lg mt-4">将 Claude Code 用作编码基础设施的基础，让您能够决定如何与模型交互，同时享受 Anthropic 的更新。</p>
+                    <table class="project-meta-table mt-6">
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>3811</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 当日 Star 增加</td><td>136</td></tr>
+                        <tr><td><i class="fas fa-sync-alt"></i> 连续在榜</td><td>1次</td></tr>
+                        <tr><td><i class="fas fa-trophy"></i> 总上榜次数</td><td>3次</td></tr>
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>TypeScript</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>295</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>5</td></tr>
+                    </table>
+                    <div class="project-language-breakdown">
+                        <span>TypeScript 80.9%</span>
+                        <span>JavaScript 19.1%</span>
+                    </div>
+                    <p class="text-sm opacity-80 mt-6"><span class="sub-highlight">项目速读：</span>Claude Code Router是一个为Anthropic Claude Code设计的灵活代理工具。打破官方模型限制，能将AI请求智能路由到OpenRouter、DeepSeek、Ollama等多家模型提供商。核心优势在于提供极大灵活性和成本效益：根据任务类型配置最适合模型，或动态切换，大幅降低AI使用成本，无缝集成自动化流程。为开发者提供多样化模型选择和精细化控制能力。</p>
+                    <p class="text-sm opacity-80 mt-2"><span class="sub-highlight">增长分析：</span>该仓库在周期内3次上榜，平均每次新增约137星，增长势头稳健持续。</p>
+                </section>
+
+                <!-- Project 13: TomBursch/kitchenowl -->
+                <section>
+                    <h3><i class="fab fa-github mr-2"></i>TomBursch/kitchenowl</h3>
+                    <p class="text-lg mt-4">KitchenOwl 是一个自托管的购物清单和食谱管理器。后端使用 Flask 开发，前端使用 Flutter 开发。</p>
+                    <table class="project-meta-table mt-6">
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>2010</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 当日 Star 增加</td><td>49</td></tr>
+                        <tr><td><i class="fas fa-sync-alt"></i> 连续在榜</td><td>1次</td></tr>
+                        <tr><td><i class="fas fa-trophy"></i> 总上榜次数</td><td>1次</td></tr>
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>Dart</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>122</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>159</td></tr>
+                    </table>
+                    <div class="project-language-breakdown">
+                        <span>Dart 71.2%</span>
+                        <span>Python 24.7%</span>
+                        <span>C++ 1.5%</span>
+                    </div>
+                    <p class="text-sm opacity-80 mt-6"><span class="sub-highlight">项目速读：</span>KitchenOwl是一个开源自托管应用，整合家庭购物清单与菜谱管理。解决传统清单分散、菜谱管理难题，便捷创建、同步购物清单，并基于菜谱生成购物需求。突出之处在于自托管能力，确保用户数据安全自主可控。技术上采用Flask后端与Dart/Flutter跨平台客户端，部署便捷。为重视数据隐私和希望拥有完整控制权的家庭提供优雅且功能集成的开源解决方案。</p>
+                </section>
+
+                <!-- Project 14: comfyanonymous/ComfyUI -->
+                <section>
+                    <h3><i class="fab fa-github mr-2"></i>comfyanonymous/ComfyUI</h3>
+                    <p class="text-lg mt-4">最强大、模块化的扩散模型 GUI、API 和后端，具有图/节点界面。</p>
+                    <table class="project-meta-table mt-6">
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>82402</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 当日 Star 增加</td><td>90</td></tr>
+                        <tr><td><i class="fas fa-sync-alt"></i> 连续在榜</td><td>1次</td></tr>
+                        <tr><td><i class="fas fa-trophy"></i> 总上榜次数</td><td>3次</td></tr>
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>Python</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>9.1k</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>223</td></tr>
+                    </table>
+                    <div class="project-language-breakdown">
+                        <span>Python 100.0%</span>
+                    </div>
+                    <p class="text-sm opacity-80 mt-6"><span class="sub-highlight">项目速读：</span>ComfyUI是一款功能最强大、模块化程度最高的扩散模型可视化界面和后端。创新性地使用节点/图界面，让用户以直观灵活方式构建和执行复杂AI工作流，轻松实现高质量图像、视频生成。核心优势在于无与伦比的定制性、高效性能优化及广泛模型兼容性。是专业用户和研究者精细控制AI生成流程的强大工具，解决了传统界面灵活性不足的问题。</p>
+                    <p class="text-sm opacity-80 mt-2"><span class="sub-highlight">增长分析：</span>仓库总Star增长数达4656，增长显著。虽然期间仅上榜3次，但平均每次上榜当日带来约91星增长，今日新增90星，增长势头稳定。有限的上榜次数结合高总增长，表明该仓库拥有强大的持续吸引力或非上榜日也有显著增长。</p>
+                </section>
+
+                <!-- Project 15: getzep/graphiti -->
+                <section>
+                    <h3><i class="fab fa-github mr-2"></i>getzep/graphiti</h3>
+                    <p class="text-lg mt-4">为 AI 智能体构建实时知识图谱</p>
+                    <table class="project-meta-table mt-6">
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>13142</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 当日 Star 增加</td><td>230</td></tr>
+                        <tr><td><i class="fas fa-sync-alt"></i> 连续在榜</td><td>3次</td></tr>
+                        <tr><td><i class="fas fa-trophy"></i> 总上榜次数</td><td>8次</td></tr>
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>Python</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>1.1k</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>35</td></tr>
+                    </table>
+                    <div class="project-language-breakdown">
+                        <span>Python 99.2%</span>
+                    </div>
+                    <p class="text-sm opacity-80 mt-6"><span class="sub-highlight">项目速读：</span>Graphiti是专为AI Agent设计的Python框架，用于构建和查询具有时间感知能力的实时知识图谱。解决了Agent在动态环境中持续集成用户交互、企业数据或外部信息的需求，为Agent构建能持续生长、演进的强大记忆和上下文层。核心亮点在于支持实时增量更新、双时态数据模型和高效混合检索。是Zep Agent内存层的基石技术，对构建智能、有状态的下一代Agent具有重要价值。</p>
+                    <p class="text-sm opacity-80 mt-2"><span class="sub-highlight">增长分析：</span>仓库总增8378颗，上榜8次，平均增星452。增长波动较大，仅在高峰期入榜，显示非持续性高增长。</p>
+                </section>
+
+            </section>
+
+            <!-- 结束页 -->
+            <section class="footer-slide">
+                <h2 class="text-white">感谢您的聆听！</h2>
+                <p class="mt-4 text-white text-lg">更多实用AI、效率神器，尽在AIChipEra GitHub！</p>
+                <p class="mt-8 text-white text-md">期待您的关注和Star！<i class="fas fa-heart text-red-400 ml-2"></i></p>
+                <div class="qr-info">
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra WeChat QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js"></script>
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js"></script>
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            hash: true,
+            center: true,
+            transition: 'slide', // 全局转场效果
+            transitionSpeed: 'default', // 转场速度
+            verticalSlideTransition: 'slide', // 垂直幻灯片转场效果
+            fragmentInEffect: 'fade-in', // 内容分片进入效果
+            fragmentOutEffect: 'fade-out', // 内容分片退出效果
+
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+
+        // 初始化Mermaid (如果内容中包含Mermaid图表)
+        mermaid.initialize({ startOnLoad: false });
+    </script>
+</body>
+</html>

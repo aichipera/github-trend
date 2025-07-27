@@ -1,0 +1,1154 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GitHub深度观察：告别云端！本地化AI、Rust与隐私成技术新风口</title>
+
+    <!-- Core framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- Extension dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        :root {
+            --r-font-size: 30px; /* Base font size for Reveal.js */
+            --r-main-font: "Noto Sans SC", "Tahoma", "Arial", "Roboto", "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: "Noto Serif SC", serif;
+            --r-main-color: #2c3e50; /* Dark text for light background */
+            --r-background-color: #f7fafc; /* Light background */
+            --r-link-color: #4299e1; /* Blue for links */
+            --r-link-color-hover: #2b6cb0; /* Darker blue on hover */
+            --r-selection-background-color: #90d8ff;
+        }
+
+        .reveal {
+            font-family: var(--r-main-font);
+            color: var(--r-main-color);
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: #1a202c; /* Even darker for headings */
+            text-transform: none; /* No uppercase for Chinese titles */
+            margin-bottom: 0.5em;
+            line-height: 1.2;
+        }
+
+        .reveal h1 { font-size: 2.8rem; } /* ~3rem */
+        .reveal h2 { font-size: 2.2rem; } /* ~2rem */
+        .reveal h3 { font-size: 1.8rem; } /* ~1.5rem */
+        .reveal h4 { font-size: 1.5rem; }
+        .reveal p, .reveal li { font-size: 1.1rem; line-height: 1.6; } /* ~1-1.2rem */
+        .reveal strong { color: #4299e1; font-weight: 700; } /* Accent for strong text */
+        .reveal a { color: var(--r-link-color); text-decoration: none; }
+        .reveal a:hover { color: var(--r-link-color-hover); }
+
+        .reveal section img {
+            max-height: 70vh; /* Prevent images from taking too much vertical space */
+            max-width: 90%;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .reveal table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        .reveal th, .reveal td {
+            border: 1px solid #e2e8f0;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        .reveal th {
+            background-color: #f0f4f8;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        .reveal tr:nth-child(even) {
+            background-color: #f7fafc;
+        }
+
+        .reveal .controls { opacity: 0.6; }
+        .reveal .progress { color: #4299e1; }
+
+        /* Custom QR code and link styling */
+        .promo-footer {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: flex-end;
+            gap: 15px;
+            font-size: 0.8rem;
+            color: #718096;
+            z-index: 1000; /* Ensure it's on top */
+        }
+        .promo-footer img {
+            width: 60px;
+            height: 60px;
+            border-radius: 0.25rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .promo-footer a {
+            color: #4299e1;
+            font-weight: 500;
+        }
+
+        .aha-gradient-bg {
+            background: linear-gradient(135deg, #667eea, #764ba2); /* Purple-blue gradient */
+            color: white;
+        }
+        .aha-gradient-bg h1, .aha-gradient-bg h2, .aha-gradient-bg h3, .aha-gradient-bg h4 {
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .aha-gradient-bg .promo-footer a {
+             color: #a7f3d0; /* Light green for links on dark bg */
+        }
+        .aha-gradient-bg .promo-footer {
+            color: #d1d5db;
+        }
+
+        /* Adjustments for better readability on specific backgrounds */
+        .reveal .has-dark-background .r-fit-text {
+            color: white; /* Ensure fit-text is white on dark backgrounds */
+        }
+
+        /* Styling for project intro/summary */
+        .project-summary {
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: #ebf8ff; /* Light blue background */
+            border-left: 5px solid #63b3ed; /* Blue border */
+            border-radius: 0.5rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            text-align: left;
+        }
+
+        .growth-analysis {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #f0fff4; /* Light green background */
+            border-left: 5px solid #68d391; /* Green border */
+            border-radius: 0.5rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            text-align: left;
+        }
+
+        .project-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: #4a5568;
+            background-color: #f7fafc;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: inset 0 1px 3px 0 rgba(0,0,0,0.05);
+        }
+        .project-meta div {
+            flex-basis: calc(50% - 0.75rem); /* Two columns */
+        }
+        .project-meta .lang-bar {
+            background-color: #e2e8f0;
+            border-radius: 0.25rem;
+            height: 8px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+        .project-meta .lang-bar span {
+            display: block;
+            height: 100%;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Cover Slide -->
+            <section data-background="https://images.unsplash.com/photo-1517430816045-df4b7de1167b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MzJ8fGdpdGh1YiUyMGNvZGUlMjBhcnRpZmljaWFsJTIwaW50ZWxsaWdlbmNlfGVufDB8fHx8MTcwMTU3MDAwMHww&ixlib=rb-4.0.3&q=80&w=1920" data-background-blend-mode="multiply" data-background-color="#333" class="aha-gradient-bg">
+                <h1 class="text-white text-5xl leading-tight">GitHub深度观察：告别云端！</h1>
+                <h2 class="text-white text-4xl mt-4 mb-8">本地化AI、Rust与隐私成技术新风口</h2>
+                <p class="text-xl text-gray-200 mt-6">觉得有用？点赞分享，把握技术新风口！</p>
+                <div class="absolute bottom-16 left-1/2 transform -translate-x-1/2">
+                    <p class="text-gray-300 text-lg">演讲者: AIChipEra</p>
+                    <p class="text-gray-300 text-sm mt-1">Github热门仓库日报观测时间: 2025-07-22 21:06:55</p>
+                    <p class="text-gray-400 text-xs mt-2"><em>以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</em></p>
+                </div>
+                <div class="promo-footer">
+                    <img src="../../asserts/wx.jpg" alt="微信公众号二维码" class="w-16 h-16">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+            <!-- Daily Highlights -->
+            <section>
+                <h2><i class="fas fa-chart-line text-blue-500 mr-3"></i>日报要点：技术新风向</h2>
+                <div class="mt-8 text-left leading-relaxed">
+                    <p class="fragment" data-fragment-index="1"><strong class="text-blue-600">AI本地化与隐私先行：</strong> 技术焦点从纯云端AI转向自托管方案与数据隐私保护，满足用户对数据自主权的强烈需求。</p>
+                    <p class="fragment" data-fragment-index="2"><strong class="text-blue-600">Rust异军突起：</strong> Python依旧热门，但Rust在高性能与底层系统开发中表现抢眼，预示未来技术强调高效、安全。</p>
+                    <p class="fragment" data-fragment-index="3"><strong class="text-blue-600">工程化与实用价值：</strong> 开发者工具链、远程工作等持续升温，反映技术生态对实用价值和效率提升的渴望。</p>
+                    <p class="fragment" data-fragment-index="4"><strong class="text-blue-600">趋势洞察：</strong> 未来技术将更强调落地性、工程化能力，以及高效、安全的解决方案。</p>
+                </div>
+            </section>
+
+            <!-- Hot Projects Trend Analysis -->
+            <section>
+                <section>
+                    <h2><i class="fas fa-microchip text-green-500 mr-3"></i>热门项目趋势分析：今日整体趋势</h2>
+                    <div class="mt-8 text-left leading-relaxed">
+                        <h3 class="text-blue-600">AI的深度渗透：隐私先行与工具赋能</h3>
+                        <ul class="list-disc ml-8 mt-4">
+                            <li class="fragment" data-fragment-index="1"><strong>本地化AI与隐私优先：</strong> Resume Matcher、Sim Studio等项目通过Ollama或自托管实现AI本地运行，保障敏感数据隐私。</li>
+                            <li class="fragment" data-fragment-index="2"><strong>AI基础设施与工具链：</strong> Crawl4AI（数据抓取）、supervision（CV开发）、OmniParser（GUI解析）等工具涌现，AI生态从“模型为王”过渡到“工具赋能、数据驱动”。</li>
+                            <li class="fragment" data-fragment-index="3"><strong>教育资源热度不减：</strong> “Neural Networks: Zero to Hero”和“Hands-On Large Language Models”等持续受捧，反映市场对AI原理和实践能力的需求旺盛。</li>
+                        </ul>
+                    </div>
+                </section>
+                <section>
+                    <h2><i class="fas fa-code text-purple-500 mr-3"></i>多语言并行，Rust异军突起</h2>
+                    <div class="mt-8 text-left leading-relaxed">
+                        <ul class="list-disc ml-8 mt-4">
+                            <li class="fragment" data-fragment-index="1"><strong>Python：</strong> 仍是AI和数据科学领域主力。</li>
+                            <li class="fragment" data-fragment-index="2"><strong>TypeScript：</strong> 在前端和全栈应用中占据主导，兼顾开发效率和代码健壮性。</li>
+                            <li class="fragment" data-fragment-index="3"><strong>Rust：异军突起</strong> 在性能敏感型应用中表现抢眼（如Trippy、Burn、Hyprland），成为构建底层系统和高性能AI框架的新宠。</li>
+                        </ul>
+                    </div>
+                </section>
+                <section>
+                    <h2><i class="fas fa-lightbulb text-yellow-500 mr-3"></i>需求驱动与未来展望</h2>
+                    <div class="mt-8 text-left leading-relaxed">
+                        <ul class="list-disc ml-8 mt-4">
+                            <li class="fragment" data-fragment-index="1"><strong>核心需求：</strong> 数据自主与隐私保护（Maybe、ConvertX），AI能力普惠化与效率提升。</li>
+                            <li class="fragment" data-fragment-index="2"><strong>就业模式变化：</strong> 远程工作项目（remote-jobs）持续高热。</li>
+                            <li class="fragment" data-fragment-index="3"><strong>未来展望：</strong> 更智能和自主的AI代理（AI Agents）、边缘AI与本地推理优化、高效安全的隐私计算技术、非结构化数据管理工具将成为焦点。</li>
+                        </ul>
+                        <p class="fragment text-lg mt-6 font-bold text-red-500">今日热门项目，正是这些未来趋势的早期缩影。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Hot Projects Two-Day Comparison -->
+            <section>
+                <h2><i class="fas fa-calendar-alt text-teal-500 mr-3"></i>热门项目双日维度对比分析</h2>
+                <div class="mt-8 text-left leading-relaxed">
+                    <p class="fragment" data-fragment-index="1"><strong>整体活跃度：</strong> 新增项目<strong>8个</strong>，上升趋势项目<strong>11个</strong>，下降趋势项目<strong>0个</strong>，整体生态热度呈净增长。</p>
+                    <p class="fragment" data-fragment-index="2"><strong>新晋亮点：</strong> AI/ML教育资源 (`nn-zero-to-hero`, `Hands-On-Large-Language-Models`) 和Rust新兴框架 (`burn`) 占据主导。</p>
+                    <p class="fragment" data-fragment-index="3"><strong>语言趋势：</strong> <strong>Rust强势</strong>新增3个项目，Jupyter Notebook增长显著。Python、TypeScript、Go等语言项目数有所减少。</p>
+                    <p class="fragment" data-fragment-index="4"><strong>涨幅惊人：</strong> 金融科技项目`maybe-finance/maybe` (+1700星) 和远程工作信息聚合项目`remote-jobs` (+1100星) 涨幅显著，显示市场对效率工具和就业信息高度需求。</p>
+                </div>
+            </section>
+
+            <!-- Hotspot Changes -->
+            <section>
+                <h2><i class="fas fa-fire text-red-500 mr-3"></i>热点变化</h2>
+                <div class="mt-8 text-left grid grid-cols-2 gap-x-12 gap-y-6">
+                    <div>
+                        <h3 class="text-blue-600 mb-2">新增热点 <i class="fas fa-plus-circle"></i></h3>
+                        <ul class="list-disc ml-6 text-sm">
+                            <li>ankitects/anki</li>
+                            <li>p1ngul1n0/blackbird</li>
+                            <li>tracel-ai/burn</li>
+                            <li>theodinproject/css-exercises</li>
+                            <li>karpathy/nn-zero-to-hero</li>
+                            <li>fujiapple852/trippy</li>
+                            <li>microsoft/omniparser</li>
+                            <li>handsonllm/hands-on-large-language-models</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-yellow-600 mb-2">减退热点 <i class="fas fa-minus-circle"></i></h3>
+                        <ul class="list-disc ml-6 text-sm">
+                            <li>bluenviron/mediamtx</li>
+                            <li>langchain-ai/open_deep_research</li>
+                            <li>donnemartin/system-design-primer</li>
+                            <li>microsoft/ai-agents-for-beginners</li>
+                            <li>worklenz/worklenz</li>
+                            <li>mishushakov/llm-scraper</li>
+                            <li>freika/dawarich</li>
+                            <li>lissy93/dashy</li>
+                        </ul>
+                    </div>
+                    <div class="col-span-2">
+                        <h3 class="text-green-600 mb-2">持续热门 <i class="fas fa-star"></i></h3>
+                        <ul class="list-disc ml-6 text-sm grid grid-cols-2">
+                            <li>srbhr/Resume-Matcher (3次)</li>
+                            <li>maybe-finance/maybe (3次)</li>
+                            <li>roboflow/supervision (3次)</li>
+                            <li>remoteintech/remote-jobs (5次)</li>
+                            <li>better-auth/better-auth (3次)</li>
+                            <li>hyprwm/Hyprland (5次)</li>
+                            <li>simstudioai/sim (3次)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Detailed Repository Data Sections -->
+
+            <!-- srbhr/Resume-Matcher -->
+            <section>
+                <section>
+                    <h2><a href="https://github.com/srbhr/Resume-Matcher" target="_blank" class="text-blue-600 hover:underline">srbhr/Resume-Matcher</a></h2>
+                    <h3 class="text-gray-700 mt-2">使用简历匹配器优化您的简历。</h3>
+                    <div class="mt-6">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>srbhr/Resume-Matcher</td>
+                                    <td>TypeScript</td>
+                                    <td>12900</td>
+                                    <td>3次</td>
+                                    <td>3次</td>
+                                    <td>881</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section>
+                    <h3>项目速读：Resume Matcher</h3>
+                    <div class="project-summary">
+                        <p>Resume Matcher是一个<strong>AI驱动的开源平台</strong>，专为求职者设计，旨在解决简历难以通过ATS自动化筛选的痛点。它通过深度分析简历与职位描述的匹配度，提供关键词建议和具体优化指导。</p>
+                        <p class="mt-2"><strong>核心优势：本地化AI处理能力。</strong> 项目利用Ollama在用户本地运行开源AI模型，极大保障了个人隐私安全。能即时给出简历与目标职位的匹配分数，识别关键信息空白，并提供ATS兼容性分析报告。</p>
+                        <p class="mt-2">采用前后端分离的现代化架构（FastAPI + Next.js + Tailwind CSS + SQLite）。遵循Apache 2.0开源许可证，积极鼓励社区贡献，致力于成为简历优化领域的“VS Code”。</p>
+                    </div>
+                    <div class="growth-analysis mt-4">
+                        <h4 class="text-green-700">增长分析</h4>
+                        <p>该仓库三天内三度上榜，增长势头极为强劲。平均每次上榜新增1209星，累计增长1939星。虽然今日新增881星略低于平均，但持续上榜凸显高关注度，整体增长趋势显著且持续。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- maybe-finance/maybe -->
+            <section>
+                <section>
+                    <h2><a href="https://github.com/maybe-finance/maybe" target="_blank" class="text-blue-600 hover:underline">maybe-finance/maybe</a></h2>
+                    <h3 class="text-gray-700 mt-2">人人可用的个人理财App</h3>
+                    <div class="mt-6">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>maybe-finance/maybe</td>
+                                    <td>Ruby</td>
+                                    <td>50269</td>
+                                    <td>3次</td>
+                                    <td>5次</td>
+                                    <td>1960</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section>
+                    <h3>项目速读：Maybe</h3>
+                    <div class="project-summary">
+                        <p>Maybe是一款功能强大的<strong>个人理财与财富管理应用</strong>，最初为付费订阅服务，耗资百万美元开发，现已<strong>完全开源</strong>。解决了传统理财应用中用户数据被中心化服务商掌控的痛点，赋予用户对其敏感财务数据完全控制权。</p>
+                        <p class="mt-2"><strong>核心优势：数据自主与隐私。</strong> 基于Ruby技术栈和PostgreSQL，推荐Docker部署，极大降低自托管门槛。AGPLv3开源许可证倡导透明与自由，支持通过Synth API实现多货币管理。</p>
+                        <p class="mt-2">非常适合高度重视数据隐私、渴望亲自掌控个人财务信息的高级用户或开发者。是寻求自主性、不愿受限于中心化金融服务用户的理想替代方案。</p>
+                    </div>
+                    <div class="growth-analysis mt-4">
+                        <h4 class="text-green-700">增长分析</h4>
+                        <p>该仓库上榜次数虽少（5次），但每次上榜均带来强劲增长，平均新增1087星。总计增长7535星，显示为间歇性、高强度爆发式增长。今日新增1960星，增长势头尤为强劲。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- roboflow/supervision -->
+            <section>
+                <section>
+                    <h2><a href="https://github.com/roboflow/supervision" target="_blank" class="text-blue-600 hover:underline">roboflow/supervision</a></h2>
+                    <h3 class="text-gray-700 mt-2">我们为您编写可复用计算机视觉工具。</h3>
+                    <div class="mt-6">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>roboflow/supervision</td>
+                                    <td>Python</td>
+                                    <td>29248</td>
+                                    <td>3次</td>
+                                    <td>3次</td>
+                                    <td>687</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section>
+                    <h3>项目速读：Roboflow Supervision</h3>
+                    <div class="project-summary">
+                        <p>Roboflow的supervision项目是一个高度实用且备受欢迎的开源Python库，旨在为计算机视觉开发者提供一套<strong>可复用的、模型无关的工具</strong>，以大幅简化从数据集处理到模型结果可视化和分析的整个工作流程。</p>
+                        <p class="mt-2"><strong>核心价值：模型无关性。</strong> 能无缝集成Ultralytics YOLO、Transformers等各类主流CV框架模型输出，提供统一标准化API处理和展示检测结果。提供丰富可定制标注器、内置完善数据集管理工具。</p>
+                        <p class="mt-2">解决CV开发中常见的繁琐重复性工作，显著提升开发效率和代码复用性。赋能开发者专注于核心算法创新。已成为CV领域不可或缺的工具箱。</p>
+                    </div>
+                    <div class="growth-analysis mt-4">
+                        <h4 class="text-green-700">增长分析</h4>
+                        <p>该仓库增长强劲。三天内三度上榜，表明其极高可见度。平均每次上榜新增Star超600，总增长1128，今日再增687。趋势显示稳定且持续的显著增长，频繁上榜是关键驱动力。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- unclecode/crawl4ai -->
+            <section>
+                <section>
+                    <h2><a href="https://github.com/unclecode/crawl4ai" target="_blank" class="text-blue-600 hover:underline">unclecode/crawl4ai</a></h2>
+                    <h3 class="text-gray-700 mt-2">🚀🤖 Crawl4AI：开源LLM友好型网络爬虫与抓取工具。</h3>
+                    <div class="mt-6">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>unclecode/crawl4ai</td>
+                                    <td>Python</td>
+                                    <td>49052</td>
+                                    <td>2次</td>
+                                    <td>8次</td>
+                                    <td>419</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section>
+                    <h3>项目速读：Crawl4AI</h3>
+                    <div class="project-summary">
+                        <p>Crawl4AI是一款开源的、专为<strong>大型语言模型（LLM）及AI应用设计的网页爬虫</strong>与数据抓取工具。旨在解决传统爬虫工具昂贵、数据质量参差不齐或数据被封闭的痛点，将复杂的网页内容高效、精准地转化为AI友好的精简Markdown格式。</p>
+                        <p class="mt-2"><strong>核心优势：速度与LLM深度优化。</strong> 极快（比同类工具快6倍），生成智能、简洁的Markdown，特别适用于RAG和模型微调。利用启发式智能、BM25算法、自适应爬取等技术确保精准提取信息。利用Playwright实现强大浏览器自动化。</p>
+                        <p class="mt-2">为AI开发者提供强大、免费且高度优化的数据获取方案。连接海量网络信息与AI模型之间的桥梁，显著降低高质量训练数据获取门槛。是赋能AI应用尤其是RAG系统和模型训练的关键工具。</p>
+                    </div>
+                    <div class="growth-analysis mt-4">
+                        <h4 class="text-green-700">增长分析</h4>
+                        <p>该仓库在近四个月内，凭借8次频繁上榜，累计增长14119 Star，平均每次新增386.1。今日新增419 Star，高于平均水平，显示其高度活跃且增长势头强劲，用户关注度持续提升。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- ChatGPTNextWeb/NextChat -->
+            <section>
+                <section>
+                    <h2><a href="https://github.com/ChatGPTNextWeb/NextChat" target="_blank" class="text-blue-600 hover:underline">ChatGPTNextWeb/NextChat</a></h2>
+                    <h3 class="text-gray-700 mt-2">轻量快速的AI助手。支持：网页 | iOS | macOS | 安卓 | Linux | Windows</h3>
+                    <div class="mt-6">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ChatGPTNextWeb/NextChat</td>
+                                    <td>TypeScript</td>
+                                    <td>84747</td>
+                                    <td>2次</td>
+                                    <td>2次</td>
+                                    <td>427</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section>
+                    <h3>项目速读：NextChat</h3>
+                    <div class="project-summary">
+                        <p>NextChat是一个卓越的<strong>轻量级AI对话助手</strong>，旨在打破大型AI模型之间的壁垒，为用户提供统一、高效且极致流畅的智能交互体验。让用户通过一个界面轻松与Claude、DeepSeek、GPT4、Gemini Pro等主流AI模型对话。</p>
+                        <p class="mt-2"><strong>核心优势：跨平台与极致UX。</strong> 提供Web版本（PWA），覆盖Windows、macOS、Linux、iOS。其“轻量与快速”保证低延迟响应和流畅交互。支持一键部署到主流云平台，降低使用门槛。</p>
+                        <p class="mt-2">不仅服务个人用户，也为企业级应用提供深度解决方案：品牌定制、AI资源统一管理、权限控制、知识库集成、安全审计、私有化部署。是连接AI与用户，尤其是企业用户的强大桥梁。</p>
+                    </div>
+                    <div class="growth-analysis mt-4">
+                        <h4 class="text-green-700">增长分析</h4>
+                        <p>该仓库两天内两次上榜，累计增长385 Star。尤其最新一次上榜，单日新增427 Star，远超平均每次增量，表明增长势头强劲，持续获得社区关注。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- remoteintech/remote-jobs -->
+            <section>
+                <section>
+                    <h2><a href="https://github.com/remoteintech/remote-jobs" target="_blank" class="text-blue-600 hover:underline">remoteintech/remote-jobs</a></h2>
+                    <h3 class="text-gray-700 mt-2">科技领域支持半远程到全远程工作的公司（及职位）列表。</h3>
+                    <div class="mt-6">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>remoteintech/remote-jobs</td>
+                                    <td>JavaScript</td>
+                                    <td>35408</td>
+                                    <td>5次</td>
+                                    <td>5次</td>
+                                    <td>1158</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section>
+                    <h3>项目速读：Remote Jobs List</h3>
+                    <div class="project-summary">
+                        <p>这个GitHub仓库是一个专注于汇集<strong>科技行业远程工作机会的宝贵资源</strong>。旨在解决求职者在寻找支持半远程或完全远程办公模式公司时信息分散的痛点，提供集中、易于访问的远程友好公司列表。</p>
+                        <p class="mt-2"><strong>核心优势：信息聚合与社区驱动。</strong> 以简洁高效的Markdown结构，清晰呈现远程友好公司列表。用户可方便浏览公司名称、官网和工作区域。尽管技术架构简单，其核心优势在于信息聚合性、结构化展示及强大社区驱动力。</p>
+                        <p class="mt-2">超过3.5万Star量和每日显著增长的关注度，使其成为全球科技人才寻找理想远程职位的首选工具之一。反映远程工作模式的兴起和普及，对关注远程就业趋势的人士具极高参考价值。无需技术依赖，用户只需浏览器即可使用。</p>
+                    </div>
+                    <div class="growth-analysis mt-4">
+                        <h4 class="text-green-700">增长分析</h4>
+                        <p>该仓库在短周期内5次上榜，总星数增长3333，平均每次增622.8。尤其最后一日新增1158星，远超平均，显示出强劲的增长势头。持续上榜有效提升了可见性，增长正明显加速。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- better-auth/better-auth -->
+            <section>
+                <section>
+                    <h2><a href="https://github.com/better-auth/better-auth" target="_blank" class="text-blue-600 hover:underline">better-auth/better-auth</a></h2>
+                    <h3 class="text-gray-700 mt-2">最全面的 TypeScript 认证框架</h3>
+                    <div class="mt-6">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>better-auth/better-auth</td>
+                                    <td>TypeScript</td>
+                                    <td>17323</td>
+                                    <td>3次</td>
+                                    <td>3次</td>
+                                    <td>341</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section>
+                    <h3>项目速读：Better Auth</h3>
+                    <div class="project-summary">
+                        <p>Better Auth是一款专为TypeScript生态系统打造的<strong>综合性认证与授权框架</strong>，旨在解决当前TypeScript领域认证方案碎片化、实现复杂等痛点。提供与具体框架无关的、开箱即用的解决方案，简化项目用户认证和权限管理难度。</p>
+                        <p class="mt-2"><strong>核心优势：“框架无关性”。</strong> 能灵活无缝融入任何基于TypeScript的项目。通过一套全面的内置认证功能，结合强大“插件生态系统”，开发者只需极少代码即可轻松集成两步验证、多租户等高级特性。</p>
+                        <p class="mt-2">遵循MIT许可证，完全开源免费，可自由使用、修改和分发。凭借模块化架构和对安全性的高度重视，是构建安全、可信赖应用的理想选择。致力于为TypeScript开发者提供稳健、高效、易扩展认证体验的社区驱动型项目。</p>
+                    </div>
+                    <div class="growth-analysis mt-4">
+                        <h4 class="text-green-700">增长分析</h4>
+                        <p>该仓库三天内连续上榜3次，表明增长势头强劲且稳定。总计增长503星，平均每次新增268星。本次新增341星远超平均，显示当前增长速度显著加快，趋势积极向好。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- karpathy/nn-zero-to-hero -->
+            <section>
+                <section>
+                    <h2><a href="https://github.com/karpathy/nn-zero-to-hero" target="_blank" class="text-blue-600 hover:underline">karpathy/nn-zero-to-hero</a></h2>
+                    <h3 class="text-gray-700 mt-2">神经网络：从零到精通</h3>
+                    <div class="mt-6">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>karpathy/nn-zero-to-hero</td>
+                                    <td>Jupyter Notebook</td>
+                                    <td>14648</td>
+                                    <td>1次</td>
+                                    <td>1次</td>
+                                    <td>30</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section>
+                    <h3>项目速读：NN: Zero to Hero</h3>
+                    <div class="project-summary">
+                        <p>“Neural Networks: Zero to Hero”是由Andre Karpathy主导的免费开源课程，致力于从零开始，系统地教授<strong>神经网络和深度学习的核心原理与实践</strong>。旨在彻底打破初学者对深度学习框架的“黑箱”认知，引导学习者深刻理解并亲手构建先进的LLM。</p>
+                        <p class="mt-2"><strong>核心优势：实践导向与底层剖析。</strong> 通过YouTube视频讲座和Jupyter Notebook代码，循序渐进地带领学习者手动实现自动微分引擎、构建字符级语言模型、直至最终实现Transformer架构和GPT模型。覆盖反向传播、张量、MLP、注意力机制等关键概念。</p>
+                        <p class="mt-2">MIT许可证开放性，以及对Python和基础微积分的低门槛要求。为希望深入挖掘深度学习本质、特别是对LLM构建充满热情的学习者，提供高效且富有洞察力的自学路径。它不仅是知识传授，更是思维方式培养。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- fujiapple852/trippy -->
+            <section>
+                <section>
+                    <h2><a href="https://github.com/fujiapple852/trippy" target="_blank" class="text-blue-600 hover:underline">fujiapple852/trippy</a></h2>
+                    <h3 class="text-gray-700 mt-2">网络诊断工具</h3>
+                    <div class="mt-6">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>fujiapple852/trippy</td>
+                                    <td>Rust</td>
+                                    <td>5080</td>
+                                    <td>1次</td>
+                                    <td>1次</td>
+                                    <td>44</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section>
+                    <h3>项目速读：Trippy</h3>
+                    <div class="project-summary">
+                        <p>Trippy是一款基于Rust开发的现代化网络诊断工具，巧妙整合了传统traceroute和ping命令的核心功能，旨在为用户提供对<strong>网络路径、延迟和丢包的全面、深入洞察</strong>，从而高效分析并解决复杂的网络连接问题。</p>
+                        <p class="mt-2"><strong>核心优势：卓越功能集成性。</strong> 能生成比单一工具更丰富和直观的网络性能视图。得益于Rust语言特性，Trippy具备出色性能和内存安全性。支持Linux、BSD、macOS、Windows等广泛平台，提供便捷多样的安装方式。</p>
+                        <p class="mt-2">为网络工程师、系统管理员以及任何需要深入了解网络行为的用户提供强大诊断利器。无论是定位高延迟节点、分析数据包丢失原因，还是优化网络性能，Trippy都能提供可靠且细致的数据支持。高效、跨平台且功能全面的网络故障排查与性能分析的理想选择。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- p1ngul1n0/blackbird -->
+            <section>
+                <section>
+                    <h2><a href="https://github.com/p1ngul1n0/blackbird" target="_blank" class="text-blue-600 hover:underline">p1ngul1n0/blackbird</a></h2>
+                    <h3 class="text-gray-700 mt-2">一个用于在社交网络中通过用户名和电子邮件搜索账户的OSINT工具。</h3>
+                    <div class="mt-6">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>p1ngul1n0/blackbird</td>
+                                    <td>Python</td>
+                                    <td>3873</td>
+                                    <td>1次</td>
+                                    <td>1次</td>
+                                    <td>120</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section>
+                    <h3>项目速读：Blackbird</h3>
+                    <div class="project-summary">
+                        <p>Blackbird是一款高效的<strong>开源情报（OSINT）工具</strong>，专注于通过用户名和电子邮件地址，在超过600个社交网络和互联网平台上进行快速、精准的账户搜索。旨在自动化繁琐的OSINT流程，帮助用户获取目标对象更深入的在线足迹和行为洞察。</p>
+                        <p class="mt-2"><strong>核心优势：AI增强与低误报。</strong> 整合社区驱动的WhatsMyName项目，确保低误报率和高准确性。内置免费AI引擎，智能分析搜索到的网站关联信息，自动生成详尽的行为和技术用户画像，同时保护隐私。</p>
+                        <p class="mt-2">基于Python的命令行工具，实现全自动化分析，支持智能过滤，能将搜索和AI分析结果导出为PDF和CSV报告。为网络安全研究、威胁情报分析以及需要深入了解在线身份的专业人士提供强大辅助。<strong>注意：仅限教育目的，附严格免责声明。</strong></p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- C4illin/ConvertX -->
+            <section>
+                <section>
+                    <h2><a href="https://github.com/C4illin/ConvertX" target="_blank" class="text-blue-600 hover:underline">C4illin/ConvertX</a></h2>
+                    <h3 class="text-gray-700 mt-2">自托管在线文件转换器，支持1000多种格式。</h3>
+                    <div class="mt-6">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>C4illin/ConvertX</td>
+                                    <td>TypeScript</td>
+                                    <td>5037</td>
+                                    <td>2次</td>
+                                    <td>2次</td>
+                                    <td>1072</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section>
+                    <h3>项目速读：ConvertX</h3>
+                    <div class="project-summary">
+                        <p>ConvertX是一个功能强大的<strong>自托管在线文件转换服务</strong>，旨在解决用户在处理敏感文件时对第三方在线转换工具的安全担忧。允许用户在自己的服务器上部署私有的文件转换系统，确保数据隐私和安全性。</p>
+                        <p class="mt-2"><strong>核心优势：惊人兼容性与安全。</strong> 支持超过1000种文件格式相互转换（图片、视频、音频、文档、3D模型等），得益于集成FFmpeg、ImageMagick等业界领先开源工具。提供批量转换、密码保护和多账户管理。</p>
+                        <p class="mt-2">采用TypeScript开发，结合高性能Bun运行时和Elysia框架，并通过Docker容器化部署，简化安装和运行。为个人用户、开发者或小型团队提供私密、高效且功能全面的文件转换解决方案。对于重视数据安全和隐私的用户而言，是理想选择。</p>
+                    </div>
+                    <div class="growth-analysis mt-4">
+                        <h4 class="text-green-700">增长分析</h4>
+                        <p>该仓库两天内两次上榜，显示活跃增长。尽管总星增995，平均每次增864.5，但今天新增1072星，表明近期吸引力显著增强。上榜频率预示其持续获得用户关注的潜力。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- TheOdinProject/css-exercises -->
+            <section>
+                <section>
+                    <h2><a href="https://github.com/TheOdinProject/css-exercises" target="_blank" class="text-blue-600 hover:underline">TheOdinProject/css-exercises</a></h2>
+                    <h3 class="text-gray-700 mt-2">前端CSS实践集</h3>
+                    <div class="mt-6">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>TheOdinProject/css-exercises</td>
+                                    <td>HTML</td>
+                                    <td>2045</td>
+                                    <td>1次</td>
+                                    <td>2次</td>
+                                    <td>92</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section>
+                    <h3>项目速读：CSS Exercises (The Odin Project)</h3>
+                    <div class="project-summary">
+                        <p>TheOdinProject/css-exercises是The Odin Project (TOP) 课程的核心配套实践集，旨在帮助初学者将HTML和CSS理论知识转化为实际编码能力，解决从“学”到“用”的鸿沟。通过精心设计的CSS任务，引导学习者在真实场景中巩固和应用所学技能。</p>
+                        <p class="mt-2"><strong>核心优势：高度实践性与灵活性。</strong> 鼓励学习者利用网络资源和官方文档培养独立解决问题能力。不追求像素级精确匹配，重在理解和灵活运用CSS概念。每个练习配详尽README和自检清单；完成挑战后可对照官方解决方案。</p>
+                        <p class="mt-2">项目由独立HTML和CSS文件构成练习，使用Git管理。学习者需fork并克隆仓库，在个人分支上完成代码，但禁止提交包含解决方案的PR至主仓库。为前端初学者量身定制，极具实践价值的CSS学习资源。是培养自学能力和问题解决思维的孵化器。</p>
+                    </div>
+                    <div class="growth-analysis mt-4">
+                        <h4 class="text-green-700">增长分析</h4>
+                        <p>该仓库三天内实际上榜2次，总星增长62。当日新增92星远超平均53星，显示出显著的加速增长趋势。尽管上榜次数有限，但近期表现强劲，潜力看好。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- hesreallyhim/awesome-claude-code -->
+            <section>
+                <section>
+                    <h2><a href="https://github.com/hesreallyhim/awesome-claude-code" target="_blank" class="text-blue-600 hover:underline">hesreallyhim/awesome-claude-code</a></h2>
+                    <h3 class="text-gray-700 mt-2">Claude 代码的精选命令、文件和工作流列表</h3>
+                    <div class="mt-6">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>hesreallyhim/awesome-claude-code</td>
+                                    <td>Python</td>
+                                    <td>5663</td>
+                                    <td>2次</td>
+                                    <td>2次</td>
+                                    <td>684</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section>
+                    <h3>项目速读：Awesome Claude Code</h3>
+                    <div class="project-summary">
+                        <p>hesreallyhim/awesome-claude-code是为Anthropic Claude Code用户精心打造的<strong>综合资源库</strong>。旨在解决如何最大限度发挥这一尖端AI编码助手潜力，尤其在处理复杂、多步骤开发任务时，有效克服上下文长度限制和提升任务聚焦能力。</p>
+                        <p class="mt-2"><strong>核心优势：全面性和实用性。</strong> 汇聚各式斜杠命令、CLAUDE.md文件、命令行工具及高级工作流指南。涵盖代码分析、测试到CI/CD、项目管理，提供超越基础命令的创新解决方案。收录成本分析CLI工具，支持多代理任务编排、代码优先自动化层，甚至与GitHub Webhook集成。</p>
+                        <p class="mt-2">不仅是资源列表，更是促进社区知识共享平台。对希望优化AI辅助开发流程、提升编码效率、解决复杂编程难题的开发者和团队而言，具极高实践指导价值。为用户提供清晰路径，更智能、高效地利用Claude Code完成开发任务。</p>
+                    </div>
+                    <div class="growth-analysis mt-4">
+                        <h4 class="text-green-700">增长分析</h4>
+                        <p>该仓库两天内上榜2次，总增长619星。但今日新增684星，已远超此前总数且高于平均每次503星。这表明近期增长势头极为强劲，每次上榜均带来显著星数增长，特别是最新一次效果突出。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- HandsOnLLM/Hands-On-Large-Language-Models -->
+            <section>
+                <section>
+                    <h2><a href="https://github.com/HandsOnLLM/Hands-On-Large-Language-Models" target="_blank" class="text-blue-600 hover:underline">HandsOnLLM/Hands-On-Large-Language-Models</a></h2>
+                    <h3 class="text-gray-700 mt-2">O'Reilly图书《大型语言模型实战》的官方代码库</h3>
+                    <div class="mt-6">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>HandsOnLLM/Hands-On-Large-Language-Models</td>
+                                    <td>Jupyter Notebook</td>
+                                    <td>12764</td>
+                                    <td>1次</td>
+                                    <td>2次</td>
+                                    <td>185</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section>
+                    <h3>项目速读：Hands-On Large Language Models</h3>
+                    <div class="project-summary">
+                        <p>"HandsOnLLM/Hands-On-Large-Language-Models"是O'Reilly畅销书《Hands-On Large Language Models》的官方配套代码库，旨在通过丰富的实践代码，帮助学习者深入理解并掌握<strong>大型语言模型（LLM）的实用工具与核心概念</strong>。解决理论知识难以转化为实际操作能力的痛点。</p>
+                        <p class="mt-2"><strong>核心优势：实践性与可视化学习。</strong> 以Jupyter Notebooks形式，忠实呈现书中近300幅插图描绘的LLM工作流。内容涵盖Tokens、词嵌入、Transformer到提示工程、RAG、多模态LLM及模型微调等前沿主题。建议在Google Colab上免费利用T4 GPU运行，降低学习门槛。</p>
+                        <p class="mt-2">不仅是代码集合，更是手把手引导的LLM实践课堂。对希望通过动手实践深入理解LLM工作原理、快速掌握应用技巧的开发者和研究者而言，是不可多得的学习资源。成功将复杂LLM理论知识转化为可操作、可验证的实际能力。</p>
+                    </div>
+                    <div class="growth-analysis mt-4">
+                        <h4 class="text-green-700">增长分析</h4>
+                        <p>在7月10-22日，该仓库总星数增长971。核心在于仅上榜两次，但每次上榜均带来显著增长（平均235.5星），表明增长高度依赖上榜表现。当前日增185星，势头良好。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- tracel-ai/burn -->
+            <section>
+                <section>
+                    <h2><a href="https://github.com/tracel-ai/burn" target="_blank" class="text-blue-600 hover:underline">tracel-ai/burn</a></h2>
+                    <h3 class="text-gray-700 mt-2">Burn 是一个下一代深度学习框架，在灵活性、效率和可移植性方面毫不妥协。</h3>
+                    <div class="mt-6">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>tracel-ai/burn</td>
+                                    <td>Rust</td>
+                                    <td>12001</td>
+                                    <td>1次</td>
+                                    <td>4次</td>
+                                    <td>228</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section>
+                    <h3>项目速读：Burn</h3>
+                    <div class="project-summary">
+                        <p>Burn是一个用Rust语言开发的<strong>下一代深度学习框架</strong>，旨在解决现代AI应用中模型训练与部署对极致性能、灵活度与广泛兼容性的需求。特别适用于在云端高效训练复杂模型，并将其无缝部署到各类边缘或客户硬件的场景。</p>
+                        <p class="mt-2"><strong>核心优势：创新技术栈与卓越效率。</strong> 通过自动核函数融合、异步执行及智能内存管理，大幅减少数据移动与内存开销，显著提升模型运行速度。利用Rust所有权系统，实现原生线程安全构建块，简化多设备训练。能根据硬件和矩阵大小自动选择最优核函数。</p>
+                        <p class="mt-2">模块化后端泛型设计，广泛支持CUDA、Metal、WGPU等主流硬件加速器和第三方库，允许高度定制化。这种灵活强大的架构，加上对性能的不懈追求，使其成为构建高性能、高可移植性AI解决方案的理想选择。正迅速发展，预示深度学习框架新方向。</p>
+                    </div>
+                    <div class="growth-analysis mt-4">
+                        <h4 class="text-green-700">增长分析</h4>
+                        <p>该仓库增长呈阶段性，统计期内上榜4次，总增1588星。每次上榜平均新增122.8星，显示较强单次引流能力。今日228星，表明近期增长势头良好，高于平均。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- hyprwm/Hyprland -->
+            <section>
+                <section>
+                    <h2><a href="https://github.com/hyprwm/Hyprland" target="_blank" class="text-blue-600 hover:underline">hyprwm/Hyprland</a></h2>
+                    <h3 class="text-gray-700 mt-2">Hyprland 是一个独立的、高度可定制的动态平铺 Wayland 合成器，外观丝毫不妥协。</h3>
+                    <div class="mt-6">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>hyprwm/Hyprland</td>
+                                    <td>C++</td>
+                                    <td>28427</td>
+                                    <td>5次</td>
+                                    <td>5次</td>
+                                    <td>220</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section>
+                    <h3>项目速读：Hyprland</h3>
+                    <div class="project-summary">
+                        <p>Hyprland是一个独树一帜的<strong>动态平铺Wayland混成器</strong>，专为Linux用户打造，旨在提供兼顾卓越性能与极致视觉美学的现代化桌面环境。最显著优势在于核心代码100%独立开发，不依赖现有Wayland库，赋予其极大灵活性实现前沿功能和独特视觉。</p>
+                        <p class="mt-2"><strong>核心优势：视觉效果与深度定制。</strong> 以精美渐变边框、流畅模糊效果、定制动画及柔和阴影等“眼糖”视觉效果闻名。提供深度可定制性，用户可随心所欲配置行为外观，修改即时生效。支持屏幕撕裂优化高帧率应用，尤其在游戏场景下提供流畅体验。</p>
+                        <p class="mt-2">凭借强大插件支持和灵活窗口管理特性，能适应各种工作流需求。加之易用IPC机制和原生输入法支持，极大提升用户体验。对于追求极致个性化、高性能及创新视觉效果的Linux用户而言，提供活跃、独特且具潜力的Wayland桌面解决方案。</p>
+                    </div>
+                    <div class="growth-analysis mt-4">
+                        <h4 class="text-green-700">增长分析</h4>
+                        <p>该仓库在短短5天内5次上榜，表明其极高活跃度与持续关注度。期间总计增长1333 Star，平均每次上榜增加256.8 Star。今日新增220 Star，增长势头强劲且稳定。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- ankitects/anki -->
+            <section>
+                <section>
+                    <h2><a href="https://github.com/ankitects/anki" target="_blank" class="text-blue-600 hover:underline">ankitects/anki</a></h2>
+                    <h3 class="text-gray-700 mt-2">Anki 是一款智能间隔重复抽认卡软件。</h3>
+                    <div class="mt-6">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ankitects/anki</td>
+                                    <td>Rust</td>
+                                    <td>22515</td>
+                                    <td>1次</td>
+                                    <td>1次</td>
+                                    <td>25</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section>
+                    <h3>项目速读：Anki</h3>
+                    <div class="project-summary">
+                        <p>Anki是一款基于<strong>智能间隔重复（Spaced Repetition）原理</strong>的桌面闪卡学习程序，致力于帮助用户实现高效的知识记忆与长期巩固。它通过科学的算法，智能地安排复习周期，确保知识在即将遗忘的临界点被重新巩固，有效对抗遗忘曲线。</p>
+                        <p class="mt-2"><strong>核心优势：科学记忆算法。</strong> 作为核心桌面版本的开源代码库，主要采用高性能Rust语言构建，保证应用程序稳定性和响应速度。不仅是简单闪卡工具，更是个性化记忆优化引擎，能根据用户记忆表现动态调整复习计划，实现知识深度学习和持久记忆。</p>
+                        <p class="mt-2">开源特性鼓励全球开发者社区积极参与和贡献，持续推动功能扩展优化。对于学生、语言学习者、医疗专业人员及任何需高效记忆大量信息的人群，提供强大且可定制学习平台。其价值在于将死记硬背转化为科学、系统且高效的记忆过程。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- microsoft/OmniParser -->
+            <section>
+                <section>
+                    <h2><a href="https://github.com/microsoft/OmniParser" target="_blank" class="text-blue-600 hover:underline">microsoft/OmniParser</a></h2>
+                    <h3 class="text-gray-700 mt-2">一种面向纯视觉GUI代理的简单屏幕解析工具</h3>
+                    <div class="mt-6">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>microsoft/OmniParser</td>
+                                    <td>Jupyter Notebook</td>
+                                    <td>22779</td>
+                                    <td>1次</td>
+                                    <td>1次</td>
+                                    <td>41</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section>
+                    <h3>项目速读：OmniParser</h3>
+                    <div class="project-summary">
+                        <p>OmniParser是微软推出的一款尖端屏幕解析工具，旨在彻底改变纯视觉大语言模型（LLM）与图形用户界面（GUI）的交互方式。它能将复杂的UI截图转化为结构化、机器可读的数据，极大地增强了GPT-4V等多模态LLM的动作生成和区域定位精准度。</p>
+                        <p class="mt-2"><strong>核心优势：高效UI元素识别与功能描述。</strong> V2版本在多项基准测试中达到SOTA（State-Of-The-Art），尤其在Windows Agent Arena中表现卓越。通过与配套工具OmniTool结合，能实现对Windows 11虚拟机的实际控制，为构建高度智能、基于视觉的计算机使用代理奠定坚实基础。</p>
+                        <p class="mt-2">不仅推动了AI在自动化、智能辅助领域的应用，也为生成特定任务的AI代理训练数据和探索未来人机交互模式开辟了新途径。<strong>注意：部分模型权重遵循AGPL许可证。</strong></p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- simstudioai/sim -->
+            <section>
+                <section>
+                    <h2><a href="https://github.com/simstudioai/sim" target="_blank" class="text-blue-600 hover:underline">simstudioai/sim</a></h2>
+                    <h3 class="text-gray-700 mt-2">Sim Studio 是一个开源的AI智能体工作流构建器。</h3>
+                    <div class="mt-6">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>simstudioai/sim</td>
+                                    <td>TypeScript</td>
+                                    <td>5808</td>
+                                    <td>3次</td>
+                                    <td>3次</td>
+                                    <td>290</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section>
+                    <h3>项目速读：Sim Studio</h3>
+                    <div class="project-summary">
+                        <p>Sim Studio是一个<strong>开源的AI代理工作流构建平台</strong>，旨在通过轻量级、直观的可视化界面，极大简化大型语言模型（LLM）应用的开发、部署以及与外部工具的集成过程。解决了传统AI应用开发复杂、部署门槛高的问题。</p>
+                        <p class="mt-2"><strong>核心优势：用户友好与灵活部署。</strong> 用户通过拖放轻松编排复杂AI代理流程，无缝集成Ollama等本地AI模型，利用GPU或CPU在本地运行，降低对昂贵云服务依赖。利用PostgreSQL的pgvector扩展，实现强大向量嵌入功能，支持构建知识库和语义搜索。</p>
+                        <p class="mt-2">采用现代化全栈Next.js搭配高性能Bun运行时，使用Drizzle ORM，并通过ReactFlow构建核心工作流编辑器。提供NPM包、Docker Compose等多种便捷自托管方式，遵循Apache License 2.0许可证。为希望快速原型设计、迭代和部署AI代理应用的开发者和团队提供强大易用工具。</p>
+                    </div>
+                    <div class="growth-analysis mt-4">
+                        <h4 class="text-green-700">增长分析</h4>
+                        <p>该仓库三天内上榜3次，增长势头强劲。总计增长433 Star，平均每次上榜约300星。今日新增290 Star，接近平均值。持续上榜显示其用户兴趣稳定，可见度高，保持良好增长趋势。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Final Slide -->
+            <section data-background="https://images.unsplash.com/photo-1517430816045-df4b7de1167b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MzJ8fGdpdGh1YiUyMGNvZGUlMjBhcnRpZmljaWFsJTIwaW50ZWxsaWdlbmNlfGVufDB8fHx8MTcwMTU3MDAwMHww&ixlib=rb-4.0.3&q=80&w=1920" data-background-blend-mode="multiply" data-background-color="#333" class="aha-gradient-bg">
+                <h2 class="text-white text-4xl">感谢您的聆听！</h2>
+                <h3 class="text-white text-3xl mt-4">觉得有用？点赞分享，把握技术新风口！</h3>
+                <div class="mt-16 text-center">
+                    <p class="text-gray-200 text-xl">更多前沿技术趋势，欢迎关注：</p>
+                </div>
+                <div class="promo-footer">
+                    <img src="../../asserts/wx.jpg" alt="微信公众号二维码" class="w-16 h-16">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            transition: 'fade', // Main transition for all slides
+            backgroundTransition: 'fade', // Transition for backgrounds
+            history: true,
+
+            // Optional: configure your reveal.js plugins
+            plugins: [], // No specific plugins requested, but mermaid is loaded if needed
+
+            // Default route for mermaid
+            mermaid: {
+                // Not used in this specific content, but kept as per dependency list
+            }
+        });
+    </script>
+</body>
+</html>

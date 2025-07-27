@@ -1,0 +1,452 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>GitHub 最新趋势全掌握：文档结构化、隐私安全与工具链升级</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        :root {
+            --r-background-color: #f8f8f8; /* Light gray background for overall theme */
+            --primary-color: #007bff; /* Blue for main accents */
+            --secondary-color: #6f42c1; /* Purple for secondary accents/highlights */
+            --accent-color: #28a745; /* Green for success/key points */
+            --text-color-dark: #343a40; /* Dark gray for main text */
+            --text-color-light: #6c757d; /* Lighter gray for secondary text */
+        }
+
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback",
+                         "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--text-color-dark);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', 'Noto Sans SC', serif; /* Titles use serif, fallback to sans-serif */
+            color: var(--primary-color);
+            text-shadow: none; /* Remove default Reveal.js text shadow for cleaner look */
+        }
+
+        /* Font Sizes as per requirement: Titles: 2-3rem, Subtitles: 1.5-2rem, 正文: 1-1.2rem */
+        .reveal h1 { font-size: 2.8rem !important; }
+        .reveal h2 { font-size: 2.2rem !important; }
+        .reveal h3 { font-size: 1.8rem !important; }
+        .reveal p, .reveal li { font-size: 1.1rem !important; line-height: 1.6; }
+
+        .reveal .slides section {
+            padding: 40px;
+            text-align: left;
+        }
+
+        .reveal .slides section p,
+        .reveal .slides section li {
+            max-width: 900px; /* Constrain text width for readability */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .reveal .slides section .center-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+        }
+
+        .reveal .controls button {
+            color: var(--secondary-color) !important;
+        }
+        .reveal .progress span {
+            background: var(--secondary-color) !important;
+        }
+
+        .reveal .slide-number {
+            font-size: 0.8em;
+            color: var(--text-color-light);
+        }
+
+        /* Custom backgrounds & effects */
+        .slide-background-light-gradient {
+            background: linear-gradient(135deg, #e0f2f7 0%, #f0f8ff 100%); /* Light blue to white gradient */
+        }
+        
+        /* Footer for QR and link */
+        .qr-link-footer {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            font-size: 0.8rem;
+            color: var(--text-color-light);
+            z-index: 1000; /* Ensure it's above other content */
+        }
+
+        .qr-link-footer img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .qr-link-footer a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s ease-in-out;
+        }
+        .qr-link-footer a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Project card styles for detailed slides */
+        .project-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            padding: 20px 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid var(--primary-color);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%; /* Ensure cards are same height in a grid */
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        }
+        .project-card h3 {
+            margin-top: 0;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+        }
+        .project-card h3 i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        .project-card .stars {
+            color: #ffc107; /* Yellow star color */
+            margin-left: auto; /* Push stars to the right */
+            font-size: 1rem;
+        }
+        .project-card p {
+            font-size: 0.95rem !important;
+            color: var(--text-color-dark);
+            margin-top: 10px;
+        }
+
+        /* Icon list for summary slides */
+        .reveal .slides section ul.icon-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .reveal .slides section ul.icon-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        .reveal .slides section ul.icon-list li i {
+            font-size: 1.8rem;
+            margin-right: 20px;
+            color: var(--primary-color);
+            min-width: 40px; /* Ensure icon alignment */
+            text-align: center;
+        }
+        .reveal .slides section ul.icon-list li p {
+            margin: 0;
+            font-size: 1rem !important;
+        }
+        .reveal .slides section ul.icon-list li .font-semibold {
+            font-size: 1.1rem !important; /* Larger for sub-headings in lists */
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Title Slide -->
+            <section data-background-image="https://images.unsplash.com/photo-1549682522-8d76d494a86b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80" data-background-color="#333" data-background-size="cover" data-background-opacity="0.6" data-background-repeat="no-repeat">
+                <div class="center-content">
+                    <h1 class="text-white text-center mb-4">文档结构化、隐私安全与工具链升级</h1>
+                    <h2 class="text-white text-center opacity-90 text-2xl mb-8">GitHub最新趋势全掌握</h2>
+                    <p class="text-white text-center opacity-80 text-lg mb-2">🔥 今日最火爆的开源项目都在这 ⭐️</p>
+                    <p class="text-white text-center opacity-70 text-base mb-6">GitHub热门仓库日报观测时间：2025-07-17 20:31:47</p>
+                    <p class="text-white text-center opacity-60 text-sm">演讲者：AIChipEra</p>
+                </div>
+                <div class="qr-link-footer">
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra 微信公众号二维码" class="rounded-lg">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-white hover:underline">github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+            <!-- Slide 2: Aha Moment Intro -->
+            <section data-background-color="#f0f8ff" data-background-image="https://images.unsplash.com/photo-1518837695029-79a788820120?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80" data-background-size="cover" data-background-opacity="0.3">
+                <div class="center-content">
+                    <h2 class="text-center mb-6 text-gray-800 leading-tight">
+                        <span class="text-secondary-color text-4xl font-bold">Aha Moment:</span><br/>
+                        <span class="text-primary-color text-5xl font-extrabold mt-4 block">从 "功能实现" 到 "数据主权与效率平衡" 的技术范式转移</span>
+                    </h2>
+                    <p class="text-lg text-gray-700 text-center opacity-90 mt-8 leading-relaxed fragment fade-in-up">
+                        今日GitHub趋势的核心，在于从单纯追求功能实现，转向更深层次的
+                        <span class="font-semibold text-accent-color">数据治理、隐私安全与极致开发者体验。</span>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Slide 3: 日报要点 / Three Core Shifts -->
+            <section class="slide-background-light-gradient">
+                <h2 class="text-center mb-10">今日 GitHub 趋势概览</h2>
+                <div class="flex flex-col items-center">
+                    <ul class="icon-list w-full max-w-2xl">
+                        <li class="fragment fade-in-up">
+                            <i class="fas fa-file-alt"></i>
+                            <div>
+                                <h3 class="text-lg text-secondary-color font-semibold mb-1">文档结构化技术首次登顶</h3>
+                                <p class="text-sm text-gray-700">MarkItDown单日狂揽2415星，为企业文档治理提供LLM友好方案。</p>
+                            </div>
+                        </li>
+                        <li class="fragment fade-in-up">
+                            <i class="fas fa-user-shield"></i>
+                            <div>
+                                <h3 class="text-lg text-secondary-color font-semibold mb-1">隐私计算从云端向终端迁移</h3>
+                                <p class="text-sm text-gray-700">LocalGPT离线化设计引爆本地AI应用热潮，数据主权成焦点。</p>
+                            </div>
+                        </li>
+                        <li class="fragment fade-in-up">
+                            <i class="fas fa-tools"></i>
+                            <div>
+                                <h3 class="text-lg text-secondary-color font-semibold mb-1">开发者工具链全面升级</h3>
+                                <p class="text-sm text-gray-700">Helix模态编辑器与Strapi无头CMS推动效率革新。</p>
+                            </div>
+                        </li>
+                        <li class="fragment fade-in-up">
+                            <i class="fas fa-code"></i>
+                            <div>
+                                <h3 class="text-lg text-secondary-color font-semibold mb-1">编程语言分布与生态演进</h3>
+                                <p class="text-sm text-gray-700">Python主导数据，TypeScript渗透中间件，WasmEdge预示边缘计算。</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 4: 趋势一：文档结构化与数据主权 -->
+            <section data-background-color="#e0e0e0" data-background-image="https://images.unsplash.com/photo-1587825316021-d70319760778?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80" data-background-size="cover" data-background-opacity="0.15">
+                <h2 class="text-center mb-8 text-primary-color">趋势一：文档结构化与数据主权</h2>
+                <h3 class="text-center mb-10 text-secondary-color">非结构化数据治理与隐私优先设计</h3>
+                <div class="grid grid-cols-2 gap-6 mx-auto max-w-5xl h-2/3"> <!-- Added h-2/3 for consistent card height -->
+                    <div class="project-card fragment fade-in-left">
+                        <h3><i class="fab fa-microsoft"></i> microsoft/markitdown <span class="stars">⭐ 65.9k</span></h3>
+                        <p>将PDF/Office等转换为LLM友好的Markdown，统一文档结构。</p>
+                    </div>
+                    <div class="project-card fragment fade-in-right">
+                        <h3><i class="fas fa-laptop-house"></i> PromtEngineer/localGPT <span class="stars">⭐ 21.3k</span></h3>
+                        <p>本地GPT模型与文档对话，数据不离设备，100%隐私保障。</p>
+                    </div>
+                    <div class="project-card fragment fade-in-left">
+                        <h3><i class="fas fa-shield-alt"></i> gitleaks/gitleaks <span class="stars">⭐ 21.6k</span></h3>
+                        <p>查找Git仓库中的敏感信息，预防代码泄密。</p>
+                    </div>
+                    <div class="project-card fragment fade-in-right">
+                        <h3><i class="fas fa-search"></i> soxoj/maigret <span class="stars">⭐ 15.8k</span></h3>
+                        <p>通过用户名从数千网站收集个人档案，洞察数字足迹。</p>
+                    </div>
+                    <div class="project-card fragment fade-in-left">
+                        <h3><i class="fas fa-music"></i> maotoumao/MusicFree <span class="stars">⭐ 18.4k</span></h3>
+                        <p>插件化、无广告的免费音乐播放器，强调隐私保护。</p>
+                    </div>
+                    <div class="project-card fragment fade-in-right">
+                        <h3><i class="fas fa-project-diagram"></i> AykutSarac/jsoncrack.com <span class="stars">⭐ 40.1k</span></h3>
+                        <p>将JSON/YAML等数据格式转换为交互式图表，提升可读性。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5: 趋势二：开发者工具链效率升级 -->
+            <section data-background-color="#f8f8f8" data-background-image="https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80" data-background-size="cover" data-background-opacity="0.15">
+                <h2 class="text-center mb-8 text-primary-color">趋势二：开发者工具链效率升级</h2>
+                <h3 class="text-center mb-10 text-secondary-color">轻量化、可定制化与新范式</h3>
+                <div class="grid grid-cols-2 gap-6 mx-auto max-w-5xl h-2/3"> <!-- Added h-2/3 for consistent card height -->
+                    <div class="project-card fragment fade-in-left">
+                        <h3><i class="fas fa-keyboard"></i> helix-editor/helix <span class="stars">⭐ 38.7k</span></h3>
+                        <p>受Vim启发，集成LSP的后现代模态文本编辑器。</p>
+                    </div>
+                    <div class="project-card fragment fade-in-right">
+                        <h3><i class="fas fa-database"></i> strapi/strapi <span class="stars">⭐ 67.9k</span></h3>
+                        <p>领先的开源无头CMS，100% JavaScript/TypeScript。</p>
+                    </div>
+                    <div class="project-card fragment fade-in-left">
+                        <h3><i class="fas fa-cloud-sun"></i> WasmEdge/WasmEdge <span class="stars">⭐ 9.7k</span></h3>
+                        <p>轻量级WebAssembly运行时，适用于云原生与边缘应用。</p>
+                    </div>
+                    <div class="project-card fragment fade-in-right">
+                        <h3><i class="fas fa-book-open"></i> freeCodeCamp/devdocs <span class="stars">⭐ 36.6k</span></h3>
+                        <p>多语言API文档浏览器，支持离线访问。</p>
+                    </div>
+                    <div class="project-card fragment fade-in-left">
+                        <h3><i class="fas fa-route"></i> musistudio/claude-code-router <span class="stars">⭐ 5.2k</span></h3>
+                        <p>基于Claude Code的智能路由中间件，动态分发模型请求。</p>
+                    </div>
+                    <div class="project-card fragment fade-in-right">
+                        <h3><i class="fas fa-brain"></i> langchain-ai/open_deep_research <span class="stars">⭐ 4.6k</span></h3>
+                        <p>多模型协作自动化深度研究代理工具。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 6: 语言与生态洞察 -->
+            <section data-background-color="#f0f0f0" data-background-image="https://images.unsplash.com/photo-1549692520-cb9622d08a55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80" data-background-size="cover" data-background-opacity="0.1">
+                <h2 class="text-center mb-8 text-primary-color">语言生态与未来热点</h2>
+                <div class="flex justify-center items-start gap-10 mt-10">
+                    <div class="flex-1 max-w-sm">
+                        <h3 class="text-secondary-color mb-4"><i class="fas fa-chart-pie"></i> 语言分布洞察</h3>
+                        <ul class="icon-list text-base">
+                            <li class="fragment fade-in">
+                                <i class="fab fa-python"></i>
+                                <div>
+                                    <p class="font-semibold text-lg">Python:</p>
+                                    <p>主导数据处理、AI模型 (MarkItDown, LocalGPT, Vanna)</p>
+                                </div>
+                            </li>
+                            <li class="fragment fade-in">
+                                <i class="fab fa-js-square"></i>
+                                <div>
+                                    <p class="font-semibold text-lg">TypeScript:</p>
+                                    <p>渗透前端、中间件 (JSON Crack, MusicFree, Strapi)</p>
+                                </div>
+                            </li>
+                            <li class="fragment fade-in">
+                                <i class="fas fa-wrench"></i>
+                                <div>
+                                    <p class="font-semibold text-lg">Go/Rust/C++:</p>
+                                    <p>安全、系统级工具、边缘计算 (Gitleaks, Helix, WasmEdge)</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="flex-1 max-w-sm">
+                        <h3 class="text-accent-color mb-4"><i class="fas fa-lightbulb"></i> 下一波技术热点预测</h3>
+                        <ul class="icon-list text-base">
+                            <li class="fragment fade-in">
+                                <i class="fas fa-microchip"></i>
+                                <div>
+                                    <p class="font-semibold text-lg">本地化大模型推理优化:</p>
+                                    <p>如WasmEdge的AI扩展</p>
+                                </div>
+                            </li>
+                            <li class="fragment fade-in">
+                                <i class="fas fa-bezier-curve"></i>
+                                <div>
+                                    <p class="font-semibold text-lg">多模态文档解析:</p>
+                                    <p>结合视觉与语义分析</p>
+                                </div>
+                            </li>
+                            <li class="fragment fade-in">
+                                <i class="fas fa-fingerprint"></i>
+                                <div>
+                                    <p class="font-semibold text-lg">智能安全防护:</p>
+                                    <p>Gitleaks的AI规则引擎</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7: 隐藏的亮点：趣味性与效率 -->
+            <section data-background-color="#a8dadc" data-background-image="https://images.unsplash.com/photo-1622329712061-f3b1451f2b60?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80" data-background-size="cover" data-background-opacity="0.3">
+                <div class="center-content">
+                    <h2 class="text-center mb-8 text-white text-shadow-lg">技术中的趣味与人性化</h2>
+                    <div class="project-card bg-white p-8 rounded-xl shadow-2xl text-center max-w-xl mx-auto fragment fade-in zoom-in" style="border-left: 5px solid #ff7b00;">
+                        <h3 class="text-orange-600 mb-4 text-3xl font-bold">
+                            <i class="fas fa-cat"></i> Kyome22/RunCat365
+                        </h3>
+                        <p class="text-lg text-gray-800 leading-relaxed mb-6">
+                            Windows任务栏上的可爱跑动猫咪动画，让你的桌面充满生机！
+                            <span class="text-sm block mt-2 text-gray-600">— 性能监控，但不止于此 —</span>
+                        </p>
+                        <p class="text-gray-700 text-xl font-semibold">
+                            <span class="stars">⭐ 8k</span>
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 8: 总结与展望 -->
+            <section data-background-color="#343a40" data-background-image="https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80" data-background-size="cover" data-background-opacity="0.2">
+                <div class="center-content text-white">
+                    <h2 class="text-center mb-10 text-white leading-tight">总结：GitHub趋势驱动创新</h2>
+                    <p class="text-xl text-center mb-6 leading-relaxed fragment fade-in-up">
+                        <i class="fas fa-lightbulb text-yellow-400 mr-3"></i>
+                        从单纯追求<span class="text-primary-color font-bold">功能实现</span>，到更深层次的
+                        <span class="text-accent-color font-bold">数据主权与效率平衡。</span>
+                    </p>
+                    <p class="text-xl text-center mb-6 leading-relaxed fragment fade-in-up">
+                        <i class="fas fa-bullseye text-red-400 mr-3"></i>
+                        关注<span class="text-primary-color font-bold">本地化AI</span>，拥抱<span class="text-primary-color font-bold">文档智能化</span>，
+                        提升<span class="text-primary-color font-bold">开发者效率</span>，是未来趋势。
+                    </p>
+                    <p class="text-lg text-center opacity-80 mt-12 fragment fade-in-up">
+                        技术创新不仅关乎代码，更关乎我们与数据、工具的交互方式。
+                    </p>
+                </div>
+            </section>
+
+            <!-- Slide 9: 感谢页 -->
+            <section data-background-image="https://images.unsplash.com/photo-1518837695029-79a788820120?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80" data-background-color="#f0f8ff" data-background-size="cover" data-background-opacity="0.5">
+                <div class="center-content">
+                    <h1 class="text-center mb-6 text-primary-color">感谢观看！</h1>
+                    <p class="text-xl text-center mb-8 text-gray-700">
+                        持续关注 GitHub 趋势，探索无限可能！
+                    </p>
+                    <p class="text-lg text-center text-secondary-color mt-10">演讲者：AIChipEra</p>
+                </div>
+                <div class="qr-link-footer">
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra 微信公众号二维码" class="rounded-lg">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-gray-700 hover:underline">github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js"></script>
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js"></script>
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js"></script>
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/zoom/zoom.min.js"></script>
+
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            hash: true,
+            center: true,
+            transition: 'slide', // Slide transition between horizontal slides
+            backgroundTransition: 'fade', // Fade transition for background changes
+            
+            // Learn about plugins: https://revealjs.com/plugins/
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom ]
+        });
+
+        // Initialize Mermaid for diagrams if needed (though not used in this specific content, it's in dependencies)
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+</html>

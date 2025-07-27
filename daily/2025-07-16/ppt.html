@@ -1,0 +1,973 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub今日爆款：文档智能解析与隐私安全工具引领技术风潮</title>
+
+    <!-- Core Reveal.js Framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    
+    <!-- Extension Dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #4a148c; /* Deep Purple */
+            --secondary-color: #6a1b9a; /* Medium Purple */
+            --accent-color: #9c27b0; /* Light Purple */
+            --text-dark: #2c3e50; /* Dark Blue-Grey */
+            --text-light: #ecf0f1; /* Light Grey */
+            --background-light: #ffffff;
+            --subtle-gradient: linear-gradient(to bottom right, #fdfefe, #f8f9fa); /* Very subtle light gradient */
+        }
+
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback",
+                         "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--text-dark);
+            background: var(--background-light);
+        }
+
+        .reveal .slides section {
+            padding: 40px;
+            text-align: left;
+            box-sizing: border-box;
+            background: var(--subtle-gradient);
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            margin: 20px; /* Add some margin around slides */
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: 'Noto Serif SC', 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback",
+                         "Heiti SC", "Hiragino Sans GB", Simsun, serif;
+            color: var(--primary-color);
+            margin-bottom: 0.5em;
+            line-height: 1.2;
+            text-shadow: none; /* Remove default reveal.js text shadow */
+        }
+
+        .reveal h1 { font-size: 2.8rem; }
+        .reveal h2 { font-size: 2.0rem; color: var(--secondary-color); }
+        .reveal h3 { font-size: 1.5rem; color: var(--accent-color); margin-top: 1.2em; }
+        .reveal p, .reveal li { font-size: 1.1rem; line-height: 1.6; }
+        .reveal ul { list-style-type: none; padding-left: 0; }
+        .reveal ul li { margin-bottom: 0.5em; position: relative; padding-left: 1.5em; }
+        .reveal ul li::before {
+            content: "\f06a"; /* Exclamation circle as bullet */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 0.9em;
+        }
+
+        .reveal .controls { opacity: 0.8; }
+        .reveal .progress { color: var(--accent-color); }
+
+        /* Custom styles for specific elements */
+        .header-meta {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-top: 10px;
+            font-weight: 500;
+        }
+
+        .header-subtitle {
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .project-meta-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 1.0rem;
+        }
+
+        .project-meta-table th, .project-meta-table td {
+            border: 1px solid #e0e0e0;
+            padding: 8px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .project-meta-table th {
+            background-color: #f2f2f2;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .icon-list {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .icon-list li {
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+            padding-left: 0; /* Override default list item padding */
+        }
+        .icon-list li::before {
+            content: none; /* Remove default bullet */
+        }
+        .icon-list li i {
+            margin-right: 8px;
+            color: var(--accent-color);
+            font-size: 1.2em;
+        }
+        .icon-list li span {
+            font-weight: 500;
+        }
+
+        .fragment.fade-in {
+            opacity: 0;
+        }
+        .fragment.visible {
+            opacity: 1;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .reveal section.has-background {
+            background-size: cover;
+            background-position: center;
+            color: var(--text-light); /* Assuming dark background for these */
+        }
+        .reveal section.title-slide {
+            background: var(--subtle-gradient);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100%; /* Ensure it takes full height */
+        }
+        .reveal section.title-slide h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.2em;
+            color: var(--primary-color);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+        }
+        .reveal section.title-slide .header-subtitle {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            font-weight: 700;
+            margin-bottom: 0.5em;
+        }
+        .reveal section.title-slide .header-meta {
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            margin-top: 15px;
+        }
+        .reveal section.title-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://aichipera.github.io/github-trend/assets/images/abstract-bg.jpg') no-repeat center center / cover; /* Placeholder for a real image */
+            opacity: 0.1; /* Subtle overlay */
+            z-index: -1;
+        }
+        /* Footer for first/last slide */
+        .slide-footer {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: #777;
+            text-shadow: none;
+            background: rgba(255,255,255,0.7);
+            padding: 8px 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .slide-footer img {
+            height: 50px;
+            width: 50px;
+            border-radius: 4px;
+        }
+        .slide-footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .slide-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .reveal strong {
+            color: var(--secondary-color);
+            font-weight: 700;
+        }
+        .reveal em {
+            color: var(--accent-color);
+            font-style: normal;
+        }
+        .reveal table th {
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Title Slide -->
+            <section class="title-slide">
+                <p class="header-subtitle fade-in">🔥 今日最火爆的开源项目都在这 ⭐️</p>
+                <h1 class="fade-in">GitHub今日爆款：文档智能解析与隐私安全工具引领技术风潮</h1>
+                <p class="header-meta fade-in">演讲者：AIChipEra</p>
+                <p class="header-meta fade-in">Github热门仓库观测时间：2025-07-16 20:27:59</p>
+                <p class="header-meta text-sm text-gray-500 mt-5 fade-in">以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</p>
+                <div class="slide-footer">
+                    <img src="../../asserts/wx.jpg" alt="微信二维码" class="h-12 w-12">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+            <!-- Daily Highlights Slide -->
+            <section>
+                <h2><i class="fas fa-bullhorn"></i> 日报要点概览</h2>
+                <p class="fragment fade-in">开发者社区正掀起三大技术浪潮：</p>
+                <ul class="text-left mt-6">
+                    <li class="fragment fade-in"><strong>微软MarkItDown</strong> 构建文档处理新范式。</li>
+                    <li class="fragment fade-in"><strong>LocalGPT</strong> 等项目实现本地化AI部署闭环。</li>
+                    <li class="fragment fade-in"><strong>VpnHood</strong> 等工具革新网络架构。</li>
+                </ul>
+                <p class="fragment fade-in mt-6">语言趋势：</p>
+                <ul class="text-left mt-2">
+                    <li class="fragment fade-in"><strong>Python</strong> 深耕AI领域。</li>
+                    <li class="fragment fade-in"><strong>Rust</strong> 强势渗透系统级开发。</li>
+                    <li class="fragment fade-in"><strong>TypeScript</strong> 持续领跑全栈开发。</li>
+                </ul>
+                <p class="fragment fade-in mt-6">值得关注：</p>
+                <ul class="text-left mt-2">
+                    <li class="fragment fade-in"><strong>Claude Code</strong> 等终端原生工具异军突起。</li>
+                    <li class="fragment fade-in"><strong>Segment Anything Model 2</strong> 推动视觉分割工程化落地。</li>
+                </ul>
+                <p class="fragment fade-in mt-6 text-sm text-gray-600"><em>本文深度解析14个热门项目的底层技术逻辑，揭示三大未来方向，助你把握技术演进脉搏。</em></p>
+            </section>
+
+            <!-- Hot Project Trend Analysis - Vertical Stack -->
+            <section>
+                <section>
+                    <h2><i class="fas fa-chart-line"></i> 热门项目趋势分析</h2>
+                    <h3><i class="fas fa-info-circle"></i> 今日整体趋势：隐私优先、本地化与工具链革新</h3>
+                    <ul class="text-left mt-6">
+                        <li class="fragment fade-in"><strong>三大核心聚焦：</strong> 文档智能处理、隐私安全工具、本地化AI部署。</li>
+                        <li class="fragment fade-in"><strong>技术栈组合：</strong> "文档解析-向量化-本地模型"（MarkItDown, LocalGPT, DocsGPT）。
+                            <p class="fragment fade-in ml-8 text-sm text-gray-600"><em>反映企业对数据主权与隐私合规的刚性需求。</em></p>
+                        </li>
+                        <li class="fragment fade-in"><strong>编程语言分层：</strong>
+                            <ul>
+                                <li class="fragment fade-in"><strong>Python：</strong> AI与数据处理主导 (5/14)。</li>
+                                <li class="fragment fade-in"><strong>Rust：</strong> 系统级工具崛起 (RustDesk, Amazon Q CLI)。</li>
+                                <li class="fragment fade-in"><strong>TypeScript：</strong> 深耕前端与跨平台。</li>
+                            </ul>
+                        </li>
+                        <li class="fragment fade-in"><strong>终端原生工具创新：</strong> PowerShell项目 <em>Claude Code</em> 异军突起（单日1641星标）。</li>
+                        <li class="fragment fade-in"><strong>工程化落地：</strong> 更强调生产级工具完善，而非单纯模型创新（SAM 2, OpenPipe/ART）。</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2><i class="fas fa-chart-bar"></i> 热门项目双日维度对比分析</h2>
+                    <ul class="text-left mt-6">
+                        <li class="fragment fade-in"><strong>热度持续上升：</strong> GitHub整体活跃度上升，昨日新增11个热门项目，无下降项目。</li>
+                        <li class="fragment fade-in"><strong>涨幅最大：</strong> <em>microsoft/markitdown</em> 单日增长2366星。
+                            <p class="fragment fade-in ml-8 text-sm text-gray-600"><em>反映代码与文档协同编辑工具需求激增。</em></p>
+                        </li>
+                        <li class="fragment fade-in"><strong>新项目特点：</strong>
+                            <ul>
+                                <li class="fragment fade-in"><strong>AI工具链：</strong> Python/TypeScript 各占3个新晋项目 (localGPT/DocsGPT)。</li>
+                                <li class="fragment fade-in"><strong>系统级应用：</strong> Rust持续渗透 (rustdesk, amazon-q-developer-cli)。</li>
+                                <li class="fragment fade-in"><strong>移动端优化：</strong> Swift (SwiftFormat), Dart (kitchenowl)。</li>
+                                <li class="fragment fade-in"><strong>数据科学回归：</strong> Jupyter Notebook (Segment Anything Model)。</li>
+                            </ul>
+                        </li>
+                        <li class="fragment fade-in"><strong>编程语言变化：</strong> Rust与Jupyter Notebook净增长，C++/JavaScript/TypeScript小幅收缩。</li>
+                        <li class="fragment fade-in"><strong>显著变化：</strong>
+                            <ul>
+                                <li class="fragment fade-in"><em>PromtEngineer/localGPT</em>：纯Python本地大模型项目首登榜，边缘AI潜力。</li>
+                                <li class="fragment fade-in"><em>microsoft/markitdown</em>：异常增长（+3.8%），或关联微软开发者大会。</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2><i class="fas fa-fire"></i> 热点变化速览</h2>
+                    <div class="grid grid-cols-2 gap-8 mt-6 text-base">
+                        <div class="fragment fade-in">
+                            <h3><i class="fas fa-plus-circle"></i> 新增热点</h3>
+                            <ul class="list-disc pl-5">
+                                <li>lastmile-ai/mcp-agent</li>
+                                <li>aws/amazon-q-developer-cli</li>
+                                <li>rustdesk/rustdesk</li>
+                                <li>promtengineer/localgpt</li>
+                                <li>maotoumao/musicfree</li>
+                                <li>vpnhood/vpnhood</li>
+                                <li>nicklockwood/swiftformat</li>
+                                <li>vanna-ai/vanna</li>
+                                <li>facebookresearch/segment-anything</li>
+                                <li>arc53/docsgpt</li>
+                                <li>tombursch/kitchenowl</li>
+                            </ul>
+                        </div>
+                        <div class="fragment fade-in">
+                            <h3><i class="fas fa-minus-circle"></i> 减退热点</h3>
+                            <ul class="list-disc pl-5">
+                                <li>beeradmoore/dlss-swapper</li>
+                                <li>musistudio/claude-code-router</li>
+                                <li>aykutsarac/jsoncrack.com</li>
+                                <li>browserbase/stagehand</li>
+                                <li>x1xhlol/system-prompts-and-models-of-ai-tools</li>
+                                <li>mindsdb/mindsdb</li>
+                                <li>nvidia/cutlass</li>
+                                <li>bluewave-labs/checkmate</li>
+                                <li>openbb-finance/openbb</li>
+                                <li>getzep/graphiti</li>
+                                <li>nisargjhaveri/wirelessandroidautodongle</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="fragment fade-in mt-8">
+                        <h3><i class="fas fa-sync-alt"></i> 持续热门</h3>
+                        <ul class="list-disc pl-5">
+                            <li>microsoft/markitdown (3次)</li>
+                            <li>anthropics/claude-code (4次)</li>
+                            <li>OpenPipe/ART (3次)</li>
+                        </ul>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Detailed Repository Data - Vertical Stack for each project -->
+            <section>
+                <h2><i class="fas fa-database"></i> 详细仓库数据分析</h2>
+
+                <section>
+                    <h3><a href="https://github.com/microsoft/markitdown" target="_blank">microsoft/markitdown</a></h3>
+                    <p class="text-gray-700"><em>Python工具，用于将文件和办公文档转换为Markdown。</em></p>
+                    <table class="project-meta-table">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-code"></i> 开发语言</th>
+                                <th><i class="fas fa-star"></i> Star 数</th>
+                                <th><i class="fas fa-calendar-alt"></i> 连续在榜</th>
+                                <th><i class="fas fa-list-ol"></i> 总上榜次数</th>
+                                <th><i class="fas fa-arrow-up"></i> 当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fragment fade-in">
+                                <td>Python</td>
+                                <td>64092</td>
+                                <td>3次</td>
+                                <td>13次</td>
+                                <td>1054</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ul class="icon-list fragment fade-in">
+                        <li><i class="fas fa-star"></i> Stars: <span>64.1k</span></li>
+                        <li><i class="fas fa-code-branch"></i> Forks: <span>3.4k</span></li>
+                        <li><i class="fas fa-eye"></i> Watchers: <span>229</span></li>
+                        <li><i class="fas fa-exclamation-circle"></i> Issues: <span>227</span></li>
+                        <li><i class="fas fa-code-pull-request"></i> Pull Requests: <span>78</span></li>
+                        <li><i class="fas fa-box-open"></i> Releases: <span>14</span></li>
+                        <li><i class="fas fa-code-commit"></i> Commits: <span>279</span></li>
+                        <li><i class="fas fa-certificate"></i> License: <span>MIT license</span></li>
+                        <li><i class="fas fa-users"></i> Contributors: <span>65</span></li>
+                    </ul>
+                    <p class="text-sm text-gray-600 fragment fade-in"><strong>编程语言占比:</strong> Python 99.4%, Dockerfile 0.6%</p>
+                    <h4 class="fragment fade-in mt-6">项目速读：</h4>
+                    <p class="fragment fade-in text-justify">MarkItDown是微软开源的Python工具，专注于将PDF、Office文档、图像、音频等20余种格式高效转换为结构化Markdown，旨在为大语言模型（LLM）提供标准化输入。其核心价值在于解决多源异构文档难以直接适配LLM的痛点，通过保留标题层级、列表结构、表格语义等关键信息，使非文本格式的数据能直接参与模型推理与分析。该工具在知识库构建、文档分析、多模态数据预处理等场景展现突出价值，显著降低多格式文档处理的技术门槛。</p>
+                    <p class="fragment fade-in text-sm text-gray-600 mt-4"><strong>增长分析:</strong> 仓库在13次上榜期间，平均每次增901.9星，总增长2.3万星，当前单日增速1054星显著高于均值，显示增长动能持续增强，榜单效应带动长期增长趋势明显。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/PromtEngineer/localGPT" target="_blank">PromtEngineer/localGPT</a></h3>
+                    <p class="text-gray-700"><em>在本地设备上使用GPT模型与您的文档进行对话。数据不会离开您的设备，100%隐私保障。</em></p>
+                    <table class="project-meta-table">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-code"></i> 开发语言</th>
+                                <th><i class="fas fa-star"></i> Star 数</th>
+                                <th><i class="fas fa-calendar-alt"></i> 连续在榜</th>
+                                <th><i class="fas fa-list-ol"></i> 总上榜次数</th>
+                                <th><i class="fas fa-arrow-up"></i> 当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fragment fade-in">
+                                <td>Python</td>
+                                <td>20899</td>
+                                <td>1次</td>
+                                <td>1次</td>
+                                <td>45</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ul class="icon-list fragment fade-in">
+                        <li><i class="fas fa-star"></i> Stars: <span>20.9k</span></li>
+                        <li><i class="fas fa-code-branch"></i> Forks: <span>2.3k</span></li>
+                        <li><i class="fas fa-eye"></i> Watchers: <span>173</span></li>
+                        <li><i class="fas fa-exclamation-circle"></i> Issues: <span>4</span></li>
+                        <li><i class="fas fa-code-pull-request"></i> Pull Requests: <span>1</span></li>
+                        <li><i class="fas fa-box-open"></i> Releases: <span>0</span></li>
+                        <li><i class="fas fa-code-commit"></i> Commits: <span>301</span></li>
+                        <li><i class="fas fa-certificate"></i> License: <span>Apache-2.0 license</span></li>
+                        <li><i class="fas fa-users"></i> Contributors: <span>41</span></li>
+                    </ul>
+                    <p class="text-sm text-gray-600 fragment fade-in"><strong>编程语言占比:</strong> Python 72.0%, HTML 26.4%, Dockerfile 1.5%, Roff 0.1%</p>
+                    <h4 class="fragment fade-in mt-6">项目速读：</h4>
+                    <p class="fragment fade-in text-justify">LocalGPT是一个开源本地文档交互系统，通过在用户设备端部署大语言模型实现私有文档的智能问答。该项目针对敏感数据外泄风险，为需要严格数据隐私的场景提供解决方案，用户无需依赖云端服务即可完成文档内容检索与对话。其最大优势在于突破传统云端服务的数据安全限制，同时保持跨平台兼容性。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/maotoumao/MusicFree" target="_blank">maotoumao/MusicFree</a></h3>
+                    <p class="text-gray-700"><em>插件化、定制化、无广告的免费音乐播放器。</em></p>
+                    <table class="project-meta-table">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-code"></i> 开发语言</th>
+                                <th><i class="fas fa-star"></i> Star 数</th>
+                                <th><i class="fas fa-calendar-alt"></i> 连续在榜</th>
+                                <th><i class="fas fa-list-ol"></i> 总上榜次数</th>
+                                <th><i class="fas fa-arrow-up"></i> 当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fragment fade-in">
+                                <td>TypeScript</td>
+                                <td>18094</td>
+                                <td>1次</td>
+                                <td>2次</td>
+                                <td>75</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ul class="icon-list fragment fade-in">
+                        <li><i class="fas fa-star"></i> Stars: <span>18.1k</span></li>
+                        <li><i class="fas fa-code-branch"></i> Forks: <span>1.1k</span></li>
+                        <li><i class="fas fa-eye"></i> Watchers: <span>70</span></li>
+                        <li><i class="fas fa-exclamation-circle"></i> Issues: <span>178</span></li>
+                        <li><i class="fas fa-code-pull-request"></i> Pull Requests: <span>3</span></li>
+                        <li><i class="fas fa-box-open"></i> Releases: <span>31</span></li>
+                        <li><i class="fas fa-code-commit"></i> Commits: <span>776</span></li>
+                        <li><i class="fas fa-certificate"></i> License: <span>AGPL-3.0 license</span></li>
+                        <li><i class="fas fa-users"></i> Contributors: <span>5</span></li>
+                    </ul>
+                    <p class="text-sm text-gray-600 fragment fade-in"><strong>编程语言占比:</strong> TypeScript 96.0%, Kotlin 3.1%, Other 0.9%</p>
+                    <h4 class="fragment fade-in mt-6">项目速读：</h4>
+                    <p class="fragment fade-in text-justify">MusicFree是一款面向Android与Harmony OS的开源音乐播放器，通过插件化架构重构了传统播放器的使用逻辑。它以「零预置音源」为核心设计，解决用户跨平台整合分散音乐资源的痛点，同时规避了商业播放器常见的广告干扰与数据收集问题。最大技术特点是将搜索、播放、歌词匹配等功能完全抽象为插件模块，实现从网易云、QQ音乐等平台抓取数据并统一调度，形成个性化的本地音乐生态。</p>
+                    <p class="fragment fade-in text-sm text-gray-600 mt-4"><strong>增长分析:</strong> 仓库在两次上榜期间实现5292 Star总增长，单次平均增207.5，当前日增75，增速持续强劲，榜单效应显著拉动增长。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/arc53/DocsGPT" target="_blank">arc53/DocsGPT</a></h3>
+                    <p class="text-gray-700"><em>DocsGPT是一款开源的生成式人工智能工具，帮助用户从知识源获取可靠答案并避免幻觉。它实现私有且可靠的信息检索，内置工具和代理系统功能。</em></p>
+                    <table class="project-meta-table">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-code"></i> 开发语言</th>
+                                <th><i class="fas fa-star"></i> Star 数</th>
+                                <th><i class="fas fa-calendar-alt"></i> 连续在榜</th>
+                                <th><i class="fas fa-list-ol"></i> 总上榜次数</th>
+                                <th><i class="fas fa-arrow-up"></i> 当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fragment fade-in">
+                                <td>TypeScript</td>
+                                <td>15950</td>
+                                <td>1次</td>
+                                <td>1次</td>
+                                <td>21</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ul class="icon-list fragment fade-in">
+                        <li><i class="fas fa-star"></i> Stars: <span>16k</span></li>
+                        <li><i class="fas fa-code-branch"></i> Forks: <span>1.7k</span></li>
+                        <li><i class="fas fa-eye"></i> Watchers: <span>90</span></li>
+                        <li><i class="fas fa-exclamation-circle"></i> Issues: <span>24</span></li>
+                        <li><i class="fas fa-code-pull-request"></i> Pull Requests: <span>20</span></li>
+                        <li><i class="fas fa-box-open"></i> Releases: <span>15</span></li>
+                        <li><i class="fas fa-code-commit"></i> Commits: <span>3,958</span></li>
+                        <li><i class="fas fa-certificate"></i> License: <span>MIT license</span></li>
+                        <li><i class="fas fa-users"></i> Contributors: <span>194</span></li>
+                    </ul>
+                    <p class="text-sm text-gray-600 fragment fade-in"><strong>编程语言占比:</strong> TypeScript 52.7%, Python 40.6%, PowerShell 2.5%, Shell 1.9%, CSS 1.2%, HTML 0.5%, Other 0.6%</p>
+                    <h4 class="fragment fade-in mt-6">项目速读：</h4>
+                    <p class="fragment fade-in text-justify">DocsGPT是一个开源的检索增强生成（RAG）工具，通过整合多源知识库与优化生成模型，解决传统问答系统中常见的信息幻觉和部署复杂性问题。它支持从PDF、网页、数据库等20余种格式中提取数据，并利用向量化存储与智能检索技术，在保证私有数据安全的前提下实现精准问答。该项目的价值体现在将复杂的信息检索流程标准化，为技术团队快速构建定制化知识库系统提供了开箱即用的解决方案。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/anthropics/claude-code" target="_blank">anthropics/claude-code</a></h3>
+                    <p class="text-gray-700"><em>Claude Code是一款运行于终端的代理编码工具，能够理解你的代码库，通过自然语言指令执行常规任务、解释复杂代码并处理Git工作流，从而提升编码效率。</em></p>
+                    <table class="project-meta-table">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-code"></i> 开发语言</th>
+                                <th><i class="fas fa-star"></i> Star 数</th>
+                                <th><i class="fas fa-calendar-alt"></i> 连续在榜</th>
+                                <th><i class="fas fa-list-ol"></i> 总上榜次数</th>
+                                <th><i class="fas fa-arrow-up"></i> 当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fragment fade-in">
+                                <td>PowerShell</td>
+                                <td>23520</td>
+                                <td>4次</td>
+                                <td>8次</td>
+                                <td>1641</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ul class="icon-list fragment fade-in">
+                        <li><i class="fas fa-star"></i> Stars: <span>23.5k</span></li>
+                        <li><i class="fas fa-code-branch"></i> Forks: <span>1.3k</span></li>
+                        <li><i class="fas fa-eye"></i> Watchers: <span>137</span></li>
+                        <li><i class="fas fa-exclamation-circle"></i> Issues: <span>1.9k</span></li>
+                        <li><i class="fas fa-code-pull-request"></i> Pull Requests: <span>13</span></li>
+                        <li><i class="fas fa-box-open"></i> Releases: <span>0</span></li>
+                        <li><i class="fas fa-code-commit"></i> Commits: <span>90</span></li>
+                        <li><i class="fas fa-certificate"></i> License: <span>未知</span></li>
+                        <li><i class="fas fa-users"></i> Contributors: <span>21</span></li>
+                    </ul>
+                    <p class="text-sm text-gray-600 fragment fade-in"><strong>编程语言占比:</strong> PowerShell 43.8%, Shell 36.0%, Dockerfile 20.2%</p>
+                    <h4 class="fragment fade-in mt-6">项目速读：</h4>
+                    <p class="fragment fade-in text-justify">Anthropics/claude-code是Anthropic推出的终端原生代码智能助手，通过自然语言交互帮助开发者突破编码效率瓶颈。该工具深度集成开发环境，以CLI形式直接解析代码库上下文，将复杂任务（如代码重构、Git流程管理）转化为对话式操作，解决开发者重复劳动耗时、代码逻辑理解成本高等痛点。其核心技术优势在于构建了代码语义理解与自然语言执行的闭环系统，在终端侧形成具备上下文感知能力的智能代理。</p>
+                    <p class="fragment fade-in text-sm text-gray-600 mt-4"><strong>增长分析:</strong> 仓库在8次上榜期间总Star增长14406，平均单次增长633.1，今日新增1641显著高于均值，表明增长趋势稳步上升且近期加速。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/OpenPipe/ART" target="_blank">OpenPipe/ART</a></h3>
+                    <p class="text-gray-700"><em>智能体强化训练器：使用GRPO训练多步骤智能体以应对现实任务，为智能体提供实战训练。支持Qwen2.5、Qwen3、Llama、Kimi等模型的强化学习。</em></p>
+                    <table class="project-meta-table">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-code"></i> 开发语言</th>
+                                <th><i class="fas fa-star"></i> Star 数</th>
+                                <th><i class="fas fa-calendar-alt"></i> 连续在榜</th>
+                                <th><i class="fas fa-list-ol"></i> 总上榜次数</th>
+                                <th><i class="fas fa-arrow-up"></i> 当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fragment fade-in">
+                                <td>Python</td>
+                                <td>2474</td>
+                                <td>3次</td>
+                                <td>3次</td>
+                                <td>468</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ul class="icon-list fragment fade-in">
+                        <li><i class="fas fa-star"></i> Stars: <span>2.5k</span></li>
+                        <li><i class="fas fa-code-branch"></i> Forks: <span>152</span></li>
+                        <li><i class="fas fa-eye"></i> Watchers: <span>21</span></li>
+                        <li><i class="fas fa-exclamation-circle"></i> Issues: <span>16</span></li>
+                        <li><i class="fas fa-code-pull-request"></i> Pull Requests: <span>7</span></li>
+                        <li><i class="fas fa-box-open"></i> Releases: <span>34</span></li>
+                        <li><i class="fas fa-code-commit"></i> Commits: <span>710</span></li>
+                        <li><i class="fas fa-certificate"></i> License: <span>Apache-2.0 license</span></li>
+                        <li><i class="fas fa-users"></i> Contributors: <span>9</span></li>
+                    </ul>
+                    <p class="text-sm text-gray-600 fragment fade-in"><strong>编程语言占比:</strong> Python 91.7%, Jupyter Notebook 8.0%, Shell 0.3%</p>
+                    <h4 class="fragment fade-in mt-6">项目速读：</h4>
+                    <p class="fragment fade-in text-justify">OpenPipe/ART是一个开源强化学习框架，专注于解决大语言模型（LLM）代理在复杂任务中的训练难题。通过GRPO算法与创新性RULER奖励机制，它让模型能像人类一样通过实践迭代提升决策能力。其核心突破在于RULER系统——利用LLM自身能力自动生成任务轨迹评分，彻底摆脱了传统强化学习依赖人工设计奖励函数的桎梏。这种将复杂强化学习流程抽象为开箱即用工具的能力，使得非专业开发者也能轻松构建高阶代理系统。</p>
+                    <p class="fragment fade-in text-sm text-gray-600 mt-4"><strong>增长分析:</strong> 仓库在3次上榜期间共获894 Star增长，平均单次增幅达397 Star，最新单日暴增468 Star，显示爆款热度持续攀升，榜单效应显著拉动关注。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/aws/amazon-q-developer-cli" target="_blank">aws/amazon-q-developer-cli</a></h3>
+                    <p class="text-gray-700"><em>在您的终端中体验基于代理的聊天交互。使用自然语言构建应用程序。</em></p>
+                    <table class="project-meta-table">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-code"></i> 开发语言</th>
+                                <th><i class="fas fa-star"></i> Star 数</th>
+                                <th><i class="fas fa-calendar-alt"></i> 连续在榜</th>
+                                <th><i class="fas fa-list-ol"></i> 总上榜次数</th>
+                                <th><i class="fas fa-arrow-up"></i> 当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fragment fade-in">
+                                <td>Rust</td>
+                                <td>1075</td>
+                                <td>1次</td>
+                                <td>1次</td>
+                                <td>16</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ul class="icon-list fragment fade-in">
+                        <li><i class="fas fa-star"></i> Stars: <span>1.1k</span></li>
+                        <li><i class="fas fa-code-branch"></i> Forks: <span>192</span></li>
+                        <li><i class="fas fa-eye"></i> Watchers: <span>10</span></li>
+                        <li><i class="fas fa-exclamation-circle"></i> Issues: <span>441</span></li>
+                        <li><i class="fas fa-code-pull-request"></i> Pull Requests: <span>103</span></li>
+                        <li><i class="fas fa-box-open"></i> Releases: <span>15</span></li>
+                        <li><i class="fas fa-code-commit"></i> Commits: <span>823</span></li>
+                        <li><i class="fas fa-certificate"></i> License: <span>Apache-2.0 license</span></li>
+                        <li><i class="fas fa-users"></i> Contributors: <span>53</span></li>
+                    </ul>
+                    <p class="text-sm text-gray-600 fragment fade-in"><strong>编程语言占比:</strong> Rust 99.6%, Other 0.4%</p>
+                    <h4 class="fragment fade-in mt-6">项目速读：</h4>
+                    <p class="fragment fade-in text-justify">Amazon Q CLI是AWS推出的创新性命令行工具，通过Rust构建了一个在终端即可调用Amazon Q Developer服务的智能交互界面。该项目旨在解决开发者在代码编写过程中频繁切换工具、检索文档的痛点，将自然语言编程能力直接嵌入开发工作流，实现代码生成、调试建议、架构优化等实时辅助功能。当前快速增长的Star数印证了开发者对原生终端AI工具的迫切需求，预示着命令行交互模式的新一轮革新趋势。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/vpnhood/VpnHood" target="_blank">vpnhood/VpnHood</a></h3>
+                    <p class="text-gray-700"><em>不可检测的快速便携式VPN。</em></p>
+                    <table class="project-meta-table">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-code"></i> 开发语言</th>
+                                <th><i class="fas fa-star"></i> Star 数</th>
+                                <th><i class="fas fa-calendar-alt"></i> 连续在榜</th>
+                                <th><i class="fas fa-list-ol"></i> 总上榜次数</th>
+                                <th><i class="fas fa-arrow-up"></i> 当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fragment fade-in">
+                                <td>C#</td>
+                                <td>1336</td>
+                                <td>1次</td>
+                                <td>1次</td>
+                                <td>34</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ul class="icon-list fragment fade-in">
+                        <li><i class="fas fa-star"></i> Stars: <span>1.3k</span></li>
+                        <li><i class="fas fa-code-branch"></i> Forks: <span>181</span></li>
+                        <li><i class="fas fa-eye"></i> Watchers: <span>31</span></li>
+                        <li><i class="fas fa-exclamation-circle"></i> Issues: <span>32</span></li>
+                        <li><i class="fas fa-code-pull-request"></i> Pull Requests: <span>0</span></li>
+                        <li><i class="fas fa-box-open"></i> Releases: <span>96</span></li>
+                        <li><i class="fas fa-code-commit"></i> Commits: <span>3,401</span></li>
+                        <li><i class="fas fa-certificate"></i> License: <span>LGPL-2.1 license</span></li>
+                        <li><i class="fas fa-users"></i> Contributors: <span>5</span></li>
+                    </ul>
+                    <p class="text-sm text-gray-600 fragment fade-in"><strong>编程语言占比:</strong> C# 88.6%, TypeScript 8.1%, PowerShell 2.7%, Other 0.6%</p>
+                    <h4 class="fragment fade-in mt-6">项目速读：</h4>
+                    <p class="fragment fade-in text-justify">VpnHood是一个基于.NET技术栈开发的开源反审查隐私工具，通过深度包检测（DPI）绕过技术和不可检测的VPN服务，为用户提供突破网络封锁和保护隐私的能力。项目核心聚焦于平衡易用性与技术深度：客户端支持Windows和Android一键连接，同时通过拆分隧道实现流量精细化管理；服务端则以零配置部署、热重启特性和内置NAT机制降低运维门槛。该项目的价值体现在对审查环境的技术对抗与用户隐私的双重保障。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/lastmile-ai/mcp-agent" target="_blank">lastmile-ai/mcp-agent</a></h3>
+                    <p class="text-gray-700"><em>利用模型上下文协议和简单工作流模式构建高效智能体。</em></p>
+                    <table class="project-meta-table">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-code"></i> 开发语言</th>
+                                <th><i class="fas fa-star"></i> Star 数</th>
+                                <th><i class="fas fa-calendar-alt"></i> 连续在榜</th>
+                                <th><i class="fas fa-list-ol"></i> 总上榜次数</th>
+                                <th><i class="fas fa-arrow-up"></i> 当日 Star 加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fragment fade-in">
+                                <td>Python</td>
+                                <td>6326</td>
+                                <td>1次</td>
+                                <td>3次</td>
+                                <td>50</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ul class="icon-list fragment fade-in">
+                        <li><i class="fas fa-star"></i> Stars: <span>6.3k</span></li>
+                        <li><i class="fas fa-code-branch"></i> Forks: <span>623</span></li>
+                        <li><i class="fas fa-eye"></i> Watchers: <span>41</span></li>
+                        <li><i class="fas fa-exclamation-circle"></i> Issues: <span>60</span></li>
+                        <li><i class="fas fa-code-pull-request"></i> Pull Requests: <span>14</span></li>
+                        <li><i class="fas fa-box-open"></i> Releases: <span>9</span></li>
+                        <li><i class="fas fa-code-commit"></i> Commits: <span>456</span></li>
+                        <li><i class="fas fa-certificate"></i> License: <span>Apache-2.0 license</span></li>
+                        <li><i class="fas fa-users"></i> Contributors: <span>49</span></li>
+                    </ul>
+                    <p class="text-sm text-gray-600 fragment fade-in"><strong>编程语言占比:</strong> Python 99.9%, Makefile 0.1%</p>
+                    <h4 class="fragment fade-in mt-6">项目速读：</h4>
+                    <p class="fragment fade-in text-justify">lastmile-ai/mcp-agent是一个基于Model Context Protocol（MCP）构建AI代理的开源框架，旨在通过模块化设计降低生产级AI代理的开发门槛。该项目聚焦于解决多模型协作、工具集成与自动化任务编排的复杂性，开发者可利用其可组合模式快速构建支持文件操作、网络请求、RAG检索等功能的代理应用。异步执行引擎与多代理协作框架的集成，使得复杂任务拆解与分布式执行成为可能。</p>
+                    <p class="fragment fade-in text-sm text-gray-600 mt-4"><strong>增长分析:</strong> 统计周期内仓库3次上榜，总增1378 Star，单次均增104.3，但末次仅增50 Star，增速呈明显放缓趋势。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/rustdesk/rustdesk" target="_blank">rustdesk/rustdesk</a></h3>
+                    <p class="text-gray-700"><em>一款开源的远程桌面应用，专为自托管设计，作为TeamViewer的替代方案。</em></p>
+                    <table class="project-meta-table">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-code"></i> 开发语言</th>
+                                <th><i class="fas fa-star"></i> Star 数</th>
+                                <th><i class="fas fa-calendar-alt"></i> 连续在榜</th>
+                                <th><i class="fas fa-list-ol"></i> 总上榜次数</th>
+                                <th><i class="fas fa-arrow-up"></i> 当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fragment fade-in">
+                                <td>Rust</td>
+                                <td>93042</td>
+                                <td>1次</td>
+                                <td>4次</td>
+                                <td>133</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ul class="icon-list fragment fade-in">
+                        <li><i class="fas fa-star"></i> Stars: <span>93k</span></li>
+                        <li><i class="fas fa-code-branch"></i> Forks: <span>13.5k</span></li>
+                        <li><i class="fas fa-eye"></i> Watchers: <span>531</span></li>
+                        <li><i class="fas fa-exclamation-circle"></i> Issues: <span>57</span></li>
+                        <li><i class="fas fa-code-pull-request"></i> Pull Requests: <span>15</span></li>
+                        <li><i class="fas fa-box-open"></i> Releases: <span>30</span></li>
+                        <li><i class="fas fa-code-commit"></i> Commits: <span>10,583</span></li>
+                        <li><i class="fas fa-certificate"></i> License: <span>AGPL-3.0 license</span></li>
+                        <li><i class="fas fa-users"></i> Contributors: <span>334</span></li>
+                    </ul>
+                    <p class="text-sm text-gray-600 fragment fade-in"><strong>编程语言占比:</strong> Rust 66.1%, Dart 25.7%, C++ 2.0%, C 1.7%, Kotlin 1.5%, Python 1.0%, Other 2.0%</p>
+                    <h4 class="fragment fade-in mt-6">项目速读：</h4>
+                    <p class="fragment fade-in text-justify">RustDesk是一个基于Rust开发的开源远程桌面工具，旨在为用户提供安全、自托管的远程控制解决方案，替代传统商业软件如TeamViewer。它通过内存安全的编程语言设计和端到端加密技术，解决了远程连接中隐私泄露与数据风险的核心痛点，同时支持用户自建服务器实现完全的数据主权控制。项目最突出的技术优势在于其跨平台NAT/防火墙穿透能力与高性能架构。</p>
+                    <p class="fragment fade-in text-sm text-gray-600 mt-4"><strong>增长分析:</strong> 该仓库在4次上榜周期中，单次平均增126星，累计增长7870星，表明上榜期间增长动能强劲。当前日增133星，凸显高频上榜对加速增长的关键作用，建议提升上榜频次以扩大优势。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/vanna-ai/vanna" target="_blank">vanna-ai/vanna</a></h3>
+                    <p class="text-gray-700"><em>与您的SQL数据库聊天 📊。通过大语言模型结合检索增强生成实现精准的文本到SQL生成 🔄。</em></p>
+                    <table class="project-meta-table">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-code"></i> 开发语言</th>
+                                <th><i class="fas fa-star"></i> Star 数</th>
+                                <th><i class="fas fa-calendar-alt"></i> 连续在榜</th>
+                                <th><i class="fas fa-list-ol"></i> 总上榜次数</th>
+                                <th><i class="fas fa-arrow-up"></i> 当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fragment fade-in">
+                                <td>Python</td>
+                                <td>18802</td>
+                                <td>1次</td>
+                                <td>4次</td>
+                                <td>55</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ul class="icon-list fragment fade-in">
+                        <li><i class="fas fa-star"></i> Stars: <span>18.8k</span></li>
+                        <li><i class="fas fa-code-branch"></i> Forks: <span>1.7k</span></li>
+                        <li><i class="fas fa-eye"></i> Watchers: <span>136</span></li>
+                        <li><i class="fas fa-exclamation-circle"></i> Issues: <span>191</span></li>
+                        <li><i class="fas fa-code-pull-request"></i> Pull Requests: <span>27</span></li>
+                        <li><i class="fas fa-box-open"></i> Releases: <span>74</span></li>
+                        <li><i class="fas fa-code-commit"></i> Commits: <span>878</span></li>
+                        <li><i class="fas fa-certificate"></i> License: <span>MIT license</span></li>
+                        <li><i class="fas fa-users"></i> Contributors: <span>70</span></li>
+                    </ul>
+                    <p class="text-sm text-gray-600 fragment fade-in"><strong>编程语言占比:</strong> Python 100.0%</p>
+                    <h4 class="fragment fade-in mt-6">项目速读：</h4>
+                    <p class="fragment fade-in text-justify">Vanna是一个基于Python的开源RAG（检索增强生成）框架，致力于降低数据库操作门槛，使非技术人员能通过自然语言与数据库交互。其核心价值在于将复杂的数据查询需求转化为自然语言输入，自动转化为可执行SQL语句并返回结果，解决了传统数据库操作中对专业语法和业务逻辑的强依赖问题。作为MIT许可的开源工具，Vanna的实用价值体现在快速构建数据驱动应用，尤其适合企业中需频繁交互数据但缺乏专业DBA支持的场景。</p>
+                    <p class="fragment fade-in text-sm text-gray-600 mt-4"><strong>增长分析:</strong> 仓库总Star增长3385，实际上榜4次，平均每次新增200.5星，显示上榜显著推动增长。近期单日新增55星，整体增长趋势稳健，非榜单期间自然增长亦较可观。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/nicklockwood/SwiftFormat" target="_blank">nicklockwood/SwiftFormat</a></h3>
+                    <p class="text-gray-700"><em>一个命令行工具和Xcode扩展，用于格式化Swift代码。</em></p>
+                    <table class="project-meta-table">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-code"></i> 开发语言</th>
+                                <th><i class="fas fa-star"></i> Star 数</th>
+                                <th><i class="fas fa-calendar-alt"></i> 连续在榜</th>
+                                <th><i class="fas fa-list-ol"></i> 总上榜次数</th>
+                                <th><i class="fas fa-arrow-up"></i> 当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fragment fade-in">
+                                <td>Swift</td>
+                                <td>8371</td>
+                                <td>1次</td>
+                                <td>1次</td>
+                                <td>6</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ul class="icon-list fragment fade-in">
+                        <li><i class="fas fa-star"></i> Stars: <span>8.4k</span></li>
+                        <li><i class="fas fa-code-branch"></i> Forks: <span>652</span></li>
+                        <li><i class="fas fa-eye"></i> Watchers: <span>77</span></li>
+                        <li><i class="fas fa-exclamation-circle"></i> Issues: <span>320</span></li>
+                        <li><i class="fas fa-code-pull-request"></i> Pull Requests: <span>0</span></li>
+                        <li><i class="fas fa-box-open"></i> Releases: <span>118</span></li>
+                        <li><i class="fas fa-code-commit"></i> Commits: <span>2,540</span></li>
+                        <li><i class="fas fa-certificate"></i> License: <span>MIT license</span></li>
+                        <li><i class="fas fa-users"></i> Contributors: <span>156</span></li>
+                    </ul>
+                    <p class="text-sm text-gray-600 fragment fade-in"><strong>编程语言占比:</strong> Swift 99.8%, Other 0.2%</p>
+                    <h4 class="fragment fade-in mt-6">项目速读：</h4>
+                    <p class="fragment fade-in text-justify">SwiftFormat是由Nick Lockwood开发的开源Swift代码格式化工具，通过自动化手段解决团队协作中代码风格不统一、手动调整低效且易出错的问题。其核心价值在于将代码风格标准化融入开发流程，既能通过Xcode插件实现即时格式化，也可结合Git提交钩子或CI/CD系统完成自动化处理，从根源上消除风格争议。作为MIT许可的轻量级工具，它已成为Swift开发者的协作标配。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/TomBursch/kitchenowl" target="_blank">TomBursch/kitchenowl</a></h3>
+                    <p class="text-gray-700"><em>KitchenOwl是一款自托管的购物清单与食谱管理工具。后端基于Flask开发，前端使用Flutter实现。可在购物前轻松将商品添加至购物清单，也可根据计划烹饪的菜品创建食谱并添加所需食材。</em></p>
+                    <table class="project-meta-table">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-code"></i> 开发语言</th>
+                                <th><i class="fas fa-star"></i> Star 数</th>
+                                <th><i class="fas fa-calendar-alt"></i> 连续在榜</th>
+                                <th><i class="fas fa-list-ol"></i> 总上榜次数</th>
+                                <th><i class="fas fa-arrow-up"></i> 当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fragment fade-in">
+                                <td>Dart</td>
+                                <td>2273</td>
+                                <td>1次</td>
+                                <td>2次</td>
+                                <td>139</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ul class="icon-list fragment fade-in">
+                        <li><i class="fas fa-star"></i> Stars: <span>2.3k</span></li>
+                        <li><i class="fas fa-code-branch"></i> Forks: <span>132</span></li>
+                        <li><i class="fas fa-eye"></i> Watchers: <span>18</span></li>
+                        <li><i class="fas fa-exclamation-circle"></i> Issues: <span>188</span></li>
+                        <li><i class="fas fa-code-pull-request"></i> Pull Requests: <span>9</span></li>
+                        <li><i class="fas fa-box-open"></i> Releases: <span>70</span></li>
+                        <li><i class="fas fa-code-commit"></i> Commits: <span>1,569</span></li>
+                        <li><i class="fas fa-certificate"></i> License: <span>AGPL-3.0 license</span></li>
+                        <li><i class="fas fa-users"></i> Contributors: <span>159</span></li>
+                    </ul>
+                    <p class="text-sm text-gray-600 fragment fade-in"><strong>编程语言占比:</strong> Dart 71.2%, Python 24.7%, C++ 1.5%, CMake 1.2%, Dockerfile 0.4%, Ruby 0.3%, Other 0.7%</p>
+                    <h4 class="fragment fade-in mt-6">项目速读：</h4>
+                    <p class="fragment fade-in text-justify">KitchenOwl是一款开源的家庭协作型生活管理工具，通过自托管方案解决多人购物清单与食谱规划的协同难题。它采用Flutter开发的跨平台前端与Flask后端架构，实现移动端、网页端和桌面端的无缝体验，特别针对家庭场景设计了实时同步的多人协作机制。其核心创新在于将食谱管理与购物清单深度联动，用户可直接从自建食谱库一键导入食材，配合家庭开支统计功能，形成"计划-采购-烹饪"的完整数字化闭环。</p>
+                    <p class="fragment fade-in text-sm text-gray-600 mt-4"><strong>增长分析:</strong> 仓库在2次上榜期间共获263 Star，单次均增94 Star，当前日增139 Star，显示上榜后增长显著且加速，短期热度持续攀升。</p>
+                </section>
+
+                <section>
+                    <h3><a href="https://github.com/facebookresearch/segment-anything" target="_blank">facebookresearch/segment-anything</a></h3>
+                    <p class="text-gray-700"><em>该仓库提供用于运行SegmentAnything模型（SAM）的代码、下载训练模型检查点的链接以及展示如何使用该模型的示例笔记本。</em></p>
+                    <table class="project-meta-table">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-code"></i> 开发语言</th>
+                                <th><i class="fas fa-star"></i> Star 数</th>
+                                <th><i class="fas fa-calendar-alt"></i> 连续在榜</th>
+                                <th><i class="fas fa-list-ol"></i> 总上榜次数</th>
+                                <th><i class="fas fa-arrow-up"></i> 当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fragment fade-in">
+                                <td>Jupyter Notebook</td>
+                                <td>50861</td>
+                                <td>1次</td>
+                                <td>1次</td>
+                                <td>23</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ul class="icon-list fragment fade-in">
+                        <li><i class="fas fa-star"></i> Stars: <span>50.9k</span></li>
+                        <li><i class="fas fa-code-branch"></i> Forks: <span>6k</span></li>
+                        <li><i class="fas fa-eye"></i> Watchers: <span>313</span></li>
+                        <li><i class="fas fa-exclamation-circle"></i> Issues: <span>523</span></li>
+                        <li><i class="fas fa-code-pull-request"></i> Pull Requests: <span>55</span></li>
+                        <li><i class="fas fa-box-open"></i> Releases: <span>0</span></li>
+                        <li><i class="fas fa-code-commit"></i> Commits: <span>49</span></li>
+                        <li><i class="fas fa-certificate"></i> License: <span>Apache-2.0 license</span></li>
+                        <li><i class="fas fa-users"></i> Contributors: <span>17</span></li>
+                    </ul>
+                    <p class="text-sm text-gray-600 fragment fade-in"><strong>编程语言占比:</strong> Jupyter Notebook 99.1%, Other 0.9%</p>
+                    <h4 class="fragment fade-in mt-6">项目速读：</h4>
+                    <p class="fragment fade-in text-justify">Segment Anything Model 2（SAM 2）是由Meta开发的通用视觉分割基础模型，致力于解决图像与视频中任意对象的精准分割难题。该模型通过提示式交互（如点击、框选）快速生成高质量对象掩码，并首次实现跨图像与视频任务的统一处理框架，突破了传统分割模型在场景泛化性与实时性上的局限。该项目重构了计算机视觉领域的分割技术范式，其价值不仅体现在ImageNet等基准测试中超越现有模型20%以上的分割精度，更在于提供了从科研到产业的全链路解决方案。</p>
+                </section>
+            </section>
+
+            <!-- Thank You / Call to Action Slide -->
+            <section class="title-slide">
+                <h2 class="text-white text-4xl mb-4">感谢您的聆听！</h2>
+                <p class="text-white text-2xl mb-8">期待您的关注与Star！</p>
+                <div class="flex items-center justify-center gap-10 mt-10">
+                    <div class="text-center">
+                        <img src="../../asserts/wx.jpg" alt="微信二维码" class="h-40 w-40 rounded-lg shadow-lg">
+                        <p class="text-lg text-white mt-4 font-semibold">扫描关注</p>
+                    </div>
+                    <div class="text-center">
+                        <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-white text-3xl font-bold hover:underline">
+                            <i class="fab fa-github fa-2x"></i> <br>
+                            GitHub项目链接
+                        </a>
+                        <p class="text-lg text-white mt-2">https://github.com/aichipera/github-trend</p>
+                    </div>
+                </div>
+                <div class="slide-footer">
+                    <img src="../../asserts/wx.jpg" alt="微信二维码" class="h-12 w-12">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+            fragments: true, // Enable fragment animations
+
+            // Optional Reveal.js plugins
+            plugins: [],
+            
+            // Mermaid config (if using Mermaid diagrams)
+            mermaid: {
+                theme: 'neutral', // default, forest, dark, neutral
+            }
+        });
+        
+        // Custom initialization for Mermaid
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+</html>

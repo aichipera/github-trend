@@ -1,0 +1,986 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>GitHub趋势揭示：AI工具链重构开发范式</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet" id="theme">
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --r-background-color: #f7f7f7; /* Light background for general slides */
+            --r-main-font-size: 1.1em;
+            --r-heading-font-weight: 700;
+            --r-link-color: #0096ff; /* Primary accent blue */
+            --r-link-color-hover: #007acc;
+            --r-selection-background-color: #0096ff;
+            
+            /* Custom Color Palette */
+            --primary-color: #0096ff; /* Deep Blue */
+            --secondary-color: #FFA500; /* Vibrant Orange */
+            --tertiary-color: #32CD32; /* Lime Green */
+            --text-dark: #1a1a1a;
+            --text-body: #333;
+            --text-light: #666;
+            --bg-light: #e6f7ff;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback",
+                         "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--text-body);
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--text-dark);
+            text-transform: none; /* Keep Chinese characters as is */
+            font-weight: var(--r-heading-font-weight);
+        }
+
+        .reveal h1 { font-size: 2.8rem; line-height: 1.2; }
+        .reveal h2 { font-size: 2.2rem; line-height: 1.3; }
+        .reveal h3 { font-size: 1.8rem; line-height: 1.4; }
+        .reveal h4 { font-size: 1.5rem; }
+        .reveal p { font-size: 1.1rem; line-height: 1.6; }
+        .reveal li { font-size: 1.1rem; line-height: 1.6; }
+        .reveal blockquote { border-left: 5px solid var(--primary-color); padding-left: 15px; margin: 20px 0; color: var(--text-light); }
+
+        .reveal .slides section {
+            padding: 40px; /* Consistent padding */
+        }
+
+        /* Custom background gradient for section titles */
+        .reveal .slides section[data-background-gradient] {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: #fff;
+        }
+
+        .reveal .slides section[data-background-gradient] h1,
+        .reveal .slides section[data-background-gradient] h2,
+        .reveal .slides section[data-background-gradient] h3,
+        .reveal .slides section[data-background-gradient] p {
+            color: #fff !important;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        }
+
+        /* Aha moment styling */
+        .aha-highlight {
+            color: var(--primary-color);
+            font-weight: 700;
+            transition: all 0.3s ease-in-out;
+        }
+        .aha-moment {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            font-weight: bold;
+            text-align: center;
+            margin-top: 50px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.03); opacity: 0.95; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* QR Code & Link positioning */
+        .footer-info {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            font-size: 0.8em;
+            color: #666;
+            z-index: 100;
+        }
+        .footer-info img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+        .footer-info a {
+            color: var(--text-light);
+            text-decoration: none;
+        }
+        .footer-info a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Project specific styling */
+        .project-section h3 {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .repo-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+            font-size: 0.95em;
+        }
+        .repo-stats div {
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+        }
+        .repo-stats i {
+            margin-right: 8px;
+            color: var(--primary-color);
+        }
+
+        .lang-breakdown {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+            font-size: 0.95em;
+        }
+        .lang-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.95em;
+        }
+        
+        /* Fragment styling for better visibility */
+        .reveal .fragment.fade-in {
+            opacity: 0;
+        }
+        .reveal .fragment.visible {
+            opacity: 1;
+            transition: opacity 0.8s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Title Slide -->
+            <section data-background-image="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-background-position="center center" data-background-size="cover" data-background-opacity="0.6">
+                <div class="absolute inset-0 bg-black opacity-40"></div>
+                <h1 class="text-white relative z-10 text-center aha-moment">
+                    GitHub趋势揭示：AI工具链重构开发范式<br>本地化部署与安全合规成新战场
+                </h1>
+                <h3 class="text-white relative z-10 text-center mt-6">
+                    🔥 今日最火爆的开源项目都在这 ⭐️
+                </h3>
+                <p class="text-gray-300 relative z-10 text-center mt-10 text-lg">
+                    演讲者：<span class="font-bold">AIChipEra</span>
+                    <br>Github热门仓库日报观测时间：<span class="font-bold">2025-07-19 20:26:16</span>
+                </p>
+                <div class="footer-info">
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra WeChat QR">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        https://github.com/aichipera/github-trend
+                    </a>
+                </div>
+            </section>
+
+            <!-- Slide 2: 日报要点 (Daily Summary) -->
+            <section data-background-color="#f0f8ff">
+                <h2>📊 日报要点：深水区下的技术突破</h2>
+                <ul class="list-disc text-left mx-auto max-w-3xl mt-10">
+                    <li class="mb-3 fragment fade-in">
+                        <span class="aha-highlight"><i class="fas fa-brain"></i> AI工程化落地</span> 进入深水区：
+                        <span class="font-bold">n8n</span>智能工作流与<span class="font-bold">ik_llama.cpp</span>本地大模型优化，从算力到生产级应用突破。
+                    </li>
+                    <li class="mb-3 fragment fade-in">
+                        <span class="aha-highlight"><i class="fas fa-shield-alt"></i> 安全领域</span> 呈现双螺旋演进：
+                        <span class="font-bold">Gitleaks</span>代码级防护前置，<span class="font-bold">Maigret</span>重构隐私攻防。
+                    </li>
+                    <li class="mb-3 fragment fade-in">
+                        <span class="aha-highlight"><i class="fas fa-code"></i> C++强势突围</span>：在<span class="font-bold">shadPS4</span>模拟器和<span class="font-bold">ik_llama.cpp</span>大模型项目中印证高性能场景刚需。
+                    </li>
+                </ul>
+                <p class="text-center text-sm text-gray-500 mt-10 fragment fade-in">
+                    本文深度解析边缘计算加速、智能工作流重构、安全工具商业化三大潜在爆发点。
+                </p>
+            </section>
+
+            <!-- Slide 3: 今日整体趋势 (Overall Trends Today) -->
+            <section data-background-color="#e0f0f8">
+                <h2>📈 今日GitHub技术趋势：创新双驱动</h2>
+                <div class="grid grid-cols-2 gap-8 text-left mt-10">
+                    <div class="fragment fade-in">
+                        <h3><i class="fas fa-robot text-primary-color"></i> AI工程化落地</h3>
+                        <ul class="list-disc ml-6">
+                            <li><span class="font-bold">AI原生工作流：</span>n8n自动化智能决策。</li>
+                            <li><span class="font-bold">实时视频生成：</span>LTX-Video加速内容创作。</li>
+                            <li><span class="font-bold">本地大模型：</span>ikllama.cpp优化边缘计算。</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h3><i class="fas fa-lock text-primary-color"></i> 安全合规工具链</h3>
+                        <ul class="list-disc ml-6">
+                            <li><span class="font-bold">代码级防护：</span>Gitleaks CI/CD集成。</li>
+                            <li><span class="font-bold">开源情报：</span>Maigret隐私攻防新战场。</li>
+                        </ul>
+                    </div>
+                    <div class="col-span-2 fragment fade-in">
+                        <h3><i class="fas fa-crosshairs text-primary-color"></i> 跨平台效率工具</h3>
+                        <ul class="list-disc ml-6">
+                            <li><span class="font-bold">桌面环境：</span>Hyprland Wayland合成器。</li>
+                            <li><span class="font-bold">全栈框架：</span>bknd「开箱即用」解决方案。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 4: 语言生态与技术需求转向 -->
+            <section data-background-color="#e6f2f7">
+                <h2>🚀 语言生态与技术需求新转向</h2>
+                <div class="grid grid-cols-2 gap-8 text-left mt-10">
+                    <div class="fragment fade-in">
+                        <h3><i class="fas fa-cogs text-secondary-color"></i> 语言生态：性能 + 易用双螺旋</h3>
+                        <ul class="list-disc ml-6">
+                            <li><span class="font-bold text-blue-700">C++:</span> 高性能场景统治 (Hyprland, ikllama.cpp)。</li>
+                            <li><span class="font-bold text-green-700">Go:</span> 并发优势云原生 (MediaMTX, Telegraf)。</li>
+                            <li><span class="font-bold text-yellow-700">Python:</span> 数据处理与安全工具 (Maigret, Open Deep Research)。</li>
+                            <li><span class="font-bold text-purple-700">TypeScript:</span> 全栈框架聚合 (Strapi, bknd)。</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h3><i class="fas fa-lightbulb text-secondary-color"></i> 技术需求：三大关键转向</h3>
+                        <ul class="list-disc ml-6">
+                            <li><span class="font-bold">本地化AI部署：</span>ikllama.cpp，算力自主掌控。</li>
+                            <li><span class="font-bold">安全工具前置：</span>Gitleaks CI/CD，主动合规。</li>
+                            <li><span class="font-bold">低代码与代码融合：</span>n8n，灵活性与可控性并存。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5: 对比历史趋势与下一波热点 -->
+            <section data-background-color="#d9edf7">
+                <h2>🔮 AI与安全：从实验室到生产级应用</h2>
+                <div class="grid grid-cols-2 gap-8 text-left mt-10">
+                    <div class="fragment fade-in">
+                        <h3><i class="fas fa-history text-tertiary-color"></i> 对比历史趋势：</h3>
+                        <ul class="list-disc ml-6">
+                            <li><span class="font-bold">AI工具：</span>从模型训练到<span class="aha-highlight">生产级应用</span> (LTX-Video)。</li>
+                            <li><span class="font-bold">安全工具：</span>从单一检测到<span class="aha-highlight">体系化防护</span> (Gitleaks基线管理)。</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h3><i class="fas fa-fire text-tertiary-color"></i> 下一波技术热点：</h3>
+                        <ul class="list-disc ml-6">
+                            <li><span class="font-bold">边缘计算与本地大模型优化</span>。</li>
+                            <li><span class="font-bold">智能工作流自动化</span>。</li>
+                            <li><span class="font-bold">开源安全工具商业化</span>。</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="text-center text-sm text-gray-600 mt-10 fragment fade-in">
+                    <span class="font-bold">今日趋势特有特征：</span> 技术民主化加速 & 工具链「极简主义」复兴。
+                </p>
+            </section>
+
+            <!-- Slide 6: 热门项目双日维度对比分析 -->
+            <section data-background-color="#d1e6f4">
+                <h2>📈 热门项目双日对比：热度与新星</h2>
+                <div class="grid grid-cols-2 gap-8 text-left mt-10">
+                    <div class="fragment fade-in">
+                        <h3><i class="fas fa-chart-line text-primary-color"></i> 热度变化趋势：</h3>
+                        <ul class="list-disc ml-6">
+                            <li>所有项目热度<span class="font-bold text-green-600">均呈上升</span>趋势 (0.6%-1.9%涨幅)。</li>
+                            <li><span class="font-bold">n8n-io/n8n</span> 持续领跑 (+673星)。</li>
+                            <li><span class="font-bold">maigret</span> 快速上升 (+308关注度)。</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h3><i class="fas fa-star text-primary-color"></i> 新项目特点：</h3>
+                        <ul class="list-disc ml-6">
+                            <li>覆盖流媒体 (mediamtx), 游戏模拟 (shadPS4), 安全 (Harden-Windows-Security), AI开发 (pytorch-deep-learning)。</li>
+                            <li><span class="font-bold">ik_llama.cpp</span> 将大模型本地化引入C++生态，探索边缘计算。</li>
+                        </ul>
+                    </div>
+                    <div class="col-span-2 fragment fade-in">
+                        <h3><i class="fas fa-language text-primary-color"></i> 编程语言分布变化：</h3>
+                        <ul class="list-disc ml-6">
+                            <li><span class="font-bold">Go</span> & <span class="font-bold">C++</span> 各新增2个项目。</li>
+                            <li><span class="font-bold">PowerShell</span> 回榜，<span class="font-bold">C#</span> 在安全工具渗透率提升。</li>
+                            <li>C++在模拟器与大模型推理场景双重突破。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7: 热点变化 (Hotspot Changes) -->
+            <section data-background-color="#cbe0ee">
+                <h2>🔥 热点项目更迭：新星、旧爱与常青树</h2>
+                <div class="grid grid-cols-3 gap-6 text-left mt-10">
+                    <div class="fragment fade-in">
+                        <h3><i class="fas fa-chart-line text-secondary-color"></i> 新增热点：</h3>
+                        <ul class="list-disc ml-4 text-sm">
+                            <li>bluenviron/mediamtx</li>
+                            <li>shadps4-emu/shadps4</li>
+                            <li>actions/runner-images</li>
+                            <li>mrdbourke/pytorch-deep-learning</li>
+                            <li>ikawrakow/ik_llama.cpp</li>
+                            <li>hotcakex/harden-windows-security</li>
+                            <li>github/github-mcp-server</li>
+                            <li>bknd-io/bknd</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h3><i class="fas fa-arrow-down text-secondary-color"></i> 减退热点：</h3>
+                        <ul class="list-disc ml-4 text-sm">
+                            <li>facebookresearch/segment-anything</li>
+                            <li>pydantic/pydantic-ai</li>
+                            <li>arc53/docsgpt</li>
+                            <li>promtengineer/localgpt</li>
+                            <li>microsoft/markitdown</li>
+                            <li>nicklockwood/swiftformat</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h3><i class="fas fa-circle-notch text-tertiary-color"></i> 持续热门（3次+）：</h3>
+                        <ul class="list-disc ml-4 text-sm">
+                            <li>langchain-ai/open_deep_research</li>
+                            <li>soxoj/maigret</li>
+                            <li>gitleaks/gitleaks</li>
+                            <li>Kyome22/RunCat365</li>
+                            <li>strapi/strapi</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Title: 详细仓库数据 -->
+            <section data-background-gradient data-background-color="#87CEEB">
+                <h1 class="text-white">🚀 详细仓库数据：洞察热门项目</h1>
+                <p class="text-white mt-4">深入了解每个热门项目的技术亮点与增长轨迹。</p>
+            </section>
+
+            <!-- Project Slides (Vertical Sections) -->
+
+            <!-- Project 1: hyprwm/Hyprland -->
+            <section class="project-section">
+                <h3><i class="fab fa-github"></i> hyprwm/Hyprland</h3>
+                <p class="text-gray-700 mb-4">
+                    项目简介: 一个独立、高度可定制、支持动态平铺的Wayland合成器，不牺牲美观。
+                </p>
+                <div class="repo-stats">
+                    <div><i class="fas fa-star"></i> Stars: 27.3k</div>
+                    <div><i class="fas fa-code-branch"></i> Forks: 1.2k</div>
+                    <div><i class="fas fa-eye"></i> Watchers: 113</div>
+                    <div><i class="fas fa-exclamation-circle"></i> Issues: 53</div>
+                    <div><i class="fas fa-code-compare"></i> Pull Requests: 29</div>
+                    <div><i class="fas fa-box-open"></i> Releases: 95</div>
+                    <div><i class="fas fa-code-commit"></i> Commits: 6,293</div>
+                    <div><i class="fas fa-file-contract"></i> License: BSD-3-Clause</div>
+                    <div><i class="fas fa-users"></i> Contributors: 476</div>
+                </div>
+                <div class="lang-breakdown mt-4">
+                    <span class="font-bold">语言占比:</span> C++ 95.5%, Shell 1.6%, GLSL 1.0%, Nix 0.9%
+                </div>
+
+                <div class="mt-8 text-left">
+                    <h4 class="text-primary-color"><i class="fas fa-book-reader"></i> 项目速读:</h4>
+                    <p class="fragment fade-in">Hyprland 是一个独立开发的动态平铺式 Wayland 合成器，致力于打破传统桌面环境在视觉表现与窗口管理灵活性上的局限。其最显著的技术突破在于其完全自主开发的渲染引擎，支持 OpenGL ES 3.2/Vulkan 后端，并通过贝塞尔曲线动画、动态模糊等创新特效将平铺窗口管理的机械感转化为流畅的视觉语言。</p>
+                    <p class="fragment fade-in">其动态布局系统采用贝尔曼-福特算法优化窗口排列，配合热加载配置与插件扩展机制，使用户能在不重启环境的前提下实时调整布局逻辑，这种「代码即配置」的灵活性远超传统合成器。</p>
+                    <p class="fragment fade-in">尽管需要较高硬件配置，但其热度印证了开源社区对「美观与效率并存」桌面范式的强烈需求。该项目现已成为 Wayland 生态中兼具技术深度与用户体验的标杆性项目。</p>
+                    <h4 class="text-tertiary-color mt-6"><i class="fas fa-chart-bar"></i> 增长分析:</h4>
+                    <p class="fragment fade-in">统计周期内仅2次上榜，平均单次增64星，总增209星，显示爆发式增长。当日新增62星，表明增长动能持续强劲，榜单效应显著拉动Star数攀升。</p>
+                </div>
+            </section>
+
+            <!-- Project 2: langchain-ai/open_deep_research -->
+            <section class="project-section">
+                <h3><i class="fab fa-github"></i> langchain-ai/open_deep_research</h3>
+                <p class="text-gray-700 mb-4">
+                    项目简介: 基于LangChain框架的深度研究代理系统。
+                </p>
+                <div class="repo-stats">
+                    <div><i class="fas fa-star"></i> Stars: 5.2k</div>
+                    <div><i class="fas fa-code-branch"></i> Forks: 727</div>
+                    <div><i class="fas fa-eye"></i> Watchers: 44</div>
+                    <div><i class="fas fa-exclamation-circle"></i> Issues: 15</div>
+                    <div><i class="fas fa-code-compare"></i> Pull Requests: 5</div>
+                    <div><i class="fas fa-box-open"></i> Releases: 0</div>
+                    <div><i class="fas fa-code-commit"></i> Commits: 181</div>
+                    <div><i class="fas fa-file-contract"></i> License: MIT</div>
+                    <div><i class="fas fa-users"></i> Contributors: 20</div>
+                </div>
+                <div class="lang-breakdown mt-4">
+                    <span class="font-bold">语言占比:</span> Python 67.5%, Jupyter Notebook 32.5%
+                </div>
+
+                <div class="mt-8 text-left">
+                    <h4 class="text-primary-color"><i class="fas fa-book-reader"></i> 项目速读:</h4>
+                    <p class="fragment fade-in">Open Deep Research 旨在解决复杂信息检索与结构化输出的效率瓶颈。通过整合多模型推理、搜索工具链和MCP服务器协议，实现了从原始数据采集到专业报告生成的全流程自动化，特别适用于跨源信息整合、多维度分析的学术研究、商业情报等场景。</p>
+                    <p class="fragment fade-in">其核心突破在于构建了异构模型协同体系：采用GPT-4系列模型分层处理任务，通过状态机驱动的工作流引擎实现异步任务编排。配合MCP协议实现的安全文件操作接口和分布式任务协调机制，系统既能处理本地私有数据，又可调用云端服务资源。</p>
+                    <p class="fragment fade-in">该项目价值体现在将传统数小时的人工研究流程压缩至分钟级自动完成，为研究者提供了可验证的智能辅助方案。作为LangChain生态的延伸，正在推动自动化研究工具向标准化、可扩展方向演进。</p>
+                    <h4 class="text-tertiary-color mt-6"><i class="fas fa-chart-bar"></i> 增长分析:</h4>
+                    <p class="fragment fade-in">仓库在3次上榜期间平均单次增244星，总增556星，末日单日暴增322星，呈现加速增长态势，显示项目热度持续攀升。</p>
+                </div>
+            </section>
+
+            <!-- Project 3: bluenviron/mediamtx -->
+            <section class="project-section">
+                <h3><i class="fab fa-github"></i> bluenviron/mediamtx</h3>
+                <p class="text-gray-700 mb-4">
+                    项目简介: 即开即用的SRT/WebRTC/RTSP/RTMP/LL-HLS媒体服务器及媒体代理。
+                </p>
+                <div class="repo-stats">
+                    <div><i class="fas fa-star"></i> Stars: 15.2k</div>
+                    <div><i class="fas fa-code-branch"></i> Forks: 1.8k</div>
+                    <div><i class="fas fa-eye"></i> Watchers: 166</div>
+                    <div><i class="fas fa-exclamation-circle"></i> Issues: 172</div>
+                    <div><i class="fas fa-code-compare"></i> Pull Requests: 16</div>
+                    <div><i class="fas fa-box-open"></i> Releases: 171</div>
+                    <div><i class="fas fa-code-commit"></i> Commits: 2,627</div>
+                    <div><i class="fas fa-file-contract"></i> License: MIT</div>
+                    <div><i class="fas fa-users"></i> Contributors: 95</div>
+                </div>
+                <div class="lang-breakdown mt-4">
+                    <span class="font-bold">语言占比:</span> Go 95.7%, JavaScript 2.0%, HTML 1.3%
+                </div>
+
+                <div class="mt-8 text-left">
+                    <h4 class="text-primary-color"><i class="fas fa-book-reader"></i> 项目速读:</h4>
+                    <p class="fragment fade-in">MediaMTX是一款基于Go语言开发的轻量级实时媒体服务器与代理工具，专注于解决多协议流媒体传输与协议转换难题。作为零依赖的单文件可执行程序，它通过统一接口实现RTSP/WebRTC/SRT/RTMP/LL-HLS等主流协议的无缝转换，典型应用于视频监控、直播推流、远程会议等场景。</p>
+                    <p class="fragment fade-in">其核心竞争力在于协议兼容性与部署灵活性的深度结合：内建媒体路由引擎可动态处理RTP/SRT传输层数据，配合WebRTC的浏览器直连能力实现毫秒级低延迟传输；同时通过静态编译技术消除环境依赖，单个二进制文件即可在嵌入式设备到云服务器的全场景运行。</p>
+                    <p class="fragment fade-in">该项目凭借极简架构成为物联网边缘计算领域的代表性方案，其价值在于将原本需要多组件协同的流媒体处理流程压缩为单一可控节点。</p>
+                    <h4 class="text-tertiary-color mt-6"><i class="fas fa-chart-bar"></i> 增长分析:</h4>
+                    <p class="fragment fade-in">统计周期内1次上榜，当日新增21星，显示项目在初次曝光后即展现出一定的吸引力。</p>
+                </div>
+            </section>
+
+            <!-- Project 4: shadps4-emu/shadPS4 -->
+            <section class="project-section">
+                <h3><i class="fab fa-github"></i> shadps4-emu/shadPS4</h3>
+                <p class="text-gray-700 mb-4">
+                    项目简介: 适用于Windows、Linux和macOS的PlayStation 4模拟器，采用C++编写。
+                </p>
+                <div class="repo-stats">
+                    <div><i class="fas fa-star"></i> Stars: 24.1k</div>
+                    <div><i class="fas fa-code-branch"></i> Forks: 1.6k</div>
+                    <div><i class="fas fa-eye"></i> Watchers: 168</div>
+                    <div><i class="fas fa-exclamation-circle"></i> Issues: 94</div>
+                    <div><i class="fas fa-code-compare"></i> Pull Requests: 29</div>
+                    <div><i class="fas fa-box-open"></i> Releases: 14</div>
+                    <div><i class="fas fa-code-commit"></i> Commits: 3,183</div>
+                    <div><i class="fas fa-file-contract"></i> License: GPL-2.0</div>
+                    <div><i class="fas fa-users"></i> Contributors: 163</div>
+                </div>
+                <div class="lang-breakdown mt-4">
+                    <span class="font-bold">语言占比:</span> C++ 98.6%, C 1.1%, CMake 0.3%
+                </div>
+
+                <div class="mt-8 text-left">
+                    <h4 class="text-primary-color"><i class="fas fa-book-reader"></i> 项目速读:</h4>
+                    <p class="fragment fade-in">shadPS4 是一个用 C++ 编写的跨平台 PlayStation 4 模拟器，旨在让 PC 用户通过软件模拟运行 PS4 游戏。它解决了游戏跨平台兼容性的痛点，使复杂作品能在 Windows、Linux 和 macOS 系统上流畅运行，为技术爱好者和开发者提供了研究与测试的工具。</p>
+                    <p class="fragment fade-in">项目最突出的技术特点是其基于 AMD GPU 架构的图形渲染优化方案，通过模块化设计参考 yuzu 编译器架构，实现了对多平台硬件的适配支持。跨平台控制器直连功能突破了传统模拟器的输入限制，而集成 RenderDoc 截图等调试工具则显著提升了开发效率。</p>
+                    <p class="fragment fade-in">作为 GPL-2.0 协议的开源项目，shadPS4 推动了模拟器技术社区的发展，其价值主要体现在技术验证和开发调试领域，适合高级用户探索 PS4 架构原理。</p>
+                    <h4 class="text-tertiary-color mt-6"><i class="fas fa-chart-bar"></i> 增长分析:</h4>
+                    <p class="fragment fade-in">仓库在5次上榜中实现4704 Stars增长，均次约398 Stars。最新单日激增1005 Stars，显示近期增长动能显著增强，呈波动上升趋势，核心增长依赖关键上榜节点。</p>
+                </div>
+            </section>
+
+            <!-- Project 5: soxoj/maigret -->
+            <section class="project-section">
+                <h3><i class="fab fa-github"></i> soxoj/maigret</h3>
+                <p class="text-gray-700 mb-4">
+                    项目简介: 通过用户名从数千个网站收集个人档案。
+                </p>
+                <div class="repo-stats">
+                    <div><i class="fas fa-star"></i> Stars: 16.6k</div>
+                    <div><i class="fas fa-code-branch"></i> Forks: 1.1k</div>
+                    <div><i class="fas fa-eye"></i> Watchers: 118</div>
+                    <div><i class="fas fa-exclamation-circle"></i> Issues: 273</div>
+                    <div><i class="fas fa-code-compare"></i> Pull Requests: 5</div>
+                    <div><i class="fas fa-box-open"></i> Releases: 22</div>
+                    <div><i class="fas fa-code-commit"></i> Commits: 1,048</div>
+                    <div><i class="fas fa-file-contract"></i> License: MIT</div>
+                    <div><i class="fas fa-users"></i> Contributors: 42</div>
+                </div>
+                <div class="lang-breakdown mt-4">
+                    <span class="font-bold">语言占比:</span> Python 66.1%, HTML 29.6%, Smarty 2.8%
+                </div>
+
+                <div class="mt-8 text-left">
+                    <h4 class="text-primary-color"><i class="fas fa-book-reader"></i> 项目速读:</h4>
+                    <p class="fragment fade-in">Maigret是一款基于Python的开源情报（OSINT）工具，旨在通过用户名自动检索3000余个网站的公开信息，构建目标人物的数字身份档案。它通过模拟侦探调查流程，解决人工搜索社交媒体、论坛等平台耗时低效的问题，特别适用于网络安全研究、数字取证及个人品牌监测场景。</p>
+                    <p class="fragment fade-in">项目核心技术亮点在于其异步HTTP请求架构与递归搜索机制：前者通过高效并发扫描显著提升数据采集速度，后者能基于新发现的用户名自动扩展搜索范围。同时，其智能过滤系统支持标签分类、反验证码检测及暗网（Tor/I2P）兼容，结合多格式可视化报告生成。</p>
+                    <p class="fragment fade-in">该项目凭借无需API密钥的特性，成为个人研究者和安全团队的实用工具。但其深度信息挖掘能力也引发隐私边界争议，使用者需严格遵循当地法律规范。高星增长印证了OSINT工具链在数字时代的重要价值。</p>
+                    <h4 class="text-tertiary-color mt-6"><i class="fas fa-chart-bar"></i> 增长分析:</h4>
+                    <p class="fragment fade-in">仓库在3次上榜中总Star增长826，平均单次增299，末次暴增524，呈显著加速趋势，反映项目吸引力持续增强，榜单效应带动爆发式增长。</p>
+                </div>
+            </section>
+            
+            <!-- Project 6: github/github-mcp-server -->
+            <section class="project-section">
+                <h3><i class="fab fa-github"></i> github/github-mcp-server</h3>
+                <p class="text-gray-700 mb-4">
+                    项目简介: GitHub 官方 Minecraft 服务器 (用于AI开发者，通过MCP协议整合GitHub能力)。
+                </p>
+                <div class="repo-stats">
+                    <div><i class="fas fa-star"></i> Stars: 17.8k</div>
+                    <div><i class="fas fa-code-branch"></i> Forks: 1.4k</div>
+                    <div><i class="fas fa-eye"></i> Watchers: 172</div>
+                    <div><i class="fas fa-exclamation-circle"></i> Issues: 114</div>
+                    <div><i class="fas fa-code-compare"></i> Pull Requests: 61</div>
+                    <div><i class="fas fa-box-open"></i> Releases: 13</div>
+                    <div><i class="fas fa-code-commit"></i> Commits: 317</div>
+                    <div><i class="fas fa-file-contract"></i> License: MIT</div>
+                    <div><i class="fas fa-users"></i> Contributors: 66</div>
+                </div>
+                <div class="lang-breakdown mt-4">
+                    <span class="font-bold">语言占比:</span> Go 98.8%, Shell 1.1%
+                </div>
+
+                <div class="mt-8 text-left">
+                    <h4 class="text-primary-color"><i class="fas fa-book-reader"></i> 项目速读:</h4>
+                    <p class="fragment fade-in">GitHub MCP Server 是一个面向AI开发者的中间件服务，通过MCP协议将GitHub平台能力与AI工具链深度整合，解决传统开发场景中人工处理重复性事务效率低、跨系统协作成本高等痛点。</p>
+                    <p class="fragment fade-in">其技术突破体现在三方面：首先，首创GitHub原生认证体系与MCP协议的融合方案；其次，通过容器化架构实现与主流IDE的即插即用集成；最后，智能解析引擎支持跨仓库代码图谱构建，使AI能基于项目全貌进行精准操作。</p>
+                    <p class="fragment fade-in">该项目特别适合规模化团队用于构建智能开发运维体系，在代码审查自动化、安全合规检测、跨项目知识图谱构建等场景中可释放显著效能。预示着GitHub正在通过标准化协议重塑AI时代软件开发生态。</p>
+                    <h4 class="text-tertiary-color mt-6"><i class="fas fa-chart-bar"></i> 增长分析:</h4>
+                    <p class="fragment fade-in">统计周期内1次上榜，当日新增239星，显示该项目在首次曝光后展现出强大吸引力。</p>
+                </div>
+            </section>
+
+            <!-- Project 7: remoteintech/remote-jobs -->
+            <section class="project-section">
+                <h3><i class="fab fa-github"></i> remoteintech/remote-jobs</h3>
+                <p class="text-gray-700 mb-4">
+                    项目简介: 半远程至全远程支持的科技公司（岗位）清单。
+                </p>
+                <div class="repo-stats">
+                    <div><i class="fas fa-star"></i> Stars: 32.4k</div>
+                    <div><i class="fas fa-code-branch"></i> Forks: 3.4k</div>
+                    <div><i class="fas fa-eye"></i> Watchers: 975</div>
+                    <div><i class="fas fa-exclamation-circle"></i> Issues: 21</div>
+                    <div><i class="fas fa-code-compare"></i> Pull Requests: 34</div>
+                    <div><i class="fas fa-box-open"></i> Releases: 0</div>
+                    <div><i class="fas fa-code-commit"></i> Commits: 2,822</div>
+                    <div><i class="fas fa-file-contract"></i> License: CC0-1.0</div>
+                    <div><i class="fas fa-users"></i> Contributors: 847</div>
+                </div>
+                <div class="lang-breakdown mt-4">
+                    <span class="font-bold">语言占比:</span> JavaScript 66.7%, HTML 20.6%, CSS 11.7%
+                </div>
+
+                <div class="mt-8 text-left">
+                    <h4 class="text-primary-color"><i class="fas fa-book-reader"></i> 项目速读:</h4>
+                    <p class="fragment fade-in">remoteintech/remote-jobs 是一个聚焦科技领域的远程工作机会数据库，通过系统化整理全球支持远程办公的企业信息，为求职者、企业HR及远程工作研究者提供精准的资源索引。解决了远程岗位信息分散、更新滞后等核心痛点。</p>
+                    <p class="fragment fade-in">其技术亮点在于极简的协作模式：通过将每个公司信息拆分为独立Markdown文件，配合规范指南，实现社区驱动的动态更新机制。这种设计既降低贡献门槛，又保障数据质量，使全球开发者能高效维护企业信息的准确性。</p>
+                    <p class="fragment fade-in">作为远程工作趋势的观测窗口，该项目的价值不仅体现在提供即时可用的岗位资源库，更通过开放协作模式推动远程办公生态的透明化。其轻量架构证明了用开源思维解决信息聚合问题的有效性。</p>
+                    <h4 class="text-tertiary-color mt-6"><i class="fas fa-chart-bar"></i> 增长分析:</h4>
+                    <p class="fragment fade-in">统计周期内两次上榜带动显著增长，总获352颗星，日均达176颗。今日新增68颗，虽低于平均但仍在高位，显示热度持续。</p>
+                </div>
+            </section>
+
+            <!-- Project 8: bknd-io/bknd -->
+            <section class="project-section">
+                <h3><i class="fab fa-github"></i> bknd-io/bknd</h3>
+                <p class="text-gray-700 mb-4">
+                    项目简介: 轻量级 Firebase/Supabase 替代方案，专为跨平台运行而设计。
+                </p>
+                <div class="repo-stats">
+                    <div><i class="fas fa-star"></i> Stars: 2.3k</div>
+                    <div><i class="fas fa-code-branch"></i> Forks: 68</div>
+                    <div><i class="fas fa-eye"></i> Watchers: 10</div>
+                    <div><i class="fas fa-exclamation-circle"></i> Issues: 10</div>
+                    <div><i class="fas fa-code-compare"></i> Pull Requests: 8</div>
+                    <div><i class="fas fa-box-open"></i> Releases: 28</div>
+                    <div><i class="fas fa-code-commit"></i> Commits: 606</div>
+                    <div><i class="fas fa-file-contract"></i> License: 未知</div>
+                    <div><i class="fas fa-users"></i> Contributors: 4</div>
+                </div>
+                <div class="lang-breakdown mt-4">
+                    <span class="font-bold">语言占比:</span> TypeScript 99.4%
+                </div>
+
+                <div class="mt-8 text-left">
+                    <h4 class="text-primary-color"><i class="fas fa-book-reader"></i> 项目速读:</h4>
+                    <p class="fragment fade-in">bknd 是一个轻量级全栈开发框架，旨在为开发者提供 Firebase 和 Supabase 的替代方案，通过一体化工具链简化后端开发。它聚焦解决传统开发中需重复集成多个独立服务的痛点，支持从原型设计到生产部署的全流程需求。</p>
+                    <p class="fragment fade-in">项目的核心竞争力体现在跨平台能力和开箱即用的体验上：基于 TypeScript 的模块化架构使其既能作为独立服务部署，也可无缝嵌入主流框架；对多运行时的支持，配合多数据库适配层，实现了「一处编写，随处运行」的灵活性。</p>
+                    <p class="fragment fade-in">该项目在活跃开发阶段已展现强大生态适应性，尤其适合中小型团队或对部署成本敏感的场景。其 Star 数的快速增长印证了开发者社区对轻量化全栈方案的迫切需求。</p>
+                    <h4 class="text-tertiary-color mt-6"><i class="fas fa-chart-bar"></i> 增长分析:</h4>
+                    <p class="fragment fade-in">统计周期内1次上榜，当日新增138星，显示项目首次曝光即获得显著关注，增长潜力较大。</p>
+                </div>
+            </section>
+
+            <!-- Project 9: mrdbourke/pytorch-deep-learning -->
+            <section class="project-section">
+                <h3><i class="fab fa-github"></i> mrdbourke/pytorch-deep-learning</h3>
+                <p class="text-gray-700 mb-4">
+                    项目简介: PyTorch 深度学习：从零到精通 课程资料。
+                </p>
+                <div class="repo-stats">
+                    <div><i class="fas fa-star"></i> Stars: 14.5k</div>
+                    <div><i class="fas fa-code-branch"></i> Forks: 4.1k</div>
+                    <div><i class="fas fa-eye"></i> Watchers: 138</div>
+                    <div><i class="fas fa-exclamation-circle"></i> Issues: 102</div>
+                    <div><i class="fas fa-code-compare"></i> Pull Requests: 11</div>
+                    <div><i class="fas fa-box-open"></i> Releases: 0</div>
+                    <div><i class="fas fa-code-commit"></i> Commits: 1,262</div>
+                    <div><i class="fas fa-file-contract"></i> License: MIT</div>
+                    <div><i class="fas fa-users"></i> Contributors: 58</div>
+                </div>
+                <div class="lang-breakdown mt-4">
+                    <span class="font-bold">语言占比:</span> Jupyter Notebook 100.0%
+                </div>
+
+                <div class="mt-8 text-left">
+                    <h4 class="text-primary-color"><i class="fas fa-book-reader"></i> 项目速读:</h4>
+                    <p class="fragment fade-in">这是一个面向深度学习初学者的PyTorch实践课程，旨在通过代码驱动的教学模式解决从零掌握深度学习框架的门槛问题。项目以Jupyter Notebook为核心载体，构建了包含免费视频、交互式代码示例和模块化实战案例的立体化学习体系。</p>
+                    <p class="fragment fade-in">其核心价值体现在三个维度：首先通过"代码即教材"的设计，将抽象概念转化为可操作的实验模块；其次采用渐进式课程架构，兼顾前沿技术跟踪与工业级落地能力培养；最后通过Weights & Biases等工具集成，系统化培养实验记录、超参数调优等工程化思维。</p>
+                    <p class="fragment fade-in">该项目特别适合编程经验3个月以上、需要快速构建深度学习项目能力的学习者。超过1.4万星标的社区热度印证了其实战教学模式的有效性，堪称深度学习入门领域标杆级开源课程。</p>
+                    <h4 class="text-tertiary-color mt-6"><i class="fas fa-chart-bar"></i> 增长分析:</h4>
+                    <p class="fragment fade-in">统计周期内1次上榜，当日新增43星，显示作为教程项目，其内容质量获得了社区的认可和持续关注。</p>
+                </div>
+            </section>
+
+            <!-- Project 10: n8n-io/n8n -->
+            <section class="project-section">
+                <h3><i class="fab fa-github"></i> n8n-io/n8n</h3>
+                <p class="text-gray-700 mb-4">
+                    项目简介: Fair-code工作流自动化平台，具备原生AI能力。
+                </p>
+                <div class="repo-stats">
+                    <div><i class="fas fa-star"></i> Stars: 121k</div>
+                    <div><i class="fas fa-code-branch"></i> Forks: 36.3k</div>
+                    <div><i class="fas fa-eye"></i> Watchers: 733</div>
+                    <div><i class="fas fa-exclamation-circle"></i> Issues: 559</div>
+                    <div><i class="fas fa-code-compare"></i> Pull Requests: 422</div>
+                    <div><i class="fas fa-box-open"></i> Releases: 362</div>
+                    <div><i class="fas fa-code-commit"></i> Commits: 14,658</div>
+                    <div><i class="fas fa-file-contract"></i> License: 未知</div>
+                    <div><i class="fas fa-users"></i> Contributors: 503</div>
+                </div>
+                <div class="lang-breakdown mt-4">
+                    <span class="font-bold">语言占比:</span> TypeScript 90.2%, Vue 8.0%, SCSS 1.1%
+                </div>
+
+                <div class="mt-8 text-left">
+                    <h4 class="text-primary-color"><i class="fas fa-book-reader"></i> 项目速读:</h4>
+                    <p class="fragment fade-in">n8n 是一个面向技术团队的工作流自动化平台，通过可视化编排与代码混合模式，解决企业级复杂自动化场景的快速构建难题。其核心价值在于将低代码开发与全栈扩展能力结合，满足从简单脚本到智能决策系统的多样化需求。</p>
+                    <p class="fragment fade-in">技术架构上采用Node.js后端与前端可视化编辑器分离设计，通过400+预置集成节点实现跨系统数据流的模块化组装。最具突破性的是其AI原生架构，创新性地将大模型代理工作流纳入自动化体系，使企业可构建具备自主推理能力的智能流程。</p>
+                    <p class="fragment fade-in">作为开源项目，其活跃社区生态与Docker容器化部署能力形成协同优势，既适合技术团队快速验证自动化场景，也支撑生产环境的高可用需求。提供了从本地测试到云端规模化部署的完整解决方案，特别适用于需要将AI能力深度融入业务流程的创新场景。</p>
+                    <h4 class="text-tertiary-color mt-6"><i class="fas fa-chart-bar"></i> 增长分析:</h4>
+                    <p class="fragment fade-in">仓库在16次上榜周期中实现总Star增长55011，场均增601.2，近榜次单日激增710，增长动能持续强化，呈现加速趋势。</p>
+                </div>
+            </section>
+
+            <!-- Project 11: gitleaks/gitleaks -->
+            <section class="project-section">
+                <h3><i class="fab fa-github"></i> gitleaks/gitleaks</h3>
+                <p class="text-gray-700 mb-4">
+                    项目简介: 用Gitleaks发现秘密🔑 (敏感信息检测工具)。
+                </p>
+                <div class="repo-stats">
+                    <div><i class="fas fa-star"></i> Stars: 22.1k</div>
+                    <div><i class="fas fa-code-branch"></i> Forks: 1.7k</div>
+                    <div><i class="fas fa-eye"></i> Watchers: 168</div>
+                    <div><i class="fas fa-exclamation-circle"></i> Issues: 207</div>
+                    <div><i class="fas fa-code-compare"></i> Pull Requests: 82</div>
+                    <div><i class="fas fa-box-open"></i> Releases: 185</div>
+                    <div><i class="fas fa-code-commit"></i> Commits: 1,249</div>
+                    <div><i class="fas fa-file-contract"></i> License: MIT</div>
+                    <div><i class="fas fa-users"></i> Contributors: 212</div>
+                </div>
+                <div class="lang-breakdown mt-4">
+                    <span class="font-bold">语言占比:</span> Go 99.3%
+                </div>
+
+                <div class="mt-8 text-left">
+                    <h4 class="text-primary-color"><i class="fas fa-book-reader"></i> 项目速读:</h4>
+                    <p class="fragment fade-in">gitleaks 是一个基于 Go 开发的开源敏感信息检测工具，专注于在代码提交前拦截仓库、文件或数据流中的密码、API 密钥等 500 余类敏感内容。通过正则匹配与熵值分析技术，它能精准识别高风险泄露案例，帮助开发者从源头防控安全漏洞。</p>
+                    <p class="fragment fade-in">其核心优势在于灵活的工程化能力：既可作为 GitHub Action 无缝集成到 CI/CD 流程，也能以 Git 预提交钩子实现本地实时拦截，覆盖开发全场景。独创的基线管理机制允许团队渐进式修复历史问题，避免"旧债"干扰新风险定位。</p>
+                    <p class="fragment fade-in">该项目以 MIT 协议开源，凭借轻量级架构与 Git 工具链深度整合，在云原生、DevSecOps 等场景中展现出极高价值。2.2 万 Star 数印证了其作为现代软件开发安全防线的标杆地位。</p>
+                    <h4 class="text-tertiary-color mt-6"><i class="fas fa-chart-bar"></i> 增长分析:</h4>
+                    <p class="fragment fade-in">在6次上榜期间，总Star增长1709（均值179.8），末次激增328 stars，表明增长加速且热度持续攀升。</p>
+                </div>
+            </section>
+
+            <!-- Project 12: Kyome22/RunCat365 -->
+            <section class="project-section">
+                <h3><i class="fab fa-github"></i> Kyome22/RunCat365</h3>
+                <p class="text-gray-700 mb-4">
+                    项目简介: 在您的Windows任务栏上显示一个可爱的跑步猫动画。
+                </p>
+                <div class="repo-stats">
+                    <div><i class="fas fa-star"></i> Stars: 8.4k</div>
+                    <div><i class="fas fa-code-branch"></i> Forks: 700</div>
+                    <div><i class="fas fa-eye"></i> Watchers: 48</div>
+                    <div><i class="fas fa-exclamation-circle"></i> Issues: 17</div>
+                    <div><i class="fas fa-code-compare"></i> Pull Requests: 2</div>
+                    <div><i class="fas fa-box-open"></i> Releases: 13</div>
+                    <div><i class="fas fa-code-commit"></i> Commits: 146</div>
+                    <div><i class="fas fa-file-contract"></i> License: Apache-2.0</div>
+                    <div><i class="fas fa-users"></i> Contributors: 20</div>
+                </div>
+                <div class="lang-breakdown mt-4">
+                    <span class="font-bold">语言占比:</span> C# 100.0%
+                </div>
+
+                <div class="mt-8 text-left">
+                    <h4 class="text-primary-color"><i class="fas fa-book-reader"></i> 项目速读:</h4>
+                    <p class="fragment fade-in">Kyome22/RunCat365 是一个专为 Windows 任务栏设计的趣味性动态美化工具，通过在任务栏实时渲染奔跑的猫咪动画，为用户提供轻松愉悦的桌面交互体验。利用 GDI+/Direct2D 图形技术实现低资源占用的流畅动画效果。</p>
+                    <p class="fragment fade-in">项目的核心价值在于将原本静态的任务栏转化为动态交互载体，既满足了个性化审美需求，又通过开源特性为二次开发提供了扩展空间。其轻量化设计和可定制性使其成为追求桌面趣味性用户的理想选择。</p>
+                    <p class="fragment fade-in">当前 8395 颗星标的热度印证了其在趣味工具类开源项目中的独特吸引力。</p>
+                    <h4 class="text-tertiary-color mt-6"><i class="fas fa-chart-bar"></i> 增长分析:</h4>
+                    <p class="fragment fade-in">仓库3日内3次登上榜单，Star数持续增长，平均每次增210.3，累计增长357。今日新增242，超均值表现，凸显榜单曝光对增长的显著拉动效应。</p>
+                </div>
+            </section>
+
+            <!-- Project 13: Lightricks/LTX-Video -->
+            <section class="project-section">
+                <h3><i class="fab fa-github"></i> Lightricks/LTX-Video</h3>
+                <p class="text-gray-700 mb-4">
+                    项目简介: LTX-Video的官方仓库 (DiT架构实时视频生成模型)。
+                </p>
+                <div class="repo-stats">
+                    <div><i class="fas fa-star"></i> Stars: 7.3k</div>
+                    <div><i class="fas fa-code-branch"></i> Forks: 632</div>
+                    <div><i class="fas fa-eye"></i> Watchers: 81</div>
+                    <div><i class="fas fa-exclamation-circle"></i> Issues: 55</div>
+                    <div><i class="fas fa-code-compare"></i> Pull Requests: 8</div>
+                    <div><i class="fas fa-box-open"></i> Releases: 0</div>
+                    <div><i class="fas fa-code-commit"></i> Commits: 83</div>
+                    <div><i class="fas fa-file-contract"></i> License: Apache-2.0</div>
+                    <div><i class="fas fa-users"></i> Contributors: 14</div>
+                </div>
+                <div class="lang-breakdown mt-4">
+                    <span class="font-bold">语言占比:</span> Python 100.0%
+                </div>
+
+                <div class="mt-8 text-left">
+                    <h4 class="text-primary-color"><i class="fas fa-book-reader"></i> 项目速读:</h4>
+                    <p class="fragment fade-in">Lightricks推出的LTX-Video是全球首个基于DiT架构的实时视频生成模型，突破了传统扩散模型在视频生成速度与质量上的瓶颈。实现了1216×704分辨率、30FPS视频的秒级生成，且生成速度不受视频时长限制，为影视创作、广告设计等实时性要求高的场景提供了全新可能。</p>
+                    <p class="fragment fade-in">其核心技术优势体现在：采用DiT架构实现13B参数量级的大规模建模能力，结合时空上采样器和TeaCache缓存系统，显著提升长视频生成稳定性；FP8量化技术将显存需求压缩至1GB，使消费级设备也能运行。</p>
+                    <p class="fragment fade-in">项目通过开源商业友好的OpenRail-M协议，推动了AI视频生成技术的普惠化应用。特别适用于需要快速生成高质量动态内容的影视工业、虚拟场景构建等领域，标志着AI视频生成从实验室研究走向规模化商业应用的关键转折。</p>
+                    <h4 class="text-tertiary-color mt-6"><i class="fas fa-chart-bar"></i> 增长分析:</h4>
+                    <p class="fragment fade-in">仓库在6次上榜期间平均日增214星，总增长3181星表现亮眼，但最近单日仅增86星，需警惕增长动能减弱风险。</p>
+                </div>
+            </section>
+
+            <!-- Project 14: strapi/strapi -->
+            <section class="project-section">
+                <h3><i class="fab fa-github"></i> strapi/strapi</h3>
+                <p class="text-gray-700 mb-4">
+                    项目简介: 🚀 Strapi 是领先的开源无头内容管理系统。
+                </p>
+                <div class="repo-stats">
+                    <div><i class="fas fa-star"></i> Stars: 68.3k</div>
+                    <div><i class="fas fa-code-branch"></i> Forks: 8.8k</div>
+                    <div><i class="fas fa-eye"></i> Watchers: 660</div>
+                    <div><i class="fas fa-exclamation-circle"></i> Issues: 995</div>
+                    <div><i class="fas fa-code-compare"></i> Pull Requests: 156</div>
+                    <div><i class="fas fa-box-open"></i> Releases: 473</div>
+                    <div><i class="fas fa-code-commit"></i> Commits: 36,223</div>
+                    <div><i class="fas fa-file-contract"></i> License: 未知</div>
+                    <div><i class="fas fa-users"></i> Contributors: 1,005</div>
+                </div>
+                <div class="lang-breakdown mt-4">
+                    <span class="font-bold">语言占比:</span> TypeScript 84.7%, JavaScript 15.2%
+                </div>
+
+                <div class="mt-8 text-left">
+                    <h4 class="text-primary-color"><i class="fas fa-book-reader"></i> 项目速读:</h4>
+                    <p class="fragment fade-in">Strapi 是一个基于 Node.js 和 TypeScript 构建的开源无头内容管理系统（CMS），专为解决传统 CMS 在灵活性与开发效率上的局限而设计。它通过去中心化的内容管理架构，允许开发者以代码优先的方式构建可扩展的 API，并自由对接任意前端框架。</p>
+                    <p class="fragment fade-in">其核心优势在于技术栈的现代化与模块化设计——支持 REST/GraphQL 双协议、多数据库适配、动态内容模型构建工具，以及基于角色的权限控制体系。作为开发者优先的工具，其价值体现在对内容管理全流程的抽象与简化。</p>
+                    <p class="fragment fade-in">尽管自托管模式对技术能力有一定要求，但其 MIT 开源协议与活跃的社区生态降低了使用门槛，成为连接内容管理效率与技术自主性的关键桥梁。</p>
+                    <h4 class="text-tertiary-color mt-6"><i class="fas fa-chart-bar"></i> 增长分析:</h4>
+                    <p class="fragment fade-in">该仓库统计周期内仅4次上榜，Star数激增994，平均单次增长97，末日单日暴增260，显示增长动能持续强化，榜单效应显著撬动热度。</p>
+                </div>
+            </section>
+
+            <!-- Project 15: influxdata/telegraf -->
+            <section class="project-section">
+                <h3><i class="fab fa-github"></i> influxdata/telegraf</h3>
+                <p class="text-gray-700 mb-4">
+                    项目简介: 用于收集、处理、聚合和写入指标、日志及其他任意数据的代理。
+                </p>
+                <div class="repo-stats">
+                    <div><i class="fas fa-star"></i> Stars: 15.9k</div>
+                    <div><i class="fas fa-code-branch"></i> Forks: 5.7k</div>
+                    <div><i class="fas fa-eye"></i> Watchers: 305</div>
+                    <div><i class="fas fa-exclamation-circle"></i> Issues: 384</div>
+                    <div><i class="fas fa-code-compare"></i> Pull Requests: 27</div>
+                    <div><i class="fas fa-box-open"></i> Releases: 198</div>
+                    <div><i class="fas fa-code-commit"></i> Commits: 9,875</div>
+                    <div><i class="fas fa-file-contract"></i> License: MIT</div>
+                    <div><i class="fas fa-users"></i> Contributors: 1,340</div>
+                </div>
+                <div class="lang-breakdown mt-4">
+                    <span class="font-bold">语言占比:</span> Go 99.5%, Shell 0.3%, Makefile 0.1%
+                </div>
+
+                <div class="mt-8 text-left">
+                    <h4 class="text-primary-color"><i class="fas fa-book-reader"></i> 项目速读:</h4>
+                    <p class="fragment fade-in">Telegraf是InfluxData推出的开源数据代理工具，旨在解决多源异构数据采集、处理与传输的通用难题。作为轻量级可扩展的监控数据管道，它通过统一架构连接数据源与存储系统，为运维监控、业务分析及告警系统提供端到端解决方案。</p>
+                    <p class="fragment fade-in">其核心竞争力在于300+内置插件构建的生态体系，覆盖硬件资源、云服务、工业协议等全场景数据源，配合输入-处理-聚合-输出的模块化流水线设计，实现数据清洗、转换与格式标准化的零代码配置。</p>
+                    <p class="fragment fade-in">MIT许可模式下形成的活跃开发者社区，持续推动着插件库更新与云原生特性演进，使其成为Prometheus之外监控领域的事实标准组件。无论是物联网设备日志采集，还是混合云环境指标聚合，Telegraf都以灵活扩展性和低运维成本展现出显著工程价值。</p>
+                    <h4 class="text-tertiary-color mt-6"><i class="fas fa-chart-bar"></i> 增长分析:</h4>
+                    <p class="fragment fade-in">统计周期内上榜2次，平均每次增5.5星，总增111星，当前日增7星。榜单曝光驱动稳定增长，近期增速略超均值，短期增长动能较强。</p>
+                </div>
+            </section>
+
+            <!-- Project 16: actions/runner-images -->
+            <section class="project-section">
+                <h3><i class="fab fa-github"></i> actions/runner-images</h3>
+                <p class="text-gray-700 mb-4">
+                    项目简介: GitHub Actions运行器镜像。
+                </p>
+                <div class="repo-stats">
+                    <div><i class="fas fa-star"></i> Stars: 11.5k</div>
+                    <div><i class="fas fa-code-branch"></i> Forks: 3.4k</div>
+                    <div><i class="fas fa-eye"></i> Watchers: 306</div>
+                    <div><i class="fas fa-exclamation-circle"></i> Issues: 35</div>
+                    <div><i class="fas fa-code-compare"></i> Pull Requests: 6</div>
+                    <div><i class="fas fa-box-open"></i> Releases: 1,763</div>
+                    <div><i class="fas fa-code-commit"></i> Commits: 6,382</div>
+                    <div><i class="fas fa-file-contract"></i> License: MIT</div>
+                    <div><i class="fas fa-users"></i> Contributors: 317</div>
+                </div>
+                <div class="lang-breakdown mt-4">
+                    <span class="font-bold">语言占比:</span> PowerShell 68.5%, Shell 19.2%, HCL 11.7%
+                </div>
+
+                <div class="mt-8 text-left">
+                    <h4 class="text-primary-color"><i class="fas fa-book-reader"></i> 项目速读:</h4>
+                    <p class="fragment fade-in">actions/runner-images 是 GitHub 官方维护的自动化镜像仓库，为 GitHub Actions 和 Azure Pipelines 提供开箱即用的持续集成/交付（CI/CD）环境。该项目通过预装开发工具链和运行时依赖的虚拟机镜像，解决了开发者在构建跨平台自动化流程时需反复配置环境的痛点。</p>
+                    <p class="fragment fade-in">其核心价值体现在三方面：首先，通过多系统覆盖及版本矩阵管理，实现「一次定义，全平台运行」的构建兼容性；其次，采用 -latest 动态标签与固定版本并行的策略，在保持环境更新及时性的同时，避免升级风险；更重要的是，每周安全更新与工具集成的持续维护机制，让开发者无需投入额外成本即可获得企业级安全合规的构建环境。</p>
+                    <p class="fragment fade-in">该方案特别适用于需要跨 OS 测试的开源项目维护者、追求构建环境标准化的中大型研发团队，以及依赖 GitHub 生态进行自动化发布的开发者。</p>
+                    <h4 class="text-tertiary-color mt-6"><i class="fas fa-chart-bar"></i> 增长分析:</h4>
+                    <p class="fragment fade-in">仓库在两次上榜期间平均每次新增10星，累计增长352星，当前日增11星，榜单推动效果显著且增长势头持续强劲。</p>
+                </div>
+            </section>
+
+            <!-- Project 17: HotCakeX/Harden-Windows-Security -->
+            <section class="project-section">
+                <h3><i class="fab fa-github"></i> HotCakeX/Harden-Windows-Security</h3>
+                <p class="text-gray-700 mb-4">
+                    项目简介: 安全加固Windows系统，采用微软官方支持的方法并附带正确说明。
+                </p>
+                <div class="repo-stats">
+                    <div><i class="fas fa-star"></i> Stars: 2.7k</div>
+                    <div><i class="fas fa-code-branch"></i> Forks: 219</div>
+                    <div><i class="fas fa-eye"></i> Watchers: 49</div>
+                    <div><i class="fas fa-exclamation-circle"></i> Issues: 18</div>
+                    <div><i class="fas fa-code-compare"></i> Pull Requests: 0</div>
+                    <div><i class="fas fa-box-open"></i> Releases: 167</div>
+                    <div><i class="fas fa-code-commit"></i> Commits: 4,274</div>
+                    <div><i class="fas fa-file-contract"></i> License: MIT</div>
+                    <div><i class="fas fa-users"></i> Contributors: 19</div>
+                </div>
+                <div class="lang-breakdown mt-4">
+                    <span class="font-bold">语言占比:</span> C# 91.8%, Rust 4.4%, C++ 2.0%, PowerShell 1.8%
+                </div>
+
+                <div class="mt-8 text-left">
+                    <h4 class="text-primary-color"><i class="fas fa-book-reader"></i> 项目速读:</h4>
+                    <p class="fragment fade-in">Harden-Windows-Security 是一个专注于通过微软官方安全机制提升 Windows 系统防护能力的开源工具集，旨在解决用户在系统加固过程中依赖非官方工具导致的兼容性风险与策略不可追溯问题。</p>
+                    <p class="fragment fade-in">项目核心采用 PowerShell 模块化设计，提供安全加固、合规检查及配置回滚等关键功能，其最大技术优势在于完全基于微软官方文档推荐的安全策略模板，通过组策略、Windows Defender API 等原生机制实现系统级防护。</p>
+                    <p class="fragment fade-in">该项目的实际价值体现在其权威性与可审计性——所有安全配置均可溯源至微软官方技术文档，既规避了第三方驱动或软件的潜在冲突风险，又为企业级用户提供了合规审计依据。成为平衡安全性与实用性的标杆级工具。</p>
+                    <h4 class="text-tertiary-color mt-6"><i class="fas fa-chart-bar"></i> 增长分析:</h4>
+                    <p class="fragment fade-in">统计周期内1次上榜，当日新增6星，显示作为专业安全工具，其被特定用户群体认可。</p>
+                </div>
+            </section>
+
+            <!-- Project 18: ikawrakow/ik_llama.cpp -->
+            <section class="project-section">
+                <h3><i class="fab fa-github"></i> ikawrakow/ik_llama.cpp</h3>
+                <p class="text-gray-700 mb-4">
+                    项目简介: llama.cpp 分支，包含额外的最先进量化技术并提升性能。
+                </p>
+                <div class="repo-stats">
+                    <div><i class="fas fa-star"></i> Stars: 698</div>
+                    <div><i class="fas fa-code-branch"></i> Forks: 67</div>
+                    <div><i class="fas fa-eye"></i> Watchers: 17</div>
+                    <div><i class="fas fa-exclamation-circle"></i> Issues: 21</div>
+                    <div><i class="fas fa-code-compare"></i> Pull Requests: 18</div>
+                    <div><i class="fas fa-box-open"></i> Releases: 0</div>
+                    <div><i class="fas fa-code-commit"></i> Commits: 3,808</div>
+                    <div><i class="fas fa-file-contract"></i> License: MIT</div>
+                    <div><i class="fas fa-users"></i> Contributors: 27</div>
+                </div>
+                <div class="lang-breakdown mt-4">
+                    <span class="font-bold">语言占比:</span> C++ 60.6%, C 16.6%, Cuda 9.8%, Python 5.2%
+                </div>
+
+                <div class="mt-8 text-left">
+                    <h4 class="text-primary-color"><i class="fas fa-book-reader"></i> 项目速读:</h4>
+                    <p class="fragment fade-in">ikllama.cpp 是基于 llama.cpp 的高性能分支，专注于解决大语言模型在消费级硬件上推理效率低下的痛点。通过创新性量化技术与混合计算架构，实现了 CPU 与 GPU 协同环境下的推理性能突破，使 LLaMA-3、DeepSeek 等主流模型能在 16GB 内存 PC 或树莓派等嵌入式设备流畅运行。</p>
+                    <p class="fragment fade-in">其核心技术优势体现在三方面：首先，首创 IQ2KT/IQ4KT 等量化方案，在 1-8 位精度压缩下保持接近 FP16 的推理质量；其次，Tensor Overrides 技术动态分配 GPU/CPU 权重存储，配合 FlashMLA 加速引擎，使 DeepSeek-67B 在 RTX 4090 上达到 180 tokens/s 的生成速度；最后，针对 Zen4/NEON 指令集优化的计算引擎，结合 Smart Expert Reduction 技术，实现高性能推理。</p>
+                    <p class="fragment fade-in">该项目通过系统级优化重构了大模型部署范式，将高端 AI 推理能力扩展到移动终端和边缘服务器。其 MIT 开源协议与跨平台支持特性，为开发者提供了低成本、低门槛的本地化 AI 解决方案。</p>
+                    <h4 class="text-tertiary-color mt-6"><i class="fas fa-chart-bar"></i> 增长分析:</h4>
+                    <p class="fragment fade-in">统计周期内1次上榜，当日新增8星，显示其在高性能AI推理领域有特定关注。</p>
+                </div>
+            </section>
+
+            <!-- Final Slide: Call to Action/Thank You -->
+            <section data-background-image="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-background-position="center center" data-background-size="cover" data-background-opacity="0.6">
+                <div class="absolute inset-0 bg-black opacity-50"></div>
+                <h1 class="text-white relative z-10 text-center aha-moment">
+                    感谢您的聆听！
+                </h1>
+                <p class="text-gray-300 relative z-10 text-center mt-10 text-2xl font-light">
+                    今日GitHub趋势揭示了 <span class="font-bold text-primary-color">AI工程化</span>、<span class="font-bold text-secondary-color">安全合规</span> 与 <span class="font-bold text-tertiary-color">高效工具</span> 的未来。
+                </p>
+                <p class="text-gray-300 relative z-10 text-center mt-6 text-xl">
+                    期待未来更多「灵光一现」的开源创新。
+                </p>
+                <div class="footer-info">
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra WeChat QR">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        https://github.com/aichipera/github-trend
+                    </a>
+                    <span class="text-gray-400 mt-2">演讲者：AIChipEra</span>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <script>
+        // Initialize Mermaid (optional, as no mermaid diagrams are used in this specific content)
+        mermaid.initialize({ startOnLoad: false });
+
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            transitionSpeed: 'default', // default/fast/slow
+
+            // Default plugins from boilerplate
+            plugins: [
+                // If you use Markdown in your slides, uncomment below.
+                // RevealMarkdown,
+                // RevealHighlight, // For code highlighting
+                // RevealNotes // For speaker notes
+            ]
+        });
+
+        // Ensure mermaid diagrams are rendered when slide changes
+        Reveal.on('slidechanged', event => {
+            const currentSlide = event.currentSlide;
+            if (currentSlide.querySelector('.mermaid')) {
+                mermaid.init(undefined, currentSlide.querySelectorAll('.mermaid'));
+            }
+        });
+    </script>
+</body>
+</html>

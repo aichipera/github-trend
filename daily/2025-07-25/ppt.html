@@ -1,0 +1,1278 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GitHub技术风向标：AI应用、底层基建与开发者效率新格局</title>
+
+    <!-- Core framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+
+    <!-- Extended dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --r-background-color: #f0f2f5; /* Light grey for background */
+            --r-main-color: #343a40; /* Dark charcoal for body text */
+            --r-heading-color: #212529; /* Even darker for headings */
+            --r-link-color: #007bff; /* Primary blue for links */
+            --r-link-color-hover: #0056b3; /* Darker blue on hover */
+            --r-accent-color: #17a2b8; /* Teal for highlights/icons */
+            --r-secondary-accent-color: #ffc107; /* Yellow for specific emphasis */
+        }
+
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback",
+                         "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--r-main-color);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--r-heading-color);
+        }
+
+        h1 { font-size: 3.2rem; line-height: 1.2; }
+        h2 { font-size: 2.5rem; line-height: 1.3; }
+        h3 { font-size: 2rem; }
+        h4 { font-size: 1.6rem; }
+        h5 { font-size: 1.3rem; }
+        h6 { font-size: 1rem; }
+
+        .reveal .slides section p,
+        .reveal .slides section li {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        /* Adjusting for specific elements */
+        .reveal .slides section.cover h1 {
+            font-size: 4.5rem; /* Larger for cover title */
+            line-height: 1.1;
+            color: white; /* White text on dark background */
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+        }
+        .reveal .slides section.cover h2 {
+            font-size: 2.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 1px 1px 6px rgba(0,0,0,0.6);
+        }
+        .reveal .slides section.cover .speaker-info {
+            font-size: 1.6rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-shadow: 1px 1px 6px rgba(0,0,0,0.6);
+        }
+
+        /* Custom background for cover slide */
+        .reveal .slides section.cover {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* Dark blue/green gradient */
+            /* Or use a subtle image */
+            /* background-image: url('https://source.unsplash.com/random/1920x1080/?tech,network,abstract'); */
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Project link and QR code footer */
+        .slide-footer {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7); /* Lighter color for visibility on dark bg */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            z-index: 1000; /* Ensure it's above other content */
+        }
+        .slide-footer.light-text {
+            color: rgba(52, 58, 64, 0.7); /* Darker color for visibility on light bg */
+            text-shadow: none;
+        }
+        .slide-footer img {
+            height: 60px;
+            width: 60px;
+            margin-left: 10px;
+            border-radius: 5px;
+            opacity: 0.9;
+        }
+        .slide-footer a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .slide-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Enhance specific sections */
+        .reveal .slides section.highlight-section {
+            background: linear-gradient(45deg, #e3f2fd, #bbdefb); /* Light blue gradient */
+        }
+
+        .reveal .slides section.dark-section {
+            background: linear-gradient(135deg, #37474F, #263238);
+            color: white;
+        }
+        .reveal .slides section.dark-section h2,
+        .reveal .slides section.dark-section h3 {
+            color: #E0E0E0;
+        }
+
+        /* Table styling */
+        .reveal table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1rem;
+            text-align: left;
+        }
+        .reveal table th, .reveal table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }
+        .reveal table th {
+            background-color: var(--r-accent-color);
+            color: white;
+            font-weight: 500;
+        }
+        .reveal table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .reveal table tr:hover {
+            background-color: #ddd;
+        }
+
+        /* List styling with icons */
+        .reveal ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .reveal ul li {
+            padding-left: 1.8rem;
+            position: relative;
+            margin-bottom: 0.8em;
+        }
+        .reveal ul li .icon {
+            position: absolute;
+            left: 0;
+            color: var(--r-accent-color);
+            font-size: 1.2em;
+        }
+        .reveal ul.checkmark-list li .icon {
+            color: #28a745; /* Green for checkmarks */
+        }
+        .reveal ul.star-list li .icon {
+            color: var(--r-secondary-accent-color); /* Yellow for stars */
+        }
+
+        /* Fragment animations */
+        .reveal .fragment.fade-in-then-semi-out:not(.visible) { opacity: 0; }
+        .reveal .fragment.fade-in-then-semi-out.current-fragment { opacity: 0.5; }
+        .reveal .fragment.fade-in-then-semi-out.visible { opacity: 1; }
+        .reveal .fragment.fade-in-then-semi-out.current-fragment.visible { opacity: 1; }
+
+        /* QR code for projects */
+        .project-qr {
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            opacity: 0.8;
+        }
+        .project-qr-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Cover Slide -->
+            <section class="cover text-center flex flex-col justify-center items-center relative">
+                <h2 class="text-xl mb-4 font-normal tracking-wide">洞悉技术新风向，转发给你的开发伙伴！</h2>
+                <h1 class="text-6xl font-extrabold mb-8 leading-tight">GitHub技术风向标：<br>AI应用、底层基建与开发者效率新格局</h1>
+                <p class="speaker-info text-2xl mt-6">演讲者：AIChipEra</p>
+                <p class="text-sm italic mt-2 text-gray-300">Github热门仓库<strong class="font-bold">日报</strong>观测时间为 <strong class="font-bold">2025-07-25 21:05:12</strong></p>
+                <p class="text-sm italic mt-1 text-gray-300"><strong>以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</strong></p>
+
+                <div class="slide-footer">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        https://github.com/aichipera/github-trend
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+            <!-- 日报要点 -->
+            <section class="highlight-section text-left p-8">
+                <h2 class="text-center mb-8">日报要点</h2>
+                <div class="text-gray-700 leading-relaxed max-w-3xl mx-auto">
+                    <p class="fragment fade-in-then-semi-out">
+                        最新GitHub趋势深度揭示：技术浪潮正由概念涌向实战。
+                    </p>
+                    <p class="fragment fade-in-then-semi-out">
+                        <span class="font-semibold text-lg text-blue-700">AI不再止于模型</span>，而是聚焦高效能、高隐私的落地应用，本地化智能工具如雨后春笋。
+                    </p>
+                    <p class="fragment fade-in-then-semi-out">
+                        同时，对<span class="font-semibold text-lg text-red-700">极致性能与自主掌控的底层基础设施</span>需求强劲，Rust和Go语言成为构建核心系统的利器。
+                    </p>
+                    <p class="fragment fade-in-then-semi-out">
+                        更有<span class="font-semibold text-lg text-green-700">稳健的开发者工具</span>持续发力，全方位提升团队生产力。
+                    </p>
+                    <p class="fragment fade-in-then-semi-out mt-4 text-md italic text-gray-600">
+                        这不仅描绘了当下技术版图，更指明了未来技术创新与价值创造的融合方向。
+                    </p>
+                    <p class="fragment fade-in-then-semi-out mt-8 text-center text-blue-500 font-semibold">
+                        本PPT在线预览: <a href="https://aichipera.github.io/github-trend/daily/2025-07-25/ppt.html" target="_blank">https://aichipera.github.io/github-trend/daily/2025-07-25/ppt.html</a>
+                    </p>
+                </div>
+            </section>
+
+            <!-- 热门项目趋势分析 -->
+            <section>
+                <h2 class="text-center mb-8">热门项目趋势分析</h2>
+                <h3 class="text-left mb-6 text-gray-700"><i class="fas fa-chart-line text-blue-600 mr-3"></i>今日整体趋势深度洞察</h3>
+                <div class="grid grid-cols-2 gap-8 text-left text-lg">
+                    <div class="fragment fade-in">
+                        <h4 class="text-blue-600 mb-3"><i class="fas fa-brain mr-2"></i>AI驱动的实用化与隐私边界</h4>
+                        <ul class="list-none pl-0">
+                            <li class="mb-2"><i class="fas fa-check-circle text-green-500 mr-2"></i>Qwen3-Coder: AI在软件工程中扮演核心角色</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-green-500 mr-2"></i>OpenBB: AI赋能金融分析</li>
+                            <li class="mb-2"><i class="fas fa-shield-alt text-purple-600 mr-2"></i>Resume-Matcher: 本地优先，隐私至上AI应用典范</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h4 class="text-red-600 mb-3"><i class="fas fa-server mr-2"></i>高性能基础设施与开发者掌控</h4>
+                        <ul class="list-none pl-0">
+                            <li class="mb-2"><i class="fas fa-bolt text-yellow-500 mr-2"></i>Rust: 金融科技高性能支付交换 (Hyperswitch)</li>
+                            <li class="mb-2"><i class="fas fa-cloud mr-2"></i>Go: 自托管邮件服务器 (BillionMail), 容器核心 (Moby)</li>
+                            <li class="mb-2"><i class="fas fa-code-branch text-red-500 mr-2"></i>LLM网关: 应对LLM生产环境高负载 (TensorZero)</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h4 class="text-green-600 mb-3"><i class="fas fa-tools mr-2"></i>稳健的开发者工具与前端基石</h4>
+                        <ul class="list-none pl-0">
+                            <li class="mb-2"><i class="fas fa-search-dollar text-indigo-500 mr-2"></i>Semgrep: 轻量级静态代码分析，代码质量与安全左移</li>
+                            <li class="mb-2"><i class="fas fa-mobile-alt text-teal-500 mr-2"></i>React Native Reanimated: 提升移动端动画流畅度</li>
+                            <li class="mb-2"><i class="fas fa-layer-group text-gray-500 mr-2"></i>Bootstrap: 前端开发不可撼动的基石</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h4 class="text-orange-600 mb-3"><i class="fas fa-lightbulb mr-2"></i>综合分析与展望</h4>
+                        <ul class="list-none pl-0">
+                            <li class="mb-2"><i class="fas fa-arrow-right text-orange-500 mr-2"></i>AI落地与治理：垂直领域AI，LLMOps解决方案</li>
+                            <li class="mb-2"><i class="fas fa-arrow-right text-orange-500 mr-2"></i>编程语言：Python (AI), Rust/Go (后端/基础设施), TypeScript (Web/移动)</li>
+                            <li class="mb-2"><i class="fas fa-arrow-right text-orange-500 mr-2"></i>未来：边缘计算、本地化AI、数据主权智能化应用</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 热门项目双日维度对比分析 -->
+            <section>
+                <h2 class="text-center mb-8">热门项目趋势分析</h2>
+                <h3 class="text-left mb-6 text-gray-700"><i class="fas fa-exchange-alt text-purple-600 mr-3"></i>热门项目双日维度对比分析</h3>
+                <div class="text-left leading-relaxed max-w-4xl mx-auto">
+                    <p class="fragment fade-in">
+                        当前GitHub热榜显示出显著的活跃度与正向增长态势。
+                    </p>
+                    <ul class="list-none pl-0 mt-6 text-lg">
+                        <li class="fragment fade-in"><i class="fas fa-plus-circle text-green-500 mr-2"></i><strong>新增项目多元化：</strong> 7个新晋项目，AI/ML (Qwen3-Coder, TensorZero), 核心开发工具 (Semgrep), 移动UI (React Native Reanimated), 前端基石 (Bootstrap)。</li>
+                        <li class="fragment fade-in"><i class="fas fa-arrow-alt-circle-up text-blue-500 mr-2"></i><strong>持续上升项目：</strong> 4个项目持续上升，且昨日流行项目无一跌出榜单，市场关注点拓宽，现有热度保持良好粘性。</li>
+                        <li class="fragment fade-in"><i class="fas fa-code text-gray-600 mr-2"></i><strong>语言分布变化：</strong> Python/Jupyter Notebook热度短期回落，TypeScript, MDX, OCaml, Rust上榜，暗示前端生态、函数式编程及系统级语言活力。特别是OCaml和Rust。</li>
+                        <li class="fragment fade-in"><i class="fas fa-star-of-life text-yellow-500 mr-2"></i><strong>焦点项目：</strong> srbhr/Resume-Matcher 以超1700颗星增幅成为焦点，凸显AI辅助求职巨大潜力。</li>
+                        <li class="fragment fade-in"><i class="fas fa-chart-pie text-indigo-500 mr-2"></i><strong>整体积极态势：</strong> 无下降趋势项目进一步印证当前GitHub生态的整体积极向上态势，预示着一个持续增长的技术周期。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 热点变化 -->
+            <section class="dark-section">
+                <h2 class="text-center mb-8 text-white">热点变化</h2>
+                <div class="grid grid-cols-3 gap-8 text-center text-lg max-w-5xl mx-auto">
+                    <div class="fragment fade-in">
+                        <h3 class="text-green-400 mb-4"><i class="fas fa-fire text-white mr-2"></i>新增热点</h3>
+                        <ul class="list-none text-white text-opacity-80">
+                            <li>tensorzero/tensorzero</li>
+                            <li>qwenlm/qwen3-coder</li>
+                            <li>twbs/bootstrap</li>
+                            <li>software-mansion/react-native-reanimated</li>
+                            <li>semgrep/semgrep</li>
+                            <li>moby/moby</li>
+                            <li>steven2358/awesome-generative-ai</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h3 class="text-red-400 mb-4"><i class="fas fa-snowflake text-white mr-2"></i>减退热点</h3>
+                        <ul class="list-none text-white text-opacity-80">
+                            <li>minio/minio</li>
+                            <li>qwenlm/qwen3</li>
+                            <li>yeongpin/cursor-free-vip</li>
+                            <li>humansignal/label-studio</li>
+                            <li>microsoft/generative-ai-for-beginners</li>
+                            <li>langchain-ai/rag-from-scratch</li>
+                            <li>berriai/litellm</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h3 class="text-yellow-400 mb-4"><i class="fas fa-sync-alt text-white mr-2"></i>持续热门</h3>
+                        <ul class="list-none text-white text-opacity-80">
+                            <li>juspay/hyperswitch (3次)</li>
+                            <li>OpenBB-finance/OpenBB (3次)</li>
+                            <li>srbhr/Resume-Matcher (6次)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Detailed Repository Data - Section Intro -->
+            <section class="highlight-section text-center">
+                <h2 class="mb-4 text-blue-700">详细仓库数据</h2>
+                <p class="text-xl text-gray-700">深入剖析每个热门项目，洞察其核心价值与增长潜力</p>
+                <p class="text-md italic mt-4 text-gray-600">（请向下滑动查看详情）</p>
+            </section>
+
+            <!-- QwenLM/Qwen3-Coder -->
+            <section>
+                <section>
+                    <h3 class="mb-4 text-center">QwenLM/Qwen3-Coder</h3>
+                    <p class="text-md italic text-gray-600 text-center mb-6">项目简介: Qwen3-Coder 是阿里云通义团队开发的大型语言模型系列通义千问3的代码版本。</p>
+                    <div class="grid grid-cols-2 gap-8 items-center">
+                        <div>
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr>
+                                        <th>仓库名称</th>
+                                        <th>开发语言</th>
+                                        <th>Star 数</th>
+                                        <th>连续在榜</th>
+                                        <th>总上榜次数</th>
+                                        <th>当日 Star 增加数</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>QwenLM/Qwen3-Coder</td>
+                                        <td>Python</td>
+                                        <td>8542</td>
+                                        <td>1次</td>
+                                        <td>1次</td>
+                                        <td>1263</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="mt-6 text-sm">
+                                <p><i class="fas fa-star text-yellow-500 mr-2"></i>Stars: 8.5k</p>
+                                <p><i class="fas fa-code-branch text-gray-600 mr-2"></i>Forks: 608</p>
+                                <p><i class="fas fa-eye text-blue-500 mr-2"></i>Watchers: 66</p>
+                                <p><i class="fas fa-exclamation-circle text-red-500 mr-2"></i>Issues: 56</p>
+                                <p><i class="fas fa-exchange-alt text-green-500 mr-2"></i>Pull Requests: 5</p>
+                                <p><i class="fas fa-box-open text-purple-500 mr-2"></i>Releases: 0</p>
+                                <p><i class="fas fa-clipboard-list text-orange-500 mr-2"></i>Commits: 326</p>
+                                <p><i class="fas fa-certificate text-indigo-500 mr-2"></i>License: 未知</p>
+                                <p><i class="fas fa-users text-teal-500 mr-2"></i>Contributors: 26</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="mb-4 text-xl">编程语言占比:</h4>
+                            <ul class="list-none pl-0 text-sm">
+                                <li class="mb-1"><span class="font-bold text-blue-700">Python: 71.9%</span></li>
+                                <li class="mb-1">Go: 23.3%</li>
+                                <li class="mb-1">Shell: 3.3%</li>
+                                <li class="mb-1">Tree-sitter Query: 0.7%</li>
+                                <li class="mb-1">JavaScript: 0.4%</li>
+                                <li class="mb-1">Makefile: 0.1%</li>
+                                <li class="mb-1">Other: 0.3%</li>
+                            </ul>
+                            <p class="text-center mt-8">
+                                <img src="https://avatars.githubusercontent.com/u/87016259?s=200&v=4" alt="QwenLM Logo" class="mx-auto w-24 h-24 rounded-full shadow-lg">
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h4 class="text-left mb-6"><i class="fas fa-book-open text-blue-600 mr-2"></i>项目速读</h4>
+                    <div class="text-left text-base leading-relaxed max-w-3xl mx-auto">
+                        <p class="fragment fade-in">
+                            QwenLM的Qwen3-Coder是阿里巴巴云Qwen团队推出的代码专用大型语言模型，作为<strong class="text-blue-700">先进的代理式代码模型</strong>，赋能智能体执行复杂编码、浏览器操作及工具使用任务。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-green-700">核心特点：</strong>强大的MoE（混合专家）架构（4800亿总参数，350亿激活参数），在代理式编码、浏览器使用和工具调用上达到顶尖水平。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-green-700">长上下文能力：</strong>原生支持256K tokens，通过Yarn技术扩展至惊人的1M tokens，对超大规模代码仓库至关重要。广泛支持358种编程语言。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-orange-700">项目价值：</strong>将AI应用从简单代码生成提升到复杂“代理”层面，推动AI在软件工程和智能自动化领域的边界，为处理大型复杂代码、自动化开发提供强大支持。
+                        </p>
+                    </div>
+                </section>
+                <section>
+                    <h4 class="text-left mb-6"><i class="fas fa-chart-line text-green-600 mr-2"></i>增长分析</h4>
+                    <div class="text-left text-base leading-relaxed max-w-3xl mx-auto">
+                        <p>该项目是<strong class="text-blue-700">首次上榜</strong>，当日新增1263星，直接跻身热门，显示出其强大的市场吸引力和社区高度认可。作为阿里系的大模型项目，其技术实力和应用潜力受到广泛关注，预计未来将持续保持强劲的增长势头。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- juspay/hyperswitch -->
+            <section>
+                <section>
+                    <h3 class="mb-4 text-center">juspay/hyperswitch</h3>
+                    <p class="text-md italic text-gray-600 text-center mb-6">项目简介: 一个基于 Rust 编写的开源支付交换系统，旨在实现快速、可靠且经济实惠的支付。</p>
+                    <div class="grid grid-cols-2 gap-8 items-center">
+                        <div>
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr>
+                                        <th>仓库名称</th>
+                                        <th>开发语言</th>
+                                        <th>Star 数</th>
+                                        <th>连续在榜</th>
+                                        <th>总上榜次数</th>
+                                        <th>当日 Star 增加数</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>juspay/hyperswitch</td>
+                                        <td>Rust</td>
+                                        <td>22699</td>
+                                        <td>3次</td>
+                                        <td>14次</td>
+                                        <td>218</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="mt-6 text-sm">
+                                <p><i class="fas fa-star text-yellow-500 mr-2"></i>Stars: 22.7k</p>
+                                <p><i class="fas fa-code-branch text-gray-600 mr-2"></i>Forks: 3.9k</p>
+                                <p><i class="fas fa-eye text-blue-500 mr-2"></i>Watchers: 94</p>
+                                <p><i class="fas fa-exclamation-circle text-red-500 mr-2"></i>Issues: 676</p>
+                                <p><i class="fas fa-exchange-alt text-green-500 mr-2"></i>Pull Requests: 288</p>
+                                <p><i class="fas fa-box-open text-purple-500 mr-2"></i>Releases: 146</p>
+                                <p><i class="fas fa-clipboard-list text-orange-500 mr-2"></i>Commits: 5,339</p>
+                                <p><i class="fas fa-certificate text-indigo-500 mr-2"></i>License: Apache-2.0</p>
+                                <p><i class="fas fa-users text-teal-500 mr-2"></i>Contributors: 235</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="mb-4 text-xl">编程语言占比:</h4>
+                            <ul class="list-none pl-0 text-sm">
+                                <li class="mb-1"><span class="font-bold text-blue-700">Rust: 80.4%</span></li>
+                                <li class="mb-1">JavaScript: 18.7%</li>
+                                <li class="mb-1">Shell: 0.2%</li>
+                                <li class="mb-1">MDX: 0.2%</li>
+                                <li class="mb-1">PLpgSQL: 0.2%</li>
+                                <li class="mb-1">HTML: 0.2%</li>
+                                <li class="mb-1">Other: 0.1%</li>
+                            </ul>
+                            <p class="text-center mt-8">
+                                <img src="https://avatars.githubusercontent.com/u/107053075?s=200&v=4" alt="Hyperswitch Logo" class="mx-auto w-24 h-24 rounded-full shadow-lg">
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h4 class="text-left mb-6"><i class="fas fa-book-open text-blue-600 mr-2"></i>项目速读</h4>
+                    <div class="text-left text-base leading-relaxed max-w-3xl mx-auto">
+                        <p class="fragment fade-in">
+                            Hyperswitch 是用 Rust 开发的高性能、模块化开源支付基础设施，解决企业<strong class="text-blue-700">厂商锁定、高成本及交易成功率低</strong>等痛点。它是一个高度可定制的支付协调层。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-green-700">核心价值：</strong>端到端支付优化。智能路由提升交易成功率；成本可观测工具削减费用；符合PCI标准的存储，支持全球主流支付方式。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-green-700">技术与部署：</strong>强大的Rust后端，开源协作，Juspay团队维护，性能、可靠性、安全性卓越。支持Docker、云平台弹性扩展。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-orange-700">适用场景：</strong>适合渴望摆脱单一厂商束缚、精简支付运营、提高财务效率并优化客户支付体验的大中型企业。
+                        </p>
+                    </div>
+                </section>
+                <section>
+                    <h4 class="text-left mb-6"><i class="fas fa-chart-line text-green-600 mr-2"></i>增长分析</h4>
+                    <div class="text-left text-base leading-relaxed max-w-3xl mx-auto">
+                        <p>该仓库在<strong class="text-blue-700">四个月内实际活跃上榜14次</strong>，显示出持续且稳健的增长态势。总星数显著增长8528，平均每次稳定增加约264星。当前仍有218星新增，表明其增长趋势活跃且具有较好的可持续性，是长期热门项目。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- semgrep/semgrep -->
+            <section>
+                <section>
+                    <h3 class="mb-4 text-center">semgrep/semgrep</h3>
+                    <p class="text-md italic text-gray-600 text-center mb-6">项目简介: 适用于多种语言的轻量级静态分析。通过类似源代码的模式查找缺陷变体。</p>
+                    <div class="grid grid-cols-2 gap-8 items-center">
+                        <div>
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr>
+                                        <th>仓库名称</th>
+                                        <th>开发语言</th>
+                                        <th>Star 数</th>
+                                        <th>连续在榜</th>
+                                        <th>总上榜次数</th>
+                                        <th>当日 Star 增加数</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>semgrep/semgrep</td>
+                                        <td>OCaml</td>
+                                        <td>12137</td>
+                                        <td>1次</td>
+                                        <td>1次</td>
+                                        <td>11</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="mt-6 text-sm">
+                                <p><i class="fas fa-star text-yellow-500 mr-2"></i>Stars: 12.1k</p>
+                                <p><i class="fas fa-code-branch text-gray-600 mr-2"></i>Forks: 741</p>
+                                <p><i class="fas fa-eye text-blue-500 mr-2"></i>Watchers: 106</p>
+                                <p><i class="fas fa-exclamation-circle text-red-500 mr-2"></i>Issues: 778</p>
+                                <p><i class="fas fa-exchange-alt text-green-500 mr-2"></i>Pull Requests: 4</p>
+                                <p><i class="fas fa-box-open text-purple-500 mr-2"></i>Releases: 297</p>
+                                <p><i class="fas fa-clipboard-list text-orange-500 mr-2"></i>Commits: 9,054</p>
+                                <p><i class="fas fa-certificate text-indigo-500 mr-2"></i>License: LGPL-2.1</p>
+                                <p><i class="fas fa-users text-teal-500 mr-2"></i>Contributors: 190</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="mb-4 text-xl">编程语言占比:</h4>
+                            <ul class="list-none pl-0 text-sm">
+                                <li class="mb-1"><span class="font-bold text-blue-700">OCaml: 76.9%</span></li>
+                                <li class="mb-1">Python: 15.9%</li>
+                                <li class="mb-1">Yacc: 1.9%</li>
+                                <li class="mb-1">Standard ML: 1.2%</li>
+                                <li class="mb-1">Lex: 0.9%</li>
+                                <li class="mb-1">C: 0.6%</li>
+                                <li class="mb-1">Other: 2.6%</li>
+                            </ul>
+                            <p class="text-center mt-8">
+                                <img src="https://avatars.githubusercontent.com/u/10986982?s=200&v=4" alt="Semgrep Logo" class="mx-auto w-24 h-24 rounded-full shadow-lg">
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h4 class="text-left mb-6"><i class="fas fa-book-open text-blue-600 mr-2"></i>项目速读</h4>
+                    <div class="text-left text-base leading-relaxed max-w-3xl mx-auto">
+                        <p class="fragment fade-in">
+                            Semgrep是一款轻量、高性能的静态代码分析工具，通过<strong class="text-blue-700">“语义化”代码匹配能力</strong>，精准检测漏洞，解决传统工具误报率高、规则复杂等痛点。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-green-700">核心优势：</strong>直观的规则定义，支持30+编程语言，无缝集成开发与CI/CD流程，确保安全左移。所有扫描默认本地进行，保障隐私安全。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-green-700">企业级能力：</strong>基于开源分析引擎构建Semgrep AppSec平台，提供高级跨文件数据流分析、AI辅助结果降噪、修复建议和专业规则库，大幅提升真报率。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-orange-700">适用场景：</strong>开发者提升代码质量的强大助手，安全团队进行大规模SAST、SCA和敏感信息扫描的理想选择，为构建更安全、健壮的软件提供全方位保障。
+                        </p>
+                    </div>
+                </section>
+                <section>
+                    <h4 class="text-left mb-6"><i class="fas fa-chart-line text-green-600 mr-2"></i>增长分析</h4>
+                    <div class="text-left text-base leading-relaxed max-w-3xl mx-auto">
+                        <p>该仓库<strong class="text-blue-700">今日首次上榜</strong>，新增11星，虽然增长数量相对较小，但其作为一款成熟且广泛使用的静态分析工具，持续获得关注。这表明开发者社区对代码质量和安全工具的需求长期存在，且此类项目具有较高的“底盘”和粘性。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- OpenBB-finance/OpenBB -->
+            <section>
+                <section>
+                    <h3 class="mb-4 text-center">OpenBB-finance/OpenBB</h3>
+                    <p class="text-md italic text-gray-600 text-center mb-6">项目简介: 投资研究，人人可享，处处可得。</p>
+                    <div class="grid grid-cols-2 gap-8 items-center">
+                        <div>
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr>
+                                        <th>仓库名称</th>
+                                        <th>开发语言</th>
+                                        <th>Star 数</th>
+                                        <th>连续在榜</th>
+                                        <th>总上榜次数</th>
+                                        <th>当日 Star 增加数</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>OpenBB-finance/OpenBB</td>
+                                        <td>Python</td>
+                                        <td>45916</td>
+                                        <td>3次</td>
+                                        <td>11次</td>
+                                        <td>623</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="mt-6 text-sm">
+                                <p><i class="fas fa-star text-yellow-500 mr-2"></i>Stars: 45.9k</p>
+                                <p><i class="fas fa-code-branch text-gray-600 mr-2"></i>Forks: 4.2k</p>
+                                <p><i class="fas fa-eye text-blue-500 mr-2"></i>Watchers: 352</p>
+                                <p><i class="fas fa-exclamation-circle text-red-500 mr-2"></i>Issues: 45</p>
+                                <p><i class="fas fa-exchange-alt text-green-500 mr-2"></i>Pull Requests: 13</p>
+                                <p><i class="fas fa-box-open text-purple-500 mr-2"></i>Releases: 46</p>
+                                <p><i class="fas fa-clipboard-list text-orange-500 mr-2"></i>Commits: 6,712</p>
+                                <p><i class="fas fa-certificate text-indigo-500 mr-2"></i>License: 未知</p>
+                                <p><i class="fas fa-users text-teal-500 mr-2"></i>Contributors: 248</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="mb-4 text-xl">编程语言占比:</h4>
+                            <ul class="list-none pl-0 text-sm">
+                                <li class="mb-1"><span class="font-bold text-blue-700">Python: 100.0%</span></li>
+                            </ul>
+                            <p class="text-center mt-8">
+                                <img src="https://avatars.githubusercontent.com/u/89297802?s=200&v=4" alt="OpenBB Logo" class="mx-auto w-24 h-24 rounded-full shadow-lg">
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h4 class="text-left mb-6"><i class="fas fa-book-open text-blue-600 mr-2"></i>项目速读</h4>
+                    <div class="text-left text-base leading-relaxed max-w-3xl mx-auto">
+                        <p class="fragment fade-in">
+                            OpenBB是一个功能强大的开源金融数据平台，通过统一的Python SDK和命令行接口，整合<strong class="text-blue-700">股票、期权、加密货币、宏观经济指标</strong>等数据，简化金融数据获取复杂性。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-green-700">核心优势：</strong>完全开源，深度集成数十家数据供应商。OpenBB Workspace提供直观的企业级UI，集成高级数据可视化和AI代理功能，提升分析效率。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-orange-700">项目价值：</strong>为金融分析师、数据科学家和开发者提供从数据获取到策略开发的端到端解决方案，降低专业级金融研究门槛，实现“人人可享的投资研究”。
+                        </p>
+                    </div>
+                </section>
+                <section>
+                    <h4 class="text-left mb-6"><i class="fas fa-chart-line text-green-600 mr-2"></i>增长分析</h4>
+                    <div class="text-left text-base leading-relaxed max-w-3xl mx-auto">
+                        <p>该仓库在约<strong class="text-blue-700">四个月内总增长8855 Star</strong>，平均每次上榜增305.8 Star。虽然上榜11次，但今日新增623 Star远超平均，表明近期增长显著加速，趋势强劲。作为金融AI领域的明星项目，其持续的高关注度印证了市场对智能金融工具的巨大需求。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- tensorzero/tensorzero -->
+            <section>
+                <section>
+                    <h3 class="mb-4 text-center">tensorzero/tensorzero</h3>
+                    <p class="text-md italic text-gray-600 text-center mb-6">项目简介: TensorZero 是一个用于工业级LLM应用的开源技术栈。它集成了LLM网关、可观测性、优化、评估和实验。</p>
+                    <div class="grid grid-cols-2 gap-8 items-center">
+                        <div>
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr>
+                                        <th>仓库名称</th>
+                                        <th>开发语言</th>
+                                        <th>Star 数</th>
+                                        <th>连续在榜</th>
+                                        <th>总上榜次数</th>
+                                        <th>当日 Star 增加数</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>tensorzero/tensorzero</td>
+                                        <td>Rust</td>
+                                        <td>8808</td>
+                                        <td>1次</td>
+                                        <td>4次</td>
+                                        <td>45</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="mt-6 text-sm">
+                                <p><i class="fas fa-star text-yellow-500 mr-2"></i>Stars: 8.8k</p>
+                                <p><i class="fas fa-code-branch text-gray-600 mr-2"></i>Forks: 563</p>
+                                <p><i class="fas fa-eye text-blue-500 mr-2"></i>Watchers: 69</p>
+                                <p><i class="fas fa-exclamation-circle text-red-500 mr-2"></i>Issues: 241</p>
+                                <p><i class="fas fa-exchange-alt text-green-500 mr-2"></i>Pull Requests: 51</p>
+                                <p><i class="fas fa-box-open text-purple-500 mr-2"></i>Releases: 65</p>
+                                <p><i class="fas fa-clipboard-list text-orange-500 mr-2"></i>Commits: 1,544</p>
+                                <p><i class="fas fa-certificate text-indigo-500 mr-2"></i>License: Apache-2.0</p>
+                                <p><i class="fas fa-users text-teal-500 mr-2"></i>Contributors: 72</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="mb-4 text-xl">编程语言占比:</h4>
+                            <ul class="list-none pl-0 text-sm">
+                                <li class="mb-1"><span class="font-bold text-blue-700">Rust: 70.3%</span></li>
+                                <li class="mb-1">TypeScript: 18.1%</li>
+                                <li class="mb-1">Python: 7.0%</li>
+                                <li class="mb-1">Jupyter Notebook: 3.1%</li>
+                                <li class="mb-1">Go: 0.7%</li>
+                                <li class="mb-1">Shell: 0.5%</li>
+                                <li class="mb-1">Other: 0.3%</li>
+                            </ul>
+                            <p class="text-center mt-8">
+                                <img src="https://avatars.githubusercontent.com/u/102008453?s=200&v=4" alt="TensorZero Logo" class="mx-auto w-24 h-24 rounded-full shadow-lg">
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h4 class="text-left mb-6"><i class="fas fa-book-open text-blue-600 mr-2"></i>项目速读</h4>
+                    <div class="text-left text-base leading-relaxed max-w-3xl mx-auto">
+                        <p class="fragment fade-in">
+                            TensorZero是专为<strong class="text-blue-700">工业级LLM应用</strong>设计的全栈开源解决方案，旨在解决LLM从原型到生产环境的性能、可观测性、优化和扩展挑战。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-green-700">核心优势：</strong>高性能Rust LLM网关（p99延迟低于1毫秒，10k+ QPS），统一API接口，无缝连接主流LLM服务及自托管模型。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-green-700">集成的LLMOps平台：</strong>内置全面可观测性、持续优化、评估工具、A/B测试和智能路由等，确保应用稳定发布和迭代。100%自托管，完全掌控数据。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-orange-700">适用场景：</strong>为企业和开发者构建高性能、可扩展、易于管理且数据安全的LLM应用提供坚实基础，尤其适用于对稳定性、效率和自主性有高要求的生产环境。
+                        </p>
+                    </div>
+                </section>
+                <section>
+                    <h4 class="text-left mb-6"><i class="fas fa-chart-line text-green-600 mr-2"></i>增长分析</h4>
+                    <div class="text-left text-base leading-relaxed max-w-3xl mx-auto">
+                        <p>该仓库<strong class="text-blue-700">总Star增长4020</strong>，主要依赖4次显著上榜，每次平均新增534.5星，表明其增长具爆发性。但今日仅新增45星，远低于平均，显示当前增长已明显放缓，并非活跃上榜周期，可能处于阶段性盘整。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- software-mansion/react-native-reanimated -->
+            <section>
+                <section>
+                    <h3 class="mb-4 text-center">software-mansion/react-native-reanimated</h3>
+                    <p class="text-md italic text-gray-600 text-center mb-6">项目简介: React Native 的 Animated 库重新实现</p>
+                    <div class="grid grid-cols-2 gap-8 items-center">
+                        <div>
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr>
+                                        <th>仓库名称</th>
+                                        <th>开发语言</th>
+                                        <th>Star 数</th>
+                                        <th>连续在榜</th>
+                                        <th>总上榜次数</th>
+                                        <th>当日 Star 增加数</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>react-native-reanimated</td>
+                                        <td>TypeScript</td>
+                                        <td>9884</td>
+                                        <td>1次</td>
+                                        <td>1次</td>
+                                        <td>16</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="mt-6 text-sm">
+                                <p><i class="fas fa-star text-yellow-500 mr-2"></i>Stars: 9.9k</p>
+                                <p><i class="fas fa-code-branch text-gray-600 mr-2"></i>Forks: 1.4k</p>
+                                <p><i class="fas fa-eye text-blue-500 mr-2"></i>Watchers: 81</p>
+                                <p><i class="fas fa-exclamation-circle text-red-500 mr-2"></i>Issues: 222</p>
+                                <p><i class="fas fa-exchange-alt text-green-500 mr-2"></i>Pull Requests: 86</p>
+                                <p><i class="fas fa-box-open text-purple-500 mr-2"></i>Releases: 153</p>
+                                <p><i class="fas fa-clipboard-list text-orange-500 mr-2"></i>Commits: 3,658</p>
+                                <p><i class="fas fa-certificate text-indigo-500 mr-2"></i>License: MIT</p>
+                                <p><i class="fas fa-users text-teal-500 mr-2"></i>Contributors: 366</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="mb-4 text-xl">编程语言占比:</h4>
+                            <ul class="list-none pl-0 text-sm">
+                                <li class="mb-1"><span class="font-bold text-blue-700">TypeScript: 72.5%</span></li>
+                                <li class="mb-1">MDX: 10.8%</li>
+                                <li class="mb-1">C++: 9.2%</li>
+                                <li class="mb-1">JavaScript: 3.0%</li>
+                                <li class="mb-1">CSS: 1.7%</li>
+                                <li class="mb-1">Java: 1.1%</li>
+                                <li class="mb-1">Other: 1.7%</li>
+                            </ul>
+                            <p class="text-center mt-8">
+                                <img src="https://avatars.githubusercontent.com/u/415939?s=200&v=4" alt="Software Mansion Logo" class="mx-auto w-24 h-24 rounded-full shadow-lg">
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h4 class="text-left mb-6"><i class="fas fa-book-open text-blue-600 mr-2"></i>项目速读</h4>
+                    <div class="text-left text-base leading-relaxed max-w-3xl mx-auto">
+                        <p class="fragment fade-in">
+                            react-native-reanimated是对React Native核心动画库Animated的重构，旨在<strong class="text-blue-700">解决动画流畅度不足和性能瓶颈</strong>，通过在原生UI线程运行动画逻辑，消除JS线程阻塞。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-green-700">核心优势：</strong>实现“无卡顿”动画，显著提升开发效率。Reanimated 4.x全面支持React Native新架构（Fabric），动画直接利用原生渲染能力，减少桥接开销。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-green-700">Worklets机制：</strong>开发者用JavaScript编写代码，却在原生UI线程执行，实现更直接、高效的动画控制。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-orange-700">适用场景：</strong>追求复杂交互、高性能和原生级动画手感的React Native应用。极大地提升用户体验流畅度。需注意最新版本要求项目迁移至React Native新架构。MIT许可证开源。
+                        </p>
+                    </div>
+                </section>
+                <section>
+                    <h4 class="text-left mb-6"><i class="fas fa-chart-line text-green-600 mr-2"></i>增长分析</h4>
+                    <div class="text-left text-base leading-relaxed max-w-3xl mx-auto">
+                        <p>该仓库<strong class="text-blue-700">今日首次上榜</strong>，新增16星。作为React Native生态中重要的性能优化库，其接近1万星的总数表明了广泛的应用和认可。虽然当日增幅不大，但它代表了移动开发领域对用户体验和性能细节的持续关注，是移动端开发者不可或缺的工具。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- steven2358/awesome-generative-ai -->
+            <section>
+                <section>
+                    <h3 class="mb-4 text-center">steven2358/awesome-generative-ai</h3>
+                    <p class="text-md italic text-gray-600 text-center mb-6">项目简介: 现代生成式人工智能项目和服务精选列表</p>
+                    <div class="grid grid-cols-2 gap-8 items-center">
+                        <div>
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr>
+                                        <th>仓库名称</th>
+                                        <th>开发语言</th>
+                                        <th>Star 数</th>
+                                        <th>连续在榜</th>
+                                        <th>总上榜次数</th>
+                                        <th>当日 Star 增加数</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>awesome-generative-ai</td>
+                                        <td>N/A</td>
+                                        <td>9299</td>
+                                        <td>1次</td>
+                                        <td>2次</td>
+                                        <td>240</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="mt-6 text-sm">
+                                <p><i class="fas fa-star text-yellow-500 mr-2"></i>Stars: 9.3k</p>
+                                <p><i class="fas fa-code-branch text-gray-600 mr-2"></i>Forks: 1k</p>
+                                <p><i class="fas fa-eye text-blue-500 mr-2"></i>Watchers: 198</p>
+                                <p><i class="fas fa-exclamation-circle text-red-500 mr-2"></i>Issues: 3</p>
+                                <p><i class="fas fa-exchange-alt text-green-500 mr-2"></i>Pull Requests: 98</p>
+                                <p><i class="fas fa-box-open text-purple-500 mr-2"></i>Releases: 0</p>
+                                <p><i class="fas fa-clipboard-list text-orange-500 mr-2"></i>Commits: 340</p>
+                                <p><i class="fas fa-certificate text-indigo-500 mr-2"></i>License: CC0-1.0</p>
+                                <p><i class="fas fa-users text-teal-500 mr-2"></i>Contributors: 69</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="mb-4 text-xl">编程语言占比:</h4>
+                            <p class="text-sm">此仓库为Awesome List，主要包含Markdown文档，无特定主要编程语言。</p>
+                            <p class="text-center mt-8">
+                                <img src="https://avatars.githubusercontent.com/u/10904008?s=200&v=4" alt="Steven2358 Logo" class="mx-auto w-24 h-24 rounded-full shadow-lg">
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h4 class="text-left mb-6"><i class="fas fa-book-open text-blue-600 mr-2"></i>项目速读</h4>
+                    <div class="text-left text-base leading-relaxed max-w-3xl mx-auto">
+                        <p class="fragment fade-in">
+                            awesome-generative-ai是一个精心策划的<strong class="text-blue-700">现代生成式AI项目和服务精选列表</strong>，解决当前生成式AI领域信息爆炸、更新迭代迅速的挑战，提供高质量资源库。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-green-700">核心优势：</strong>内容广泛前沿，涵盖文本、图像、视频、音频、编码等多种模态AI工具、模型和应用（如GPT、DALL·E、Stable Diffusion、Sora）。特别标注大量开源项目。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-orange-700">项目价值：</strong>作为动态社区驱动型资源，鼓励贡献，确保内容持续更新，是生成式AI领域的导航指南和知识引擎。对希望快速入门、跟踪技术趋势、寻找开源工具或深入研究特定应用场景的任何人来说，都是不可或缺的起点。
+                        </p>
+                    </div>
+                </section>
+                <section>
+                    <h4 class="text-left mb-6"><i class="fas fa-chart-line text-green-600 mr-2"></i>增长分析</h4>
+                    <div class="text-left text-base leading-relaxed max-w-3xl mx-auto">
+                        <p>该仓库<strong class="text-blue-700">三天内两度上榜</strong>，持续获得曝光，累计增长326 Star。今日新增240 Star，远超平均值137.5，表明增长显著加速，近期势头强劲。作为生成式AI领域的资源聚合类项目，其受欢迎程度反映了社区对前沿AI知识和工具的持续学习热情。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- srbhr/Resume-Matcher -->
+            <section>
+                <section>
+                    <h3 class="mb-4 text-center">srbhr/Resume-Matcher</h3>
+                    <p class="text-md italic text-gray-600 text-center mb-6">项目简介: 使用 Resume Matcher 提升您的简历。获取洞察、关键词建议，并使简历与职位描述精准匹配。</p>
+                    <div class="grid grid-cols-2 gap-8 items-center">
+                        <div>
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr>
+                                        <th>仓库名称</th>
+                                        <th>开发语言</th>
+                                        <th>Star 数</th>
+                                        <th>连续在榜</th>
+                                        <th>总上榜次数</th>
+                                        <th>当日 Star 增加数</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>srbhr/Resume-Matcher</td>
+                                        <td>TypeScript</td>
+                                        <td>19491</td>
+                                        <td>6次</td>
+                                        <td>6次</td>
+                                        <td>1826</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="mt-6 text-sm">
+                                <p><i class="fas fa-star text-yellow-500 mr-2"></i>Stars: 19.5k</p>
+                                <p><i class="fas fa-code-branch text-gray-600 mr-2"></i>Forks: 4.1k</p>
+                                <p><i class="fas fa-eye text-blue-500 mr-2"></i>Watchers: 84</p>
+                                <p><i class="fas fa-exclamation-circle text-red-500 mr-2"></i>Issues: 50</p>
+                                <p><i class="fas fa-exchange-alt text-green-500 mr-2"></i>Pull Requests: 48</p>
+                                <p><i class="fas fa-box-open text-purple-500 mr-2"></i>Releases: 3</p>
+                                <p><i class="fas fa-clipboard-list text-orange-500 mr-2"></i>Commits: 541</p>
+                                <p><i class="fas fa-certificate text-indigo-500 mr-2"></i>License: Apache-2.0</p>
+                                <p><i class="fas fa-users text-teal-500 mr-2"></i>Contributors: 41</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="mb-4 text-xl">编程语言占比:</h4>
+                            <ul class="list-none pl-0 text-sm">
+                                <li class="mb-1"><span class="font-bold text-blue-700">TypeScript: 44.9%</span></li>
+                                <li class="mb-1"><span class="font-bold text-blue-700">Python: 43.6%</span></li>
+                                <li class="mb-1">PowerShell: 5.5%</li>
+                                <li class="mb-1">Shell: 2.6%</li>
+                                <li class="mb-1">CSS: 2.2%</li>
+                                <li class="mb-1">Makefile: 0.6%</li>
+                                <li class="mb-1">JavaScript: 0.6%</li>
+                            </ul>
+                            <p class="text-center mt-8">
+                                <img src="https://avatars.githubusercontent.com/u/74618751?s=200&v=4" alt="Srbhr Logo" class="mx-auto w-24 h-24 rounded-full shadow-lg">
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h4 class="text-left mb-6"><i class="fas fa-book-open text-blue-600 mr-2"></i>项目速读</h4>
+                    <div class="text-left text-base leading-relaxed max-w-3xl mx-auto">
+                        <p class="fragment fade-in">
+                            srbhr/Resume-Matcher是创新的AI驱动平台，通过<strong class="text-blue-700">逆向工程招聘算法</strong>，帮助用户精准匹配职位描述，确保简历有效通过ATS筛选。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-green-700">核心优势：</strong>高度重视数据隐私，所有操作本地进行，不上传敏感简历数据（得益于Ollama本地化支持）。提供即时匹配度得分、智能关键词优化和具体改进建议。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-green-700">技术栈：</strong>现代Web技术栈，后端FastAPI，前端Next.js，Tailwind CSS提供优秀界面，SQLite存储数据。Ollama集成实现本地AI能力。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-orange-700">适用场景：</strong>为求职者提供强大且注重隐私的“数字简历顾问”，极大地提高了简历的有效性和投递成功率，特别适用于希望在竞争激烈的就业市场中脱颖而出的个人。
+                        </p>
+                    </div>
+                </section>
+                <section>
+                    <h4 class="text-left mb-6"><i class="fas fa-chart-line text-green-600 mr-2"></i>增长分析</h4>
+                    <div class="text-left text-base leading-relaxed max-w-3xl mx-auto">
+                        <p>该仓库<strong class="text-blue-700">增长强劲</strong>。5天内6次上榜，显示极高曝光度。平均每次新增1787星，总计增长8530星。今日新增1826星，增长势头持续且强劲。其作为求职辅助工具的巨大潜力，以及对用户隐私的重视，使其成为当前热门。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- aaPanel/BillionMail -->
+            <section>
+                <section>
+                    <h3 class="mb-4 text-center">aaPanel/BillionMail</h3>
+                    <p class="text-md italic text-gray-600 text-center mb-6">项目简介: BillionMail提供开源邮件服务器、电子报和电子邮件营销服务——完全自托管、开发者友好，且无月费。</p>
+                    <div class="grid grid-cols-2 gap-8 items-center">
+                        <div>
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr>
+                                        <th>仓库名称</th>
+                                        <th>开发语言</th>
+                                        <th>Star 数</th>
+                                        <th>连续在榜</th>
+                                        <th>总上榜次数</th>
+                                        <th>当日 Star 增加数</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>aaPanel/BillionMail</td>
+                                        <td>Go</td>
+                                        <td>7576</td>
+                                        <td>2次</td>
+                                        <td>4次</td>
+                                        <td>543</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="mt-6 text-sm">
+                                <p><i class="fas fa-star text-yellow-500 mr-2"></i>Stars: 7.6k</p>
+                                <p><i class="fas fa-code-branch text-gray-600 mr-2"></i>Forks: 643</p>
+                                <p><i class="fas fa-eye text-blue-500 mr-2"></i>Watchers: 37</p>
+                                <p><i class="fas fa-exclamation-circle text-red-500 mr-2"></i>Issues: 92</p>
+                                <p><i class="fas fa-exchange-alt text-green-500 mr-2"></i>Pull Requests: 2</p>
+                                <p><i class="fas fa-box-open text-purple-500 mr-2"></i>Releases: 12</p>
+                                <p><i class="fas fa-clipboard-list text-orange-500 mr-2"></i>Commits: 943</p>
+                                <p><i class="fas fa-certificate text-indigo-500 mr-2"></i>License: AGPL-3.0</p>
+                                <p><i class="fas fa-users text-teal-500 mr-2"></i>Contributors: 8</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="mb-4 text-xl">编程语言占比:</h4>
+                            <ul class="list-none pl-0 text-sm">
+                                <li class="mb-1"><span class="font-bold text-blue-700">Go: 95.5%</span></li>
+                                <li class="mb-1">Shell: 4.3%</li>
+                                <li class="mb-1">Other: 0.2%</li>
+                            </ul>
+                            <p class="text-center mt-8">
+                                <img src="https://avatars.githubusercontent.com/u/61823773?s=200&v=4" alt="aaPanel Logo" class="mx-auto w-24 h-24 rounded-full shadow-lg">
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h4 class="text-left mb-6"><i class="fas fa-book-open text-blue-600 mr-2"></i>项目速读</h4>
+                    <div class="text-left text-base leading-relaxed max-w-3xl mx-auto">
+                        <p class="fragment fade-in">
+                            BillionMail是基于Go语言的开源邮件服务器与营销平台，提供<strong class="text-blue-700">完全自主掌控、无月费</strong>的邮件解决方案，解决传统邮件服务成本高、隐私泄露和厂商锁定痛点。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-green-700">核心优势：</strong>“完全开源”和“自托管”（AGPLv3许可证），高度透明、无限邮件发送、极致数据隐私保护。提供高级数据分析、可定制模板、无限发送量，集成RoundCube WebMail。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-green-700">部署友好：</strong>支持脚本、Docker、aaPanel一键部署，宣称8分钟内完成安装并开始发送。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-orange-700">适用场景：</strong>重视数据隐私、追求高性价比、希望完全自主管理邮件营销活动的中小企业和开发者。填补市场上强大且经济的开源邮件解决方案空白。
+                        </p>
+                    </div>
+                </section>
+                <section>
+                    <h4 class="text-left mb-6"><i class="fas fa-chart-line text-green-600 mr-2"></i>增长分析</h4>
+                    <div class="text-left text-base leading-relaxed max-w-3xl mx-auto">
+                        <p>该仓库在<strong class="text-blue-700">近两月内累计增长4491 Star</strong>，仅上榜4次，效率极高。平均每次上榜新增465.5 Star，而今日新增543 Star，显示出强劲且持续的增长势头，尤其是在获得曝光时表现突出。作为自托管邮件解决方案，其解决了许多企业和个人的痛点，前景广阔。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- moby/moby -->
+            <section>
+                <section>
+                    <h3 class="mb-4 text-center">moby/moby</h3>
+                    <p class="text-md italic text-gray-600 text-center mb-6">项目简介: 莫比项目——一个面向容器生态系统的协作项目，用于组装基于容器的系统</p>
+                    <div class="grid grid-cols-2 gap-8 items-center">
+                        <div>
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr>
+                                        <th>仓库名称</th>
+                                        <th>开发语言</th>
+                                        <th>Star 数</th>
+                                        <th>连续在榜</th>
+                                        <th>总上榜次数</th>
+                                        <th>当日 Star 增加数</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>moby/moby</td>
+                                        <td>Go</td>
+                                        <td>70273</td>
+                                        <td>1次</td>
+                                        <td>2次</td>
+                                        <td>103</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="mt-6 text-sm">
+                                <p><i class="fas fa-star text-yellow-500 mr-2"></i>Stars: 70.3k</p>
+                                <p><i class="fas fa-code-branch text-gray-600 mr-2"></i>Forks: 18.8k</p>
+                                <p><i class="fas fa-eye text-blue-500 mr-2"></i>Watchers: 2.9k</p>
+                                <p><i class="fas fa-exclamation-circle text-red-500 mr-2"></i>Issues: 3.2k</p>
+                                <p><i class="fas fa-exchange-alt text-green-500 mr-2"></i>Pull Requests: 444</p>
+                                <p><i class="fas fa-box-open text-purple-500 mr-2"></i>Releases: 236</p>
+                                <p><i class="fas fa-clipboard-list text-orange-500 mr-2"></i>Commits: 53,413</p>
+                                <p><i class="fas fa-certificate text-indigo-500 mr-2"></i>License: Apache-2.0</p>
+                                <p><i class="fas fa-users text-teal-500 mr-2"></i>Contributors: 2,283</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="mb-4 text-xl">编程语言占比:</h4>
+                            <ul class="list-none pl-0 text-sm">
+                                <li class="mb-1"><span class="font-bold text-blue-700">Go: 97.3%</span></li>
+                                <li class="mb-1">Shell: 1.4%</li>
+                                <li class="mb-1">Dockerfile: 0.5%</li>
+                                <li class="mb-1">PowerShell: 0.3%</li>
+                                <li class="mb-1">Lua: 0.2%</li>
+                                <li class="mb-1">Makefile: 0.1%</li>
+                                <li class="mb-1">Other: 0.2%</li>
+                            </ul>
+                            <p class="text-center mt-8">
+                                <img src="https://avatars.githubusercontent.com/u/161642?s=200&v=4" alt="Moby Logo" class="mx-auto w-24 h-24 rounded-full shadow-lg">
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h4 class="text-left mb-6"><i class="fas fa-book-open text-blue-600 mr-2"></i>项目速读</h4>
+                    <div class="text-left text-base leading-relaxed max-w-3xl mx-auto">
+                        <p class="fragment fade-in">
+                            Moby是Docker发起的开源协作项目，核心目标是<strong class="text-blue-700">加速软件容器化进程</strong>，为容器生态系统提供灵活的构建平台。提供“乐高积木”式工具组件和组装框架。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-green-700">核心特点：</strong>卓越的模块化和可插拔性，大多数组件可替换，赋予开发者极大定制空间。以Go语言为主，提供强大工具API和实用安全性，鼓励社区参与。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-orange-700">项目价值：</strong>作为容器技术核心上游，为众多容器解决方案提供坚实基础（包括Docker自身）。适用于希望深入理解、修改、修补、实验并构建独特容器系统的工程师和爱好者。非最终用户平台，专注于开源贡献。
+                        </p>
+                    </div>
+                </section>
+                <section>
+                    <h4 class="text-left mb-6"><i class="fas fa-chart-line text-green-600 mr-2"></i>增长分析</h4>
+                    <div class="text-left text-base leading-relaxed max-w-3xl mx-auto">
+                        <p>该仓库<strong class="text-blue-700">三天内仅上榜两次</strong>，增长并非持续。总增长131星，平均每次56.5星。但当次新增103星远超平均，显示出近期增长势头显著增强，呈加速态势。作为容器化技术的基石项目，其持续活跃表明了容器技术仍在不断演进和受到关注。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- twbs/bootstrap -->
+            <section>
+                <section>
+                    <h3 class="mb-4 text-center">twbs/bootstrap</h3>
+                    <p class="text-md italic text-gray-600 text-center mb-6">项目简介: 用于开发响应式、移动优先Web项目最流行的HTML、CSS和JavaScript框架。</p>
+                    <div class="grid grid-cols-2 gap-8 items-center">
+                        <div>
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr>
+                                        <th>仓库名称</th>
+                                        <th>开发语言</th>
+                                        <th>Star 数</th>
+                                        <th>连续在榜</th>
+                                        <th>总上榜次数</th>
+                                        <th>当日 Star 增加数</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>twbs/bootstrap</td>
+                                        <td>MDX</td>
+                                        <td>172591</td>
+                                        <td>1次</td>
+                                        <td>2次</td>
+                                        <td>14</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="mt-6 text-sm">
+                                <p><i class="fas fa-star text-yellow-500 mr-2"></i>Stars: 173k</p>
+                                <p><i class="fas fa-code-branch text-gray-600 mr-2"></i>Forks: 79.1k</p>
+                                <p><i class="fas fa-eye text-blue-500 mr-2"></i>Watchers: 6.7k</p>
+                                <p><i class="fas fa-exclamation-circle text-red-500 mr-2"></i>Issues: 406</p>
+                                <p><i class="fas fa-exchange-alt text-green-500 mr-2"></i>Pull Requests: 156</p>
+                                <p><i class="fas fa-box-open text-purple-500 mr-2"></i>Releases: 93</p>
+                                <p><i class="fas fa-clipboard-list text-orange-500 mr-2"></i>Commits: 23,078</p>
+                                <p><i class="fas fa-certificate text-indigo-500 mr-2"></i>License: MIT</p>
+                                <p><i class="fas fa-users text-teal-500 mr-2"></i>Contributors: 1,402</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="mb-4 text-xl">编程语言占比:</h4>
+                            <ul class="list-none pl-0 text-sm">
+                                <li class="mb-1"><span class="font-bold text-blue-700">MDX: 28.9%</span></li>
+                                <li class="mb-1">JavaScript: 25.7%</li>
+                                <li class="mb-1">Astro: 19.4%</li>
+                                <li class="mb-1">SCSS: 11.2%</li>
+                                <li class="mb-1">CSS: 8.8%</li>
+                                <li class="mb-1">HTML: 4.6%</li>
+                                <li class="mb-1">Other: 1.4%</li>
+                            </ul>
+                            <p class="text-center mt-8">
+                                <img src="https://avatars.githubusercontent.com/u/2918581?s=200&v=4" alt="Bootstrap Logo" class="mx-auto w-24 h-24 rounded-full shadow-lg">
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h4 class="text-left mb-6"><i class="fas fa-book-open text-blue-600 mr-2"></i>项目速读</h4>
+                    <div class="text-left text-base leading-relaxed max-w-3xl mx-auto">
+                        <p class="fragment fade-in">
+                            Bootstrap是广受欢迎的前端开发框架，旨在<strong class="text-blue-700">彻底简化响应式、移动优先的网页设计与开发</strong>，赋能开发者快速构建时尚、直观且功能强大的Web应用。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-green-700">核心价值：</strong>提供全面模块化的HTML、CSS和JavaScript组件，加速前端开发。灵活栅格系统、丰富样式、RTL支持，提升开发效率与设计灵活性。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-green-700">健壮性与前瞻性：</strong>高度注重性能优化、广泛兼容性和安全性，活跃迭代（已更新至Bootstrap 5），支持NPM、Yarn等。
+                        </p>
+                        <p class="fragment fade-in mt-2">
+                            <strong class="text-orange-700">适用场景：</strong>降低Web开发门槛，适合快速原型迭代、追求一致用户体验及移动端优化的各类Web项目。凭借庞大社区和详尽文档，是构建现代化Web界面的理想选择。
+                        </p>
+                    </div>
+                </section>
+                <section>
+                    <h4 class="text-left mb-6"><i class="fas fa-chart-line text-green-600 mr-2"></i>增长分析</h4>
+                    <div class="text-left text-base leading-relaxed max-w-3xl mx-auto">
+                        <p>该仓库在<strong class="text-blue-700">近四个月内仅上榜两次</strong>，增长极不均衡。总增长581星，但结合低上榜频率和平均20.5星的增幅，表明其增长主要依赖单次爆发而非持续曝光。当前新增14星，增长趋势显平缓。作为前端开发的“常青树”，其庞大的星标数更多反映了历史地位而非当前的热度爆发。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Thank You Slide -->
+            <section class="cover text-center flex flex-col justify-center items-center relative">
+                <h2 class="text-white text-5xl mb-6">感谢您的观看！</h2>
+                <p class="text-white text-3xl font-light mb-8">
+                    洞悉技术新风向，转发给你的开发伙伴！
+                </p>
+                <p class="text-white text-xl">
+                    <i class="fas fa-hand-point-right text-yellow-400 mr-2"></i> 欢迎关注项目，获取更多 GitHub 趋势分析
+                </p>
+                <p class="text-white text-xl mt-2">
+                    <i class="fas fa-star text-yellow-400 mr-2"></i> 您的 Star 是我们持续更新的动力！
+                </p>
+
+                <div class="slide-footer">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        https://github.com/aichipera/github-trend
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <script>
+        // Mermaid JS configuration (if needed, though not directly used in this static content, it's a requested dependency)
+        mermaid.initialize({ startOnLoad: false });
+
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            transition: 'slide', // Options: none, fade, slide, convex, concave, zoom
+            transitionSpeed: 'default', // Options: default, fast, slow
+            backgroundTransition: 'fade', // Options: none, fade, slide, convex, concave, zoom
+            history: true, // Push each slide change to the browser history
+            // Optional: specify the view mode. 'linear' for horizontal, 'grid' for horizontal and vertical.
+            // view: 'linear', // Not explicitly requested, but useful for vertical slides. Default is 'linear' if no vertical slides, or 'grid' if vertical.
+
+            // Learn about plugins: https://revealjs.com/plugins/
+            plugins: [
+                // No specific plugins explicitly requested beyond core, but can add if needed.
+                // e.g., RevealMarkdown, RevealHighlight, RevealNotes, RevealMath, RevealZoom
+            ]
+        });
+    </script>
+</body>
+</html>

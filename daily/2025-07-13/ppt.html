@@ -1,0 +1,817 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>GitHub趋势报告：效率神器、AI落地，开发者必看的新热点</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        :root {
+            --r-main-font: "Noto Sans SC", Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: "Noto Serif SC", serif;
+            --r-background-color: #f8f8f8; /* Light off-white */
+            --r-main-color: #333;
+            --r-link-color: #007bff;
+            --r-link-color-hover: #0056b3;
+            --r-selection-background-color: rgba(0, 0, 0, 0.99);
+
+            /* Custom Color Palette */
+            --primary-dark: #1A3C4D; /* Dark Blue-Gray */
+            --accent-blue: #007bff; /* Bright Blue for emphasis */
+            --accent-green: #28a745; /* Green for growth/positive */
+            --text-dark: #333333;
+            --text-light: #666666;
+            --border-light: #ddd;
+        }
+
+        body {
+            font-family: var(--r-main-font);
+            color: var(--text-dark);
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--primary-dark);
+            text-transform: none; /* Disable uppercase */
+            text-shadow: none; /* Remove default shadow */
+        }
+
+        .reveal h1 { font-size: 3rem; } /* Adjusted from 2-3rem for cover */
+        .reveal h2 { font-size: 2.2rem; }
+        .reveal h3 { font-size: 1.8rem; }
+        .reveal h4 { font-size: 1.5rem; } /* Subtitle like */
+        .reveal p, .reveal li, .reveal table { font-size: 1.1rem; line-height: 1.5; } /* Adjusted from 1-1.2rem for readability */
+
+        .reveal .controls-arrow { color: var(--primary-dark); }
+
+        /* Custom styles for specific elements */
+        .reveal .title-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+        }
+        .reveal .title-wrapper h1 {
+            font-size: 3.5rem; /* Larger for main title */
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--primary-dark);
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+        .reveal .title-wrapper .subtitle {
+            font-size: 2rem;
+            color: var(--accent-blue);
+            margin-top: -10px;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+        .reveal .title-wrapper .speaker-info {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-top: 20px;
+        }
+        .reveal .title-wrapper .date-info, .reveal .title-wrapper .disclaimer {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        .reveal .qr-link-footer {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: flex-end;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            opacity: 0.7;
+        }
+        .reveal .qr-link-footer img {
+            height: 70px;
+            width: 70px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .reveal .qr-link-footer a {
+            color: var(--text-light);
+            text-decoration: none;
+            word-break: break-all;
+        }
+        .reveal .qr-link-footer a:hover {
+            color: var(--accent-blue);
+        }
+
+        .reveal section img {
+            border: none;
+            box-shadow: none;
+            background: none;
+        }
+
+        .reveal table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .reveal th, .reveal td {
+            border: 1px solid var(--border-light);
+            padding: 10px 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+        .reveal th {
+            background-color: #eef;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+        .reveal td {
+            background-color: #fff;
+        }
+
+        .reveal .project-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        .reveal .project-stat-item {
+            background-color: #f0f4f7;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 0.95rem;
+            color: var(--primary-dark);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .reveal .project-stat-item i {
+            color: var(--accent-blue);
+        }
+
+        .reveal .language-breakdown {
+            margin-top: 20px;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+        }
+        .reveal .language-breakdown strong {
+            color: var(--primary-dark);
+        }
+
+        .reveal .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal .r-stack {
+            justify-content: flex-start; /* Align vertical slides to top */
+        }
+
+        .reveal .r-frame {
+            border: 2px solid var(--accent-blue);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .reveal .r-box {
+            background-color: #e6f2ff; /* Light blue box for key info */
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            line-height: 1.5;
+            color: var(--primary-dark);
+            border-left: 5px solid var(--accent-blue);
+        }
+        .reveal .r-box strong {
+            color: var(--primary-dark);
+        }
+
+        /* Gradient background for sections for 'Aha moment' feel */
+        .gradient-bg-1 {
+            background: linear-gradient(135deg, #e0f2f7 0%, #c1e4f0 100%);
+        }
+        .gradient-bg-2 {
+            background: linear-gradient(135deg, #f7f0e0 0%, #f0e4c1 100%);
+        }
+        .gradient-bg-3 {
+            background: linear-gradient(135deg, #e7f7e0 0%, #d0f0c1 100%);
+        }
+
+        /* Specific for list items in description for better readability */
+        .reveal ul {
+            list-style-type: none; /* Remove default bullet */
+            padding-left: 0;
+        }
+        .reveal ul li {
+            padding-left: 1.5em;
+            position: relative;
+            margin-bottom: 0.5em;
+        }
+        .reveal ul li:before {
+            content: "\f00c"; /* FontAwesome check mark */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--accent-green);
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .reveal .hot-list {
+            list-style-type: none;
+            padding-left: 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .reveal .hot-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            line-height: 1.4;
+        }
+        .reveal .hot-list li:before {
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.2rem;
+            margin-right: 10px;
+        }
+        .reveal .hot-list.added li:before { content: "\f067"; color: #28a745; } /* Plus icon */
+        .reveal .hot-list.removed li:before { content: "\f068"; color: #dc3545; } /* Minus icon */
+        .reveal .hot-list.stable li:before { content: "\f02d"; color: #007bff; } /* Book icon */
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Cover Slide -->
+            <section data-background-image="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-background-opacity="0.8" data-background-color="#ffffff">
+                <div class="title-wrapper">
+                    <h1 class="text-white text-shadow-lg">GitHub趋势报告：效率神器、AI落地，开发者必看的新热点</h1>
+                    <p class="subtitle text-white text-shadow-md">🔥 今日最火爆的开源项目都在这 ⭐️</p>
+                    <p class="speaker-info text-white">演讲者：AIChipEra</p>
+                    <p class="date-info text-white">Github热门仓库日报观测时间为 2025-07-13 20:26:20</p>
+                    <p class="disclaimer text-white">以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</p>
+                </div>
+                <div class="qr-link-footer">
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+            <!-- Daily Highlights / Agenda -->
+            <section data-background-color="#f8f8f8" class="gradient-bg-1">
+                <h2><i class="fas fa-lightbulb mr-3"></i>日报要点：激发灵感的时刻</h2>
+                <p class="r-box fragment fade-in" data-fragment-index="1">
+                    本期榜单核心：AI工具与效率提升，最大化开发者效率。
+                </p>
+                <ul class="list-none text-left w-2/3 mx-auto mt-8">
+                    <li class="fragment fade-in" data-fragment-index="2"><i class="fas fa-magic text-accent-blue mr-2"></i><b>AI智能体：</b>从代码建议到自主任务执行的深度融合。</li>
+                    <li class="fragment fade-in" data-fragment-index="3"><i class="fas fa-tools text-accent-green mr-2"></i><b>效率神器：</b>自动化工作流、高性能框架，解放开发者双手。</li>
+                    <li class="fragment fade-in" data-fragment-index="4"><i class="fas fa-book-open text-primary-dark mr-2"></i><b>精选资源：</b>实用知识库与免费服务，学习与实践的宝藏。</li>
+                    <li class="fragment fade-in" data-fragment-index="5"><i class="fas fa-code text-accent-blue mr-2"></i><b>语言趋势：</b>TypeScript与Rust在特定场景的崛起。</li>
+                </ul>
+                <p class="text-sm mt-10 text-center text-text-light fragment fade-in" data-fragment-index="6">
+                    完整PPT链接：<a href="https://aichipera.github.io/github-trend/daily/2025-07-13/ppt.html" target="_blank" class="text-accent-blue">https://aichipera.github.io/github-trend/daily/2025-07-13/ppt.html</a>
+                </p>
+            </section>
+
+            <!-- Hot Project Trends Analysis -->
+            <section data-background-color="#f8f8f8" class="gradient-bg-2">
+                <section>
+                    <h2><i class="fas fa-chart-line mr-3"></i>热门项目趋势分析</h2>
+                    <h3 class="mt-4 text-accent-blue">今日整体趋势：AI Agents & 开发者效率</h3>
+                    <div class="r-box fragment fade-in" data-fragment-index="1">
+                        最受关注领域：AI智能体及其基础设施。<br>从代码建议转向更具自主性和执行能力的“智能体”方向。
+                    </div>
+                    <ul class="list-none text-left w-2/3 mx-auto mt-8">
+                        <li class="fragment fade-in" data-fragment-index="2">
+                            <i class="fas fa-brain text-accent-blue mr-2"></i>
+                            <b>核心关注：</b>自主执行任务的AI工具 (Claude Code, Goose, Stagehand, agentic-doc)。
+                        </li>
+                        <li class="fragment fade-in" data-fragment-index="3">
+                            <i class="fas fa-cogs text-accent-green mr-2"></i>
+                            <b>基础设施：</b>为AI智能体提供核心能力 (Graphiti, Qlib)。
+                        </li>
+                        <li class="fragment fade-in" data-fragment-index="4">
+                            <i class="fas fa-laptop-code text-primary-dark mr-2"></i>
+                            <b>语言分布：</b>Python (AI/ML), TypeScript (Web/Automation), Rust (Performance/Security), C++ (High-Perf)。
+                        </li>
+                        <li class="fragment fade-in" data-fragment-index="5">
+                            <i class="fas fa-handshake-angle text-accent-blue mr-2"></i>
+                            <b>社区需求：</b>极致追求开发者效率，拥抱AI落地，渴望知识与资源。
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fas fa-exchange-alt mr-3"></i>热门项目双日维度对比分析</h3>
+                    <p class="r-box fragment fade-in" data-fragment-index="1">
+                        榜单活跃度高：9个新项目入榜，4个原有项目上升。
+                    </p>
+                    <div class="grid grid-cols-2 gap-6 mt-8">
+                        <div class="col-span-1 fragment fade-in" data-fragment-index="2">
+                            <h4><i class="fas fa-arrow-up text-accent-green mr-2"></i>新入榜与上升</h4>
+                            <ul class="list-disc ml-6 text-left">
+                                <li><b>新入榜项目：</b>AI工具、Web框架、基础设施、学习资源，领域广泛。</li>
+                                <li><b>上升项目：</b><code>gorhill/uBlock</code>, <code>getzep/graphiti</code>, <code>farhanashrafdev/90DaysOfCyberSecurity</code> 增长强劲。</li>
+                            </ul>
+                        </div>
+                        <div class="col-span-1 fragment fade-in" data-fragment-index="3">
+                            <h4><i class="fas fa-code text-accent-blue mr-2"></i>编程语言变化</h4>
+                            <ul class="list-disc ml-6 text-left">
+                                <li><b>TypeScript：</b>项目数量增加最显著 (+2)，前端热度不减。</li>
+                                <li><b>Python：</b>项目数量相对减少 (-3)，但仍是AI主语言。</li>
+                                <li><b>Rust & PowerShell：</b>各有新增 (+1)。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3><i class="fas fa-sync-alt mr-3"></i>热点变化</h3>
+                    <div class="grid grid-cols-3 gap-8 mt-8">
+                        <div class="col-span-1">
+                            <h4 class="text-accent-green mb-4"><i class="fas fa-plus-circle mr-2"></i>新增热点</h4>
+                            <ul class="hot-list added text-left">
+                                <li>browserbase/stagehand</li>
+                                <li>rezasi/go-interview-practice</li>
+                                <li>ripienaar/free-for-dev</li>
+                                <li>vercel/commerce</li>
+                                <li>trimstray/the-book-of-secret-knowledge</li>
+                                <li>block/goose</li>
+                                <li>anthropics/claude-code</li>
+                                <li>microsoft/qlib</li>
+                                <li>nvidia/cutlass</li>
+                            </ul>
+                        </div>
+                        <div class="col-span-1">
+                            <h4 class="text-red-500 mb-4"><i class="fas fa-minus-circle mr-2"></i>减退热点</h4>
+                            <ul class="hot-list removed text-left">
+                                <li>protocolbuffers/protobuf</li>
+                                <li>snap-stanford/biomni</li>
+                                <li>psf/black</li>
+                                <li>odoo/odoo</li>
+                                <li>googleapis/genai-toolbox</li>
+                                <li>open-telemetry/opentelemetry-go</li>
+                                <li>zijie0/humansystemoptimization</li>
+                                <li>pybind/pybind11</li>
+                                <li>wordpress/wordpress-develop</li>
+                                <li>ocrmypdf/ocrmypdf</li>
+                            </ul>
+                        </div>
+                        <div class="col-span-1">
+                            <h4 class="text-accent-blue mb-4"><i class="fas fa-bookmark mr-2"></i>持续热门</h4>
+                            <ul class="hot-list stable text-left">
+                                <li>landing-ai/agentic-doc (3次)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Detailed Repository Data -->
+            <section data-background-color="#f8f8f8" class="gradient-bg-3">
+                <section>
+                    <h2><i class="fas fa-database mr-3"></i>详细仓库数据</h2>
+                    <h3 class="text-accent-blue">anthropics/claude-code: 终端智能编程工具</h3>
+                    <p class="r-box">
+                        <b>项目简介:</b> Claude Code 是一款代理式编程工具，它集成于您的终端，理解您的代码库，并通过执行日常任务、解释复杂代码以及处理Git工作流来帮助您更快地编码——所有这些都通过自然语言命令实现。
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-8">
+                        <div>
+                            <h4><i class="fas fa-chart-bar mr-2"></i>关键指标</h4>
+                            <table>
+                                <tr><th>开发语言</th><td>PowerShell</td></tr>
+                                <tr><th>Star 数</th><td>19327 ⭐</td></tr>
+                                <tr><th>连续在榜</th><td>1次</td></tr>
+                                <tr><th>总上榜次数</th><td>5次</td></tr>
+                                <tr><th>当日 Star 增加数</th><td>235</td></tr>
+                            </table>
+                            <div class="language-breakdown">
+                                <b>编程语言占比:</b> PowerShell 43.8%, Shell 36.0%, Dockerfile 20.2%
+                            </div>
+                        </div>
+                        <div>
+                            <h4><i class="fas fa-info-circle mr-2"></i>项目速读</h4>
+                            <p>Anthropic 推出的 Claude Code 是一款创新性的终端 AI 编码工具。它能深入理解你的整个代码库上下文，并基于自然语言指令，帮助开发者执行日常编码任务、解释复杂代码、处理 Git 工作流，极大地提升开发效率。其核心优势在于“agentic”（智能执行）能力，它不仅仅是提供代码片段，更能直接理解并操作你的项目，将繁琐的手动操作转化为与 AI 的自然对话。</p>
+                            <h4><i class="fas fa-trend-up mr-2"></i>增长分析</h4>
+                            <p>仓库增长强劲，总增10213星。得益于5次上榜，增长趋势显著。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3><i class="fas fa-shopping-bag mr-3"></i>vercel/commerce: 下一代电商前端</h3>
+                    <p class="r-box">
+                        <b>项目简介:</b> Next.js 商务
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-8">
+                        <div>
+                            <h4><i class="fas fa-chart-bar mr-2"></i>关键指标</h4>
+                            <table>
+                                <tr><th>开发语言</th><td>TypeScript</td></tr>
+                                <tr><th>Star 数</th><td>12652 ⭐</td></tr>
+                                <tr><th>连续在榜</th><td>1次</td></tr>
+                                <tr><th>总上榜次数</th><td>1次</td></tr>
+                                <tr><th>当日 Star 增加数</th><td>181</td></tr>
+                            </table>
+                            <div class="language-breakdown">
+                                <b>编程语言占比:</b> TypeScript 99.2%, Other 0.8%
+                            </div>
+                        </div>
+                        <div>
+                            <h4><i class="fas fa-info-circle mr-2"></i>项目速读</h4>
+                            <p>Vercel Commerce 是一个基于 Next.js App Router 构建的高性能电商前端模板，专为无头电商场景设计。它利用 React Server Components 和 Server Actions 等最新技术，提供极速加载和流畅交互，有效解决了传统电商前台的性能瓶颈。作为 Vercel 官方出品，它为开发者提供了一个强大的基础，能够快速启动现代化、可扩展且具备优异用户体验的在线商店。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3><i class="fas fa-robot mr-3"></i>block/goose: 可扩展的AI代理</h3>
+                    <p class="r-box">
+                        <b>项目简介:</b> 开源、可扩展的 AI 代理，功能远不止代码建议，可使用任何 LLM 进行安装、执行、编辑和测试。
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-8">
+                        <div>
+                            <h4><i class="fas fa-chart-bar mr-2"></i>关键指标</h4>
+                            <table>
+                                <tr><th>开发语言</th><td>Rust</td></tr>
+                                <tr><th>Star 数</th><td>16082 ⭐</td></tr>
+                                <tr><th>连续在榜</th><td>1次</td></tr>
+                                <tr><th>总上榜次数</th><td>2次</td></tr>
+                                <tr><th>当日 Star 增加数</th><td>164</td></tr>
+                            </table>
+                            <div class="language-breakdown">
+                                <b>编程语言占比:</b> Rust 63.9%, TypeScript 26.2%, Python 3.0%, Kotlin 2.2%, Go 1.5%, Shell 1.2%, Other 2.0%
+                            </div>
+                        </div>
+                        <div>
+                            <h4><i class="fas fa-info-circle mr-2"></i>项目速读</h4>
+                            <p>Block 的 Goose 项目是一个用 Rust 构建的开源 AI Agent，旨在成为开发者在复杂软件工程任务中的强大助手。它超越了仅仅提供代码建议的范畴，能够自主地执行一系列操作，包括从头搭建项目、编写、执行、编辑，甚至进行代码测试和调试。其核心优势在于极高的灵活性和自主性，能够无缝集成并利用任意LLM，旨在通过自动化复杂开发工作流，显著提升开发效率。</p>
+                            <h4><i class="fas fa-trend-up mr-2"></i>增长分析</h4>
+                            <p>近4月总增5933 Star，增长良好。虽上榜仅2次，日增164显示持续活跃与关注。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3><i class="fas fa-scroll mr-3"></i>trimstray/the-book-of-secret-knowledge: 秘密知识之书</h3>
+                    <p class="r-box">
+                        <b>项目简介:</b> 一系列鼓舞人心的列表、手册、速查表、博客、技巧、一行命令、命令行/网络工具等集合。
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-8">
+                        <div>
+                            <h4><i class="fas fa-chart-bar mr-2"></i>关键指标</h4>
+                            <table>
+                                <tr><th>Star 数</th><td>176947 ⭐</td></tr>
+                                <tr><th>连续在榜</th><td>1次</td></tr>
+                                <tr><th>总上榜次数</th><td>8次</td></tr>
+                                <tr><th>当日 Star 增加数</th><td>932</td></tr>
+                            </table>
+                        </div>
+                        <div>
+                            <h4><i class="fas fa-info-circle mr-2"></i>项目速读</h4>
+                            <p>项目“The Book of Secret Knowledge”是一个面向系统运维、DevOps、安全等领域技术专业人士的精选资源集合。它汇集了大量实用的技术工具、操作手册、速查表、博客推荐及各类技巧窍门，旨在提供一个高质量、结构化的技术知识库。其核心价值在于内容的精心筛选和按主题进行的清晰分类，极大地提高了信息查找效率。</p>
+                            <h4><i class="fas fa-trend-up mr-2"></i>增长分析</h4>
+                            <p>该仓库增长势头强劲，总星数增长超1.1万。增长高度依赖实际上榜的8次，平均每次上榜带来近700星增长，今日增长更超平均，显示出显著的上榜效应和良好的增长潜力。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3><i class="fas fa-microchip mr-3"></i>NVIDIA/cutlass: CUDA线性代数模板</h3>
+                    <p class="r-box">
+                        <b>项目简介:</b> 用于线性代数子程序的 CUDA 模板
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-8">
+                        <div>
+                            <h4><i class="fas fa-chart-bar mr-2"></i>关键指标</h4>
+                            <table>
+                                <tr><th>开发语言</th><td>C++</td></tr>
+                                <tr><th>Star 数</th><td>7875 ⭐</td></tr>
+                                <tr><th>连续在榜</th><td>1次</td></tr>
+                                <tr><th>总上榜次数</th><td>1次</td></tr>
+                                <tr><th>当日 Star 增加数</th><td>37</td></tr>
+                            </table>
+                            <div class="language-breakdown">
+                                <b>编程语言占比:</b> C++ 61.8%, Cuda 29.4%, Python 6.2%, HTML 1.9%, CMake 0.6%, C 0.1%
+                            </div>
+                        </div>
+                        <div>
+                            <h4><i class="fas fa-info-circle mr-2"></i>项目速读</h4>
+                            <p>NVIDIA CUTLASS 是一个专为 CUDA 平台设计的高性能 C++ 模板库，专注于提供构建线性代数计算（尤其是高性能矩阵乘法 GEMM）的底层软件组件和原语。它的核心价值在于帮助开发者在 NVIDIA GPU 上高效实现各种规模和数据类型的计算任务，是深度学习、科学计算等高性能计算场景下实现顶尖性能的关键基础设施之一。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3><i class="fas fa-gift mr-3"></i>ripienaar/free-for-dev: 开发者免费服务清单</h3>
+                    <p class="r-box">
+                        <b>项目简介:</b> 对devops和infradev关注的SaaS、PaaS和IaaS服务免费套餐列表
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-8">
+                        <div>
+                            <h4><i class="fas fa-chart-bar mr-2"></i>关键指标</h4>
+                            <table>
+                                <tr><th>开发语言</th><td>HTML</td></tr>
+                                <tr><th>Star 数</th><td>104404 ⭐</td></tr>
+                                <tr><th>连续在榜</th><td>1次</td></tr>
+                                <tr><th>总上榜次数</th><td>7次</td></tr>
+                                <tr><th>当日 Star 增加数</th><td>849</td></tr>
+                            </table>
+                            <div class="language-breakdown">
+                                <b>编程语言占比:</b> HTML 100.0%
+                            </div>
+                        </div>
+                        <div>
+                            <h4><i class="fas fa-info-circle mr-2"></i>项目速读</h4>
+                            <p>这是一个为开发者，特别是DevOps和基础设施工程师精心整理的各类云服务（SaaS、PaaS、IaaS）免费层列表。它直接解决了寻找真实、可用且长期提供的免费云服务耗时费力的问题。项目的核心优势在于其严格的收录标准：只包含提供真正意义上的免费层，且是一个高度依赖社区力量的项目，确保内容广泛、准确且持续更新。</p>
+                            <h4><i class="fas fa-trend-up mr-2"></i>增长分析</h4>
+                            <p>仓库总增长10584 Star，得益于7次上榜带来的显著曝光，增长呈现脉冲式，平均每次上榜期间贡献约1512 Star。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3><i class="fas fa-shield-alt mr-3"></i>gorhill/uBlock: 高效浏览器拦截器</h3>
+                    <p class="r-box">
+                        <b>项目简介:</b> uBlock Origin - 适用于 Chromium 和 Firefox 的高效拦截器，快速精简。
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-8">
+                        <div>
+                            <h4><i class="fas fa-chart-bar mr-2"></i>关键指标</h4>
+                            <table>
+                                <tr><th>开发语言</th><td>JavaScript</td></tr>
+                                <tr><th>Star 数</th><td>55532 ⭐</td></tr>
+                                <tr><th>连续在榜</th><td>2次</td></tr>
+                                <tr><th>总上榜次数</th><td>2次</td></tr>
+                                <tr><th>当日 Star 增加数</th><td>274</td></tr>
+                            </table>
+                            <div class="language-breakdown">
+                                <b>编程语言占比:</b> JavaScript 88.8%, CSS 4.8%, HTML 3.5%, WebAssembly 2.1%, Shell 0.6%, Makefile 0.1%, Python 0.1%
+                            </div>
+                        </div>
+                        <div>
+                            <h4><i class="fas fa-info-circle mr-2"></i>项目速读</h4>
+                            <p>uBlock Origin (uBO) 是一个高效且资源占用极低的浏览器扩展，旨在作为广谱内容拦截器，帮助用户摆脱烦人的广告、跟踪器、恶意软件及其他侵犯隐私的网络元素。它通过强大的过滤列表机制，能够显著提升网页加载速度，提供更干净、更安全的浏览体验，有效保护用户隐私。</p>
+                            <h4><i class="fas fa-trend-up mr-2"></i>增长分析</h4>
+                            <p>该仓库两天内上榜两次，增长活跃。平均每次增加241.5 Star，尤其最新一天增长274 Star，显示近期增长势头良好。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3><i class="fas fa-user-shield mr-3"></i>farhanashrafdev/90DaysOfCyberSecurity: 90天网络安全学习计划</h3>
+                    <p class="r-box">
+                        <b>项目简介:</b> 本仓库包含一个90天的网络安全学习计划，以及学习各种网络安全概念和技术的资源和材料。
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-8">
+                        <div>
+                            <h4><i class="fas fa-chart-bar mr-2"></i>关键指标</h4>
+                            <table>
+                                <tr><th>Star 数</th><td>9578 ⭐</td></tr>
+                                <tr><th>连续在榜</th><td>2次</td></tr>
+                                <tr><th>总上榜次数</th><td>2次</td></tr>
+                                <tr><th>当日 Star 增加数</th><td>222</td></tr>
+                            </table>
+                        </div>
+                        <div>
+                            <h4><i class="fas fa-info-circle mr-2"></i>项目速读</h4>
+                            <p>这是一个为期 90 天的网络安全系统自学计划仓库。它为希望入门或提升技能的学习者提供清晰的每日学习路径和精选的免费资源，解决自学者不知从何入手的难题。计划内容全面，涵盖网络、安全基础、Linux、Python、流量分析、云平台及渗透测试等关键领域，强调理论结合实际。</p>
+                            <h4><i class="fas fa-trend-up mr-2"></i>增长分析</h4>
+                            <p>该仓库两天内上榜2次，总星数增长224，今日贡献222星，增长强劲且集中。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3><i class="fas fa-chart-pie mr-3"></i>microsoft/qlib: AI量化投资平台</h3>
+                    <p class="r-box">
+                        <b>项目简介:</b> Qlib 是一个面向 AI 的量化投资平台，旨在利用 AI 技术赋能量化研究，从探索想法到落地生产。
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-8">
+                        <div>
+                            <h4><i class="fas fa-chart-bar mr-2"></i>关键指标</h4>
+                            <table>
+                                <tr><th>开发语言</th><td>Python</td></tr>
+                                <tr><th>Star 数</th><td>26611 ⭐</td></tr>
+                                <tr><th>连续在榜</th><td>1次</td></tr>
+                                <tr><th>总上榜次数</th><td>7次</td></tr>
+                                <tr><th>当日 Star 增加数</th><td>46</td></tr>
+                            </table>
+                            <div class="language-breakdown">
+                                <b>编程语言占比:</b> Python 99.2%, Other 0.8%
+                            </div>
+                        </div>
+                        <div>
+                            <h4><i class="fas fa-info-circle mr-2"></i>项目速读</h4>
+                            <p>Qlib 是微软开源的一个面向AI的量化投资平台。它旨在利用先进的人工智能技术，赋能量化研究从概念探索到生产部署的全过程。平台支持监督学习、市场动力建模、强化学习等多种机器学习范式，并提供从数据处理、模型训练、回测模拟到策略部署的完整工作流。</p>
+                            <h4><i class="fas fa-trend-up mr-2"></i>增长分析</h4>
+                            <p>仓库在约52天内总增6644星，平均每次上榜贡献442星，显示增长高度依赖上榜事件。近期新增46星远低于上榜平均水平。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3><i class="fas fa-window-restore mr-3"></i>browserbase/stagehand: AI浏览器自动化框架</h3>
+                    <p class="r-box">
+                        <b>项目简介:</b> 人工智能浏览器自动化框架
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-8">
+                        <div>
+                            <h4><i class="fas fa-chart-bar mr-2"></i>关键指标</h4>
+                            <table>
+                                <tr><th>开发语言</th><td>TypeScript</td></tr>
+                                <tr><th>Star 数</th><td>13522 ⭐</td></tr>
+                                <tr><th>连续在榜</th><td>1次</td></tr>
+                                <tr><th>总上榜次数</th><td>4次</td></tr>
+                                <tr><th>当日 Star 增加数</th><td>111</td></tr>
+                            </table>
+                            <div class="language-breakdown">
+                                <b>编程语言占比:</b> TypeScript 99.6%, Other 0.4%
+                            </div>
+                        </div>
+                        <div>
+                            <h4><i class="fas fa-info-circle mr-2"></i>项目速读</h4>
+                            <p>Stagehand 是一个基于AI的浏览器自动化框架，旨在解决在复杂和动态网页上进行自动化操作的挑战。它填补了传统自动化工具与纯粹AI Agent在处理未知页面时的灵活性之间的空白。核心优势在于其混合方法：开发者既可以使用熟悉的 Playwright 代码进行精细控制，也可以通过自然语言指令利用AI完成复杂的浏览器交互和数据提取任务。</p>
+                            <h4><i class="fas fa-trend-up mr-2"></i>增长分析</h4>
+                            <p>仅上榜4次，该仓库在3个月内总增3516星。平均上榜增202，增长稳健且持续。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3><i class="fas fa-file-alt mr-3"></i>landing-ai/agentic-doc: 智能文档提取库</h3>
+                    <p class="r-box">
+                        <b>项目简介:</b> LandingAI 的智能体文档提取 Python 库
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-8">
+                        <div>
+                            <h4><i class="fas fa-chart-bar mr-2"></i>关键指标</h4>
+                            <table>
+                                <tr><th>开发语言</th><td>Python</td></tr>
+                                <tr><th>Star 数</th><td>1003 ⭐</td></tr>
+                                <tr><th>连续在榜</th><td>3次</td></tr>
+                                <tr><th>总上榜次数</th><td>3次</td></tr>
+                                <tr><th>当日 Star 增加数</th><td>123</td></tr>
+                            </table>
+                            <div class="language-breakdown">
+                                <b>编程语言占比:</b> Python 100.0%
+                            </div>
+                        </div>
+                        <div>
+                            <h4><i class="fas fa-info-circle mr-2"></i>项目速读</h4>
+                            <p>这是一个来自 LandingAI 的 Python 客户端库，专注于通过其 Agentic AI 服务，从视觉结构复杂的文档中提取结构化数据。它能处理包含表格、图片、图表甚至是超长 PDF等各种格式和内容的文档。该项目的突出特点是其鲁棒性和易用性，使得开发者无需深入理解底层视觉分析和长文本处理细节，即可快速构建强大的文档处理应用。</p>
+                            <h4><i class="fas fa-trend-up mr-2"></i>增长分析</h4>
+                            <p>该仓库在三天统计期内，连续上榜三次，增长稳定。总Star增长253，平均每次91。特别是今日新增123，高于平均值，增长势头良好。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3><i class="fas fa-network-wired mr-3"></i>getzep/graphiti: 实时AI知识图谱</h3>
+                    <p class="r-box">
+                        <b>项目简介:</b> 为AI智能体构建实时知识图谱
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-8">
+                        <div>
+                            <h4><i class="fas fa-chart-bar mr-2"></i>关键指标</h4>
+                            <table>
+                                <tr><th>开发语言</th><td>Python</td></tr>
+                                <tr><th>Star 数</th><td>12815 ⭐</td></tr>
+                                <tr><th>连续在榜</th><td>2次</td></tr>
+                                <tr><th>总上榜次数</th><td>7次</td></tr>
+                                <tr><th>当日 Star 增加数</th><td>233</td></tr>
+                            </table>
+                            <div class="language-breakdown">
+                                <b>编程语言占比:</b> Python 99.2%, Other 0.8%
+                            </div>
+                        </div>
+                        <div>
+                            <h4><i class="fas fa-info-circle mr-2"></i>项目速读</h4>
+                            <p>Graphiti 是一个专为 AI 智能体设计的框架，用于构建和查询能够实时响应并感知时间的知识图谱。它克服了传统基于静态数据的 RAG 方法的局限性，能够持续不断地将来自多源的数据整合进来，实时更新图谱。凭借实时增量更新、精确的双时间数据模型等特性，Graphiti 使智能体能够基于最新、最准确的状态进行推理和决策。</p>
+                            <h4><i class="fas fa-trend-up mr-2"></i>增长分析</h4>
+                            <p>分析期内该仓库共增长8051 Star。实际上榜7次表明其持续获得关注，每次上榜平均带来484 Star增长。总体呈现强劲的增长趋势，当前日增233 Star，增长势头持续。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3><i class="fas fa-code mr-3"></i>RezaSi/go-interview-practice: Go面试练习</h3>
+                    <p class="r-box">
+                        <b>项目简介:</b> Go 面试练习是一系列编程挑战，旨在帮助你准备 Go 技术的面试。
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-8">
+                        <div>
+                            <h4><i class="fas fa-chart-bar mr-2"></i>关键指标</h4>
+                            <table>
+                                <tr><th>开发语言</th><td>Go</td></tr>
+                                <tr><th>Star 数</th><td>298 ⭐</td></tr>
+                                <tr><th>连续在榜</th><td>1次</td></tr>
+                                <tr><th>总上榜次数</th><td>1次</td></tr>
+                                <tr><th>当日 Star 增加数</th><td>19</td></tr>
+                            </table>
+                            <div class="language-breakdown">
+                                <b>编程语言占比:</b> Go 72.5%, HTML 16.6%, Shell 5.5%, JavaScript 2.7%, CSS 1.4%, Python 1.3%
+                            </div>
+                        </div>
+                        <div>
+                            <h4><i class="fas fa-info-circle mr-2"></i>项目速读</h4>
+                            <p>RezaSi/go-interview-practice 是一个专为 Go 语言开发者设计的编程挑战平台，旨在帮助他们高效准备技术面试。项目提供了一系列结构化的编码题目，用户可以通过直观的 Web 界面在线完成挑战、提交代码，并立即获得由自动化测试提供的详细反馈。其核心优势在于提供即时、量化的练习效果反馈，以及可追踪个人进度的排行榜。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Thank You / Call to Action Slide -->
+            <section data-background-image="https://images.unsplash.com/photo-1549490587-8e652a975ac7?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-background-opacity="0.8" data-background-color="#ffffff">
+                <div class="title-wrapper">
+                    <h2 class="text-white text-shadow-lg">感谢您的聆听！</h2>
+                    <p class="subtitle text-white text-shadow-md">发掘更多开源宝藏，提升开发效率！</p>
+                    <p class="speaker-info text-white mt-10">AIChipEra</p>
+                    <p class="text-white text-lg mt-5"><i class="fas fa-star mr-2"></i>别忘了给项目一个Star！</p>
+                </div>
+                <div class="qr-link-footer">
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            hash: true,
+            transition: 'fade', // Main transition: none/fade/slide/convex/concave/zoom
+            center: true, // Vertically center slides
+            // Learn about plugins here: https://revealjs.com/plugins/
+            plugins: [],
+            // Configure markdown plugin to render code blocks
+            markdown: {
+                smartypants: true
+            },
+            // Optional: for fragments visibility
+            dependencies: [
+                { src: 'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js', async: true },
+                { src: 'https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js', async: true },
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js', async: true },
+                { src: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js', async: true } // Mermaid integration
+            ]
+        });
+
+        // Simple visibility check for custom fragments if needed
+        // Not strictly necessary with Reveal.js fragments, but good for custom animations
+        Reveal.on('slidechanged', event => {
+            const fragments = event.currentSlide.querySelectorAll('.fragment.fade-in');
+            fragments.forEach(frag => frag.classList.remove('visible')); // Reset visibility
+        });
+
+        Reveal.on('fragmentshown', event => {
+            if (event.fragment.classList.contains('fade-in')) {
+                event.fragment.classList.add('visible');
+            }
+        });
+
+        Reveal.on('fragmenthidden', event => {
+            if (event.fragment.classList.contains('fade-in')) {
+                event.fragment.classList.remove('visible');
+            }
+        });
+
+    </script>
+</body>
+</html>

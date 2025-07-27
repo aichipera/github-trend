@@ -1,0 +1,1322 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>技术前瞻：语言模型迈向工程化，企业基石重塑掌控力</title>
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        /* 自定义CSS样式 */
+        :root {
+            /* 颜色方案 */
+            --r-background-color: #f7f9fc; /* 浅背景 */
+            --r-main-color: #333; /* 深色文本 */
+            --r-link-color: #007bff; /* 链接蓝色 */
+            --r-link-color-hover: #0056b3;
+            --primary-color: #2a6df2; /* 主色调：科技蓝 */
+            --secondary-color: #6c757d; /* 辅助色：中灰 */
+            --accent-color: #00b894; /* 强调色：活力绿 */
+            --gradient-start: #e0f2fe; /* 渐变起始色：浅蓝 */
+            --gradient-end: #c4e4fb; /* 渐变结束色：稍深蓝 */
+            --dark-blue: #1a4a9c; /* 深蓝，用于标题等 */
+        }
+
+        body {
+            /* 中文字体：正文使用无衬线，标题使用衬线 */
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--r-main-color);
+            background-color: var(--r-background-color);
+        }
+
+        .reveal .slides section {
+            padding: 20px 50px; /* 幻灯片内边距 */
+            text-align: left;
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            font-family: 'Noto Serif SC', serif; /* 标题字体 */
+            color: var(--dark-blue);
+            text-shadow: none;
+            line-height: 1.2;
+            margin-bottom: 0.5em;
+        }
+
+        /* 字体层次 */
+        .reveal h1 { font-size: 2.8rem; }
+        .reveal h2 { font-size: 2.2rem; }
+        .reveal h3 { font-size: 1.8rem; }
+        .reveal h4 { font-size: 1.5rem; }
+        .reveal p,
+        .reveal li,
+        .reveal table {
+            font-size: 1.1rem; /* 正文字体大小 */
+            line-height: 1.6;
+            color: var(--r-main-color);
+        }
+
+        .reveal ul {
+            list-style-type: none; /* 移除默认项目符号 */
+            padding-left: 0;
+        }
+
+        .reveal ul li {
+            position: relative;
+            padding-left: 1.5em; /* 为自定义项目符号预留空间 */
+            margin-bottom: 0.5em;
+        }
+
+        /* 列表项的默认图标 */
+        .reveal ul li::before {
+            content: "\f00c"; /* Font Awesome 勾选图标 */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--accent-color); /* 绿色勾选 */
+            position: absolute;
+            left: 0;
+            top: 0.1em;
+            font-size: 0.9em;
+        }
+
+        /* 非勾选列表的图标 */
+        .reveal ul.standard-list li::before {
+            content: "\f111"; /* Font Awesome 实心圆图标 */
+            font-size: 0.5em;
+            top: 0.5em;
+            color: var(--primary-color); /* 主色调蓝色 */
+        }
+
+        .reveal a {
+            color: var(--r-link-color);
+            text-decoration: none;
+        }
+
+        .reveal a:hover {
+            color: var(--r-link-color-hover);
+            text-decoration: underline;
+        }
+
+        /* 表格样式 */
+        .reveal table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+        }
+
+        .reveal th,
+        .reveal td {
+            border: 1px solid #ddd;
+            padding: 0.8em;
+            text-align: left;
+        }
+
+        .reveal th {
+            background-color: var(--gradient-start);
+            color: var(--dark-blue);
+            font-weight: 600;
+        }
+
+        /* 背景定制 */
+        .reveal .slides section.bg-cover {
+            background-size: cover;
+            background-position: center;
+            color: white; /* 确保文本在深色背景上可见 */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .reveal .slides section.bg-cover h1,
+        .reveal .slides section.bg-cover h2,
+        .reveal .slides section.bg-cover p {
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* 渐变背景 */
+        .reveal .slides section.gradient-bg {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+        }
+
+        /* 底部信息 (项目链接和二维码) */
+        .footer-info {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.8em;
+            color: #555;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 5px 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 999; /* 确保在最上层 */
+        }
+        .footer-info img {
+            height: 50px; /* 二维码大小 */
+            width: 50px;
+            border-radius: 3px;
+        }
+        .footer-info a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .footer-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* 封面页样式 */
+        .title-slide {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0;
+        }
+        .title-slide h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.3em;
+            color: white;
+            line-height: 1.1;
+        }
+        .title-slide p {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.5em;
+        }
+        .title-slide .speaker-info {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 2em;
+        }
+
+        /* Reveal.js 控件和进度条层级 */
+        .reveal .controls, .reveal .progress {
+            z-index: 1000;
+        }
+
+        /* 微交互设计：自定义fragment动画 */
+        .fade-in.fragment {
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+        .fade-in.fragment.visible {
+            opacity: 1;
+        }
+        .grow.fragment {
+            transform: scale(0.8);
+            opacity: 0;
+            transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+        }
+        .grow.fragment.visible {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .slide-in-right.fragment {
+            transform: translateX(100%);
+            opacity: 0;
+            transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+        }
+        .slide-in-right.fragment.visible {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        /* 项目数据表格样式 */
+        .project-table-container {
+            overflow-x: auto;
+            margin-top: 1.5em;
+        }
+        .project-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            font-size: 0.95em;
+        }
+        .project-table th, .project-table td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+        .project-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .project-table td {
+            background-color: white;
+            border-bottom: 1px solid #eee;
+            color: #444;
+        }
+        .project-table tbody tr:nth-child(even) td {
+            background-color: #f9f9f9;
+        }
+        .project-table td:first-child {
+            border-left: none;
+        }
+        .project-table td:last-child {
+            border-right: none;
+        }
+        .project-table tr:last-child td {
+            border-bottom: none;
+        }
+        .project-table .icon-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .project-table .icon-label .fa-star { color: #FFD700; } /* 金色星标 */
+        .project-table .icon-label .fa-code-branch { color: #6A5ACD; } /* 分支图标 */
+        .project-table .icon-label .fa-eye { color: #1E90FF; } /* 眼睛图标 */
+        .project-table .icon-label .fa-exclamation-circle { color: #FF4500; } /* 警告图标 */
+        .project-table .icon-label .fa-code-pull-request { color: #008080; } /* 合并请求图标 */
+        .project-table .icon-label .fa-box { color: #BA55D3; } /* 发布图标 */
+        .project-table .icon-label .fa-clipboard { color: #8B4513; } /* 提交图标 */
+        .project-table .icon-label .fa-file-alt { color: #808080; } /* 许可证图标 */
+        .project-table .icon-label .fa-users { color: #20B2AA; } /* 贡献者图标 */
+        .project-table .icon-label .fa-dollar-sign { color: #32CD32; } /* 增长星标图标 */
+
+        .section-header {
+            font-size: 2.5rem;
+            color: var(--dark-blue);
+            margin-top: 1em;
+            margin-bottom: 1em;
+            text-align: center;
+        }
+
+        /* 最后一页二维码和链接放大 */
+        .final-slide .footer-info {
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.6); /* 深色背景更显眼 */
+        }
+        .final-slide .footer-info a {
+            font-size: 1.8em;
+            color: white;
+        }
+        .final-slide .footer-info img {
+            height: 120px;
+            width: 120px;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover Page -->
+            <section class="title-slide bg-cover" style="background-image: url('https://images.unsplash.com/photo-1596541223130-f8bc82747120?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+                <h1>技术前瞻：语言模型迈向工程化，<br>企业基石重塑掌控力</h1>
+                <p>Github热门仓库**日报**观测时间为 <strong>2025-07-26 21:00:47</strong></p>
+                <p class="text-lg opacity-75 mt-2">以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</p>
+                <div class="speaker-info">
+                    <p>演讲者：AIChipEra</p>
+                </div>
+                <div class="footer-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        <i class="fab fa-github"></i> https://github.com/aichipera/github-trend
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+            <!-- Slide 2: 日报要点 -->
+            <section class="gradient-bg">
+                <h2><i class="fas fa-bullhorn text-primary-color mr-3"></i>日报要点</h2>
+                <ul class="standard-list">
+                    <li class="fragment fade-in">
+                        <strong class="text-primary-color">LLM工程化深耕：</strong>先进语言模型正从探索走向大规模生产应用，工程化、质量评估与多模型集成成为焦点。
+                    </li>
+                    <li class="fragment fade-in">
+                        <strong class="text-primary-color">企业基石掌控：</strong>企业与个人对支付、邮件、身份管理等核心基础设施的自主掌控需求日益强烈，追求数据主权与成本效益。
+                    </li>
+                    <li class="fragment fade-in">
+                        <strong class="text-primary-color">语言趋势显现：</strong>Python在语言模型应用中保持领先，Rust在高性能基建崭露头角。
+                    </li>
+                    <li class="fragment fade-in">
+                        <strong class="text-primary-color">核心考量聚焦：</strong>开源、模块化与可控性是当前技术栈的核心考量，共同指明了未来生产力工具与核心业务的演进方向。
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Slide 3: 热门项目趋势分析 - 今日整体趋势 -->
+            <section>
+                <h2 class="section-header">热门项目趋势分析</h2>
+                <h3><i class="fas fa-chart-line text-primary-color mr-3"></i>今日整体趋势</h3>
+                <p class="fragment fade-in">今日GitHub上的热门项目清晰地描绘了当前技术发展的前沿与开发者关注的焦点。</p>
+                <p class="fragment fade-in">细观之下，一股围绕大型语言模型（LLM）的深化应用浪潮与对核心基础设施“掌控感”的回归，成为最显著的两大主题。</p>
+            </section>
+
+            <!-- Slide 4: 一、技术领域与主题概览 -->
+            <section class="gradient-bg">
+                <h3><i class="fas fa-microchip text-primary-color mr-3"></i>一、技术领域与主题概览</h3>
+                <ul class="standard-list">
+                    <li class="fragment grow">
+                        <strong class="text-dark-blue">AI/LLM深化应用：</strong>
+                        <ul class="standard-list">
+                            <li class="fragment slide-in-right">卓越代理能力 (Qwen3-Coder)</li>
+                            <li class="fragment slide-in-right">LLM接口统一网关 (LiteLLM)</li>
+                            <li class="fragment slide-in-right">LLM应用质量评估框架 (DeepEval)</li>
+                        </ul>
+                    </li>
+                    <li class="fragment grow">
+                        <strong class="text-dark-blue">核心基础设施“掌控欲”：</strong>
+                        <ul class="standard-list">
+                            <li class="fragment slide-in-right">企业级支付 (Hyperswitch)</li>
+                            <li class="fragment slide-in-right">自托管邮件营销 (BillionMail)</li>
+                            <li class="fragment slide-in-right">敏感信息管理 (Infisical) 与身份认证 (Keycloak)</li>
+                            <li class="fragment slide-in-right">操作系统精细控制 (Win11Debloat)</li>
+                        </ul>
+                    </li>
+                    <li class="fragment grow">
+                        <strong class="text-dark-blue">基础工具与规范：</strong>
+                        <ul class="standard-list">
+                            <li class="fragment slide-in-right">数据可视化 (DataEase)</li>
+                            <li class="fragment slide-in-right">开发最佳实践 (nodebestpractices)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Slide 5: 二、编程语言分布与技术栈特点 -->
+            <section>
+                <h3><i class="fas fa-code text-primary-color mr-3"></i>二、编程语言分布与技术栈特点</h3>
+                <h4 class="fragment fade-in">编程语言分布</h4>
+                <ul class="standard-list">
+                    <li class="fragment slide-in-right"><strong class="text-dark-blue">Python：</strong>AI/数据科学首选，三款LLM相关项目均采用。</li>
+                    <li class="fragment slide-in-right"><strong class="text-dark-blue">Java：</strong>企业级应用和后端解决方案的坚实基石。</li>
+                    <li class="fragment slide-in-right"><strong class="text-dark-blue">Rust：</strong>崛起，高性能、安全性优势，用于关键服务。</li>
+                    <li class="fragment slide-in-right"><strong class="text-dark-blue">Go：</strong>构建高效后端服务和自托管解决方案。</li>
+                    <li class="fragment slide-in-right"><strong class="text-dark-blue">TypeScript：</strong>前端和全栈宠儿，用于开发者工具和秘密管理。</li>
+                    <li class="fragment slide-in-right"><strong class="text-dark-blue">PowerShell：</strong>Windows系统自动化与优化。</li>
+                </ul>
+                <h4 class="fragment fade-in mt-4">整体技术栈特点</h4>
+                <ul class="standard-list">
+                    <li class="fragment slide-in-right"><strong class="text-dark-blue">开源：</strong>鼓励社区协作。</li>
+                    <li class="fragment slide-in-right"><strong class="text-dark-blue">模块化：</strong>方便集成与定制。</li>
+                    <li class="fragment slide-in-right"><strong class="text-dark-blue">可控性：</strong>强调自托管和精细控制，降低云依赖。</li>
+                    <li class="fragment slide-in-right"><strong class="text-dark-blue">高性能：</strong>核心业务关注性能和可靠性。</li>
+                </ul>
+            </section>
+
+            <!-- Slide 6: 三、技术需求与发展方向 -->
+            <section class="gradient-bg">
+                <h3><i class="fas fa-lightbulb text-primary-color mr-3"></i>三、技术需求与发展方向</h3>
+                <ul class="standard-list">
+                    <li class="fragment grow">
+                        <strong class="text-dark-blue">LLM从“玩具”到“工具”的转变：</strong>
+                        <ul class="standard-list">
+                            <li class="fragment slide-in-right">需求转向复杂应用场景，如代理编程、多模型集成。</li>
+                            <li class="fragment slide-in-right">LLM的“工程化”和“运营化”（LLMOps）是未来发展方向。</li>
+                        </ul>
+                    </li>
+                    <li class="fragment grow">
+                        <strong class="text-dark-blue">安全性与合规性的刚性需求：</strong>
+                        <ul class="standard-list">
+                            <li class="fragment slide-in-right">企业对信息安全和数据合规投入增加，偏好开源可控方案。</li>
+                        </ul>
+                    </li>
+                    <li class="fragment grow">
+                        <strong class="text-dark-blue">核心业务的自主可控：</strong>
+                        <ul class="standard-list">
+                            <li class="fragment slide-in-right">企业希望对关键业务流程有更强控制力，避免厂商锁定。</li>
+                        </ul>
+                    </li>
+                    <li class="fragment grow">
+                        <strong class="text-dark-blue">开发者体验与效率提升：</strong>
+                        <ul class="standard-list">
+                            <li class="fragment slide-in-right">统一API、自动化脚本、最佳实践旨在降低开发门槛。</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Slide 7: 四、今日特有技术趋势特点与未来展望 -->
+            <section>
+                <h3><i class="fas fa-glasses text-primary-color mr-3"></i>四、今日特有技术趋势特点与未来展望</h3>
+                <h4 class="fragment fade-in">突出特点</h4>
+                <ul class="standard-list">
+                    <li class="fragment slide-in-right"><strong class="text-dark-blue">LLM应用的“代理化”：</strong>AI从被动响应走向主动决策和执行复杂任务，AI应用范式重大飞跃。</li>
+                    <li class="fragment slide-in-right"><strong class="text-dark-blue">LLM应用的“评估化”：</strong>进入深水区，追求更深层次的性能、安全与可靠性保障。</li>
+                </ul>
+                <h4 class="fragment fade-in mt-4">未来展望</h4>
+                <ul class="standard-list">
+                    <li class="fragment slide-in-right"><strong class="text-dark-blue">“具身智能”（Embodied AI）：</strong>能够与物理世界或复杂数字环境交互的AI系统。</li>
+                    <li class="fragment slide-in-right"><strong class="text-dark-blue">“多模态LLM在垂直领域的深入落地”：</strong>结合行业知识形成特定领域解决方案。</li>
+                    <li class="fragment slide-in-right"><strong class="text-dark-blue">AI模型的安全攻防和隐私保护技术：</strong>伴随AI广泛应用加速发展。</li>
+                </ul>
+            </section>
+
+            <!-- Slide 8: 热门项目双日维度对比分析 -->
+            <section class="gradient-bg">
+                <h3><i class="fas fa-chart-bar text-primary-color mr-3"></i>热门项目双日维度对比分析</h3>
+                <h4 class="fragment fade-in">GitHub热门项目动态概览</h4>
+                <ul class="standard-list">
+                    <li class="fragment slide-in-right">新晋项目达7个，3个项目保持上升，整体热度稳中有升。</li>
+                    <li class="fragment slide-in-right">新晋多为AI相关工具及企业级应用，亦有开发实践指南与系统优化工具。</li>
+                    <li class="fragment slide-in-right">语言分布：Java和Python活跃，Dockerfile和PowerShell关注度提升。</li>
+                    <li class="fragment slide-in-right"><strong class="text-dark-blue">QwenLM/Qwen3-Coder</strong> 以近600星增幅领跑，印证AI代码生成强劲热度。</li>
+                    <li class="fragment slide-in-right"><strong class="text-dark-blue">aaPanel/BillionMail</strong> 显著增长，反映对邮件服务关注。</li>
+                </ul>
+
+                <h4 class="fragment fade-in mt-4">热点变化</h4>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm mt-4">
+                    <div class="fragment grow p-3 bg-white rounded-lg shadow-md">
+                        <h5 class="font-bold text-accent-color mb-2"><i class="fas fa-plus-circle mr-2"></i>新增热点</h5>
+                        <ul class="list-none p-0 m-0 text-gray-700 text-base">
+                            <li>confident-ai/deepeval</li>
+                            <li>berriai/litellm</li>
+                            <li>keycloak/keycloak</li>
+                            <li>goldbergyoni/nodebestpractices</li>
+                            <li>infisical/infisical</li>
+                            <li>dataease/dataease</li>
+                            <li>raphire/win11debloat</li>
+                        </ul>
+                    </div>
+                    <div class="fragment grow p-3 bg-white rounded-lg shadow-md">
+                        <h5 class="font-bold text-red-500 mb-2"><i class="fas fa-minus-circle mr-2"></i>减退热点</h5>
+                        <ul class="list-none p-0 m-0 text-gray-700 text-base">
+                            <li>software-mansion/react-native-reanimated</li>
+                            <li>steven2358/awesome-generative-ai</li>
+                            <li>semgrep/semgrep</li>
+                            <li>moby/moby</li>
+                            <li>twbs/bootstrap</li>
+                            <li>srbhr/resume-matcher</li>
+                            <li>openbb-finance/openbb</li>
+                            <li>tensorzero/tensorzero</li>
+                        </ul>
+                    </div>
+                    <div class="fragment grow p-3 bg-white rounded-lg shadow-md">
+                        <h5 class="font-bold text-primary-color mb-2"><i class="fas fa-arrow-alt-circle-right mr-2"></i>持续热门</h5>
+                        <ul class="list-none p-0 m-0 text-gray-700 text-base">
+                            <li>juspay/hyperswitch (4次)</li>
+                            <li>aaPanel/BillionMail (3次)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 9: 详细仓库数据 - Introduction -->
+            <section class="bg-cover" style="background-image: url('https://images.unsplash.com/photo-1549492167-7359560f7ff3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+                <h2 class="text-white text-center text-4xl" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.7);">深入探索：热门仓库详细数据</h2>
+                <p class="text-white text-center text-lg mt-4 opacity-90" style="text-shadow: 2px 2px 6px rgba(0,0,0,0.6);">每一个星标背后，都是技术趋势的缩影。</p>
+            </section>
+
+            <!-- Vertical Section for QwenLM/Qwen3-Coder -->
+            <section>
+                <h2><i class="fas fa-star text-yellow-500 mr-2"></i> QwenLM/Qwen3-Coder</h2>
+                <p class="text-lg text-gray-700">项目简介: 阿里云通义团队开发的大型语言模型系列Qwen3的代码版本。</p>
+
+                <div class="project-table-container">
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/QwenLM/Qwen3-Coder" target="_blank">QwenLM/Qwen3-Coder</a></td>
+                                <td>Python</td>
+                                <td>9131</td>
+                                <td>2次</td>
+                                <td>2次</td>
+                                <td>622</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 text-sm mt-4">
+                    <div>
+                        <ul class="list-none p-0 m-0">
+                            <li><span class="icon-label"><i class="fas fa-star"></i> Stars: 9.1k</span></li>
+                            <li><span class="icon-label"><i class="fas fa-code-branch"></i> Forks: 646</span></li>
+                            <li><span class="icon-label"><i class="fas fa-eye"></i> Watchers: 71</span></li>
+                            <li><span class="icon-label"><i class="fas fa-exclamation-circle"></i> Issues: 58</span></li>
+                            <li><span class="icon-label"><i class="fas fa-code-pull-request"></i> Pull Requests: 5</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul class="list-none p-0 m-0">
+                            <li><span class="icon-label"><i class="fas fa-box"></i> Releases: 0</span></li>
+                            <li><span class="icon-label"><i class="fas fa-clipboard"></i> Commits: 326</span></li>
+                            <li><span class="icon-label"><i class="fas fa-file-alt"></i> License: 未知</span></li>
+                            <li><span class="icon-label"><i class="fas fa-users"></i> Contributors: 26</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="text-sm mt-2"><strong class="text-primary-color">编程语言占比:</strong> Python 71.9%, Go 23.3%, Shell 3.3%, Tree-sitter Query 0.7%, JavaScript 0.4%, Makefile 0.1%, Other 0.3%</p>
+            </section>
+
+            <section data-background-color="#e0f2fe">
+                <h3><i class="fas fa-flask text-primary-color mr-2"></i>Qwen3-Coder: 项目速读</h3>
+                <ul class="standard-list">
+                    <li class="fragment fade-in"><strong>核心优势：</strong>卓越的代理能力（Agentic Coding），自主代码生成、浏览器使用及工具调用。</li>
+                    <li class="fragment fade-in"><strong>性能与规模：</strong>
+                        <ul>
+                            <li class="fragment slide-in-right">旗舰模型Qwen3-Coder-480B-A35B-Instruct，4800亿参数MoE架构。</li>
+                            <li class="fragment slide-in-right">350亿活跃参数，代理任务达SOTA，媲美Claude Sonnet。</li>
+                            <li class="fragment slide-in-right">原生支持256K Tokens长上下文，Yarn技术可扩展至1M Tokens。</li>
+                        </ul>
+                    </li>
+                    <li class="fragment fade-in"><strong>广泛支持：</strong>覆盖358种编程语言，继承基础模型的数学和通用知识能力。</li>
+                    <li class="fragment fade-in"><strong>应用场景：</strong>高级代码生成、智能体协作、大规模代码理解。</li>
+                </ul>
+            </section>
+            <section data-background-color="#c4e4fb">
+                <h3><i class="fas fa-chart-line text-primary-color mr-2"></i>Qwen3-Coder: 增长分析</h3>
+                <ul class="standard-list">
+                    <li class="fragment fade-in"><strong>两天内两次上榜，总星数增长589。</strong></li>
+                    <li class="fragment fade-in"><strong>今日新增622星，显示强劲上升势头。</strong></li>
+                    <li class="fragment fade-in">社区对其技术实力和实用价值广泛认可。</li>
+                </ul>
+            </section>
+
+            <!-- Vertical Section for juspay/hyperswitch -->
+            <section>
+                <h2><i class="fas fa-money-check-alt text-green-500 mr-2"></i> juspay/hyperswitch</h2>
+                <p class="text-lg text-gray-700">项目简介: 一个用 Rust 编写的开源支付交换系统，旨在实现快速、可靠且经济实惠的支付。</p>
+
+                <div class="project-table-container">
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/juspay/hyperswitch" target="_blank">juspay/hyperswitch</a></td>
+                                <td>Rust</td>
+                                <td>22806</td>
+                                <td>4次</td>
+                                <td>15次</td>
+                                <td>116</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 text-sm mt-4">
+                    <div>
+                        <ul class="list-none p-0 m-0">
+                            <li><span class="icon-label"><i class="fas fa-star"></i> Stars: 22.8k</span></li>
+                            <li><span class="icon-label"><i class="fas fa-code-branch"></i> Forks: 3.9k</span></li>
+                            <li><span class="icon-label"><i class="fas fa-eye"></i> Watchers: 94</span></li>
+                            <li><span class="icon-label"><i class="fas fa-exclamation-circle"></i> Issues: 678</span></li>
+                            <li><span class="icon-label"><i class="fas fa-code-pull-request"></i> Pull Requests: 292</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul class="list-none p-0 m-0">
+                            <li><span class="icon-label"><i class="fas fa-box"></i> Releases: 146</span></li>
+                            <li><span class="icon-label"><i class="fas fa-clipboard"></i> Commits: 5,339</span></li>
+                            <li><span class="icon-label"><i class="fas fa-file-alt"></i> License: Apache-2.0 license</span></li>
+                            <li><span class="icon-label"><i class="fas fa-users"></i> Contributors: 235</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="text-sm mt-2"><strong class="text-primary-color">编程语言占比:</strong> Rust 80.4%, JavaScript 18.7%, Shell 0.2%, MDX 0.2%, PLpgSQL 0.2%, HTML 0.2%, Other 0.1%</p>
+            </section>
+
+            <section data-background-color="#e0f2fe">
+                <h3><i class="fas fa-dollar-sign text-primary-color mr-2"></i>Hyperswitch: 项目速读</h3>
+                <ul class="standard-list">
+                    <li class="fragment fade-in"><strong>核心目标：</strong>解决传统支付效率低下、成本高、供应商锁定问题。</li>
+                    <li class="fragment fade-in"><strong>技术亮点：</strong>
+                        <ul>
+                            <li class="fragment slide-in-right">Rust编写，高性能、企业级可靠性。</li>
+                            <li class="fragment slide-in-right">模块化设计：智能路由、收入恢复、成本可观察性、支付信息保险库。</li>
+                        </ul>
+                    </li>
+                    <li class="fragment fade-in"><strong>价值与适用：</strong>
+                        <ul>
+                            <li class="fragment slide-in-right">开源、高灵活性，赋能企业完全掌控支付堆栈。</li>
+                            <li class="fragment slide-in-right">适用于追求精细控制、成本优化、高成功率和全球市场的企业。</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+            <section data-background-color="#c4e4fb">
+                <h3><i class="fas fa-chart-line text-primary-color mr-2"></i>Hyperswitch: 增长分析</h3>
+                <ul class="standard-list">
+                    <li class="fragment fade-in"><strong>总Star增长8635。</strong></li>
+                    <li class="fragment fade-in"><strong>15次上榜，持续曝光与强劲用户吸引力。</strong></li>
+                    <li class="fragment fade-in">平均每次新增254星，整体增长趋势稳健活跃。</li>
+                </ul>
+            </section>
+
+            <!-- Vertical Section for aaPanel/BillionMail -->
+            <section>
+                <h2><i class="fas fa-envelope-open-text text-blue-500 mr-2"></i> aaPanel/BillionMail</h2>
+                <p class="text-lg text-gray-700">项目简介: 开源的邮件服务器、新闻通讯和电子邮件营销服务——完全自托管、对开发者友好，且无月费。</p>
+
+                <div class="project-table-container">
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/aaPanel/BillionMail" target="_blank">aaPanel/BillionMail</a></td>
+                                <td>Go</td>
+                                <td>7849</td>
+                                <td>3次</td>
+                                <td>5次</td>
+                                <td>278</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 text-sm mt-4">
+                    <div>
+                        <ul class="list-none p-0 m-0">
+                            <li><span class="icon-label"><i class="fas fa-star"></i> Stars: 7.8k</span></li>
+                            <li><span class="icon-label"><i class="fas fa-code-branch"></i> Forks: 659</span></li>
+                            <li><span class="icon-label"><i class="fas fa-eye"></i> Watchers: 38</span></li>
+                            <li><span class="icon-label"><i class="fas fa-exclamation-circle"></i> Issues: 93</span></li>
+                            <li><span class="icon-label"><i class="fas fa-code-pull-request"></i> Pull Requests: 2</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul class="list-none p-0 m-0">
+                            <li><span class="icon-label"><i class="fas fa-box"></i> Releases: 12</span></li>
+                            <li><span class="icon-label"><i class="fas fa-clipboard"></i> Commits: 943</span></li>
+                            <li><span class="icon-label"><i class="fas fa-file-alt"></i> License: AGPL-3.0 license</span></li>
+                            <li><span class="icon-label"><i class="fas fa-users"></i> Contributors: 8</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="text-sm mt-2"><strong class="text-primary-color">编程语言占比:</strong> Go 95.5%, Shell 4.3%, Other 0.2%</p>
+            </section>
+
+            <section data-background-color="#e0f2fe">
+                <h3><i class="fas fa-server text-primary-color mr-2"></i>BillionMail: 项目速读</h3>
+                <ul class="standard-list">
+                    <li class="fragment fade-in"><strong>核心目标：</strong>提供开源自托管邮件服务器、新闻邮件及邮件营销平台。</li>
+                    <li class="fragment fade-in"><strong>解决痛点：</strong>传统邮件服务成本高、功能限、数据隐私难控。</li>
+                    <li class="fragment fade-in"><strong>主要优势：</strong>
+                        <ul>
+                            <li class="fragment slide-in-right">完全开源、无月费，避免厂商锁定。</li>
+                            <li class="fragment slide-in-right">数据私有化，无限制邮件发送量。</li>
+                            <li class="fragment slide-in-right">高级投递分析、可定制模板、内置客户管理。</li>
+                        </ul>
+                    </li>
+                    <li class="fragment fade-in"><strong>技术与部署：</strong>Go语言开发，集成RoundCube，支持Docker、宝塔面板一键部署。</li>
+                    <li class="fragment fade-in"><strong>适用场景：</strong>注重成本、数据隐私，需邮件营销自主控制的用户或组织。</li>
+                </ul>
+            </section>
+            <section data-background-color="#c4e4fb">
+                <h3><i class="fas fa-chart-line text-primary-color mr-2"></i>BillionMail: 增长分析</h3>
+                <ul class="standard-list">
+                    <li class="fragment fade-in"><strong>近两月内5次上榜，总增长4764星。</strong></li>
+                    <li class="fragment fade-in"><strong>每次上榜平均新增428星，周期性爆发增长趋势。</strong></li>
+                    <li class="fragment fade-in">今日新增278星，仍保持活跃。</li>
+                </ul>
+            </section>
+
+            <!-- Vertical Section for keycloak/keycloak -->
+            <section>
+                <h2><i class="fas fa-key text-yellow-600 mr-2"></i> keycloak/keycloak</h2>
+                <p class="text-lg text-gray-700">项目简介: 现代应用与服务的开源身份与访问管理。</p>
+
+                <div class="project-table-container">
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/keycloak/keycloak" target="_blank">keycloak/keycloak</a></td>
+                                <td>Java</td>
+                                <td>28496</td>
+                                <td>1次</td>
+                                <td>1次</td>
+                                <td>30</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 text-sm mt-4">
+                    <div>
+                        <ul class="list-none p-0 m-0">
+                            <li><span class="icon-label"><i class="fas fa-star"></i> Stars: 28.5k</span></li>
+                            <li><span class="icon-label"><i class="fas fa-code-branch"></i> Forks: 7.5k</span></li>
+                            <li><span class="icon-label"><i class="fas fa-eye"></i> Watchers: 389</span></li>
+                            <li><span class="icon-label"><i class="fas fa-exclamation-circle"></i> Issues: 2k</span></li>
+                            <li><span class="icon-label"><i class="fas fa-code-pull-request"></i> Pull Requests: 254</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul class="list-none p-0 m-0">
+                            <li><span class="icon-label"><i class="fas fa-box"></i> Releases: 86</span></li>
+                            <li><span class="icon-label"><i class="fas fa-clipboard"></i> Commits: 28,724</span></li>
+                            <li><span class="icon-label"><i class="fas fa-file-alt"></i> License: Apache-2.0 license</span></li>
+                            <li><span class="icon-label"><i class="fas fa-users"></i> Contributors: 1,351</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="text-sm mt-2"><strong class="text-primary-color">编程语言占比:</strong> Java 91.3%, TypeScript 7.6%, FreeMarker 0.7%, JavaScript 0.1%, Shell 0.1%, CSS 0.1%, Other 0.1%</p>
+            </section>
+
+            <section data-background-color="#e0f2fe">
+                <h3><i class="fas fa-fingerprint text-primary-color mr-2"></i>Keycloak: 项目速读</h3>
+                <ul class="standard-list">
+                    <li class="fragment fade-in"><strong>核心目标：</strong>简化现代应用的身份验证与访问控制流程。</li>
+                    <li class="fragment fade-in"><strong>关键功能：</strong>
+                        <ul>
+                            <li class="fragment slide-in-right">用户联邦集成、多因素认证。</li>
+                            <li class="fragment slide-in-right">用户生命周期管理、细粒度资源授权。</li>
+                        </ul>
+                    </li>
+                    <li class="fragment fade-in"><strong>技术特点：</strong>基于Java开发，支持本地/Docker部署，提供跨技术栈适配器。</li>
+                    <li class="fragment fade-in"><strong>价值与适用：</strong>开源（Apache 2.0）、活跃社区，适用于寻求快速、安全、可扩展身份验证的企业和开发者。</li>
+                </ul>
+            </section>
+            <section data-background-color="#c4e4fb">
+                <h3><i class="fas fa-chart-line text-primary-color mr-2"></i>Keycloak: 增长分析</h3>
+                <ul class="standard-list">
+                    <li class="fragment fade-in">今日新晋榜单，当日新增30星。</li>
+                    <li class="fragment fade-in">作为成熟项目，其持续被关注表明IAM的重要性。</li>
+                </ul>
+            </section>
+
+            <!-- Vertical Section for BerriAI/litellm -->
+            <section>
+                <h2><i class="fas fa-network-wired text-purple-500 mr-2"></i> BerriAI/litellm</h2>
+                <p class="text-lg text-gray-700">项目简介: Python SDK，代理服务器（LLM网关），用于以OpenAI格式调用100多个LLM API。</p>
+
+                <div class="project-table-container">
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/BerriAI/litellm" target="_blank">BerriAI/litellm</a></td>
+                                <td>Python</td>
+                                <td>26171</td>
+                                <td>1次</td>
+                                <td>3次</td>
+                                <td>48</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 text-sm mt-4">
+                    <div>
+                        <ul class="list-none p-0 m-0">
+                            <li><span class="icon-label"><i class="fas fa-star"></i> Stars: 26.2k</span></li>
+                            <li><span class="icon-label"><i class="fas fa-code-branch"></i> Forks: 3.6k</span></li>
+                            <li><span class="icon-label"><i class="fas fa-eye"></i> Watchers: 129</span></li>
+                            <li><span class="icon-label"><i class="fas fa-exclamation-circle"></i> Issues: 822</span></li>
+                            <li><span class="icon-label"><i class="fas fa-code-pull-request"></i> Pull Requests: 534</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul class="list-none p-0 m-0">
+                            <li><span class="icon-label"><i class="fas fa-box"></i> Releases: 955</span></li>
+                            <li><span class="icon-label"><i class="fas fa-clipboard"></i> Commits: 23,591</span></li>
+                            <li><span class="icon-label"><i class="fas fa-file-alt"></i> License: 未知</span></li>
+                            <li><span class="icon-label"><i class="fas fa-users"></i> Contributors: 726</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="text-sm mt-2"><strong class="text-primary-color">编程语言占比:</strong> Python 88.6%, TypeScript 10.8%, HTML 0.5%, JavaScript 0.1%, Shell 0.0%, Makefile 0.0%</p>
+            </section>
+
+            <section data-background-color="#e0f2fe">
+                <h3><i class="fas fa-exchange-alt text-primary-color mr-2"></i>LiteLLM: 项目速读</h3>
+                <ul class="standard-list">
+                    <li class="fragment fade-in"><strong>核心目标：</strong>解决LLM碎片化集成复杂性，提供统一API接口。</li>
+                    <li class="fragment fade-in"><strong>主要功能：</strong>
+                        <ul>
+                            <li class="fragment slide-in-right">统一调用100+ LLM API (OpenAI格式)。</li>
+                            <li class="fragment slide-in-right">内置重试、回退、智能路由，提升可靠性。</li>
+                            <li class="fragment slide-in-right">成本管理：预算、速率限制、使用追踪。</li>
+                            <li class="fragment slide-in-right">支持与可观测性工具集成。</li>
+                        </ul>
+                    </li>
+                    <li class="fragment fade-in"><strong>价值与适用：</strong>降低LLM应用开发门槛，适用于多模型策略、成本管理和高可用性AI项目。</li>
+                </ul>
+            </section>
+            <section data-background-color="#c4e4fb">
+                <h3><i class="fas fa-chart-line text-primary-color mr-2"></i>LiteLLM: 增长分析</h3>
+                <ul class="standard-list">
+                    <li class="fragment fade-in"><strong>约3个月内仅上榜3次，榜单曝光度较低。</strong></li>
+                    <li class="fragment fade-in"><strong>总Star增长4817，吸引力强劲，非榜单渠道贡献大。</strong></li>
+                    <li class="fragment fade-in">平均每次上榜贡献68.3星，今日新增48星。</li>
+                </ul>
+            </section>
+
+            <!-- Vertical Section for Infisical/infisical -->
+            <section>
+                <h2><i class="fas fa-lock text-gray-700 mr-2"></i> Infisical/infisical</h2>
+                <p class="text-lg text-gray-700">项目简介: 开源平台，用于秘密管理、PKI 和 SSH 访问。</p>
+
+                <div class="project-table-container">
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/Infisical/infisical" target="_blank">Infisical/infisical</a></td>
+                                <td>TypeScript</td>
+                                <td>18976</td>
+                                <td>1次</td>
+                                <td>2次</td>
+                                <td>16</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 text-sm mt-4">
+                    <div>
+                        <ul class="list-none p-0 m-0">
+                            <li><span class="icon-label"><i class="fas fa-star"></i> Stars: 19k</span></li>
+                            <li><span class="icon-label"><i class="fas fa-code-branch"></i> Forks: 1.3k</span></li>
+                            <li><span class="icon-label"><i class="fas fa-eye"></i> Watchers: 53</span></li>
+                            <li><span class="icon-label"><i class="fas fa-exclamation-circle"></i> Issues: 315</span></li>
+                            <li><span class="icon-label"><i class="fas fa-code-pull-request"></i> Pull Requests: 143</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul class="list-none p-0 m-0">
+                            <li><span class="icon-label"><i class="fas fa-box"></i> Releases: 336</span></li>
+                            <li><span class="icon-label"><i class="fas fa-clipboard"></i> Commits: 14,215</span></li>
+                            <li><span class="icon-label"><i class="fas fa-file-alt"></i> License: 未知</span></li>
+                            <li><span class="icon-label"><i class="fas fa-users"></i> Contributors: 190</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="text-sm mt-2"><strong class="text-primary-color">编程语言占比:</strong> TypeScript 94.7%, Go 4.7%, Shell 0.2%, JavaScript 0.2%, MDX 0.1%, Makefile 0.1%</p>
+            </section>
+
+            <section data-background-color="#e0f2fe">
+                <h3><i class="fas fa-shield-alt text-primary-color mr-2"></i>Infisical: 项目速读</h3>
+                <ul class="standard-list">
+                    <li class="fragment fade-in"><strong>核心目标：</strong>简化团队敏感信息（API密钥、凭证）的安全管理与分发。</li>
+                    <li class="fragment fade-in"><strong>全面能力：</strong>
+                        <ul>
+                            <li class="fragment slide-in-right">跨项目/环境秘密管理，集成主流开发/云平台。</li>
+                            <li class="fragment slide-in-right">秘密版本控制、动态生成、自动轮换、防泄露。</li>
+                            <li class="fragment slide-in-right">内部PKI（X.509证书）、KMS（加密密钥）、短暂SSH证书管理。</li>
+                        </ul>
+                    </li>
+                    <li class="fragment fade-in"><strong>技术特点：</strong>TypeScript构建，支持容器化部署，MIT许可证核心代码。</li>
+                    <li class="fragment fade-in"><strong>价值与适用：</strong>提升开发安全性、简化秘密生命周期管理，理想CI/CD和云原生环境集成。</li>
+                </ul>
+            </section>
+            <section data-background-color="#c4e4fb">
+                <h3><i class="fas fa-chart-line text-primary-color mr-2"></i>Infisical: 增长分析</h3>
+                <ul class="standard-list">
+                    <li class="fragment fade-in"><strong>22天内增长631 Star，仅上榜2次。</strong></li>
+                    <li class="fragment fade-in"><strong>增长趋势平稳积累，非爆发式。</strong></li>
+                    <li class="fragment fade-in">上榜频率低，每日增长峰值不足以频繁入榜。</li>
+                </ul>
+            </section>
+
+            <!-- Vertical Section for confident-ai/deepeval -->
+            <section>
+                <h2><i class="fas fa-microscope text-teal-500 mr-2"></i> confident-ai/deepeval</h2>
+                <p class="text-lg text-gray-700">项目简介: 大语言模型评估框架。</p>
+
+                <div class="project-table-container">
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/confident-ai/deepeval" target="_blank">confident-ai/deepeval</a></td>
+                                <td>Python</td>
+                                <td>9440</td>
+                                <td>1次</td>
+                                <td>7次</td>
+                                <td>25</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 text-sm mt-4">
+                    <div>
+                        <ul class="list-none p-0 m-0">
+                            <li><span class="icon-label"><i class="fas fa-star"></i> Stars: 9.4k</span></li>
+                            <li><span class="icon-label"><i class="fas fa-code-branch"></i> Forks: 826</span></li>
+                            <li><span class="icon-label"><i class="fas fa-eye"></i> Watchers: 38</span></li>
+                            <li><span class="icon-label"><i class="fas fa-exclamation-circle"></i> Issues: 180</span></li>
+                            <li><span class="icon-label"><i class="fas fa-code-pull-request"></i> Pull Requests: 16</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul class="list-none p-0 m-0">
+                            <li><span class="icon-label"><i class="fas fa-box"></i> Releases: 51</span></li>
+                            <li><span class="icon-label"><i class="fas fa-clipboard"></i> Commits: 5,758</span></li>
+                            <li><span class="icon-label"><i class="fas fa-file-alt"></i> License: Apache-2.0 license</span></li>
+                            <li><span class="icon-label"><i class="fas fa-users"></i> Contributors: 173</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="text-sm mt-2"><strong class="text-primary-color">编程语言占比:</strong> Python 100.0%</p>
+            </section>
+
+            <section data-background-color="#e0f2fe">
+                <h3><i class="fas fa-clipboard-check text-primary-color mr-2"></i>DeepEval: 项目速读</h3>
+                <ul class="standard-list">
+                    <li class="fragment fade-in"><strong>核心目标：</strong>LLM应用（RAG、聊天机器人、AI代理）的系统级质量评估与单元测试框架。</li>
+                    <li class="fragment fade-in"><strong>主要优势：</strong>
+                        <ul>
+                            <li class="fragment slide-in-right">丰富评估指标：G-Eval, RAGAS (答案相关性, 忠实度, 上下文召回), 幻觉, 偏见等。</li>
+                            <li class="fragment slide-in-right">本地安全运行，保障数据隐私。</li>
+                            <li class="fragment slide-in-right">支持自定义评估指标、合成数据集生成。</li>
+                            <li class="fragment slide-in-right">集成CI/CD，提供红队测试功能。</li>
+                        </ul>
+                    </li>
+                    <li class="fragment fade-in"><strong>生态集成：</strong>与Confident AI云平台深度整合，提供云端报告、调试、监控。</li>
+                    <li class="fragment fade-in"><strong>价值与适用：</strong>LLM应用开发者、MLOps工程师、研究人员确保LLM性能、安全、可靠性的关键利器。</li>
+                </ul>
+            </section>
+            <section data-background-color="#c4e4fb">
+                <h3><i class="fas fa-chart-line text-primary-color mr-2"></i>DeepEval: 增长分析</h3>
+                <ul class="standard-list">
+                    <li class="fragment fade-in"><strong>7次上榜，累计增长2145星。</strong></li>
+                    <li class="fragment fade-in"><strong>持续且强劲的可见度与增长势头。</strong></li>
+                    <li class="fragment fade-in">今日仅增25星，远低于平均水平，近期增长速度明显放缓。</li>
+                </ul>
+            </section>
+
+            <!-- Vertical Section for dataease/dataease -->
+            <section>
+                <h2><i class="fas fa-chart-area text-blue-700 mr-2"></i> dataease/dataease</h2>
+                <p class="text-lg text-gray-700">项目简介: 🔥 人人可用的开源 BI 工具，数据可视化神器，可作为Tableau的替代选择。</p>
+
+                <div class="project-table-container">
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/dataease/dataease" target="_blank">dataease/dataease</a></td>
+                                <td>Java</td>
+                                <td>20730</td>
+                                <td>1次</td>
+                                <td>1次</td>
+                                <td>109</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 text-sm mt-4">
+                    <div>
+                        <ul class="list-none p-0 m-0">
+                            <li><span class="icon-label"><i class="fas fa-star"></i> Stars: 20.7k</span></li>
+                            <li><span class="icon-label"><i class="fas fa-code-branch"></i> Forks: 3.7k</span></li>
+                            <li><span class="icon-label"><i class="fas fa-eye"></i> Watchers: 174</span></li>
+                            <li><span class="icon-label"><i class="fas fa-exclamation-circle"></i> Issues: 76</span></li>
+                            <li><span class="icon-label"><i class="fas fa-code-pull-request"></i> Pull Requests: 0</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul class="list-none p-0 m-0">
+                            <li><span class="icon-label"><i class="fas fa-box"></i> Releases: 96</span></li>
+                            <li><span class="icon-label"><i class="fas fa-clipboard"></i> Commits: 19,747</span></li>
+                            <li><span class="icon-label"><i class="fas fa-file-alt"></i> License: GPL-3.0 license</span></li>
+                            <li><span class="icon-label"><i class="fas fa-users"></i> Contributors: 87</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="text-sm mt-2"><strong class="text-primary-color">编程语言占比:</strong> Java 78.0%, Vue 21.7%, Other 0.3%</p>
+            </section>
+
+            <section data-background-color="#e0f2fe">
+                <h3><i class="fas fa-eye text-primary-color mr-2"></i>DataEase: 项目速读</h3>
+                <ul class="standard-list">
+                    <li class="fragment fade-in"><strong>核心目标：</strong>为所有用户提供强大的数据可视化和分析能力，替代传统昂贵BI工具。</li>
+                    <li class="fragment fade-in"><strong>主要优势：</strong>
+                        <ul>
+                            <li class="fragment slide-in-right">极致易用性：拖拉拽操作，无需编程。</li>
+                            <li class="fragment slide-in-right">广泛兼容性：连接主流数据库、数据湖、本地文件。</li>
+                            <li class="fragment slide-in-right">灵活部署：桌面端、服务器端，丰富嵌入功能。</li>
+                        </ul>
+                    </li>
+                    <li class="fragment fade-in"><strong>技术特点：</strong>基于Vue.js和Spring Boot构建，GPL v3许可证。</li>
+                    <li class="fragment fade-in"><strong>价值与适用：</strong>赋能非技术背景业务人员，实现低成本高效数据驱动决策。</li>
+                </ul>
+            </section>
+            <section data-background-color="#c4e4fb">
+                <h3><i class="fas fa-chart-line text-primary-color mr-2"></i>DataEase: 增长分析</h3>
+                <ul class="standard-list">
+                    <li class="fragment fade-in">今日新晋榜单，当日新增109星。</li>
+                    <li class="fragment fade-in">作为一个成熟的开源BI工具，首次上榜仍有较高增幅，显示持续市场需求。</li>
+                </ul>
+            </section>
+
+            <!-- Vertical Section for goldbergyoni/nodebestpractices -->
+            <section>
+                <h2><i class="fab fa-node-js text-green-600 mr-2"></i> goldbergyoni/nodebestpractices</h2>
+                <p class="text-lg text-gray-700">项目简介: Node.js 最佳实践列表（2024年7月）。</p>
+
+                <div class="project-table-container">
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/goldbergyoni/nodebestpractices" target="_blank">goldbergyoni/nodebestpractices</a></td>
+                                <td>Dockerfile</td>
+                                <td>103509</td>
+                                <td>1次</td>
+                                <td>1次</td>
+                                <td>18</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 text-sm mt-4">
+                    <div>
+                        <ul class="list-none p-0 m-0">
+                            <li><span class="icon-label"><i class="fas fa-star"></i> Stars: 104k</span></li>
+                            <li><span class="icon-label"><i class="fas fa-code-branch"></i> Forks: 10.5k</span></li>
+                            <li><span class="icon-label"><i class="fas fa-eye"></i> Watchers: 2k</span></li>
+                            <li><span class="icon-label"><i class="fas fa-exclamation-circle"></i> Issues: 43</span></li>
+                            <li><span class="icon-label"><i class="fas fa-code-pull-request"></i> Pull Requests: 38</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul class="list-none p-0 m-0">
+                            <li><span class="icon-label"><i class="fas fa-box"></i> Releases: 0</span></li>
+                            <li><span class="icon-label"><i class="fas fa-clipboard"></i> Commits: 3,916</span></li>
+                            <li><span class="icon-label"><i class="fas fa-file-alt"></i> License: CC-BY-SA-4.0 license</span></li>
+                            <li><span class="icon-label"><i class="fas fa-users"></i> Contributors: 230</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="text-sm mt-2"><strong class="text-primary-color">编程语言占比:</strong> Dockerfile 87.9%, TypeScript 12.1%</p>
+            </section>
+
+            <section data-background-color="#e0f2fe">
+                <h3><i class="fas fa-book-open text-primary-color mr-2"></i>Node.js最佳实践: 项目速读</h3>
+                <ul class="standard-list">
+                    <li class="fragment fade-in"><strong>核心目标：</strong>提供构建高质量、可维护、可扩展Node.js应用的最佳实践。</li>
+                    <li class="fragment fade-in"><strong>内容涵盖：</strong>项目架构、错误处理、代码风格、测试、整体质量等80+条实践。</li>
+                    <li class="fragment fade-in"><strong>特点：</strong>
+                        <ul>
+                            <li class="fragment slide-in-right">持续更新，紧跟Node.js最新版本。</li>
+                            <li class="fragment slide-in-right">辅以实践示例项目Practica.js。</li>
+                            <li class="fragment slide-in-right">多语言支持，活跃社区贡献。</li>
+                        </ul>
+                    </li>
+                    <li class="fragment fade-in"><strong>价值与适用：</strong>全球Node.js开发者提升技能、统一开发规范的重要资源。</li>
+                </ul>
+            </section>
+            <section data-background-color="#c4e4fb">
+                <h3><i class="fas fa-chart-line text-primary-color mr-2"></i>Node.js最佳实践: 增长分析</h3>
+                <ul class="standard-list">
+                    <li class="fragment fade-in">今日新晋榜单，当日新增18星。</li>
+                    <li class="fragment fade-in">作为一个拥有超10万星的成熟仓库，再次上榜显示其持续影响力。</li>
+                </ul>
+            </section>
+
+            <!-- Vertical Section for Raphire/Win11Debloat -->
+            <section>
+                <h2><i class="fab fa-windows text-blue-800 mr-2"></i> Raphire/Win11Debloat</h2>
+                <p class="text-lg text-gray-700">项目简介: 一个简单易用的PowerShell脚本，用于移除预装应用，禁用遥测，以及执行各种其他更改，以定制、精简和优化您的Windows体验。</p>
+
+                <div class="project-table-container">
+                    <table class="project-table">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/Raphire/Win11Debloat" target="_blank">Raphire/Win11Debloat</a></td>
+                                <td>PowerShell</td>
+                                <td>23006</td>
+                                <td>1次</td>
+                                <td>2次</td>
+                                <td>254</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 text-sm mt-4">
+                    <div>
+                        <ul class="list-none p-0 m-0">
+                            <li><span class="icon-label"><i class="fas fa-star"></i> Stars: 23k</span></li>
+                            <li><span class="icon-label"><i class="fas fa-code-branch"></i> Forks: 956</span></li>
+                            <li><span class="icon-label"><i class="fas fa-eye"></i> Watchers: 144</span></li>
+                            <li><span class="icon-label"><i class="fas fa-exclamation-circle"></i> Issues: 30</span></li>
+                            <li><span class="icon-label"><i class="fas fa-code-pull-request"></i> Pull Requests: 2</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul class="list-none p-0 m-0">
+                            <li><span class="icon-label"><i class="fas fa-box"></i> Releases: 4</span></li>
+                            <li><span class="icon-label"><i class="fas fa-clipboard"></i> Commits: 211</span></li>
+                            <li><span class="icon-label"><i class="fas fa-file-alt"></i> License: MIT license</span></li>
+                            <li><span class="icon-label"><i class="fas fa-users"></i> Contributors: 15</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="text-sm mt-2"><strong class="text-primary-color">编程语言占比:</strong> PowerShell 98.7%, Batchfile 1.3%</p>
+            </section>
+
+            <section data-background-color="#e0f2fe">
+                <h3><i class="fas fa-wrench text-primary-color mr-2"></i>Win11Debloat: 项目速读</h3>
+                <ul class="standard-list">
+                    <li class="fragment fade-in"><strong>核心目标：</strong>优化Windows 10/11，移除预装应用、禁用遥测，定制系统体验。</li>
+                    <li class="fragment fade-in"><strong>主要优势：</strong>
+                        <ul>
+                            <li class="fragment slide-in-right">操作简便、轻量化、功能全面。</li>
+                            <li class="fragment slide-in-right">一键移除冗余应用，禁用数据追踪。</li>
+                            <li class="fragment slide-in-right">提供深度定制选项，所有更改可逆。</li>
+                        </ul>
+                    </li>
+                    <li class="fragment fade-in"><strong>价值与适用：</strong>普通用户轻松“瘦身”提升隐私；高级用户/管理员实现自动化部署和管理。</li>
+                </ul>
+            </section>
+            <section data-background-color="#c4e4fb">
+                <h3><i class="fas fa-chart-line text-primary-color mr-2"></i>Win11Debloat: 增长分析</h3>
+                <ul class="standard-list">
+                    <li class="fragment fade-in"><strong>三月内总增长3803 Star，上榜仅两次。</strong></li>
+                    <li class="fragment fade-in"><strong>今日再增254星，显示增长势头强劲。</strong></li>
+                    <li class="fragment fade-in">增长高度依赖稀疏但效果显著的上榜事件，爆发力强。</li>
+                </ul>
+            </section>
+
+            <!-- Final Slide: Call to Action -->
+            <section class="title-slide bg-cover final-slide" style="background-image: url('https://images.unsplash.com/photo-1510519159518-e3a47948ddf5?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+                <h1>感谢聆听！</h1>
+                <p class="text-xl mt-4">希望今天的分享能为您带来启发。</p>
+                <p class="text-2xl font-bold mt-8">立即访问项目，探索更多技术趋势！</p>
+                <div class="footer-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        <i class="fab fa-github fa-2x mr-3"></i> <span>https://github.com/aichipera/github-trend</span>
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        // Reveal.js 初始化配置
+        Reveal.initialize({
+            controls: true,        // 显示导航控制
+            progress: true,        // 显示进度条
+            hash: true,            // 允许URL哈希导航
+            center: true,          // 垂直居中幻灯片内容
+            transition: 'slide',   // 全局转场效果: 'none', 'fade', 'slide', 'convex', 'concave', 'zoom'
+            transitionSpeed: 'fast', // 转场速度: 'default', 'fast', 'slow'
+            backgroundTransition: 'fade', // 背景转场效果
+            history: true,         // 将每次幻灯片更改推送到浏览器历史记录
+            plugins: [],           // 插件列表
+            markdown: {
+                smartypants: true
+            },
+            showNotes: false,      // 默认不显示演讲者备注
+        });
+
+        // Mermaid 初始化 (如果幻灯片中包含Mermaid图表)
+        mermaid.initialize({ startOnLoad: false });
+    </script>
+</body>
+</html>

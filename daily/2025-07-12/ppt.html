@@ -1,0 +1,1079 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub新风向：AI Agent与数据融合！</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #007bff; /* A vibrant blue for key elements */
+            --accent-color: #ff4500; /* Orange-red for highlights */
+            --text-color: #333;
+            --light-text-color: #666;
+            --background-color: #f8f8f8;
+            --border-color: #eee;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback",
+                         "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--text-color);
+        }
+
+        .reveal .slides section h1,
+        .reveal .slides section h2,
+        .reveal .slides section h3,
+        .reveal .slides section h4,
+        .reveal .slides section h5,
+        .reveal .slides section h6 {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--primary-color); /* Headings in primary color */
+            text-shadow: none;
+        }
+
+        .reveal .slides section h1 { font-size: 3rem; margin-bottom: 0.5em; }
+        .reveal .slides section h2 { font-size: 2.2rem; margin-bottom: 0.5em; }
+        .reveal .slides section h3 { font-size: 1.8rem; margin-bottom: 0.5em; }
+        .reveal .slides section p,
+        .reveal .slides section li { font-size: 1.1rem; line-height: 1.6; }
+        .reveal .slides section ul li { margin-bottom: 0.5em; }
+
+        /* Cover and Last Slide specific styles for visual impact */
+        .reveal .slides section.cover-slide h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            color: #fff; /* White for cover title */
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            margin-bottom: 0.2em;
+        }
+        .reveal .slides section.cover-slide h2 {
+            font-size: 2.5rem;
+            color: #fff;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+            margin-bottom: 1em;
+        }
+        .reveal .slides section.cover-slide .speaker-info {
+            font-size: 1.5rem;
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+            position: absolute;
+            bottom: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Footer link & QR code */
+        .reveal .slides section .footer-link {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #666;
+            text-decoration: none;
+            background: rgba(255,255,255,0.7);
+            padding: 5px 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 10; /* Ensure it's above other elements */
+        }
+        .reveal .slides section .footer-link img {
+            height: 50px;
+            width: 50px;
+            margin-left: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .reveal .slides section.cover-slide .footer-link,
+        .reveal .slides section.last-slide .footer-link {
+            background: rgba(0,0,0,0.6); /* Darker background for visibility on cover/last slide */
+            color: #fff;
+        }
+        .reveal .slides section.cover-slide .footer-link img,
+        .reveal .slides section.last-slide .footer-link img {
+            border: 1px solid #555;
+        }
+
+        /* List styling with custom Font Awesome bullets */
+        .reveal .slides section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .reveal .slides section ul li {
+            position: relative;
+            padding-left: 1.8em; /* Space for custom bullet */
+            margin-bottom: 0.8em;
+        }
+        .reveal .slides section ul li::before {
+            content: "\f058"; /* Font Awesome check-circle icon */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+            top: 0.1em;
+            font-size: 0.9em;
+        }
+
+        /* Highlighting key text */
+        .reveal .slides section .highlight {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        /* Card components for structured content */
+        .reveal .slides section .card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 1.5em;
+            margin-bottom: 1em;
+            transition: transform 0.3s ease-in-out;
+            height: 100%; /* Ensure cards in a grid have equal height */
+            display: flex;
+            flex-direction: column;
+        }
+        .reveal .slides section .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Grid layout for multiple content blocks */
+        .reveal .slides section .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+            align-items: start;
+        }
+
+        /* Table styling */
+        .reveal .slides section table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5em;
+            font-size: 0.95em;
+        }
+        .reveal .slides section th,
+        .reveal .slides section td {
+            border: 1px solid var(--border-color);
+            padding: 0.8em 1.2em;
+            text-align: left;
+        }
+        .reveal .slides section th {
+            background-color: var(--primary-color);
+            color: #fff;
+            font-weight: 600;
+        }
+        .reveal .slides section tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Utility classes for text alignment */
+        .reveal .slides section .text-center { text-align: center; }
+        .reveal .slides section .text-left { text-align: left; }
+        .reveal .slides section .text-right { text-align: right; }
+
+        /* Large icons for visual emphasis */
+        .reveal .slides section .icon-large {
+            font-size: 3em;
+            color: var(--primary-color);
+            margin-bottom: 0.5em;
+        }
+
+        /* Language breakdown visualization */
+        .reveal .slides section .language-pill {
+            display: inline-block;
+            background-color: #e0f2f7; /* Light blue */
+            color: #2a7e9e; /* Darker blue */
+            padding: 0.3em 0.8em;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-right: 0.5em;
+            margin-bottom: 0.5em;
+            font-weight: 500;
+        }
+        .reveal .slides section .language-bar {
+            background-color: #ddd;
+            height: 10px;
+            border-radius: 5px;
+            margin-bottom: 0.5em;
+            overflow: hidden;
+        }
+        .reveal .slides section .language-bar-fill {
+            height: 100%;
+            border-radius: 5px;
+            background-color: var(--accent-color);
+            display: inline-block; /* to make width work */
+        }
+        .reveal .slides section .language-breakdown {
+            margin-top: 1em;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5em 1em;
+            font-size: 0.9em;
+        }
+        .reveal .slides section .language-breakdown span {
+            display: flex;
+            align-items: center;
+        }
+        .reveal .slides section .language-breakdown .color-box {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            margin-right: 5px;
+            flex-shrink: 0;
+        }
+        
+        /* Custom styles for "Aha moments" */
+        .reveal .slides section .big-number {
+            font-size: 4em;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+            line-height: 1; /* Reduce line height for big numbers */
+        }
+        .reveal .slides section .flex-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%; /* For vertical centering */
+            flex-direction: column;
+        }
+
+        /* Reveal.js fragment custom behavior for 'fade-in-then-semi-out' */
+        .reveal .slides section .fragment.fade-in-then-semi-out.visible {
+            opacity: 1;
+            transition: opacity 0.5s ease-in;
+        }
+        .reveal .slides section .fragment.fade-in-then-semi-out:not(.current-fragment) {
+            opacity: 0.3; /* Make previous fragments less prominent */
+            transition: opacity 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Cover Slide -->
+            <section class="cover-slide" data-background-image="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-background-transition="zoom" data-background-size="cover" data-background-color="#000000" data-background-opacity="0.6">
+                <h1 class="text-white text-center">GitHub新风向：AI Agent与数据融合！</h1>
+                <h2 class="text-white text-center">技术大趋势，读完速分享！</h2>
+                <div class="speaker-info">
+                    <p>演讲者：AIChipEra</p>
+                </div>
+                <a href="https://github.com/aichipera/github-trend" target="_blank" class="footer-link">
+                    项目链接: https://github.com/aichipera/github-trend
+                    <img src="../../asserts/wx.jpg" alt="QR Code" />
+                </a>
+            </section>
+
+            <!-- Introduction / Context -->
+            <section data-background-color="#f8f8f8">
+                <h2>GitHub热门趋势：AI Agent与数据的深度融合</h2>
+                <h3 class="text-light-text-color">日报观测时间: 2025-07-12 20:26:06</h3>
+                <div class="fragment mt-8 text-center">
+                    <i class="fas fa-lightbulb icon-large" style="color: var(--accent-color);"></i>
+                    <p class="text-2xl mt-4 leading-relaxed">
+                        <span class="highlight">AI Agent</span> 已从模型构建转向 <span class="highlight">落地应用</span>，<br>
+                        核心在于如何<span class="highlight">高效处理和利用数据</span>。
+                    </p>
+                    <p class="text-xl mt-4 text-light-text-color">
+                        这预示AI正迈向<span class="highlight">“能理解、能行动”</span>的新阶段。
+                    </p>
+                </div>
+            </section>
+
+            <!-- Daily Highlights -->
+            <section data-background-color="#e0f2f7">
+                <h2><i class="fas fa-bullhorn mr-3" style="color: var(--primary-color);"></i>日报要点概览</h2>
+                <ul class="text-left mt-8 max-w-2xl mx-auto">
+                    <li class="fragment fade-in-then-semi-out">
+                        <span class="highlight">AI Agent落地</span>：从模型构建到高效数据处理与利用。
+                    </li>
+                    <li class="fragment fade-in-then-semi-out">
+                        <span class="highlight">深度数据集成</span>：Agent与数据库、文档无缝交互，构建实时知识图谱。
+                    </li>
+                    <li class="fragment fade-in-then-semi-out">
+                        <span class="highlight">AI新阶段</span>：迈向“能理解、能行动”的智能体。
+                    </li>
+                    <li class="fragment fade-in-then-semi-out">
+                        <span class="highlight">基础设施迭代</span>：数据基建和开发者工具持续升级。
+                    </li>
+                    <li class="fragment fade-in">
+                        <span class="highlight">语言主力</span>：Python和Go依然是核心驱动力。
+                    </li>
+                </ul>
+                <p class="fragment fade-in text-lg mt-8 text-center text-light-text-color">
+                    <i class="fas fa-chart-line mr-2"></i> 把握这些，洞察未来技术方向！
+                </p>
+            </section>
+
+            <!-- Hot Project Trend Analysis - Overall Trend -->
+            <section data-transition="slide" data-background-color="#f8f8f8">
+                <h2>热门项目趋势分析</h2>
+                <h3>今日整体趋势概览</h3>
+                <div class="grid-container mt-8">
+                    <div class="card fragment fade-in" style="grid-column: span 2;">
+                        <h4 class="text-xl mb-3 flex items-center"><i class="fas fa-atom mr-2" style="color: var(--primary-color);"></i>受关注技术领域与主题</h4>
+                        <ul class="text-left text-base leading-relaxed">
+                            <li><span class="highlight">AI Agent：</span>Biomni, genai-toolbox, Graphiti, agentic-doc 聚焦<br> <span class="text-light-text-color text-sm italic">AI Agent能力构建与实际应用</span>。</li>
+                            <li><span class="highlight">数据基础设施：</span>Protobuf, OpenTelemetry-Go 凸显<br> <span class="text-light-text-color text-sm italic">数据管理与系统可观测性</span>。</li>
+                            <li><span class="highlight">效率工具：</span>uBlock Origin 等面向终端用户的<br> <span class="text-light-text-color text-sm italic">效率工具与非代码类知识分享</span>。</li>
+                        </ul>
+                    </div>
+                    <div class="card fragment fade-in" style="grid-column: span 2;">
+                        <h4 class="text-xl mb-3 flex items-center"><i class="fas fa-code mr-2" style="color: var(--primary-color);"></i>编程语言分布与技术栈</h4>
+                        <ul class="text-left text-base leading-relaxed">
+                            <li><span class="highlight">Python：</span>AI、数据处理、自动化工具的主力。</li>
+                            <li><span class="highlight">Go：</span>高性能服务端与基础设施层，AI交互中间件。</li>
+                            <li><span class="highlight">C++：</span>性能敏感与底层互操作（Protobuf, pybind11）。</li>
+                            <li><span class="highlight">PHP & JavaScript：</span>成熟Web平台与客户端应用开发。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hot Project Trend Analysis - Demand & Forecast -->
+            <section data-transition="slide" data-background-color="#f8f8f8">
+                <h2>热门项目趋势分析</h2>
+                <h3>技术需求与发展方向</h3>
+                <div class="grid-container mt-8">
+                    <div class="card fragment fade-in">
+                        <h4 class="text-xl mb-3 flex items-center"><i class="fas fa-cogs mr-2" style="color: var(--primary-color);"></i>技术需求</h4>
+                        <ul class="text-left text-base leading-relaxed">
+                            <li>AI能力转化为<span class="highlight">具体应用</span>，Agent与数据源（数据库、文档）互动。</li>
+                            <li>提高<span class="highlight">数据处理效率</span>和<span class="highlight">系统互操作性</span>（Protobuf）。</li>
+                            <li>优化<span class="highlight">开发流程</span>和<span class="highlight">系统稳定性</span>（开发者工具、可观测性）。</li>
+                        </ul>
+                    </div>
+                    <div class="card fragment fade-in">
+                        <h4 class="text-xl mb-3 flex items-center"><i class="fas fa-lightbulb mr-2" style="color: var(--primary-color);"></i>今日特有趋势</h4>
+                        <p class="text-left text-base leading-relaxed">最突出特点是<span class="highlight">“AI Agent与数据的深度结合”</span>，AI从“能说会写”向“能理解能行动”迈进。</p>
+                        <p class="text-left text-base leading-relaxed">基础性、成熟项目与前沿AI项目同时高增长，技术栈多层面迭代。</p>
+                    </div>
+                    <div class="card fragment fade-in" style="grid-column: span 2;">
+                        <h4 class="text-xl mb-3 flex items-center"><i class="fas fa-meteor mr-2" style="color: var(--primary-color);"></i>预测下一波技术热点</h4>
+                        <ul class="text-left text-base leading-relaxed">
+                            <li>更高级、鲁棒的<span class="highlight">“Agent工作流”</span>与<span class="highlight">“Agent编排”</span>框架。</li>
+                            <li>针对<span class="highlight">特定垂直领域</span>的AI Agent开发平台与工具。</li>
+                            <li>AI推理<span class="highlight">效率和成本优化</span>，轻量级模型与推理优化技术。</li>
+                            <li>围绕AI Agent产生的新型<span class="highlight">数据存储、管理和安全方案</span>。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hot Project Trend Analysis - Daily Comparison -->
+            <section data-background-color="#f0f9ff">
+                <h2>热门项目双日维度对比分析</h2>
+                <div class="grid-container mt-8">
+                    <div class="card fragment fade-in">
+                        <h4 class="text-xl mb-3 flex items-center"><i class="fas fa-chart-bar mr-2" style="color: var(--primary-color);"></i>活跃度提升</h4>
+                        <p class="text-left text-base leading-relaxed">
+                            <span class="big-number">8</span> 个项目新晋入榜<br>
+                            <span class="big-number">6</span> 个项目延续上升势头<br>
+                            <span class="big-number">0</span> 个项目从昨日榜单滑落<br>
+                            <span class="highlight">整体热度向上叠加！</span>
+                        </p>
+                    </div>
+                    <div class="card fragment fade-in">
+                        <h4 class="text-xl mb-3 flex items-center"><i class="fas fa-code-branch mr-2" style="color: var(--primary-color);"></i>新晋与语言分布</h4>
+                        <ul class="text-left text-base leading-relaxed">
+                            <li><span class="highlight">新晋项目多样化：</span>uBlock, black, odoo等老牌，OCRmyPDF等特定工具。</li>
+                            <li><span class="highlight">语言分布调整：</span>Python/JavaScript各增加1席，Ruby/Go各减少1席。</li>
+                            <li><span class="highlight">Python优势：</span>在近期新受关注项目中占据主导。</li>
+                        </ul>
+                    </div>
+                    <div class="card fragment fade-in" style="grid-column: span 2;">
+                        <h4 class="text-xl mb-3 flex items-center"><i class="fas fa-fire-alt mr-2" style="color: var(--primary-color);"></i>显著变化与吸引力</h4>
+                        <ul class="text-left text-base leading-relaxed">
+                            <li><span class="highlight">知名度极高项目回归：</span>uBlock重登榜单，通常与近期重要更新或社区讨论有关。</li>
+                            <li><span class="highlight">涨幅显著：</span>Protobuf等基础库与AI前沿项目并存，反映不同维度吸引力。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hotspot Changes -->
+            <section data-background-color="#fff">
+                <h2><i class="fas fa-sync-alt mr-3" style="color: var(--accent-color);"></i>热点变化速览</h2>
+                <div class="grid-container mt-8" style="grid-template-columns: repeat(3, 1fr);">
+                    <div class="card bg-green-50 text-green-800 fragment fade-in">
+                        <h4 class="text-xl mb-3 flex items-center text-green-700"><i class="fas fa-plus-circle mr-2"></i>新增热点</h4>
+                        <ul class="text-left text-sm leading-relaxed text-green-700">
+                            <li>getzep/graphiti <span class="text-xs">(AI Agent 知识图谱)</span></li>
+                            <li>ocrmypdf/ocrmypdf <span class="text-xs">(文档OCR)</span></li>
+                            <li>farhanashrafdev/90daysofcybersecurity <span class="text-xs">(网络安全学习计划)</span></li>
+                            <li>gorhill/ublock <span class="text-xs">(广告拦截)</span></li>
+                            <li>psf/black <span class="text-xs">(Python 代码格式化)</span></li>
+                            <li>zijie0/humansystemoptimization <span class="text-xs">(健康系统调优)</span></li>
+                            <li>odoo/odoo <span class="text-xs">(企业管理软件)</span></li>
+                            <li>pybind/pybind11 <span class="text-xs">(C++/Python 互操作)</span></li>
+                        </ul>
+                    </div>
+                    <div class="card bg-red-50 text-red-800 fragment fade-in">
+                        <h4 class="text-xl mb-3 flex items-center text-red-700"><i class="fas fa-minus-circle mr-2"></i>减退热点</h4>
+                        <ul class="text-left text-sm leading-relaxed text-red-700">
+                            <li>punkpeye/awesome-mcp-clients</li>
+                            <li>google/googletest</li>
+                            <li>antiwork/flexile</li>
+                            <li>lmcache/lmcache</li>
+                            <li>hashicorp/terraform</li>
+                            <li>bytebytegohq/system-design-101</li>
+                            <li>getsentry/sentry</li>
+                            <li>goauthentik/authentik</li>
+                        </ul>
+                    </div>
+                    <div class="card bg-blue-50 text-blue-800 fragment fade-in">
+                        <h4 class="text-xl mb-3 flex items-center text-blue-700"><i class="fas fa-star mr-2"></i>持续热门</h4>
+                        <ul class="text-left text-sm leading-relaxed text-blue-700">
+                            <li>snap-stanford/Biomni <span class="font-bold text-xs">(3次)</span></li>
+                            <li>googleapis/genai-toolbox <span class="font-bold text-xs">(4次)</span></li>
+                            <li>WordPress/wordpress-develop <span class="font-bold text-xs">(3次)</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Detailed Repo Data Sections (Vertical Slides) -->
+            <!-- snap-stanford/Biomni -->
+            <section>
+                <h2>snap-stanford/Biomni</h2>
+                <h3>项目简介: 通用生物医学人工智能智能体</h3>
+                <div class="grid-container" style="grid-template-columns: 1fr 1fr;">
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-info-circle mr-2"></i>关键指标</h4>
+                        <table>
+                            <tr><th>开发语言</th><td>Python</td></tr>
+                            <tr><th>Star 数</th><td>1393 ⭐</td></tr>
+                            <tr><th>连续在榜</th><td>3次</td></tr>
+                            <tr><th>总上榜次数</th><td>3次</td></tr>
+                            <tr><th>当日 Star 增加数</th><td>202</td></tr>
+                        </table>
+                        <div class="mt-4 text-sm text-light-text-color">
+                            <span><i class="fas fa-code-fork mr-1"></i> Forks: 141</span> |
+                            <span><i class="fas fa-eye mr-1"></i> Watchers: 29</span> |
+                            <span><i class="fas fa-exclamation-circle mr-1"></i> Issues: 7</span> |
+                            <span><i class="fas fa-code-pull-request mr-1"></i> PRs: 5</span>
+                        </div>
+                        <div class="mt-2 text-sm text-light-text-color">
+                            <span><i class="fas fa-box mr-1"></i> Releases: 0</span> |
+                            <span><i class="fas fa-clipboard-list mr-1"></i> Commits: 21</span> |
+                            <span><i class="fas fa-id-card mr-1"></i> Contributors: 3</span>
+                        </div>
+                        <div class="language-breakdown mt-4">
+                            <span class="font-bold">语言占比:</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #3572A5;"></div>Python 78.3%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #DA5B0B;"></div>Jupyter Notebook 19.0%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #89e051;"></div>Shell 2.5%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #198CE7;"></div>R 0.2%</span>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-book-open mr-2"></i>项目速读</h4>
+                        <p class="text-sm leading-relaxed">Biomni是斯坦福SNAP团队推出的通用生物医学AI智能体。旨在通过自动化复杂研究任务，提升科学家效率，生成可验证假设。核心是整合语言模型推理、检索增强规划、代码执行能力，理解自然语言指令并自主完成从实验规划到数据分析。其开放可扩展架构鼓励社区贡献，是加速生物医学发现、推动开放科学的重要平台。</p>
+                        <h4 class="text-lg mb-2 mt-4 flex items-center text-primary-color"><i class="fas fa-chart-line mr-2"></i>增长分析</h4>
+                        <p class="text-sm leading-relaxed">连续3天上榜3次，平均每次增星320.3颗，总计增长609颗，展现出该仓库持续、强劲的增长势头。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- open-telemetry/opentelemetry-go -->
+            <section>
+                <h2>open-telemetry/opentelemetry-go</h2>
+                <h3>项目简介: OpenTelemetry Go API 和 SDK</h3>
+                <div class="grid-container" style="grid-template-columns: 1fr 1fr;">
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-info-circle mr-2"></i>关键指标</h4>
+                        <table>
+                            <tr><th>开发语言</th><td>Go</td></tr>
+                            <tr><th>Star 数</th><td>5877 ⭐</td></tr>
+                            <tr><th>连续在榜</th><td>2次</td></tr>
+                            <tr><th>总上榜次数</th><td>2次</td></tr>
+                            <tr><th>当日 Star 增加数</th><td>60</td></tr>
+                        </table>
+                        <div class="mt-4 text-sm text-light-text-color">
+                            <span><i class="fas fa-code-fork mr-1"></i> Forks: 1.2k</span> |
+                            <span><i class="fas fa-eye mr-1"></i> Watchers: 72</span> |
+                            <span><i class="fas fa-exclamation-circle mr-1"></i> Issues: 135</span> |
+                            <span><i class="fas fa-code-pull-request mr-1"></i> PRs: 41</span>
+                        </div>
+                        <div class="mt-2 text-sm text-light-text-color">
+                            <span><i class="fas fa-box mr-1"></i> Releases: 91</span> |
+                            <span><i class="fas fa-clipboard-list mr-1"></i> Commits: 3,700</span> |
+                            <span><i class="fas fa-id-card mr-1"></i> Contributors: 344</span>
+                        </div>
+                        <div class="language-breakdown mt-4">
+                            <span class="font-bold">语言占比:</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #00ADD8;"></div>Go 99.0%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #ccc;"></div>Other 1.0%</span>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-book-open mr-2"></i>项目速读</h4>
+                        <p class="text-sm leading-relaxed">OpenTelemetry-Go是OpenTelemetry项目Go语言核心实现，为Go应用提供标准API和SDK。核心价值在于帮助开发者以厂商无关方式采集分布式追踪、性能指标和日志等遥测数据。功能成熟稳定，提供灵活集成和丰富导出选项，能将数据发送到各种可观测性后端。是构建高可运维Go系统、理解应用行为的强大开源工具。</p>
+                        <h4 class="text-lg mb-2 mt-4 flex items-center text-primary-color"><i class="fas fa-chart-line mr-2"></i>增长分析</h4>
+                        <p class="text-sm leading-relaxed">该仓库在两天内两次上榜，日均增长约30多星，最新一天新增60星，增长势头稳健。多次上榜表明近期活跃度和吸引力较高。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- googleapis/genai-toolbox -->
+            <section>
+                <h2>googleapis/genai-toolbox</h2>
+                <h3>项目简介: MCP Toolbox for Databases 是一个用于数据库的开源 MCP 服务器。</h3>
+                <div class="grid-container" style="grid-template-columns: 1fr 1fr;">
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-info-circle mr-2"></i>关键指标</h4>
+                        <table>
+                            <tr><th>开发语言</th><td>Go</td></tr>
+                            <tr><th>Star 数</th><td>5765 ⭐</td></tr>
+                            <tr><th>连续在榜</th><td>4次</td></tr>
+                            <tr><th>总上榜次数</th><td>4次</td></tr>
+                            <tr><th>当日 Star 增加数</th><td>456</td></tr>
+                        </table>
+                        <div class="mt-4 text-sm text-light-text-color">
+                            <span><i class="fas fa-code-fork mr-1"></i> Forks: 437</span> |
+                            <span><i class="fas fa-eye mr-1"></i> Watchers: 47</span> |
+                            <span><i class="fas fa-exclamation-circle mr-1"></i> Issues: 48</span> |
+                            <span><i class="fas fa-code-pull-request mr-1"></i> PRs: 27</span>
+                        </div>
+                        <div class="mt-2 text-sm text-light-text-color">
+                            <span><i class="fas fa-box mr-1"></i> Releases: 15</span> |
+                            <span><i class="fas fa-clipboard-list mr-1"></i> Commits: 577</span> |
+                            <span><i class="fas fa-id-card mr-1"></i> Contributors: 35</span>
+                        </div>
+                        <div class="language-breakdown mt-4">
+                            <span class="font-bold">语言占比:</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #00ADD8;"></div>Go 99.1%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #ccc;"></div>Other 0.9%</span>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-book-open mr-2"></i>项目速读</h4>
+                        <p class="text-sm leading-relaxed">googleapis/genai-toolbox是开源数据库MCP服务器，解决生成式AI工具（如AI代理）与数据库交互复杂性。充当AI应用与数据库中间层，集中管理、分发、调用数据库AI工具。核心价值在于极大地简化数据库AI助手构建过程，通过内置连接池、认证等提升性能和安全性，提供开箱即用可观测性。开发者可轻松集成数据库工具，实现自然语言与数据库互动、自动化管理任务，显著提高开发效率。适用于需开发理解和操作数据库的智能应用场景，用Go编写，目前Beta阶段。</p>
+                        <h4 class="text-lg mb-2 mt-4 flex items-center text-primary-color"><i class="fas fa-chart-line mr-2"></i>增长分析</h4>
+                        <p class="text-sm leading-relaxed">该仓库在4天内连续上榜4次，显示极高的持续可见度与强劲势头。总计增长2280 Star，平均每次上榜增量显著（823）。尽管今日增量（456）低于平均，但持续高频上榜表明其目前仍备受关注，增长表现优秀。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- protocolbuffers/protobuf -->
+            <section>
+                <h2>protocolbuffers/protobuf</h2>
+                <h3>项目简介: Protocol Buffers - Google 的数据交换格式</h3>
+                <div class="grid-container" style="grid-template-columns: 1fr 1fr;">
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-info-circle mr-2"></i>关键指标</h4>
+                        <table>
+                            <tr><th>开发语言</th><td>C++</td></tr>
+                            <tr><th>Star 数</th><td>68442 ⭐</td></tr>
+                            <tr><th>连续在榜</th><td>2次</td></tr>
+                            <tr><th>总上榜次数</th><td>4次</td></tr>
+                            <tr><th>当日 Star 增加数</th><td>472</td></tr>
+                        </table>
+                        <div class="mt-4 text-sm text-light-text-color">
+                            <span><i class="fas fa-code-fork mr-1"></i> Forks: 15.8k</span> |
+                            <span><i class="fas fa-eye mr-1"></i> Watchers: 2k</span> |
+                            <span><i class="fas fa-exclamation-circle mr-1"></i> Issues: 226</span> |
+                            <span><i class="fas fa-code-pull-request mr-1"></i> PRs: 185</span>
+                        </div>
+                        <div class="mt-2 text-sm text-light-text-color">
+                            <span><i class="fas fa-box mr-1"></i> Releases: 192</span> |
+                            <span><i class="fas fa-clipboard-list mr-1"></i> Commits: 21,086</span> |
+                            <span><i class="fas fa-id-card mr-1"></i> Contributors: 1,136</span>
+                        </div>
+                        <div class="language-breakdown mt-4">
+                            <span class="font-bold">语言占比:</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #f34b7d;"></div>C++ 36.7%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #178600;"></div>C# 20.3%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #b07219;"></div>Java 12.7%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #555555;"></div>C 11.6%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #8f0000;"></div>Objective-C 7.6%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #3572A5;"></div>Python 3.7%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #ccc;"></div>Other 7.4%</span>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-book-open mr-2"></i>项目速读</h4>
+                        <p class="text-sm leading-relaxed">Protocol Buffers (protobuf) 是Google设计的语言中立、平台中立、可扩展的结构化数据序列化机制。核心优势在于高性能和紧凑的二进制数据格式，比XML/JSON更小、更快，适用于RPC和数据存储。通过定义.proto文件生成多语言代码，提供方便的API进行序列化和反序列化。因其跨语言、跨平台能力及卓越性能，广泛用于分布式系统、微服务架构及各种数据交互场景，极大提高开发效率和系统互操作性。</p>
+                        <h4 class="text-lg mb-2 mt-4 flex items-center text-primary-color"><i class="fas fa-chart-line mr-2"></i>增长分析</h4>
+                        <p class="text-sm leading-relaxed">该仓库在统计期内通过4次上榜实现了1369的总星标增长。平均每次上榜带来148.2星标，而今日新增472星标远超平均，显示近期增长势头非常强劲，尤其得益于最新的上榜。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- getzep/graphiti -->
+            <section>
+                <h2>getzep/graphiti</h2>
+                <h3>项目简介: 为AI智能体构建实时知识图谱</h3>
+                <div class="grid-container" style="grid-template-columns: 1fr 1fr;">
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-info-circle mr-2"></i>关键指标</h4>
+                        <table>
+                            <tr><th>开发语言</th><td>Python</td></tr>
+                            <tr><th>Star 数</th><td>12587 ⭐</td></tr>
+                            <tr><th>连续在榜</th><td>1次</td></tr>
+                            <tr><th>总上榜次数</th><td>6次</td></tr>
+                            <tr><th>当日 Star 增加数</th><td>86</td></tr>
+                        </table>
+                        <div class="mt-4 text-sm text-light-text-color">
+                            <span><i class="fas fa-code-fork mr-1"></i> Forks: 1.1k</span> |
+                            <span><i class="fas fa-eye mr-1"></i> Watchers: 89</span> |
+                            <span><i class="fas fa-exclamation-circle mr-1"></i> Issues: 55</span> |
+                            <span><i class="fas fa-code-pull-request mr-1"></i> PRs: 8</span>
+                        </div>
+                        <div class="mt-2 text-sm text-light-text-color">
+                            <span><i class="fas fa-box mr-1"></i> Releases: 108</span> |
+                            <span><i class="fas fa-clipboard-list mr-1"></i> Commits: 504</span> |
+                            <span><i class="fas fa-id-card mr-1"></i> Contributors: 34</span>
+                        </div>
+                        <div class="language-breakdown mt-4">
+                            <span class="font-bold">语言占比:</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #3572A5;"></div>Python 99.2%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #ccc;"></div>Other 0.8%</span>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-book-open mr-2"></i>项目速读</h4>
+                        <p class="text-sm leading-relaxed">Graphiti是Python框架，为AI Agent构建实时、时序感知知识图谱，解决Agent动态环境中记忆和上下文挑战。核心优势：无需批量处理即可实时增量更新；独有双时态数据模型精确追踪事件和数据时间；结合语义、关键词和图遍历实现高效混合检索，提供比传统批量RAG更强的动态数据处理能力和高可扩展性。对Agent复杂状态推理和自动化任务、持续交互和信息更新的应用场景极具价值。</p>
+                        <h4 class="text-lg mb-2 mt-4 flex items-center text-primary-color"><i class="fas fa-chart-line mr-2"></i>增长分析</h4>
+                        <p class="text-sm leading-relaxed">该仓库在统计周期内仅实际上榜6次，但每次上榜平均新增525.8星，显示出其增长主要集中在少数几次活跃期，具有较强的爆发性。总星数增长7823，印证了有限时段内的快速累积。当前日增长86，低于上榜时的平均增速。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- pybind/pybind11 -->
+            <section>
+                <h2>pybind/pybind11</h2>
+                <h3>项目简介: C++11 与 Python 无缝互操作</h3>
+                <div class="grid-container" style="grid-template-columns: 1fr 1fr;">
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-info-circle mr-2"></i>关键指标</h4>
+                        <table>
+                            <tr><th>开发语言</th><td>C++</td></tr>
+                            <tr><th>Star 数</th><td>16925 ⭐</td></tr>
+                            <tr><th>连续在榜</th><td>1次</td></tr>
+                            <tr><th>总上榜次数</th><td>2次</td></tr>
+                            <tr><th>当日 Star 增加数</th><td>97</td></tr>
+                        </table>
+                        <div class="mt-4 text-sm text-light-text-color">
+                            <span><i class="fas fa-code-fork mr-1"></i> Forks: 2.2k</span> |
+                            <span><i class="fas fa-eye mr-1"></i> Watchers: 250</span> |
+                            <span><i class="fas fa-exclamation-circle mr-1"></i> Issues: 564</span> |
+                            <span><i class="fas fa-code-pull-request mr-1"></i> PRs: 130</span>
+                        </div>
+                        <div class="mt-2 text-sm text-light-text-color">
+                            <span><i class="fas fa-box mr-1"></i> Releases: 36</span> |
+                            <span><i class="fas fa-clipboard-list mr-1"></i> Commits: 3,110</span> |
+                            <span><i class="fas fa-id-card mr-1"></i> Contributors: 379</span>
+                        </div>
+                        <div class="language-breakdown mt-4">
+                            <span class="font-bold">语言占比:</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #f34b7d;"></div>C++ 69.9%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #3572A5;"></div>Python 24.1%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #DA5B0B;"></div>CMake 5.5%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #ccc;"></div>Other 0.5%</span>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-book-open mr-2"></i>项目速读</h4>
+                        <p class="text-sm leading-relaxed">pybind11是C++和Python之间高效、轻量级桥梁。纯头文件库，轻松将高性能C++代码暴露给Python调用或反向集成。核心优势在于充分利用现代C++11/14/17特性，无需庞大Boost依赖，代码简洁、编译速度快。无论加速计算、封装现有库还是构建高性能模块，pybind11都提供简洁、快速、易用的绑定解决方案，是连接两者生态的明星工具。</p>
+                        <h4 class="text-lg mb-2 mt-4 flex items-center text-primary-color"><i class="fas fa-chart-line mr-2"></i>增长分析</h4>
+                        <p class="text-sm leading-relaxed">仓库在短周期内两次上榜，总计增长110 Star。平均每次上榜增52.5，但近期当天新增高达97 Star，显示增长势头强劲且明显加速。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- WordPress/wordpress-develop -->
+            <section>
+                <h2>WordPress/wordpress-develop</h2>
+                <h3>项目简介: WordPress Develop，已 Git 化。</h3>
+                <div class="grid-container" style="grid-template-columns: 1fr 1fr;">
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-info-circle mr-2"></i>关键指标</h4>
+                        <table>
+                            <tr><th>开发语言</th><td>PHP</td></tr>
+                            <tr><th>Star 数</th><td>2974 ⭐</td></tr>
+                            <tr><th>连续在榜</th><td>3次</td></tr>
+                            <tr><th>总上榜次数</th><td>3次</td></tr>
+                            <tr><th>当日 Star 增加数</th><td>65</td></tr>
+                        </table>
+                        <div class="mt-4 text-sm text-light-text-color">
+                            <span><i class="fas fa-code-fork mr-1"></i> Forks: 3k</span> |
+                            <span><i class="fas fa-eye mr-1"></i> Watchers: 141</span> |
+                            <span><i class="fas fa-exclamation-circle mr-1"></i> Issues: 0</span> |
+                            <span><i class="fas fa-code-pull-request mr-1"></i> PRs: 2.4k</span>
+                        </div>
+                        <div class="mt-2 text-sm text-light-text-color">
+                            <span><i class="fas fa-box mr-1"></i> Releases: 0</span> |
+                            <span><i class="fas fa-clipboard-list mr-1"></i> Commits: 51,204</span> |
+                            <span><i class="fas fa-id-card mr-1"></i> Contributors: 92</span>
+                        </div>
+                        <div class="language-breakdown mt-4">
+                            <span class="font-bold">语言占比:</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #4F5D95;"></div>PHP 81.5%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #563d7c;"></div>CSS 9.0%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #f1e05a;"></div>JavaScript 8.1%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #c6538f;"></div>SCSS 0.8%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #e34c26;"></div>HTML 0.6%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #ccc;"></div>XSLT 0.0%</span>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-book-open mr-2"></i>项目速读</h4>
+                        <p class="text-sm leading-relaxed">wordpress-develop是官方WordPress核心开发仓库，专为贡献者设计，提供便捷、标准化本地开发、修改和测试环境。核心价值在于极大简化WordPress核心开发入门和工作流程。通过集成Docker环境快速搭建完整开发栈，避免繁琐配置。提供npm脚本整合代码构建、环境管理、WP-CLI调用和测试。支持GitHub Codespaces进一步降低门槛。是基于PHP、MySQL和JavaScript，利用Docker和Node.js等工具为核心贡献者打造的高效工作平台，是参与WordPress核心开发的重要入口和工具。</p>
+                        <h4 class="text-lg mb-2 mt-4 flex items-center text-primary-color"><i class="fas fa-chart-line mr-2"></i>增长分析</h4>
+                        <p class="text-sm leading-relaxed">在3天内连续3次上榜，该仓库显示出持续的关注度和稳定的增长势头。总计增长159 Star，平均每次上榜新增约57.7。最新一天新增65 Star，高于平均水平，表明增长趋势呈现加速态势。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- gorhill/uBlock -->
+            <section>
+                <h2>gorhill/uBlock</h2>
+                <h3>项目简介: uBlock Origin - 用于 Chromium 和 Firefox 的高效阻止程序。</h3>
+                <div class="grid-container" style="grid-template-columns: 1fr 1fr;">
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-info-circle mr-2"></i>关键指标</h4>
+                        <table>
+                            <tr><th>开发语言</th><td>JavaScript</td></tr>
+                            <tr><th>Star 数</th><td>55270 ⭐</td></tr>
+                            <tr><th>连续在榜</th><td>1次</td></tr>
+                            <tr><th>总上榜次数</th><td>1次</td></tr>
+                            <tr><th>当日 Star 增加数</th><td>209</td></tr>
+                        </table>
+                        <div class="mt-4 text-sm text-light-text-color">
+                            <span><i class="fas fa-code-fork mr-1"></i> Forks: 3.6k</span> |
+                            <span><i class="fas fa-eye mr-1"></i> Watchers: 971</span> |
+                            <span><i class="fas fa-exclamation-circle mr-1"></i> Issues: 13</span> |
+                            <span><i class="fas fa-code-pull-request mr-1"></i> PRs: 5</span>
+                        </div>
+                        <div class="mt-2 text-sm text-light-text-color">
+                            <span><i class="fas fa-box mr-1"></i> Releases: 277</span> |
+                            <span><i class="fas fa-clipboard-list mr-1"></i> Commits: 13,386</span> |
+                            <span><i class="fas fa-id-card mr-1"></i> Contributors: 109</span>
+                        </div>
+                        <div class="language-breakdown mt-4">
+                            <span class="font-bold">语言占比:</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #f1e05a;"></div>JavaScript 88.8%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #563d7c;"></div>CSS 4.8%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #e34c26;"></div>HTML 3.5%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #5F2B7D;"></div>WebAssembly 2.1%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #89e051;"></div>Shell 0.6%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #ccc;"></div>Makefile 0.1%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #3572A5;"></div>Python 0.1%</span>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-book-open mr-2"></i>项目速读</h4>
+                        <p class="text-sm leading-relaxed">uBlock Origin（uBO）是广受欢迎、高效且资源占用极低的浏览器内容拦截器。它帮助用户摆脱烦人广告、在线追踪器、恶意脚本及不受欢迎网络元素，净化网页浏览环境并保护隐私。核心优势在于卓越性能和广泛拦截能力。默认整合多种知名过滤列表，提供灵活自定义规则支持。不仅是广告屏蔽，更是全面的隐私保护工具。凭借出色表现，uBO在用户中建立极高声誉，是提升网络浏览体验和安全性的优秀开源选择。虽然Firefox表现最佳，Chromium兼容性需注意，uBO仍是推荐内容拦截器之一。</p>
+                        <h4 class="text-lg mb-2 mt-4 flex items-center text-primary-color"><i class="fas fa-chart-line mr-2"></i>增长分析</h4>
+                        <p class="text-sm leading-relaxed">首次上榜，当日新增209 Star，显示出显著的初始吸引力或近期事件驱动的爆发性增长。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- landing-ai/agentic-doc -->
+            <section>
+                <h2>landing-ai/agentic-doc</h2>
+                <h3>项目简介: LandingAI 用于智能体式文档提取的 Python 库</h3>
+                <div class="grid-container" style="grid-template-columns: 1fr 1fr;">
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-info-circle mr-2"></i>关键指标</h4>
+                        <table>
+                            <tr><th>开发语言</th><td>Python</td></tr>
+                            <tr><th>Star 数</th><td>881 ⭐</td></tr>
+                            <tr><th>连续在榜</th><td>2次</td></tr>
+                            <tr><th>总上榜次数</th><td>2次</td></tr>
+                            <tr><th>当日 Star 增加数</th><td>131</td></tr>
+                        </table>
+                        <div class="mt-4 text-sm text-light-text-color">
+                            <span><i class="fas fa-code-fork mr-1"></i> Forks: 90</span> |
+                            <span><i class="fas fa-eye mr-1"></i> Watchers: 17</span> |
+                            <span><i class="fas fa-exclamation-circle mr-1"></i> Issues: 3</span> |
+                            <span><i class="fas fa-code-pull-request mr-1"></i> PRs: 7</span>
+                        </div>
+                        <div class="mt-2 text-sm text-light-text-color">
+                            <span><i class="fas fa-box mr-1"></i> Releases: 1</span> |
+                            <span><i class="fas fa-clipboard-list mr-1"></i> Commits: 103</span> |
+                            <span><i class="fas fa-id-card mr-1"></i> Contributors: 14</span>
+                        </div>
+                        <div class="language-breakdown mt-4">
+                            <span class="font-bold">语言占比:</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #3572A5;"></div>Python 100.0%</span>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-book-open mr-2"></i>项目速读</h4>
+                        <p class="text-sm leading-relaxed">landing-ai的agentic-doc是Python库，封装LandingAI Agentic Document Extraction API，帮助开发者轻松从视觉复杂文档（PDF、图像、URL）中提取表格、图片、文字等结构化数据。提取结果为带位置信息的JSON和Markdown。关键优势是处理复杂性：自动处理超长文档（分割、并行、合并），高效批量处理文件（并发、重试），支持本地、云存储（Google Drive, S3）及URL获取。抽象底层API调用细节，让开发者无需处理大文件分块、并发请求、网络波动等技术难题。适用于需要自动化分析和提取大量非结构化或复杂布局文档中关键信息的场景，提供强大易用的工具。</p>
+                        <h4 class="text-lg mb-2 mt-4 flex items-center text-primary-color"><i class="fas fa-chart-line mr-2"></i>增长分析</h4>
+                        <p class="text-sm leading-relaxed">两天内上榜两次共增131星，平均每次约75星，增长表现活跃。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- zijie0/HumanSystemOptimization -->
+            <section>
+                <h2>zijie0/HumanSystemOptimization</h2>
+                <h3>项目简介: {'健康学习到150岁 - 人体系统调优不完全指南'}</h3>
+                <div class="grid-container" style="grid-template-columns: 1fr 1fr;">
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-info-circle mr-2"></i>关键指标</h4>
+                        <table>
+                            <tr><th>开发语言</th><td>无</td></tr>
+                            <tr><th>Star 数</th><td>19339 ⭐</td></tr>
+                            <tr><th>连续在榜</th><td>1次</td></tr>
+                            <tr><th>总上榜次数</th><td>5次</td></tr>
+                            <tr><th>当日 Star 增加数</th><td>81</td></tr>
+                        </table>
+                        <div class="mt-4 text-sm text-light-text-color">
+                            <span><i class="fas fa-code-fork mr-1"></i> Forks: 1.4k</span> |
+                            <span><i class="fas fa-eye mr-1"></i> Watchers: 157</span> |
+                            <span><i class="fas fa-exclamation-circle mr-1"></i> Issues: 14</span> |
+                            <span><i class="fas fa-code-pull-request mr-1"></i> PRs: 0</span>
+                        </div>
+                        <div class="mt-2 text-sm text-light-text-color">
+                            <span><i class="fas fa-box mr-1"></i> Releases: 0</span> |
+                            <span><i class="fas fa-clipboard-list mr-1"></i> Commits: 18</span> |
+                            <span><i class="fas fa-id-card mr-1"></i> Contributors: 2</span>
+                        </div>
+                        <div class="language-breakdown mt-4">
+                            <span class="font-bold">语言占比:</span>
+                            <span class="flex items-center text-gray-500">（非代码项目，无主要编程语言）</span>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-book-open mr-2"></i>项目速读</h4>
+                        <p class="text-sm leading-relaxed">这个名为“人体系统调优不完全指南”的GitHub项目，并非传统意义上的软件，而是一份基于神经科学等前沿科学研究的个人健康实践经验分享。它旨在帮助读者像“调优软件程序”一样，科学地理解并优化自身的人体系统，从而提升健康水平、工作学习表现及心理状态，探索“健康到150岁”的可能性。核心优势在于其内容严格基于高质量的科学研究成果，而非泛泛的养生理论，从生物机理层面解释健康之道。文章深入浅出地解释了睡眠、饮食（特别是间歇性禁食与肠道健康）以及心态与动力（多巴胺系统）等关键“组件”的运作原理，并提供了大量详细、科学且往往是零成本的实操性“工具”和建议。这份指南的价值在于为渴望基于科学原理改善身心健康的人们提供了一份清晰、可行的路线图，特别适用于希望通过调整生活方式来优化睡眠、提升精力、管理情绪和增强专注力的人群。它是一份难得的理论结合实践的个人健康管理宝典。</p>
+                        <h4 class="text-lg mb-2 mt-4 flex items-center text-primary-color"><i class="fas fa-chart-line mr-2"></i>增长分析</h4>
+                        <p class="text-sm leading-relaxed">该仓库上榜5次，平均每次激增528星，总计增长4231星。增长势头强劲，特别体现在上榜期间。 </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- farhanashrafdev/90DaysOfCyberSecurity -->
+            <section>
+                <h2>farhanashrafdev/90DaysOfCyberSecurity</h2>
+                <h3>项目简介: 这个仓库包含一个90天的网络安全学习计划，以及学习各种网络安全概念和技术的资源和资料。</h3>
+                <div class="grid-container" style="grid-template-columns: 1fr 1fr;">
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-info-circle mr-2"></i>关键指标</h4>
+                        <table>
+                            <tr><th>开发语言</th><td>无</td></tr>
+                            <tr><th>Star 数</th><td>9354 ⭐</td></tr>
+                            <tr><th>连续在榜</th><td>1次</td></tr>
+                            <tr><th>总上榜次数</th><td>1次</td></tr>
+                            <tr><th>当日 Star 增加数</th><td>10</td></tr>
+                        </table>
+                        <div class="mt-4 text-sm text-light-text-color">
+                            <span><i class="fas fa-code-fork mr-1"></i> Forks: 1.1k</span> |
+                            <span><i class="fas fa-eye mr-1"></i> Watchers: 182</span> |
+                            <span><i class="fas fa-exclamation-circle mr-1"></i> Issues: 4</span> |
+                            <span><i class="fas fa-code-pull-request mr-1"></i> PRs: 2</span>
+                        </div>
+                        <div class="mt-2 text-sm text-light-text-color">
+                            <span><i class="fas fa-box mr-1"></i> Releases: 0</span> |
+                            <span><i class="fas fa-clipboard-list mr-1"></i> Commits: 55</span> |
+                            <span><i class="fas fa-id-card mr-1"></i> Contributors: 7</span>
+                        </div>
+                        <div class="language-breakdown mt-4">
+                            <span class="font-bold">语言占比:</span>
+                            <span class="flex items-center text-gray-500">（学习资源，无主要编程语言）</span>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-book-open mr-2"></i>项目速读</h4>
+                        <p class="text-sm leading-relaxed">这是一个名为“90-Day Cybersecurity Study Plan”的 GitHub 仓库，提供为期90天的结构化网络安全自学路线图。它旨在为渴望进入或提升网络安全技能的学习者提供清晰的学习方向和丰富的学习资源，解决自学过程中遇到的迷茫和资源分散问题。该计划将复杂的网络安全知识细化到每日任务，涵盖网络基础、安全原则、操作系统、编程、流量分析、云平台安全、渗透测试等广泛主题，并推荐大量高质量的在线资源和实践平台。其核心优势在于系统性强、内容全面且注重实战，帮助学习者按部就班地构建扎实的技术基础和实践经验，是不同背景学习者入门或深入网络安全领域的宝贵资源。</p>
+                        <h4 class="text-lg mb-2 mt-4 flex items-center text-primary-color"><i class="fas fa-chart-line mr-2"></i>增长分析</h4>
+                        <p class="text-sm leading-relaxed">首次上榜，当日新增10 Star，显示出稳定的初始关注度，可能是一个长期受益型项目。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ocrmypdf/OCRmyPDF -->
+            <section>
+                <h2>ocrmypdf/OCRmyPDF</h2>
+                <h3>项目简介: OCRmyPDF 为扫描版 PDF 文件添加 OCR 文本层，使其可搜索。</h3>
+                <div class="grid-container" style="grid-template-columns: 1fr 1fr;">
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-info-circle mr-2"></i>关键指标</h4>
+                        <table>
+                            <tr><th>开发语言</th><td>Python</td></tr>
+                            <tr><th>Star 数</th><td>30080 ⭐</td></tr>
+                            <tr><th>连续在榜</th><td>1次</td></tr>
+                            <tr><th>总上榜次数</th><td>5次</td></tr>
+                            <tr><th>当日 Star 增加数</th><td>249</td></tr>
+                        </table>
+                        <div class="mt-4 text-sm text-light-text-color">
+                            <span><i class="fas fa-code-fork mr-1"></i> Forks: 2.1k</span> |
+                            <span><i class="fas fa-eye mr-1"></i> Watchers: 188</span> |
+                            <span><i class="fas fa-exclamation-circle mr-1"></i> Issues: 131</span> |
+                            <span><i class="fas fa-code-pull-request mr-1"></i> PRs: 4</span>
+                        </div>
+                        <div class="mt-2 text-sm text-light-text-color">
+                            <span><i class="fas fa-box mr-1"></i> Releases: 41</span> |
+                            <span><i class="fas fa-clipboard-list mr-1"></i> Commits: 4,020</span> |
+                            <span><i class="fas fa-id-card mr-1"></i> Contributors: 107</span>
+                        </div>
+                        <div class="language-breakdown mt-4">
+                            <span class="font-bold">语言占比:</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #3572A5;"></div>Python 96.9%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #89e051;"></div>Shell 2.7%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #384d54;"></div>Dockerfile 0.4%</span>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-book-open mr-2"></i>项目速读</h4>
+                        <p class="text-sm leading-relaxed">OCRmyPDF是强大的命令行工具，解决扫描版PDF不可搜索问题。集成Tesseract OCR引擎，智能识别图像文字并嵌入为可搜索文本层，保持图像质量，可生成PDF/A标准归档文件。优势：高效处理（多核并行）、广泛语言支持、本地处理保护隐私。使大量扫描文档（书籍、报告）快速变得可检索、可复制，极大提升数字文档管理和利用效率，是处理海量扫描件进行归档和内容查找的理想选择。</p>
+                        <h4 class="text-lg mb-2 mt-4 flex items-center text-primary-color"><i class="fas fa-chart-line mr-2"></i>增长分析</h4>
+                        <p class="text-sm leading-relaxed">仓库总星数增长7548，期间上榜5次贡献显著。平均每次上榜增585星，但最近一次仅增249星，增长势头放缓。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- psf/black -->
+            <section>
+                <h2>psf/black</h2>
+                <h3>项目简介: 不妥协的 Python 代码格式化程序</h3>
+                <div class="grid-container" style="grid-template-columns: 1fr 1fr;">
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-info-circle mr-2"></i>关键指标</h4>
+                        <table>
+                            <tr><th>开发语言</th><td>Python</td></tr>
+                            <tr><th>Star 数</th><td>40497 ⭐</td></tr>
+                            <tr><th>连续在榜</th><td>1次</td></tr>
+                            <tr><th>总上榜次数</th><td>1次</td></tr>
+                            <tr><th>当日 Star 增加数</th><td>9</td></tr>
+                        </table>
+                        <div class="mt-4 text-sm text-light-text-color">
+                            <span><i class="fas fa-code-fork mr-1"></i> Forks: 2.6k</span> |
+                            <span><i class="fas fa-eye mr-1"></i> Watchers: 233</span> |
+                            <span><i class="fas fa-exclamation-circle mr-1"></i> Issues: 334</span> |
+                            <span><i class="fas fa-code-pull-request mr-1"></i> PRs: 32</span>
+                        </div>
+                        <div class="mt-2 text-sm text-light-text-color">
+                            <span><i class="fas fa-box mr-1"></i> Releases: 46</span> |
+                            <span><i class="fas fa-clipboard-list mr-1"></i> Commits: 2,004</span> |
+                            <span><i class="fas fa-id-card mr-1"></i> Contributors: 465</span>
+                        </div>
+                        <div class="language-breakdown mt-4">
+                            <span class="font-bold">语言占比:</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #3572A5;"></div>Python 99.7%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #ccc;"></div>Other 0.3%</span>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-book-open mr-2"></i>项目速读</h4>
+                        <p class="text-sm leading-relaxed">Black是坚定不移的Python代码格式化工具，致力于彻底消除代码风格争论。通过自动化、高度一致的格式化方式，强制实施一套预设的风格规范，确保代码统一外观。核心优势是“固执己见”哲学：一旦应用，无需手动调整格式，极大提升可读性，节省时间精力。内置安全检查，验证格式化后代码语义等价。凭借一致性强、简化代码审查等特点，Black已成Python项目和团队首选格式化工具，让开发者专注于核心代码逻辑。遵循MIT许可证开源，鼓励广泛采用。</p>
+                        <h4 class="text-lg mb-2 mt-4 flex items-center text-primary-color"><i class="fas fa-chart-line mr-2"></i>增长分析</h4>
+                        <p class="text-sm leading-relaxed">首次上榜，当日新增9 Star，对于一个成熟且用户基础庞大的项目来说，这表明其持续的活跃度和相关性。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- odoo/odoo -->
+            <section>
+                <h2>odoo/odoo</h2>
+                <h3>项目简介: Odoo: 开源应用，助您业务发展。</h3>
+                <div class="grid-container" style="grid-template-columns: 1fr 1fr;">
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-info-circle mr-2"></i>关键指标</h4>
+                        <table>
+                            <tr><th>开发语言</th><td>Python</td></tr>
+                            <tr><th>Star 数</th><td>44121 ⭐</td></tr>
+                            <tr><th>连续在榜</th><td>1次</td></tr>
+                            <tr><th>总上榜次数</th><td>1次</td></tr>
+                            <tr><th>当日 Star 增加数</th><td>18</td></tr>
+                        </table>
+                        <div class="mt-4 text-sm text-light-text-color">
+                            <span><i class="fas fa-code-fork mr-1"></i> Forks: 28.6k</span> |
+                            <span><i class="fas fa-eye mr-1"></i> Watchers: 1.5k</span> |
+                            <span><i class="fas fa-exclamation-circle mr-1"></i> Issues: 3.2k</span> |
+                            <span><i class="fas fa-code-pull-request mr-1"></i> PRs: 5k+</span>
+                        </div>
+                        <div class="mt-2 text-sm text-light-text-color">
+                            <span><i class="fas fa-box mr-1"></i> Releases: 0</span> |
+                            <span><i class="fas fa-clipboard-list mr-1"></i> Commits: 185,198</span> |
+                            <span><i class="fas fa-id-card mr-1"></i> Contributors: 2,203</span>
+                        </div>
+                        <div class="language-breakdown mt-4">
+                            <span class="font-bold">语言占比:</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #3572A5;"></div>Python 49.9%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #f1e05a;"></div>JavaScript 46.2%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #c6538f;"></div>SCSS 1.9%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #ccc;"></div>Fluent 1.7%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #563d7c;"></div>CSS 0.2%</span>
+                            <span class="flex items-center"><div class="color-box" style="background-color: #e34c26;"></div>HTML 0.1%</span>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h4 class="text-lg mb-2 flex items-center text-primary-color"><i class="fas fa-book-open mr-2"></i>项目速读</h4>
+                        <p class="text-sm leading-relaxed">Odoo是开源企业应用套件，核心目标是帮助企业管理和自动化各类业务流程。提供客户关系管理、电子商务、库存、财务等广泛应用。最关键的技术优势在于其模块化和高度集成能力：不同应用既可独立运行，也能无缝集成，共同构成灵活、全面的开源ERP系统。这种设计让企业根据需求自由选择和组合功能，实现一体化高效管理。Odoo为寻求灵活、可定制业务管理解决方案的企业提供强大流行的平台。</p>
+                        <h4 class="text-lg mb-2 mt-4 flex items-center text-primary-color"><i class="fas fa-chart-line mr-2"></i>增长分析</h4>
+                        <p class="text-sm leading-relaxed">首次上榜，当日新增18 Star。作为一个成熟且活跃的企业级项目，稳定的新增量表明其持续的市场影响力和用户关注度。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Slide -->
+            <section class="last-slide" data-background-image="https://images.unsplash.com/photo-1517431109062-850d75a894a4?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-background-transition="zoom" data-background-size="cover" data-background-color="#000000" data-background-opacity="0.6">
+                <h2 class="text-white text-center text-5xl">感谢您的聆听！</h2>
+                <h3 class="text-white text-center text-3xl mt-4">探索AI Agent与数据融合的未来！</h3>
+                <div class="flex-center mt-12 text-white">
+                    <p class="text-2xl mb-2">欢迎关注 & Star 项目</p>
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-white text-4xl mb-4 hover:underline">
+                        <i class="fab fa-github mr-3"></i>aichipera/github-trend
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code" class="w-48 h-48 border-4 border-white rounded-lg shadow-lg" />
+                    <p class="text-lg mt-4">扫描二维码，获取更多精彩内容</p>
+                </div>
+                <a href="https://github.com/aichipera/github-trend" target="_blank" class="footer-link">
+                    项目链接: https://github.com/aichipera/github-trend
+                    <img src="../../asserts/wx.jpg" alt="QR Code" />
+                </a>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <script>
+        // Mermaid.js configuration (if any diagrams were to be used)
+        mermaid.initialize({ startOnLoad: false });
+
+        // Reveal.js initialization
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            hash: true,
+            transition: 'slide', // Default slide transition
+            backgroundTransition: 'fade', // Background transition
+            fragments: true, // Enable fragments for step-by-step content reveal
+
+            // Optional libraries used to extend functionality of Reveal.js
+            dependencies: [
+                { src: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js', async: true },
+                { src: 'https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/zoom/zoom.min.js', async: true },
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/math/math.min.js', async: true }
+            ]
+        });
+    </script>
+</body>
+</html>

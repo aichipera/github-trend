@@ -1,0 +1,1007 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GitHub周榜揭秘：AI工程化深度融合</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #4A90E2; /* Blue */
+            --accent-color: #8C52FF;  /* Purple */
+            --text-dark: #333;
+            --text-light: #f8f8f8;
+            --bg-light: #ffffff;
+            --bg-gradient: linear-gradient(135deg, #e0f2f7 0%, #d1e5f0 100%); /* Light subtle gradient */
+        }
+
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--text-dark);
+        }
+
+        .reveal .slides {
+            text-align: left;
+        }
+
+        /* Titles */
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--primary-color);
+            text-shadow: none; /* Remove default reveal.js text shadow */
+        }
+
+        .reveal h1 { font-size: 3rem; } /* Approx. 48px */
+        .reveal h2 { font-size: 2.5rem; } /* Approx. 40px */
+        .reveal h3 { font-size: 2rem; } /* Approx. 32px */
+        .reveal h4 { font-size: 1.5rem; } /* Approx. 24px */
+        .reveal p { font-size: 1.1rem; line-height: 1.6; } /* Approx. 17.6px */
+        .reveal li { font-size: 1rem; line-height: 1.5; } /* Approx. 16px */
+        .reveal ul { margin-left: 1.5em; }
+
+        /* Font sizes for specific elements based on requirements */
+        .title-main { font-size: 3rem; margin-bottom: 0.5rem; color: var(--primary-color); }
+        .title-sub { font-size: 1.8rem; color: #555; }
+        .heading-1 { font-size: 2.5rem; color: var(--primary-color); }
+        .heading-2 { font-size: 2rem; color: #444; }
+        .body-text { font-size: 1.1rem; }
+        .small-text { font-size: 0.9rem; }
+
+        /* Custom styles for specific slides */
+        .reveal section.cover-slide {
+            background: var(--bg-gradient);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 100vh;
+        }
+        .reveal section.cover-slide .cover-content {
+            z-index: 10;
+            padding: 2rem;
+            max-width: 80%;
+            margin: 0 auto;
+        }
+        .reveal section.cover-slide h1 {
+            color: var(--text-dark);
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            animation: fadeInScale 1s ease-out forwards;
+        }
+        .reveal section.cover-slide h3 {
+            color: #666;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 1.5s ease-out forwards;
+        }
+        .reveal section.cover-slide p {
+            color: #777;
+            font-size: 1.2rem;
+            line-height: 1.5;
+            animation: fadeIn 2s ease-out forwards;
+        }
+        .reveal section.cover-slide .speaker-info {
+            font-size: 1.3rem;
+            color: #555;
+            margin-top: 2rem;
+            animation: fadeIn 2.5s ease-out forwards;
+        }
+
+        .reveal .footer-logo {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            z-index: 100;
+        }
+        .reveal .footer-logo img {
+            height: 80px; /* Adjust as needed */
+            margin-bottom: 10px;
+            animation: slideInRight 1s ease-out forwards;
+        }
+        .reveal .footer-logo a {
+            color: #555;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            animation: slideInRight 1.2s ease-out forwards;
+        }
+        .reveal .footer-logo a:hover {
+            text-decoration: underline;
+        }
+
+        /* General content slides */
+        .reveal section {
+            background-color: var(--bg-light);
+            padding: 2rem;
+        }
+        .reveal section .content-wrapper {
+            max-width: 90%;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        /* Icon styling */
+        .reveal .icon {
+            color: var(--accent-color);
+            margin-right: 0.5em;
+        }
+
+        /* Fragment animations */
+        .reveal .fragment.fade-in { opacity: 0; }
+        .reveal .fragment.fade-in.visible { opacity: 1; transition: opacity 0.5s ease-in; }
+
+        /* Specific list/table styling */
+        .reveal table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        .reveal th, .reveal td {
+            border: 1px solid #ddd;
+            padding: 0.8rem;
+            text-align: left;
+        }
+        .reveal th {
+            background-color: #f0f0f0;
+            font-weight: 600;
+        }
+        .reveal td:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Project detail specific styles */
+        .project-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+        }
+        .project-meta-item {
+            display: flex;
+            align-items: center;
+            background-color: #f5faff;
+            padding: 8px 12px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .project-meta-item i {
+            color: var(--primary-color);
+            margin-right: 8px;
+            font-size: 1.1em;
+        }
+        .language-chart {
+            display: flex;
+            width: 100%;
+            height: 30px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+        .language-segment {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8em;
+            font-weight: bold;
+            transition: width 1s ease-out;
+        }
+        .lang-go { background-color: #00add8; }
+        .lang-rust { background-color: #dea584; }
+        .lang-python { background-color: #3572A5; }
+        .lang-ts { background-color: #007ACC; }
+        .lang-js { background-color: #F7DF1E; color: #333;}
+        .lang-jupyter { background-color: #F37626; }
+        .lang-html { background-color: #E34C26; }
+        .lang-css { background-color: #563D7C; }
+        .lang-shell { background-color: #89e051; }
+        .lang-other { background-color: #6c757d; }
+
+        .note-block {
+            background-color: #e6f7ff;
+            border-left: 5px solid var(--primary-color);
+            padding: 1rem 1.5rem;
+            margin-top: 1.5rem;
+            border-radius: 0 5px 5px 0;
+            font-size: 0.95rem;
+            color: #333;
+        }
+        .note-block i {
+            margin-right: 0.5em;
+            color: var(--primary-color);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .reveal .controls button {
+            color: var(--primary-color) !important;
+        }
+
+        /* Override default Reveal.js link color if needed */
+        .reveal a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        .reveal a:hover {
+            text-decoration: underline;
+        }
+
+        /* List with custom bullets */
+        .list-icon ul {
+            list-style: none; /* Remove default bullets */
+            padding-left: 0;
+        }
+        .list-icon ul li {
+            padding-left: 1.5em; /* Space for custom bullet */
+            position: relative;
+        }
+        .list-icon ul li::before {
+            content: "\f00c"; /* Font Awesome checkmark icon */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+            top: 0.2em; /* Adjust vertical alignment */
+        }
+        /* Specific list item for project details */
+        .project-list-item {
+            font-size: 1.05rem;
+            margin-bottom: 0.5em;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover Page -->
+            <section class="cover-slide">
+                <div class="cover-content">
+                    <h1 class="title-main">GitHub周榜揭秘：<br>AI工程化深度融合，Go/Rust性能工具崛起</h1>
+                    <h3 class="title-sub">这技术趋势，速看转需！</h3>
+                    <p class="small-text mt-8">
+                        <i class="fas fa-calendar-alt icon"></i> Github热门仓库**周报**观测时间：2025-07-13 21:25:14
+                    </p>
+                    <p class="speaker-info">
+                        <i class="fas fa-user-tie icon"></i> 演讲者：AIChipEra
+                    </p>
+                    <div class="note-block mx-auto mt-8" style="max-width: 600px;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        **免责声明:** 以下内容仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！
+                    </div>
+                </div>
+                <div class="footer-logo">
+                    <img src="../../asserts/wx.jpg" alt="微信二维码">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        <i class="fab fa-github"></i> github.com/aichipera/github-trend
+                    </a>
+                </div>
+            </section>
+
+            <!-- Slide 2: 周报要点 -->
+            <section>
+                <h2 class="heading-1"><i class="fas fa-bullseye icon"></i> 本周GitHub周报要点</h2>
+                <div class="content-wrapper mt-8">
+                    <ul class="list-icon">
+                        <li class="fragment fade-in project-list-item">
+                            **AI工程化落地：** 焦点从AI模型本身转向如何将其可靠应用于生产环境，包括AI Agent工程原则与AI-数据库集成。
+                        </li>
+                        <li class="fragment fade-in project-list-item">
+                            **性能工具崛起：** Go/Rust语言在基础设施（高性能分布式存储）和提升开发效率（简化后端）方面备受追捧。
+                        </li>
+                        <li class="fragment fade-in project-list-item">
+                            **开发效率提升：** 实用工具如多平台媒体数据采集、网络流量监控、AI驱动开发助手等持续受欢迎。
+                        </li>
+                        <li class="fragment fade-in project-list-item">
+                            **三足鼎立：** Python、Go、Rust 在热门项目榜单中各展所长，地位稳固。
+                        </li>
+                        <li class="fragment fade-in project-list-item">
+                            **掌握前沿趋势：** 报告助您快速看清AI落地路线图，找到宝藏工具。
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 3: 热门项目趋势分析 - 本周整体趋势 -->
+            <section>
+                <h2 class="heading-1"><i class="fas fa-chart-line icon"></i> 热门项目趋势分析：本周整体</h2>
+                <div class="content-wrapper mt-8">
+                    <h3 class="heading-2 fragment fade-in"><i class="fas fa-brain icon"></i> AI应用的生产化与工程化</h3>
+                    <ul class="list-icon ml-8">
+                        <li class="fragment fade-in">LLM焦点转向如何可靠应用于生产环境（如AI Agent工程原则、AI与数据库集成）。</li>
+                        <li class="fragment fade-in">项目：`genai-toolbox` (AI-DB桥梁), `12-factor-agents` (AI Agent工程), `refact` (AI开发助手)。</li>
+                    </ul>
+
+                    <h3 class="heading-2 mt-6 fragment fade-in"><i class="fas fa-server icon"></i> 基础设施效率与便捷性</h3>
+                    <ul class="list-icon ml-8">
+                        <li class="fragment fade-in">高性能分布式存储 (`rustfs`) 持续受关注。</li>
+                        <li class="fragment fade-in">简化后端开发 (`pocketbase`) 需求强劲。</li>
+                    </ul>
+
+                    <h3 class="heading-2 mt-6 fragment fade-in"><i class="fas fa-tools icon"></i> 特定领域自动化与效率工具</h3>
+                    <ul class="list-icon ml-8">
+                        <li class="fragment fade-in">多平台媒体数据采集 (`MediaCrawler`)。</li>
+                        <li class="fragment fade-in">网络流量监控 (`sniffnet`) 及通信API代理。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 4: 编程语言分布与技术栈特点 -->
+            <section>
+                <h2 class="heading-1"><i class="fas fa-code icon"></i> 编程语言分布与技术栈特点</h2>
+                <div class="content-wrapper mt-8">
+                    <h3 class="heading-2 fragment fade-in"><i class="fas fa-balance-scale-left icon"></i> “三足鼎立”：Go、Rust、Python</h3>
+                    <ul class="list-icon ml-8">
+                        <li class="fragment fade-in"><strong class="text-blue-600">Python:</strong> AI/数据科学主力，LLM教程、数据采集、AI服务代理。</li>
+                        <li class="fragment fade-in"><strong class="text-green-600">Go:</strong> 后端服务、基础设施、API/工具层，高性能、易部署。</li>
+                        <li class="fragment fade-in"><strong class="text-red-600">Rust:</strong> 性能敏感领域（分布式存储、网络监控），内存安全、高效率。</li>
+                        <li class="fragment fade-in"><strong class="text-purple-600">TypeScript:</strong> 结构化文档、指导原则 (`12-factor-agents`)。</li>
+                        <li class="fragment fade-in"><strong class="text-orange-600">Jupyter Notebook:</strong> 技术学习与实验 (`happy-llm`)。</li>
+                    </ul>
+                    <div class="note-block mt-8 fragment fade-in">
+                        <i class="fas fa-lightbulb"></i>
+                        **技术栈特点:** “务实且追求效率” — AI积极与传统工程结合，基础设施偏向高性能语言。
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5: 反映的技术需求与发展方向 -->
+            <section>
+                <h2 class="heading-1"><i class="fas fa-compass icon"></i> 技术需求与发展方向</h2>
+                <div class="content-wrapper mt-8">
+                    <h3 class="heading-2 fragment fade-in"><i class="fas fa-cogs icon"></i> 核心需求</h3>
+                    <ul class="list-icon ml-8">
+                        <li class="fragment fade-in">**AI的生产化与工程化：** 迫切需要将LLM能力转化为稳定、可靠的生产应用。</li>
+                        <li class="fragment fade-in">**AI与现有系统集成：** 如何让AI安全、高效地访问和操作传统数据存储。</li>
+                        <li class="fragment fade-in">**基础设施的效率与便捷性：** 寻求更简单、快速的后端搭建和海量数据处理方案。</li>
+                        <li class="fragment fade-in">**特定场景自动化与数据获取：** 针对特定平台/任务的自动化和数据采集工具。</li>
+                        <li class="fragment fade-in">**技术学习与知识分享：** 体系化开源教程满足快速发展的学习需求。</li>
+                    </ul>
+                    <div class="note-block mt-8 fragment fade-in">
+                        <i class="fas fa-arrow-right"></i>
+                        **发展方向:** AI向更深层次工程领域渗透，扩展到应用架构、运维与业务系统融合；同时推动底层性能和开发效率的创新。
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 6: 可能出现的下一波技术热点预测 -->
+            <section>
+                <h2 class="heading-1"><i class="fas fa-fire icon"></i> 下一波技术热点预测</h2>
+                <div class="content-wrapper mt-8">
+                    <ul class="list-icon">
+                        <li class="fragment fade-in project-list-item">
+                            **AI Agent框架与平台：** 支持复杂任务协调、工具调用、状态管理和可靠部署。
+                        </li>
+                        <li class="fragment fade-in project-list-item">
+                            **AI安全与隐私技术：** 针对AI应用的数据隐私、模型安全、对抗攻击等。
+                        </li>
+                        <li class="fragment fade-in project-list-item">
+                            **边缘侧或特定领域的AI优化：** 适用于资源受限环境或特定行业的更小、更高效AI模型及推理框架。
+                        </li>
+                        <li class="fragment fade-in project-list-item">
+                            **更智能的代码Copilot/Agent：** 能够更深入理解项目上下文、自动化更复杂工程任务的开发工具。
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 7: 本周特有的技术趋势特点 -->
+            <section>
+                <h2 class="heading-1"><i class="fas fa-star icon"></i> 本周特有技术趋势特点</h2>
+                <div class="content-wrapper mt-8">
+                    <h3 class="heading-2 fragment fade-in"><i class="fas fa-microchip icon"></i> AI应用工程化的高优先级</h3>
+                    <ul class="list-icon ml-8">
+                        <li class="fragment fade-in">不再是简单调用API，而是思考如何将LLM能力融入可靠的软件系统。</li>
+                        <li class="fragment fade-in">`12 Factor Agent`项目验证了将成熟软件工程思想引入AI Agent开发。</li>
+                    </ul>
+
+                    <h3 class="heading-2 mt-6 fragment fade-in"><i class="fas fa-chart-pie icon"></i> 语言均衡分布的务实性</h3>
+                    <ul class="list-icon ml-8">
+                        <li class="fragment fade-in">Go、Rust、Python均衡分布，体现社区在追求前沿AI应用的同时，不放弃对底层性能和开发效率的考量。</li>
+                    </ul>
+
+                    <h3 class="heading-2 mt-6 fragment fade-in"><i class="fas fa-globe-asia icon"></i> 本地化数据工具的活力</h3>
+                    <ul class="list-icon ml-8">
+                        <li class="fragment fade-in">如`MediaCrawler`，说明针对特定市场或需求的工具开发仍有独特价值和活力。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 8: 热门项目双周维度对比分析 -->
+            <section>
+                <h2 class="heading-1"><i class="fas fa-calendar-alt icon"></i> 热门项目双周维度对比</h2>
+                <div class="content-wrapper mt-8">
+                    <p class="body-text fragment fade-in">
+                        今日GitHub热门项目呈现显著的上升势头，共<strong class="text-green-600">7个全新项目</strong>进入榜单，另有<strong class="text-green-600">4个项目持续上升</strong>，无项目下降。
+                    </p>
+
+                    <h3 class="heading-2 mt-6 fragment fade-in"><i class="fas fa-plus-circle icon"></i> 新增热点</h3>
+                    <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+                        <span class="fragment fade-in"><i class="fas fa-dot-circle text-blue-500"></i> `googleapis/genai-toolbox`</span>
+                        <span class="fragment fade-in"><i class="fas fa-dot-circle text-blue-500"></i> `snailyp/gemini-balance`</span>
+                        <span class="fragment fade-in"><i class="fas fa-dot-circle text-blue-500"></i> `datawhalechina/happy-llm`</span>
+                        <span class="fragment fade-in"><i class="fas fa-dot-circle text-blue-500"></i> `smallcloudai/refact`</span>
+                        <span class="fragment fade-in"><i class="fas fa-dot-circle text-blue-500"></i> `rustfs/rustfs`</span>
+                        <span class="fragment fade-in"><i class="fas fa-dot-circle text-blue-500"></i> `gorhill/ublock`</span>
+                        <span class="fragment fade-in"><i class="fas fa-dot-circle text-blue-500"></i> `pocketbase/pocketbase`</span>
+                    </div>
+
+                    <h3 class="heading-2 mt-6 fragment fade-in"><i class="fas fa-minus-circle icon"></i> 减退热点 (部分)</h3>
+                    <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+                        <span class="fragment fade-in"><i class="fas fa-times-circle text-red-500"></i> `tursodatabase/turso`</span>
+                        <span class="fragment fade-in"><i class="fas fa-times-circle text-red-500"></i> `stanford-oval/storm`</span>
+                        <span class="fragment fade-in"><i class="fas fa-times-circle text-red-500"></i> `microsoft/generative-ai-for-beginners`</span>
+                        <span class="fragment fade-in"><i class="fas fa-times-circle text-red-500"></i> `twentyhq/twenty`</span>
+                    </div>
+
+                    <p class="body-text mt-6 fragment fade-in">
+                        Go语言表现强势，新增2个项目；HTML和TypeScript有所减少，TypeScript降幅最大。
+                    </p>
+                </div>
+            </section>
+
+            <!-- Slide 9: 编程语言分布 (可视化) -->
+            <section>
+                <h2 class="heading-1"><i class="fas fa-language icon"></i> 编程语言分布概览</h2>
+                <div class="content-wrapper mt-8">
+                    <ul class="list-none p-0">
+                        <li class="mb-4 fragment fade-in" data-fragment-index="1">
+                            <strong class="text-go">Go:</strong> 3个项目 (27.3%)
+                            <div class="language-chart"><div class="language-segment lang-go" style="width: 27.3%;"></div></div>
+                        </li>
+                        <li class="mb-4 fragment fade-in" data-fragment-index="2">
+                            <strong class="text-rust">Rust:</strong> 3个项目 (27.3%)
+                            <div class="language-chart"><div class="language-segment lang-rust" style="width: 27.3%;"></div></div>
+                        </li>
+                        <li class="mb-4 fragment fade-in" data-fragment-index="3">
+                            <strong class="text-python">Python:</strong> 2个项目 (18.2%)
+                            <div class="language-chart"><div class="language-segment lang-python" style="width: 18.2%;"></div></div>
+                        </li>
+                        <li class="mb-4 fragment fade-in" data-fragment-index="4">
+                            <strong class="text-ts">TypeScript:</strong> 1个项目 (9.1%)
+                            <div class="language-chart"><div class="language-segment lang-ts" style="width: 9.1%;"></div></div>
+                        </li>
+                        <li class="mb-4 fragment fade-in" data-fragment-index="5">
+                            <strong class="text-jupyter">Jupyter Notebook:</strong> 1个项目 (9.1%)
+                            <div class="language-chart"><div class="language-segment lang-jupyter" style="width: 9.1%;"></div></div>
+                        </li>
+                        <li class="mb-4 fragment fade-in" data-fragment-index="6">
+                            <strong class="text-js">JavaScript:</strong> 1个项目 (9.1%)
+                            <div class="language-chart"><div class="language-segment lang-js" style="width: 9.1%;"></div></div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 10: Star分布 (可视化) -->
+            <section>
+                <h2 class="heading-1"><i class="fas fa-star-half-alt icon"></i> Star 分布概览</h2>
+                <div class="content-wrapper mt-8">
+                    <ul class="list-none p-0">
+                        <li class="mb-4 fragment fade-in">
+                            <strong class="text-blue-600">1k-5k:</strong> 4个项目 (36.4%)
+                            <div class="language-chart"><div class="language-segment lang-other" style="width: 36.4%; background-color: #f7b731;"></div></div>
+                        </li>
+                        <li class="mb-4 fragment fade-in">
+                            <strong class="text-blue-600">5k-10k:</strong> 2个项目 (18.2%)
+                            <div class="language-chart"><div class="language-segment lang-other" style="width: 18.2%; background-color: #5d9cec;"></div></div>
+                        </li>
+                        <li class="mb-4 fragment fade-in">
+                            <strong class="text-blue-600">10k-50k:</strong> 4个项目 (36.4%)
+                            <div class="language-chart"><div class="language-segment lang-other" style="width: 36.4%; background-color: #4CAF50;"></div></div>
+                        </li>
+                        <li class="mb-4 fragment fade-in">
+                            <strong class="text-blue-600">50k以上:</strong> 1个项目 (9.1%)
+                            <div class="language-chart"><div class="language-segment lang-other" style="width: 9.1%; background-color: #E91E63;"></div></div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 11: 热门项目排名 (Top 5) -->
+            <section>
+                <h2 class="heading-1"><i class="fas fa-trophy icon"></i> 热门项目精选 (Top 5)</h2>
+                <div class="content-wrapper mt-8">
+                    <ol class="list-none p-0">
+                        <li class="mb-4 fragment fade-in">
+                            <span class="text-2xl font-bold text-accent-color">1.</span> <a href="https://github.com/gorhill/uBlock" target="_blank" class="text-blue-600 hover:underline">gorhill/uBlock</a>
+                            <span class="text-gray-600 ml-4"><i class="fas fa-star"></i> 55540</span>
+                            <p class="body-text ml-8">高效拦截器，轻量快速。</p>
+                        </li>
+                        <li class="mb-4 fragment fade-in">
+                            <span class="text-2xl font-bold text-accent-color">2.</span> <a href="https://github.com/pocketbase/pocketbase" target="_blank" class="text-blue-600 hover:underline">pocketbase/pocketbase</a>
+                            <span class="text-gray-600 ml-4"><i class="fas fa-star"></i> 49020</span>
+                            <p class="body-text ml-8">单文件开源实时后端。</p>
+                        </li>
+                        <li class="mb-4 fragment fade-in">
+                            <span class="text-2xl font-bold text-accent-color">3.</span> <a href="https://github.com/NanmiCoder/MediaCrawler" target="_blank" class="text-blue-600 hover:underline">NanmiCoder/MediaCrawler</a>
+                            <span class="text-gray-600 ml-4"><i class="fas fa-star"></i> 30756</span>
+                            <p class="body-text ml-8">多平台媒体数据爬虫。</p>
+                        </li>
+                        <li class="mb-4 fragment fade-in">
+                            <span class="text-2xl font-bold text-accent-color">4.</span> <a href="https://github.com/GyulyVGC/sniffnet" target="_blank" class="text-blue-600 hover:underline">GyulyVGC/sniffnet</a>
+                            <span class="text-gray-600 ml-4"><i class="fas fa-star"></i> 28170</span>
+                            <p class="body-text ml-8">轻松监控网络流量。</p>
+                        </li>
+                        <li class="mb-4 fragment fade-in">
+                            <span class="text-2xl font-bold text-accent-color">5.</span> <a href="https://github.com/datawhalechina/happy-llm" target="_blank" class="text-blue-600 hover:underline">datawhalechina/happy-llm</a>
+                            <span class="text-gray-600 ml-4"><i class="fas fa-star"></i> 10824</span>
+                            <p class="body-text ml-8">从零开始的大语言模型教程。</p>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Slide 12: 本周每日Github热点项目分析 -->
+            <section>
+                <h2 class="heading-1"><i class="fas fa-calendar-day icon"></i> 本周每日热点项目</h2>
+                <div class="content-wrapper mt-8">
+                    <p class="body-text">
+                        这里将展示本周每天的GitHub热点项目详情。
+                    </p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>时间</th>
+                                <th>链接</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fragment fade-in"><td>周一</td><td><a href="TODO_URL" target="_blank">当日热点</a></td></tr>
+                            <tr class="fragment fade-in"><td>周二</td><td><a href="TODO_URL" target="_blank">当日热点</a></td></tr>
+                            <tr class="fragment fade-in"><td>周三</td><td><a href="TODO_URL" target="_blank">当日热点</a></td></tr>
+                            <tr class="fragment fade-in"><td>周四</td><td><a href="TODO_URL" target="_blank">当日热点</a></td></tr>
+                            <tr class="fragment fade-in"><td>周五</td><td><a href="TODO_URL" target="_blank">当日热点</a></td></tr>
+                            <tr class="fragment fade-in"><td>周六</td><td><a href="TODO_URL" target="_blank">当日热点</a></td></tr>
+                            <tr class="fragment fade-in"><td>周日</td><td><a href="TODO_URL" target="_blank">当日热点</a></td></tr>
+                        </tbody>
+                    </table>
+                    <div class="note-block mt-8 fragment fade-in">
+                        <i class="fas fa-info-circle"></i>
+                        提示：每日热点链接将后续更新。
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section for Detailed Repository Data -->
+            <section>
+                <section>
+                    <h2 class="heading-1"><i class="fas fa-database icon"></i> 详细仓库数据：概述</h2>
+                    <p class="body-text mt-8">
+                        接下来我们将深入探讨本周热门的几个GitHub仓库，了解它们的技术亮点和项目速读。
+                    </p>
+                    <ul class="list-icon mt-8">
+                        <li class="fragment fade-in">googleapis/genai-toolbox: AI与数据库桥梁</li>
+                        <li class="fragment fade-in">rustfs/rustfs: 高性能分布式对象存储</li>
+                        <li class="fragment fade-in">humanlayer/12-factor-agents: LLM生产级工程原则</li>
+                        <li class="fragment fade-in">NanmiCoder/MediaCrawler: 多平台媒体爬虫</li>
+                        <li class="fragment fade-in">snailyp/gemini-balance: Gemini API代理服务</li>
+                        <li class="fragment fade-in">GyulyVGC/sniffnet: 网络流量监控</li>
+                        <li class="fragment fade-in">datawhalechina/happy-llm: LLM原理与实践教程</li>
+                        <li class="fragment fade-in">smallcloudai/refact: AI开发代理</li>
+                        <li class="fragment fade-in">pocketbase/pocketbase: 单文件实时后端</li>
+                        <li class="fragment fade-in">gorhill/uBlock: 高效内容拦截器</li>
+                        <li class="fragment fade-in">aldinokemal/go-whatsapp-web-multidevice: WhatsApp REST API</li>
+                    </ul>
+                    <p class="small-text mt-8 fragment fade-in">
+                        <i class="fas fa-arrow-down icon"></i> 使用向下箭头查看每个项目的详细信息。
+                    </p>
+                </section>
+
+                <!-- Project: googleapis/genai-toolbox -->
+                <section>
+                    <h3 class="heading-2"><a href="https://github.com/googleapis/genai-toolbox" target="_blank" class="text-blue-600 hover:underline">googleapis/genai-toolbox</a></h3>
+                    <p class="body-text mt-4">
+                        <i class="fas fa-code-branch icon"></i> **项目简介:** 用于数据库的 MCP 工具箱是一个面向数据库的开源 MCP 服务器。
+                    </p>
+                    <div class="project-meta-grid">
+                        <div class="project-meta-item"><i class="fas fa-star"></i> Stars: 6119</div>
+                        <div class="project-meta-item"><i class="fas fa-plus-square"></i> Star 增加: 4119</div>
+                        <div class="project-meta-item"><i class="fas fa-code"></i> 语言: Go</div>
+                        <div class="project-meta-item"><i class="fas fa-code-fork"></i> Forks: 460</div>
+                        <div class="project-meta-item"><i class="fas fa-eye"></i> Watchers: 48</div>
+                        <div class="project-meta-item"><i class="fas fa-file-contract"></i> License: Apache-2.0</div>
+                    </div>
+                    <div class="language-chart mt-4">
+                        <div class="language-segment lang-go" style="width: 99.1%;">Go 99.1%</div>
+                        <div class="language-segment lang-other" style="width: 0.9%;"></div>
+                    </div>
+                    <div class-wrapper mt-6>
+                        <h4 class="heading-2">项目速读</h4>
+                        <ul class="list-icon ml-4 body-text">
+                            <li class="fragment fade-in">连接AI应用/代理与数据库的开源MCP服务器。</li>
+                            <li class="fragment fade-in">简化AI对数据库的安全、高效访问和操作。</li>
+                            <li class="fragment fade-in">通过配置定义AI可用“工具”，降低构建AI数据库交互功能难度。</li>
+                            <li class="fragment fade-in">提供安全认证、性能优化和可观测性。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Project: rustfs/rustfs -->
+                <section>
+                    <h3 class="heading-2"><a href="https://github.com/rustfs/rustfs" target="_blank" class="text-blue-600 hover:underline">rustfs/rustfs</a></h3>
+                    <p class="body-text mt-4">
+                        <i class="fas fa-code-branch icon"></i> **项目简介:** 🚀 高性能分布式对象存储，作为 MinIO 的替代。
+                    </p>
+                    <div class="project-meta-grid">
+                        <div class="project-meta-item"><i class="fas fa-star"></i> Stars: 4633</div>
+                        <div class="project-meta-item"><i class="fas fa-plus-square"></i> Star 增加: 3562</div>
+                        <div class="project-meta-item"><i class="fas fa-code"></i> 语言: Rust</div>
+                        <div class="project-meta-item"><i class="fas fa-code-fork"></i> Forks: 208</div>
+                        <div class="project-meta-item"><i class="fas fa-eye"></i> Watchers: 20</div>
+                        <div class="project-meta-item"><i class="fas fa-file-contract"></i> License: Apache-2.0</div>
+                    </div>
+                    <div class="language-chart mt-4">
+                        <div class="language-segment lang-rust" style="width: 98.7%;">Rust 98.7%</div>
+                        <div class="language-segment lang-shell" style="width: 0.7%;"></div>
+                        <div class="language-segment lang-other" style="width: 0.6%;"></div>
+                    </div>
+                    <div class-wrapper mt-6>
+                        <h4 class="heading-2">项目速读</h4>
+                        <ul class="list-icon ml-4 body-text">
+                            <li class="fragment fade-in">用Rust开发的高性能分布式对象存储系统。</li>
+                            <li class="fragment fade-in">旨在替代MinIO，服务数据湖、AI和大数据场景。</li>
+                            <li class="fragment fade-in">利用Rust内存安全和并发优势，构建S3兼容、可扩展、容错平台。</li>
+                            <li class="fragment fade-in">目前处于快速开发阶段，**严禁用于生产环境**。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Project: humanlayer/12-factor-agents -->
+                <section>
+                    <h3 class="heading-2"><a href="https://github.com/humanlayer/12-factor-agents" target="_blank" class="text-blue-600 hover:underline">humanlayer/12-factor-agents</a></h3>
+                    <p class="body-text mt-4">
+                        <i class="fas fa-code-branch icon"></i> **项目简介:** 有哪些原则可用于构建真正能够达到生产级别并交付给客户的基于 LLM 软件？
+                    </p>
+                    <div class="project-meta-grid">
+                        <div class="project-meta-item"><i class="fas fa-star"></i> Stars: 8557</div>
+                        <div class="project-meta-item"><i class="fas fa-plus-square"></i> Star 增加: 2679</div>
+                        <div class="project-meta-item"><i class="fas fa-code"></i> 语言: TypeScript</div>
+                        <div class="project-meta-item"><i class="fas fa-code-fork"></i> Forks: 542</div>
+                        <div class="project-meta-item"><i class="fas fa-eye"></i> Watchers: 95</div>
+                        <div class="project-meta-item"><i class="fas fa-file-contract"></i> License: 未知</div>
+                    </div>
+                    <div class="language-chart mt-4">
+                        <div class="language-segment lang-ts" style="width: 98.3%;">TypeScript 98.3%</div>
+                        <div class="language-segment lang-python" style="width: 1.5%;">Python 1.5%</div>
+                        <div class="language-segment lang-other" style="width: 0.2%;"></div>
+                    </div>
+                    <div class-wrapper mt-6>
+                        <h4 class="heading-2">项目速读</h4>
+                        <ul class="list-icon ml-4 body-text">
+                            <li class="fragment fade-in">受12 Factor App启发，为构建可靠LLM应用（AI Agent）提供工程原则。</li>
+                            <li class="fragment fade-in">强调LLM融入确定性软件代码，注重结构化输出、状态管理等。</li>
+                            <li class="fragment fade-in">提供详细指导文档，为开发者构建健壮LLM应用提供蓝图。</li>
+                            <li class="fragment fade-in">**增长分析:** 一周内增长2679 Star，期间上榜2次，增长势头强劲。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Project: NanmiCoder/MediaCrawler -->
+                <section>
+                    <h3 class="heading-2"><a href="https://github.com/NanmiCoder/MediaCrawler" target="_blank" class="text-blue-600 hover:underline">NanmiCoder/MediaCrawler</a></h3>
+                    <p class="body-text mt-4">
+                        <i class="fas fa-code-branch icon"></i> **项目简介:** 小红书笔记 | 评论爬虫、抖音视频 | 评论爬虫...
+                    </p>
+                    <div class="project-meta-grid">
+                        <div class="project-meta-item"><i class="fas fa-star"></i> Stars: 30756</div>
+                        <div class="project-meta-item"><i class="fas fa-plus-square"></i> Star 增加: 3035</div>
+                        <div class="project-meta-item"><i class="fas fa-code"></i> 语言: Python</div>
+                        <div class="project-meta-item"><i class="fas fa-code-fork"></i> Forks: 7.6k</div>
+                        <div class="project-meta-item"><i class="fas fa-eye"></i> Watchers: 164</div>
+                        <div class="project-meta-item"><i class="fas fa-file-contract"></i> License: 未知</div>
+                    </div>
+                    <div class="language-chart mt-4">
+                        <div class="language-segment lang-python" style="width: 100%;">Python 100%</div>
+                    </div>
+                    <div class-wrapper mt-6>
+                        <h4 class="heading-2">项目速读</h4>
+                        <ul class="list-icon ml-4 body-text">
+                            <li class="fragment fade-in">多平台自媒体数据采集工具（小红书、抖音、B站等）。</li>
+                            <li class="fragment fade-in">结合Playwright模拟用户行为，解析JS表达式获取签名，降低逆向门槛。</li>
+                            <li class="fragment fade-in">支持关键词搜索、指定ID采集，深入获取二级评论，支持多种存储格式。</li>
+                            <li class="fragment fade-in">**仅供学习研究，严禁商业或非法用途。**</li>
+                            <li class="fragment fade-in">**增长分析:** 一周内增长3217星，并上榜2次，持续吸引关注。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Project: snailyp/gemini-balance -->
+                <section>
+                    <h3 class="heading-2"><a href="https://github.com/snailyp/gemini-balance" target="_blank" class="text-blue-600 hover:underline">snailyp/gemini-balance</a></h3>
+                    <p class="body-text mt-4">
+                        <i class="fas fa-code-branch icon"></i> **项目简介:** Gemini 轮询代理服务
+                    </p>
+                    <div class="project-meta-grid">
+                        <div class="project-meta-item"><i class="fas fa-star"></i> Stars: 3108</div>
+                        <div class="project-meta-item"><i class="fas fa-plus-square"></i> Star 增加: 647</div>
+                        <div class="project-meta-item"><i class="fas fa-code"></i> 语言: Python</div>
+                        <div class="project-meta-item"><i class="fas fa-code-fork"></i> Forks: 540</div>
+                        <div class="project-meta-item"><i class="fas fa-eye"></i> Watchers: 14</div>
+                        <div class="project-meta-item"><i class="fas fa-file-contract"></i> License: CC BY-NC 4.0</div>
+                    </div>
+                    <div class="language-chart mt-4">
+                        <div class="language-segment lang-python" style="width: 44.7%;">Python 44.7%</div>
+                        <div class="language-segment lang-html" style="width: 30.5%;">HTML 30.5%</div>
+                        <div class="language-segment lang-js" style="width: 24.7%;">JS 24.7%</div>
+                        <div class="language-segment lang-other" style="width: 0.1%;"></div>
+                    </div>
+                    <div class-wrapper mt-6>
+                        <h4 class="heading-2">项目速读</h4>
+                        <ul class="list-icon ml-4 body-text">
+                            <li class="fragment fade-in">基于Python的Gemini API代理服务，管理多个Gemini API Key。</li>
+                            <li class="fragment fade-in">通过智能负载均衡提升API可用性和并发处理能力。</li>
+                            <li class="fragment fade-in">提供与OpenAI API格式兼容的接口，方便无缝切换。</li>
+                            <li class="fragment fade-in">具备可视化配置、Key状态监控、支持图文等高级功能。</li>
+                            <li class="fragment fade-in">遵循CC BY-NC 4.0许可证，禁止任何形式商业转售。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Project: GyulyVGC/sniffnet -->
+                <section>
+                    <h3 class="heading-2"><a href="https://github.com/GyulyVGC/sniffnet" target="_blank" class="text-blue-600 hover:underline">GyulyVGC/sniffnet</a></h3>
+                    <p class="body-text mt-4">
+                        <i class="fas fa-code-branch icon"></i> **项目简介:** 轻松监控您的网络流量 🕵️‍♂️
+                    </p>
+                    <div class="project-meta-grid">
+                        <div class="project-meta-item"><i class="fas fa-star"></i> Stars: 28170</div>
+                        <div class="project-meta-item"><i class="fas fa-plus-square"></i> Star 增加: 2141</div>
+                        <div class="project-meta-item"><i class="fas fa-code"></i> 语言: Rust</div>
+                        <div class="project-meta-item"><i class="fas fa-code-fork"></i> Forks: 925</div>
+                        <div class="project-meta-item"><i class="fas fa-eye"></i> Watchers: 114</div>
+                        <div class="project-meta-item"><i class="fas fa-file-contract"></i> License: Apache-2.0</div>
+                    </div>
+                    <div class="language-chart mt-4">
+                        <div class="language-segment lang-rust" style="width: 98.7%;">Rust 98.7%</div>
+                        <div class="language-segment lang-other" style="width: 1.3%;"></div>
+                    </div>
+                    <div class-wrapper mt-6>
+                        <h4 class="heading-2">项目速读</h4>
+                        <ul class="list-icon ml-4 body-text">
+                            <li class="fragment fade-in">基于Rust开发的跨平台网络流量监控应用，提供直观图形界面。</li>
+                            <li class="fragment fade-in">实时查看和深入分析互联网连接，支持过滤器。</li>
+                            <li class="fragment fade-in">识别超过六千种协议，查看远程主机地理位置和ASN信息。</li>
+                            <li class="fragment fade-in">强大的流量分析能力和友好的用户体验，是个人网络诊断和安全监控工具。</li>
+                            <li class="fragment fade-in">**增长分析:** 一周增长2141星，上榜2次，单次上榜增长量大，势头强劲。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Project: datawhalechina/happy-llm -->
+                <section>
+                    <h3 class="heading-2"><a href="https://github.com/datawhalechina/happy-llm" target="_blank" class="text-blue-600 hover:underline">datawhalechina/happy-llm</a></h3>
+                    <p class="body-text mt-4">
+                        <i class="fas fa-code-branch icon"></i> **项目简介:** 📚 从零开始的大语言模型原理与实践教程
+                    </p>
+                    <div class="project-meta-grid">
+                        <div class="project-meta-item"><i class="fas fa-star"></i> Stars: 10824</div>
+                        <div class="project-meta-item"><i class="fas fa-plus-square"></i> Star 增加: 2529</div>
+                        <div class="project-meta-item"><i class="fas fa-code"></i> 语言: Jupyter Notebook</div>
+                        <div class="project-meta-item"><i class="fas fa-code-fork"></i> Forks: 784</div>
+                        <div class="project-meta-item"><i class="fas fa-eye"></i> Watchers: 53</div>
+                        <div class="project-meta-item"><i class="fas fa-file-contract"></i> License: 未知</div>
+                    </div>
+                    <div class="language-chart mt-4">
+                        <div class="language-segment lang-jupyter" style="width: 100%;">Jupyter Notebook 100%</div>
+                    </div>
+                    <div class-wrapper mt-6>
+                        <h4 class="heading-2">项目速读</h4>
+                        <ul class="list-icon ml-4 body-text">
+                            <li class="fragment fade-in">一套从零开始、体系化教授大语言模型（LLM）原理与实践的开源教程。</li>
+                            <li class="fragment fade-in">覆盖Transformer架构、预训练、微调（LoRA/QLoRA）到模型实现（LLaMA2）及应用（RAG、Agent）。</li>
+                            <li class="fragment fade-in">强调理论结合实践，提供清晰动手学习路径。</li>
+                            <li class="fragment fade-in">旨在帮助学习者全面掌握LLM核心技术栈，是优质免费资源。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Project: smallcloudai/refact -->
+                <section>
+                    <h3 class="heading-2"><a href="https://github.com/smallcloudai/refact" target="_blank" class="text-blue-600 hover:underline">smallcloudai/refact</a></h3>
+                    <p class="body-text mt-4">
+                        <i class="fas fa-code-branch icon"></i> **项目简介:** 端到端处理工程任务的AI代理：与开发者工具集成，规划、执行和迭代，直到取得成功结果。
+                    </p>
+                    <div class="project-meta-grid">
+                        <div class="project-meta-item"><i class="fas fa-star"></i> Stars: 2906</div>
+                        <div class="project-meta-item"><i class="fas fa-plus-square"></i> Star 增加: 563</div>
+                        <div class="project-meta-item"><i class="fas fa-code"></i> 语言: Rust, TypeScript, Python</div>
+                        <div class="project-meta-item"><i class="fas fa-code-fork"></i> Forks: 239</div>
+                        <div class="project-meta-item"><i class="fas fa-eye"></i> Watchers: 29</div>
+                        <div class="project-meta-item"><i class="fas fa-file-contract"></i> License: BSD-3-Clause</div>
+                    </div>
+                    <div class="language-chart mt-4">
+                        <div class="language-segment lang-ts" style="width: 37.1%;">TS 37.1%</div>
+                        <div class="language-segment lang-rust" style="width: 37.0%;">Rust 37.0%</div>
+                        <div class="language-segment lang-python" style="width: 13.2%;">Py 13.2%</div>
+                        <div class="language-segment lang-js" style="width: 8.8%;">JS 8.8%</div>
+                        <div class="language-segment lang-css" style="width: 2.3%;">CSS 2.3%</div>
+                        <div class="language-segment lang-html" style="width: 1.1%;">HTML 1.1%</div>
+                        <div class="language-segment lang-other" style="width: 0.5%;"></div>
+                    </div>
+                    <div class-wrapper mt-6>
+                        <h4 class="heading-2">项目速读</h4>
+                        <ul class="list-icon ml-4 body-text">
+                            <li class="fragment fade-in">开源AI软件开发代理，旨在自动化端到端复杂工程任务。</li>
+                            <li class="fragment fade-in">深入理解代码库和上下文，与开发者工具集成，智能规划、执行、迭代。</li>
+                            <li class="fragment fade-in">开源特性支持本地化部署，可连接多种LLM或使用自带API Key。</li>
+                            <li class="fragment fade-in">嵌入VS Code/JetBrains，提供代码生成、重构、调试、测试、文档编写等。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Project: pocketbase/pocketbase -->
+                <section>
+                    <h3 class="heading-2"><a href="https://github.com/pocketbase/pocketbase" target="_blank" class="text-blue-600 hover:underline">pocketbase/pocketbase</a></h3>
+                    <p class="body-text mt-4">
+                        <i class="fas fa-code-branch icon"></i> **项目简介:** 单文件实现的开源实时后端
+                    </p>
+                    <div class="project-meta-grid">
+                        <div class="project-meta-item"><i class="fas fa-star"></i> Stars: 49020</div>
+                        <div class="project-meta-item"><i class="fas fa-plus-square"></i> Star 增加: 845</div>
+                        <div class="project-meta-item"><i class="fas fa-code"></i> 语言: Go</div>
+                        <div class="project-meta-item"><i class="fas fa-code-fork"></i> Forks: 2.5k</div>
+                        <div class="project-meta-item"><i class="fas fa-eye"></i> Watchers: 264</div>
+                        <div class="project-meta-item"><i class="fas fa-file-contract"></i> License: MIT</div>
+                    </div>
+                    <div class="language-chart mt-4">
+                        <div class="language-segment lang-go" style="width: 71.4%;">Go 71.4%</div>
+                        <div class="language-segment lang-other" style="width: 16.9%; background-color: #ff3e00;">Svelte 16.9%</div>
+                        <div class="language-segment lang-css" style="width: 6.2%; background-color: #CD6799;">SCSS 6.2%</div>
+                        <div class="language-segment lang-css" style="width: 3.1%;">CSS 3.1%</div>
+                        <div class="language-segment lang-js" style="width: 2.3%;">JS 2.3%</div>
+                        <div class="language-segment lang-html" style="width: 0.1%;">HTML 0.1%</div>
+                    </div>
+                    <div class-wrapper mt-6>
+                        <h4 class="heading-2">项目速读</h4>
+                        <ul class="list-icon ml-4 body-text">
+                            <li class="fragment fade-in">创新开源Go语言后端项目，将一切打包进单一、易部署文件。</li>
+                            <li class="fragment fade-in">集成嵌入式SQLite（实时功能）、文件存储、用户认证、管理面板、REST-ish API。</li>
+                            <li class="fragment fade-in">极大降低后端搭建复杂性，实现快速原型开发与部署。</li>
+                            <li class="fragment fade-in">性能良好且灵活，可独立运行或作为Go库集成。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Project: gorhill/uBlock -->
+                <section>
+                    <h3 class="heading-2"><a href="https://github.com/gorhill/uBlock" target="_blank" class="text-blue-600 hover:underline">gorhill/uBlock</a></h3>
+                    <p class="body-text mt-4">
+                        <i class="fas fa-code-branch icon"></i> **项目简介:** uBlock Origin - Chromium 和 Firefox 上的高效拦截器。快速且轻量。
+                    </p>
+                    <div class="project-meta-grid">
+                        <div class="project-meta-item"><i class="fas fa-star"></i> Stars: 55540</div>
+                        <div class="project-meta-item"><i class="fas fa-plus-square"></i> Star 增加: 453</div>
+                        <div class="project-meta-item"><i class="fas fa-code"></i> 语言: JavaScript</div>
+                        <div class="project-meta-item"><i class="fas fa-code-fork"></i> Forks: 3.6k</div>
+                        <div class="project-meta-item"><i class="fas fa-eye"></i> Watchers: 972</div>
+                        <div class="project-meta-item"><i class="fas fa-file-contract"></i> License: GPL-3.0</div>
+                    </div>
+                    <div class="language-chart mt-4">
+                        <div class="language-segment lang-js" style="width: 88.8%;">JS 88.8%</div>
+                        <div class="language-segment lang-css" style="width: 4.8%;">CSS 4.8%</div>
+                        <div class="language-segment lang-html" style="width: 3.5%;">HTML 3.5%</div>
+                        <div class="language-segment lang-other" style="width: 2.9%;"></div>
+                    </div>
+                    <div class-wrapper mt-6>
+                        <h4 class="heading-2">项目速读</h4>
+                        <ul class="list-icon ml-4 body-text">
+                            <li class="fragment fade-in">高效内容拦截浏览器扩展，阻止广告、跟踪器、弹窗等。</li>
+                            <li class="fragment fade-in">旨在保护用户在线隐私并提供更干净、快速的网页浏览体验。</li>
+                            <li class="fragment fade-in">核心优势在于极低的资源占用和卓越性能。</li>
+                            <li class="fragment fade-in">强大的过滤能力和高度可定制性，广受欢迎。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Project: aldinokemal/go-whatsapp-web-multidevice -->
+                <section>
+                    <h3 class="heading-2"><a href="https://github.com/aldinokemal/go-whatsapp-web-multidevice" target="_blank" class="text-blue-600 hover:underline">aldinokemal/go-whatsapp-web-multidevice</a></h3>
+                    <p class="body-text mt-4">
+                        <i class="fas fa-code-branch icon"></i> **项目简介:** GOWA - 支持 UI、Webhooks 和 MCP 的 WhatsApp REST API。使用 Golang 构建，实现高效内存使用。
+                    </p>
+                    <div class="project-meta-grid">
+                        <div class="project-meta-item"><i class="fas fa-star"></i> Stars: 1971</div>
+                        <div class="project-meta-item"><i class="fas fa-plus-square"></i> Star 增加: 427</div>
+                        <div class="project-meta-item"><i class="fas fa-code"></i> 语言: Go</div>
+                        <div class="project-meta-item"><i class="fas fa-code-fork"></i> Forks: 493</div>
+                        <div class="project-meta-item"><i class="fas fa-eye"></i> Watchers: 34</div>
+                        <div class="project-meta-item"><i class="fas fa-file-contract"></i> License: MIT</div>
+                    </div>
+                    <div class="language-chart mt-4">
+                        <div class="language-segment lang-go" style="width: 62.0%;">Go 62.0%</div>
+                        <div class="language-segment lang-js" style="width: 34.0%;">JS 34.0%</div>
+                        <div class="language-segment lang-html" style="width: 2.3%;">HTML 2.3%</div>
+                        <div class="language-segment lang-css" style="width: 1.6%;">CSS 1.6%</div>
+                        <div class="language-segment lang-other" style="width: 0.1%;"></div>
+                    </div>
+                    <div class-wrapper mt-6>
+                        <h4 class="heading-2">项目速读</h4>
+                        <ul class="list-icon ml-4 body-text">
+                            <li class="fragment fade-in">基于Go语言的高效WhatsApp多设备接口工具。</li>
+                            <li class="fragment fade-in">提供RESTful API和MCP服务器，实现与WhatsApp账户自动化交互。</li>
+                            <li class="fragment fade-in">核心优势在于Go语言实现低内存占用和高稳定性。</li>
+                            <li class="fragment fade-in">支持多设备模式、Webhooks消息推送、Basic Auth多用户认证。</li>
+                            <li class="fragment fade-in">**增长分析:** 上榜2次，周新增星数427，活跃度高。</li>
+                        </ul>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Final Slide: Call to Action -->
+            <section class="cover-slide">
+                <div class="cover-content">
+                    <h2 class="title-main text-accent-color">感谢您的聆听！</h2>
+                    <p class="body-text mt-8">
+                        希望本次GitHub周榜揭秘能为您带来启发。
+                        关注AI工程化、性能工具与开发效率，共同探索技术前沿！
+                    </p>
+                    <div class="mt-12">
+                        <p class="speaker-info">
+                            <i class="fas fa-share-alt icon"></i> 欢迎Star & Fork 项目！
+                        </p>
+                    </div>
+                </div>
+                <div class="footer-logo">
+                    <img src="../../asserts/wx.jpg" alt="微信二维码">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        <i class="fab fa-github"></i> github.com/aichipera/github-trend
+                    </a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            transitionSpeed: 'fast', // default/fast/slow
+            backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+            dependencies: [
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js', async: true },
+                { src: 'https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js', async: true },
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/zoom/zoom.min.js', async: true },
+                { src: 'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/math/math.min.js', async: true },
+                { src: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/mermaid/mermaid.min.js', async: true, callback: function() { mermaid.initialize({ startOnLoad: false, theme: 'forest', font: 'Noto Sans SC' }); } },
+            ]
+        });
+    </script>
+</body>
+</html>

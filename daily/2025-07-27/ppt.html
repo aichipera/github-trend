@@ -1,0 +1,763 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>GitHub最新洞察：技术前沿实用价值大爆发！</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <!-- 移除默认主题，使用自定义样式 -->
+    <!-- <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet"> -->
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- TailwindCSS 用于辅助布局和样式 -->
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <!-- 谷歌字体 for Noto Serif SC (标题) and Noto Sans SC (正文) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Mermaid for diagrams, included as per spec, but no diagrams in content -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        :root {
+            /* 自定义颜色方案 */
+            --primary-color: #4A90E2; /* 活力蓝 */
+            --secondary-color: #50E3C2; /* 科技绿/青色 */
+            --accent-color: #F5A623; /* 亮点橙 */
+            --text-color-dark: #2C3E50; /* 深灰蓝，用于深色文本 */
+            --text-color-light: #ECF0F1; /* 浅灰，用于浅色文本 */
+            --bg-color-light: #FFFFFF; /* 浅色背景 */
+            --bg-color-dark: #2C3E50; /* 深色背景 */
+            --link-color: #4A90E2;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback",
+                          "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--text-color-dark);
+            background-color: var(--bg-color-light);
+        }
+
+        .reveal .slides section {
+            text-align: left; /* 默认内容左对齐 */
+            padding: 5%; /* 增加内边距 */
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: 'Noto Serif SC', 'Times New Roman', Times, serif;
+            color: var(--primary-color);
+            margin-bottom: 0.5em;
+            line-height: 1.2;
+        }
+
+        .reveal h1 { font-size: 3.2rem; color: var(--text-color-dark); margin-bottom: 0.2em; line-height: 1.1;} /* 主标题 */
+        .reveal h2 { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 0.3em;} /* 章标题 */
+        .reveal h3 { font-size: 2rem; color: var(--primary-color); margin-bottom: 0.4em;} /* 副标题/幻灯片标题 */
+        .reveal h4 { font-size: 1.6rem; color: var(--text-color-dark); margin-bottom: 0.3em;} /* 次级标题 */
+        .reveal h5 { font-size: 1.2rem; color: var(--text-color-dark); margin-bottom: 0.2em;} /* 内容标题 */
+
+        .reveal p, .reveal li {
+            font-size: 1.15rem; /* 正文字体大小 */
+            line-height: 1.6;
+            margin-bottom: 0.8em;
+            color: var(--text-color-dark);
+        }
+        .reveal strong {
+            color: var(--accent-color);
+        }
+
+        .reveal ul {
+            list-style-type: none; /* 移除默认项目符号 */
+            padding-left: 0;
+            margin-left: 0;
+        }
+        .reveal ul li {
+            position: relative;
+            padding-left: 1.8em; /* 为自定义项目符号留出空间 */
+            margin-bottom: 0.6em;
+        }
+        .reveal ul li::before {
+            content: '➤'; /* 自定义项目符号 */
+            color: var(--secondary-color);
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+            line-height: 1.6;
+            font-weight: bold;
+        }
+        /* 图标列表样式 */
+        .reveal ul.icons-list li::before {
+            content: ''; /* 移除默认符号 */
+        }
+        .reveal ul.icons-list li {
+            padding-left: 0; /* 不为符号留白 */
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.8em;
+        }
+        .reveal ul.icons-list li .icon {
+            margin-right: 0.6em;
+            font-size: 1.6em;
+            color: var(--primary-color);
+            line-height: 1.5;
+            min-width: 1.6em; /* 确保图标不收缩 */
+            text-align: center;
+        }
+        .reveal ul.icons-list li .icon i {
+            filter: drop-shadow(0 0 2px rgba(0,0,0,0.1));
+        }
+
+
+        /* 链接样式 */
+        .reveal a {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .reveal a:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+
+        /* 背景定制 */
+        .reveal .slides section:not([data-background]) {
+            background-color: var(--bg-color-light);
+        }
+        .reveal .slides section[data-background-color] {
+            color: var(--text-color-light); /* 深色背景下文本颜色 */
+        }
+        .reveal .slides section[data-background-color] h1,
+        .reveal .slides section[data-background-color] h2,
+        .reveal .slides section[data-background-color] h3,
+        .reveal .slides section[data-background-color] h4,
+        .reveal .slides section[data-background-color] strong,
+        .reveal .slides section[data-background-color] a {
+            color: var(--secondary-color); /* 深色背景下标题和链接颜色 */
+        }
+        .reveal .slides section[data-background-color] p,
+        .reveal .slides section[data-background-color] li {
+            color: var(--text-color-light);
+        }
+        .reveal .slides section[data-background-color] ul li::before {
+            color: var(--secondary-color);
+        }
+
+        /* 封面幻灯片样式 */
+        .cover-slide {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100%;
+            padding: 5%;
+            background: linear-gradient(135deg, rgba(30, 60, 100, 0.9) 0%, rgba(70, 150, 150, 0.9) 100%), url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center center / cover no-repeat; /* 科技感背景图带渐变叠加 */
+            color: var(--text-color-light);
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+        }
+        .cover-slide h1 {
+            color: var(--text-color-light);
+            font-size: 3.8em;
+            line-height: 1.1;
+            text-align: left;
+            margin-bottom: 0.2em;
+        }
+        .cover-slide .subtitle {
+            font-size: 2em;
+            color: var(--secondary-color);
+            text-align: left;
+            margin-bottom: 0.5em;
+            font-family: 'Noto Sans SC', sans-serif;
+            font-weight: 500;
+        }
+        .cover-slide .date-info {
+            font-size: 1.2em;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 0.5em;
+        }
+        .cover-slide .disclaimer {
+            font-size: 0.9em;
+            color: rgba(255,255,255,0.7);
+            margin-top: 2em;
+        }
+        .cover-slide .speaker-info {
+            position: absolute;
+            bottom: 120px;
+            left: 5%;
+            font-size: 1.2em;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        /* 页脚信息（项目链接和二维码） */
+        .footer-info {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: flex-end;
+            z-index: 10;
+        }
+        .footer-info a {
+            color: var(--text-color-light); /* 封面页链接颜色 */
+            font-size: 0.9em;
+            margin-right: 15px;
+            transition: color 0.3s ease;
+        }
+        /* 非封面非尾页的链接颜色 */
+        .reveal .slides section:not(.cover-slide):not(.end-slide) .footer-info a {
+            color: var(--primary-color);
+        }
+        .footer-info img {
+            height: 80px;
+            width: 80px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            object-fit: contain; /* Ensure QR code is fully visible */
+        }
+
+        /* Fragment 动画 */
+        .reveal .fragment.fade-in {
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+        .reveal .fragment.fade-in.visible {
+            opacity: 1;
+        }
+        .reveal .fragment.grow {
+            transform: scale(0.9);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Springy effect */
+        }
+        .reveal .fragment.grow.visible {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        /* 章标题幻灯片 */
+        .section-title-slide {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(74,144,226,0.95) 0%, rgba(80,227,194,0.95) 100%);
+            color: var(--text-color-light);
+        }
+        .section-title-slide h2 {
+            font-size: 4em;
+            color: var(--text-color-light);
+            margin-bottom: 0.2em;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+        }
+        .section-title-slide p {
+            font-size: 1.8em;
+            color: rgba(255,255,255,0.9);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+        }
+
+        /* 项目卡片布局 */
+        .project-card {
+            background: var(--bg-color-light);
+            border-radius: 10px;
+            padding: 2em;
+            margin-bottom: 1.5em;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 95%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        }
+        .project-card h3 {
+            color: var(--text-color-dark);
+            margin-bottom: 1rem;
+        }
+        .project-meta {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 1em;
+            margin-bottom: 1em;
+            font-size: 1em;
+            color: #6C7A89;
+        }
+        .project-meta span {
+            margin-right: 2em;
+            margin-bottom: 0.8em;
+            display: flex;
+            align-items: center;
+        }
+        .project-meta span i {
+            margin-right: 0.6em;
+            color: var(--primary-color);
+        }
+
+        /* 表格样式 for 热点变化 */
+        .hot-changes-table {
+            width: 95%;
+            border-collapse: collapse;
+            margin-top: 2em;
+            font-size: 1.1em;
+            text-align: left;
+            border-radius: 10px;
+            overflow: hidden; /* Ensures rounded corners */
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hot-changes-table th, .hot-changes-table td {
+            padding: 1em;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .hot-changes-table th {
+            background-color: var(--primary-color);
+            color: var(--text-color-light);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .hot-changes-table tr:nth-child(even) {
+            background-color: #f8f8f8;
+        }
+        .hot-changes-table tr:hover {
+            background-color: #f0f0f0;
+        }
+        .hot-changes-table td i {
+            margin-right: 0.5em;
+            color: var(--secondary-color);
+        }
+
+        /* 结束幻灯片样式 */
+        .end-slide {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(30, 60, 100, 0.9) 0%, rgba(70, 150, 150, 0.9) 100%), url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center center / cover no-repeat;
+            color: var(--text-color-light);
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+        }
+        .end-slide h2 {
+            font-size: 3.5em;
+            color: var(--text-color-light);
+            margin-bottom: 0.5em;
+        }
+        .end-slide p {
+            font-size: 1.5em;
+            margin-bottom: 1em;
+        }
+        .end-slide .contact-info {
+            margin-top: 2em;
+            font-size: 1.2em;
+        }
+        .end-slide .contact-info a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+        .end-slide .contact-info a:hover {
+            text-decoration: underline;
+        }
+        .end-slide .qr-call {
+            margin-top: 1em;
+            font-size: 1.3em;
+            color: rgba(255,255,255,0.95);
+            font-weight: 500;
+        }
+
+        /* 通用辅助类 (TailwindCSS 替代) */
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+        .text-right { text-align: right; }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .flex-col { flex-direction: column; }
+        .grid { display: grid; }
+        .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .gap-4 { gap: 1rem; }
+        .gap-8 { gap: 2rem; }
+        .p-4 { padding: 1rem; }
+        .mt-2 { margin-top: 0.5rem; }
+        .mt-4 { margin-top: 1rem; }
+        .mt-8 { margin-top: 2rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .w-full { width: 100%; }
+        .max-w-3xl { max-width: 48rem; }
+        .rounded-lg { border-radius: 0.5rem; }
+        .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+        .bg-white { background-color: #fff; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- 封面幻灯片 -->
+            <section class="cover-slide">
+                <h1 class="font-serif">GitHub最新洞察：<br>效率工具、安全基石与智能应用，<br>技术前沿的实用价值大爆发！</h1>
+                <p class="subtitle mt-2">🔥 今日最火爆的开源项目都在这 ⭐️</p>
+                <p class="date-info">Github热门仓库日报观测时间： <strong>2025-07-27 21:01:42</strong></p>
+                <p class="disclaimer"><em>以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</em></p>
+                <div class="speaker-info">
+                    <strong>演讲者：AIChipEra</strong>
+                </div>
+                <div class="footer-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="mr-4 hover:underline">项目地址: aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code" class="w-20 h-20 rounded-lg shadow-md">
+                </div>
+            </section>
+
+            <!-- 章标题：热门项目趋势分析 -->
+            <section class="section-title-slide">
+                <h2>热门项目趋势分析</h2>
+                <p class="mt-4">洞察GitHub榜单背后的技术风向与深层需求</p>
+            </section>
+
+            <!-- 今日整体趋势 - 核心焦点 -->
+            <section>
+                <h3>今日整体趋势：聚焦实用与落地 <i class="fas fa-chart-line text-secondary-color"></i></h3>
+                <ul class="icons-list mt-8">
+                    <li class="fragment fade-in"><span class="icon"><i class="fas fa-robot"></i></span> <strong>AI主导：</strong> 具身智能、大规模语言模型应用深化。</li>
+                    <li class="fragment fade-in"><span class="icon"><i class="fas fa-server"></i></span> <strong>基础设施：</strong> 追求高性能、高安全性，确保系统健壮。</li>
+                    <li class="fragment fade-in"><span class="icon"><i class="fas fa-tools"></i></span> <strong>生产力工具：</strong> 持续优化开发者体验，提升效率。</li>
+                    <li class="fragment fade-in mt-4 text-primary-color">💡 焦点转向：从纯粹概念创新到“解决实际问题”的实用落地。</li>
+                </ul>
+            </section>
+
+            <!-- 今日整体趋势 - 语言与生态 -->
+            <section>
+                <h3>语言选择：Python领跑AI，Rust/TS夯实基石 <i class="fas fa-code text-secondary-color"></i></h3>
+                <div class="grid grid-cols-2 gap-8 mt-8">
+                    <div class="fragment grow p-4 bg-white rounded-lg shadow-md">
+                        <h4 class="mb-4 text-primary-color"><i class="fab fa-python mr-2"></i> Python：AI创新首选</h4>
+                        <ul class="list-none">
+                            <li><i class="fas fa-check-circle text-secondary-color mr-2"></i> <strong>快速迭代：</strong> 丰富的生态系统和开发效率。</li>
+                            <li><i class="fas fa-brain text-secondary-color mr-2"></i> <strong>AI领域霸主：</strong> 通用机器人、LLM应用、AI解决方案。</li>
+                            <li><i class="fas fa-lightbulb text-secondary-color mr-2"></i> <strong>代表项目：</strong> Genesis, Awesome LLM Apps, AI Cookbook。</li>
+                        </ul>
+                    </div>
+                    <div class="fragment grow p-4 bg-white rounded-lg shadow-md">
+                        <h4 class="mb-4 text-primary-color"><i class="fas fa-shield-alt mr-2"></i> Rust / TypeScript：核心基石</h4>
+                        <ul class="list-none">
+                            <li><i class="fas fa-check-circle text-secondary-color mr-2"></i> <strong>性能与安全：</strong> 卓越的内存安全和系统级性能。</li>
+                            <li><i class="fas fa-database text-secondary-color mr-2"></i> <strong>关键基础设施：</strong> 支付系统、秘密管理平台。</li>
+                            <li><i class="fas fa-cogs text-secondary-color mr-2"></i> <strong>代表项目：</strong> Hyperswitch (Rust), Infisical (TypeScript)。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 今日整体趋势 - 核心需求与方向 -->
+            <section>
+                <h3>技术演进：从理论到深度应用 <i class="fas fa-rocket text-secondary-color"></i></h3>
+                <ul class="icons-list mt-8">
+                    <li class="fragment fade-in"><span class="icon"><i class="fas fa-magic"></i></span> <strong>AI深度应用：</strong> AI产品化，构建与真实世界交互的智能体，RAG提升大模型准确性。</li>
+                    <li class="fragment fade-in"><span class="icon"><i class="fas fa-tachometer-alt"></i></span> <strong>效率与性能：</strong> 超高速物理模拟加速AI训练，金融交易追求速度与稳定性。</li>
+                    <li class="fragment fade-in"><span class="icon"><i class="fas fa-lock"></i></span> <strong>安全至上：</strong> 敏感信息管理、身份验证与访问控制愈发重要。</li>
+                    <li class="fragment fade-in"><span class="icon"><i class="fas fa-users-cog"></i></span> <strong>开源协作：</strong> 社区化开发、透明性、打破技术壁垒成为趋势。</li>
+                    <li class="fragment fade-in mt-4 text-accent-color">✨ Aha!：这些项目直指开发者和企业痛点，提供直接可用的解决方案。</li>
+                </ul>
+            </section>
+
+            <!-- 今日整体趋势 - 对比与展望 -->
+            <section>
+                <h3>趋势对比与未来展望 <i class="fas fa-compass text-secondary-color"></i></h3>
+                <div class="grid grid-cols-2 gap-8 mt-8">
+                    <div class="fragment grow p-4 bg-white rounded-lg shadow-md">
+                        <h4 class="mb-4 text-primary-color"><i class="fas fa-exchange-alt mr-2"></i> 趋势转变</h4>
+                        <ul class="list-none">
+                            <li><i class="fas fa-arrow-right text-secondary-color mr-2"></i> 从“搭建AI模型”到“构建AI系统”。</li>
+                            <li><i class="fas fa-arrow-right text-secondary-color mr-2"></i> 关注模型集成、部署与管理，解决实际问题。</li>
+                            <li><i class="fas fa-arrow-right text-secondary-color mr-2"></i> 底层基础设施优化，追求“速度”与“安全”。</li>
+                        </ul>
+                    </div>
+                    <div class="fragment grow p-4 bg-white rounded-lg shadow-md">
+                        <h4 class="mb-4 text-primary-color"><i class="fas fa-forward mr-2"></i> 未来热点预测</h4>
+                        <ul class="list-none">
+                            <li><i class="fas fa-microchip text-secondary-color mr-2"></i> 具身智能与机器人：高保真模拟环境加速研发。</li>
+                            <li><i class="fas fa-comments text-secondary-color mr-2"></i> AI代理协作、多模态融合、工具深度集成。</li>
+                            <li><i class="fas fa-shield-virus text-secondary-color mr-2"></i> AI可信赖性、安全性和隐私保护（“AI安全”与“AI治理”）。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 章标题：热门项目双日维度对比分析 -->
+            <section class="section-title-slide" data-background-color="#2C3E50">
+                <h2>热门项目双日维度对比分析</h2>
+                <p class="mt-4">新旧交替，洞察榜单活力</p>
+            </section>
+
+            <!-- 热门项目双日维度对比分析 -->
+            <section>
+                <h3>榜单动态：新晋力量与持续热门 <i class="fas fa-sync-alt text-secondary-color"></i></h3>
+                <ul class="icons-list mt-8">
+                    <li class="fragment fade-in"><span class="icon"><i class="fas fa-arrow-alt-circle-up"></i></span> <strong>四项新项目入榜：</strong> 持续注入新内容，榜单活跃健康。</li>
+                    <li class="fragment fade-in"><span class="icon"><i class="fas fa-star"></i></span> <strong>两项既有项目显著增长：</strong> 需求驱动依然强劲 (Infisical, Hyperswitch)。</li>
+                    <li class="fragment fade-in"><span class="icon"><i class="fas fa-ban"></i></span> <strong>无项目呈下降趋势：</strong> 整体积极向上。</li>
+                    <li class="fragment fade-in"><span class="icon"><i class="fas fa-flask"></i></span> <strong>AI技术特色鲜明：</strong> 三个Python项目聚焦具身智能、LLM应用与AI开发。</li>
+                    <li class="fragment fade-in"><span class="icon"><i class="fas fa-book"></i></span> <strong>文档工具需求：</strong> Markdown项目 (tldr-pages) 简化开发文档。</li>
+                </ul>
+            </section>
+
+            <!-- 热点变化 -->
+            <section>
+                <h3>热点变化：项目更迭一览 <i class="fas fa-fire text-secondary-color"></i></h3>
+                <table class="hot-changes-table mt-8 fragment fade-in">
+                    <thead>
+                        <tr>
+                            <th>类型</th>
+                            <th>项目名称</th>
+                            <th>简述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="fragment fade-in">
+                            <td><i class="fas fa-plus-circle"></i> <strong>新增热点</strong></td>
+                            <td>daveebbelaar/ai-cookbook</td>
+                            <td>帮助开发者构建AI系统的示例和教程</td>
+                        </tr>
+                        <tr class="fragment fade-in">
+                            <td></td>
+                            <td>tldr-pages/tldr</td>
+                            <td>控制台命令协作速查表</td>
+                        </tr>
+                        <tr class="fragment fade-in">
+                            <td></td>
+                            <td>shubhamsaboo/awesome-llm-apps</td>
+                            <td>优秀的大语言模型应用精选</td>
+                        </tr>
+                        <tr class="fragment fade-in">
+                            <td></td>
+                            <td>genesis-embodied-ai/genesis</td>
+                            <td>用于通用机器人技术与具身AI学习的生成式世界</td>
+                        </tr>
+                        <tr class="fragment fade-in">
+                            <td><i class="fas fa-minus-circle"></i> <strong>减退热点</strong></td>
+                            <td>(部分列举)</td>
+                            <td>berriai/litellm, raphire/win11debloat, goldbergyoni/nodebestpractices等</td>
+                        </tr>
+                        <tr class="fragment fade-in">
+                            <td><i class="fas fa-sync"></i> <strong>持续热门</strong></td>
+                            <td>juspay/hyperswitch</td>
+                            <td>用Rust编写的开源支付交换系统 (5次上榜)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- 章标题：详细仓库数据 -->
+            <section class="section-title-slide" data-background-color="#4A90E2">
+                <h2>详细仓库数据</h2>
+                <p class="mt-4">深入剖析今日热门项目</p>
+            </section>
+
+            <!-- 项目1: Genesis-Embodied-AI/Genesis -->
+            <section>
+                <h3>1. Genesis-Embodied-AI/Genesis <i class="fas fa-robot text-secondary-color"></i></h3>
+                <p class="text-lg mb-4"><strong>项目简介:</strong> 用于通用机器人技术与具身AI学习的生成式世界。</p>
+                <div class="project-meta fragment fade-in">
+                    <span><i class="fas fa-code"></i> 语言: Python</span>
+                    <span><i class="fas fa-star"></i> Stars: 26.1k</span>
+                    <span><i class="fas fa-sync-alt"></i> 连续在榜: 1次</span>
+                    <span><i class="fas fa-calendar-alt"></i> 总上榜: 3次</span>
+                    <span><i class="fas fa-arrow-up"></i> 今日新增: 192</span>
+                </div>
+                <div class="fragment grow mt-4">
+                    <h4>核心价值与亮点:</h4>
+                    <ul class="icons-list text-base">
+                        <li><span class="icon"><i class="fas fa-magic"></i></span> <strong>超高速物理引擎:</strong> 比实时快43万倍，加速AI模型训练与优化。</li>
+                        <li><span class="icon"><i class="fas fa-cube"></i></span> <strong>多物理求解器:</strong> 统一模拟液体、气体、可变形物体。</li>
+                        <li><span class="icon"><i class="fas fa-cogs"></i></span> <strong>完全可微分:</strong> 极大便利AI训练与优化。</li>
+                        <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>价值:</strong> 极大加速机器人研发和具身AI学习，减少人工数据依赖。</li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <h3>Genesis-Embodied-AI/Genesis：增长分析 <i class="fas fa-chart-bar text-secondary-color"></i></h3>
+                <div class="fragment fade-in mt-8">
+                    <p class="text-lg"><i class="fas fa-chart-line text-primary-color"></i> 近一月总星标增长：<strong>640个</strong>。</p>
+                    <p class="text-lg"><i class="fas fa-calendar-check text-primary-color"></i> 仅上榜3次，增长持续性与可见度有待提升。</p>
+                    <p class="text-lg"><i class="fas fa-percentage text-primary-color"></i> 平均每次上榜增星：<strong>101</strong>。</p>
+                    <p class="text-lg"><i class="fas fa-fire text-primary-color"></i> 今日新增：<strong>192星</strong>，远超平均，显示近期关注度显著提升。</p>
+                </div>
+            </section>
+
+            <!-- 项目2: Shubhamsaboo/awesome-llm-apps -->
+            <section>
+                <h3>2. Shubhamsaboo/awesome-llm-apps <i class="fas fa-puzzle-piece text-secondary-color"></i></h3>
+                <p class="text-lg mb-4"><strong>项目简介:</strong> 优秀的大语言模型应用精选，集成AI智能体与RAG技术。</p>
+                <div class="project-meta fragment fade-in">
+                    <span><i class="fas fa-code"></i> 语言: Python</span>
+                    <span><i class="fas fa-star"></i> Stars: 51.7k</span>
+                    <span><i class="fas fa-sync-alt"></i> 连续在榜: 1次</span>
+                    <span><i class="fas fa-calendar-alt"></i> 总上榜: 21次</span>
+                    <span><i class="fas fa-arrow-up"></i> 今日新增: 485</span>
+                </div>
+                <div class="fragment grow mt-4">
+                    <h4>核心价值与亮点:</h4>
+                    <ul class="icons-list text-base">
+                        <li><span class="icon"><i class="fas fa-layer-group"></i></span> <strong>深度融合AI范式:</strong> 涵盖AI代理、多代理团队协作、MCP代理。</li>
+                        <li><span class="icon"><i class="fas fa-book-reader"></i></span> <strong>RAG技术探索:</strong> 包含Agentic RAG、Corrective RAG，提升内容准确性。</li>
+                        <li><span class="icon"><i class="fas fa-lightbulb"></i></span> <strong>价值:</strong> 宝贵的学习与参考资源，加速LLM技术落地与创新。</li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <h3>Shubhamsaboo/awesome-llm-apps：增长分析 <i class="fas fa-chart-bar text-secondary-color"></i></h3>
+                <div class="fragment fade-in mt-8">
+                    <p class="text-lg"><i class="fas fa-calendar-alt text-primary-color"></i> 约四个月内上榜：<strong>21次</strong>。</p>
+                    <p class="text-lg"><i class="fas fa-chart-line text-primary-color"></i> 活跃且稳定增长，累计总增长超：<strong>3.1万星</strong>。</p>
+                    <p class="text-lg"><i class="fas fa-percentage text-primary-color"></i> 平均每次新增：<strong>721星</strong>。</p>
+                    <p class="text-lg"><i class="fas fa-fire text-primary-color"></i> 今日新增：<strong>485星</strong>，保持强劲上升势头。</p>
+                </div>
+            </section>
+
+            <!-- 项目3: juspay/hyperswitch -->
+            <section>
+                <h3>3. juspay/hyperswitch <i class="fas fa-credit-card text-secondary-color"></i></h3>
+                <p class="text-lg mb-4"><strong>项目简介:</strong> 用Rust编写的开源支付交换系统，快速、可靠、经济实惠。</p>
+                <div class="project-meta fragment fade-in">
+                    <span><i class="fas fa-code"></i> 语言: Rust</span>
+                    <span><i class="fas fa-star"></i> Stars: 22.9k</span>
+                    <span><i class="fas fa-sync-alt"></i> 连续在榜: 5次</span>
+                    <span><i class="fas fa-calendar-alt"></i> 总上榜: 16次</span>
+                    <span><i class="fas fa-arrow-up"></i> 今日新增: 137</span>
+                </div>
+                <div class="fragment grow mt-4">
+                    <h4>核心价值与亮点:</h4>
+                    <ul class="icons-list text-base">
+                        <li><span class="icon"><i class="fas fa-unlock-alt"></i></span> <strong>解决供应商锁定:</strong> 赋予企业对支付栈的完全所有权和定制能力。</li>
+                        <li><span class="icon"><i class="fas fa-boxes"></i></span> <strong>卓越模块化设计:</strong> 按需选择和集成独立功能模块。</li>
+                        <li><span class="icon"><i class="fas fa-dollar-sign"></i></span> <strong>成本优化:</strong> 强大的成本可观测性工具，提升交易成功率。</li>
+                        <li><span class="icon"><i class="fas fa-shield-alt"></i></span> <strong>高性能与安全性:</strong> Rust语言确保顶级性能、稳定性和PCI合规。</li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <h3>juspay/hyperswitch：增长分析 <i class="fas fa-chart-bar text-secondary-color"></i></h3>
+                <div class="fragment fade-in mt-8">
+                    <p class="text-lg"><i class="fas fa-calendar-alt text-primary-color"></i> 四个月内成功上榜：<strong>16次</strong>。</p>
+                    <p class="text-lg"><i class="fas fa-chart-line text-primary-color"></i> 总计显著增长：<strong>8761星</strong>。</p>
+                    <p class="text-lg"><i class="fas fa-percentage text-primary-color"></i> 平均每次上榜增加：<strong>246.7星</strong>。</p>
+                    <p class="text-lg"><i class="fas fa-fire text-primary-color"></i> 今日新增：<strong>137星</strong>，虽略低于平均，但整体增长趋势积极且持续活跃。</p>
+                </div>
+            </section>
+
+            <!-- 项目4: daveebbelaar/ai-cookbook -->
+            <section>
+                <h3>4. daveebbelaar/ai-cookbook <i class="fas fa-book-open text-secondary-color"></i></h3>
+                <p class="text-lg mb-4"><strong>项目简介:</strong> 帮助开发者构建AI系统的示例和教程。</p>
+                <div class="project-meta fragment fade-in">
+                    <span><i class="fas fa-code"></i> 语言: Python</span>
+                    <span><i class="fas fa-star"></i> Stars: 1.6k</span>
+                    <span><i class="fas fa-sync-alt"></i> 连续在榜: 1次</span>
+                    <span><i class="fas fa-calendar-alt"></i> 总上榜: 1次</span>
+                    <span><i class="fas fa-arrow-up"></i> 今日新增: 22</span>
+                </div>
+                <div class="fragment grow mt-4">
+                    <h4>核心价值与亮点:</h4>
+                    <ul class="icons-list text-base">
+                        <li><span class="icon"><i class="fas fa-paste"></i></span> <strong>“可复制粘贴”代码片段:</strong> 大幅降低AI技术应用门槛。</li>
+                        <li><span class="icon"><i class="fas fa-bolt"></i></span> <strong>强大实用性与即用性:</strong> 资深AI工程师基于真实需求打造，确保有效。</li>
+                        <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>价值:</strong> 快速将AI功能落地，加速从概念到产品的转化。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 项目5: tldr-pages/tldr -->
+            <section>
+                <h3>5. tldr-pages/tldr <i class="fas fa-terminal text-secondary-color"></i></h3>
+                <p class="text-lg mb-4"><strong>项目简介:</strong> 控制台命令协作速查表，man手册的有力补充。</p>
+                <div class="project-meta fragment fade-in">
+                    <span><i class="fas fa-code"></i> 语言: Markdown</span>
+                    <span><i class="fas fa-star"></i> Stars: 56.6k</span>
+                    <span><i class="fas fa-sync-alt"></i> 连续在榜: 1次</span>
+                    <span><i class="fas fa-calendar-alt"></i> 总上榜: 1次</span>
+                    <span><i class="fas fa-arrow-up"></i> 今日新增: 25</span>
+                </div>
+                <div class="fragment grow mt-4">
+                    <h4>核心价值与亮点:</h4>
+                    <ul class="icons-list text-base">
+                        <li><span class="icon"><i class="fas fa-th-list"></i></span> <strong>极致简洁与实用:</strong> 以示例展现命令常见用法，提升查询效率。</li>
+                        <li><span class="icon"><i class="fas fa-users"></i></span> <strong>全球社区协作:</strong> Markdown格式共同维护，持续更新多语言支持。</li>
+                        <li><span class="icon"><i class="fas fa-mobile-alt"></i></span> <strong>多平台访问:</strong> 命令行、Web客户端（PWA）、PDF版本。</li>
+                        <li><span class="icon"><i class="fas fa-check-circle"></i></span> <strong>价值:</strong> 开发者与系统管理员不可或缺的生产力工具。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 项目6: Infisical/infisical -->
+            <section>
+                <h3>6. Infisical/infisical <i class="fas fa-key text-secondary-color"></i></h3>
+                <p class="text-lg mb-4"><strong>项目简介:</strong> 用于密钥管理、PKI和SSH访问的开源平台。</p>
+                <div class="project-meta fragment fade-in">
+                    <span><i class="fas fa-code"></i> 语言: TypeScript</span>
+                    <span><i class="fas fa-star"></i> Stars: 19.3k</span>
+                    <span><i class="fas fa-sync-alt"></i> 连续在榜: 2次</span>
+                    <span><i class="fas fa-calendar-alt"></i> 总上榜: 3次</span>
+                    <span><i class="fas fa-arrow-up"></i> 今日新增: 277</span>
+                </div>
+                <div class="fragment grow mt-4">
+                    <h4>核心价值与亮点:</h4>
+                    <ul class="icons-list text-base">
+                        <li><span class="icon"><i class="fas fa-tachometer-alt"></i></span> <strong>集中安全管理:</strong> 同步API密钥、数据库凭证等敏感配置。</li>
+                        <li><span class="icon"><i class="fas fa-cloud-upload-alt"></i></span> <strong>广泛生态集成:</strong> 与GitHub、AWS、Kubernetes等无缝协作。</li>
+                        <li><span class="icon"><i class="fas fa-history"></i></span> <strong>全面生命周期管理:</strong> 版本控制、时间点恢复、自动轮换、动态秘密生成。</li>
+                        <li><span class="icon"><i class="fas fa-shield-alt"></i></span> <strong>内置秘密扫描与防泄露:</strong> 提升自动化安全。</li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <h3>Infisical/infisical：增长分析 <i class="fas fa-chart-bar text-secondary-color"></i></h3>
+                <div class="fragment fade-in mt-8">
+                    <p class="text-lg"><i class="fas fa-calendar-alt text-primary-color"></i> 23天内总星数增长：<strong>907</strong>。</p>
+                    <p class="text-lg"><i class="fas fa-calendar-check text-primary-color"></i> 仅上榜3次，但增长势头强劲。</p>
+                    <p class="text-lg"><i class="fas fa-fire text-primary-color"></i> 今日新增：<strong>277星</strong>，远超平均，显示近期增长显著加速且强劲，发展潜力巨大。</p>
+                </div>
+            </section>
+
+            <!-- 结束幻灯片 -->
+            <section class="end-slide">
+                <h2>感谢您的聆听！</h2>
+                <p class="mt-4">探索更多前沿技术，共创Aha Moment！</p>
+                <div class="contact-info mt-8 text-center">
+                    <p>演讲者：<strong class="text-secondary-color">AIChipEra</strong></p>
+                    <p class="qr-call">扫描二维码，关注项目，获取每日GitHub热门趋势！</p>
+                </div>
+                <div class="footer-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="mr-4 hover:underline">项目地址: aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code" class="w-20 h-20 rounded-lg shadow-md">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script>
+        Reveal.initialize({
+            controls: true,     // 显示控制按钮
+            progress: true,     // 显示进度条
+            history: true,      // 启用浏览器历史记录，可以通过前进/后退按钮导航
+            center: true,       // 幻灯片居中
+            transition: 'slide', // 幻灯片切换效果: none/fade/slide/convex/concave/zoom
+            backgroundTransition: 'fade', // 背景切换效果
+            loop: false,        // 不循环播放
+            fragments: true,    // 启用内容分步显示
+            autoAnimate: true,  // 启用自动动画
+            autoAnimateEasing: 'ease-out',
+            autoAnimateDuration: 0.8,
+
+            // Mermaid初始化 (如果内容中有图表)
+            dependencies: [
+                { src: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js', async: true, callback: function() { mermaid.initialize({ startOnLoad: false, theme: 'forest' }); } }
+            ]
+        });
+    </script>
+</body>
+</html>
