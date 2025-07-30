@@ -1,0 +1,728 @@
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>洞察GitHub：告别“炫技”，实用主义正重塑技术未来！</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet" id="theme">
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* 自定义字体设置 */
+        :root {
+            --r-main-font: "Noto Sans SC", Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: "Noto Serif SC", serif;
+            --r-main-font-size: 1.1rem; /* 正文基准字号 */
+        }
+
+        body {
+            font-family: var(--r-main-font);
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            font-family: var(--r-heading-font);
+            font-weight: 700;
+        }
+
+        /* 字体层次 */
+        .reveal h1 { font-size: 3rem; }
+        .reveal h2 { font-size: 2.5rem; }
+        .reveal h3 { font-size: 2rem; }
+        .reveal h4 { font-size: 1.5rem; }
+        .reveal p, .reveal li { font-size: var(--r-main-font-size); line-height: 1.6; }
+        .reveal small { font-size: 0.8rem; }
+
+        /* 配色方案与背景 */
+        .reveal .slides {
+            background-color: #f8f8f8; /* 浅灰色背景 */
+        }
+
+        .reveal .controls .navigate-left,
+        .reveal .controls .navigate-right,
+        .reveal .controls .navigate-up,
+        .reveal .controls .navigate-down {
+            color: #007bff; /* 导航按钮主蓝色 */
+        }
+
+        .reveal .progress span {
+            background-color: #007bff; /* 进度条主蓝色 */
+        }
+
+        /* 封面页背景与文字颜色 */
+        .reveal .slides section.title-slide {
+            background: linear-gradient(135deg, #007bff 0%, #6610f2 100%); /* 蓝到紫渐变 */
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .reveal .slides section.title-slide h1,
+        .reveal .slides section.title-slide h2 {
+            color: #fff;
+        }
+
+        /* 分隔页背景 */
+        .reveal .slides section.section-divider {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%); /* 绿到青渐变 */
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 底部链接与二维码 */
+        .slide-footer {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.7); /* 适用于深色背景 */
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .slide-footer.light-bg {
+            color: rgba(0, 0, 0, 0.5); /* 适用于浅色背景 */
+        }
+
+        .slide-footer img {
+            height: 50px; /* 二维码尺寸 */
+            width: 50px;
+            border-radius: 5px;
+        }
+
+        /* 内容布局 */
+        .reveal .slide-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+
+        /* 列表样式 */
+        .reveal ul {
+            list-style-type: none; /* 移除默认项目符号 */
+            padding-left: 0;
+        }
+        .reveal ul li {
+            position: relative;
+            padding-left: 1.5em; /* 为自定义项目符号留空间 */
+            margin-bottom: 0.5em;
+        }
+        .reveal ul li::before {
+            content: "\f00c"; /* Font Awesome 选中图标 */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: #007bff; /* 蓝色选中图标 */
+        }
+
+        /* Fragment 动画 */
+        .reveal .fragment.fade-in.current-fragment {
+            opacity: 1;
+        }
+        .reveal .fragment.fade-in {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* 强调文本 */
+        .aha-highlight {
+            color: #ffc107; /* 亮黄色突出 Aha! moment */
+            font-weight: bold;
+        }
+        .emphasize {
+            color: #28a745; /* 绿色强调 */
+            font-weight: 700;
+        }
+
+        /* 仓库详情布局 */
+        .icon-stat {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 1.5em;
+            font-size: 0.9em;
+            white-space: nowrap;
+        }
+        .icon-stat i {
+            margin-right: 0.5em;
+            color: #007bff;
+        }
+        .repo-details strong {
+            color: #343a40; /* 标签深色文本 */
+        }
+        .lang-breakdown span {
+            display: inline-block;
+            margin-right: 1em;
+            padding: 0.2em 0.5em;
+            background-color: #e9ecef;
+            border-radius: 3px;
+            font-size: 0.85em;
+        }
+        .repo-overview {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr; /* 调整比例，右侧速读空间更大 */
+            gap: 30px; /* 增加间距 */
+            margin-top: 1.5em;
+            text-align: left; /* 确保内容左对齐 */
+        }
+        .repo-overview .left-col {
+            padding-right: 20px;
+            border-right: 1px solid #eee;
+        }
+        .repo-overview .right-col {
+            padding-left: 20px;
+        }
+        .repo-overview h3 {
+            margin-top: 0;
+            margin-bottom: 0.8em;
+            font-size: 1.8rem; /* 项目详情页标题 */
+        }
+        .repo-overview ul {
+            list-style: none;
+            padding: 0;
+        }
+        .repo-overview ul li {
+            padding-left: 0;
+        }
+        .repo-overview ul li::before {
+            content: none; /* 移除项目详情中的默认勾号 */
+        }
+        .repo-overview p {
+            margin-bottom: 0.8em;
+            font-size: 1rem; /* 项目速读内容字号 */
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: 封面页 -->
+            <section class="title-slide">
+                <h1 class="text-6xl mb-4">洞察GitHub：告别“炫技”，实用主义正重塑技术未来！</h1>
+                <h2 class="text-3xl mb-8">把握未来，速转好友，一起学习！</h2>
+                <p class="text-xl">演讲者：<strong class="text-yellow-300">AIChipEra</strong></p>
+                <p class="text-lg opacity-75">Github热门仓库日报观测时间：2025-07-30 21:08:15</p>
+                <small class="text-sm opacity-60">以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</small>
+
+                <div class="slide-footer">
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-white hover:underline">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+            <!-- Slide 2: 日报要点 -->
+            <section>
+                <h2 class="text-blue-600"><i class="fas fa-bullhorn mr-3"></i>日报要点：趋势洞察</h2>
+                <div class="text-left mt-8 slide-content">
+                    <p class="fragment fade-in">GitHub今日热门榜单揭示，技术创新已从概念阶段迈入深度应用与<span class="emphasize">实用化新纪元</span>。</p>
+                    <ul class="list-none pl-0 mt-6 text-xl">
+                        <li class="fragment fade-in"><i class="fas fa-microchip text-green-500 mr-2"></i>智能应用的<span class="emphasize">工程化落地</span></li>
+                        <li class="fragment fade-in"><i class="fas fa-rocket text-purple-500 mr-2"></i>极致的<span class="emphasize">开发者效率提升</span></li>
+                        <li class="fragment fade-in"><i class="fas fa-lock text-red-500 mr-2"></i>数据自主的<span class="emphasize">自托管方案</span></li>
+                        <li class="fragment fade-in"><i class="fas fa-code text-blue-500 mr-2"></i><span class="emphasize">Python、TypeScript</span>主导，Go崭露头角</li>
+                    </ul>
+                    <p class="fragment fade-in mt-6 text-lg">核心驱动：如何让技术更<span class="aha-highlight">易用、高效</span>，解决实际问题。</p>
+                </div>
+            </section>
+
+            <!-- Slide 3: 热门项目趋势分析 - 今日整体趋势 - AI/LLM Dominance -->
+            <section>
+                <h2 class="text-blue-600"><i class="fas fa-chart-line mr-3"></i>热门项目趋势分析：今日整体趋势</h2>
+                <h3 class="text-green-600 mt-4"><i class="fas fa-brain mr-2"></i>AI与LLM生态：从概念到<span class="aha-highlight">深度应用</span></h3>
+                <ul class="list-none pl-0 mt-6 text-xl">
+                    <li class="fragment fade-in"><i class="fas fa-eye text-purple-500 mr-2"></i>`roboflow/supervision`：计算机视觉工具</li>
+                    <li class="fragment fade-in"><i class="fas fa-lightbulb text-yellow-500 mr-2"></i>`linshenkx/prompt-optimizer`：提示词优化</li>
+                    <li class="fragment fade-in"><i class="fas fa-server text-blue-500 mr-2"></i>`cloudwego/eino`：Go语言LLM应用框架</li>
+                    <li class="fragment fade-in"><i class="fas fa-robot text-teal-500 mr-2"></i>`500-AI-Agents-Projects`：AI Agent用例整合</li>
+                    <li class="fragment fade-in"><i class="fas fa-tachometer-alt text-red-500 mr-2"></i>`LMCache`：LLM推理性能优化</li>
+                </ul>
+                <p class="fragment fade-in mt-6 text-lg opacity-90">趋势核心：AI热潮深入<span class="emphasize">高效、可靠、规模化</span>的应用与部署实践。</p>
+            </section>
+
+            <!-- Slide 4: 热门项目趋势分析 - 主要编程语言分布 -->
+            <section>
+                <h2 class="text-blue-600"><i class="fas fa-code mr-3"></i>热门项目趋势分析：主要编程语言</h2>
+                <ul class="list-none pl-0 mt-8 text-xl">
+                    <li class="fragment fade-in"><i class="fab fa-python text-blue-400 mr-2"></i><strong class="text-blue-600">Python：</strong>统治地位稳固，尤其在AI/ML领域 (`supervision`, `copyparty`, `LMCache`)</li>
+                    <li class="fragment fade-in"><i class="fab fa-js-square text-blue-600 mr-2"></i><strong class="text-blue-600">TypeScript：</strong>紧随其后，构建现代化Web应用与前端工具 (`outline`, `prompt-optimizer`)</li>
+                    <li class="fragment fade-in"><i class="fab fa-go text-blue-500 mr-2"></i><strong class="text-blue-600">Go语言：</strong>高性能、并发驱动的AI基础设施构建潜力 (`cloudwego/eino`)</li>
+                    <li class="fragment fade-in"><i class="fab fa-markdown text-gray-600 mr-2"></i><strong class="text-blue-600">Markdown：</strong>高质量、社区协作文档和知识库的核心 (`tldr`, `awesome`, `500-AI-Agents-Projects`)</li>
+                </ul>
+                <p class="fragment fade-in mt-8 text-lg opacity-90">反映了前端交互与知识共享在技术生态中的重要性。</p>
+            </section>
+
+            <!-- Slide 5: 热门项目趋势分析 - 共同反映的技术需求与发展方向 -->
+            <section>
+                <h2 class="text-blue-600"><i class="fas fa-lightbulb mr-3"></i>技术需求与未来方向</h2>
+                <ul class="list-none pl-0 mt-8 text-xl">
+                    <li class="fragment fade-in"><i class="fas fa-cogs text-green-500 mr-2"></i><strong class="text-green-600">AI应用化与工程化：</strong>AI模型落地生产，性能与成本优化。</li>
+                    <li class="fragment fade-in"><i class="fas fa-users-cog text-purple-500 mr-2"></i><strong class="text-purple-600">开发者效率与便捷性：</strong>提升体验，降低技术门槛。</li>
+                    <li class="fragment fade-in"><i class="fas fa-shield-alt text-red-500 mr-2"></i><strong class="text-red-600">自托管与数据主权：</strong>对数据隐私、安全及自主控制的重视。</li>
+                    <li class="fragment fade-in"><i class="fas fa-book-open text-blue-500 mr-2"></i><strong class="text-blue-600">知识共享与信息聚合：</strong>精选、结构化知识资源的渴望。</li>
+                </ul>
+                <p class="fragment fade-in mt-8 text-lg opacity-90">展望未来：<span class="aha-highlight">AI Agent</span>的真正落地与大规模应用，<span class="emphasize">高效部署与边缘推理</span>。</p>
+            </section>
+
+            <!-- Slide 6: 热门项目趋势分析 - 比较与今日特有特点 -->
+            <section>
+                <h2 class="text-blue-600"><i class="fas fa-chart-bar mr-3"></i>趋势对比：今日独特之处</h2>
+                <ul class="list-none pl-0 mt-8 text-xl">
+                    <li class="fragment fade-in"><i class="fas fa-arrow-alt-circle-right text-orange-500 mr-2"></i><strong class="text-orange-600">AI技术生态更精细化：</strong>从通用模型转向解决具体痛点（LLM推理加速、Agent开发）。</li>
+                    <li class="fragment fade-in"><i class="fas fa-check-double text-teal-500 mr-2"></i><strong class="text-teal-600">强调实用性、工程化和用户体验：</strong>技术服务于效率提升和问题解决。</li>
+                    <li class="fragment fade-in"><i class="fas fa-lightbulb text-yellow-500 mr-2"></i><span class="aha-highlight">创新从“能做什么”走向“如何做得更好、更易用”</span>。</li>
+                </ul>
+                <p class="fragment fade-in mt-8 text-lg opacity-90">一份<span class="emphasize">成熟而务实</span>的技术趋势图景！</p>
+            </section>
+
+            <!-- Slide 7: 热门项目双日维度对比分析 -->
+            <section>
+                <h2 class="text-blue-600"><i class="fas fa-calendar-alt mr-3"></i>热门项目双日对比：动态概览</h2>
+                <div class="repo-overview">
+                    <div class="left-col">
+                        <h3 class="text-purple-600 text-2xl"><i class="fas fa-plus-circle mr-2"></i>整体活跃度</h3>
+                        <ul class="list-none pl-0 mt-4 text-lg">
+                            <li class="fragment fade-in"><i class="fas fa-check-circle text-green-500 mr-2"></i>新增 <span class="emphasize">5个</span> 项目</li>
+                            <li class="fragment fade-in"><i class="fas fa-arrow-alt-circle-up text-blue-500 mr-2"></i><span class="emphasize">6个</span> 项目热度持续攀升</li>
+                            <li class="fragment fade-in"><i class="fas fa-minus-circle text-gray-500 mr-2"></i>无项目显著下降</li>
+                            <li class="fragment fade-in mt-4"><i class="fas fa-star text-yellow-500 mr-2"></i><strong class="text-blue-600">涨幅榜首：</strong> `9001/copyparty` 惊人增长 <span class="emphasize">3564星</span>！</li>
+                            <li class="fragment fade-in"><i class="fas fa-robot text-teal-500 mr-2"></i>AI项目（`500-AI-Agents-Projects`, `prompt-optimizer`）涨幅显著</li>
+                        </ul>
+                    </div>
+                    <div class="right-col">
+                        <h3 class="text-purple-600 text-2xl"><i class="fas fa-language mr-2"></i>编程语言变化</h3>
+                        <ul class="list-none pl-0 mt-4 text-lg">
+                            <li class="fragment fade-in"><i class="fab fa-python text-blue-400 mr-2"></i><strong class="text-blue-600">Python：</strong>净增<span class="emphasize">2个</span>热门项目，巩固主流地位。</li>
+                            <li class="fragment fade-in"><i class="fas fa-question-circle text-gray-500 mr-2"></i><strong class="text-blue-600">Unknown类别：</strong>关注度提升，可能指向非代码库或元信息项目。</li>
+                            <li class="fragment fade-in"><i class="fas fa-level-down-alt text-red-500 mr-2"></i>C#、Rust 各减少1个。</li>
+                        </ul>
+                        <p class="fragment fade-in mt-6 text-base opacity-80">新晋项目聚焦<span class="emphasize">AI视觉、通用下载、缓存工具、项目管理及资源列表</span>。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 8: 热点变化 -->
+            <section>
+                <h2 class="text-blue-600"><i class="fas fa-fire mr-3"></i>热点变化：新旧交替</h2>
+                <div class="grid grid-cols-2 gap-8 mt-8 text-left text-xl">
+                    <div>
+                        <h3 class="text-green-600 text-2xl"><i class="fas fa-plus mr-2"></i>新增热点</h3>
+                        <ul class="list-none pl-0 mt-4">
+                            <li class="fragment fade-in">sindresorhus/awesome</li>
+                            <li class="fragment fade-in">roboflow/supervision</li>
+                            <li class="fragment fade-in">lmcache/lmcache</li>
+                            <li class="fragment fade-in">mikf/gallery-dl</li>
+                            <li class="fragment fade-in">mattermost-community/focalboard</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-red-600 text-2xl"><i class="fas fa-minus mr-2"></i>减退热点</h3>
+                        <ul class="list-none pl-0 mt-4">
+                            <li class="fragment fade-in">microsoft/powertoys</li>
+                            <li class="fragment fade-in">shubhamsaboo/awesome-llm-apps</li>
+                            <li class="fragment fade-in">n0-computer/iroh</li>
+                            <li class="fragment fade-in">musistudio/claude-code-router</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-8 text-center text-xl">
+                    <h3 class="text-orange-600 text-2xl"><i class="fas fa-sync-alt mr-2"></i>持续热门</h3>
+                    <ul class="list-none pl-0 mt-4 inline-flex">
+                        <li class="fragment fade-in mr-8">outline/outline (<span class="emphasize">3次</span>)</li>
+                        <li class="fragment fade-in mr-8">tldr-pages/tldr (<span class="emphasize">4次</span>)</li>
+                        <li class="fragment fade-in">ashishpatel26/500-AI-Agents-Projects (<span class="emphasize">3次</span>)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 9: Section Divider -->
+            <section class="section-divider">
+                <h2 class="text-white text-5xl">详细仓库数据</h2>
+                <p class="text-white text-2xl opacity-80 mt-4">深入剖析每个热门项目的核心价值与增长潜力</p>
+            </section>
+
+            <!-- Project Details - Vertical Slides -->
+            <section>
+                <!-- 9001/copyparty -->
+                <section>
+                    <h2 class="text-blue-600">9001/copyparty</h2>
+                    <p class="text-lg opacity-90 mt-2">便携式文件服务器，集加速可续传上传、数据去重、WebDAV、FTP、TFTP、零配置、媒体索引器、增强型缩略图功能于一体，单一文件，无任何依赖。</p>
+                    <div class="repo-overview mt-6">
+                        <div class="left-col">
+                            <h3 class="text-purple-600">核心信息</h3>
+                            <ul class="list-none pl-0 text-base">
+                                <li><span class="icon-stat"><i class="fas fa-star"></i><strong>Stars:</strong> 12.4k</span> <span class="icon-stat"><i class="fas fa-code-branch"></i><strong>Forks:</strong> 371</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-eye"></i><strong>Watchers:</strong> 57</span> <span class="icon-stat"><i class="fas fa-exclamation-circle"></i><strong>Issues:</strong> 74</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-exchange-alt"></i><strong>PRs:</strong> 13</span> <span class="icon-stat"><i class="fas fa-box"></i><strong>Releases:</strong> 300</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-file-alt"></i><strong>Commits:</strong> 3,724</span> <span class="icon-stat"><i class="fas fa-balance-scale"></i><strong>License:</strong> MIT</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-users"></i><strong>Contributors:</strong> 25</span></li>
+                            </ul>
+                            <p class="mt-4"><strong class="text-blue-600">编程语言占比:</strong></p>
+                            <div class="lang-breakdown">
+                                <span>Python 63.3%</span><span>JavaScript 26.2%</span><span>Shell 3.6%</span><span>CSS 3.5%</span>
+                            </div>
+                        </div>
+                        <div class="right-col">
+                            <h3 class="text-purple-600">项目速读</h3>
+                            <p class="fragment fade-in">copyparty是一款<span class="emphasize">轻量级且功能强大</span>的便携式文件服务器，旨在将任何设备快速转变为支持多协议的文件共享与上传平台，解决传统部署复杂、依赖繁多的痛点。</p>
+                            <p class="fragment fade-in">核心优势：卓越的<span class="emphasize">便携性与性能</span>，支持加速断点续传、文件去重、多协议（HTTP/S, WebDAV, FTP等），提供直观Web界面。</p>
+                            <p class="fragment fade-in">价值：适用于家庭共享、临时分发或个人私有云，<span class="aha-highlight">“一个文件、零依赖”</span>的极简方式，提供灵活、高效、功能丰富的自建文件服务体验。</p>
+                            <h3 class="text-purple-600 mt-4">增长分析</h3>
+                            <p class="fragment fade-in">仓库两天内上榜2次，总增长3564 Star。3561 Star集中于最新一次上榜，显示其增长趋势<span class="emphasize">高度爆发</span>，非持续均衡累积。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- roboflow/supervision -->
+                <section>
+                    <h2 class="text-blue-600">roboflow/supervision</h2>
+                    <p class="text-lg opacity-90 mt-2">我们编写您的可复用计算机视觉工具。</p>
+                    <div class="repo-overview mt-6">
+                        <div class="left-col">
+                            <h3 class="text-purple-600">核心信息</h3>
+                            <ul class="list-none pl-0 text-base">
+                                <li><span class="icon-stat"><i class="fas fa-star"></i><strong>Stars:</strong> 31.8k</span> <span class="icon-stat"><i class="fas fa-code-branch"></i><strong>Forks:</strong> 2.5k</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-eye"></i><strong>Watchers:</strong> 194</span> <span class="icon-stat"><i class="fas fa-exclamation-circle"></i><strong>Issues:</strong> 70</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-exchange-alt"></i><strong>PRs:</strong> 46</span> <span class="icon-stat"><i class="fas fa-box"></i><strong>Releases:</strong> 33</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-file-alt"></i><strong>Commits:</strong> 4,470</span> <span class="icon-stat"><i class="fas fa-balance-scale"></i><strong>License:</strong> MIT</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-users"></i><strong>Contributors:</strong> 109</span></li>
+                            </ul>
+                            <p class="mt-4"><strong class="text-blue-600">编程语言占比:</strong> <span class="lang-breakdown"><span>Python 100.0%</span></span></p>
+                        </div>
+                        <div class="right-col">
+                            <h3 class="text-purple-600">项目速读</h3>
+                            <p class="fragment fade-in">Roboflow开源的Python库，为计算机视觉开发者提供<span class="emphasize">高效可复用工具</span>，简化从数据集处理、模型推理可视化到分析的整个工作流。</p>
+                            <p class="fragment fade-in">核心优势：<span class="emphasize">“模型无关性”</span>，无缝集成主流模型（YOLO, Transformers），统一处理输出；灵活的标注器简化结果绘制。</p>
+                            <p class="fragment fade-in">价值：<span class="aha-highlight">极大降低计算机视觉项目开发门槛和复杂性</span>，将开发者从繁琐细节中解放，专注于模型优化和业务逻辑。</p>
+                            <h3 class="text-purple-600 mt-4">增长分析</h3>
+                            <p class="fragment fade-in">该仓库在10天内总计增长3637 Star，势头强劲。5次频繁上榜是关键，平均每次贡献614.6 Star。今日新增797 Star，高于平均，表明当前增长加速，上榜效应显著，整体趋势<span class="emphasize">持续向好</span>。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- outline/outline -->
+                <section>
+                    <h2 class="text-blue-600">outline/outline</h2>
+                    <p class="text-lg opacity-90 mt-2">成长型团队最快的知识库。精美、实时协作、功能丰富、兼容Markdown。</p>
+                    <div class="repo-overview mt-6">
+                        <div class="left-col">
+                            <h3 class="text-purple-600">核心信息</h3>
+                            <ul class="list-none pl-0 text-base">
+                                <li><span class="icon-stat"><i class="fas fa-star"></i><strong>Stars:</strong> 33.6k</span> <span class="icon-stat"><i class="fas fa-code-branch"></i><strong>Forks:</strong> 2.7k</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-eye"></i><strong>Watchers:</strong> 180</span> <span class="icon-stat"><i class="fas fa-exclamation-circle"></i><strong>Issues:</strong> 97</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-exchange-alt"></i><strong>PRs:</strong> 17</span> <span class="icon-stat"><i class="fas fa-box"></i><strong>Releases:</strong> 145</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-file-alt"></i><strong>Commits:</strong> 8,148</span> <span class="icon-stat"><i class="fas fa-balance-scale"></i><strong>License:</strong> 未知</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-users"></i><strong>Contributors:</strong> 210</span></li>
+                            </ul>
+                            <p class="mt-4"><strong class="text-blue-600">编程语言占比:</strong></p>
+                            <div class="lang-breakdown">
+                                <span>TypeScript 95.9%</span><span>JavaScript 4.0%</span><span>HTML 0.1%</span>
+                            </div>
+                        </div>
+                        <div class="right-col">
+                            <h3 class="text-purple-600">项目速读</h3>
+                            <p class="fragment fade-in">Outline是专为成长型团队打造的<span class="emphasize">快速、实时协作型知识库</span>，解决企业内部知识分散、共享低效痛点，提升工作效率和信息透明度。</p>
+                            <p class="fragment fade-in">核心优势：卓越的速度和实时协作，支持Markdown，多人编辑；<span class="emphasize">完整开源并支持自托管</span>，数据控制权与隐私保障。</p>
+                            <p class="fragment fade-in">价值：不仅是知识管理工具，更是团队协作和知识沉淀引擎。功能完备、性能优越，<span class="aha-highlight">为追求高效、安全、自主可控方案的团队提供理想选择</span>。</p>
+                            <h3 class="text-purple-600 mt-4">增长分析</h3>
+                            <p class="fragment fade-in">该仓库三天内三次上榜，总星数增长514。平均每次新增181.7星，今日更达259星，显示出<span class="emphasize">持续且加速的增长趋势</span>，潜力较大。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- linshenkx/prompt-optimizer -->
+                <section>
+                    <h2 class="text-blue-600">linshenkx/prompt-optimizer</h2>
+                    <p class="text-lg opacity-90 mt-2">一款提示词优化器，助力于编写高质量的提示词。</p>
+                    <div class="repo-overview mt-6">
+                        <div class="left-col">
+                            <h3 class="text-purple-600">核心信息</h3>
+                            <ul class="list-none pl-0 text-base">
+                                <li><span class="icon-stat"><i class="fas fa-star"></i><strong>Stars:</strong> 11.3k</span> <span class="icon-stat"><i class="fas fa-code-branch"></i><strong>Forks:</strong> 1.4k</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-eye"></i><strong>Watchers:</strong> 39</span> <span class="icon-stat"><i class="fas fa-exclamation-circle"></i><strong>Issues:</strong> 10</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-exchange-alt"></i><strong>PRs:</strong> 0</span> <span class="icon-stat"><i class="fas fa-box"></i><strong>Releases:</strong> 3</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-file-alt"></i><strong>Commits:</strong> 349</span> <span class="icon-stat"><i class="fas fa-balance-scale"></i><strong>License:</strong> MIT</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-users"></i><strong>Contributors:</strong> 12</span></li>
+                            </ul>
+                            <p class="mt-4"><strong class="text-blue-600">编程语言占比:</strong></p>
+                            <div class="lang-breakdown">
+                                <span>TypeScript 59.2%</span><span>Vue 22.5%</span><span>JavaScript 13.5%</span>
+                            </div>
+                        </div>
+                        <div class="right-col">
+                            <h3 class="text-purple-600">项目速读</h3>
+                            <p class="fragment fade-in">功能强大的AI提示词优化工具，解决用户与LLM交互时难以高效撰写高质量提示词的问题，提升LLM在多场景下的输出精度和效果。</p>
+                            <p class="fragment fade-in">核心优势：<span class="emphasize">纯前端架构保障隐私安全</span>；智能优化、效果对比测试；广泛支持主流AI模型并允许自定义接口。</p>
+                            <p class="fragment fade-in">价值：提供Web、桌面、Chrome插件、Docker多种部署方式，高灵活性，<span class="aha-highlight">为追求高效、安全且灵活AI交互体验的用户提供卓越解决方案</span>。</p>
+                            <h3 class="text-purple-600 mt-4">增长分析</h3>
+                            <p class="fragment fade-in">该仓库在周期内上榜3次，总增4693 Star。平均每次上榜新增约389 Star，今日393，表明其增长<span class="emphasize">集中且持续</span>，每次上榜均能获得显著关注。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- tldr-pages/tldr -->
+                <section>
+                    <h2 class="text-blue-600">tldr-pages/tldr</h2>
+                    <p class="text-lg opacity-90 mt-2">控制台命令协作速查表。</p>
+                    <div class="repo-overview mt-6">
+                        <div class="left-col">
+                            <h3 class="text-purple-600">核心信息</h3>
+                            <ul class="list-none pl-0 text-base">
+                                <li><span class="icon-stat"><i class="fas fa-star"></i><strong>Stars:</strong> 57.8k</span> <span class="icon-stat"><i class="fas fa-code-branch"></i><strong>Forks:</strong> 4.6k</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-eye"></i><strong>Watchers:</strong> 391</span> <span class="icon-stat"><i class="fas fa-exclamation-circle"></i><strong>Issues:</strong> 180</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-exchange-alt"></i><strong>PRs:</strong> 38</span> <span class="icon-stat"><i class="fas fa-box"></i><strong>Releases:</strong> 6</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-file-alt"></i><strong>Commits:</strong> 18,301</span> <span class="icon-stat"><i class="fas fa-balance-scale"></i><strong>License:</strong> CC BY 4.0</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-users"></i><strong>Contributors:</strong> 2,722</span></li>
+                            </ul>
+                            <p class="mt-4"><strong class="text-blue-600">编程语言占比:</strong> <span class="lang-breakdown"><span>Markdown 99.4%</span></span></p>
+                        </div>
+                        <div class="right-col">
+                            <h3 class="text-purple-600">项目速读</h3>
+                            <p class="fragment fade-in">为命令行工具提供<span class="emphasize">简洁、实用参考</span>的社区协作项目，解决man手册冗长痛点，聚焦最常用、最具代表性的使用示例。</p>
+                            <p class="fragment fade-in">核心优势：<span class="emphasize">高效直观</span>，新手快速入门，经验开发者快速查阅；覆盖多OS常用命令，内容由全球贡献者持续更新维护。</p>
+                            <p class="fragment fade-in">价值：核心是Markdown命令页面集合，通过多语言客户端、PWA等便捷访问，<span class="aha-highlight">不仅是工具，更是提升命令行操作效率和用户体验的创新理念</span>。</p>
+                            <h3 class="text-purple-600 mt-4">增长分析</h3>
+                            <p class="fragment fade-in">该仓库在4天内总增长1176 Star，且连续4次上榜，显示出<span class="emphasize">持续且强劲的增长势头</span>。平均每日增长304 Star，今日更是达到352 Star，增长趋势正在加速。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- mikf/gallery-dl -->
+                <section>
+                    <h2 class="text-blue-600">mikf/gallery-dl</h2>
+                    <p class="text-lg opacity-90 mt-2">命令行程序，用于从多个图片托管网站下载图片画廊和合集。</p>
+                    <div class="repo-overview mt-6">
+                        <div class="left-col">
+                            <h3 class="text-purple-600">核心信息</h3>
+                            <ul class="list-none pl-0 text-base">
+                                <li><span class="icon-stat"><i class="fas fa-star"></i><strong>Stars:</strong> 14.6k</span> <span class="icon-stat"><i class="fas fa-code-branch"></i><strong>Forks:</strong> 1.2k</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-eye"></i><strong>Watchers:</strong> 152</span> <span class="icon-stat"><i class="fas fa-exclamation-circle"></i><strong>Issues:</strong> 1k</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-exchange-alt"></i><strong>PRs:</strong> 42</span> <span class="icon-stat"><i class="fas fa-box"></i><strong>Releases:</strong> 177</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-file-alt"></i><strong>Commits:</strong> 6,963</span> <span class="icon-stat"><i class="fas fa-balance-scale"></i><strong>License:</strong> GPL-2.0</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-users"></i><strong>Contributors:</strong> 170</span></li>
+                            </ul>
+                            <p class="mt-4"><strong class="text-blue-600">编程语言占比:</strong> <span class="lang-breakdown"><span>Python 97.9%</span><span>Shell 2.1%</span></span></p>
+                        </div>
+                        <div class="right-col">
+                            <h3 class="text-purple-600">项目速读</h3>
+                            <p class="fragment fade-in">强大的命令行工具，专注于<span class="emphasize">从众多图片托管站点下载图片画廊和媒体集合</span>，解决用户高效、自动化获取大量图像、视频内容的痛点。</p>
+                            <p class="fragment fade-in">核心优势：<span class="emphasize">广泛兼容性与高度可定制性</span>，支持主流OS，能从众多站点下载，灵活配置下载行为、文件命名，甚至高级功能如漫画过滤。</p>
+                            <p class="fragment fade-in">价值：提供强大且灵活的自动化下载解决方案，特别适用于批量备份、数据归档或内容创作者整合素材。<span class="aha-highlight">将复杂的下载任务变得简单而可控</span>。</p>
+                            <h3 class="text-purple-600 mt-4">增长分析</h3>
+                            <p class="fragment fade-in">该仓库三天内总增长213星，增速显著。尽管统计期内仅上榜2次，但每次上榜均带来约14.5星的稳定增量，今日新增15星，显示其较强吸引力与<span class="emphasize">持续增长潜力</span>。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- sindresorhus/awesome -->
+                <section>
+                    <h2 class="text-blue-600">sindresorhus/awesome</h2>
+                    <p class="text-lg opacity-90 mt-2">各类精彩主题的精选列表。</p>
+                    <div class="repo-overview mt-6">
+                        <div class="left-col">
+                            <h3 class="text-purple-600">核心信息</h3>
+                            <ul class="list-none pl-0 text-base">
+                                <li><span class="icon-stat"><i class="fas fa-star"></i><strong>Stars:</strong> 387k</span> <span class="icon-stat"><i class="fas fa-code-branch"></i><strong>Forks:</strong> 30.9k</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-eye"></i><strong>Watchers:</strong> 8k</span> <span class="icon-stat"><i class="fas fa-exclamation-circle"></i><strong>Issues:</strong> 13</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-exchange-alt"></i><strong>PRs:</strong> 36</span> <span class="icon-stat"><i class="fas fa-box"></i><strong>Releases:</strong> 0</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-file-alt"></i><strong>Commits:</strong> 1,173</span> <span class="icon-stat"><i class="fas fa-balance-scale"></i><strong>License:</strong> CC0-1.0</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-users"></i><strong>Contributors:</strong> 610</span></li>
+                            </ul>
+                            <p class="mt-4"><strong class="text-blue-600">编程语言占比:</strong> (无主要代码语言)</p>
+                        </div>
+                        <div class="right-col">
+                            <h3 class="text-purple-600">项目速读</h3>
+                            <p class="fragment fade-in">全球最大、质量最高的“优秀列表”中心索引，解决技术信息过载问题，提供<span class="emphasize">结构化、易导航的资源发现平台</span>。</p>
+                            <p class="fragment fade-in">核心优势：独特的<span class="emphasize">“内容即架构”</span>理念，数百个社区精心策划的专业列表以Markdown形式汇聚，确保内容持续更新与高质量。</p>
+                            <p class="fragment fade-in">价值：<span class="aha-highlight">技术社区的宝藏</span>，学习新技能、探索特定领域、寻找顶级工具的首选入口，展现开源协作在知识整理和传播方面的巨大潜力。</p>
+                            <h3 class="text-purple-600 mt-4">增长分析</h3>
+                            <p class="fragment fade-in">该仓库增长势头强劲，上榜9次展现持续高曝光与用户关注。总Star增长超2.1万，平均每次上榜新增641星，显示其<span class="emphasize">极高吸引力</span>。尽管当日新增542星略低于平均，总体增长趋势仍非常显著。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ashishpatel26/500-AI-Agents-Projects -->
+                <section>
+                    <h2 class="text-blue-600">ashishpatel26/500-AI-Agents-Projects</h2>
+                    <p class="text-lg opacity-90 mt-2">《500个AI智能体项目》是一个精选的AI智能体应用案例集，涵盖多个行业。它展示了实际应用，并提供了用于实现的开源项目链接，阐明了AI智能体如何正在变革医疗、金融、教育、零售等领域。</p>
+                    <div class="repo-overview mt-6">
+                        <div class="left-col">
+                            <h3 class="text-purple-600">核心信息</h3>
+                            <ul class="list-none pl-0 text-base">
+                                <li><span class="icon-stat"><i class="fas fa-star"></i><strong>Stars:</strong> 3.9k</span> <span class="icon-stat"><i class="fas fa-code-branch"></i><strong>Forks:</strong> 753</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-eye"></i><strong>Watchers:</strong> 66</span> <span class="icon-stat"><i class="fas fa-exclamation-circle"></i><strong>Issues:</strong> 3</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-exchange-alt"></i><strong>PRs:</strong> 5</span> <span class="icon-stat"><i class="fas fa-box"></i><strong>Releases:</strong> 0</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-file-alt"></i><strong>Commits:</strong> 32</span> <span class="icon-stat"><i class="fas fa-balance-scale"></i><strong>License:</strong> 未知</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-users"></i><strong>Contributors:</strong> 4</span></li>
+                            </ul>
+                            <p class="mt-4"><strong class="text-blue-600">编程语言占比:</strong> (无主要代码语言)</p>
+                        </div>
+                        <div class="right-col">
+                            <h3 class="text-purple-600">项目速读</h3>
+                            <p class="fragment fade-in">精选跨行业AI代理用例集，汇集分散的实际应用案例，提供开源项目链接，便于理解与实践。</p>
+                            <p class="fragment fade-in">核心优势：<span class="emphasize">内容全面、分类清晰</span>（按行业和框架），极强的实用指导性；作为结构化Markdown文档，是探索、学习并加速AI代理落地的<span class="emphasize">宝贵参考</span>。</p>
+                            <p class="fragment fade-in">价值：有效展示AI代理如何变革各行业，<span class="aha-highlight">是推动智能化转型的重要知识库与灵感源泉</span>。</p>
+                            <h3 class="text-purple-600 mt-4">增长分析</h3>
+                            <p class="fragment fade-in">该仓库在三天内三次上榜，显示出极高的曝光度和持续吸引力。平均每次增加超600 Star，且今日新增达684 Star，表明其增长势头<span class="emphasize">强劲，正处于快速上升期</span>。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- cloudwego/eino -->
+                <section>
+                    <h2 class="text-blue-600">cloudwego/eino</h2>
+                    <p class="text-lg opacity-90 mt-2">基于 Golang 的终极 LLM/AI 应用开发框架。</p>
+                    <div class="repo-overview mt-6">
+                        <div class="left-col">
+                            <h3 class="text-purple-600">核心信息</h3>
+                            <ul class="list-none pl-0 text-base">
+                                <li><span class="icon-stat"><i class="fas fa-star"></i><strong>Stars:</strong> 5.9k</span> <span class="icon-stat"><i class="fas fa-code-branch"></i><strong>Forks:</strong> 465</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-eye"></i><strong>Watchers:</strong> 51</span> <span class="icon-stat"><i class="fas fa-exclamation-circle"></i><strong>Issues:</strong> 45</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-exchange-alt"></i><strong>PRs:</strong> 17</span> <span class="icon-stat"><i class="fas fa-box"></i><strong>Releases:</strong> 56</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-file-alt"></i><strong>Commits:</strong> 174</span> <span class="icon-stat"><i class="fas fa-balance-scale"></i><strong>License:</strong> Apache-2.0</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-users"></i><strong>Contributors:</strong> 15</span></li>
+                            </ul>
+                            <p class="mt-4"><strong class="text-blue-600">编程语言占比:</strong> <span class="lang-breakdown"><span>Go 100.0%</span></span></p>
+                        </div>
+                        <div class="right-col">
+                            <h3 class="text-purple-600">项目速读</h3>
+                            <p class="fragment fade-in">专为Go语言开发者打造的创新型LLM应用开发框架，借鉴LangChain经验，<span class="emphasize">标准化并极大提高Go环境下AI应用全生命周期效率</span>。</p>
+                            <p class="fragment fade-in">核心优势：简洁、可扩展、可靠、高效设计，提供聊天模型、工具、检索器等核心组件抽象，<span class="emphasize">强大组合编排框架（链、图）</span>自动处理复杂底层细节。</p>
+                            <p class="fragment fade-in">价值：Go语言生态中构建LLM驱动应用的强大全面支持，大幅加速开发，提升稳定性和可维护性，是<span class="aha-highlight">Go开发者拥抱AI浪潮的理想选择</span>。</p>
+                            <h3 class="text-purple-600 mt-4">增长分析</h3>
+                            <p class="fragment fade-in">该仓库两天内上榜2次，平均每次增加225.5星，表明其增长<span class="emphasize">活跃且具备持续性</span>。尽管总增长为300星，但今日新增303星，显示当前增长势头显著，潜力良好。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- mattermost-community/focalboard -->
+                <section>
+                    <h2 class="text-blue-600">mattermost-community/focalboard</h2>
+                    <p class="text-lg opacity-90 mt-2">Focalboard 是一个开源的、自托管的 Trello、Notion 和 Asana 替代品。</p>
+                    <div class="repo-overview mt-6">
+                        <div class="left-col">
+                            <h3 class="text-purple-600">核心信息</h3>
+                            <ul class="list-none pl-0 text-base">
+                                <li><span class="icon-stat"><i class="fas fa-star"></i><strong>Stars:</strong> 24.3k</span> <span class="icon-stat"><i class="fas fa-code-branch"></i><strong>Forks:</strong> 2.3k</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-eye"></i><strong>Watchers:</strong> 156</span> <span class="icon-stat"><i class="fas fa-exclamation-circle"></i><strong>Issues:</strong> 714</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-exchange-alt"></i><strong>PRs:</strong> 54</span> <span class="icon-stat"><i class="fas fa-box"></i><strong>Releases:</strong> 116</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-file-alt"></i><strong>Commits:</strong> 3,646</span> <span class="icon-stat"><i class="fas fa-balance-scale"></i><strong>License:</strong> 未知</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-users"></i><strong>Contributors:</strong> 272</span></li>
+                            </ul>
+                            <p class="mt-4"><strong class="text-blue-600">编程语言占比:</strong></p>
+                            <div class="lang-breakdown">
+                                <span>TypeScript 54.0%</span><span>Go 40.5%</span><span>SCSS 4.1%</span>
+                            </div>
+                        </div>
+                        <div class="right-col">
+                            <h3 class="text-purple-600">项目速读</h3>
+                            <p class="fragment fade-in">开源、自托管的项目与任务管理工具，旨在替代Trello、Notion、Asana，解决个人和团队对<span class="emphasize">数据主权、隐私和高度自定义</span>的需求。</p>
+                            <p class="fragment fade-in">核心优势：<span class="emphasize">开源、多语言、灵活部署</span>（个人桌面版/个人服务器版），提供Docker镜像；技术栈以TypeScript为主，支持集成与扩展。</p>
+                            <p class="fragment fade-in">价值：为追求数据自主可控、隐私保护的用户提供强大选择，适合个人开发者、小型团队及有严格安全要求的企业。注意：该GitHub仓库<span class="aha-highlight">目前已停止维护</span>。</p>
+                            <h3 class="text-purple-600 mt-4">增长分析</h3>
+                            <p class="fragment fade-in">该仓库在三天内上榜2次，增长趋势稳定且持续。总Star增长达271，其中今天新增30个。这表明其受关注度较高，维持了<span class="emphasize">良好增长势头</span>。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- LMCache/LMCache -->
+                <section>
+                    <h2 class="text-blue-600">LMCache/LMCache</h2>
+                    <p class="text-lg opacity-90 mt-2">凭借最快的KV缓存层，让你的LLM性能飙升。</p>
+                    <div class="repo-overview mt-6">
+                        <div class="left-col">
+                            <h3 class="text-purple-600">核心信息</h3>
+                            <ul class="list-none pl-0 text-base">
+                                <li><span class="icon-stat"><i class="fas fa-star"></i><strong>Stars:</strong> 3.5k</span> <span class="icon-stat"><i class="fas fa-code-branch"></i><strong>Forks:</strong> 404</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-eye"></i><strong>Watchers:</strong> 20</span> <span class="icon-stat"><i class="fas fa-exclamation-circle"></i><strong>Issues:</strong> 261</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-exchange-alt"></i><strong>PRs:</strong> 75</span> <span class="icon-stat"><i class="fas fa-box"></i><strong>Releases:</strong> 11</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-file-alt"></i><strong>Commits:</strong> 533</span> <span class="icon-stat"><i class="fas fa-balance-scale"></i><strong>License:</strong> Apache-2.0</span></li>
+                                <li><span class="icon-stat"><i class="fas fa-users"></i><strong>Contributors:</strong> 95</span></li>
+                            </ul>
+                            <p class="mt-4"><strong class="text-blue-600">编程语言占比:</strong> <span class="lang-breakdown"><span>Python 91.0%</span><span>Cuda 5.4%</span><span>Shell 3.1%</span></span></p>
+                        </div>
+                        <div class="right-col">
+                            <h3 class="text-purple-600">项目速读</h3>
+                            <p class="fragment fade-in">专为LLM服务引擎设计的关键扩展，解决LLM推理中<span class="emphasize">首令牌生成时间过长（TTFT）和吞吐量受限</span>的痛点。</p>
+                            <p class="fragment fade-in">核心创新：提供<span class="emphasize">极致高效的KV缓存管理层</span>，分层存储KV缓存（GPU、CPU、磁盘），复用“任意”可重用文本KV缓存，极大减少重复计算。</p>
+                            <p class="fragment fade-in">价值：与vLLM等推理框架结合时，显著<span class="emphasize">缩短延迟、减少GPU资源消耗</span>；对于构建高效、响应迅速的生成式AI应用具有核心支持，是<span class="aha-highlight">追求极致性能和成本效益的理想方案</span>。</p>
+                            <h3 class="text-purple-600 mt-4">增长分析</h3>
+                            <p class="fragment fade-in">近一月内四次上榜，该仓库显示出<span class="emphasize">持续且稳定的增长趋势</span>。总星数增加1483，平均每次上榜新增179星。今日新增88星，表明其增长势头仍在延续。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Final Slide: Thank You / Call to Action -->
+            <section class="title-slide">
+                <h2 class="text-6xl mb-4">感谢观看！</h2>
+                <h3 class="text-3xl mb-8">把握技术脉搏，抢占未来先机！</h3>
+                <p class="text-xl">期待您的关注与Star！<i class="fas fa-heart text-red-400 ml-2"></i></p>
+
+                <div class="slide-footer">
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-white hover:underline">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Reveal.js Core JavaScript -->
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- Mermaid for diagrams (if any) -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <script>
+        // 初始化 Mermaid
+        mermaid.initialize({ startOnLoad: true });
+
+        // 初始化 Reveal.js
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            
+            // 转场效果
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            transitionSpeed: 'default', // default/fast/slow
+
+            // Vertical slide transitions 默认垂直幻灯片使用 'slide' 效果
+
+            // plugins: [], // 未指定插件，保持最小化
+        });
+
+        // 动态调整底部链接/QR码的颜色以适应背景
+        Reveal.on( 'slidechanged', event => {
+            const footer = document.querySelector('.slide-footer');
+            if (event.currentSlide.classList.contains('title-slide') || event.currentSlide.classList.contains('section-divider')) {
+                footer.classList.remove('light-bg');
+            } else {
+                footer.classList.add('light-bg');
+            }
+        });
+
+        // 首次加载时检查并设置底部样式
+        document.addEventListener('DOMContentLoaded', () => {
+            const footer = document.querySelector('.slide-footer');
+            if (Reveal.getCurrentSlide().classList.contains('title-slide')) {
+                footer.classList.remove('light-bg');
+            } else {
+                footer.classList.add('light-bg');
+            }
+        });
+    </script>
+</body>
+</html>

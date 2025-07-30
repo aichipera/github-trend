@@ -1,0 +1,813 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>洞察GitHub前沿：技术栈升级指南</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        :root {
+            --r-main-font: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: 'Noto Serif SC', serif;
+            --r-background-color: #F8F8F8; /* Light background for white theme */
+            --r-text-color: #1A202C; /* Dark text */
+            --r-link-color: #4A90E2; /* Blue for links */
+            --r-link-color-hover: #357ABD;
+            --r-selection-background-color: #9ECBF1; /* Light blue selection */
+        }
+
+        body {
+            font-family: var(--r-main-font);
+            color: var(--r-text-color);
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--r-text-color);
+            text-transform: none; /* Keep original casing */
+            line-height: 1.2;
+            margin-bottom: 0.5em;
+        }
+
+        .reveal h1 { font-size: 3rem; }
+        .reveal h2 { font-size: 2.5rem; }
+        .reveal h3 { font-size: 2rem; }
+        .reveal p { font-size: 1.2rem; line-height: 1.6; }
+        .reveal li { font-size: 1.2rem; line-height: 1.6; }
+
+        /* Custom styles for "Aha moment" */
+        .aha-highlight {
+            color: var(--r-link-color);
+            font-weight: 700;
+            text-shadow: 0 0 8px rgba(74, 144, 226, 0.5);
+            animation: pulse-glow 1.5s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            from { text-shadow: 0 0 5px rgba(74, 144, 226, 0.4); }
+            to { text-shadow: 0 0 15px rgba(74, 144, 226, 0.8); }
+        }
+
+        .reveal .project-stats p, .reveal .project-lang li {
+            font-size: 1.1rem;
+        }
+
+        .reveal .controls button {
+            color: var(--r-link-color);
+        }
+
+        .reveal .progress span {
+            background: var(--r-link-color);
+        }
+
+        .reveal section img {
+            max-height: 80%;
+            max-width: 80%;
+            margin: 15px 0px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 0;
+            box-shadow: none;
+        }
+
+        .reveal .project-link-qr {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            text-align: right;
+            font-size: 0.9em;
+            color: #666;
+            z-index: 100; /* Ensure it's above other content */
+        }
+        .reveal .project-link-qr img {
+            width: 100px;
+            height: 100px;
+            border: 1px solid #ddd;
+            padding: 5px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .reveal .project-link-qr a {
+            color: var(--r-link-color);
+            text-decoration: none;
+            margin-top: 5px;
+            display: block;
+        }
+        .reveal .project-link-qr a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover Page -->
+            <section data-background-image="https://images.unsplash.com/photo-1510519138101-bc6bd6c7ce7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" data-background-opacity="0.2" data-background-color="#F8F8F8">
+                <h1 class="text-6xl font-serif text-gray-900 mb-4 animate__animated animate__fadeInDown" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+                    洞察GitHub前沿：<br><span class="aha-highlight">实战AI、性能引擎与极简部署</span>
+                </h1>
+                <p class="text-3xl text-gray-700 mb-8 animate__animated animate__fadeInUp" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">
+                    你的技术栈升级指南
+                </p>
+                <p class="text-xl text-gray-600 mb-2 animate__animated animate__fadeInUp animate__delay-1s">
+                    🔥 今日最火爆的开源项目都在这 ⭐️
+                </p>
+                <p class="text-lg text-gray-500 mb-2 animate__animated animate__fadeInUp animate__delay-1-5s">
+                    Github热门仓库观测时间：<strong>2025-07-29 21:08:30</strong>
+                </p>
+                <p class="text-lg text-gray-500 mb-2 animate__animated animate__fadeInUp animate__delay-2s">
+                    演讲者：<strong>AIChipEra</strong>
+                </p>
+                <p class="text-md text-red-500 mt-8 animate__animated animate__fadeInUp animate__delay-2-5s">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！
+                </p>
+
+                <div class="project-link-qr">
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra WeChat QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+            <!-- Slide 2: 日报要点 -->
+            <section data-background-color="#F8F8F8">
+                <h2 class="text-5xl font-serif text-blue-700 mb-6">日报要点概览</h2>
+                <div class="flex justify-center items-center h-full">
+                    <ul class="list-disc list-inside text-left text-2xl space-y-4 px-16">
+                        <li class="fragment fade-in">
+                            <i class="fas fa-rocket text-green-500 mr-3"></i><strong class="aha-highlight">技术范式转移：</strong>从理论探索迈向实用落地，注重解决实际痛点。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-brain text-purple-500 mr-3"></i><strong class="aha-highlight">AI应用深化：</strong>高性能智能应用成为焦点，特别是LLM与AI Agent。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-toolbox text-yellow-500 mr-3"></i><strong class="aha-highlight">开发效率至上：</strong>工具化、"开箱即用"的网络技术流行。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-code text-blue-500 mr-3"></i><strong class="aha-highlight">多语言生态：</strong>Go、Rust等强类型语言崭露头角，与Python、TypeScript并存。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-handshake text-indigo-500 mr-3"></i><strong class="aha-highlight">协作与部署：</strong>简化复杂技术，强调协作与便捷部署能力。
+                        </li>
+                    </ul>
+                </div>
+                <p class="absolute bottom-10 left-10 text-lg text-gray-500">
+                    PPT: <a href="https://aichipera.github.io/github-trend/daily/2025-07-29/ppt.html" target="_blank" class="text-blue-500 hover:underline">https://aichipera.github.io/github-trend/daily/2025-07-29/ppt.html</a>
+                </p>
+            </section>
+
+            <!-- Slide 3: 热门项目趋势分析 - 今日整体趋势 -->
+            <section data-background-color="#F8F8F8">
+                <h2 class="text-5xl font-serif text-blue-700 mb-6">热门项目趋势分析：今日整体概况</h2>
+                <p class="text-xl text-gray-600 mb-8">
+                    今日GitHub热门项目榜单呈现出清晰而多元的技术发展脉络。
+                </p>
+                <div class="text-left text-xl space-y-4 px-16">
+                    <h3 class="text-3xl font-serif text-teal-600 mb-4 fragment fade-in"><i class="fas fa-chart-line mr-3"></i>核心趋势</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li class="fragment fade-in">
+                            <strong class="text-purple-600">人工智能应用深化：</strong> LLM实际应用与开发基础设施（如Go语言AI框架<span class="aha-highlight">Eino</span>）。
+                        </li>
+                        <li class="fragment fade-in">
+                            <strong class="text-yellow-600">开发效率提升：</strong> AI智能体（Agents）与RAG技术成为焦点，提示词优化工具涌现。
+                        </li>
+                        <li class="fragment fade-in">
+                            <strong class="text-green-600">网络技术“开箱即用”：</strong> 简化P2P连接（如Rust的<span class="aha-highlight">Iroh</span>）、一键部署文件服务器（<span class="aha-highlight">copyparty</span>）。
+                        </li>
+                    </ul>
+
+                    <h3 class="text-3xl font-serif text-teal-600 mt-8 mb-4 fragment fade-in"><i class="fas fa-code mr-3"></i>编程语言选择</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li class="fragment fade-in">
+                            <strong class="text-blue-600">Python：</strong> 仍是AI和快速原型开发首选。
+                        </li>
+                        <li class="fragment fade-in">
+                            <strong class="text-indigo-600">TypeScript：</strong> 深入Web开发，渗透AI工具和协作平台。
+                        </li>
+                        <li class="fragment fade-in">
+                            <strong class="text-red-600">Go & Rust：</strong> 性能敏感、高并发、系统级控制场景的优选。
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 4: 热门项目双日维度对比分析 -->
+            <section data-background-color="#F8F8F8">
+                <h2 class="text-5xl font-serif text-blue-700 mb-6">热门项目趋势分析：双日维度对比</h2>
+                <p class="text-xl text-gray-600 mb-8">
+                    积极活跃的GitHub社区图景
+                </p>
+                <div class="text-left text-xl space-y-4 px-16">
+                    <ul class="list-disc list-inside space-y-2">
+                        <li class="fragment fade-in">
+                            <strong class="text-green-600">项目活力：</strong> 新增项目<span class="aha-highlight">6个</span>，上升项目<span class="aha-highlight">4个</span>，下降项目<span class="aha-highlight">零</span>。<br>
+                            <span class="text-gray-500 text-base ml-8"> → 表明社区关注度普遍上升，现有项目吸引力持续。</span>
+                        </li>
+                        <li class="fragment fade-in">
+                            <strong class="text-purple-600">新晋项目特点：</strong> 集中于AI/LLM（`prompt-optimizer`, `claude-code-router`）、跨平台工具（`PowerToys`）、文件共享（`copyparty`）及去中心化技术（`iroh`）。
+                        </li>
+                        <li class="fragment fade-in">
+                            <strong class="text-blue-600">编程语言流向：</strong> Python/JavaScript净流出，<span class="aha-highlight">Rust、Go、C#、TypeScript净流入</span>。<br>
+                            <span class="text-gray-500 text-base ml-8"> → 兴趣转向性能与系统级、现代应用层开发。</span>
+                        </li>
+                        <li class="fragment fade-in">
+                            <strong class="text-yellow-600">涨幅榜首：</strong> <span class="aha-highlight">AI智能体和LLM应用生态</span>项目（`500-AI-Agents-Projects`, `awesome-llm-apps`）占据主导。
+                        </li>
+                        <li class="fragment fade-in">
+                            <strong class="text-red-600">用户粘性：</strong> 零下降项目反映榜单项目普遍享有高用户粘性。
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 5: 热点变化 -->
+            <section data-background-color="#F8F8F8">
+                <h2 class="text-5xl font-serif text-blue-700 mb-8">热点变化一览</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left text-xl px-16">
+                    <div class="fragment fade-in">
+                        <h3 class="text-3xl font-serif text-green-600 mb-4"><i class="fas fa-plus-circle mr-3"></i>新增热点</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>`linshenkx/prompt-optimizer`</li>
+                            <li>`n0-computer/iroh`</li>
+                            <li>`9001/copyparty`</li>
+                            <li>`microsoft/powertoys`</li>
+                            <li>`cloudwego/eino`</li>
+                            <li>`musistudio/claude-code-router`</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h3 class="text-3xl font-serif text-red-600 mb-4"><i class="fas fa-minus-circle mr-3"></i>减退热点</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>`microsoft/generative-ai-for-beginners`</li>
+                            <li>`genesis-embodied-ai/genesis`</li>
+                            <li>`daveebbelaar/ai-cookbook`</li>
+                            <li>`mikf/gallery-dl`</li>
+                            <li>`sillytavern/sillytavern`</li>
+                            <li>`dgtlmoon/changedetection.io`</li>
+                            <li>`mattermost-community/focalboard`</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h3 class="text-3xl font-serif text-purple-600 mb-4"><i class="fas fa-sync-alt mr-3"></i>持续热门</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>`tldr-pages/tldr` (<span class="aha-highlight">3次</span>)</li>
+                            <li>`Shubhamsaboo/awesome-llm-apps` (<span class="aha-highlight">3次</span>)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Detailed Projects Section -->
+            <section>
+                <h2 class="text-5xl font-serif text-blue-700 mb-8">详细仓库数据</h2>
+            </section>
+
+            <!-- Project: 9001/copyparty -->
+            <section data-background-color="#F8F8F8">
+                <h2 class="text-4xl font-serif text-gray-900 mb-4">
+                    9001/copyparty <a href="https://github.com/9001/copyparty" target="_blank" class="text-blue-500 hover:underline text-2xl ml-4"><i class="fab fa-github"></i></a>
+                </h2>
+                <p class="text-xl text-gray-600 mb-6">
+                    便携式文件服务器，支持加速可续传上传、重复数据删除、WebDAV、FTP、TFTP、零配置、媒体索引器、增强型缩略图，所有功能集成于单个文件，无依赖。
+                </p>
+
+                <div class="grid grid-cols-2 gap-4 text-left text-lg mb-6 project-stats">
+                    <div>
+                        <p><i class="fas fa-star text-yellow-500 mr-2"></i><strong>Stars:</strong> 8.8k ⭐ (当日新增: 2504)</p>
+                        <p><i class="fas fa-code-branch text-blue-500 mr-2"></i><strong>Forks:</strong> 260 🔄</p>
+                        <p><i class="fas fa-eye text-green-500 mr-2"></i><strong>Watchers:</strong> 48 👀</p>
+                        <p><i class="fas fa-exclamation-circle text-red-500 mr-2"></i><strong>Issues:</strong> 52 ❗</p>
+                        <p><i class="fas fa-code-pull-request text-purple-500 mr-2"></i><strong>PRs:</strong> 8 🔀</p>
+                    </div>
+                    <div>
+                        <p><i class="fas fa-box-open text-orange-500 mr-2"></i><strong>Releases:</strong> 300 📦</p>
+                        <p><i class="fas fa-code-commit text-gray-500 mr-2"></i><strong>Commits:</strong> 3,719 📝</p>
+                        <p><i class="fas fa-file-contract text-teal-500 mr-2"></i><strong>License:</strong> MIT license 📜</p>
+                        <p><i class="fas fa-users text-indigo-500 mr-2"></i><strong>Contributors:</strong> 24 👥</p>
+                        <p><i class="fas fa-calendar-alt text-gray-500 mr-2"></i><strong>连续在榜:</strong> 1次 | <strong>总上榜:</strong> 1次</p>
+                    </div>
+                </div>
+
+                <div class="mb-6 project-lang">
+                    <h3 class="text-2xl font-serif text-blue-600 mb-2"><i class="fas fa-chart-pie mr-2"></i>主要编程语言</h3>
+                    <ul class="flex flex-wrap justify-center text-lg">
+                        <li class="mr-4"><span class="font-bold text-gray-800">Python:</span> 63.3%</li>
+                        <li class="mr-4"><span class="font-bold text-gray-800">JavaScript:</span> 26.2%</li>
+                        <li class="mr-4"><span class="font-bold text-gray-800">Shell:</span> 3.6%</li>
+                        <li class="mr-4"><span class="font-bold text-gray-800">CSS:</span> 3.5%</li>
+                        <li class="mr-4"><span class="font-bold text-gray-800">HTML:</span> 1.9%</li>
+                        <li class="mr-4"><span class="font-bold text-gray-800">Nix:</span> 0.7%</li>
+                    </ul>
+                </div>
+
+                <hr class="my-6 border-t-2 border-gray-300">
+
+                <h3 class="text-2xl font-serif text-blue-600 mb-2"><i class="fas fa-lightbulb mr-2"></i>项目速读 - 灵光一现 (Aha Moment)</h3>
+                <p class="text-lg text-gray-700 text-left leading-relaxed">
+                    <strong class="aha-highlight">copyparty的核心优势在于极简的部署：所有功能集成于一个文件中，真正实现了“零依赖”。</strong>
+                    它解决了传统文件共享方案部署复杂、功能单一的痛点，通过一个简洁的浏览器界面，即可实现文件的上传、下载、管理与共享。
+                    <span class="fragment fade-in">其功能异常丰富，内建WebDAV、FTP、TFTP等多种协议，极大拓宽了应用场景。用户可通过任何现代浏览器轻松访问，享受直观的文件管理器、缩略图预览、高效的媒体播放器。</span>
+                    <span class="fragment fade-in">还提供了强大的上传机制，包括可续传、文件去重、撤销上传，甚至“边传边下”等高级特性，显著提升了用户体验和效率。</span>
+                </p>
+
+                <h3 class="text-2xl font-serif text-blue-600 mt-6 mb-2"><i class="fas fa-chart-line mr-2"></i>增长分析</h3>
+                <p class="text-lg text-gray-700 text-left leading-relaxed">
+                    高达<strong class="aha-highlight">2504颗星的单日增长</strong>，充分证明了其在文件共享领域的巨大吸引力和实用价值。
+                    <span class="fragment fade-in">无论是作为轻量级的个人文件同步工具、多媒体流媒体服务器，还是面向小型团队的协作平台，copyparty都凭借其强大的功能集、极简的部署和卓越的性能，成为了一个值得信赖的开源选择。</span>
+                </p>
+            </section>
+
+            <!-- Project: cloudwego/eino -->
+            <section data-background-color="#F8F8F8">
+                <h2 class="text-4xl font-serif text-gray-900 mb-4">
+                    cloudwego/eino <a href="https://github.com/cloudwego/eino" target="_blank" class="text-blue-500 hover:underline text-2xl ml-4"><i class="fab fa-github"></i></a>
+                </h2>
+                <p class="text-xl text-gray-600 mb-6">
+                    Go 语言的终极 LLM/AI 应用开发框架。
+                </p>
+
+                <div class="grid grid-cols-2 gap-4 text-left text-lg mb-6 project-stats">
+                    <div>
+                        <p><i class="fas fa-star text-yellow-500 mr-2"></i><strong>Stars:</strong> 5.6k ⭐ (当日新增: 148)</p>
+                        <p><i class="fas fa-code-branch text-blue-500 mr-2"></i><strong>Forks:</strong> 450 🔄</p>
+                        <p><i class="fas fa-eye text-green-500 mr-2"></i><strong>Watchers:</strong> 50 👀</p>
+                        <p><i class="fas fa-exclamation-circle text-red-500 mr-2"></i><strong>Issues:</strong> 42 ❗</p>
+                        <p><i class="fas fa-code-pull-request text-purple-500 mr-2"></i><strong>PRs:</strong> 15 🔀</p>
+                    </div>
+                    <div>
+                        <p><i class="fas fa-box-open text-orange-500 mr-2"></i><strong>Releases:</strong> 56 📦</p>
+                        <p><i class="fas fa-code-commit text-gray-500 mr-2"></i><strong>Commits:</strong> 174 📝</p>
+                        <p><i class="fas fa-file-contract text-teal-500 mr-2"></i><strong>License:</strong> Apache-2.0 license 📜</p>
+                        <p><i class="fas fa-users text-indigo-500 mr-2"></i><strong>Contributors:</strong> 15 👥</p>
+                        <p><i class="fas fa-calendar-alt text-gray-500 mr-2"></i><strong>连续在榜:</strong> 1次 | <strong>总上榜:</strong> 1次</p>
+                    </div>
+                </div>
+
+                <div class="mb-6 project-lang">
+                    <h3 class="text-2xl font-serif text-blue-600 mb-2"><i class="fas fa-chart-pie mr-2"></i>主要编程语言</h3>
+                    <ul class="flex flex-wrap justify-center text-lg">
+                        <li class="mr-4"><span class="font-bold text-gray-800">Go:</span> 100.0%</li>
+                    </ul>
+                </div>
+
+                <hr class="my-6 border-t-2 border-gray-300">
+
+                <h3 class="text-2xl font-serif text-blue-600 mb-2"><i class="fas fa-lightbulb mr-2"></i>项目速读 - 灵光一现 (Aha Moment)</h3>
+                <p class="text-lg text-gray-700 text-left leading-relaxed">
+                    Eino是Go语言生态中一款前瞻性的大型语言模型（LLM）应用开发框架，它直面当前Go语言在AI领域<strong class="aha-highlight">缺乏标准化、高效开发工具的痛点</strong>，致力于提供更符合Go语言特性、注重简洁、可靠与可扩展性的解决方案。
+                    <span class="fragment fade-in">其核心优势在于强大的组件化和编排能力，提供丰富的开箱即用构建模块，并通过Chain和Graph API实现复杂AI工作流。</span>
+                    <span class="fragment fade-in">这些编排机制内置了流式处理、强类型检查、并发管理及切面注入等自动化特性，极大简化了复杂AI工作流的开发。</span>
+                </p>
+
+                <h3 class="text-2xl font-serif text-blue-600 mt-6 mb-2"><i class="fas fa-chart-line mr-2"></i>增长分析</h3>
+                <p class="text-lg text-gray-700 text-left leading-relaxed">
+                    Eino的价值在于它为Go语言开发者构建生产级、高性能LLM应用提供了坚实的基础和加速器，<strong class="aha-highlight">填补了Go在AI框架领域的关键空白</strong>，其快速增长的社区关注度也印证了这一点。
+                </p>
+            </section>
+
+            <!-- Project: n0-computer/iroh -->
+            <section data-background-color="#F8F8F8">
+                <h2 class="text-4xl font-serif text-gray-900 mb-4">
+                    n0-computer/iroh <a href="https://github.com/n0-computer/iroh" target="_blank" class="text-blue-500 hover:underline text-2xl ml-4"><i class="fab fa-github"></i></a>
+                </h2>
+                <p class="text-xl text-gray-600 mb-6">
+                    点对点，开箱即用。
+                </p>
+
+                <div class="grid grid-cols-2 gap-4 text-left text-lg mb-6 project-stats">
+                    <div>
+                        <p><i class="fas fa-star text-yellow-500 mr-2"></i><strong>Stars:</strong> 6.1k ⭐ (当日新增: 388)</p>
+                        <p><i class="fas fa-code-branch text-blue-500 mr-2"></i><strong>Forks:</strong> 276 🔄</p>
+                        <p><i class="fas fa-eye text-green-500 mr-2"></i><strong>Watchers:</strong> 50 👀</p>
+                        <p><i class="fas fa-exclamation-circle text-red-500 mr-2"></i><strong>Issues:</strong> 194 ❗</p>
+                        <p><i class="fas fa-code-pull-request text-purple-500 mr-2"></i><strong>PRs:</strong> 18 🔀</p>
+                    </div>
+                    <div>
+                        <p><i class="fas fa-box-open text-orange-500 mr-2"></i><strong>Releases:</strong> 46 📦</p>
+                        <p><i class="fas fa-code-commit text-gray-500 mr-2"></i><strong>Commits:</strong> 1,901 📝</p>
+                        <p><i class="fas fa-file-contract text-teal-500 mr-2"></i><strong>License:</strong> Apache-2.0 license 📜</p>
+                        <p><i class="fas fa-users text-indigo-500 mr-2"></i><strong>Contributors:</strong> 45 👥</p>
+                        <p><i class="fas fa-calendar-alt text-gray-500 mr-2"></i><strong>连续在榜:</strong> 1次 | <strong>总上榜:</strong> 1次</p>
+                    </div>
+                </div>
+
+                <div class="mb-6 project-lang">
+                    <h3 class="text-2xl font-serif text-blue-600 mb-2"><i class="fas fa-chart-pie mr-2"></i>主要编程语言</h3>
+                    <ul class="flex flex-wrap justify-center text-lg">
+                        <li class="mr-4"><span class="font-bold text-gray-800">Rust:</span> 99.9%</li>
+                        <li class="mr-4"><span class="font-bold text-gray-800">Dockerfile:</span> 0.1%</li>
+                    </ul>
+                </div>
+
+                <hr class="my-6 border-t-2 border-gray-300">
+
+                <h3 class="text-2xl font-serif text-blue-600 mb-2"><i class="fas fa-lightbulb mr-2"></i>项目速读 - 灵光一现 (Aha Moment)</h3>
+                <p class="text-lg text-gray-700 text-left leading-relaxed">
+                    Iroh是一个用Rust开发的P2P网络项目，其核心目标是实现<strong class="aha-highlight">“开箱即用”的P2P连接，彻底简化网络编程的复杂性。</strong>
+                    它旨在为开发者抽象化底层网络细节，解决传统P2P通信中连接不稳、穿透困难及效率低下等痛点。
+                    <span class="fragment fade-in">Iroh的一大亮点在于其卓越的连接鲁棒性：优先通过高性能的“打洞”技术建立直接连接，若受限则无缝可靠地回退到中继服务器，确保连接永不中断。</span>
+                    <span class="fragment fade-in">底层基于QUIC协议构建，赋予了Iroh内置的认证加密、并发流、流量优先级管理等优势，显著提升了数据传输的安全性和效率。</span>
+                </p>
+
+                <h3 class="text-2xl font-serif text-blue-600 mt-6 mb-2"><i class="fas fa-chart-line mr-2"></i>增长分析</h3>
+                <p class="text-lg text-gray-700 text-left leading-relaxed">
+                    Iroh非常适合需要可靠、高效P2P通信的场景，从去中心化数据共享到实时协作，都能提供坚实的基础。其强大的通用性和广阔应用前景备受关注。
+                </p>
+            </section>
+
+            <!-- Project: tldr-pages/tldr -->
+            <section data-background-color="#F8F8F8">
+                <h2 class="text-4xl font-serif text-gray-900 mb-4">
+                    tldr-pages/tldr <a href="https://github.com/tldr-pages/tldr" target="_blank" class="text-blue-500 hover:underline text-2xl ml-4"><i class="fab fa-github"></i></a>
+                </h2>
+                <p class="text-xl text-gray-600 mb-6">
+                    协作式控制台命令速查表。
+                </p>
+
+                <div class="grid grid-cols-2 gap-4 text-left text-lg mb-6 project-stats">
+                    <div>
+                        <p><i class="fas fa-star text-yellow-500 mr-2"></i><strong>Stars:</strong> 57.4k ⭐ (当日新增: 380)</p>
+                        <p><i class="fas fa-code-branch text-blue-500 mr-2"></i><strong>Forks:</strong> 4.6k 🔄</p>
+                        <p><i class="fas fa-eye text-green-500 mr-2"></i><strong>Watchers:</strong> 390 👀</p>
+                        <p><i class="fas fa-exclamation-circle text-red-500 mr-2"></i><strong>Issues:</strong> 179 ❗</p>
+                        <p><i class="fas fa-code-pull-request text-purple-500 mr-2"></i><strong>PRs:</strong> 38 🔀</p>
+                    </div>
+                    <div>
+                        <p><i class="fas fa-box-open text-orange-500 mr-2"></i><strong>Releases:</strong> 6 📦</p>
+                        <p><i class="fas fa-code-commit text-gray-500 mr-2"></i><strong>Commits:</strong> 18,293 📝</p>
+                        <p><i class="fas fa-file-contract text-teal-500 mr-2"></i><strong>License:</strong> 未知 📜</p>
+                        <p><i class="fas fa-users text-indigo-500 mr-2"></i><strong>Contributors:</strong> 2,717 👥</p>
+                        <p><i class="fas fa-calendar-alt text-gray-500 mr-2"></i><strong>连续在榜:</strong> 3次 | <strong>总上榜:</strong> 3次</p>
+                    </div>
+                </div>
+
+                <div class="mb-6 project-lang">
+                    <h3 class="text-2xl font-serif text-blue-600 mb-2"><i class="fas fa-chart-pie mr-2"></i>主要编程语言</h3>
+                    <ul class="flex flex-wrap justify-center text-lg">
+                        <li class="mr-4"><span class="font-bold text-gray-800">Markdown:</span> 99.4%</li>
+                        <li class="mr-4"><span class="font-bold text-gray-800">Other:</span> 0.6%</li>
+                    </ul>
+                </div>
+
+                <hr class="my-6 border-t-2 border-gray-300">
+
+                <h3 class="text-2xl font-serif text-blue-600 mb-2"><i class="fas fa-lightbulb mr-2"></i>项目速读 - 灵光一现 (Aha Moment)</h3>
+                <p class="text-lg text-gray-700 text-left leading-relaxed">
+                    tldr-pages/tldr旨在解决传统man手册<strong class="aha-highlight">信息冗长、新手难以快速掌握命令用法</strong>的痛点，提供简洁、聚焦于实际用例的命令使用示例。
+                    <span class="fragment fade-in">其核心优势体现在“太长不看”（TL;DR）的设计理念上：只提供最常用、最实用的命令示例，有效过滤冗余细节，让用户快速找到所需信息。</span>
+                    <span class="fragment fade-in">内容的社区驱动模式确保了其广泛性、及时性和准确性，涵盖多种操作系统上的常用命令行工具。</span>
+                </p>
+
+                <h3 class="text-2xl font-serif text-blue-600 mt-6 mb-2"><i class="fas fa-chart-line mr-2"></i>增长分析</h3>
+                <p class="text-lg text-gray-700 text-left leading-relaxed">
+                    在极短周期内三度上榜，该仓库增长势头强劲。总星数增长825，平均每次增288。今日新增<strong class="aha-highlight">380星，远超平均水平</strong>，表明增长速度正持续加速，活跃度高。
+                </p>
+            </section>
+
+            <!-- Project: Shubhamsaboo/awesome-llm-apps -->
+            <section data-background-color="#F8F8F8">
+                <h2 class="text-4xl font-serif text-gray-900 mb-4">
+                    Shubhamsaboo/awesome-llm-apps <a href="https://github.com/Shubhamsaboo/awesome-llm-apps" target="_blank" class="text-blue-500 hover:underline text-2xl ml-4"><i class="fab fa-github"></i></a>
+                </h2>
+                <p class="text-xl text-gray-600 mb-6">
+                    优秀LLM应用集，集成AI智能体与RAG技术，支持OpenAI、Anthropic、Gemini及开源模型。
+                </p>
+
+                <div class="grid grid-cols-2 gap-4 text-left text-lg mb-6 project-stats">
+                    <div>
+                        <p><i class="fas fa-star text-yellow-500 mr-2"></i><strong>Stars:</strong> 53.3k ⭐ (当日新增: 639)</p>
+                        <p><i class="fas fa-code-branch text-blue-500 mr-2"></i><strong>Forks:</strong> 6.2k 🔄</p>
+                        <p><i class="fas fa-eye text-green-500 mr-2"></i><strong>Watchers:</strong> 618 👀</p>
+                        <p><i class="fas fa-exclamation-circle text-red-500 mr-2"></i><strong>Issues:</strong> 4 ❗</p>
+                        <p><i class="fas fa-code-pull-request text-purple-500 mr-2"></i><strong>PRs:</strong> 8 🔀</p>
+                    </div>
+                    <div>
+                        <p><i class="fas fa-box-open text-orange-500 mr-2"></i><strong>Releases:</strong> 0 📦</p>
+                        <p><i class="fas fa-code-commit text-gray-500 mr-2"></i><strong>Commits:</strong> 684 📝</p>
+                        <p><i class="fas fa-file-contract text-teal-500 mr-2"></i><strong>License:</strong> Apache-2.0 license 📜</p>
+                        <p><i class="fas fa-users text-indigo-500 mr-2"></i><strong>Contributors:</strong> 45 👥</p>
+                        <p><i class="fas fa-calendar-alt text-gray-500 mr-2"></i><strong>连续在榜:</strong> 3次 | <strong>总上榜:</strong> 23次</p>
+                    </div>
+                </div>
+
+                <div class="mb-6 project-lang">
+                    <h3 class="text-2xl font-serif text-blue-600 mb-2"><i class="fas fa-chart-pie mr-2"></i>主要编程语言</h3>
+                    <ul class="flex flex-wrap justify-center text-lg">
+                        <li class="mr-4"><span class="font-bold text-gray-800">Python:</span> 60.9%</li>
+                        <li class="mr-4"><span class="font-bold text-gray-800">JavaScript:</span> 30.9%</li>
+                        <li class="mr-4"><span class="font-bold text-gray-800">TypeScript:</span> 7.6%</li>
+                    </ul>
+                </div>
+
+                <hr class="my-6 border-t-2 border-gray-300">
+
+                <h3 class="text-2xl font-serif text-blue-600 mb-2"><i class="fas fa-lightbulb mr-2"></i>项目速读 - 灵光一现 (Aha Moment)</h3>
+                <p class="text-lg text-gray-700 text-left leading-relaxed">
+                    "Awesome LLM Apps"致力于收集和展示基于大型语言模型（LLM）构建的优秀应用，旨在为开发者和研究人员提供<strong class="aha-highlight">一个发现、学习并实践LLM前沿技术的综合平台</strong>，解决了LLM理论与实际应用之间的鸿沟。
+                    <span class="fragment fade-in">核心优势在于对AI智能体（AI Agents）和检索增强生成（RAG）技术的深度集成与广泛应用。</span>
+                    <span class="fragment fade-in">它不仅展示了单一智能体运用，更深入探讨了多智能体团队、语音AI智能体以及多通道协议（MCP）智能体等高级协作范式。</span>
+                </p>
+
+                <h3 class="text-2xl font-serif text-blue-600 mt-6 mb-2"><i class="fas fa-chart-line mr-2"></i>增长分析</h3>
+                <p class="text-lg text-gray-700 text-left leading-relaxed">
+                    该仓库增长强劲，得益于频繁上榜（23次），平均每次带来近730星。总增长已达<strong class="aha-highlight">33004星</strong>，当前日增639星，显示其持续高曝光与高吸引力，增长势头非常显著。
+                </p>
+            </section>
+
+            <!-- Project: microsoft/PowerToys -->
+            <section data-background-color="#F8F8F8">
+                <h2 class="text-4xl font-serif text-gray-900 mb-4">
+                    microsoft/PowerToys <a href="https://github.com/microsoft/PowerToys" target="_blank" class="text-blue-500 hover:underline text-2xl ml-4"><i class="fab fa-github"></i></a>
+                </h2>
+                <p class="text-xl text-gray-600 mb-6">
+                    Windows系统实用工具助您最大化生产力。
+                </p>
+
+                <div class="grid grid-cols-2 gap-4 text-left text-lg mb-6 project-stats">
+                    <div>
+                        <p><i class="fas fa-star text-yellow-500 mr-2"></i><strong>Stars:</strong> 121k ⭐ (当日新增: 82)</p>
+                        <p><i class="fas fa-code-branch text-blue-500 mr-2"></i><strong>Forks:</strong> 7.2k 🔄</p>
+                        <p><i class="fas fa-eye text-green-500 mr-2"></i><strong>Watchers:</strong> 1.2k 👀</p>
+                        <p><i class="fas fa-exclamation-circle text-red-500 mr-2"></i><strong>Issues:</strong> 5k+ ❗</p>
+                        <p><i class="fas fa-code-pull-request text-purple-500 mr-2"></i><strong>PRs:</strong> 76 🔀</p>
+                    </div>
+                    <div>
+                        <p><i class="fas fa-box-open text-orange-500 mr-2"></i><strong>Releases:</strong> 116 📦</p>
+                        <p><i class="fas fa-code-commit text-gray-500 mr-2"></i><strong>Commits:</strong> 8,186 📝</p>
+                        <p><i class="fas fa-file-contract text-teal-500 mr-2"></i><strong>License:</strong> MIT license 📜</p>
+                        <p><i class="fas fa-users text-indigo-500 mr-2"></i><strong>Contributors:</strong> 564 👥</p>
+                        <p><i class="fas fa-calendar-alt text-gray-500 mr-2"></i><strong>连续在榜:</strong> 1次 | <strong>总上榜:</strong> 4次</p>
+                    </div>
+                </div>
+
+                <div class="mb-6 project-lang">
+                    <h3 class="text-2xl font-serif text-blue-600 mb-2"><i class="fas fa-chart-pie mr-2"></i>主要编程语言</h3>
+                    <ul class="flex flex-wrap justify-center text-lg">
+                        <li class="mr-4"><span class="font-bold text-gray-800">C#:</span> 59.0%</li>
+                        <li class="mr-4"><span class="font-bold text-gray-800">C++:</span> 38.9%</li>
+                    </ul>
+                </div>
+
+                <hr class="my-6 border-t-2 border-gray-300">
+
+                <h3 class="text-2xl font-serif text-blue-600 mb-2"><i class="fas fa-lightbulb mr-2"></i>项目速读 - 灵光一现 (Aha Moment)</h3>
+                <p class="text-lg text-gray-700 text-left leading-relaxed">
+                    Microsoft PowerToys旨在帮助高级Windows用户<strong class="aha-highlight">最大限度地提升生产力</strong>。它通过提供一系列强大的辅助工具，有效弥补了Windows原生功能在某些高级操作上的不足。
+                    <span class="fragment fade-in">该项目主要以C#开发，采用高度模块化的设计理念，集合了众多独立且高效的实用工具，如FancyZones、PowerToys Run等。</span>
+                    <span class="fragment fade-in">其核心优势在于持续活跃的开发周期、对现代技术的有效集成，以及开放式插件扩展能力，确保了工具集的不断更新与功能丰富。</span>
+                </p>
+
+                <h3 class="text-2xl font-serif text-blue-600 mt-6 mb-2"><i class="fas fa-chart-line mr-2"></i>增长分析</h3>
+                <p class="text-lg text-gray-700 text-left leading-relaxed">
+                    该仓库在近3个月内累计增长3272个Star，但实际上榜仅4次。这表明增长并非来自频繁高曝光，而是依赖周期性爆发或长期积累。尽管单次上榜平均新增Star仅64.2，总增长仍显著，显示持续吸引力。
+                </p>
+            </section>
+
+            <!-- Project: ashishpatel26/500-AI-Agents-Projects -->
+            <section data-background-color="#F8F8F8">
+                <h2 class="text-4xl font-serif text-gray-900 mb-4">
+                    ashishpatel26/500-AI-Agents-Projects <a href="https://github.com/ashishpatel26/500-AI-Agents-Projects" target="_blank" class="text-blue-500 hover:underline text-2xl ml-4"><i class="fab fa-github"></i></a>
+                </h2>
+                <p class="text-xl text-gray-600 mb-6">
+                    “500个AI智能体项目”是涵盖多个行业的AI智能体应用案例精选合集。它展示了实际应用，并提供了可供实施的开源项目链接。
+                </p>
+
+                <div class="grid grid-cols-2 gap-4 text-left text-lg mb-6 project-stats">
+                    <div>
+                        <p><i class="fas fa-star text-yellow-500 mr-2"></i><strong>Stars:</strong> 3.2k ⭐ (当日新增: 818)</p>
+                        <p><i class="fas fa-code-branch text-blue-500 mr-2"></i><strong>Forks:</strong> 689 🔄</p>
+                        <p><i class="fas fa-eye text-green-500 mr-2"></i><strong>Watchers:</strong> 59 👀</p>
+                        <p><i class="fas fa-exclamation-circle text-red-500 mr-2"></i><strong>Issues:</strong> 2 ❗</p>
+                        <p><i class="fas fa-code-pull-request text-purple-500 mr-2"></i><strong>PRs:</strong> 5 🔀</p>
+                    </div>
+                    <div>
+                        <p><i class="fas fa-box-open text-orange-500 mr-2"></i><strong>Releases:</strong> 0 📦</p>
+                        <p><i class="fas fa-code-commit text-gray-500 mr-2"></i><strong>Commits:</strong> 32 📝</p>
+                        <p><i class="fas fa-file-contract text-teal-500 mr-2"></i><strong>License:</strong> 未知 📜</p>
+                        <p><i class="fas fa-users text-indigo-500 mr-2"></i><strong>Contributors:</strong> 4 👥</p>
+                        <p><i class="fas fa-calendar-alt text-gray-500 mr-2"></i><strong>连续在榜:</strong> 2次 | <strong>总上榜:</strong> 2次</p>
+                    </div>
+                </div>
+
+                <div class="mb-6 project-lang">
+                    <h3 class="text-2xl font-serif text-blue-600 mb-2"><i class="fas fa-chart-pie mr-2"></i>主要编程语言</h3>
+                    <p class="text-lg text-gray-800">无主导编程语言（内容精选集）</p>
+                </div>
+
+                <hr class="my-6 border-t-2 border-gray-300">
+
+                <h3 class="text-2xl font-serif text-blue-600 mb-2"><i class="fas fa-lightbulb mr-2"></i>项目速读 - 灵光一现 (Aha Moment)</h3>
+                <p class="text-lg text-gray-700 text-left leading-relaxed">
+                    “500 AI Agents Projects”是一个精心策划的AI代理用例集合，它解决了开发者、研究人员和商业人士在探索AI Agent潜力时，<strong class="aha-highlight">缺乏集中、实用案例和具体实现参考的问题。</strong>
+                    <span class="fragment fade-in">核心优势在于其内容的全面性和实用性。它汇集了超过500个AI Agent在广泛领域的具体应用场景，并创新性地直接链接到相关的开源GitHub项目。</span>
+                    <span class="fragment fade-in">通过按行业和AI Agent开发框架进行细致分类，项目极大地便利了用户查找和学习。</span>
+                </p>
+
+                <h3 class="text-2xl font-serif text-blue-600 mt-6 mb-2"><i class="fas fa-chart-line mr-2"></i>增长分析</h3>
+                <p class="text-lg text-gray-700 text-left leading-relaxed">
+                    该仓库两天内两度上榜，曝光度高。平均单次增长592.5 Star，而今日激增<strong class="aha-highlight">818 Star，增速显著</strong>，显示出强劲的爆发力和持续上升的势头。
+                </p>
+            </section>
+
+            <!-- Project: linshenkx/prompt-optimizer -->
+            <section data-background-color="#F8F8F8">
+                <h2 class="text-4xl font-serif text-gray-900 mb-4">
+                    linshenkx/prompt-optimizer <a href="https://github.com/linshenkx/prompt-optimizer" target="_blank" class="text-blue-500 hover:underline text-2xl ml-4"><i class="fab fa-github"></i></a>
+                </h2>
+                <p class="text-xl text-gray-600 mb-6">
+                    一款提示词优化器，助力于编写高质量的提示词。
+                </p>
+
+                <div class="grid grid-cols-2 gap-4 text-left text-lg mb-6 project-stats">
+                    <div>
+                        <p><i class="fas fa-star text-yellow-500 mr-2"></i><strong>Stars:</strong> 10.9k ⭐ (当日新增: 339)</p>
+                        <p><i class="fas fa-code-branch text-blue-500 mr-2"></i><strong>Forks:</strong> 1.3k 🔄</p>
+                        <p><i class="fas fa-eye text-green-500 mr-2"></i><strong>Watchers:</strong> 38 👀</p>
+                        <p><i class="fas fa-exclamation-circle text-red-500 mr-2"></i><strong>Issues:</strong> 10 ❗</p>
+                        <p><i class="fas fa-code-pull-request text-purple-500 mr-2"></i><strong>PRs:</strong> 0 🔀</p>
+                    </div>
+                    <div>
+                        <p><i class="fas fa-box-open text-orange-500 mr-2"></i><strong>Releases:</strong> 3 📦</p>
+                        <p><i class="fas fa-code-commit text-gray-500 mr-2"></i><strong>Commits:</strong> 349 📝</p>
+                        <p><i class="fas fa-file-contract text-teal-500 mr-2"></i><strong>License:</strong> MIT license 📜</p>
+                        <p><i class="fas fa-users text-indigo-500 mr-2"></i><strong>Contributors:</strong> 12 👥</p>
+                        <p><i class="fas fa-calendar-alt text-gray-500 mr-2"></i><strong>连续在榜:</strong> 1次 | <strong>总上榜:</strong> 2次</p>
+                    </div>
+                </div>
+
+                <div class="mb-6 project-lang">
+                    <h3 class="text-2xl font-serif text-blue-600 mb-2"><i class="fas fa-chart-pie mr-2"></i>主要编程语言</h3>
+                    <ul class="flex flex-wrap justify-center text-lg">
+                        <li class="mr-4"><span class="font-bold text-gray-800">TypeScript:</span> 59.2%</li>
+                        <li class="mr-4"><span class="font-bold text-gray-800">Vue:</span> 22.5%</li>
+                        <li class="mr-4"><span class="font-bold text-gray-800">JavaScript:</span> 13.5%</li>
+                    </ul>
+                </div>
+
+                <hr class="my-6 border-t-2 border-gray-300">
+
+                <h3 class="text-2xl font-serif text-blue-600 mb-2"><i class="fas fa-lightbulb mr-2"></i>项目速读 - 灵光一现 (Aha Moment)</h3>
+                <p class="text-lg text-gray-700 text-left leading-relaxed">
+                    prompt-optimizer是一个高效的提示词优化工具，旨在赋能用户撰写高质量的AI提示词，从而显著提升与LLM交互的输出质量和效率。它核心解决的是<strong class="aha-highlight">AI交互中提示词编写的痛点。</strong>
+                    <span class="fragment fade-in">突出优势在于其智能优化能力、广泛的模型兼容性以及卓越的数据安全性。<strong class="aha-highlight">采用纯客户端处理模式，确保所有数据直接与AI服务商交互，极大保障用户隐私。</strong></span>
+                    <span class="fragment fade-in">提供Web应用、桌面应用、Chrome插件和Docker部署等多样化的使用方式，满足不同场景的需求。</span>
+                </p>
+
+                <h3 class="text-2xl font-serif text-blue-600 mt-6 mb-2"><i class="fas fa-chart-line mr-2"></i>增长分析</h3>
+                <p class="text-lg text-gray-700 text-left leading-relaxed">
+                    该仓库在统计周期内仅上榜2次，但总Star增长高达<strong class="aha-highlight">4294</strong>，远超上榜平均。这表明其在非上榜期间仍有显著持续增长。今日新增339。增长趋势为持续累积型。
+                </p>
+            </section>
+
+            <!-- Project: outline/outline -->
+            <section data-background-color="#F8F8F8">
+                <h2 class="text-4xl font-serif text-gray-900 mb-4">
+                    outline/outline <a href="https://github.com/outline/outline" target="_blank" class="text-blue-500 hover:underline text-2xl ml-4"><i class="fab fa-github"></i></a>
+                </h2>
+                <p class="text-xl text-gray-600 mb-6">
+                    面向成长型团队的最快知识库。精美、实时协作、功能丰富，并兼容 Markdown。
+                </p>
+
+                <div class="grid grid-cols-2 gap-4 text-left text-lg mb-6 project-stats">
+                    <div>
+                        <p><i class="fas fa-star text-yellow-500 mr-2"></i><strong>Stars:</strong> 33.3k ⭐ (当日新增: 269)</p>
+                        <p><i class="fas fa-code-branch text-blue-500 mr-2"></i><strong>Forks:</strong> 2.7k 🔄</p>
+                        <p><i class="fas fa-eye text-green-500 mr-2"></i><strong>Watchers:</strong> 181 👀</p>
+                        <p><i class="fas fa-exclamation-circle text-red-500 mr-2"></i><strong>Issues:</strong> 96 ❗</p>
+                        <p><i class="fas fa-code-pull-request text-purple-500 mr-2"></i><strong>PRs:</strong> 17 🔀</p>
+                    </div>
+                    <div>
+                        <p><i class="fas fa-box-open text-orange-500 mr-2"></i><strong>Releases:</strong> 145 📦</p>
+                        <p><i class="fas fa-code-commit text-gray-500 mr-2"></i><strong>Commits:</strong> 8,147 📝</p>
+                        <p><i class="fas fa-file-contract text-teal-500 mr-2"></i><strong>License:</strong> 未知 📜</p>
+                        <p><i class="fas fa-users text-indigo-500 mr-2"></i><strong>Contributors:</strong> 210 👥</p>
+                        <p><i class="fas fa-calendar-alt text-gray-500 mr-2"></i><strong>连续在榜:</strong> 2次 | <strong>总上榜:</strong> 2次</p>
+                    </div>
+                </div>
+
+                <div class="mb-6 project-lang">
+                    <h3 class="text-2xl font-serif text-blue-600 mb-2"><i class="fas fa-chart-pie mr-2"></i>主要编程语言</h3>
+                    <ul class="flex flex-wrap justify-center text-lg">
+                        <li class="mr-4"><span class="font-bold text-gray-800">TypeScript:</span> 95.9%</li>
+                        <li class="mr-4"><span class="font-bold text-gray-800">JavaScript:</span> 4.0%</li>
+                    </ul>
+                </div>
+
+                <hr class="my-6 border-t-2 border-gray-300">
+
+                <h3 class="text-2xl font-serif text-blue-600 mb-2"><i class="fas fa-lightbulb mr-2"></i>项目速读 - 灵光一现 (Aha Moment)</h3>
+                <p class="text-lg text-gray-700 text-left leading-relaxed">
+                    Outline是专为成长型团队打造的快速、协作式知识库系统，旨在解决团队内部<strong class="aha-highlight">知识分散、共享效率低下的痛点。</strong>
+                    <span class="fragment fade-in">它提供了一个集中化、实时的平台，让团队成员能够高效地创建、编辑和管理各类文档、笔记及重要信息。</span>
+                    <span class="fragment fade-in">凭借其卓越的“快速”和“实时协作”特性脱颖而出，用户无论是选择官方托管服务还是自行部署，都能体验到流畅的文档管理流程。</span>
+                </p>
+
+                <h3 class="text-2xl font-serif text-blue-600 mt-6 mb-2"><i class="fas fa-chart-line mr-2"></i>增长分析</h3>
+                <p class="text-lg text-gray-700 text-left leading-relaxed">
+                    该仓库两天内两次上榜，平均每次贡献143星，今日新增<strong class="aha-highlight">269星</strong>。这显示出项目近期极强的曝光度和持续吸引力，增长势头稳定且活跃，上榜频率高是其关键增长驱动。
+                </p>
+            </section>
+
+            <!-- Project: musistudio/claude-code-router -->
+            <section data-background-color="#F8F8F8">
+                <h2 class="text-4xl font-serif text-gray-900 mb-4">
+                    musistudio/claude-code-router <a href="https://github.com/musistudio/claude-code-router" target="_blank" class="text-blue-500 hover:underline text-2xl ml-4"><i class="fab fa-github"></i></a>
+                </h2>
+                <p class="text-xl text-gray-600 mb-6">
+                    使用Claude Code作为编码基础设施的基础，使您能够决定如何与模型交互，同时获得Anthropic的更新。
+                </p>
+
+                <div class="grid grid-cols-2 gap-4 text-left text-lg mb-6 project-stats">
+                    <div>
+                        <p><i class="fas fa-star text-yellow-500 mr-2"></i><strong>Stars:</strong> 8.4k ⭐ (当日新增: 414)</p>
+                        <p><i class="fas fa-code-branch text-blue-500 mr-2"></i><strong>Forks:</strong> 618 🔄</p>
+                        <p><i class="fas fa-eye text-green-500 mr-2"></i><strong>Watchers:</strong> 37 👀</p>
+                        <p><i class="fas fa-exclamation-circle text-red-500 mr-2"></i><strong>Issues:</strong> 195 ❗</p>
+                        <p><i class="fas fa-code-pull-request text-purple-500 mr-2"></i><strong>PRs:</strong> 13 🔀</p>
+                    </div>
+                    <div>
+                        <p><i class="fas fa-box-open text-orange-500 mr-2"></i><strong>Releases:</strong> 0 📦</p>
+                        <p><i class="fas fa-code-commit text-gray-500 mr-2"></i><strong>Commits:</strong> 117 📝</p>
+                        <p><i class="fas fa-file-contract text-teal-500 mr-2"></i><strong>License:</strong> MIT license 📜</p>
+                        <p><i class="fas fa-users text-indigo-500 mr-2"></i><strong>Contributors:</strong> 10 👥</p>
+                        <p><i class="fas fa-calendar-alt text-gray-500 mr-2"></i><strong>连续在榜:</strong> 1次 | <strong>总上榜:</strong> 6次</p>
+                    </div>
+                </div>
+
+                <div class="mb-6 project-lang">
+                    <h3 class="text-2xl font-serif text-blue-600 mb-2"><i class="fas fa-chart-pie mr-2"></i>主要编程语言</h3>
+                    <ul class="flex flex-wrap justify-center text-lg">
+                        <li class="mr-4"><span class="font-bold text-gray-800">TypeScript:</span> 77.6%</li>
+                        <li class="mr-4"><span class="font-bold text-gray-800">JavaScript:</span> 22.4%</li>
+                    </ul>
+                </div>
+
+                <hr class="my-6 border-t-2 border-gray-300">
+
+                <h3 class="text-2xl font-serif text-blue-600 mb-2"><i class="fas fa-lightbulb mr-2"></i>项目速读 - 灵光一现 (Aha Moment)</h3>
+                <p class="text-lg text-gray-700 text-left leading-relaxed">
+                    Claude Code Router是为Anthropic Claude Code量身打造的强大代理层，它旨在解决将Claude Code的交互<strong class="aha-highlight">局限于单一模型的问题。</strong>
+                    <span class="fragment fade-in">通过创新的智能路由机制，该项目让用户能够根据具体需求，灵活地将请求分发至众多第三方AI模型服务商及其提供的各种模型。</span>
+                    <span class="fragment fade-in">其核心优势在于打破了AI模型供应商的壁垒，支持OpenRouter、DeepSeek、Ollama等广泛的AI模型提供商，并能实现对数据负载的精细化定制和优化。</span>
+                </p>
+
+                <h3 class="text-2xl font-serif text-blue-600 mt-6 mb-2"><i class="fas fa-chart-line mr-2"></i>增长分析</h3>
+                <p class="text-lg text-gray-700 text-left leading-relaxed">
+                    该仓库在约35天内6次上榜，累计增长7155星，展现出强劲持续的增长势头。平均每次上榜新增311.8星。今日<strong class="aha-highlight">414星，高于平均</strong>，表明增长势头良好并有加速迹象。
+                </p>
+            </section>
+
+            <!-- Final Slide: Thank You / Call to Action -->
+            <section data-background-image="https://images.unsplash.com/photo-1507238691740-ad44d8190282?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" data-background-opacity="0.2" data-background-color="#F8F8F8">
+                <h2 class="text-6xl font-serif text-gray-900 mb-8 animate__animated animate__zoomIn" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+                    感谢聆听！<br><span class="aha-highlight">开启你的技术升级之旅</span>
+                </h2>
+                <p class="text-3xl text-gray-700 mb-12 animate__animated animate__fadeInUp animate__delay-1s">
+                    更多前沿洞察，期待与您在GitHub相遇！
+                </p>
+
+                <div class="project-link-qr">
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra WeChat QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            hash: true,
+            transition: 'fade', // 'slide', 'fade', 'convex', 'concave', 'zoom'
+            backgroundTransition: 'fade', // 'slide', 'fade', 'convex', 'concave', 'zoom'
+            fragments: true, // Enable fragments for progressive reveal
+            autoSlide: 0, // Disable auto-slide
+
+            // Optional Reveal.js plugins.
+            plugins: [
+                RevealMermaid
+            ]
+        });
+
+        // Initialize Mermaid for diagrams if any
+        mermaid.initialize({ startOnLoad: false });
+
+        // Add a simple animation for "Aha Moment" sections if desired
+        // This can be extended to use animate.css classes or custom JS animations
+        // For now, the .aha-highlight class already has a CSS animation.
+    </script>
+</body>
+</html>
