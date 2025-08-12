@@ -1,0 +1,949 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GitHub热门新趋势抢先看</title>
+
+    <!-- Core Reveal.js Framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- Extension Dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        :root {
+            --r-main-font: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: 'Noto Serif SC', serif;
+            --r-main-color: #333;
+            --r-heading-color: #1a1a1a;
+            --r-background-color: #f8f8f8;
+            --r-link-color: #2a73cc;
+            --r-link-color-hover: #4d90f2;
+            --r-selection-background-color: #98bdef;
+        }
+
+        body {
+            font-family: var(--r-main-font);
+            color: var(--r-main-color);
+            background-color: var(--r-background-color);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--r-heading-font);
+            color: var(--r-heading-color);
+            text-transform: none; /* Disable default uppercase */
+            font-weight: 700;
+        }
+
+        h1 { font-size: 3.5rem; line-height: 1.2; }
+        h2 { font-size: 2.5rem; line-height: 1.3; }
+        h3 { font-size: 2rem; line-height: 1.4; }
+        h4 { font-size: 1.5rem; line-height: 1.5; }
+        p { font-size: 1.1rem; line-height: 1.6; margin-bottom: 0.8em; }
+        li { font-size: 1rem; line-height: 1.6; margin-bottom: 0.4em; }
+
+        .reveal .slides section .qr-link-container {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .reveal .slides section .qr-link-container img {
+            width: 80px;
+            height: 80px;
+            border-radius: 4px;
+        }
+
+        .reveal .slides section .qr-link-container a {
+            font-size: 0.8rem;
+            color: var(--r-link-color);
+            text-decoration: none;
+        }
+
+        .reveal .slides section .r-stack p {
+            font-size: 1.1rem; /* Adjust for stacked content if needed */
+        }
+
+        .reveal .slides section .r-stack h3 {
+            font-size: 1.8rem;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .highlight-box {
+            background-color: #e0f2fe; /* Light blue */
+            border-left: 6px solid #2196f3; /* Strong blue */
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .icon-text {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .icon-text i {
+            color: #2196f3; /* Consistent icon color */
+        }
+
+        .slide-background-gradient {
+            background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+        }
+
+        .slide-background-hero {
+            background-image: url('https://images.unsplash.com/photo-1516110826046-e3250b73c434?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .slide-background-hero h1, .slide-background-hero h2, .slide-background-hero p {
+            color: white;
+        }
+
+        .project-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px 20px;
+            font-size: 0.95rem;
+            margin-top: 15px;
+            background: #fdfdfd;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .project-meta-grid div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .project-meta-grid i {
+            color: #4a90e2;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .project-lang-bar {
+            background-color: #eee;
+            border-radius: 4px;
+            overflow: hidden;
+            height: 18px;
+            margin-top: 10px;
+            display: flex;
+        }
+
+        .project-lang-segment {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-shadow: 0 0 2px rgba(0,0,0,0.3);
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .lang-color-python { background-color: #4B8BBE; }
+        .lang-color-typescript { background-color: #007ACC; }
+        .lang-color-go { background-color: #00ADD8; }
+        .lang-color-rust { background-color: #DEA584; }
+        .lang-color-java { background-color: #B07219; }
+        .lang-color-cpp { background-color: #00599C; }
+        .lang-color-javascript { background-color: #F7DF1E; }
+        .lang-color-html { background-color: #E34F26; }
+        .lang-color-css { background-color: #1572B6; }
+        .lang-color-shell { background-color: #89E051; }
+        .lang-color-other { background-color: #AAB; }
+        .lang-color-dart { background-color: #00B4AB; }
+        .lang-color-swift { background-color: #F05138; }
+
+        .big-number {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #2a73cc;
+            margin-top: 20px;
+            text-align: center;
+            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .callout {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #3f51b5;
+            margin-top: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover Page -->
+            <section data-background-image="https://images.unsplash.com/photo-1610400030282-3e284a7e945c?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-background-color="#1a202c" data-background-size="cover" data-background-position="center">
+                <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 flex items-center justify-center text-white p-20">
+                    <div class="text-center">
+                        <h2 class="text-white text-5xl font-extrabold mb-4 animate__animated animate__fadeInDown">
+                            <span class="gradient-text">GitHub 热门新趋势</span> 抢先看
+                        </h2>
+                        <h1 class="text-white text-3xl mb-8 animate__animated animate__fadeInUp">
+                            AI长视频生成、智能笔记、单文件共享！
+                        </h1>
+                        <p class="text-xl text-gray-300 animate__animated animate__fadeIn">
+                            你和同行都在寻找的硬核干货！看完必转！
+                        </p>
+                        <p class="text-lg text-gray-400 mt-12 animate__animated animate__fadeInUp animate__delay-1s">
+                            演讲者：AIChipEra<br>
+                            GitHub热门仓库日报观测时间：2025-07-31 21:09:22
+                        </p>
+                        <p class="text-md text-red-300 mt-4 animate__animated animate__fadeInUp animate__delay-1s">
+                            * 以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！
+                        </p>
+                    </div>
+                </div>
+                <div class="qr-link-container">
+                    <img src="../../asserts/wx.jpg" alt="微信二维码">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+            <!-- Slide 2: 日报要点 -->
+            <section class="slide-background-gradient">
+                <h2 class="mb-8">
+                    <i class="fas fa-bullhorn text-blue-600 mr-3"></i>日报要点
+                </h2>
+                <div class="grid grid-cols-2 gap-8 text-left">
+                    <div class="fragment fade-in" data-fragment-index="1">
+                        <h3 class="text-blue-700 mb-4 flex items-center"><i class="fas fa-robot mr-2"></i>AI 突破瓶颈：长视频与智能决策</h3>
+                        <ul class="list-disc ml-6 text-gray-700">
+                            <li><span class="font-bold">AI长视频生成：</span>突破“无限长度”视频生成，拓展电影级内容创作。</li>
+                            <li><span class="font-bold">LLM应用深化：</span>驱动复杂任务，加速商业智能决策（Text-to-SQL/Charts）。</li>
+                            <li><span class="font-bold">本地优先AI：</span>强调数据隐私，AI会议笔记全程本地化。</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in" data-fragment-index="2">
+                        <h3 class="text-green-700 mb-4 flex items-center"><i class="fas fa-tools mr-2"></i>效率与数据主权：开发者新诉求</h3>
+                        <ul class="list-disc ml-6 text-gray-700">
+                            <li><span class="font-bold">极致便携：</span>单文件、无依赖的文件共享工具备受追捧。</li>
+                            <li><span class="font-bold">自托管：</span>书签管理器、远程桌面等强调用户自主控制数据。</li>
+                            <li><span class="font-bold">技术栈：</span>Go、Rust 持续强势，实用型工具成主流。</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fragment fade-in mt-12 text-center text-gray-600 italic">
+                    <p class="text-xl">这不仅是技术革新，更是效率与隐私的双重提升。</p>
+                </div>
+            </section>
+
+            <!-- Slide 3: 热门项目趋势分析 (Main Section) -->
+            <section class="slide-background-hero">
+                <div class="p-20 flex flex-col items-center justify-center h-full text-white bg-black bg-opacity-50">
+                    <h2 class="text-6xl font-extrabold mb-6 animate__animated animate__fadeInDown">
+                        <span class="gradient-text">热门项目</span> 趋势分析
+                    </h2>
+                    <p class="text-2xl text-center leading-relaxed animate__animated animate__fadeInUp">
+                        深入洞察 GitHub 榜单，揭示技术发展新脉络
+                    </p>
+                    <i class="fas fa-chart-line text-7xl mt-12 text-blue-300 animate__animated animate__zoomIn animate__delay-1s"></i>
+                </div>
+            </section>
+
+            <!-- Slide 3.1: 今日整体趋势 -->
+            <section class="slide-background-gradient">
+                <h3 class="mb-6"><i class="fas fa-chart-bar text-purple-600 mr-2"></i>今日整体趋势：AI落地与数据主权</h3>
+                <div class="grid grid-cols-2 gap-6 text-left">
+                    <div class="fragment fade-in" data-fragment-index="1">
+                        <h4 class="text-blue-700 mb-3"><i class="fas fa-magic mr-2"></i>生成式AI：从探索到普及</h4>
+                        <ul class="list-disc ml-6 text-gray-700 text-base">
+                            <li><span class="font-bold">视频生成突破：</span>`SkyReels-V2` (无限长视频), `ComfyUI-WanVideoWrapper` (低显存千帧长视频集成)。</li>
+                            <li><span class="font-bold">LLM应用深化：</span>`OpenPipe/ART` (RL训练LLM代理), `Canner/WrenAI` (LLM赋能BI)。</li>
+                            <li><span class="font-bold">隐私AI：</span>`fastrepl/hyprnote` (本地优先AI会议笔记)。</li>
+                            <li><span class="font-bold">AI工程化：</span>`cloudwego/eino` (Go语言LLM开发框架)。</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in" data-fragment-index="2">
+                        <h4 class="text-green-700 mb-3"><i class="fas fa-user-shield mr-2"></i>工具效率与数据主权</h4>
+                        <ul class="list-disc ml-6 text-gray-700 text-base">
+                            <li><span class="font-bold">核心工具：</span>`puppeteer` (Web自动化), `rustdesk` (远程桌面) 持续关注。</li>
+                            <li><span class="font-bold">自托管/便携：</span>`copyparty` (单文件文件服务器), `linkwarden` (自托管书签)。</li>
+                            <li><span class="font-bold">数据控制：</span>`rustdesk`, `hyprnote`, `linkwarden` 强调隐私。</li>
+                            <li><span class="font-bold">框架演进：</span>`swift-composable-architecture` 稳定增长。</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fragment fade-in mt-8">
+                    <h4 class="text-orange-700 mb-3 text-center"><i class="fas fa-code mr-2"></i>技术栈概览：Python、TS领跑，Go、Rust崛起</h4>
+                    <p class="text-center text-gray-700">Python (AI/Data), TypeScript (Frontend/Fullstack), Go (Concurrency/AI Frameworks), Rust (Performance/System-level).</p>
+                    <p class="text-center text-gray-700 mt-4 italic">今日趋势：实用主义AI，本地化、隐私保护、自主可控。</p>
+                </div>
+            </section>
+
+            <!-- Slide 3.2: 热门项目双日维度对比分析 -->
+            <section class="slide-background-gradient">
+                <h3 class="mb-6"><i class="fas fa-sync-alt text-teal-600 mr-2"></i>热门项目双日维度对比分析</h3>
+                <div class="text-left text-gray-700">
+                    <p class="fragment fade-in" data-fragment-index="1"><i class="fas fa-plus-circle text-green-500 mr-2"></i>当日新晋项目达 <span class="font-bold text-lg text-green-700">11</span> 个，未出现明显下降趋势。</p>
+                    <ul class="list-disc ml-8 mt-4 fragment fade-in" data-fragment-index="2">
+                        <li><span class="font-bold text-blue-700">AI/ML 主导：</span>`SkyReels-V2`, `ART`, `WrenAI` 等。</li>
+                        <li><span class="font-bold text-purple-700">系统工具与框架：</span>`duckstation`, `rustdesk`, `puppeteer`。</li>
+                    </ul>
+                    <p class="mt-6 fragment fade-in" data-fragment-index="3"><i class="fas fa-code-branch text-blue-500 mr-2"></i>编程语言分布：Rust、Swift、C++、TypeScript、Java 均实现净增长。</p>
+                    <ul class="list-disc ml-8 mt-4 fragment fade-in" data-fragment-index="4">
+                        <li><span class="font-bold text-orange-700">Rust 强势：</span>凭借 `rustdesk` 巩固系统级地位。</li>
+                        <li><span class="font-bold text-yellow-700">Python 稳定：</span>虽有新晋，但整体份额相对稳定。</li>
+                    </ul>
+                    <div class="mt-8 fragment fade-in" data-fragment-index="5">
+                        <h4 class="text-center text-red-600 mb-4"><i class="fas fa-star mr-2"></i><span class="gradient-text">爆发式关注：</span><span class="font-bold">9001/copyparty</span></h4>
+                        <p class="text-center text-xl text-gray-800">
+                            单日星标增加 <span class="big-number block">3191</span> 个，涨幅高达 <span class="big-number block">25.8%</span>！
+                        </p>
+                        <p class="callout">预示该项目获得爆发式关注！</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 3.3: 热点变化 -->
+            <section class="slide-background-gradient">
+                <h3 class="mb-6"><i class="fas fa-fire text-red-600 mr-2"></i>热点变化：新旧交替，持续热门</h3>
+                <div class="text-left text-gray-700 grid grid-cols-2 gap-6">
+                    <div class="fragment fade-in" data-fragment-index="1">
+                        <h4 class="text-green-700 mb-3 flex items-center"><i class="fas fa-arrow-up mr-2"></i>新增热点</h4>
+                        <ul class="list-disc ml-6 text-base">
+                            <li>fastrepl/hyprnote (本地AI笔记)</li>
+                            <li>linkwarden/linkwarden (自托管书签)</li>
+                            <li>rustdesk/rustdesk (开源远程桌面)</li>
+                            <li>stenzek/duckstation (PS1 模拟器)</li>
+                            <li>puppeteer/puppeteer (JS 浏览器自动化)</li>
+                            <li>nemproject/nem (NEM 区块链客户端)</li>
+                            <li>kijai/comfyui-wanvideowrapper (ComfyUI 视频集成)</li>
+                            <li>openpipe/art (LLM 强化训练)</li>
+                            <li>pointfreeco/swift-composable-architecture (Swift 应用架构)</li>
+                            <li>canner/wrenai (GenBI 智能体)</li>
+                            <li>skyworkai/skyreels-v2 (无限长影片生成)</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in" data-fragment-index="2">
+                        <h4 class="text-gray-700 mb-3 flex items-center"><i class="fas fa-arrow-down mr-2"></i>减退热点</h4>
+                        <ul class="list-disc ml-6 text-base">
+                            <li>sindresorhus/awesome</li>
+                            <li>lmcache/lmcache</li>
+                            <li>roboflow/supervision</li>
+                            <li>mattermost-community/focalboard</li>
+                            <li>mikf/gallery-dl</li>
+                            <li>tldr-pages/tldr</li>
+                            <li>linshenkx/prompt-optimizer</li>
+                            <li>ashishpatel26/500-ai-agents-projects</li>
+                            <li>outline/outline</li>
+                        </ul>
+                    </div>
+                    <div class="col-span-2 fragment fade-in" data-fragment-index="3">
+                        <h4 class="text-blue-700 mb-3 text-center flex items-center justify-center"><i class="fas fa-bolt mr-2"></i>持续热门</h4>
+                        <ul class="list-disc ml-6 text-base text-center">
+                            <li class="inline-block mx-4"><span class="font-bold text-lg">9001/copyparty</span> (<span class="text-green-600">3次</span>上榜)</li>
+                            <li class="inline-block mx-4"><span class="font-bold text-lg">cloudwego/eino</span> (<span class="text-green-600">3次</span>上榜)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 4: 详细仓库数据 (Main Section) -->
+            <section class="slide-background-hero">
+                <div class="p-20 flex flex-col items-center justify-center h-full text-white bg-black bg-opacity-50">
+                    <h2 class="text-6xl font-extrabold mb-6 animate__animated animate__fadeInDown">
+                        <span class="gradient-text">详细仓库</span> 数据
+                    </h2>
+                    <p class="text-2xl text-center leading-relaxed animate__animated animate__fadeInUp">
+                        聚焦每一个明星项目，洞察其核心价值与增长潜力
+                    </p>
+                    <i class="fas fa-database text-7xl mt-12 text-blue-300 animate__animated animate__zoomIn animate__delay-1s"></i>
+                </div>
+            </section>
+
+            <!-- Project: kijai/ComfyUI-WanVideoWrapper -->
+            <section class="slide-background-gradient">
+                <h3 class="mb-4"><i class="fas fa-video text-blue-600 mr-2"></i>kijai/ComfyUI-WanVideoWrapper</h3>
+                <h4 class="text-lg text-gray-600 mb-6">ComfyUI 的高级视频生成模型集成</h4>
+
+                <div class="project-meta-grid">
+                    <div><i class="fab fa-python"></i>Python</div>
+                    <div><i class="fas fa-star"></i>3.6k Stars</div>
+                    <div><i class="fas fa-arrow-up"></i>32 Star/日</div>
+                    <div><i class="fas fa-chart-line"></i>1次在榜 / 1次总上榜</div>
+                    <div><i class="fas fa-code-branch"></i>266 Forks</div>
+                    <div><i class="fas fa-eye"></i>45 Watchers</div>
+                    <div><i class="fas fa-exclamation-circle"></i>630 Issues</div>
+                    <div><i class="fas fa-code-pull-request"></i>5 PRs</div>
+                    <div><i class="fas fa-box"></i>0 Releases</div>
+                    <div><i class="fas fa-clipboard-list"></i>681 Commits</div>
+                    <div><i class="fas fa-file-contract"></i>Apache-2.0</div>
+                    <div><i class="fas fa-users"></i>16 Contributors</div>
+                </div>
+
+                <div class="project-lang-bar">
+                    <div class="project-lang-segment lang-color-python" style="width: 100%;">Python 100%</div>
+                </div>
+
+                <div class="text-left mt-6">
+                    <h4 class="text-blue-700 mb-2"><i class="fas fa-book-open mr-2"></i>项目速读</h4>
+                    <ul class="list-disc ml-6 text-gray-700 text-base">
+                        <li>作为 ComfyUI 与 WanVideo 视频生成模型生态系统之间的桥梁。</li>
+                        <li>快速集成 ATI、SkyReels 等最新模型，提供个人探索沙盒。</li>
+                        <li><span class="font-bold text-green-700">显著优势：</span>低显存消耗下生成千帧长视频，拓展长内容创作潜力。</li>
+                        <li>对热衷前沿 AI 视频生成技术的开发者和创作者有重要价值。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Project: stenzek/duckstation -->
+            <section class="slide-background-gradient">
+                <h3 class="mb-4"><i class="fas fa-gamepad text-green-600 mr-2"></i>stenzek/duckstation</h3>
+                <h4 class="text-lg text-gray-600 mb-6">快速 PlayStation 1 模拟器</h4>
+
+                <div class="project-meta-grid">
+                    <div><i class="fab fa-playstation"></i>C++</div>
+                    <div><i class="fas fa-star"></i>8.6k Stars</div>
+                    <div><i class="fas fa-arrow-up"></i>23 Star/日</div>
+                    <div><i class="fas fa-chart-line"></i>1次在榜 / 1次总上榜</div>
+                    <div><i class="fas fa-code-branch"></i>772 Forks</div>
+                    <div><i class="fas fa-eye"></i>165 Watchers</div>
+                    <div><i class="fas fa-exclamation-circle"></i>0 Issues</div>
+                    <div><i class="fas fa-code-pull-request"></i>1 PR</div>
+                    <div><i class="fas fa-box"></i>27 Releases</div>
+                    <div><i class="fas fa-clipboard-list"></i>9.9k Commits</div>
+                    <div><i class="fas fa-file-contract"></i>未知</div>
+                    <div><i class="fas fa-users"></i>124 Contributors</div>
+                </div>
+
+                <div class="project-lang-bar">
+                    <div class="project-lang-segment lang-color-cpp" style="width: 78.6%;">C++</div>
+                    <div class="project-lang-segment lang-color-other" style="width: 19.6%;">C</div>
+                    <div class="project-lang-segment lang-color-other" style="width: 1.8%;">Other</div>
+                </div>
+
+                <div class="text-left mt-6">
+                    <h4 class="text-blue-700 mb-2"><i class="fas fa-book-open mr-2"></i>项目速读</h4>
+                    <ul class="list-disc ml-6 text-gray-700 text-base">
+                        <li>高精度PSX模拟器，兼顾速度与可维护性，支持多CPU架构及渲染后端。</li>
+                        <li><span class="font-bold text-green-700">核心优势：</span>强大的图形增强功能（升采样、PGXP等），显著提升PSX视觉效果。</li>
+                        <li>提供即时存档、快速启动、多碟游戏合并等用户友好特性，优化体验。</li>
+                        <li>适用于重温PSX经典游戏，需自行提供PS1 BIOS ROM文件。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Project: SkyworkAI/SkyReels-V2 -->
+            <section class="slide-background-gradient">
+                <h3 class="mb-4"><i class="fas fa-infinity text-orange-600 mr-2"></i>SkyworkAI/SkyReels-V2</h3>
+                <h4 class="text-lg text-gray-600 mb-6">开创性“无限长度”影片生成模型</h4>
+
+                <div class="project-meta-grid">
+                    <div><i class="fab fa-python"></i>Python</div>
+                    <div><i class="fas fa-star"></i>3.7k Stars</div>
+                    <div><i class="fas fa-arrow-up"></i>20 Star/日</div>
+                    <div><i class="fas fa-chart-line"></i>1次在榜 / 1次总上榜</div>
+                    <div><i class="fas fa-code-branch"></i>484 Forks</div>
+                    <div><i class="fas fa-eye"></i>57 Watchers</div>
+                    <div><i class="fas fa-exclamation-circle"></i>39 Issues</div>
+                    <div><i class="fas fa-code-pull-request"></i>7 PRs</div>
+                    <div><i class="fas fa-box"></i>0 Releases</div>
+                    <div><i class="fas fa-clipboard-list"></i>43 Commits</div>
+                    <div><i class="fas fa-file-contract"></i>未知</div>
+                    <div><i class="fas fa-users"></i>11 Contributors</div>
+                </div>
+
+                <div class="project-lang-bar">
+                    <div class="project-lang-segment lang-color-python" style="width: 99.8%;">Python</div>
+                    <div class="project-lang-segment lang-color-other" style="width: 0.2%;">Shell</div>
+                </div>
+
+                <div class="text-left mt-6">
+                    <h4 class="text-blue-700 mb-2"><i class="fas fa-book-open mr-2"></i>项目速读</h4>
+                    <ul class="list-disc ml-6 text-gray-700 text-base">
+                        <li><span class="font-bold text-red-700">突破性：</span>独有“自回归扩散强制”架构，实现持续、连贯的超长视频创作。</li>
+                        <li>提供SOTA模型权重和推理代码，性能达到业界最先进水平。</li>
+                        <li>支持文本/图像生成视频，对现有视频无缝扩展，精确控制起止帧。</li>
+                        <li>为电影、动画、广告等内容创作带来革命性可能，推动视频AI边界。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Project: OpenPipe/ART -->
+            <section class="slide-background-gradient">
+                <h3 class="mb-4"><i class="fas fa-brain text-purple-600 mr-2"></i>OpenPipe/ART</h3>
+                <h4 class="text-lg text-gray-600 mb-6">智能体强化训练器：为LLM代理提供实战训练</h4>
+
+                <div class="project-meta-grid">
+                    <div><i class="fab fa-python"></i>Python</div>
+                    <div><i class="fas fa-star"></i>4k Stars</div>
+                    <div><i class="fas fa-arrow-up"></i>251 Star/日</div>
+                    <div><i class="fas fa-chart-line"></i>1次在榜 / 4次总上榜</div>
+                    <div><i class="fas fa-code-branch"></i>247 Forks</div>
+                    <div><i class="fas fa-eye"></i>27 Watchers</div>
+                    <div><i class="fas fa-exclamation-circle"></i>24 Issues</div>
+                    <div><i class="fas fa-code-pull-request"></i>7 PRs</div>
+                    <div><i class="fas fa-box"></i>35 Releases</div>
+                    <div><i class="fas fa-clipboard-list"></i>746 Commits</div>
+                    <div><i class="fas fa-file-contract"></i>Apache-2.0</div>
+                    <div><i class="fas fa-users"></i>9 Contributors</div>
+                </div>
+
+                <div class="project-lang-bar">
+                    <div class="project-lang-segment lang-color-python" style="width: 91.9%;">Python</div>
+                    <div class="project-lang-segment lang-color-other" style="width: 7.8%;">Jupyter</div>
+                    <div class="project-lang-segment lang-color-other" style="width: 0.3%;">Shell</div>
+                </div>
+
+                <div class="text-left mt-6">
+                    <h4 class="text-blue-700 mb-2"><i class="fas fa-book-open mr-2"></i>项目速读</h4>
+                    <ul class="list-disc ml-6 text-gray-700 text-base">
+                        <li>基于Python的强化学习框架，提升LLMs在复杂多步骤任务中的可靠性。</li>
+                        <li><span class="font-bold text-red-700">核心创新：</span>RULER机制，LLM自动生成奖励分数，消除手动设计奖励函数痛点。</li>
+                        <li>模块化客户端-服务器架构，训练灵活可扩展，支持“随时随地训练”。</li>
+                        <li>降低AI代理开发门槛，加速LLM在现实世界应用的落地。</li>
+                    </ul>
+                </div>
+                <div class="highlight-box mt-4 fragment fade-in" data-fragment-index="1">
+                    <h4 class="text-center text-blue-700 mb-2"><i class="fas fa-chart-pie mr-2"></i>增长分析</h4>
+                    <p class="text-center text-gray-800">短周期内总星数增长 <span class="font-bold text-xl text-green-700">2427</span>，增长强劲。</p>
+                    <p class="text-center text-gray-800">4次上榜，平均每次新增360.8星，显示高关注度及稳定上榜频率。</p>
+                </div>
+            </section>
+
+            <!-- Project: 9001/copyparty -->
+            <section class="slide-background-gradient">
+                <h3 class="mb-4"><i class="fas fa-share-alt text-teal-600 mr-2"></i>9001/copyparty</h3>
+                <h4 class="text-lg text-gray-600 mb-6">单文件、无依赖的便携式文件服务器</h4>
+
+                <div class="project-meta-grid">
+                    <div><i class="fab fa-python"></i>Python</div>
+                    <div><i class="fas fa-star"></i>15.6k Stars</div>
+                    <div><i class="fas fa-arrow-up"></i>3579 Star/日</div>
+                    <div><i class="fas fa-chart-line"></i>3次在榜 / 3次总上榜</div>
+                    <div><i class="fas fa-code-branch"></i>496 Forks</div>
+                    <div><i class="fas fa-eye"></i>71 Watchers</div>
+                    <div><i class="fas fa-exclamation-circle"></i>86 Issues</div>
+                    <div><i class="fas fa-code-pull-request"></i>16 PRs</div>
+                    <div><i class="fas fa-box"></i>302 Releases</div>
+                    <div><i class="fas fa-clipboard-list"></i>3.7k Commits</div>
+                    <div><i class="fas fa-file-contract"></i>MIT</div>
+                    <div><i class="fas fa-users"></i>26 Contributors</div>
+                </div>
+
+                <div class="project-lang-bar">
+                    <div class="project-lang-segment lang-color-python" style="width: 62.3%;">Python</div>
+                    <div class="project-lang-segment lang-color-javascript" style="width: 27.4%;">JS</div>
+                    <div class="project-lang-segment lang-color-shell" style="width: 3.5%;">Shell</div>
+                    <div class="project-lang-segment lang-color-css" style="width: 3.4%;">CSS</div>
+                    <div class="project-lang-segment lang-color-html" style="width: 1.9%;">HTML</div>
+                    <div class="project-lang-segment lang-color-other" style="width: 1.5%;">Other</div>
+                </div>
+
+                <div class="text-left mt-6">
+                    <h4 class="text-blue-700 mb-2"><i class="fas fa-book-open mr-2"></i>项目速读</h4>
+                    <ul class="list-disc ml-6 text-gray-700 text-base">
+                        <li>高度便携、功能丰富的开源文件服务器，将设备轻松转换为文件共享中心。</li>
+                        <li><span class="font-bold text-red-700">核心优势：</span>极致部署简便，一个Python文件即可运行，无额外依赖。</li>
+                        <li>支持HTTP/HTTPS、WebDAV、FTP等多种协议，直观网页界面，拖拽上传/下载。</li>
+                        <li>提供文件去重、媒体索引、实时缩略图、媒体播放器等功能。</li>
+                    </ul>
+                </div>
+                <div class="highlight-box mt-4 fragment fade-in" data-fragment-index="1">
+                    <h4 class="text-center text-blue-700 mb-2"><i class="fas fa-chart-pie mr-2"></i>增长分析</h4>
+                    <p class="text-center text-gray-800">3天内3次上榜，总增长 <span class="font-bold text-xl text-green-700">6755</span> 星。今日新增3579星，势头强劲。</p>
+                </div>
+            </section>
+
+            <!-- Project: puppeteer/puppeteer -->
+            <section class="slide-background-gradient">
+                <h3 class="mb-4"><i class="fab fa-chrome text-blue-600 mr-2"></i>puppeteer/puppeteer</h3>
+                <h4 class="text-lg text-gray-600 mb-6">Chrome 和 Firefox 的 JavaScript API</h4>
+
+                <div class="project-meta-grid">
+                    <div><i class="fab fa-js-square"></i>TypeScript</div>
+                    <div><i class="fas fa-star"></i>91.3k Stars</div>
+                    <div><i class="fas fa-arrow-up"></i>18 Star/日</div>
+                    <div><i class="fas fa-chart-line"></i>1次在榜 / 1次总上榜</div>
+                    <div><i class="fas fa-code-branch"></i>9.2k Forks</div>
+                    <div><i class="fas fa-eye"></i>1.2k Watchers</div>
+                    <div><i class="fas fa-exclamation-circle"></i>258 Issues</div>
+                    <div><i class="fas fa-code-pull-request"></i>12 PRs</div>
+                    <div><i class="fas fa-box"></i>551 Releases</div>
+                    <div><i class="fas fa-clipboard-list"></i>5.6k Commits</div>
+                    <div><i class="fas fa-file-contract"></i>Apache-2.0</div>
+                    <div><i class="fas fa-users"></i>522 Contributors</div>
+                </div>
+
+                <div class="project-lang-bar">
+                    <div class="project-lang-segment lang-color-typescript" style="width: 93.2%;">TS</div>
+                    <div class="project-lang-segment lang-color-javascript" style="width: 5.4%;">JS</div>
+                    <div class="project-lang-segment lang-color-html" style="width: 1.1%;">HTML</div>
+                    <div class="project-lang-segment lang-color-other" style="width: 0.3%;">Other</div>
+                </div>
+
+                <div class="text-left mt-6">
+                    <h4 class="text-blue-700 mb-2"><i class="fas fa-book-open mr-2"></i>项目速读</h4>
+                    <ul class="list-disc ml-6 text-gray-700 text-base">
+                        <li>基于Node.js的库，通过DevTools协议编程控制Chrome/Firefox。</li>
+                        <li><span class="font-bold text-green-700">核心优势：</span>默认“无头模式”运行，资源占用低，适合自动化测试、数据抓取。</li>
+                        <li>API丰富，轻松实现页面导航、元素点击、表单填写、截图/PDF生成。</li>
+                        <li>推动Web自动化测试、高效网页数据抓取等领域发展，业界广泛认可。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Project: Canner/WrenAI -->
+            <section class="slide-background-gradient">
+                <h3 class="mb-4"><i class="fas fa-chart-line text-purple-600 mr-2"></i>Canner/WrenAI</h3>
+                <h4 class="text-lg text-gray-600 mb-6">GenBI 智能体：自然语言查询数据库，秒获洞察</h4>
+
+                <div class="project-meta-grid">
+                    <div><i class="fab fa-js-square"></i>TypeScript</div>
+                    <div><i class="fas fa-star"></i>9k Stars</div>
+                    <div><i class="fas fa-arrow-up"></i>126 Star/日</div>
+                    <div><i class="fas fa-chart-line"></i>1次在榜 / 1次总上榜</div>
+                    <div><i class="fas fa-code-branch"></i>929 Forks</div>
+                    <div><i class="fas fa-eye"></i>65 Watchers</div>
+                    <div><i class="fas fa-exclamation-circle"></i>192 Issues</div>
+                    <div><i class="fas fa-code-pull-request"></i>12 PRs</div>
+                    <div><i class="fas fa-box"></i>136 Releases</div>
+                    <div><i class="fas fa-clipboard-list"></i>1.4k Commits</div>
+                    <div><i class="fas fa-file-contract"></i>AGPL-3.0</div>
+                    <div><i class="fas fa-users"></i>45 Contributors</div>
+                </div>
+
+                <div class="project-lang-bar">
+                    <div class="project-lang-segment lang-color-typescript" style="width: 66.4%;">TS</div>
+                    <div class="project-lang-segment lang-color-python" style="width: 28.2%;">Python</div>
+                    <div class="project-lang-segment lang-color-go" style="width: 2.9%;">Go</div>
+                    <div class="project-lang-segment lang-color-javascript" style="width: 1.7%;">JS</div>
+                    <div class="project-lang-segment lang-color-other" style="width: 0.8%;">Other</div>
+                </div>
+
+                <div class="text-left mt-6">
+                    <h4 class="text-blue-700 mb-2"><i class="fas fa-book-open mr-2"></i>项目速读</h4>
+                    <ul class="list-disc ml-6 text-gray-700 text-base">
+                        <li>开源生成式商业智能（GenBI）代理，革新非技术用户与数据库交互方式。</li>
+                        <li><span class="font-bold text-red-700">核心优势：</span>通过自然语言查询，快速生成准确SQL、可视化图表及AI分析报告。</li>
+                        <li>独特语义层设计（MDL模型），确保LLM输出准确性，避免数据“幻觉”。</li>
+                        <li>适用于快速数据洞察、提升团队数据素养或构建智能数据产品。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Project: pointfreeco/swift-composable-architecture -->
+            <section class="slide-background-gradient">
+                <h3 class="mb-4"><i class="fas fa-layer-group text-yellow-600 mr-2"></i>pointfreeco/swift-composable-architecture</h3>
+                <h4 class="text-lg text-gray-600 mb-6">一致、易懂的应用构建库，兼顾组合性、可测试性</h4>
+
+                <div class="project-meta-grid">
+                    <div><i class="fab fa-swift"></i>Swift</div>
+                    <div><i class="fas fa-star"></i>13.5k Stars</div>
+                    <div><i class="fas fa-arrow-up"></i>7 Star/日</div>
+                    <div><i class="fas fa-chart-line"></i>1次在榜 / 1次总上榜</div>
+                    <div><i class="fas fa-code-branch"></i>1.6k Forks</div>
+                    <div><i class="fas fa-eye"></i>221 Watchers</div>
+                    <div><i class="fas fa-exclamation-circle"></i>14 Issues</div>
+                    <div><i class="fas fa-code-pull-request"></i>7 PRs</div>
+                    <div><i class="fas fa-box"></i>142 Releases</div>
+                    <div><i class="fas fa-clipboard-list"></i>1.6k Commits</div>
+                    <div><i class="fas fa-file-contract"></i>MIT</div>
+                    <div><i class="fas fa-users"></i>242 Contributors</div>
+                </div>
+
+                <div class="project-lang-bar">
+                    <div class="project-lang-segment lang-color-swift" style="width: 99.9%;">Swift</div>
+                    <div class="project-lang-segment lang-color-other" style="width: 0.1%;">Makefile</div>
+                </div>
+
+                <div class="text-left mt-6">
+                    <h4 class="text-blue-700 mb-2"><i class="fas fa-book-open mr-2"></i>项目速读</h4>
+                    <ul class="list-disc ml-6 text-gray-700 text-base">
+                        <li>专为Swift应用设计的库，以一致、可理解的方式构建复杂应用。</li>
+                        <li><span class="font-bold text-green-700">核心：</span>State、Action、Reducer、Store概念，数据流清晰，模块化。</li>
+                        <li>提供高度可测试机制管理异步副作用，天生支持全面单元/集成测试。</li>
+                        <li>简洁API，支持所有Apple平台及SwiftUI/UIKit，适合构建稳定、易维护的大型应用。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Project: fastrepl/hyprnote -->
+            <section class="slide-background-gradient">
+                <h3 class="mb-4"><i class="fas fa-sticky-note text-indigo-600 mr-2"></i>fastrepl/hyprnote</h3>
+                <h4 class="text-lg text-gray-600 mb-6">用于私密会议的本地优先AI记事本</h4>
+
+                <div class="project-meta-grid">
+                    <div><i class="fab fa-js-square"></i>TypeScript</div>
+                    <div><i class="fas fa-star"></i>3.5k Stars</div>
+                    <div><i class="fas fa-arrow-up"></i>466 Star/日</div>
+                    <div><i class="fas fa-chart-line"></i>1次在榜 / 3次总上榜</div>
+                    <div><i class="fas fa-code-branch"></i>181 Forks</div>
+                    <div><i class="fas fa-eye"></i>17 Watchers</div>
+                    <div><i class="fas fa-exclamation-circle"></i>131 Issues</div>
+                    <div><i class="fas fa-code-pull-request"></i>15 PRs</div>
+                    <div><i class="fas fa-box"></i>64 Releases</div>
+                    <div><i class="fas fa-clipboard-list"></i>2.1k Commits</div>
+                    <div><i class="fas fa-file-contract"></i>GPL-3.0</div>
+                    <div><i class="fas fa-users"></i>13 Contributors</div>
+                </div>
+
+                <div class="project-lang-bar">
+                    <div class="project-lang-segment lang-color-typescript" style="width: 56.1%;">TS</div>
+                    <div class="project-lang-segment lang-color-rust" style="width: 41.5%;">Rust</div>
+                    <div class="project-lang-segment lang-color-other" style="width: 2.4%;">Other</div>
+                </div>
+
+                <div class="text-left mt-6">
+                    <h4 class="text-blue-700 mb-2"><i class="fas fa-book-open mr-2"></i>项目速读</h4>
+                    <ul class="list-disc ml-6 text-gray-700 text-base">
+                        <li>本地优先AI会议笔记工具，解决会议记录、总结及隐私痛点。</li>
+                        <li><span class="font-bold text-red-700">核心理念：</span>所有转录、笔记、AI总结均在本地设备完成，杜绝数据泄露。</li>
+                        <li>实时语音转录，智能扩展备忘录为清晰总结。</li>
+                        <li>灵活AI模型支持（本地Ollama、第三方API），适合高数据安全要求专业人士。</li>
+                    </ul>
+                </div>
+                <div class="highlight-box mt-4 fragment fade-in" data-fragment-index="1">
+                    <h4 class="text-center text-blue-700 mb-2"><i class="fas fa-chart-pie mr-2"></i>增长分析</h4>
+                    <p class="text-center text-gray-800">统计期内仅上榜3次，总星增长 <span class="font-bold text-xl text-green-700">2666</span>。今日新增466星，显著高于平均，势头良好。</p>
+                </div>
+            </section>
+
+            <!-- Project: NemProject/nem -->
+            <section class="slide-background-gradient">
+                <h3 class="mb-4"><i class="fab fa-java text-red-600 mr-2"></i>NemProject/nem</h3>
+                <h4 class="text-lg text-gray-600 mb-6">NEM 区块链核心客户端：简化 NIS 部署与运行</h4>
+
+                <div class="project-meta-grid">
+                    <div><i class="fab fa-java"></i>Java</div>
+                    <div><i class="fas fa-star"></i>40 Stars</div>
+                    <div><i class="fas fa-arrow-up"></i>206 Star/日</div>
+                    <div><i class="fas fa-chart-line"></i>1次在榜 / 1次总上榜</div>
+                    <div><i class="fas fa-code-branch"></i>16 Forks</div>
+                    <div><i class="fas fa-eye"></i>15 Watchers</div>
+                    <div><i class="fas fa-exclamation-circle"></i>11 Issues</div>
+                    <div><i class="fas fa-code-pull-request"></i>5 PRs</div>
+                    <div><i class="fas fa-box"></i>1 Release</div>
+                    <div><i class="fas fa-clipboard-list"></i>7.9k Commits</div>
+                    <div><i class="fas fa-file-contract"></i>MIT</div>
+                    <div><i class="fas fa-users"></i>9 Contributors</div>
+                </div>
+
+                <div class="project-lang-bar">
+                    <div class="project-lang-segment lang-color-java" style="width: 89.6%;">Java</div>
+                    <div class="project-lang-segment lang-color-html" style="width: 9.1%;">HTML</div>
+                    <div class="project-lang-segment lang-color-other" style="width: 1.3%;">Other</div>
+                </div>
+
+                <div class="text-left mt-6">
+                    <h4 class="text-blue-700 mb-2"><i class="fas fa-book-open mr-2"></i>项目速读</h4>
+                    <ul class="list-disc ml-6 text-gray-700 text-base">
+                        <li>专为 NEM 区块链设计的核心客户端，简化 NIS（NEM基础设施服务器）部署。</li>
+                        <li><span class="font-bold text-green-700">核心优势：</span>提供一站式解决方案，快速构建并启动NEM节点，无需手动管理复杂依赖。</li>
+                        <li>Java开发，Maven构建，内部结构模块化，保证代码整洁与可维护性。</li>
+                        <li>降低运行NEM节点门槛，促进网络去中心化和稳定运行。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Project: linkwarden/linkwarden -->
+            <section class="slide-background-gradient">
+                <h3 class="mb-4"><i class="fas fa-bookmark text-blue-600 mr-2"></i>linkwarden/linkwarden</h3>
+                <h4 class="text-lg text-gray-600 mb-6">自托管协同书签管理器：永久保存重要内容</h4>
+
+                <div class="project-meta-grid">
+                    <div><i class="fab fa-js-square"></i>TypeScript</div>
+                    <div><i class="fas fa-star"></i>13.3k Stars</div>
+                    <div><i class="fas fa-arrow-up"></i>34 Star/日</div>
+                    <div><i class="fas fa-chart-line"></i>1次在榜 / 1次总上榜</div>
+                    <div><i class="fas fa-code-branch"></i>515 Forks</div>
+                    <div><i class="fas fa-eye"></i>43 Watchers</div>
+                    <div><i class="fas fa-exclamation-circle"></i>392 Issues</div>
+                    <div><i class="fas fa-code-pull-request"></i>17 PRs</div>
+                    <div><i class="fas fa-box"></i>51 Releases</div>
+                    <div><i class="fas fa-clipboard-list"></i>2.3k Commits</div>
+                    <div><i class="fas fa-file-contract"></i>AGPL-3.0</div>
+                    <div><i class="fas fa-users"></i>68 Contributors</div>
+                </div>
+
+                <div class="project-lang-bar">
+                    <div class="project-lang-segment lang-color-typescript" style="width: 88.5%;">TS</div>
+                    <div class="project-lang-segment lang-color-javascript" style="width: 5.5%;">JS</div>
+                    <div class="project-lang-segment lang-color-html" style="width: 4.5%;">HTML</div>
+                    <div class="project-lang-segment lang-color-other" style="width: 1.5%;">Other</div>
+                </div>
+
+                <div class="text-left mt-6">
+                    <h4 class="text-blue-700 mb-2"><i class="fas fa-book-open mr-2"></i>项目速读</h4>
+                    <ul class="list-disc ml-6 text-gray-700 text-base">
+                        <li>自托管协作式书签管理器，彻底解决“链接失效”痛点。</li>
+                        <li><span class="font-bold text-red-700">革命性：</span>自动捕获网页截图、PDF及HTML副本，确保信息永久存取。</li>
+                        <li>提供阅读视图、高亮、批注、本地AI标签，强大全文搜索。</li>
+                        <li>支持多用户协作、自定义权限、公开分享，灵活自托管。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Project: rustdesk/rustdesk -->
+            <section class="slide-background-gradient">
+                <h3 class="mb-4"><i class="fas fa-desktop text-orange-600 mr-2"></i>rustdesk/rustdesk</h3>
+                <h4 class="text-lg text-gray-600 mb-6">专为自托管设计的开源远程桌面应用程序</h4>
+
+                <div class="project-meta-grid">
+                    <div><i class="fab fa-rust"></i>Rust</div>
+                    <div><i class="fas fa-star"></i>94.3k Stars</div>
+                    <div><i class="fas fa-arrow-up"></i>162 Star/日</div>
+                    <div><i class="fas fa-chart-line"></i>1次在榜 / 5次总上榜</div>
+                    <div><i class="fas fa-code-branch"></i>13.8k Forks</div>
+                    <div><i class="fas fa-eye"></i>538 Watchers</div>
+                    <div><i class="fas fa-exclamation-circle"></i>59 Issues</div>
+                    <div><i class="fas fa-code-pull-request"></i>19 PRs</div>
+                    <div><i class="fas fa-box"></i>31 Releases</div>
+                    <div><i class="fas fa-clipboard-list"></i>10.6k Commits</div>
+                    <div><i class="fas fa-file-contract"></i>AGPL-3.0</div>
+                    <div><i class="fas fa-users"></i>336 Contributors</div>
+                </div>
+
+                <div class="project-lang-bar">
+                    <div class="project-lang-segment lang-color-rust" style="width: 66.1%;">Rust</div>
+                    <div class="project-lang-segment lang-color-dart" style="width: 25.7%;">Dart</div>
+                    <div class="project-lang-segment lang-color-cpp" style="width: 2.0%;">C++</div>
+                    <div class="project-lang-segment lang-color-other" style="width: 6.2%;">Other</div>
+                </div>
+
+                <div class="text-left mt-6">
+                    <h4 class="text-blue-700 mb-2"><i class="fas fa-book-open mr-2"></i>项目速读</h4>
+                    <ul class="list-disc ml-6 text-gray-700 text-base">
+                        <li>基于Rust的开源远程桌面，TeamViewer替代方案。</li>
+                        <li><span class="font-bold text-red-700">核心特点：</span>深度支持“自托管”，用户完全掌控远程连接数据流，提升隐私。</li>
+                        <li>Rust语言特性保证性能、内存安全、并发处理，会话流畅稳定。</li>
+                        <li>广泛跨平台支持，提供高效音视频编解码、屏幕捕捉等功能。</li>
+                    </ul>
+                </div>
+                <div class="highlight-box mt-4 fragment fade-in" data-fragment-index="1">
+                    <h4 class="text-center text-blue-700 mb-2"><i class="fas fa-chart-pie mr-2"></i>增长分析</h4>
+                    <p class="text-center text-gray-800">近四个月总增长 <span class="font-bold text-xl text-green-700">9171</span>，增长强劲。</p>
+                    <p class="text-center text-gray-800">虽仅上榜5次，但总增量远超平均，表明非上榜期也持续增长。</p>
+                </div>
+            </section>
+
+            <!-- Project: cloudwego/eino -->
+            <section class="slide-background-gradient">
+                <h3 class="mb-4"><i class="fab fa-golang text-blue-600 mr-2"></i>cloudwego/eino</h3>
+                <h4 class="text-lg text-gray-600 mb-6">Go语言的终极大语言模型/AI应用开发框架</h4>
+
+                <div class="project-meta-grid">
+                    <div><i class="fab fa-golang"></i>Go</div>
+                    <div><i class="fas fa-star"></i>6k Stars</div>
+                    <div><i class="fas fa-arrow-up"></i>304 Star/日</div>
+                    <div><i class="fas fa-chart-line"></i>3次在榜 / 3次总上榜</div>
+                    <div><i class="fas fa-code-branch"></i>470 Forks</div>
+                    <div><i class="fas fa-eye"></i>52 Watchers</div>
+                    <div><i class="fas fa-exclamation-circle"></i>45 Issues</div>
+                    <div><i class="fas fa-code-pull-request"></i>17 PRs</div>
+                    <div><i class="fas fa-box"></i>57 Releases</div>
+                    <div><i class="fas fa-clipboard-list"></i>176 Commits</div>
+                    <div><i class="fas fa-file-contract"></i>Apache-2.0</div>
+                    <div><i class="fas fa-users"></i>15 Contributors</div>
+                </div>
+
+                <div class="project-lang-bar">
+                    <div class="project-lang-segment lang-color-go" style="width: 100%;">Go 100%</div>
+                </div>
+
+                <div class="text-left mt-6">
+                    <h4 class="text-blue-700 mb-2"><i class="fas fa-book-open mr-2"></i>项目速读</h4>
+                    <ul class="list-disc ml-6 text-gray-700 text-base">
+                        <li>基于Go语言的LLM/AI应用开发框架，借鉴LangChain/LlamaIndex思想。</li>
+                        <li><span class="font-bold text-red-700">核心优势：</span>强大“组件”抽象和“编排”能力，简化AI能力构建与集成。</li>
+                        <li>Chain和Graph API，声明式构建复杂AI工作流，自动处理底层细节。</li>
+                        <li>适合Go开发者构建高性能、高并发、易维护的LLM应用，加速AI产品落地。</li>
+                    </ul>
+                </div>
+                <div class="highlight-box mt-4 fragment fade-in" data-fragment-index="1">
+                    <h4 class="text-center text-blue-700 mb-2"><i class="fas fa-chart-pie mr-2"></i>增长分析</h4>
+                    <p class="text-center text-gray-800">短周期内（2025-07-29至07-31）实现显著增长。连续3次上榜。</p>
+                    <p class="text-center text-gray-800">总星增长 <span class="font-bold text-xl text-green-700">478</span>，当次新增304远超平均，增长势头强劲并有加速趋势。</p>
+                </div>
+            </section>
+
+            <!-- Final Slide: Thank You / Call to Action -->
+            <section data-background-image="https://images.unsplash.com/photo-1517457210988-7828458742d1?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-background-color="#1a202c" data-background-size="cover" data-background-position="center">
+                <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-60 flex items-center justify-center text-white p-20">
+                    <div class="text-center">
+                        <h2 class="text-white text-5xl font-extrabold mb-8 animate__animated animate__fadeInDown">
+                            <span class="gradient-text">感谢您的时间！</span>
+                        </h2>
+                        <p class="text-xl text-gray-300 mb-12 animate__animated animate__fadeInUp animate__delay-1s">
+                            希望今天的分享能为您带来一些新的启发与“灵光一现”！
+                        </p>
+                        <h3 class="text-white text-3xl mb-4 animate__animated animate__zoomIn animate__delay-2s">
+                            持续关注，共同探索技术前沿！
+                        </h3>
+                        <p class="text-2xl text-blue-300 font-bold animate__animated animate__pulse animate__infinite animate__delay-3s">
+                            <i class="fab fa-github mr-2"></i> 给我们一个 Star 吧！
+                        </p>
+                    </div>
+                </div>
+                <div class="qr-link-container">
+                    <img src="../../asserts/wx.jpg" alt="微信二维码">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            hash: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+            fragments: true,
+
+            // Learn more here: https://revealjs.com/config/
+            dependencies: [
+                // { src: 'https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js', async: true },
+                { src: 'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js', async: true },
+                { src: 'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js', async: true },
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js', async: true }
+            ]
+        });
+
+        // Initialize Mermaid for any diagrams
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1073 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub趋势深度解读：AI引领、Python霸榜</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <!-- 选用白底主题，并进行自定义覆盖 -->
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <!-- 导入中文字体：标题衬线，正文无衬线 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* 定义主题颜色变量 */
+        :root {
+            --main-color: #2c3e50; /* 深蓝灰色，主要文本 */
+            --accent-color-1: #3498db; /* 亮蓝色，强调色1 */
+            --accent-color-2: #2ecc71; /* 翠绿色，强调色2 */
+            --accent-color-3: #f39c12; /* 活力橙，强调色3 */
+            --background-color: #f8f8f8; /* 浅背景色 */
+            --text-on-dark: #ecf0f1; /* 深色背景上的浅色文本 */
+        }
+
+        /* 全局字体设置 */
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback",
+                         "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--main-color);
+            background-color: var(--background-color);
+        }
+
+        /* Reveal.js 幻灯片内容通用样式 */
+        .reveal .slides section {
+            text-align: left;
+            padding: 2rem 4rem; /* 增加左右留白 */
+            box-sizing: border-box;
+            line-height: 1.5;
+        }
+
+        /* 标题字体 */
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--main-color);
+            margin-bottom: 0.5em;
+            line-height: 1.2;
+        }
+
+        /* 字体层次 */
+        .reveal h1 { font-size: 3.2rem; } /* 2-3rem */
+        .reveal h2 { font-size: 2.5rem; }
+        .reveal h3 { font-size: 1.8rem; } /* 1.5-2rem */
+        .reveal p, .reveal li { font-size: 1.15rem; line-height: 1.7; } /* 1-1.2rem */
+        .reveal small { font-size: 0.8em; }
+
+        /* Reveal.js 控件和进度条颜色 */
+        .reveal .controls { color: var(--accent-color-1); }
+        .reveal .progress { color: var(--accent-color-1); }
+
+        /* 封面幻灯片样式 */
+        .reveal .slide-cover {
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%); /* 深色渐变背景 */
+            color: var(--text-on-dark);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 0;
+            position: relative; /* 用于绝对定位二维码和链接 */
+        }
+
+        .reveal .slide-cover h1 {
+            font-size: 3.8rem;
+            color: #ecf0f1;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+            margin-bottom: 0.2em;
+            line-height: 1.1;
+        }
+
+        .reveal .slide-cover h2 {
+            font-size: 1.8rem;
+            color: #bdc3c7;
+            margin-top: 0;
+            margin-bottom: 0.8em;
+        }
+
+        .reveal .slide-cover p {
+            font-size: 1.2rem;
+            color: #95a5a6;
+            margin-bottom: 0.5em;
+        }
+
+        .reveal .slide-cover .speaker-info {
+            font-size: 1.5rem;
+            color: var(--accent-color-2);
+            position: absolute;
+            bottom: 100px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        /* 首尾页右下角信息 */
+        .reveal .slide-cover .bottom-right-info,
+        .reveal .slide-end .bottom-right-info {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 5px;
+            z-index: 10;
+        }
+        .reveal .slide-cover .bottom-right-info img,
+        .reveal .slide-end .bottom-right-info img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+        .reveal .slide-cover .bottom-right-info a {
+            color: #ecf0f1; /* 深色背景上的浅色链接 */
+            font-size: 0.9em;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .reveal .slide-end .bottom-right-info a {
+            color: var(--main-color); /* 浅色背景上的深色链接 */
+        }
+        .reveal .bottom-right-info a:hover {
+            color: var(--accent-color-1);
+        }
+
+        /* 章节标题幻灯片样式 */
+        .reveal .section-title {
+            background: linear-gradient(45deg, var(--accent-color-1) 0%, var(--accent-color-2) 100%); /* 蓝色到绿色的渐变 */
+            color: var(--text-on-dark);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .reveal .section-title h2 {
+            font-size: 3rem;
+            color: var(--text-on-dark);
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+        }
+
+        /* 内容分片 (fragments) 动画 */
+        .reveal .fragment {
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+        .reveal .fragment.visible {
+            opacity: 1;
+        }
+
+        /* 表格样式 */
+        .reveal table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5em 0;
+            font-size: 0.95em;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .reveal th, .reveal td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .reveal th {
+            background-color: var(--accent-color-1);
+            color: var(--text-on-dark);
+            font-weight: 600;
+        }
+        .reveal tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .reveal tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* 项目详情样式 */
+        .project-meta p {
+            margin-bottom: 0.3em;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+        }
+        .project-meta p i {
+            margin-right: 8px;
+            color: var(--accent-color-1);
+        }
+        .project-language-breakdown {
+            margin-top: 1em;
+            border-top: 1px solid #eee;
+            padding-top: 1em;
+            font-size: 0.9em;
+        }
+        .project-language-breakdown strong {
+            color: var(--accent-color-3);
+        }
+
+        /* 文本强调样式 */
+        .highlight-text {
+            color: var(--accent-color-3); /* 橙色 */
+            font-weight: bold;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .highlight-bg {
+            background-color: var(--accent-color-2); /* 绿色 */
+            color: var(--text-on-dark);
+            padding: 2px 8px;
+            border-radius: 5px;
+            display: inline-block; /* 确保背景色正确应用 */
+        }
+
+        /* 结束幻灯片样式 */
+        .reveal .slide-end {
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%); /* 浅色渐变背景 */
+            color: var(--main-color);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 0;
+            position: relative; /* 用于绝对定位二维码和链接 */
+        }
+        .reveal .slide-end h2 {
+            font-size: 3rem;
+            margin-bottom: 0.5em;
+            color: var(--main-color);
+        }
+        .reveal .slide-end p {
+            font-size: 1.5rem;
+            color: #555;
+            margin-bottom: 2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- 标题页 -->
+            <section class="slide-cover" data-background-image="https://images.unsplash.com/photo-1517430816045-df4b7de1168b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTQ4NzZ8MHwxfHNlYXJjaHw1NXx8QUklMjB0ZWNobm9sb2d5JTIwYWJzdHJhY3R8ZW58MHx8fHwxNzIwMDc5MTIyfDA&ixlib=rb-4.0.3&q=80&w=1920" data-background-size="cover" data-background-position="center">
+                <h1>GitHub趋势深度解读：<br>AI引领、Python霸榜，这些项目是下一个技术风口</h1>
+                <h2>趋势已明，机遇在此！速转技术好友！</h2>
+                <p>Github热门仓库日报观测时间为 2025-08-08 21:09:50</p>
+                <p class="text-sm italic text-gray-400">以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</p>
+                <div class="speaker-info">
+                    <p>演讲者: AIChipEra</p>
+                </div>
+                <div class="bottom-right-info">
+                    <img src="../../asserts/wx.jpg" alt="微信二维码" />
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+            <!-- 日报要点 - 章节标题页 -->
+            <section class="section-title">
+                <h2><i class="fas fa-bullseye"></i> 日报要点</h2>
+            </section>
+
+            <!-- 日报要点 - 内容页 -->
+            <section class="content-slide">
+                <h3><i class="fas fa-chart-line"></i> 榜单概览：整体上扬，新晋与持续热门项目涌现</h3>
+                <p class="fragment" data-fragment-index="1">近期GitHub热门项目榜单<span class="highlight-text">全面上扬</span>，新晋与持续热门项目多达<span class="highlight-text">十余个</span>，共同勾勒出前沿技术发展的清晰脉络。</p>
+                <p class="fragment" data-fragment-index="2">本期榜单最大亮点莫过于<span class="highlight-bg">人工智能领域的爆发式增长</span>，尤其是OpenAI生态下的多个项目强势崛起，印证了AI技术已成为开源社区的<span class="highlight-text">核心驱动力</span>。</p>
+                <p class="fragment" data-fragment-index="3">同时，<span class="highlight-bg">Python语言凭借其强大生态，在热门项目中持续领跑</span>，进一步巩固了其主导地位。</p>
+                <p class="fragment" data-fragment-index="4">金融交易技术与高效开发工具也涌现出<span class="highlight-text">惊人涨幅的潜力项目</span>。</p>
+                <p class="fragment" data-fragment-index="5">此消彼长间，我们为您深度剖析这些趋势背后的技术价值与市场机遇，助您抢占先机，<span class="highlight-bg">把握未来技术风口</span>。</p>
+            </section>
+
+            <!-- 热门项目趋势分析 - 章节标题页 -->
+            <section class="section-title">
+                <h2><i class="fas fa-fire"></i> 热门项目趋势分析</h2>
+            </section>
+
+            <!-- 今日整体趋势 (根据内容调整为趋势分析概述) -->
+            <section class="content-slide">
+                <h3><i class="fas fa-arrow-alt-circle-up"></i> 今日整体趋势：活跃度高，新兴项目持续涌现</h3>
+                <p class="fragment" data-fragment-index="1">当前GitHub热门项目整体呈现<span class="highlight-text">上升态势</span>，新晋项目多达9个。</p>
+                <p class="fragment" data-fragment-index="2">有4个项目呈上升趋势，且<span class="highlight-bg">无项目下降</span>，这表明平台活跃度较高，且有大量新兴项目涌现。</p>
+                <p class="fragment" data-fragment-index="3">人工智能领域，特别是OpenAI生态下的项目，是本次增长的<span class="highlight-text">主要驱动力</span>。</p>
+            </section>
+
+            <!-- 热门项目双日维度对比分析 -->
+            <section class="content-slide">
+                <h3><i class="fas fa-chart-bar"></i> 热门项目双日维度对比分析</h3>
+                <div class="fragment" data-fragment-index="1">
+                    <h4><i class="fas fa-robot"></i> AI领域主导地位</h4>
+                    <ul class="list-disc ml-8">
+                        <li>新晋项目中人工智能领域占据主导地位，特别是OpenAI生态的多个项目密集出现。</li>
+                        <li>如`openai/codex`、`openai/openai-python`等，彰显AI技术在开源社区的强劲发展势头。</li>
+                    </ul>
+                </div>
+                <div class="fragment" data-fragment-index="2">
+                    <h4><i class="fas fa-code"></i> 编程语言：Python持续领跑</h4>
+                    <ul class="list-disc ml-8">
+                        <li>Python优势明显，净增4个项目，进一步巩固其在热门项目中的主导地位。</li>
+                        <li>Rust保持增长，而Go、C、C++、C#等传统语言有小幅回落。</li>
+                    </ul>
+                </div>
+                <div class="fragment" data-fragment-index="3">
+                    <h4><i class="fas fa-rocket"></i> 增长亮点</h4>
+                    <ul class="list-disc ml-8">
+                        <li>本期没有任何项目出现下降趋势，反映整体项目关注度持续走高。</li>
+                        <li>涨幅最大的`nautechsystems/nautilus_trader`以近<span class="highlight-bg">500%的惊人增幅</span>领跑。</li>
+                        <li>`openai/openai-cookbook`表现强劲，显示出金融交易技术与AI应用教程的巨大市场潜力。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 热点变化 -->
+            <section class="content-slide">
+                <h3><i class="fas fa-sync-alt"></i> 热点变化：新旧交替，持续热门</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                    <div class="fragment" data-fragment-index="1">
+                        <h4 class="text-xl text-green-600 mb-2"><i class="fas fa-plus-circle"></i> 新增热点</h4>
+                        <ul class="list-disc list-inside text-sm">
+                            <li>polarsource/polar</li>
+                            <li>google/adk-samples</li>
+                            <li>ffmpeg/asm-lessons</li>
+                            <li>backstage/backstage</li>
+                            <li>python-poetry/poetry</li>
+                            <li>openai/openai-python</li>
+                            <li>google/adk-python</li>
+                            <li>e2b-dev/awesome-ai-agents</li>
+                            <li>openai/codex</li>
+                        </ul>
+                    </div>
+                    <div class="fragment" data-fragment-index="2">
+                        <h4 class="text-xl text-red-600 mb-2"><i class="fas fa-minus-circle"></i> 减退热点</h4>
+                        <ul class="list-disc list-inside text-sm">
+                            <li>datawhalechina/self-llm</li>
+                            <li>simstudioai/sim</li>
+                            <li>ollama/ollama</li>
+                            <li>jesseduffield/lazygit</li>
+                            <li>ethereum/solidity</li>
+                            <li>dotnet/efcore</li>
+                            <li>vllm-project/vllm</li>
+                            <li>lvgl/lvgl</li>
+                            <li>prisma/prisma</li>
+                            <li>xiaoyaocz/dart_simple_live</li>
+                        </ul>
+                    </div>
+                    <div class="fragment" data-fragment-index="3">
+                        <h4 class="text-xl text-yellow-600 mb-2"><i class="fas fa-redo-alt"></i> 持续热门</h4>
+                        <ul class="list-disc list-inside text-sm">
+                            <li>nautechsystems/nautilus_trader (3次)</li>
+                            <li>openai/openai-cookbook (3次)</li>
+                            <li>browserbase/stagehand (3次)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 详细仓库数据 - 章节标题页 -->
+            <section class="section-title">
+                <h2><i class="fas fa-database"></i> 详细仓库数据</h2>
+            </section>
+
+            <!-- 项目详情：nautechsystems/nautilus_trader -->
+            <section>
+                <h3><i class="fas fa-ship"></i> nautechsystems/nautilus_trader</h3>
+                <p class="text-base text-gray-600 mb-4">高性能算法交易平台和事件驱动回测器</p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <h4><i class="fas fa-info-circle"></i> 核心信息</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Rust</td>
+                                    <td>12950</td>
+                                    <td>3次</td>
+                                    <td>501</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="project-meta text-sm mt-4">
+                            <p><i class="fas fa-star"></i> Stars: 13k</p>
+                            <p><i class="fas fa-code-branch"></i> Forks: 1.4k</p>
+                            <p><i class="fas fa-eye"></i> Watchers: 146</p>
+                            <p><i class="fas fa-exclamation-circle"></i> Issues: 71</p>
+                            <p><i class="fas fa-code-merge"></i> Pull Requests: 4</p>
+                            <p><i class="fas fa-box"></i> Releases: 126</p>
+                            <p><i class="fas fa-clipboard"></i> Commits: 15,417</p>
+                            <p><i class="fas fa-certificate"></i> License: LGPL-3.0 license</p>
+                            <p><i class="fas fa-users"></i> Contributors: 86</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4><i class="fas fa-globe"></i> 编程语言占比</h4>
+                        <div class="project-language-breakdown">
+                            <p><strong>Rust</strong> 43.5%, <strong>Python</strong> 40.1%, <strong>Cython</strong> 15.7%, <strong>C</strong> 0.5%, <strong>Shell</strong> 0.1%, <strong>Makefile</strong> 0.1%</p>
+                        </div>
+                        <h4><i class="fas fa-book-open"></i> 项目速读</h4>
+                        <p class="text-sm fragment" data-fragment-index="1">NautilusTrader 是一个专为量化交易打造的高性能、事件驱动平台及回测系统，旨在弥合Python研究环境与生产级实盘部署之间的鸿沟。</p>
+                        <p class="text-sm fragment" data-fragment-index="2">其核心逻辑由 <span class="highlight-text">Rust 编写</span>，通过异步网络实现<span class="highlight-bg">纳秒级的数据处理能力</span>，确保了高频交易场景的严苛要求。</p>
+                        <p class="text-sm fragment" data-fragment-index="3">支持多交易场所、多种资产类别，提供高度灵活的模块化适配器和丰富的订单类型。</p>
+                        <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                        <p class="text-sm fragment" data-fragment-index="4">该仓库增长强劲，总增7735星。实际9次上榜体现持续高曝光度，今日新增501星远超平均，表明增长趋势稳健且呈加速态势，用户关注度高。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 项目详情：openai/openai-cookbook -->
+            <section>
+                <h3><i class="fas fa-book"></i> openai/openai-cookbook</h3>
+                <p class="text-base text-gray-600 mb-4">OpenAI API 使用示例和指南</p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <h4><i class="fas fa-info-circle"></i> 核心信息</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Jupyter Notebook</td>
+                                    <td>66495</td>
+                                    <td>3次</td>
+                                    <td>320</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="project-meta text-sm mt-4">
+                            <p><i class="fas fa-star"></i> Stars: 66.5k</p>
+                            <p><i class="fas fa-code-branch"></i> Forks: 11k</p>
+                            <p><i class="fas fa-eye"></i> Watchers: 970</p>
+                            <p><i class="fas fa-exclamation-circle"></i> Issues: 39</p>
+                            <p><i class="fas fa-code-merge"></i> Pull Requests: 32</p>
+                            <p><i class="fas fa-box"></i> Releases: 0</p>
+                            <p><i class="fas fa-clipboard"></i> Commits: 1,211</p>
+                            <p><i class="fas fa-certificate"></i> License: MIT license</p>
+                            <p><i class="fas fa-users"></i> Contributors: 324</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4><i class="fas fa-globe"></i> 编程语言占比</h4>
+                        <div class="project-language-breakdown">
+                            <p><strong>Jupyter Notebook</strong> 93.9%, <strong>MDX</strong> 6.1%</p>
+                        </div>
+                        <h4><i class="fas fa-book-open"></i> 项目速读</h4>
+                        <p class="text-sm fragment" data-fragment-index="1">OpenAI Cookbook 是OpenAI官方推出的一个GitHub仓库，旨在为开发者提供一系列利用OpenAI API完成各种常见任务的示例代码和操作指南。</p>
+                        <p class="text-sm fragment" data-fragment-index="2">其关键优势在于其<span class="highlight-bg">丰富的Python代码示例</span>（Jupyter Notebook形式），清晰演示如何调用OpenAI API实现核心功能。</p>
+                        <p class="text-sm fragment" data-fragment-index="3">采用宽松的MIT许可证，用户仅需有效OpenAI账户、API密钥及配置好的Python环境。</p>
+                        <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                        <p class="text-sm fragment" data-fragment-index="4">该仓库在约四个月内总增长3633 Star，得益于仅4次上榜的显著带动。今天新增320 Star，远超平均，显示出高效的增长模式和当前强劲的增长势头。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 项目详情：openai/codex -->
+            <section>
+                <h3><i class="fas fa-terminal"></i> openai/codex</h3>
+                <p class="text-base text-gray-600 mb-4">在终端中运行的轻量级编程代理</p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <h4><i class="fas fa-info-circle"></i> 核心信息</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Rust</td>
+                                    <td>32566</td>
+                                    <td>1次</td>
+                                    <td>122</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="project-meta text-sm mt-4">
+                            <p><i class="fas fa-star"></i> Stars: 32.6k</p>
+                            <p><i class="fas fa-code-branch"></i> Forks: 3.8k</p>
+                            <p><i class="fas fa-eye"></i> Watchers: 244</p>
+                            <p><i class="fas fa-exclamation-circle"></i> Issues: 208</p>
+                            <p><i class="fas fa-code-merge"></i> Pull Requests: 63</p>
+                            <p><i class="fas fa-box"></i> Releases: 61</p>
+                            <p><i class="fas fa-clipboard"></i> Commits: 718</p>
+                            <p><i class="fas fa-certificate"></i> License: Apache-2.0 license</p>
+                            <p><i class="fas fa-users"></i> Contributors: 129</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4><i class="fas fa-globe"></i> 编程语言占比</h4>
+                        <div class="project-language-breakdown">
+                            <p><strong>Rust</strong> 62.0%, <strong>TypeScript</strong> 31.5%, <strong>Python</strong> 3.3%, <strong>JavaScript</strong> 1.5%, <strong>Shell</strong> 1.0%, <strong>Jupyter Notebook</strong> 0.3%, <strong>Other</strong> 0.4%</p>
+                        </div>
+                        <h4><i class="fas fa-book-open"></i> 项目速读</h4>
+                        <p class="text-sm fragment" data-fragment-index="1">OpenAI Codex CLI 是一个由 OpenAI 推出的、在终端本地运行的智能编码代理，尤其适用于对延迟和数据隐私有严格要求的场景。</p>
+                        <p class="text-sm fragment" data-fragment-index="2">核心优势在于其<span class="highlight-bg">本地化运行能力</span>，显著降低响应延迟，通过强大的安全沙盒机制，赋予用户对AI操作的高度控制权。</p>
+                        <p class="text-sm fragment" data-fragment-index="3">能够理解自然语言指令，执行代码重构、单元测试生成等复杂任务，并开放支持兼容OpenAI Chat Completions API的开源模型。</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 项目详情：netbirdio/netbird -->
+            <section>
+                <h3><i class="fas fa-network-wired"></i> netbirdio/netbird</h3>
+                <p class="text-base text-gray-600 mb-4">将您的设备连接到一个基于WireGuard®的安全叠加网络，并具备单点登录、多因素认证和精细访问控制。</p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <h4><i class="fas fa-info-circle"></i> 核心信息</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Go</td>
+                                    <td>17852</td>
+                                    <td>2次</td>
+                                    <td>197</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="project-meta text-sm mt-4">
+                            <p><i class="fas fa-star"></i> Stars: 17.9k</p>
+                            <p><i class="fas fa-code-branch"></i> Forks: 828</p>
+                            <p><i class="fas fa-eye"></i> Watchers: 109</p>
+                            <p><i class="fas fa-exclamation-circle"></i> Issues: 846</p>
+                            <p><i class="fas fa-code-merge"></i> Pull Requests: 52</p>
+                            <p><i class="fas fa-box"></i> Releases: 246</p>
+                            <p><i class="fas fa-clipboard"></i> Commits: 2,258</p>
+                            <p><i class="fas fa-certificate"></i> License: 未知</p>
+                            <p><i class="fas fa-users"></i> Contributors: 106</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4><i class="fas fa-globe"></i> 编程语言占比</h4>
+                        <div class="project-language-breakdown">
+                            <p><strong>Go</strong> 98.7%, <strong>Shell</strong> 1.2%, <strong>Other</strong> 0.1%</p>
+                        </div>
+                        <h4><i class="fas fa-book-open"></i> 项目速读</h4>
+                        <p class="text-sm fragment" data-fragment-index="1">NetBird是一个基于Go语言开发的开源网络安全平台，通过构建免配置、基于WireGuard®的点对点（P2P）叠加网络，消除复杂配置。</p>
+                        <p class="text-sm fragment" data-fragment-index="2">核心优势在于<span class="highlight-bg">自动化、卓越的安全性和无缝管理体验</span>，集成了SSO、MFA、细粒度访问控制，甚至量子抗性加密。</p>
+                        <p class="text-sm fragment" data-fragment-index="3">适用于远程团队协作、多云混合部署，或连接物联网设备，是现代分布式与混合云环境下的理想安全连接方案。</p>
+                        <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                        <p class="text-sm fragment" data-fragment-index="4">该仓库在两个月内增长3861星，共6次上榜，平均每次新增201星。当日新增197星，与平均值接近，表明增长趋势稳定且持续，活跃度良好。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 项目详情：FFmpeg/asm-lessons -->
+            <section>
+                <h3><i class="fas fa-code"></i> FFmpeg/asm-lessons</h3>
+                <p class="text-base text-gray-600 mb-4">FFMPEG 汇编语言教程</p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <h4><i class="fas fa-info-circle"></i> 核心信息</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>未标注</td>
+                                    <td>7534</td>
+                                    <td>1次</td>
+                                    <td>477</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="project-meta text-sm mt-4">
+                            <p><i class="fas fa-star"></i> Stars: 7.5k</p>
+                            <p><i class="fas fa-code-branch"></i> Forks: 209</p>
+                            <p><i class="fas fa-eye"></i> Watchers: 139</p>
+                            <p><i class="fas fa-exclamation-circle"></i> Issues: 2</p>
+                            <p><i class="fas fa-code-merge"></i> Pull Requests: 11</p>
+                            <p><i class="fas fa-box"></i> Releases: 0</p>
+                            <p><i class="fas fa-clipboard"></i> Commits: 39</p>
+                            <p><i class="fas fa-certificate"></i> License: 未知</p>
+                            <p><i class="fas fa-users"></i> Contributors: 10</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4><i class="fas fa-book-open"></i> 项目速读</h4>
+                        <p class="text-sm fragment" data-fragment-index="1">FFmpeg/asm-lessons 是一个专为汇编语言学习者打造的教育项目，旨在系统地教授汇编语言编程及其在FFmpeg中的实际应用。</p>
+                        <p class="text-sm fragment" data-fragment-index="2">核心优势在于提供<span class="highlight-bg">结构化的课程内容</span>，目标是赋能学员为FFmpeg项目做出贡献，被誉为“最有趣、最具挑战性、回报最丰厚”的编程旅程。</p>
+                        <p class="text-sm fragment" data-fragment-index="3">帮助学员突破传统编程思维，触及系统性能优化的深层奥秘，并提供活跃的Discord社区。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 项目详情：polarsource/polar -->
+            <section>
+                <h3><i class="fas fa-store"></i> polarsource/polar</h3>
+                <p class="text-base text-gray-600 mb-4">您数字产品的开源引擎。数分钟内即可销售SaaS和数字产品。</p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <h4><i class="fas fa-info-circle"></i> 核心信息</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Python</td>
+                                    <td>6029</td>
+                                    <td>1次</td>
+                                    <td>33</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="project-meta text-sm mt-4">
+                            <p><i class="fas fa-star"></i> Stars: 6k</p>
+                            <p><i class="fas fa-code-branch"></i> Forks: 381</p>
+                            <p><i class="fas fa-eye"></i> Watchers: 19</p>
+                            <p><i class="fas fa-exclamation-circle"></i> Issues: 143</p>
+                            <p><i class="fas fa-code-merge"></i> Pull Requests: 22</p>
+                            <p><i class="fas fa-box"></i> Releases: 25</p>
+                            <p><i class="fas fa-clipboard"></i> Commits: 10,022</p>
+                            <p><i class="fas fa-certificate"></i> License: Apache-2.0 license</p>
+                            <p><i class="fas fa-users"></i> Contributors: 67</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4><i class="fas fa-globe"></i> 编程语言占比</h4>
+                        <div class="project-language-breakdown">
+                            <p><strong>Python</strong> 55.6%, <strong>TypeScript</strong> 41.6%, <strong>MDX</strong> 1.7%, <strong>JavaScript</strong> 1.0%, <strong>SCSS</strong> 0.1%, <strong>Dockerfile</strong> 0.0%</p>
+                        </div>
+                        <h4><i class="fas fa-book-open"></i> 项目速读</h4>
+                        <p class="text-sm fragment" data-fragment-index="1">Polar是一个开源的、为21世纪开发者量身打造的数字产品变现引擎，旨在解决开发者销售SaaS和数字产品时面临的支付、税务与合规性难题。</p>
+                        <p class="text-sm fragment" data-fragment-index="2">核心优势在于<span class="highlight-bg">极速变现能力</span>，数分钟内即可启动销售，支持多样化的数字商品形式和订阅模式。</p>
+                        <p class="text-sm fragment" data-fragment-index="3">采用Python的FastAPI和Next.js/TypeScript构建，体现了坚实的技术栈，并采用按交易收费模式，无固定月费。</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 项目详情：python-poetry/poetry -->
+            <section>
+                <h3><i class="fas fa-box-open"></i> python-poetry/poetry</h3>
+                <p class="text-base text-gray-600 mb-4">Python 包管理和依赖管理变得简单</p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <h4><i class="fas fa-info-circle"></i> 核心信息</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Python</td>
+                                    <td>33714</td>
+                                    <td>1次</td>
+                                    <td>15</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="project-meta text-sm mt-4">
+                            <p><i class="fas fa-star"></i> Stars: 33.7k</p>
+                            <p><i class="fas fa-code-branch"></i> Forks: 2.4k</p>
+                            <p><i class="fas fa-eye"></i> Watchers: 190</p>
+                            <p><i class="fas fa-exclamation-circle"></i> Issues: 524</p>
+                            <p><i class="fas fa-code-merge"></i> Pull Requests: 66</p>
+                            <p><i class="fas fa-box"></i> Releases: 142</p>
+                            <p><i class="fas fa-clipboard"></i> Commits: 3,602</p>
+                            <p><i class="fas fa-certificate"></i> License: MIT license</p>
+                            <p><i class="fas fa-users"></i> Contributors: 598</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4><i class="fas fa-globe"></i> 编程语言占比</h4>
+                        <div class="project-language-breakdown">
+                            <p><strong>Python</strong> 88.7%, <strong>HTML</strong> 11.3%</p>
+                        </div>
+                        <h4><i class="fas fa-book-open"></i> 项目速读</h4>
+                        <p class="text-sm fragment" data-fragment-index="1">Poetry是一个专为Python项目设计的现代化打包与依赖管理工具，致力于解决传统Python项目配置繁琐、依赖管理混乱等痛点。</p>
+                        <p class="text-sm fragment" data-fragment-index="2">核心优势在于通过一个<span class="highlight-bg">简洁的pyproject.toml文件统一管理所有项目配置</span>，提供强大的依赖管理能力。</p>
+                        <p class="text-sm fragment" data-fragment-index="3">它能便捷地管理和激活虚拟环境，并支持定义命令行脚本，成为Python开发者提升工作效率的理想选择。</p>
+                        <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                        <p class="text-sm fragment" data-fragment-index="4">该仓库在3天内仅上榜2次，增长不持续。每次上榜平均新增13星，今日新增15星，显示上榜时有小幅稳定增长。总星数增长172。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 项目详情：google/adk-python -->
+            <section>
+                <h3><i class="fas fa-brain"></i> google/adk-python</h3>
+                <p class="text-base text-gray-600 mb-4">一个开源的、代码优先的Python工具包，用于灵活可控地构建、评估和部署复杂的AI智能体。</p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <h4><i class="fas fa-info-circle"></i> 核心信息</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Python</td>
+                                    <td>11701</td>
+                                    <td>1次</td>
+                                    <td>78</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="project-meta text-sm mt-4">
+                            <p><i class="fas fa-star"></i> Stars: 11.7k</p>
+                            <p><i class="fas fa-code-branch"></i> Forks: 1.6k</p>
+                            <p><i class="fas fa-eye"></i> Watchers: 99</p>
+                            <p><i class="fas fa-exclamation-circle"></i> Issues: 533</p>
+                            <p><i class="fas fa-code-merge"></i> Pull Requests: 172</p>
+                            <p><i class="fas fa-box"></i> Releases: 19</p>
+                            <p><i class="fas fa-clipboard"></i> Commits: 964</p>
+                            <p><i class="fas fa-certificate"></i> License: Apache-2.0 license</p>
+                            <p><i class="fas fa-users"></i> Contributors: 115</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4><i class="fas fa-globe"></i> 编程语言占比</h4>
+                        <div class="project-language-breakdown">
+                            <p><strong>Python</strong> 98.6%, <strong>HTML</strong> 1.3%, <strong>Other</strong> 0.1%</p>
+                        </div>
+                        <h4><i class="fas fa-book-open"></i> 项目速读</h4>
+                        <p class="text-sm fragment" data-fragment-index="1">Google 开源的 Agent Development Kit (ADK) 是一个代码优先的 Python 工具包，旨在革新复杂 AI 智能体的构建、评估与部署流程。</p>
+                        <p class="text-sm fragment" data-fragment-index="2">ADK 的核心优势在于其<span class="highlight-bg">“代码优先”设计理念</span>，允许开发者直接在 Python 中定义智能体逻辑，确保了极致的灵活性与可测试性。</p>
+                        <p class="text-sm fragment" data-fragment-index="3">它能够构建模块化的多智能体系统，实现应用程序的横向扩展和复杂协作，并保持模型与部署无关性。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 项目详情：browserbase/stagehand -->
+            <section>
+                <h3><i class="fas fa-globe-americas"></i> browserbase/stagehand</h3>
+                <p class="text-base text-gray-600 mb-4">AI浏览器自动化框架</p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <h4><i class="fas fa-info-circle"></i> 核心信息</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>TypeScript</td>
+                                    <td>15821</td>
+                                    <td>3次</td>
+                                    <td>314</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="project-meta text-sm mt-4">
+                            <p><i class="fas fa-star"></i> Stars: 15.8k</p>
+                            <p><i class="fas fa-code-branch"></i> Forks: 944</p>
+                            <p><i class="fas fa-eye"></i> Watchers: 72</p>
+                            <p><i class="fas fa-exclamation-circle"></i> Issues: 57</p>
+                            <p><i class="fas fa-code-merge"></i> Pull Requests: 36</p>
+                            <p><i class="fas fa-box"></i> Releases: 27</p>
+                            <p><i class="fas fa-clipboard"></i> Commits: 564</p>
+                            <p><i class="fas fa-certificate"></i> License: MIT license</p>
+                            <p><i class="fas fa-users"></i> Contributors: 39</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4><i class="fas fa-globe"></i> 编程语言占比</h4>
+                        <div class="project-language-breakdown">
+                            <p><strong>TypeScript</strong> 99.6%, <strong>Other</strong> 0.4%</p>
+                        </div>
+                        <h4><i class="fas fa-book-open"></i> 项目速读</h4>
+                        <p class="text-sm fragment" data-fragment-index="1">Stagehand是一个创新的AI驱动浏览器自动化框架，巧妙地融合了确定性的代码控制与灵活的自然语言（AI）指令。</p>
+                        <p class="text-sm fragment" data-fragment-index="2">核心优势在于其<span class="highlight-bg">独特的混合模式</span>：灵活选择使用Playwright代码或利用AI自然语言处理页面导航，极大提升脚本适应性和健壮性。</p>
+                        <p class="text-sm fragment" data-fragment-index="3">支持AI动作的预览与缓存，并能无缝集成OpenAI等主流供应商的最新计算机使用模型。</p>
+                        <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                        <p class="text-sm fragment" data-fragment-index="4">该仓库增长势头强劲。近四个月内上榜8次，显示持续广泛关注。今日新增314 Star，高于平均，表明增长趋势活跃且呈加速态势。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 项目详情：e2b-dev/awesome-ai-agents -->
+            <section>
+                <h3><i class="fas fa-list-alt"></i> e2b-dev/awesome-ai-agents</h3>
+                <p class="text-base text-gray-600 mb-4">人工智能自主智能体列表</p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <h4><i class="fas fa-info-circle"></i> 核心信息</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>未标注</td>
+                                    <td>20520</td>
+                                    <td>1次</td>
+                                    <td>99</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="project-meta text-sm mt-4">
+                            <p><i class="fas fa-star"></i> Stars: 20.5k</p>
+                            <p><i class="fas fa-code-branch"></i> Forks: 1.6k</p>
+                            <p><i class="fas fa-eye"></i> Watchers: 327</p>
+                            <p><i class="fas fa-exclamation-circle"></i> Issues: 28</p>
+                            <p><i class="fas fa-code-merge"></i> Pull Requests: 38</p>
+                            <p><i class="fas fa-box"></i> Releases: 2</p>
+                            <p><i class="fas fa-clipboard"></i> Commits: 0</p>
+                            <p><i class="fas fa-certificate"></i> License: 未知</p>
+                            <p><i class="fas fa-users"></i> Contributors: 55</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4><i class="fas fa-book-open"></i> 项目速读</h4>
+                        <p class="text-sm fragment" data-fragment-index="1">e2b-dev/awesome-ai-agents是一个精心策划的“Awesome List”项目，旨在全面汇集当前各类AI自主代理相关的优秀资源。</p>
+                        <p class="text-sm fragment" data-fragment-index="2">核心价值在于其<span class="highlight-bg">强大的资源整合能力</span>和对前沿技术的敏锐捕捉，系统性收录大量基于Python、OpenAI GPT系列大语言模型的创新项目。</p>
+                        <p class="text-sm fragment" data-fragment-index="3">作为一个高星标、社区驱动的开源项目，其内容保持着良好的时效性和活力，是洞察AI代理领域最新发展趋势的理想入口。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 项目详情：backstage/backstage -->
+            <section>
+                <h3><i class="fas fa-door-open"></i> backstage/backstage</h3>
+                <p class="text-base text-gray-600 mb-4">Backstage 是一个用于构建开发者门户的开放框架。</p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <h4><i class="fas fa-info-circle"></i> 核心信息</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>TypeScript</td>
+                                    <td>30918</td>
+                                    <td>1次</td>
+                                    <td>9</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="project-meta text-sm mt-4">
+                            <p><i class="fas fa-star"></i> Stars: 30.9k</p>
+                            <p><i class="fas fa-code-branch"></i> Forks: 6.7k</p>
+                            <p><i class="fas fa-eye"></i> Watchers: 238</p>
+                            <p><i class="fas fa-exclamation-circle"></i> Issues: 361</p>
+                            <p><i class="fas fa-code-merge"></i> Pull Requests: 139</p>
+                            <p><i class="fas fa-box"></i> Releases: 437</p>
+                            <p><i class="fas fa-clipboard"></i> Commits: 66,642</p>
+                            <p><i class="fas fa-certificate"></i> License: Apache-2.0 license</p>
+                            <p><i class="fas fa-users"></i> Contributors: 1,739</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4><i class="fas fa-globe"></i> 编程语言占比</h4>
+                        <div class="project-language-breakdown">
+                            <p><strong>TypeScript</strong> 93.5%, <strong>MDX</strong> 2.1%, <strong>CSS</strong> 1.9%, <strong>JavaScript</strong> 1.8%, <strong>Handlebars</strong> 0.3%, <strong>Mustache</strong> 0.1%, <strong>Other</strong> 0.3%</p>
+                        </div>
+                        <h4><i class="fas fa-book-open"></i> 项目速读</h4>
+                        <p class="text-sm fragment" data-fragment-index="1">Backstage是一个开源框架，专注于构建开发者门户，旨在解决现代企业中微服务和基础设施日益复杂化带来的挑战。</p>
+                        <p class="text-sm fragment" data-fragment-index="2">核心价值在于其能够将组织内散布的基础设施工具、服务和文档统一整合，创建一个<span class="highlight-bg">端到端、高度简化的开发环境</span>。</p>
+                        <p class="text-sm fragment" data-fragment-index="3">拥有不断增长的开源插件生态系统，具备强大的可定制性和功能扩展性，为提升开发效率、标准化开发流程提供强大解决方案。</p>
+                        <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                        <p class="text-sm fragment" data-fragment-index="4">该仓库总Star增长1128，势头强劲。尽管仅上榜2次，这表明主要增长来源于榜外传播和持续关注，而非榜单曝光。增长持续性强。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 项目详情：google/adk-samples -->
+            <section>
+                <h3><i class="fas fa-vial"></i> google/adk-samples</h3>
+                <p class="text-base text-gray-600 mb-4">使用 Agent Development (ADK) 构建的示例智能体合集</p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <h4><i class="fas fa-info-circle"></i> 核心信息</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Python</td>
+                                    <td>4113</td>
+                                    <td>1次</td>
+                                    <td>25</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="project-meta text-sm mt-4">
+                            <p><i class="fas fa-star"></i> Stars: 4.1k</p>
+                            <p><i class="fas fa-code-branch"></i> Forks: 1.2k</p>
+                            <p><i class="fas fa-eye"></i> Watchers: 59</p>
+                            <p><i class="fas fa-exclamation-circle"></i> Issues: 50</p>
+                            <p><i class="fas fa-code-merge"></i> Pull Requests: 35</p>
+                            <p><i class="fas fa-box"></i> Releases: 0</p>
+                            <p><i class="fas fa-clipboard"></i> Commits: 265</p>
+                            <p><i class="fas fa-certificate"></i> License: Apache-2.0 license</p>
+                            <p><i class="fas fa-users"></i> Contributors: 47</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4><i class="fas fa-globe"></i> 编程语言占比</h4>
+                        <div class="project-language-breakdown">
+                            <p><strong>Python</strong> 87.3%, <strong>TypeScript</strong> 5.0%, <strong>HTML</strong> 4.1%, <strong>Java</strong> 1.4%, <strong>CSS</strong> 1.3%, <strong>Shell</strong> 0.6%, <strong>Other</strong> 0.3%</p>
+                        </div>
+                        <h4><i class="fas fa-book-open"></i> 项目速读</h4>
+                        <p class="text-sm fragment" data-fragment-index="1">谷歌的 adk-samples 仓库提供了一系列基于其 Agent Development Kit (ADK) 构建的即用型AI代理示例，旨在显著加速AI代理的开发过程。</p>
+                        <p class="text-sm fragment" data-fragment-index="2">独特之处在于其<span class="highlight-bg">覆盖的广泛应用场景</span>，从学术研究、品牌搜索优化到客户服务等，并同时支持Python和Java两种主流编程语言。</p>
+                        <p class="text-sm fragment" data-fragment-index="3">这些开箱即用的示例不仅能帮助开发者快速启动项目，更清晰展示了ADK在各类复杂任务中的应用潜力。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 项目详情：openai/openai-python -->
+            <section>
+                <h3><i class="fab fa-python"></i> openai/openai-python</h3>
+                <p class="text-base text-gray-600 mb-4">OpenAI API的官方Python库</p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <h4><i class="fas fa-info-circle"></i> 核心信息</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Python</td>
+                                    <td>27688</td>
+                                    <td>1次</td>
+                                    <td>19</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="project-meta text-sm mt-4">
+                            <p><i class="fas fa-star"></i> Stars: 27.7k</p>
+                            <p><i class="fas fa-code-branch"></i> Forks: 4.1k</p>
+                            <p><i class="fas fa-eye"></i> Watchers: 338</p>
+                            <p><i class="fas fa-exclamation-circle"></i> Issues: 82</p>
+                            <p><i class="fas fa-code-merge"></i> Pull Requests: 41</p>
+                            <p><i class="fas fa-box"></i> Releases: 309</p>
+                            <p><i class="fas fa-clipboard"></i> Commits: 1,039</p>
+                            <p><i class="fas fa-certificate"></i> License: Apache-2.0 license</p>
+                            <p><i class="fas fa-users"></i> Contributors: 145</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4><i class="fas fa-globe"></i> 编程语言占比</h4>
+                        <div class="project-language-breakdown">
+                            <p><strong>Python</strong> 99.9%, <strong>Other</strong> 0.1%</p>
+                        </div>
+                        <h4><i class="fas fa-book-open"></i> 项目速读</h4>
+                        <p class="text-sm fragment" data-fragment-index="1">openai/openai-python 是 OpenAI 官方发布的 Python 客户端库，旨在为 Python 开发者提供与 OpenAI 先进 AI 模型无缝交互的桥梁。</p>
+                        <p class="text-sm fragment" data-fragment-index="2">该库的核心优势在于其卓越的<span class="highlight-bg">开发者体验和前瞻性功能支持</span>，通过内置请求和响应的类型定义，极大地提升了编码效率。</p>
+                        <p class="text-sm fragment" data-fragment-index="3">它不仅全面支持多模态输入，还提供高效的流式响应机制，以及低延迟、多模态的实时对话 API。</p>
+                        <h4><i class="fas fa-chart-line"></i> 增长分析</h4>
+                        <p class="text-sm fragment" data-fragment-index="4">该仓库5个月内总星数增长2532，平均每次上榜增151.3。但仅上榜3次，表明增长极度不规律且不持续。今天的19个新增Star也印证了目前增长缓慢，趋势并不稳健。</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 结束页 -->
+            <section class="slide-end">
+                <h2><i class="fas fa-hands-helping"></i> 感谢观看！</h2>
+                <p>探索更多技术趋势，与我们一同成长！</p>
+                <p class="text-xl mt-4 text-accent-color-1 font-bold">未来已来，洞察先行！</p>
+                <div class="bottom-right-info">
+                    <img src="../../asserts/wx.jpg" alt="微信二维码" />
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Reveal.js 核心 JS -->
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <!-- Mermaid.js 可视化扩展 (虽然本例未直接使用图表，但保留依赖) -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <script>
+        // Mermaid.js 初始化，但不开局加载
+        mermaid.initialize({ startOnLoad: false });
+
+        Reveal.initialize({
+            controls: true,     // 显示导航控件
+            progress: true,     // 显示进度条
+            center: true,       // 幻灯片内容居中
+            hash: true,         // URL哈希导航
+            transition: 'slide', // 全局过渡效果
+            backgroundTransition: 'fade', // 背景过渡效果
+
+            fragments: true,    // 启用内容分片（逐步显示）
+
+            touch: true,        // 启用触摸滑动导航
+            slideNumber: true,  // 显示幻灯片页码
+            help: true,         // 按 'K' 键显示帮助
+            loop: false,        // 不循环播放
+            showNotes: false,   // 演示者视图不显示笔记
+            maxTouches: 10,     // 最大触摸点数
+        });
+    </script>
+</body>
+</html>

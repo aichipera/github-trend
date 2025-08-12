@@ -1,0 +1,770 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>告别云端束缚：GitHub趋势揭示开发者如何重获掌控与效率</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <!-- 使用自定义主题，而非white.min.css -->
+    <!-- <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet"> -->
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* 自定义RevealJS主题 */
+        :root {
+            --r-background-color: #0f172a; /* 深蓝灰 */
+            --r-main-font: "Noto Sans SC", Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-main-font-size: 1.1em; /* 正文基准字号 */
+            --r-main-color: #e2e8f0; /* 浅灰白 */
+            --r-link-color: #93c5fd; /* 亮蓝色 */
+            --r-link-color-hover: #60a5fa; /* 更亮的蓝色 */
+
+            --r-heading-font: "Noto Serif SC", serif;
+            --r-heading-color: #c084fc; /* 亮紫色 */
+            --r-heading-text-shadow: none;
+            --r-heading-font-weight: 700;
+
+            --r-h1-size: 3.2em; /* 封面主标题 */
+            --r-h2-size: 2.5em; /* 主要章节标题 */
+            --r-h3-size: 1.8em; /* 子章节/项目名称 */
+            --r-h4-size: 1.4em;
+        }
+
+        body {
+            font-family: var(--r-main-font);
+            color: var(--r-main-color);
+        }
+
+        .reveal .slides {
+            text-align: left; /* 整体左对齐 */
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--r-heading-color);
+            text-shadow: var(--r-heading-text-shadow);
+            font-weight: var(--r-heading-font-weight);
+        }
+
+        .reveal h1 { font-size: var(--r-h1-size); }
+        .reveal h2 { font-size: var(--r-h2-size); }
+        .reveal h3 { font-size: var(--r-h3-size); }
+        .reveal h4 { font-size: var(--r-h4-size); }
+
+        .reveal p {
+            font-size: var(--r-main-font-size);
+            line-height: 1.6;
+            margin-bottom: 0.8em;
+        }
+
+        .reveal ul {
+            font-size: var(--r-main-font-size);
+            margin-left: 1.5em;
+            list-style: none; /* 移除默认列表点 */
+        }
+
+        .reveal ul li {
+            position: relative;
+            margin-bottom: 0.5em;
+            line-height: 1.5;
+        }
+
+        .reveal ul li:before {
+            content: "\f00c"; /* Font Awesome checkmark icon */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: #4ade80; /* 绿色勾 */
+            position: absolute;
+            left: -1.5em;
+            top: 0;
+            font-size: 0.8em;
+        }
+
+        /* 自定义列表样式，用于统计数据 */
+        .reveal ul.stats-list li:before {
+            content: none;
+        }
+
+        .reveal .controls button {
+            color: var(--r-link-color);
+        }
+
+        .reveal .progress span {
+            background: var(--r-heading-color);
+        }
+
+        /* 封面背景和元素 */
+        .reveal .slides section.cover {
+            background: linear-gradient(135deg, #1e3a8a 0%, #0c1836 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 5%;
+        }
+
+        .reveal .slides section.cover h1 {
+            color: #dbeafe; /* 浅蓝 */
+            font-size: 3.8em;
+            line-height: 1.2;
+            margin-bottom: 0.2em;
+            text-align: left;
+        }
+        .reveal .slides section.cover h2 {
+            color: #93c5fd; /* 亮蓝色 */
+            font-size: 1.8em;
+            margin-top: 0;
+            margin-bottom: 1em;
+            text-align: left;
+        }
+        .reveal .slides section.cover p {
+            color: #bfdbfe; /* 更浅的蓝 */
+            font-size: 1.2em;
+            text-align: left;
+        }
+        .reveal .slides section.cover .author-info {
+            position: absolute;
+            bottom: 10%;
+            left: 5%;
+            font-size: 1.1em;
+            color: #a78bfa; /* 紫色 */
+        }
+
+        /* 页脚链接和二维码 */
+        .project-footer {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #94a3b8; /* 浅灰 */
+            font-size: 0.8em;
+        }
+        .project-footer img {
+            height: 80px;
+            width: 80px;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .project-footer a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .project-footer a:hover {
+            color: var(--r-link-color-hover);
+        }
+
+        /* 强调文字 */
+        .highlight-text {
+            color: #fde047; /* 黄色 */
+            font-weight: 700;
+        }
+        .strong-emphasis {
+            color: #818cf8; /* 浅紫 */
+            font-weight: 700;
+        }
+
+        /* 项目详情页的布局 */
+        .reveal .slides section.project-detail {
+            background: linear-gradient(135deg, #1a202c 0%, #0d121c 100%); /* 更深的背景 */
+            padding: 40px;
+        }
+        .reveal .slides section.project-detail h3 {
+            margin-bottom: 0.5em;
+            color: #fcd34d; /* 强调黄 */
+            text-align: center; /* 居中标题 */
+        }
+        .reveal .slides section.project-detail .project-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            font-size: 0.9em;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+        .reveal .slides section.project-detail .project-meta div {
+            display: flex;
+            align-items: center;
+            color: #cbd5e1; /* 浅灰 */
+        }
+        .reveal .slides section.project-detail .project-meta i {
+            margin-right: 8px;
+            color: #60a5fa; /* 蓝色图标 */
+        }
+        .reveal .slides section.project-detail .lang-pie-chart {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+        .reveal .slides section.project-detail .lang-item {
+            display: flex;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.15);
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: #a78bfa; /* 紫色文字 */
+        }
+        .reveal .slides section.project-detail .lang-item .color-box {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            margin-right: 8px;
+        }
+        /* 为语言占比设置一些颜色示例 */
+        .lang-typescript { background-color: #3178c6; }
+        .lang-javascript { background-color: #f7df1e; }
+        .lang-css { background-color: #1572b6; }
+        .lang-html { background-color: #e34c26; }
+        .lang-shell { background-color: #89e051; }
+        .lang-python { background-color: #3572A5; }
+        .lang-cplusplus { background-color: #f34b7d; }
+        .lang-csharp { background-color: #178600; }
+        .lang-go { background-color: #00add8; }
+        .lang-swift { background-color: #ffac45; }
+        .lang-jupyter { background-color: #fbc02d; }
+        .lang-mdx { background-color: #ff9100; }
+        .lang-other { background-color: #6c757d; } /* Default grey for others */
+
+
+        .reveal section .fragment {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .reveal section .fragment.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .reveal section .fragment.fade-in {
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        /* 垂直幻灯片指示器 */
+        .reveal .controls .navigate-down.enabled {
+            border-bottom-color: var(--r-heading-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- 封面幻灯片 -->
+            <section class="cover">
+                <h2 class="fragment fade-in text-4xl">🔥 今日最火爆的开源项目都在这 ⭐️</h2>
+                <h1 class="fragment fade-in">告别云端束缚：<br>GitHub趋势揭示开发者如何重获掌控与效率</h1>
+                <p class="fragment fade-in text-lg mt-4">Github热门仓库<strong class="highlight-text">日报</strong>观测时间为 <span class="strong-emphasis">2025-08-04 21:09:56</span></p>
+                <p class="fragment fade-in text-sm text-gray-400 mt-2">以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</p>
+                <div class="author-info fragment fade-in">
+                    <p>演讲者：<strong class="strong-emphasis text-2xl">AIChipEra</strong></p>
+                    <p>PPT: <a href="https://aichipera.github.io/github-trend/daily/2025-08-04/ppt.html" target="_blank" class="text-blue-300 hover:text-blue-100 transition-colors">https://aichipera.github.io/github-trend/daily/2025-08-04/ppt.html</a></p>
+                </div>
+                <div class="project-footer">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="微信公众号二维码">
+                </div>
+            </section>
+
+            <!-- 日报要点 -->
+            <section>
+                <h2><i class="fas fa-bullseye mr-4 text-purple-400"></i>日报要点：核心趋势概览</h2>
+                <p class="fragment fade-in">近期GitHub趋势榜单昭示着一场深刻的技术变革。</p>
+                <ul class="text-xl mt-8">
+                    <li class="fragment fade-in">开发者积极拥抱<strong class="highlight-text">“本地优先”策略</strong>，追求数据与数字资产的完全掌控，如个人财务管理和自建媒体服务器项目备受青睐。</li>
+                    <li class="fragment fade-in">通过易用工具（如简化VPN部署）极大提升<strong class="highlight-text">开发效率</strong>，降低技术门槛。</li>
+                    <li class="fragment fade-in"><strong class="highlight-text">Python与TypeScript</strong>在构建现代化、高效能应用中占据主导地位。</li>
+                    <li class="fragment fade-in">这一趋势明确指出，未来技术将更注重<strong class="highlight-text">用户自主权</strong>，实现个性化与高效能的统一，助您轻松驾驭数字生活。</li>
+                </ul>
+            </section>
+
+            <!-- 热门项目趋势分析 -->
+            <section>
+                <h2 class="text-center"><i class="fas fa-chart-line mr-4 text-green-400"></i>热门项目趋势分析</h2>
+                <h3>今日整体趋势：AI浪潮下的个人掌控与开发范式革新</h3>
+                <ul class="text-lg mt-8">
+                    <li class="fragment fade-in">
+                        <i class="fas fa-robot mr-2 text-red-400"></i>
+                        <strong class="strong-emphasis">人工智能民主化与本地化：</strong> AI技术正从云端巨头走向个体开发者和终端设备，强调隐私和自主权的AI开发模式需求旺盛。（如 <span class="highlight-text">dyad-sh/dyad</span>）
+                    </li>
+                    <li class="fragment fade-in">
+                        <i class="fas fa-user-shield mr-2 text-yellow-400"></i>
+                        <strong class="strong-emphasis">“本地优先”与“个人掌控权”：</strong> 用户追求数据主权，将个人数据和数字资产完全置于个人控制之下。（如 <span class="highlight-text">Actual Budget</span>, <span class="highlight-text">Jellyfin</span>, <span class="highlight-text">wg-easy</span>）
+                    </li>
+                    <li class="fragment fade-in">
+                        <i class="fas fa-code mr-2 text-blue-400"></i>
+                        <strong class="strong-emphasis">语言与技术栈焦点：</strong> <span class="highlight-text">TypeScript</span> 在全能应用中表现抢眼，<span class="highlight-text">Python</span> 持续发力AI和Web全栈开发。
+                    </li>
+                    <li class="fragment fade-in">
+                        <i class="fas fa-lightbulb mr-2 text-purple-400"></i>
+                        <strong class="strong-emphasis">未来展望：</strong> “边缘AI”、“设备端AI”将普及；更多自托管工具兴起；开发范式向“AI原生”和“低代码/无代码”演进。
+                    </li>
+                </ul>
+            </section>
+
+            <!-- 热门项目双日维度对比分析 -->
+            <section>
+                <h2><i class="fas fa-balance-scale mr-4 text-orange-400"></i>热门项目双日维度对比分析</h2>
+                <h3 class="mt-4 mb-6">GitHub热门项目分析：当前趋势速览</h3>
+                <ul class="text-lg">
+                    <li class="fragment fade-in">
+                        <strong class="strong-emphasis">整体态势：</strong> 上升项目数<span class="highlight-text">6个</span>，下降项目数为<span class="highlight-text">零</span>，榜单活跃度与流动性显著。
+                    </li>
+                    <li class="fragment fade-in">
+                        <strong class="strong-emphasis">新晋项目类型多元：</strong>
+                        <ul>
+                            <li class="fragment fade-in"><i class="fas fa-receipt mr-2 text-green-300"></i> <span class="highlight-text">actualbudget/actual</span> (TypeScript) - 个人财务管理，实用工具需求。</li>
+                            <li class="fragment fade-in"><i class="fas fa-gamepad mr-2 text-red-300"></i> <span class="highlight-text">MaaAssistantArknights/MaaAssistantArknights</span> (C++) - 特定游戏自动化，社区小众应用热情。</li>
+                        </ul>
+                    </li>
+                    <li class="fragment fade-in">
+                        <strong class="strong-emphasis">语言分布变化：</strong> Python, C++, Go, Swift, JavaScript等主流语言出现次数<span class="highlight-text">减少</span>，暗示结构性调整。
+                    </li>
+                    <li class="fragment fade-in">
+                        <strong class="strong-emphasis">引人注目项目：</strong>
+                        <ul>
+                            <li class="fragment fade-in"><i class="fas fa-star mr-2 text-yellow-300"></i> <span class="highlight-text">dyad-sh/dyad</span> 星标数<span class="highlight-text">暴涨近2000个</span>，增幅高达<span class="highlight-text">48%</span>，市场关注度极高。</li>
+                            <li class="fragment fade-in"><i class="fas fa-brain mr-2 text-purple-300"></i> <span class="highlight-text">rasbt/LLMs-from-scratch</span> 快速崛起，印证AI与大型语言模型强劲势头。</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- 热点变化 -->
+            <section>
+                <h2><i class="fas fa-fire mr-4 text-red-500"></i>热点变化</h2>
+                <ul class="text-xl mt-8">
+                    <li class="fragment fade-in"><strong class="strong-emphasis">新增热点：</strong>
+                        <ul>
+                            <li><i class="fas fa-plus mr-2 text-green-400"></i>actualbudget/actual</li>
+                            <li><i class="fas fa-plus mr-2 text-green-400"></i>MaaAssistantArknights/MaaAssistantArknights</li>
+                        </ul>
+                    </li>
+                    <li class="fragment fade-in"><strong class="strong-emphasis">减退热点：</strong>
+                        <ul class="grid grid-cols-2 gap-4">
+                            <li><i class="fas fa-minus mr-2 text-orange-400"></i>xtls/xray-core</li>
+                            <li><i class="fas fa-minus mr-2 text-orange-400"></i>sst/opencode</li>
+                            <li><i class="fas fa-minus mr-2 text-orange-400"></i>tidedra/zotero-arxiv-daily</li>
+                            <li><i class="fas fa-minus mr-2 text-orange-400"></i>flydelabs/flyde</li>
+                            <li><i class="fas fa-minus mr-2 text-orange-400"></i>eclipse-sumo/sumo</li>
+                            <li><i class="fas fa-minus mr-2 text-orange-400"></i>trekhleb/javascript-algorithms</li>
+                            <li><i class="fas fa-minus mr-2 text-orange-400"></i>ladybirdbrowser/ladybird</li>
+                            <li><i class="fas fa-minus mr-2 text-orange-400"></i>pointfreeco/swift-composable-architecture</li>
+                        </ul>
+                    </li>
+                    <li class="fragment fade-in"><strong class="strong-emphasis">持续热门：</strong>
+                        <ul>
+                            <li><i class="fas fa-heartbeat mr-2 text-purple-400"></i>dyad-sh/dyad (4次)</li>
+                            <li><i class="fas fa-heartbeat mr-2 text-purple-400"></i>MotiaDev/motia (3次)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- 详细仓库数据 -->
+            <section>
+                <h2 class="text-center"><i class="fas fa-database mr-4 text-blue-400"></i>详细仓库数据</h2>
+                <p class="fragment fade-in text-center text-xl mt-8 mb-12">点击向下箭头查看每个项目的详细信息 <i class="fas fa-arrow-circle-down text-orange-400 ml-2"></i></p>
+            </section>
+
+            <!-- dyad-sh/dyad -->
+            <section class="project-detail">
+                <section>
+                    <h3>dyad-sh/dyad</h3>
+                    <p class="mt-4 mb-6 text-center text-lg"><strong class="highlight-text">项目简介:</strong> 免费、本地、开源AI应用构建器 | v0 / lovable / Bolt 替代品 | 喜欢请点星！</p>
+                    <div class="project-meta text-center">
+                        <div><i class="fab fa-github"></i> <a href="https://github.com/dyad-sh/dyad" target="_blank">dyad-sh/dyad</a></div>
+                        <div><i class="fas fa-code"></i> TypeScript</div>
+                        <div><i class="fas fa-star"></i> 6167 Star</div>
+                        <div><i class="fas fa-calendar-alt"></i> 连续在榜: 4次</div>
+                        <div><i class="fas fa-list-alt"></i> 总上榜: 4次</div>
+                        <div><i class="fas fa-chart-line"></i> 当日新增: 2015</div>
+                    </div>
+                    <div class="project-meta text-center">
+                        <div><i class="fas fa-code-branch"></i> Forks: 664</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 44</div>
+                        <div><i class="fas fa-exclamation-circle"></i> Issues: 111</div>
+                        <div><i class="fas fa-code-compare"></i> PRs: 11</div>
+                        <div><i class="fas fa-box"></i> Releases: 30</div>
+                        <div><i class="fas fa-code-commit"></i> Commits: 493</div>
+                        <div><i class="fas fa-balance-scale"></i> License: Apache-2.0</div>
+                        <div><i class="fas fa-users"></i> Contributors: 4</div>
+                    </div>
+                    <div class="lang-pie-chart text-center justify-center">
+                        <div class="lang-item"><span class="color-box lang-typescript"></span>TypeScript 96.9%</div>
+                        <div class="lang-item"><span class="color-box lang-javascript"></span>JavaScript 1.8%</div>
+                        <div class="lang-item"><span class="color-box lang-css"></span>CSS 1.0%</div>
+                        <div class="lang-item"><span class="color-box lang-html"></span>HTML 0.1%</div>
+                        <div class="lang-item"><span class="color-box lang-shell"></span>Shell 0.1%</div>
+                        <div class="lang-item"><span class="color-box lang-python"></span>Python 0.1%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3>dyad-sh/dyad - 项目速读</h3>
+                    <p class="fragment fade-in">Dyad 是一个<strong class="strong-emphasis">免费、本地运行的开源AI应用构建工具</strong>，旨在赋予用户完全的自主权，在其个人电脑上私密、高效地创建和运行各类人工智能应用。它直接解决了开发者对数据隐私和去中心化AI开发的需求，提供了一个无需依赖云服务商的替代方案。</p>
+                    <p class="fragment fade-in">核心优势在于其<strong class="highlight-text">“本地运行”</strong>特性：用户无需注册、即下即用，能在Mac和Windows上便捷部署。所有AI处理均在用户设备上完成，极大保护数据隐私，消除对特定云服务提供商的锁定。支持自带OpenAI、Google Gemini等主流AI API密钥，确保环境开放和无缝集成。</p>
+                    <p class="fragment fade-in">基于TypeScript，采用Apache 2.0许可证，鼓励社区参与贡献。作为一个更注重隐私和掌控权的AI应用构建选择，它为个人开发者和小型团队提供了<strong class="highlight-text">低门槛、高自由度</strong>的创新平台。</p>
+                    <p class="fragment fade-in">今日星标数<strong class="strong-emphasis">激增2015颗</strong>，强劲增长势头充分表明市场对这种本地化、去中心化AI工具的旺盛需求和高度认可。</p>
+                </section>
+                <section>
+                    <h3>dyad-sh/dyad - 增长分析</h3>
+                    <p class="fragment fade-in">该仓库<strong class="highlight-text">四天内总增3411 Star</strong>，平均每次近900。其连续四日上榜，且最新一日增长高达2015，远超平均。</p>
+                    <p class="fragment fade-in">这显示出该仓库增长<strong class="strong-emphasis">强劲</strong>，并呈现显著<strong class="strong-emphasis">加速趋势</strong>，尤其是在持续上榜效应下。</p>
+                </section>
+            </section>
+
+            <!-- actualbudget/actual -->
+            <section class="project-detail">
+                <section>
+                    <h3>actualbudget/actual</h3>
+                    <p class="mt-4 mb-6 text-center text-lg"><strong class="highlight-text">项目简介:</strong> 本地优先的个人理财应用</p>
+                    <div class="project-meta text-center">
+                        <div><i class="fab fa-github"></i> <a href="https://github.com/actualbudget/actual" target="_blank">actualbudget/actual</a></div>
+                        <div><i class="fas fa-code"></i> TypeScript</div>
+                        <div><i class="fas fa-star"></i> 20665 Star</div>
+                        <div><i class="fas fa-calendar-alt"></i> 连续在榜: 1次</div>
+                        <div><i class="fas fa-list-alt"></i> 总上榜: 3次</div>
+                        <div><i class="fas fa-chart-line"></i> 当日新增: 30</div>
+                    </div>
+                    <div class="project-meta text-center">
+                        <div><i class="fas fa-code-branch"></i> Forks: 1.7k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 73</div>
+                        <div><i class="fas fa-exclamation-circle"></i> Issues: 140</div>
+                        <div><i class="fas fa-code-compare"></i> PRs: 43</div>
+                        <div><i class="fas fa-box"></i> Releases: 45</div>
+                        <div><i class="fas fa-code-commit"></i> Commits: 3,103</div>
+                        <div><i class="fas fa-balance-scale"></i> License: MIT</div>
+                        <div><i class="fas fa-users"></i> Contributors: 346</div>
+                    </div>
+                    <div class="lang-pie-chart text-center justify-center">
+                        <div class="lang-item"><span class="color-box lang-typescript"></span>TypeScript 87.3%</div>
+                        <div class="lang-item"><span class="color-box lang-javascript"></span>JavaScript 12.2%</div>
+                        <div class="lang-item"><span class="color-box lang-shell"></span>Shell 0.2%</div>
+                        <div class="lang-item"><span class="color-box lang-other"></span>Other 0.3%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3>actualbudget/actual - 项目速读</h3>
+                    <p class="fragment fade-in">Actual Budget 是一款<strong class="strong-emphasis">本地优先的个人财务管理应用</strong>，专注于高效预算规划，尤其推崇“信封预算”理念。它解决用户对财务数据隐私、安全及跨设备管理的需求，提供完全免费开源的解决方案。</p>
+                    <p class="fragment fade-in">核心优势是<strong class="highlight-text">“本地优先”</strong>设计，确保财务数据高度私有并存储本地。同时巧妙结合<strong class="highlight-text">跨设备同步</strong>，保障无缝使用体验。作为开源软件，代码透明可审查。</p>
+                    <p class="fragment fade-in">技术基于NodeJS和TypeScript，采用模块化架构。提供多元化安装选择：第三方托管、Docker自托管、原生桌面应用，极大地降低了使用门槛。</p>
+                    <p class="fragment fade-in">赋能用户<strong class="highlight-text">全面掌控自身财务</strong>，特别适合重视数据隐私、寻求透明预算工具、希望通过“信封预算”有效管理资金流向的个人。活跃社区支持和详尽文档提供强大后盾，使其成为专业又易用的财务管理佳选。</p>
+                </section>
+                <section>
+                    <h3>actualbudget/actual - 增长分析</h3>
+                    <p class="fragment fade-in">该仓库<strong class="highlight-text">一月内总增1170 Star</strong>，成功上榜3次，显示持续曝光与强劲用户吸引力。</p>
+                    <p class="fragment fade-in">每次上榜平均新增102 Star，今日新增30 Star，整体增长趋势<strong class="strong-emphasis">稳定积极</strong>，非昙花一现。</p>
+                </section>
+            </section>
+
+            <!-- MotiaDev/motia -->
+            <section class="project-detail">
+                <section>
+                    <h3>MotiaDev/motia</h3>
+                    <p class="mt-4 mb-6 text-center text-lg"><strong class="highlight-text">项目简介:</strong> 现代后端框架，将 API、后台任务、工作流和 AI 代理统一整合到单一内聚系统中，并内置可观测性和状态管理。</p>
+                    <div class="project-meta text-center">
+                        <div><i class="fab fa-github"></i> <a href="https://github.com/MotiaDev/motia" target="_blank">MotiaDev/motia</a></div>
+                        <div><i class="fas fa-code"></i> TypeScript</div>
+                        <div><i class="fas fa-star"></i> 4990 Star</div>
+                        <div><i class="fas fa-calendar-alt"></i> 连续在榜: 3次</div>
+                        <div><i class="fas fa-list-alt"></i> 总上榜: 6次</div>
+                        <div><i class="fas fa-chart-line"></i> 当日新增: 227</div>
+                    </div>
+                    <div class="project-meta text-center">
+                        <div><i class="fas fa-code-branch"></i> Forks: 383</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 42</div>
+                        <div><i class="fas fa-exclamation-circle"></i> Issues: 31</div>
+                        <div><i class="fas fa-code-compare"></i> PRs: 3</div>
+                        <div><i class="fas fa-box"></i> Releases: 92</div>
+                        <div><i class="fas fa-code-commit"></i> Commits: 752</div>
+                        <div><i class="fas fa-balance-scale"></i> License: MIT</div>
+                        <div><i class="fas fa-users"></i> Contributors: 17</div>
+                    </div>
+                    <div class="lang-pie-chart text-center justify-center">
+                        <div class="lang-item"><span class="color-box lang-typescript"></span>TypeScript 77.7%</div>
+                        <div class="lang-item"><span class="color-box lang-other"></span>MDX 14.1%</div>
+                        <div class="lang-item"><span class="color-box lang-python"></span>Python 3.6%</div>
+                        <div class="lang-item"><span class="color-box lang-javascript"></span>JavaScript 1.9%</div>
+                        <div class="lang-item"><span class="color-box lang-css"></span>CSS 1.3%</div>
+                        <div class="lang-item"><span class="color-box lang-other"></span>Other 0.7%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3>MotiaDev/motia - 项目速读</h3>
+                    <p class="fragment fade-in">Motia是一个<strong class="strong-emphasis">现代化的统一后端框架</strong>，旨在解决传统后端开发中API、后台任务、工作流和AI代理各自为政的复杂性。它将这些功能整合到一个内聚系统中，提供高效、协同的开发环境，特别适合复杂业务逻辑和多种服务交互场景。</p>
+                    <p class="fragment fade-in">核心是<strong class="highlight-text">“Step”原语</strong>，将HTTP请求响应、异步事件、定时任务、AI代理等抽象为独立业务逻辑单元。支持<strong class="highlight-text">多语言混编</strong>（TypeScript与Python），充分利用语言优势。</p>
+                    <p class="fragment fade-in">内置<strong class="highlight-text">零配置的端到端可观测性与统一状态管理</strong>，简化调试与运维。事件驱动的工作流模式轻松编排复杂业务流程。</p>
+                    <p class="fragment fade-in">相较于拼凑独立组件，Motia提供<strong class="highlight-text">单一、统一的部署目标</strong>，显著降低开发和运维成本。适用于高度整合API服务、复杂业务流程编排、大量异步任务及AI能力集成的现代后端应用，让后端开发更高效、直观。</p>
+                </section>
+                <section>
+                    <h3>MotiaDev/motia - 增长分析</h3>
+                    <p class="fragment fade-in">该仓库在约<strong class="highlight-text">一个月内总Star增长2032</strong>，实际上榜6次，显示出强劲且持续的增长势头。</p>
+                    <p class="fragment fade-in">平均每次上榜新增202.5个Star，今日新增227个，高于平均水平，表明增长趋势<strong class="strong-emphasis">依然活跃</strong>。</p>
+                </section>
+            </section>
+
+            <!-- rasbt/LLMs-from-scratch -->
+            <section class="project-detail">
+                <section>
+                    <h3>rasbt/LLMs-from-scratch</h3>
+                    <p class="mt-4 mb-6 text-center text-lg"><strong class="highlight-text">项目简介:</strong> 从零开始，使用PyTorch逐步实现一个类似ChatGPT的大语言模型</p>
+                    <div class="project-meta text-center">
+                        <div><i class="fab fa-github"></i> <a href="https://github.com/rasbt/LLMs-from-scratch" target="_blank">rasbt/LLMs-from-scratch</a></div>
+                        <div><i class="fas fa-code"></i> Jupyter Notebook</div>
+                        <div><i class="fas fa-star"></i> 61671 Star</div>
+                        <div><i class="fas fa-calendar-alt"></i> 连续在榜: 2次</div>
+                        <div><i class="fas fa-list-alt"></i> 总上榜: 5次</div>
+                        <div><i class="fas fa-chart-line"></i> 当日新增: 520</div>
+                    </div>
+                    <div class="project-meta text-center">
+                        <div><i class="fas fa-code-branch"></i> Forks: 8.7k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 566</div>
+                        <div><i class="fas fa-exclamation-circle"></i> Issues: 5</div>
+                        <div><i class="fas fa-code-compare"></i> PRs: 0</div>
+                        <div><i class="fas fa-box"></i> Releases: 0</div>
+                        <div><i class="fas fa-code-commit"></i> Commits: 915</div>
+                        <div><i class="fas fa-balance-scale"></i> License: 未知</div>
+                        <div><i class="fas fa-users"></i> Contributors: 46</div>
+                    </div>
+                    <div class="lang-pie-chart text-center justify-center">
+                        <div class="lang-item"><span class="color-box lang-jupyter"></span>Jupyter Notebook 76.5%</div>
+                        <div class="lang-item"><span class="color-box lang-python"></span>Python 23.5%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3>rasbt/LLMs-from-scratch - 项目速读</h3>
+                    <p class="fragment fade-in">rasbt/LLMs-from-scratch 是《Build a Large Language Model (From Scratch)》一书的官方配套代码库，旨在通过<strong class="strong-emphasis">手把手、从零开始的实践方式</strong>，揭示类 ChatGPT 大型语言模型（LLM）的内部工作原理。它解决了当前开发者对 LLM 停留在应用层面，缺乏核心机制深入理解的痛点。</p>
+                    <p class="fragment fade-in">最大亮点在于<strong class="highlight-text">“从零开始”实现</strong>，不依赖任何外部LLM库，用PyTorch逐步构建模型所有组件。涵盖文本数据处理、多头注意力、GPT架构、无监督预训练及多种微调方法（包括LoRA）。教学方法与业界构建大型基础模型思路高度吻合，确保实用性和前瞻性。</p>
+                    <p class="fragment fade-in">优势在于<strong class="highlight-text">极强的教育性和实践性</strong>，提供清晰代码实现，并确保主要章节代码可在普通笔记本电脑上高效运行并自动利用GPU，极大降低学习硬件门槛。</p>
+                    <p class="fragment fade-in">为希望深入理解LLM底层逻辑、摆脱“黑箱”使用模式的开发者、学生和研究人员提供清晰路径。亲手实现LLM，不仅掌握核心技术，还能培养解决复杂AI问题的能力，为未来参与实际LLM开发奠定坚实基础。</p>
+                </section>
+                <section>
+                    <h3>rasbt/LLMs-from-scratch - 增长分析</h3>
+                    <p class="fragment fade-in">该仓库在短周期内总Star增长达<strong class="highlight-text">10195</strong>，表现强劲。</p>
+                    <p class="fragment fade-in">虽仅上榜5次，但每次平均贡献358.6星，今日新增520星，表明其增长并非依赖榜单，而是<strong class="strong-emphasis">持续且活跃</strong>。</p>
+                </section>
+            </section>
+
+            <!-- MaaAssistantArknights/MaaAssistantArknights -->
+            <section class="project-detail">
+                <section>
+                    <h3>MaaAssistantArknights/MaaAssistantArknights</h3>
+                    <p class="mt-4 mb-6 text-center text-lg"><strong class="highlight-text">项目简介:</strong> 《明日方舟》小助手：全日常一键长草，支持所有客户端。</p>
+                    <div class="project-meta text-center">
+                        <div><i class="fab fa-github"></i> <a href="https://github.com/MaaAssistantArknights/MaaAssistantArknights" target="_blank">MaaAssistantArknights/MaaAssistantArknights</a></div>
+                        <div><i class="fas fa-code"></i> C++</div>
+                        <div><i class="fas fa-star"></i> 17210 Star</div>
+                        <div><i class="fas fa-calendar-alt"></i> 连续在榜: 1次</div>
+                        <div><i class="fas fa-list-alt"></i> 总上榜: 1次</div>
+                        <div><i class="fas fa-chart-line"></i> 当日新增: 26</div>
+                    </div>
+                    <div class="project-meta text-center">
+                        <div><i class="fas fa-code-branch"></i> Forks: 2.2k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 41</div>
+                        <div><i class="fas fa-exclamation-circle"></i> Issues: 503</div>
+                        <div><i class="fas fa-code-compare"></i> PRs: 31</div>
+                        <div><i class="fas fa-box"></i> Releases: 495</div>
+                        <div><i class="fas fa-code-commit"></i> Commits: 16,092</div>
+                        <div><i class="fas fa-balance-scale"></i> License: AGPL-3.0</div>
+                        <div><i class="fas fa-users"></i> Contributors: 285</div>
+                    </div>
+                    <div class="lang-pie-chart text-center justify-center">
+                        <div class="lang-item"><span class="color-box lang-cplusplus"></span>C++ 43.8%</div>
+                        <div class="lang-item"><span class="color-box lang-csharp"></span>C# 38.1%</div>
+                        <div class="lang-item"><span class="color-box lang-python"></span>Python 6.6%</div>
+                        <div class="lang-item"><span class="color-box lang-other"></span>C 5.5%</div>
+                        <div class="lang-item"><span class="color-box lang-typescript"></span>TypeScript 1.7%</div>
+                        <div class="lang-item"><span class="color-box lang-other"></span>Other 3.4%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3>MaaAssistantArknights/MaaAssistantArknights - 项目速读</h3>
+                    <p class="fragment fade-in">MaaAssistantArknights（MAA）是一款专为《明日方舟》玩家打造的<strong class="strong-emphasis">智能辅助工具</strong>，旨在通过先进图像识别技术，解决玩家日常重复操作耗时耗力的痛点，实现<strong class="highlight-text">“一键长草”</strong>的自动化游戏体验。</p>
+                    <p class="fragment fade-in">核心优势在于<strong class="highlight-text">全面而智能的自动化能力</strong>：精准模拟玩家行为，完成刷理智、基建排班、公开招募等日常任务，深度支持集成战略（肉鸽），甚至导入作业文件实现自动化攻略，极大提升游戏效率和便利性。</p>
+                    <p class="fragment fade-in">技术层面，MAA以C++为主，整合OpenCV进行图像处理，利用PaddleOCR、FastDeploy及onnxruntime等实现高精度文字与深度学习模型识别，确保<strong class="highlight-text">工具的稳定性和智能化水平</strong>。</p>
+                    <p class="fragment fade-in">MAA的价值在于<strong class="highlight-text">彻底解放了玩家的双手</strong>，让玩家专注于游戏核心乐趣。跨平台（Windows、Linux、macOS）、多语言及国际服支持，配合丰富API接口，不仅服务玩家，也为技术爱好者提供二次开发可能性。对于追求高效游戏体验的博士们来说，MAA无疑是强大助力，也展现开源社区利用技术赋能娱乐的无限潜力。</p>
+                </section>
+            </section>
+
+            <!-- reflex-dev/reflex -->
+            <section class="project-detail">
+                <section>
+                    <h3>reflex-dev/reflex</h3>
+                    <p class="mt-4 mb-6 text-center text-lg"><strong class="highlight-text">项目简介:</strong> 纯 Python 的 Web 应用</p>
+                    <div class="project-meta text-center">
+                        <div><i class="fab fa-github"></i> <a href="https://github.com/reflex-dev/reflex" target="_blank">reflex-dev/reflex</a></div>
+                        <div><i class="fas fa-code"></i> Python</div>
+                        <div><i class="fas fa-star"></i> 24364 Star</div>
+                        <div><i class="fas fa-calendar-alt"></i> 连续在榜: 2次</div>
+                        <div><i class="fas fa-list-alt"></i> 总上榜: 2次</div>
+                        <div><i class="fas fa-chart-line"></i> 当日新增: 462</div>
+                    </div>
+                    <div class="project-meta text-center">
+                        <div><i class="fas fa-code-branch"></i> Forks: 1.4k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 177</div>
+                        <div><i class="fas fa-exclamation-circle"></i> Issues: 191</div>
+                        <div><i class="fas fa-code-compare"></i> PRs: 43</div>
+                        <div><i class="fas fa-box"></i> Releases: 103</div>
+                        <div><i class="fas fa-code-commit"></i> Commits: 2,673</div>
+                        <div><i class="fas fa-balance-scale"></i> License: Apache-2.0</div>
+                        <div><i class="fas fa-users"></i> Contributors: 178</div>
+                    </div>
+                    <div class="lang-pie-chart text-center justify-center">
+                        <div class="lang-item"><span class="color-box lang-python"></span>Python 96.3%</div>
+                        <div class="lang-item"><span class="color-box lang-javascript"></span>JavaScript 1.8%</div>
+                        <div class="lang-item"><span class="color-box lang-other"></span>Other 1.9%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3>reflex-dev/reflex - 项目速读</h3>
+                    <p class="fragment fade-in">Reflex 是一款创新的 Python 库，旨在让开发者<strong class="strong-emphasis">仅使用纯 Python 就能构建高性能、全栈 Web 应用</strong>。它彻底解决了传统前后端技术栈分离的痛点，让 Python 开发者直接跨越前后端技术壁垒。</p>
+                    <p class="fragment fade-in">其核心优势在于<strong class="highlight-text">纯 Python 的端到端开发体验</strong>，大幅降低学习门槛和复杂度。项目内置丰富UI组件，支持即时刷新与便捷部署，并集成AI辅助构建，显著提升开发效率。</p>
+                    <p class="fragment fade-in">Reflex 是<strong class="highlight-text">快速原型、内部工具乃至复杂应用的理想选择</strong>，为全球数百万 Python 开发者开辟了 Web 开发新途径，其强劲的社区增长潜力巨大。</p>
+                </section>
+                <section>
+                    <h3>reflex-dev/reflex - 增长分析</h3>
+                    <p class="fragment fade-in">该仓库<strong class="highlight-text">两天内上榜2次</strong>，表现出持续的关注度和活跃度。</p>
+                    <p class="fragment fade-in">虽然总增长443 Star，但近期单次新增高达462 Star，远超平均，表明增长势头<strong class="strong-emphasis">强劲且有加速趋势</strong>。</p>
+                </section>
+            </section>
+
+            <!-- jellyfin/jellyfin -->
+            <section class="project-detail">
+                <section>
+                    <h3>jellyfin/jellyfin</h3>
+                    <p class="mt-4 mb-6 text-center text-lg"><strong class="highlight-text">项目简介:</strong> 自由软件媒体系统 - 服务器后端及API</p>
+                    <div class="project-meta text-center">
+                        <div><i class="fab fa-github"></i> <a href="https://github.com/jellyfin/jellyfin" target="_blank">jellyfin/jellyfin</a></div>
+                        <div><i class="fas fa-code"></i> C#</div>
+                        <div><i class="fas fa-star"></i> 41980 Star</div>
+                        <div><i class="fas fa-calendar-alt"></i> 连续在榜: 2次</div>
+                        <div><i class="fas fa-list-alt"></i> 总上榜: 5次</div>
+                        <div><i class="fas fa-chart-line"></i> 当日新增: 194</div>
+                    </div>
+                    <div class="project-meta text-center">
+                        <div><i class="fas fa-code-branch"></i> Forks: 3.8k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 332</div>
+                        <div><i class="fas fa-exclamation-circle"></i> Issues: 368</div>
+                        <div><i class="fas fa-code-compare"></i> PRs: 136</div>
+                        <div><i class="fas fa-box"></i> Releases: 90</div>
+                        <div><i class="fas fa-code-commit"></i> Commits: 27,636</div>
+                        <div><i class="fas fa-balance-scale"></i> License: GPL-2.0</div>
+                        <div><i class="fas fa-users"></i> Contributors: 1,273</div>
+                    </div>
+                    <div class="lang-pie-chart text-center justify-center">
+                        <div class="lang-item"><span class="color-box lang-csharp"></span>C# 99.7%</div>
+                        <div class="lang-item"><span class="color-box lang-other"></span>Other 0.3%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3>jellyfin/jellyfin - 项目速读</h3>
+                    <p class="fragment fade-in">Jellyfin 是一个领先的<strong class="strong-emphasis">免费开源媒体系统</strong>，旨在赋予用户对其个人媒体内容（如电影、电视节目、音乐和照片）的完全掌控权。它作为 Emby 和 Plex 等商业媒体服务器的颠覆者，提供一套纯粹、无任何附加条件的解决方案，让用户能够<strong class="highlight-text">自主搭建服务器</strong>，并安全、便捷地将媒体流式传输到各种终端设备上。</p>
+                    <p class="fragment fade-in">其核心价值在于对<strong class="highlight-text">“自由”和“开放”的坚定承诺</strong>。基于 GPL 2.0 许可证，Jellyfin 承诺永不收取费用，不设高级功能墙，没有任何隐藏议程，真正实现了完全免费、无限制的使用体验。</p>
+                    <p class="fragment fade-in">技术层面，项目从 Emby 的早期版本演变而来，并彻底移植到 .NET Core 框架，这使其具备了<strong class="highlight-text">卓越的跨平台能力</strong>。后端服务器是此仓库的核心，配合 ffmpeg 提供强大的媒体转码和处理能力。</p>
+                    <p class="fragment fade-in">Jellyfin 的出现，为追求数据主权、隐私保护以及不愿受制于商业模式的个人用户和家庭，提供了理想的<strong class="highlight-text">自建媒体中心方案</strong>。它不仅是一个媒体播放平台，更代表一种去中心化的媒体消费理念。项目拥有近4.2万星标，并持续保持每日近200星的增长，充分证明了其在开源社区的强大吸引力和广泛认可度。</p>
+                </section>
+                <section>
+                    <h3>jellyfin/jellyfin - 增长分析</h3>
+                    <p class="fragment fade-in">该仓库在约<strong class="highlight-text">2个月内增长2198 Star</strong>，表现强劲。5次上榜凸显持续关注度。</p>
+                    <p class="fragment fade-in">今日新增194个远超平均88个，表明近期增长<strong class="strong-emphasis">显著加速</strong>，趋势积极。</p>
+                </section>
+            </section>
+
+            <!-- wg-easy/wg-easy -->
+            <section class="project-detail">
+                <section>
+                    <h3>wg-easy/wg-easy</h3>
+                    <p class="mt-4 mb-6 text-center text-lg"><strong class="highlight-text">项目简介:</strong> 运行 WireGuard VPN 和基于Web的管理界面最简单的方法。</p>
+                    <div class="project-meta text-center">
+                        <div><i class="fab fa-github"></i> <a href="https://github.com/wg-easy/wg-easy" target="_blank">wg-easy/wg-easy</a></div>
+                        <div><i class="fas fa-code"></i> TypeScript</div>
+                        <div><i class="fas fa-star"></i> 21312 Star</div>
+                        <div><i class="fas fa-calendar-alt"></i> 连续在榜: 2次</div>
+                        <div><i class="fas fa-list-alt"></i> 总上榜: 3次</div>
+                        <div><i class="fas fa-chart-line"></i> 当日新增: 435</div>
+                    </div>
+                    <div class="project-meta text-center">
+                        <div><i class="fas fa-code-branch"></i> Forks: 2k</div>
+                        <div><i class="fas fa-eye"></i> Watchers: 121</div>
+                        <div><i class="fas fa-exclamation-circle"></i> Issues: 20</div>
+                        <div><i class="fas fa-code-compare"></i> PRs: 9</div>
+                        <div><i class="fas fa-box"></i> Releases: 18</div>
+                        <div><i class="fas fa-code-commit"></i> Commits: 1,243</div>
+                        <div><i class="fas fa-balance-scale"></i> License: AGPL-3.0</div>
+                        <div><i class="fas fa-users"></i> Contributors: 83</div>
+                    </div>
+                    <div class="lang-pie-chart text-center justify-center">
+                        <div class="lang-item"><span class="color-box lang-typescript"></span>TypeScript 56.0%</div>
+                        <div class="lang-item"><span class="color-box lang-other"></span>Vue 40.8%</div>
+                        <div class="lang-item"><span class="color-box lang-javascript"></span>JavaScript 1.4%</div>
+                        <div class="lang-item"><span class="color-box lang-other"></span>Other 1.8%</div>
+                    </div>
+                </section>
+                <section>
+                    <h3>wg-easy/wg-easy - 项目速读</h3>
+                    <p class="fragment fade-in">wg-easy/wg-easy 项目提供了一种<strong class="strong-emphasis">极其简便的方式来部署和管理 WireGuard VPN 服务</strong>，它通过集成一个直观的Web管理界面，彻底简化了传统上复杂繁琐的VPN配置过程。</p>
+                    <p class="fragment fade-in">该项目旨在解决WireGuard在Linux主机上部署和日常管理的痛点，让用户<strong class="highlight-text">无需深入命令行操作</strong>，即可通过图形界面轻松完成从服务器搭建到客户端配置的全过程。</p>
+                    <p class="fragment fade-in">核心在于<strong class="highlight-text">一站式解决方案</strong>，将WireGuard服务与Web UI打包成容器镜像（支持Docker和Podman），实现<strong class="highlight-text">“开箱即用”</strong>。用户可以便捷创建、编辑、删除VPN客户端，实时查看连接状态和流量统计，快速生成配置二维码或下载配置文件，极大提升管理效率和用户体验。还支持两步验证，推荐反向代理保护Web界面。</p>
+                    <p class="fragment fade-in">wg-easy 的价值在于其<strong class="highlight-text">无与伦比的易用性</strong>。对于个人用户、小型团队或任何需要快速搭建安全VPN通道而又不愿深究底层配置的场景，它是一个理想的选择。高达两万一千多星的亮眼表现和持续增长，充分证明了其在简化VPN管理领域的巨大成功和广泛需求，将复杂的VPN技术民主化，让更多人享受到WireGuard带来的安全便捷。</p>
+                </section>
+                <section>
+                    <h3>wg-easy/wg-easy - 增长分析</h3>
+                    <p class="fragment fade-in">该仓库总增<strong class="highlight-text">2365星</strong>，增长强劲。</p>
+                    <p class="fragment fade-in">虽仅上榜3次，显示非持续性热门，但每次上榜星增量可观。今日435星远超平均，表明近期增长势头<strong class="strong-emphasis">显著</strong>，影响力正在提升。</p>
+                </section>
+            </section>
+
+            <!-- 结束页 -->
+            <section class="cover">
+                <h2 class="text-white text-5xl">感谢您的聆听！</h2>
+                <h3 class="text-purple-300 mt-4">希望今日的分享能为您带来一些启发 <i class="far fa-lightbulb text-yellow-300 ml-2"></i></h3>
+                <p class="text-blue-300 mt-8 text-2xl">
+                    演讲者：<strong class="text-purple-400">AIChipEra</strong>
+                </p>
+                <p class="text-white mt-2 text-xl">
+                    持续关注GitHub趋势，掌握技术脉搏！
+                </p>
+                <div class="project-footer">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="微信公众号二维码">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <script>
+        // Reveal.js 初始化
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            hash: true,
+            center: true,
+            transition: 'slide', // 可选 'fade', 'slide', 'convex', 'concave', 'zoom'
+            backgroundTransition: 'fade', // 可选 'fade', 'slide', 'convex', 'concave', 'zoom'
+            fragments: true, // 启用内容分步显示
+            autoAnimate: true, // 启用自动动画
+            autoAnimateEasing: 'ease-in-out',
+            autoAnimateDuration: 0.8,
+
+            // Learn about plugins: https://revealjs.com/plugins/
+            plugins: [], // 未使用Reveal.js插件，如果需要可以自行添加
+        });
+
+        // Mermaid 初始化
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+</html>

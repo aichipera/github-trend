@@ -1,0 +1,870 @@
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>颠覆！GitHub揭示技术新浪潮</title>
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet" id="theme">
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* 全局变量 */
+        :root {
+            --r-background-color: #f0f4f8; /* 通用背景色 */
+            --primary-color: #6a0dad; /* 主色调：紫色 */
+            --secondary-color: #4a90e2; /* 辅助色1：蓝色 */
+            --accent-color: #00b894; /* 强调色：绿色 */
+            --text-dark: #333;
+            --text-light: #eee;
+            --title-dark: #2c3e50;
+        }
+
+        /* 字体设置 */
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--text-dark);
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--title-dark);
+        }
+
+        /* 字体大小层级 */
+        .reveal h1 { font-size: 2.8rem; line-height: 1.2; }
+        .reveal h2 { font-size: 2.2rem; line-height: 1.2; }
+        .reveal h3 { font-size: 1.8rem; line-height: 1.2; }
+        .reveal p, .reveal li { font-size: 1.1rem; line-height: 1.6; }
+        .reveal small { font-size: 0.8rem; }
+
+        /* 通用幻灯片布局 */
+        .reveal .slides section {
+            padding: 0 5%;
+        }
+
+        /* 封面幻灯片样式 */
+        .cover-slide {
+            text-align: center;
+        }
+        .cover-slide h1 {
+            font-size: 3.5rem;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        .cover-slide h2 {
+            font-size: 2rem;
+            color: #fff;
+            margin-top: 1rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        .cover-slide p {
+            color: #e0e0e0;
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+        }
+        .cover-slide .speaker-info {
+            position: absolute;
+            bottom: 120px; /* 位于QR码上方 */
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+            white-space: nowrap; /* 防止换行 */
+        }
+
+        /* 底部信息 (QR Code 和链接) */
+        .footer-info {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: flex-end;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: #aaa;
+            text-align: right;
+            line-height: 1.2;
+            z-index: 10; /* 确保在最上层 */
+        }
+        .footer-info img {
+            height: 80px;
+            width: 80px;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .footer-info a {
+            color: var(--primary-color); /* 链接颜色使用主色调 */
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer-info a:hover {
+            text-decoration: underline;
+        }
+        .footer-info span {
+            display: block; /* 确保链接和文本是块级元素以便换行 */
+        }
+
+        /* "Aha moment" 高亮样式 */
+        .aha-highlight {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        .reveal .fragment.current-fragment {
+            color: var(--primary-color); /* 活跃的碎片高亮 */
+            transition: color 0.5s ease-in-out;
+        }
+        .reveal .fragment.fade-in {
+             opacity: 0;
+        }
+        .reveal .fragment.visible {
+            opacity: 1;
+        }
+
+        /* 通用内容样式 */
+        .reveal ul li, .reveal ol li {
+            margin-bottom: 0.5em;
+            text-align: left;
+        }
+        .reveal strong {
+            color: var(--secondary-color); /* 强调色使用蓝色 */
+        }
+        .reveal em {
+            color: var(--accent-color); /* 强调色使用绿色 */
+        }
+        .reveal .box-info {
+            background: rgba(240, 240, 240, 0.7);
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: left;
+            border-left: 5px solid var(--primary-color); /* 左侧边框使用主色调 */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        /* 表格样式 */
+        .reveal table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            font-size: 0.95em;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden; /* 使圆角生效 */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        .reveal th, .reveal td {
+            border: 1px solid #e0e0e0;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        .reveal th {
+            background-color: #eef4f9;
+            color: var(--title-dark);
+            font-weight: 600;
+        }
+        .reveal td {
+            color: #444;
+        }
+        .reveal tr:nth-child(even) td {
+            background-color: #f7fafd;
+        }
+
+        /* 背景样式 */
+        .reveal .slides section:not([data-background-image]) {
+            background: linear-gradient(135deg, #f0f4f8 0%, #e0e6ed 100%); /* 淡雅渐变背景 */
+        }
+        .reveal .slides section.dark-bg {
+            background: linear-gradient(135deg, #2c3e50 0%, #4a6c8e 100%);
+            color: var(--text-light);
+        }
+        .reveal .slides section.dark-bg h1, .reveal .slides section.dark-bg h2, .reveal .slides section.dark-bg h3 {
+            color: #fff;
+        }
+        .reveal .slides section.dark-bg .aha-highlight {
+            color: var(--accent-color); /* 深色背景下高亮使用绿色 */
+        }
+
+        /* 热点变化列表 */
+        .reveal .change-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            columns: 2; /* 两列布局 */
+            column-gap: 40px;
+            text-align: left;
+        }
+        .reveal .change-list li {
+            margin-bottom: 10px;
+            padding-left: 1.8em;
+            position: relative;
+            font-size: 1.1em;
+        }
+        .reveal .change-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2em;
+            top: 0.1em;
+        }
+        .reveal .change-list.reduced-font li {
+            font-size: 0.9em; /* 列表过长时缩小字体 */
+        }
+
+        /* 分布列表 (Star分布) */
+        .reveal .distribution-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .reveal .distribution-list li {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            font-size: 1.2em;
+            font-weight: bold;
+            color: var(--title-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .reveal .distribution-list li i {
+            color: var(--primary-color);
+        }
+        .reveal .distribution-list li.fragment {
+            opacity: 0.5;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .reveal .distribution-list li.fragment.visible {
+            opacity: 1;
+        }
+
+        /* 项目排名列表 */
+        .reveal .project-ranking ol {
+            list-style: none;
+            counter-reset: rank-counter;
+            text-align: left;
+            padding-left: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .reveal .project-ranking li {
+            counter-increment: rank-counter;
+            margin-bottom: 15px;
+            padding-left: 50px;
+            position: relative;
+            width: 45%; /* 两列 */
+            font-size: 1.1em;
+            line-height: 1.4;
+        }
+        .reveal .project-ranking li::before {
+            content: counter(rank-counter) ".";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.5em;
+            width: 40px;
+            text-align: right;
+            margin-right: 10px;
+        }
+        .reveal .project-ranking li span {
+            font-weight: normal;
+            color: #555;
+            font-size: 1em;
+        }
+        .reveal .project-ranking li a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+        }
+        .reveal .project-ranking li a:hover {
+            text-decoration: underline;
+        }
+        .reveal .project-ranking li strong { /* Star Count */
+            color: #f39c12; /* 橙色 */
+            font-size: 0.9em;
+            margin-left: 10px;
+        }
+
+        /* 语言分布饼图模拟 */
+        .language-distribution-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            margin-top: 30px;
+        }
+        .pie-chart-mock {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: conic-gradient(
+                #6a0dad 0% 25%, /* TypeScript */
+                #4a90e2 25% 50%, /* Python */
+                #00b894 50% 66.7%, /* Rust */
+                #ff6b6b 66.7% 75%, /* Jupyter */
+                #feca57 75% 83.3%, /* Go */
+                #a29bfe 83.3% 91.6%, /* C++ */
+                #ff9ff3 91.6% 100% /* C */
+            );
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .pie-chart-legend {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+        .pie-chart-legend li {
+            margin-bottom: 8px;
+            font-size: 1.1em;
+            position: relative;
+            padding-left: 25px;
+            text-align: left;
+        }
+        .pie-chart-legend li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 15px;
+            height: 15px;
+            border-radius: 4px;
+        }
+        /* 饼图图例颜色 */
+        .pie-chart-legend li:nth-child(1)::before { background: #6a0dad; }
+        .pie-chart-legend li:nth-child(2)::before { background: #4a90e2; }
+        .pie-chart-legend li:nth-child(3)::before { background: #00b894; }
+        .pie-chart-legend li:nth-child(4)::before { background: #ff6b6b; }
+        .pie-chart-legend li:nth-child(5)::before { background: #feca57; }
+        .pie-chart-legend li:nth-child(6)::before { background: #a29bfe; }
+        .pie-chart-legend li:nth-child(7)::before { background: #ff9ff3; }
+
+        /* 详细仓库数据中的项目简介文字 */
+        .project-intro-text {
+            font-size: 1.1em;
+            text-align: left;
+            margin-top: 20px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- 1. 封面幻灯片 -->
+            <section class="cover-slide" data-background-image="https://source.unsplash.com/random/1600x900/?technology,ai,future,data,innovation,abstract,coding" data-background-size="cover" data-background-color="#333">
+                <h2 class="r-fit-text">🔥 今日最火爆的开源项目都在这 ⭐️</h2>
+                <h1>颠覆！GitHub揭示技术新浪潮：<br>告别云端束缚，个人专属智能时代来临</h1>
+                <p>Github热门仓库周报观测时间为 2025-08-10 21:26:57</p>
+                <p class="fragment fade-in" style="font-size: 0.9em; margin-top: 30px;"><strong>以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</strong></p>
+                <div class="speaker-info">演讲者：AIChipEra</div>
+                <div class="footer-info">
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                    <span>
+                        项目链接：<br>
+                        <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                    </span>
+                </div>
+            </section>
+
+            <!-- 2. 周报要点 -->
+            <section>
+                <h2><i class="fas fa-bullhorn aha-highlight"></i> 周报要点：本地智能大势所趋</h2>
+                <div class="box-info fragment fade-in">
+                    <p>本周GitHub热门榜单揭示，一股前所未有的技术浪潮正以<strong class="aha-highlight">“本地化智能”</strong>为核心汹涌而来。</p>
+                    <p>告别传统云端依赖，开发者们正加速将强大的智能能力直接部署到个人设备，旨在保障<strong class="aha-highlight">数据隐私、降低成本，并赋予完全掌控权。</strong></p>
+                </div>
+                <ul style="margin-top: 30px;">
+                    <li class="fragment fade-in">核心项目如 `dyad` (本地AI应用构建器) 惊人增长，体现市场强烈需求。</li>
+                    <li class="fragment fade-in">高性能LLM推理引擎如 `vllm`，高效本地模型工具 `ollama`、`llama.cpp`，无不印证这一趋势。</li>
+                    <li class="fragment fade-in">Python, Rust, C++, Go等多语言协力，推动智能应用在<strong class="aha-highlight">极致性能、系统控制与跨平台开发</strong>中的突破。</li>
+                    <li class="fragment fade-in">这场“智能赋能开发者”的浪潮，预示着<strong class="aha-highlight">端侧智能与原生应用框架</strong>将是未来焦点。</li>
+                </ul>
+                <p class="fragment fade-in" style="margin-top: 40px; font-size: 1.1em;">立即深入了解，抢先布局这场<strong class="aha-highlight">去中心化的智能大变革！</strong></p>
+                <p class="fragment fade-in" style="font-size: 0.9em; text-align: right; margin-top: 20px;">PPT链接: <a href="https://aichipera.github.io/github-trend/weekly/2025-W32/ppt.html" target="_blank">https://aichipera.github.io/github-trend/weekly/2025-W32/ppt.html</a></p>
+            </section>
+
+            <!-- 3. 热门项目趋势分析 (主章节) -->
+            <section>
+                <section>
+                    <h2><i class="fas fa-chart-line aha-highlight"></i> 热门项目趋势分析：AI深入本地</h2>
+                    <h3 class="fragment fade-in">本周GitHub热门项目技术趋势分析</h3>
+                    <p class="fragment fade-in">审视本周GitHub的热门项目榜单，一股清晰的技术浪潮正扑面而来，<strong class="aha-highlight">人工智能领域的深耕与拓宽</strong>成为毋庸置疑的核心驱动力。</p>
+                    <div class="box-info fragment fade-in">
+                        最引人注目的，是<strong class="aha-highlight">AI能力从云端向本地化、个人化设备迁移</strong>的显著趋势。
+                    </div>
+                    <p class="fragment fade-in" style="margin-top: 30px; font-size: 1.2em;">（请向下滚动查看详细趋势分析）</p>
+                </section>
+                <section>
+                    <h3><i class="fas fa-brain aha-highlight"></i> 核心技术领域与主题聚焦</h3>
+                    <ul>
+                        <li class="fragment fade-in"><strong>本地AI生态：</strong>`dyad` (本地AI应用构建器), `ollama`, `llama.cpp`, `openai/codex` 强调数据隐私、成本与自主权。</li>
+                        <li class="fragment fade-in"><strong>AI基础设施：</strong>`vllm` (高性能LLM推理), `microsoft/mcp-for-beginners` (AI工作流协议), `browserbase/stagehand` (AI浏览器自动化)。</li>
+                        <li class="fragment fade-in"><strong>AI渗透各领域：</strong>`nautechsystems/nautilus_trader` (AI优先算法交易平台)。</li>
+                        <li class="fragment fade-in"><strong>其他：</strong>`python-poetry/poetry` (Python依赖管理), `actualbudget/actual` (本地优先理财), `lvgl/lvgl` (嵌入式UI)。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fas fa-code aha-highlight"></i> 编程语言分布与技术栈特点</h3>
+                    <ul>
+                        <li class="fragment fade-in"><strong>Python：</strong>AI领域主导地位，模型研究、框架、集成。</li>
+                        <li class="fragment fade-in"><strong>Rust & C++：</strong>崛起，应用于性能敏感的核心组件 (`nautilus_trader`, `openai/codex`, `llama.cpp`)，追求速度、内存效率。</li>
+                        <li class="fragment fade-in"><strong>TypeScript：</strong>前端、桌面端、工具链 (`dyad`, `stagehand`)，类型系统与跨平台能力。</li>
+                        <li class="fragment fade-in"><strong>Go：</strong>并发特性、部署便利性 (`ollama` 等本地服务化工具)。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fas fa-lightbulb aha-highlight"></i> 技术需求与发展方向洞察</h3>
+                    <ul>
+                        <li class="fragment fade-in"><strong>性能与效率：</strong>极限追求，尤其AI模型推理与数据处理。</li>
+                        <li class="fragment fade-in"><strong>数据主权与隐私：</strong>强烈回归，AI能力从集中式云服务解耦。</li>
+                        <li class="fragment fade-in">AI作为生产力工具的价值被进一步挖掘，深度融入开发者工作流。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fas fa-map-signs aha-highlight"></i> 下一波热点预测</h3>
+                    <ul>
+                        <li class="fragment fade-in">与过去纯AI模型竞赛不同，本周的趋势呈现出明显的<strong class="aha-highlight">“AI应用化与去中心化”</strong>特点。</li>
+                        <li class="fragment fade-in">下一波热点可能聚焦于<strong class="aha-highlight">“端侧AI的泛化与优化”</strong>，即更多针对消费级硬件进行深度优化、且能处理复杂任务的轻量级AI模型和相关工具链。</li>
+                        <li class="fragment fade-in">此外，<strong class="aha-highlight">AI代理（Agent）的智能化与安全可控性</strong>，以及<strong class="aha-highlight">AI原生应用框架的标准化</strong>，也将是未来值得关注的方向。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3><i class="fas fa-rocket aha-highlight"></i> 本周特有技术趋势特点</h3>
+                    <ul>
+                        <li class="fragment fade-in">AI领域已从理论探索和云端部署的初级阶段，迅速迈向<strong class="aha-highlight">实用化、普适化与个性化</strong>的深水区。</li>
+                        <li class="fragment fade-in">开源社区在其中扮演了关键角色，通过贡献`ollama`、`llama.cpp`等项目，极大地降低了本地AI的门槛。</li>
+                        <li class="fragment fade-in">这种<strong class="aha-highlight">“AI赋能开发者，而非取代开发者”</strong>的趋势，在本周的榜单中体现得尤为清晰。</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- 4. 热门项目双周维度对比分析 -->
+            <section>
+                <h2><i class="fas fa-calendar-alt aha-highlight"></i> 热门项目双周维度对比分析</h2>
+                <h3 class="fragment fade-in">GitHub热门项目趋势分析</h3>
+                <ul class="fragment fade-in">
+                    <li>今日GitHub热门榜单主要由<strong class="aha-highlight">11个新晋项目驱动</strong>，相较之下，既有项目榜单变化平缓，仅一个项目显著上升，未见明显下降趋势。</li>
+                    <li>这表明市场热点正由<strong class="aha-highlight">新生力量主导</strong>。</li>
+                </ul>
+                <h3 class="fragment fade-in">新项目特点</h3>
+                <ul class="fragment fade-in">
+                    <li>新晋项目呈现出鲜明的<strong class="aha-highlight">AI/LLM聚焦</strong>。</li>
+                    <li>其中，多个项目，如Rust编写的`openai/codex`、Go语言的`ollama`、C++的`ggml-org/llama.cpp`以及Python的`vllm-project/vllm`，集中于本地化大模型推理与应用，反映了当前社区对<strong class="aha-highlight">AI普惠化</strong>的强烈兴趣。</li>
+                </ul>
+                <h3 class="fragment fade-in">编程语言分布变化</h3>
+                <ul class="fragment fade-in">
+                    <li>编程语言分布上，<strong class="aha-highlight">Rust、C、C++和Jupyter Notebook</strong>在榜单中获得净增，尤其反映了AI推理层对高性能语言的需求。</li>
+                    <li>TypeScript和Python则各有减少，尽管它们仍是热门项目的主力语言，但其在当日新增热度中的相对占比有所下降。</li>
+                </ul>
+                <h3 class="fragment fade-in">值得关注的显著变化</h3>
+                <ul class="fragment fade-in">
+                    <li>最值得关注的是，榜单热度主要由<strong class="aha-highlight">新晋项目提供</strong>，特别是AI大模型本地化运行方案的涌现，预示着这片领域的活跃度。</li>
+                    <li>同时，单一项目`dyad-sh/dyad`以近<strong class="aha-highlight">186%的涨幅</strong>脱颖而出，显示出个别项目引爆关注的强大潜力。</li>
+                    <li>整体而言，榜单正经历一场由<strong class="aha-highlight">新兴AI技术主导的更新潮。</strong></li>
+                </ul>
+            </section>
+
+            <!-- 5. 热点变化 -->
+            <section>
+                <h2><i class="fas fa-fire aha-highlight"></i> 热点变化</h2>
+                <div class="grid grid-cols-2 gap-8 mt-10" style="display: flex; justify-content: space-around; width: 100%;">
+                    <div style="width: 45%;">
+                        <h3 class="text-green-600"><i class="fas fa-plus-circle"></i> 新增热点</h3>
+                        <ul class="change-list reduced-font fragment fade-in-then-out">
+                            <li>nautechsystems/nautilus_trader</li>
+                            <li>openai/openai-cookbook</li>
+                            <li>openai/codex</li>
+                            <li>browserbase/stagehand</li>
+                            <li>ollama/ollama</li>
+                            <li>ggml-org/llama.cpp</li>
+                            <li>lvgl/lvgl</li>
+                            <li>microsoft/mcp-for-beginners</li>
+                            <li>actualbudget/actual</li>
+                            <li>python-poetry/poetry</li>
+                            <li>vllm-project/vllm</li>
+                        </ul>
+                    </div>
+                    <div style="width: 45%;">
+                        <h3 class="text-red-600"><i class="fas fa-minus-circle"></i> 减退热点</h3>
+                        <ul class="change-list reduced-font fragment fade-in-then-out">
+                            <li>mattermost-community/focalboard</li>
+                            <li>musistudio/claude-code-router</li>
+                            <li>daveebbelaar/ai-cookbook</li>
+                            <li>linshenkx/prompt-optimizer</li>
+                            <li>shubhamsaboo/awesome-llm-apps</li>
+                            <li>openbb-finance/openbb</li>
+                            <li>outline/outline</li>
+                            <li>pointfreeco/swift-composable-architecture</li>
+                            <li>qwenlm/qwen3-coder</li>
+                            <li>cloudwego/eino</li>
+                            <li>roboflow/supervision</li>
+                            <li>rustdesk/rustdesk</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. 编程语言分布 -->
+            <section>
+                <h2><i class="fas fa-cogs aha-highlight"></i> 编程语言分布</h2>
+                <div class="language-distribution-container">
+                    <div class="pie-chart-mock fragment fade-in"></div>
+                    <ul class="pie-chart-legend">
+                        <li class="fragment fade-in"><i class="fas fa-circle" style="color:#6a0dad;"></i> TypeScript: 3个项目 (25.0%)</li>
+                        <li class="fragment fade-in"><i class="fas fa-circle" style="color:#4a90e2;"></i> Python: 3个项目 (25.0%)</li>
+                        <li class="fragment fade-in"><i class="fas fa-circle" style="color:#00b894;"></i> Rust: 2个项目 (16.7%)</li>
+                        <li class="fragment fade-in"><i class="fas fa-circle" style="color:#ff6b6b;"></i> Jupyter Notebook: 1个项目 (8.3%)</li>
+                        <li class="fragment fade-in"><i class="fas fa-circle" style="color:#feca57;"></i> Go: 1个项目 (8.3%)</li>
+                        <li class="fragment fade-in"><i class="fas fa-circle" style="color:#a29bfe;"></i> C++: 1个项目 (8.3%)</li>
+                        <li class="fragment fade-in"><i class="fas fa-circle" style="color:#ff9ff3;"></i> C: 1个项目 (8.3%)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 7. Star分布 -->
+            <section>
+                <h2><i class="fas fa-star aha-highlight"></i> Star分布</h2>
+                <ul class="distribution-list">
+                    <li class="fragment fade-in"><i class="fas fa-trophy"></i> 5k-10k: 1个项目 (8.3%)</li>
+                    <li class="fragment fade-in"><i class="fas fa-star-half-alt"></i> 10k-50k: 7个项目 (58.3%)</li>
+                    <li class="fragment fade-in"><i class="fas fa-star"></i> 50k以上: 4个项目 (33.3%)</li>
+                </ul>
+                <div class="box-info fragment fade-in" style="margin-top: 50px;">
+                    <p>近<strong>三分之一</strong>的热门项目拥有超过<strong>50,000颗星</strong>，显示出社区对成熟且有广泛影响力的项目的持续关注和认可。</p>
+                </div>
+            </section>
+
+            <!-- 8. 热门项目排名 -->
+            <section>
+                <h2><i class="fas fa-list-ol aha-highlight"></i> 热门项目排名</h2>
+                <ol class="project-ranking">
+                    <li class="fragment fade-in"><a href="https://github.com/ollama/ollama" target="_blank">ollama/ollama</a> <strong>⭐149773</strong> - Get up and running with OpenAI gpt-oss, DeepSeek-R1, Gemma 3 and other models.</li>
+                    <li class="fragment fade-in"><a href="https://github.com/ggml-org/llama.cpp" target="_blank">ggml-org/llama.cpp</a> <strong>⭐84469</strong> - LLM inference in C/C++</li>
+                    <li class="fragment fade-in"><a href="https://github.com/openai/openai-cookbook" target="_blank">openai/openai-cookbook</a> <strong>⭐66794</strong> - Examples and guides for using the OpenAI API</li>
+                    <li class="fragment fade-in"><a href="https://github.com/vllm-project/vllm" target="_blank">vllm-project/vllm</a> <strong>⭐54725</strong> - A high-throughput and memory-efficient inference and serving engine for LLMs</li>
+                    <li class="fragment fade-in"><a href="https://github.com/python-poetry/poetry" target="_blank">python-poetry/poetry</a> <strong>⭐33802</strong> - Python packaging and dependency management made easy</li>
+                    <li class="fragment fade-in"><a href="https://github.com/openai/codex" target="_blank">openai/codex</a> <strong>⭐33656</strong> - Lightweight coding agent that runs in your terminal</li>
+                    <li class="fragment fade-in"><a href="https://github.com/actualbudget/actual" target="_blank">actualbudget/actual</a> <strong>⭐21428</strong> - A local-first personal finance app</li>
+                    <li class="fragment fade-in"><a href="https://github.com/lvgl/lvgl" target="_blank">lvgl/lvgl</a> <strong>⭐20809</strong> - Embedded graphics library to create beautiful UIs for any MCU, MPU and display type.</li>
+                    <li class="fragment fade-in"><a href="https://github.com/browserbase/stagehand" target="_blank">browserbase/stagehand</a> <strong>⭐16009</strong> - The AI Browser Automation Framework</li>
+                    <li class="fragment fade-in"><a href="https://github.com/nautechsystems/nautilus_trader" target="_blank">nautechsystems/nautilus_trader</a> <strong>⭐13452</strong> - A high-performance algorithmic trading platform and event-driven backtester</li>
+                </ol>
+            </section>
+
+            <!-- 9. 本周每日Github热点项目分析 -->
+            <section>
+                <h2><i class="fas fa-calendar-day aha-highlight"></i> 本周每日Github热点项目分析</h2>
+                <table style="width: 60%; margin-top: 50px;">
+                    <thead>
+                        <tr>
+                            <th>时间</th>
+                            <th>链接</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="fragment fade-in"><td>周一</td><td>TODO_URL</td></tr>
+                        <tr class="fragment fade-in"><td>周二</td><td>TODO_URL</td></tr>
+                        <tr class="fragment fade-in"><td>周三</td><td>TODO_URL</td></tr>
+                        <tr class="fragment fade-in"><td>周四</td><td>TODO_URL</td></tr>
+                        <tr class="fragment fade-in"><td>周五</td><td>TODO_URL</td></tr>
+                        <tr class="fragment fade-in"><td>周六</td><td>TODO_URL</td></tr>
+                        <tr class="fragment fade-in"><td>周日</td><td>TODO_URL</td></tr>
+                    </tbody>
+                </table>
+                <p class="fragment fade-in" style="margin-top: 40px;">（每日热点链接敬请期待更新！）</p>
+            </section>
+
+            <!-- 10. 详细仓库数据 (主章节，包含垂直子幻灯片) -->
+            <section>
+                <section>
+                    <h2><i class="fas fa-database aha-highlight"></i> 详细仓库数据</h2>
+                    <p class="fragment fade-in">深入了解本周备受瞩目的明星项目。</p>
+                    <p class="fragment fade-in" style="margin-top: 30px; font-size: 1.2em;">（请向下滚动查看每个项目的详细信息）</p>
+                </section>
+
+                <!-- dyad-sh/dyad -->
+                <section>
+                    <h3><a href="https://github.com/dyad-sh/dyad" target="_blank" class="aha-highlight">dyad-sh/dyad</a> <i class="fas fa-star" style="color:#f39c12;"></i>11999</h3>
+                    <p class="project-intro-text">免费、本地、开源的AI应用构建器 ✨ v0版 / 令人喜爱 / Bolt替代方案 🌟 喜欢请点赞！</p>
+                    <table class="project-detail-table">
+                        <thead>
+                            <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当期 Star 增加数</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>TypeScript</td><td>11999</td><td>1次</td><td>2次</td><td>8429</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="fragment fade-in">
+                        <p class="project-intro-text"><strong>项目速读:</strong> Dyad是一个创新的本地化、开源AI应用构建器，旨在赋能用户在个人电脑上，以完全掌控、高度私密的方式构建各类AI驱动的应用。它彻底规避了对云计算服务的依赖，确保所有数据处理均在用户本地设备上完成，从而提供了无与伦比的数据隐私保障和极速体验，彻底解决用户对数据泄露和厂商锁定的担忧。</p>
+                        <p class="project-intro-text">其核心优势是允许用户<strong class="aha-highlight">自带AI模型的API密钥</strong>，实现真正的“无厂商锁定”。作为跨平台（macOS/Windows）开源工具，易于安装，其Apache 2.0许可证提供了透明度和社区驱动潜力。近期高达8429颗星的周增长量，清晰地表明了市场对这种去中心化、以用户为中心的AI应用构建方案的迫切需求和高度认可。</p>
+                    </div>
+                </section>
+
+                <!-- nautechsystems/nautilus_trader -->
+                <section>
+                    <h3><a href="https://github.com/nautechsystems/nautilus_trader" target="_blank" class="aha-highlight">nautechsystems/nautilus_trader</a> <i class="fas fa-star" style="color:#f39c12;"></i>13452</h3>
+                    <p class="project-intro-text">高性能算法交易平台和事件驱动回测器</p>
+                    <table class="project-detail-table">
+                        <thead>
+                            <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当期 Star 增加数</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Rust</td><td>13452</td><td>1次</td><td>1次</td><td>3224</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="fragment fade-in">
+                        <p class="project-intro-text"><strong>项目速读:</strong> NautilusTrader是一个高性能、生产级的开源算法交易平台和事件驱动回测引擎，旨在解决量化交易领域Python研究环境与生产实盘部署之间长期存在的一致性挑战。它通过将核心组件用Rust编写以确保卓越的速度、可靠性和类型安全性，同时提供无缝的Python绑定，彻底消除了策略代码在回测与实盘之间需要重写的痛点。</p>
+                        <p class="project-intro-text">该平台最突出的优势在于其<strong class="aha-highlight">“AI优先”的设计理念和对性能的极致追求。</strong>事件驱动架构、灵活的模块化适配器以及对多种高级交易功能的支持，使得用户能够构建复杂的、跨多个交易场所的策略。无论是进行市场做市、统计套利，还是用于训练强化学习等AI交易代理，NautilusTrader 都能完美适配。</p>
+                    </div>
+                </section>
+
+                <!-- openai/codex -->
+                <section>
+                    <h3><a href="https://github.com/openai/codex" target="_blank" class="aha-highlight">openai/codex</a> <i class="fas fa-star" style="color:#f39c12;"></i>33656</h3>
+                    <p class="project-intro-text">运行在终端的轻量级编程代理</p>
+                    <table class="project-detail-table">
+                        <thead>
+                            <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当期 Star 增加数</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Rust</td><td>33656</td><td>1次</td><td>1次</td><td>1599</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="fragment fade-in">
+                        <p class="project-intro-text"><strong>项目速读:</strong> OpenAI Codex CLI是一款由OpenAI开发的轻量级编程代理工具，旨在通过命令行界面，在开发者本地环境中提供智能编码辅助。它将自然语言指令转化为实际的代码操作，极大地提升开发效率。</p>
+                        <p class="project-intro-text">核心优势是其<strong class="aha-highlight">本地运行能力与强大的安全沙盒机制。</strong>支持通过ChatGPT Plus/Pro/Team账户免费使用包括GPT-5在内的最新模型，同时保留API密钥按量付费。最关键创新是<strong class="aha-highlight">高度可控的自主性与安全性</strong>，内置精密的沙盒环境，用户可细致选择操作模式（读写、只读、需批准），有效规避AI代理在本地执行代码的潜在风险。</p>
+                    </div>
+                </section>
+
+                <!-- microsoft/mcp-for-beginners -->
+                <section>
+                    <h3><a href="https://github.com/microsoft/mcp-for-beginners" target="_blank" class="aha-highlight">microsoft/mcp-for-beginners</a> <i class="fas fa-star" style="color:#f39c12;"></i>8380</h3>
+                    <p class="project-intro-text">本开源课程通过.NET、Java、TypeScript、JavaScript和Python中的真实跨语言示例，介绍模型上下文协议（MCP）的基础知识。</p>
+                    <table class="project-detail-table">
+                        <thead>
+                            <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当期 Star 增加数</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Python</td><td>8380</td><td>1次</td><td>1次</td><td>2146</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="fragment fade-in">
+                        <p class="project-intro-text"><strong>项目速读:</strong> 该项目是微软推出的“模型上下文协议（MCP）初学者课程”，致力于为全球开发者提供一个掌握AI模型与客户端应用标准化交互的开放式学习平台。它核心解决的是在快速发展的AI领域中，如何高效、安全地构建模块化、可扩展的AI工作流，通过统一的协议提升不同系统间的互操作性。</p>
+                        <p class="project-intro-text">该课程一大亮点是其<strong class="aha-highlight">强大的实践指导性</strong>，通过多语言真实案例，深入浅出讲解从会话建立到服务编排的全过程。项目构建了一个全面的学习生态：提供实战代码，整合MCP官方文档、技术规范、开源SDK及工具，并鼓励加入社区。其持续增长关注度印证了其在AI开发社区中的重要价值。</p>
+                    </div>
+                </section>
+
+                <!-- openai/openai-cookbook -->
+                <section>
+                    <h3><a href="https://github.com/openai/openai-cookbook" target="_blank" class="aha-highlight">openai/openai-cookbook</a> <i class="fas fa-star" style="color:#f39c12;"></i>66794</h3>
+                    <p class="project-intro-text">OpenAI API 使用示例与指南</p>
+                    <table class="project-detail-table">
+                        <thead>
+                            <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当期 Star 增加数</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Jupyter Notebook</td><td>66794</td><td>1次</td><td>1次</td><td>1065</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="fragment fade-in">
+                        <p class="project-intro-text"><strong>项目速读:</strong> openai/openai-cookbook 是OpenAI官方精心打造的实用资源库，如同为开发者量身定制的一本“API操作菜谱”。它旨在解决开发者在使用OpenAI API时遇到的学习曲线陡峭、集成复杂等问题，通过提供海量示例代码和详尽操作指南，帮助用户高效地掌握并应用API的各项功能。</p>
+                        <p class="project-intro-text">该项目最大的亮点在于其<strong class="aha-highlight">极强的实用性和概念的普适性。</strong>尽管大部分示例采用Python编写，但其中阐述的API调用逻辑、任务实现思路和最佳实践等核心概念，是跨语言通用的。作为官方出品，内容权威准确，并通过专属网站提供便捷在线查阅。对于任何希望快速理解、集成并充分利用OpenAI API强大能力的开发者而言，该项目都是一个不可或缺的起点和宝贵参考资料库。</p>
+                    </div>
+                </section>
+
+                <!-- ollama/ollama -->
+                <section>
+                    <h3><a href="https://github.com/ollama/ollama" target="_blank" class="aha-highlight">ollama/ollama</a> <i class="fas fa-star" style="color:#f39c12;"></i>149773</h3>
+                    <p class="project-intro-text">快速上手OpenAI gpt-oss、DeepSeek-R1、Gemma 3以及其他模型。</p>
+                    <table class="project-detail-table">
+                        <thead>
+                            <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当期 Star 增加数</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Go</td><td>149773</td><td>1次</td><td>1次</td><td>1362</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="fragment fade-in">
+                        <p class="project-intro-text"><strong>项目速读:</strong> Ollama 是一个旨在彻底简化大型语言模型（LLM）本地部署和运行的开源项目。它解决了个人用户和开发者在本地设备上运行复杂大模型所面临的门槛高、配置繁琐等痛点，让AI能力触手可及。</p>
+                        <p class="project-intro-text">该项目的核心优势在于其<strong class="aha-highlight">极致的易用性和广泛的兼容性。</strong>无论是在macOS、Windows、Linux桌面环境，还是通过Docker容器，用户只需简单几步即可从其丰富的模型库中选择并启动各类流行大模型。Ollama 不仅提供强大的命令行工具，还开放了标准RESTful API，极大地方便了开发者将其集成到自己的应用程序中，实现定制化的AI功能。</p>
+                    </div>
+                </section>
+
+                <!-- actualbudget/actual -->
+                <section>
+                    <h3><a href="https://github.com/actualbudget/actual" target="_blank" class="aha-highlight">actualbudget/actual</a> <i class="fas fa-star" style="color:#f39c12;"></i>21428</h3>
+                    <p class="project-intro-text">一个本地优先的个人理财应用</p>
+                    <table class="project-detail-table">
+                        <thead>
+                            <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当期 Star 增加数</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>TypeScript</td><td>21428</td><td>1次</td><td>1次</td><td>834</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="fragment fade-in">
+                        <p class="project-intro-text"><strong>项目速读:</strong> Actual Budget 是一款主打“本地优先”理念的开源个人理财应用，致力于帮助用户通过“信封预算”方法，高效管理资金、规划支出并实现财务目标。它解决了传统理财工具中用户数据隐私、平台锁定等痛点，将数据主权完全交由用户掌控，极大提升了安全性和自主性。</p>
+                        <p class="project-intro-text">项目核心优势在于其<strong class="aha-highlight">完全免费且开源的特性，以及创新的“本地优先”设计</strong>，同时兼顾了多设备间的数据无缝同步。技术上，它基于 NodeJS 开发，确保了代码的可复用性和跨平台能力。这使得用户可以在 Windows、Mac、Linux 等操作系统上使用其独立的桌面应用，也可选择一键部署或 Docker 自托管。</p>
+                    </div>
+                </section>
+
+                <!-- ggml-org/llama.cpp -->
+                <section>
+                    <h3><a href="https://github.com/ggml-org/llama.cpp" target="_blank" class="aha-highlight">ggml-org/llama.cpp</a> <i class="fas fa-star" style="color:#f39c12;"></i>84469</h3>
+                    <p class="project-intro-text">C/C++ 中的 LLM 推理</p>
+                    <table class="project-detail-table">
+                        <thead>
+                            <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当期 Star 增加数</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>C++</td><td>84469</td><td>1次</td><td>1次</td><td>665</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="fragment fade-in">
+                        <p class="project-intro-text"><strong>项目速读:</strong> llama.cpp是一个用纯C/C++编写的、专注于大型语言模型（LLM）推理的开源项目。它解决了在各类硬件上高效、便捷运行LLM的痛点，旨在以最小的设置开销提供卓越的性能，从而让个人用户和开发者都能在本地设备上轻松部署和使用强大的AI模型，摆脱对昂贵云服务的依赖。</p>
+                        <p class="project-intro-text">该项目的核心优势在于其<strong class="aha-highlight">极致的轻量化和跨平台深度优化。</strong>它无外部依赖，通过针对Apple Silicon、x86架构以及各类GPU的深度优化，确保在消费级硬件上也能实现令人印象深刻的推理速度。llama.cpp支持多级别整数模型量化，显著减少内存占用并进一步提升执行效率。其创新的CPU+GPU混合推理模式，即使面对超出单卡显存容量的模型，也能提供部分硬件加速。</p>
+                    </div>
+                </section>
+
+                <!-- vllm-project/vllm -->
+                <section>
+                    <h3><a href="https://github.com/vllm-project/vllm" target="_blank" class="aha-highlight">vllm-project/vllm</a> <i class="fas fa-star" style="color:#f39c12;"></i>54725</h3>
+                    <p class="project-intro-text">高吞吐量、内存高效的LLM推理与服务引擎</p>
+                    <table class="project-detail-table">
+                        <thead>
+                            <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当期 Star 增加数</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Python</td><td>54725</td><td>1次</td><td>1次</td><td>917</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="fragment fade-in">
+                        <p class="project-intro-text"><strong>项目速读:</strong> vLLM是一个专为大语言模型（LLM）推理和服务打造的高吞吐量、内存高效引擎。它由加州大学伯克利分校Sky Computing Lab开发，旨在解决LLM在实际部署中面临的性能瓶颈、高成本及复杂性挑战，为用户提供快速、经济且便捷的生产级解决方案。</p>
+                        <p class="project-intro-text">该项目的核心创新在于革命性的<strong class="aha-highlight">PagedAttention机制</strong>，这项技术极大优化了注意力键值（KV）内存管理，从而显著提升了内存利用率，是其卓越性能的基石。在此基础上，vLLM进一步通过连续批处理最大化GPU利用率，并深度集成FlashAttention等优化的CUDA/HIP内核，配合推测解码、分块预填充及多样化量化技术，实现了领先的推理速度和效率。</p>
+                    </div>
+                </section>
+
+                <!-- lvgl/lvgl -->
+                <section>
+                    <h3><a href="https://github.com/lvgl/lvgl" target="_blank" class="aha-highlight">lvgl/lvgl</a> <i class="fas fa-star" style="color:#f39c12;"></i>20809</h3>
+                    <p class="project-intro-text">嵌入式图形库，用于为任何微控制器、微处理器和显示器类型创建精美用户界面。</p>
+                    <table class="project-detail-table">
+                        <thead>
+                            <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当期 Star 增加数</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>C</td><td>20809</td><td>1次</td><td>1次</td><td>445</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="fragment fade-in">
+                        <p class="project-intro-text"><strong>项目速读:</strong> LVGL是一个轻量级且功能强大的开源嵌入式图形库，旨在赋能开发者为各类微控制器（MCU）、微处理器（MPU）以及多样化的显示器创建现代化、美观的用户界面（UI），从而有效解决了资源受限硬件上开发复杂图形界面的挑战。</p>
+                        <p class="project-intro-text">作为嵌入式领域备受推崇的免费开源图形库之一，LVGL凭借其核心优势脱颖而出。它<strong class="aha-highlight">完全采用C语言编写，高度可移植且无外部依赖</strong>，仅需极低的RAM和Flash资源即可运行，确保了在各种MCU、MPU和操作系统上的广泛兼容性。项目内置超过30种常用UI组件，并提供强大的样式系统和类Web的Flexbox、Grid布局管理器，使得UI设计灵活多变。</p>
+                    </div>
+                </section>
+
+                <!-- python-poetry/poetry -->
+                <section>
+                    <h3><a href="https://github.com/python-poetry/poetry" target="_blank" class="aha-highlight">python-poetry/poetry</a> <i class="fas fa-star" style="color:#f39c12;"></i>33802</h3>
+                    <p class="project-intro-text">轻松实现Python打包与依赖管理</p>
+                    <table class="project-detail-table">
+                        <thead>
+                            <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当期 Star 增加数</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Python</td><td>33802</td><td>1次</td><td>1次</td><td>324</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="fragment fade-in">
+                        <p class="project-intro-text"><strong>项目速读:</strong> Poetry是一款专为Python项目设计的现代化打包和依赖管理工具，旨在彻底解决传统Python项目在声明、管理和安装依赖时面临的碎片化和不一致性问题，从而确保在不同开发与部署环境中实现一致且正确的依赖堆栈。</p>
+                        <p class="project-intro-text">其最核心的优势在于，它将项目的所有元数据和依赖信息<strong class="aha-highlight">统一整合到一个简洁的pyproject.toml文件中</strong>，彻底取代了setup.py、requirements.txt等多个分散的配置文件，极大地简化了项目配置和管理流程。Poetry支持语义化版本控制，能够灵活处理各种复杂的依赖类型，此外，它还支持定义命令行脚本和按逻辑分组依赖项。</p>
+                    </div>
+                </section>
+
+                <!-- browserbase/stagehand -->
+                <section>
+                    <h3><a href="https://github.com/browserbase/stagehand" target="_blank" class="aha-highlight">browserbase/stagehand</a> <i class="fas fa-star" style="color:#f39c12;"></i>16009</h3>
+                    <p class="project-intro-text">人工智能浏览器自动化框架</p>
+                    <table class="project-detail-table">
+                        <thead>
+                            <tr><th>开发语言</th><th>Star 数</th><th>连续在榜</th><th>总上榜次数</th><th>当期 Star 增加数</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>TypeScript</td><td>16009</td><td>1次</td><td>1次</td><td>1071</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="fragment fade-in">
+                        <p class="project-intro-text"><strong>项目速读:</strong> Stagehand 是一个创新性的 AI 驱动浏览器自动化框架，旨在解决传统自动化工具在面对未知或动态网页内容时灵活性不足，以及纯 AI 代理在生产环境中可能存在的不可预测性问题。它为开发者提供了一个兼顾代码精确性和自然语言灵活性的解决方案。</p>
+                        <p class="project-intro-text">该项目的核心优势在于其<strong class="aha-highlight">独特的混合模式：</strong>用户可以利用 AI 通过自然语言指令智能导航不熟悉的页面，同时也能使用 Playwright 代码执行已知且高度精确的操作。这种结合大幅提升了自动化的适应性与可控性。Stagehand 引入了动作预览机制，允许用户在实际执行 AI 动作前进行验证，并通过缓存重复动作来优化执行效率。</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- 11. 结束幻灯片 -->
+            <section class="dark-bg" data-background-image="https://source.unsplash.com/random/1600x900/?ai,future,innovation,abstract,coding,community" data-background-size="cover" data-background-color="#333">
+                <h2 style="color:#fff;">感谢聆听！</h2>
+                <h3 style="color:#fff;" class="fragment fade-in">期待与您共同探索智能未来</h3>
+                <p class="fragment fade-in" style="margin-top: 50px; color:#ddd;">有任何疑问，欢迎交流！</p>
+                <div class="footer-info">
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                    <span>
+                        项目链接：<br>
+                        <a href="https://github.com/aichipera/github-trend" target="_blank">github.com/aichipera/github-trend</a>
+                    </span>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js"></script>
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/zoom/zoom.min.js"></script>
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js"></script>
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js"></script>
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/mermaid/mermaid.min.js"></script>
+
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            transition: 'slide', // 全局过渡效果
+            backgroundTransition: 'fade', // 背景过渡效果
+            slideNumber: true, // 显示幻灯片编号
+            pdfMaxPagesPerSlide: 1, // PDF导出设置
+            hash: true, // 启用URL哈希导航
+            autoAnimate: true, // 启用自动动画
+            autoAnimateEasing: 'ease-in-out',
+            autoAnimateDuration: 0.8,
+            dependencies: [
+                { src: 'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js', async: true },
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/zoom/zoom.min.js', async: true },
+                { src: 'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js', async: true },
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js', async: true },
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/mermaid/mermaid.min.js', async: true, callback: function() { mermaid.initialize({ startOnLoad: true }); } }
+            ]
+        });
+    </script>
+</body>
+</html>

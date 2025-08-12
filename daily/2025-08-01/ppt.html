@@ -1,0 +1,1029 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GitHub前沿观察：AI落地、效率飙升</title>
+
+    <!-- Core Reveal.js Framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+
+    <!-- Extended Dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Reveal.js overrides for base font size */
+        :root {
+            --r-main-font-size: 38px; /* Slightly smaller base for more content per slide */
+        }
+
+        /* Global Font Settings */
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback",
+                          "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: #333; /* Default text color for light backgrounds */
+        }
+
+        /* Heading Font Settings */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 700; /* Bold for headings */
+            color: #2c3e50; /* Darker charcoal for headings */
+        }
+
+        /* Font Hierarchy */
+        .reveal .slides section h1 { font-size: 3rem; }
+        .reveal .slides section h2 { font-size: 2.5rem; }
+        .reveal .slides section h3 { font-size: 2rem; }
+        .reveal .slides section h4 { font-size: 1.5rem; }
+        .reveal .slides section p, .reveal .slides section li, .reveal .slides section table { font-size: 1.1rem; line-height: 1.6; }
+
+        /* Custom Color Palette & Gradients */
+        .text-tech-primary { color: #5a67d8; /* A moderate purple-blue */ }
+        .text-tech-accent { color: #f6ad55; /* A warm orange */ }
+        .bg-tech-light { background-color: #f7fafc; /* Very light grey */ }
+
+        /* Cover & Final Slide Styling */
+        .reveal .slides section.title-slide {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            background: linear-gradient(135deg, #4c66e2 0%, #8a2be2 100%); /* Deep vibrant gradient */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .reveal .slides section.title-slide h1 {
+            font-size: 4rem;
+            color: #fff;
+            margin-bottom: 0.5em;
+            line-height: 1.2;
+        }
+        .reveal .slides section.title-slide h2 {
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.5em;
+        }
+        .reveal .slides section.title-slide p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Aha Moment Slide Styling */
+        .reveal .slides section.aha-moment {
+            background: linear-gradient(135deg, #f6ad55 0%, #f6e05e 100%); /* Bright, warm gradient for Aha */
+            color: #333;
+            text-shadow: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .reveal .slides section.aha-moment h2 {
+            font-size: 3.5rem;
+            color: #333;
+            line-height: 1.3;
+        }
+        .reveal .slides section.aha-moment p {
+             font-size: 1.8rem;
+             margin-top: 1rem;
+             color: #555;
+        }
+
+        /* QR Code & Project Link Positioning */
+        .reveal .slides section .qr-link-container {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            font-size: 0.8em;
+            z-index: 1000; /* Ensure it's above other content */
+        }
+        /* Specific color for QR/link based on slide background */
+        .reveal .slides section.title-slide .qr-link-container,
+        .reveal .slides section.final-slide .qr-link-container {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .reveal .slides section:not(.title-slide):not(.final-slide) .qr-link-container {
+            color: #666; /* Darker color for internal slides */
+        }
+        .reveal .slides section .qr-link-container img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 5px;
+            border-radius: 8px; /* Slightly rounded corners for QR */
+        }
+        .reveal .slides section .qr-link-container a {
+            color: inherit;
+            text-decoration: none;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        .reveal .slides section .qr-link-container a:hover {
+            opacity: 1;
+        }
+
+
+        /* Section Padding */
+        .reveal section {
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        /* Custom List Styling with Font Awesome Icons */
+        .reveal ul, .reveal ol {
+            list-style: none;
+            padding-left: 0;
+        }
+        .reveal ul li, .reveal ol li {
+            position: relative;
+            padding-left: 1.8em; /* Indent for custom bullet */
+            margin-bottom: 0.7em;
+        }
+        .reveal ul li:before {
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: #667eea; /* Primary accent color */
+            font-size: 0.9em;
+            top: 0.2em;
+        }
+        /* Specific icons for general lists */
+        .reveal ul li:before { content: "\f058"; /* check-circle */ }
+        .reveal ul.list-disc li:before { content: "\f111"; /* circle */ font-size: 0.6em; top: 0.4em; }
+
+
+        /* Table Styling */
+        .reveal table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+            font-size: 0.95em;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden; /* For rounded corners */
+        }
+        .reveal th, .reveal td {
+            border: 1px solid #ebf4ff; /* Lighter border */
+            padding: 12px 15px;
+            text-align: left;
+        }
+        .reveal th {
+            background-color: #e0e7ff; /* Light blue header */
+            font-weight: bold;
+            color: #333;
+        }
+        .reveal tr:nth-child(even) {
+            background-color: #f7fafc; /* Zebra striping */
+        }
+
+        /* Project Card Styling */
+        .project-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.08); /* Stronger shadow */
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border: 1px solid #e2e8f0;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        }
+        .project-card h3 {
+            color: #5a67d8;
+            margin-top: 0;
+            font-size: 1.8rem;
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 0.5em;
+            margin-bottom: 1em;
+        }
+        .project-card .project-summary {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+        }
+        .project-card .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* Slightly wider columns */
+            gap: 15px;
+            margin-top: 1.5em;
+            border-top: 1px solid #eee;
+            padding-top: 1.5em;
+        }
+        .project-card .stats-item {
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+            color: #666;
+            font-weight: 500;
+        }
+        .project-card .stats-item i {
+            margin-right: 10px;
+            color: #5a67d8; /* Icon color */
+            font-size: 1.1em;
+        }
+        .project-card .lang-pie-chart { /* Placeholder for potential Mermaid charts */
+            width: 100%;
+            height: 150px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            margin-top: 1.5em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #888;
+            font-size: 0.9em;
+            border: 1px dashed #ddd;
+        }
+
+        /* Text Alignment */
+        .reveal .slides section.text-center { text-align: center; }
+
+        /* Fragments (Progressive Reveal) */
+        .reveal .fragment.fade-in { opacity: 0; }
+        .reveal .fragment.fade-in.visible { opacity: 1; transition: opacity 0.8s ease-in-out; }
+
+        /* General Content Styling */
+        .reveal strong { font-weight: 700; color: #333; } /* Ensure strong tags are clearly visible */
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover Page -->
+            <section class="title-slide" data-background-color="#4c66e2" data-background-gradient="linear-gradient(135deg, #4c66e2 0%, #8a2be2 100%)">
+                <p class="mb-4 text-white text-3xl opacity-90 font-light">🔥 今日最火爆的开源项目都在这 ⭐️</p>
+                <h1 class="text-white mb-6">GitHub前沿观察：AI落地、效率飙升，这些热门项目正重塑你的开发工作流！</h1>
+                <h2 class="text-white opacity-80 mb-8">Github热门仓库日报观测时间为 2025-08-01 21:12:52</h2>
+                <p class="text-white opacity-70 text-lg">演讲者：AIChipEra</p>
+                <div class="qr-link-container">
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+            <!-- Slide 2: Disclaimer and PPT Link -->
+            <section data-background-color="#f7fafc">
+                <h2 class="text-tech-primary text-center">重要提示与项目链接</h2>
+                <div class="flex flex-col items-center justify-center h-full text-center mt-8">
+                    <p class="text-xl font-semibold mb-6 text-red-600">
+                        <i class="fas fa-exclamation-triangle mr-3 text-2xl"></i> 以下内容仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！
+                    </p>
+                    <div class="mt-8 p-8 bg-white rounded-xl shadow-lg flex flex-col items-center border border-blue-100">
+                        <p class="text-2xl mb-5 font-semibold text-gray-700">本演示文稿在线链接：</p>
+                        <a href="https://aichipera.github.io/github-trend/daily/2025-08-01/ppt.html" target="_blank" class="text-tech-primary hover:text-tech-accent text-3xl font-bold transition-colors duration-300">
+                            https://aichipera.github.io/github-trend/daily/2025-08-01/ppt.html
+                        </a>
+                        <p class="text-gray-600 mt-6 text-lg">请收藏以方便日后查阅和分享 <i class="fas fa-bookmark ml-2"></i></p>
+                    </div>
+                </div>
+                 <div class="qr-link-container">
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+            <!-- Slide 3: 日报要点 - Aha Moment -->
+            <section class="aha-moment" data-transition="zoom" data-background-color="#f6ad55" data-background-gradient="linear-gradient(135deg, #f6ad55 0%, #f6e05e 100%)">
+                <h2><i class="fas fa-lightbulb text-5xl mr-4"></i> 今日要点：AI深入实践，效率全面飙升！</h2>
+                <p class="text-2xl mt-6 max-w-4xl leading-relaxed fragment fade-in">
+                    大型语言模型驱动的智能体正走向真实世界，数据隐私与本地部署备受关注。
+                    一键部署工具、浏览器自动化，到云原生平台管理，所有创新都指向<strong class="text-blue-700">极致的开发与运维效率</strong>。
+                    “copyparty”异军突起，预示即插即用、提升生产力的解决方案<strong class="text-blue-700">广受欢迎</strong>。
+                </p>
+                <p class="text-xl mt-8 text-gray-700 fragment fade-in">
+                    这不仅是趋势，更是你<strong class="text-blue-700">提升效率、洞悉未来</strong>的行动指南。
+                </p>
+            </section>
+
+            <!-- Slide 4: 热门项目趋势分析 - 标题页 -->
+            <section data-background-color="#e0e7ff">
+                <h2 class="text-center text-tech-primary">📈 热门项目趋势分析</h2>
+                <p class="text-center text-gray-700 mt-4 text-xl">
+                    洞察GitHub前沿，把握技术未来脉搏
+                </p>
+            </section>
+
+            <!-- Slide 5: 今日整体趋势 - 概览 -->
+            <section data-background-color="#f7fafc">
+                <h3 class="text-tech-primary">1. 今日整体趋势概览</h3>
+                <div class="grid grid-cols-2 gap-8 mt-8">
+                    <div class="flex flex-col">
+                        <h4 class="text-tech-primary"><i class="fas fa-brain mr-2"></i> 技术热点：AI深度实践</h4>
+                        <ul class="pl-0 mt-4 text-lg">
+                            <li class="fragment fade-in"><i class="fas fa-robot text-blue-500 mr-2"></i> **LLM智能体落地：** 解决多步骤任务可靠性（如OpenPipe/ART）</li>
+                            <li class="fragment fade-in"><i class="fas fa-lock text-green-500 mr-2"></i> **本地化AI应用：** 注重隐私与自主性（如Dyad）</li>
+                            <li class="fragment fade-in"><i class="fas fa-video text-purple-500 mr-2"></i> **AI赋能内容处理：** 视频字幕、学术信息筛选（VideoLingo, Zotero-arXiv-Daily）</li>
+                        </ul>
+                    </div>
+                    <div class="flex flex-col">
+                        <h4 class="text-tech-primary"><i class="fas fa-wrench mr-2"></i> 效率与基础设施</h4>
+                        <ul class="pl-0 mt-4 text-lg">
+                            <li class="fragment fade-in"><i class="fas fa-tools text-blue-500 mr-2"></i> **开发者工具：** 即时通讯API、浏览器自动化（WAHA, Puppeteer）</li>
+                            <li class="fragment fade-in"><i class="fas fa-cloud-upload-alt text-green-500 mr-2"></i> **云原生管理：** 容器平台高效运维（KubeSphere）</li>
+                            <li class="fragment fade-in"><i class="fas fa-file-export text-purple-500 mr-2"></i> **便捷实用工具：** 一键文件服务器（copyparty）</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 6: 今日整体趋势 - 语言与预测 -->
+            <section data-background-color="#f7fafc">
+                <h3 class="text-tech-primary">2. 编程语言与发展方向</h3>
+                <div class="grid grid-cols-2 gap-8 mt-8">
+                    <div>
+                        <h4 class="text-tech-primary"><i class="fas fa-code mr-2"></i> 编程语言分布</h4>
+                        <ul class="pl-0 mt-4 text-lg">
+                            <li class="fragment fade-in"><i class="fab fa-python text-blue-500 mr-2"></i> **Python：** AI、自动化、数据处理核心，生态系统丰富</li>
+                            <li class="fragment fade-in"><i class="fab fa-node-js text-green-500 mr-2"></i> **TypeScript：** 前端、Node.js、跨平台，类型安全与可维护性</li>
+                            <li class="fragment fade-in"><i class="fab fa-go-lang text-purple-500 mr-2"></i> **Go：** 云原生与基础设施领先</li>
+                            <li class="fragment fade-in"><i class="fab fa-windows text-red-500 mr-2"></i> **C++：** 性能极致要求领域（模拟器、仿真）</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-tech-primary"><i class="fas fa-chart-line mr-2"></i> 发展方向洞察与预测</h4>
+                        <ul class="pl-0 mt-4 text-lg">
+                            <li class="fragment fade-in"><i class="fas fa-cogs text-blue-500 mr-2"></i> **AI深化泛化：** LLM融入复杂业务，提升决策执行能力</li>
+                            <li class="fragment fade-in"><i class="fas fa-robot text-green-500 mr-2"></i> **自动化与效率：** 减少人工干预，提高开发运维效率</li>
+                            <li class="fragment fade-in"><i class="fas fa-lightbulb text-purple-500 mr-2"></i> **未来热点：** 通用智能体、边缘AI、多模态融合、AI辅助内容创作</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7: 热门项目双日维度对比分析 -->
+            <section data-background-color="#f0f4ff">
+                <h3 class="text-tech-primary text-center">热门项目双日维度对比分析</h3>
+                <p class="text-lg mt-4 text-gray-700 fragment fade-in text-center">
+                    平台整体热度上升，新项目层出不穷，且现有热门项目亦能维持或扩大关注度。
+                </p>
+                <div class="grid grid-cols-2 gap-8 mt-8">
+                    <div>
+                        <h4 class="text-tech-primary"><i class="fas fa-arrow-up mr-2"></i> 活跃增长态势</h4>
+                        <ul class="pl-0 mt-4 text-lg">
+                            <li class="fragment fade-in"><i class="fas fa-circle-plus text-blue-500 mr-2"></i> 新晋项目数量：<strong class="text-tech-accent">7个</strong></li>
+                            <li class="fragment fade-in"><i class="fas fa-arrow-up text-green-500 mr-2"></i> 现有项目上升趋势：<strong class="text-tech-accent">4个</strong></li>
+                            <li class="fragment fade-in"><i class="fas fa-arrow-down text-red-500 mr-2"></i> 下降趋势项目：<strong class="text-tech-accent">0个</strong></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-tech-primary"><i class="fas fa-rocket mr-2"></i> 突出黑马项目</h4>
+                        <ul class="pl-0 mt-4 text-lg">
+                            <li class="fragment fade-in"><i class="fas fa-star text-yellow-500 mr-2"></i> **9001/copyparty：** 惊人增长 <strong class="text-tech-accent">1600+ Stars</strong>，涨幅超10%</li>
+                            <li class="fragment fade-in"><i class="fas fa-star text-yellow-500 mr-2"></i> **OpenPipe/ART：** 增长近 <strong class="text-tech-accent">400 Stars</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 8: 热点变化 -->
+            <section data-background-color="#e0e7ff">
+                <h3 class="text-tech-primary text-center">热点变化一览</h3>
+                <div class="grid grid-cols-2 gap-8 mt-8">
+                    <div>
+                        <h4 class="text-green-600"><i class="fas fa-plus-circle mr-2"></i> 新增热点</h4>
+                        <ul class="list-disc ml-8 mt-4 text-lg">
+                            <li class="mb-1 fragment fade-in">tidedra/zotero-arxiv-daily</li>
+                            <li class="mb-1 fragment fade-in">dyad-sh/dyad</li>
+                            <li class="mb-1 fragment fade-in">eclipse-sumo/sumo</li>
+                            <li class="mb-1 fragment fade-in">kubesphere/kubesphere</li>
+                            <li class="mb-1 fragment fade-in">huanshere/videolingo</li>
+                            <li class="mb-1 fragment fade-in">devlikeapro/waha</li>
+                            <li class="mb-1 fragment fade-in">playcanvas/editor</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-red-600"><i class="fas fa-minus-circle mr-2"></i> 减退热点</h4>
+                        <ul class="list-disc ml-8 mt-4 text-lg">
+                            <li class="mb-1 fragment fade-in">skyworkai/skyreels-v2</li>
+                            <li class="mb-1 fragment fade-in">canner/wrenai</li>
+                            <li class="mb-1 fragment fade-in">pointfreeco/swift-composable-architecture</li>
+                            <li class="mb-1 fragment fade-in">nemproject/nem</li>
+                            <li class="mb-1 fragment fade-in">fastrepl/hyprnote</li>
+                            <li class="mb-1 fragment fade-in">linkwarden/linkwarden</li>
+                            <li class="mb-1 fragment fade-in">cloudwego/eino</li>
+                            <li class="mb-1 fragment fade-in">rustdesk/rustdesk</li>
+                            <li class="mb-1 fragment fade-in">kijai/comfyui-wanvideowrapper</li>
+                        </ul>
+                    </div>
+                </div>
+                <h4 class="text-blue-600 mt-6 fragment fade-in text-center"><i class="fas fa-fire-alt mr-2"></i> 持续热门：</h4>
+                <ul class="list-disc ml-8 mt-2 text-lg fragment fade-in">
+                    <li>9001/copyparty (<span class="font-bold text-tech-primary">4次</span>上榜)</li>
+                </ul>
+            </section>
+
+            <!-- Slide 9: 详细仓库数据 - 标题页 -->
+            <section data-background-color="#e2f5ff">
+                <h2 class="text-center text-tech-primary">📊 详细仓库数据</h2>
+                <p class="text-center text-gray-700 mt-4 text-xl">
+                    深入了解每个热门项目，洞悉其独特价值
+                </p>
+            </section>
+
+            <!-- Projects Section (Vertical Slides for each project) -->
+
+            <!-- Project: OpenPipe/ART -->
+            <section>
+                <section data-background-color="#fff">
+                    <h3 class="text-tech-primary mb-4 text-center"><a href="https://github.com/OpenPipe/ART" target="_blank" class="hover:underline">OpenPipe/ART</a></h3>
+                    <p class="text-lg text-gray-700 mb-6 text-center">智能体强化训练器：利用GRPO训练多步智能体以应对实际任务。</p>
+                    <div class="project-card mx-auto max-w-4xl">
+                        <div class="grid grid-cols-2 gap-4 text-lg mb-6">
+                            <div class="flex items-center"><i class="fas fa-code mr-2 text-tech-primary"></i> <span class="font-semibold">开发语言:</span> Python</div>
+                            <div class="flex items-center"><i class="fas fa-star mr-2 text-yellow-500"></i> <span class="font-semibold">Star 数:</span> 4404</div>
+                            <div class="flex items-center"><i class="fas fa-chart-line mr-2 text-green-500"></i> <span class="font-semibold">当日 Star 增加数:</span> 397</div>
+                            <div class="flex items-center"><i class="fas fa-clock mr-2 text-blue-500"></i> <span class="font-semibold">连续在榜:</span> 2次</div>
+                            <div class="flex items-center"><i class="fas fa-medal mr-2 text-gray-500"></i> <span class="font-semibold">总上榜次数:</span> 5次</div>
+                            <div class="flex items-center"><i class="fas fa-code-branch mr-2 text-purple-500"></i> <span class="font-semibold">Forks:</span> 269</div>
+                        </div>
+                        <div class="text-sm text-gray-600 border-t pt-4 mt-4">
+                             <p class="mb-1"><i class="fas fa-eye mr-2"></i> Watchers: 29 | <i class="fas fa-exclamation-circle mr-2"></i> Issues: 26 | <i class="fas fa-code-pull-request mr-2"></i> Pull Requests: 8</p>
+                             <p class="mb-1"><i class="fas fa-box-open mr-2"></i> Releases: 35 | <i class="fas fa-clipboard-list mr-2"></i> Commits: 746 | <i class="fas fa-balance-scale mr-2"></i> License: Apache-2.0 license</p>
+                             <p class="mb-1"><i class="fas fa-users mr-2"></i> Contributors: 9</p>
+                             <p><i class="fas fa-chart-pie mr-2"></i> 编程语言占比: <span class="font-bold">Python</span> 91.9%, Jupyter Notebook 7.8%, Shell 0.3%</p>
+                        </div>
+                    </div>
+                </section>
+                <section data-background-color="#f7fafc">
+                    <h3 class="text-tech-primary">OpenPipe/ART：项目速读</h3>
+                    <p class="text-lg mt-4 text-gray-700 fragment fade-in">
+                        <span class="font-bold text-tech-primary">核心：</span> 强大的Python强化学习框架，提升LLM驱动智能体在真实世界多步骤任务中的<strong class="text-tech-accent">可靠性与稳定性</strong>。
+                    </p>
+                    <ul class="pl-0 mt-6 text-lg">
+                        <li class="fragment fade-in">
+                            <i class="fas fa-flask mr-2 text-blue-500"></i> <span class="font-semibold">创新点：</span> 革命性RULER模块，利用“LLM作为评判者”自动评估轨迹并生成奖励信号，无需手动设计奖励函数。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-dollar-sign mr-2 text-green-500"></i> <span class="font-semibold">效率提升：</span> 智能体开发速度提升2-3倍，确保奖励通用性和高性能。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-network-wired mr-2 text-purple-500"></i> <span class="font-semibold">架构：</span> 客户端-服务器架构，支持分布式训练，高效率、可扩展。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-robot mr-2 text-red-500"></i> <span class="font-semibold">价值：</span> 极大地降低了LLM智能体强化学习的门槛和成本，使得开发者能够更高效地构建出能在复杂、动态环境中自主学习、适应并自我纠错的智能体，让LLM智能体从“会说”进化到“会做”且“做对”。
+                        </li>
+                    </ul>
+                </section>
+                <section data-background-color="#f7fafc">
+                    <h3 class="text-tech-primary">OpenPipe/ART：增长分析</h3>
+                    <p class="text-lg mt-4 text-gray-700 fragment fade-in">
+                        该仓库在18天内5次上榜，表明其活跃度高。
+                    </p>
+                    <ul class="pl-0 mt-6 text-lg">
+                        <li class="fragment fade-in">
+                            <i class="fas fa-star-half-stroke mr-2 text-yellow-500"></i> <span class="font-semibold">平均增长：</span> 每次平均增长 <strong class="text-tech-accent">368 Star</strong>，总计增长<strong class="text-tech-accent">2824 Star</strong>。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-arrow-up-right-dots mr-2 text-green-500"></i> <span class="font-semibold">今日表现：</span> 今日新增 <strong class="text-tech-accent">397 Star</strong> 高于平均，显示持续吸引用户，增长趋势良好。
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Project: devlikeapro/waha -->
+            <section>
+                <section data-background-color="#fff">
+                    <h3 class="text-tech-primary mb-4 text-center"><a href="https://github.com/devlikeapro/waha" target="_blank" class="hover:underline">devlikeapro/waha</a></h3>
+                    <p class="text-lg text-gray-700 mb-6 text-center">WAHA - WhatsApp HTTP API (REST API)，一键即可配置！</p>
+                    <div class="project-card mx-auto max-w-4xl">
+                        <div class="grid grid-cols-2 gap-4 text-lg mb-6">
+                            <div class="flex items-center"><i class="fas fa-code mr-2 text-tech-primary"></i> <span class="font-semibold">开发语言:</span> TypeScript</div>
+                            <div class="flex items-center"><i class="fas fa-star mr-2 text-yellow-500"></i> <span class="font-semibold">Star 数:</span> 2434</div>
+                            <div class="flex items-center"><i class="fas fa-chart-line mr-2 text-green-500"></i> <span class="font-semibold">当日 Star 增加数:</span> 349</div>
+                            <div class="flex items-center"><i class="fas fa-clock mr-2 text-blue-500"></i> <span class="font-semibold">连续在榜:</span> 1次</div>
+                            <div class="flex items-center"><i class="fas fa-medal mr-2 text-gray-500"></i> <span class="font-semibold">总上榜次数:</span> 1次</div>
+                            <div class="flex items-center"><i class="fas fa-code-branch mr-2 text-purple-500"></i> <span class="font-semibold">Forks:</span> 650</div>
+                        </div>
+                        <div class="text-sm text-gray-600 border-t pt-4 mt-4">
+                             <p class="mb-1"><i class="fas fa-eye mr-2"></i> Watchers: 33 | <i class="fas fa-exclamation-circle mr-2"></i> Issues: 202 | <i class="fas fa-code-pull-request mr-2"></i> Pull Requests: 0</p>
+                             <p class="mb-1"><i class="fas fa-box-open mr-2"></i> Releases: 148 | <i class="fas fa-clipboard-list mr-2"></i> Commits: 1,644 | <i class="fas fa-balance-scale mr-2"></i> License: Apache-2.0 license</p>
+                             <p class="mb-1"><i class="fas fa-users mr-2"></i> Contributors: 9</p>
+                             <p><i class="fas fa-chart-pie mr-2"></i> 编程语言占比: <span class="font-bold">TypeScript</span> 49.3%, JavaScript 43.3%, HTML 7.0%, Other 0.4%</p>
+                        </div>
+                    </div>
+                </section>
+                <section data-background-color="#f7fafc">
+                    <h3 class="text-tech-primary">devlikeapro/waha：项目速读</h3>
+                    <p class="text-lg mt-4 text-gray-700 fragment fade-in">
+                        <span class="font-bold text-tech-primary">核心：</span> 开源WhatsApp HTTP REST API服务，旨在帮助开发者将WhatsApp消息功能<strong class="text-tech-accent">快速集成</strong>到自有应用中。
+                    </p>
+                    <ul class="pl-0 mt-6 text-lg">
+                        <li class="fragment fade-in">
+                            <i class="fas fa-rocket mr-2 text-blue-500"></i> <span class="font-semibold">亮点：</span> 极简的部署方式，用户通过Docker容器可在数分钟内完成部署并启动服务。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-qrcode mr-2 text-green-500"></i> <span class="font-semibold">特性：</span> 支持通过扫描QR码登录，提供完整的RESTful API和内置Swagger UI，极大简化了开发和调试流程。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-layer-group mr-2 text-purple-500"></i> <span class="font-semibold">WAHA Plus：</span> 允许多个WhatsApp会话同时运行，显著提升了其灵活性和扩展性。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-handshake mr-2 text-red-500"></i> <span class="font-semibold">价值：</span> 为需要与WhatsApp进行编程交互的业务场景提供了高效、易用的解决方案，无论是构建自动化通知系统还是集成客户服务机器人，WAHA都能发挥重要作用。
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Project: puppeteer/puppeteer -->
+            <section>
+                <section data-background-color="#fff">
+                    <h3 class="text-tech-primary mb-4 text-center"><a href="https://github.com/puppeteer/puppeteer" target="_blank" class="hover:underline">puppeteer/puppeteer</a></h3>
+                    <p class="text-lg text-gray-700 mb-6 text-center">适用于 Chrome 和 Firefox 的 JavaScript API。</p>
+                    <div class="project-card mx-auto max-w-4xl">
+                        <div class="grid grid-cols-2 gap-4 text-lg mb-6">
+                            <div class="flex items-center"><i class="fas fa-code mr-2 text-tech-primary"></i> <span class="font-semibold">开发语言:</span> TypeScript</div>
+                            <div class="flex items-center"><i class="fas fa-star mr-2 text-yellow-500"></i> <span class="font-semibold">Star 数:</span> 91480</div>
+                            <div class="flex items-center"><i class="fas fa-chart-line mr-2 text-green-500"></i> <span class="font-semibold">当日 Star 增加数:</span> 159</div>
+                            <div class="flex items-center"><i class="fas fa-clock mr-2 text-blue-500"></i> <span class="font-semibold">连续在榜:</span> 2次</div>
+                            <div class="flex items-center"><i class="fas fa-medal mr-2 text-gray-500"></i> <span class="font-semibold">总上榜次数:</span> 2次</div>
+                            <div class="flex items-center"><i class="fas fa-code-branch mr-2 text-purple-500"></i> <span class="font-semibold">Forks:</span> 9.2k</div>
+                        </div>
+                        <div class="text-sm text-gray-600 border-t pt-4 mt-4">
+                             <p class="mb-1"><i class="fas fa-eye mr-2"></i> Watchers: 1.2k | <i class="fas fa-exclamation-circle mr-2"></i> Issues: 260 | <i class="fas fa-code-pull-request mr-2"></i> Pull Requests: 12</p>
+                             <p class="mb-1"><i class="fas fa-box-open mr-2"></i> Releases: 551 | <i class="fas fa-clipboard-list mr-2"></i> Commits: 5,667 | <i class="fas fa-balance-scale mr-2"></i> License: Apache-2.0 license</p>
+                             <p class="mb-1"><i class="fas fa-users mr-2"></i> Contributors: 522</p>
+                             <p><i class="fas fa-chart-pie mr-2"></i> 编程语言占比: <span class="font-bold">TypeScript</span> 93.2%, JavaScript 5.4%, HTML 1.1%, Other 0.3%</p>
+                        </div>
+                    </div>
+                </section>
+                <section data-background-color="#f7fafc">
+                    <h3 class="text-tech-primary">puppeteer/puppeteer：项目速读</h3>
+                    <p class="text-lg mt-4 text-gray-700 fragment fade-in">
+                        <span class="font-bold text-tech-primary">核心：</span> 强大的 JavaScript 库，专为 Chrome 和 Firefox 浏览器提供高级 API，核心目标是实现对浏览器的<strong class="text-tech-accent">自动化控制</strong>。
+                    </p>
+                    <ul class="pl-0 mt-6 text-lg">
+                        <li class="fragment fade-in">
+                            <i class="fas fa-robot mr-2 text-blue-500"></i> <span class="font-semibold">解决痛点：</span> 模拟用户真实操作、进行网页交互的复杂痛点，高效处理网页抓取、端到端测试、UI自动化、性能分析等。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-rocket mr-2 text-green-500"></i> <span class="font-semibold">优势：</span> 简洁直观的API，默认以无头（headless）模式运行，效率奇高；也能切换到有头模式便于调试。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-desktop mr-2 text-purple-500"></i> <span class="font-semibold">功能：</span> 模拟页面导航、元素点击、表单填写，执行复杂的JavaScript代码、捕获网络请求，生成网页截图或 PDF 文档。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-cogs mr-2 text-red-500"></i> <span class="font-semibold">价值：</span> 浏览器自动化领域事实上的行业标准，提供了强大而灵活的解决方案，显著提升了开发效率和产品质量。
+                        </li>
+                    </ul>
+                </section>
+                <section data-background-color="#f7fafc">
+                    <h3 class="text-tech-primary">puppeteer/puppeteer：增长分析</h3>
+                    <p class="text-lg mt-4 text-gray-700 fragment fade-in">
+                        该仓库在短短两天内两次上榜，活跃度高。
+                    </p>
+                    <ul class="pl-0 mt-6 text-lg">
+                        <li class="fragment fade-in">
+                            <i class="fas fa-star-half-stroke mr-2 text-yellow-500"></i> <span class="font-semibold">总Star增长：</span> <strong class="text-tech-accent">155</strong>。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-arrow-up-right-dots mr-2 text-green-500"></i> <span class="font-semibold">今日表现：</span> 当次新增高达 <strong class="text-tech-accent">159 Star</strong>，远超平均值88.5。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-bolt mr-2 text-blue-500"></i> <span class="font-semibold">趋势：</span> Star增长趋势非常强劲，且呈明显加速态势。
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Project: kubesphere/kubesphere -->
+            <section>
+                <section data-background-color="#fff">
+                    <h3 class="text-tech-primary mb-4 text-center"><a href="https://github.com/kubesphere/kubesphere" target="_blank" class="hover:underline">kubesphere/kubesphere</a></h3>
+                    <p class="text-lg text-gray-700 mb-6 text-center">专为Kubernetes多云、数据中心和边缘管理量身定制的容器平台。</p>
+                    <div class="project-card mx-auto max-w-4xl">
+                        <div class="grid grid-cols-2 gap-4 text-lg mb-6">
+                            <div class="flex items-center"><i class="fas fa-code mr-2 text-tech-primary"></i> <span class="font-semibold">开发语言:</span> Go</div>
+                            <div class="flex items-center"><i class="fas fa-star mr-2 text-yellow-500"></i> <span class="font-semibold">Star 数:</span> 16227</div>
+                            <div class="flex items-center"><i class="fas fa-chart-line mr-2 text-green-500"></i> <span class="font-semibold">当日 Star 增加数:</span> 37</div>
+                            <div class="flex items-center"><i class="fas fa-clock mr-2 text-blue-500"></i> <span class="font-semibold">连续在榜:</span> 1次</div>
+                            <div class="flex items-center"><i class="fas fa-medal mr-2 text-gray-500"></i> <span class="font-semibold">总上榜次数:</span> 1次</div>
+                            <div class="flex items-center"><i class="fas fa-code-branch mr-2 text-purple-500"></i> <span class="font-semibold">Forks:</span> 2.4k</div>
+                        </div>
+                        <div class="text-sm text-gray-600 border-t pt-4 mt-4">
+                             <p class="mb-1"><i class="fas fa-eye mr-2"></i> Watchers: 225 | <i class="fas fa-exclamation-circle mr-2"></i> Issues: 310 | <i class="fas fa-code-pull-request mr-2"></i> Pull Requests: 0</p>
+                             <p class="mb-1"><i class="fas fa-box-open mr-2"></i> Releases: 28 | <i class="fas fa-clipboard-list mr-2"></i> Commits: 3,249 | <i class="fas fa-balance-scale mr-2"></i> License: 未知</p>
+                             <p class="mb-1"><i class="fas fa-users mr-2"></i> Contributors: 120</p>
+                             <p><i class="fas fa-chart-pie mr-2"></i> 编程语言占比: <span class="font-bold">Go</span> 91.4%, Shell 6.6%, Mustache 1.5%, Other 0.5%</p>
+                        </div>
+                    </div>
+                </section>
+                <section data-background-color="#f7fafc">
+                    <h3 class="text-tech-primary">kubesphere/kubesphere：项目速读</h3>
+                    <p class="text-lg mt-4 text-gray-700 fragment fade-in">
+                        <span class="font-bold text-tech-primary">核心：</span> 以Kubernetes为内核，面向多云、数据中心及边缘的分布式操作系统，旨在解决复杂容器平台管理的挑战，赋能企业<strong class="text-tech-accent">高效构建和管理云原生应用平台</strong>。
+                    </p>
+                    <ul class="pl-0 mt-6 text-lg">
+                        <li class="fragment fade-in">
+                            <i class="fas fa-cogs mr-2 text-blue-500"></i> <span class="font-semibold">优势：</span> 提供全栈自动化IT运维、简化DevOps工作流和友好的Web UI。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-cube mr-2 text-green-500"></i> <span class="font-semibold">架构：</span> 创新微内核加扩展组件（代号LuBan）架构，KubeSphere Core轻量化，用户可按需动态加载功能模块，实现高度定制与灵活部署。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-cloud mr-2 text-purple-500"></i> <span class="font-semibold">功能：</span> 全面Kubernetes集群供应与强大的多集群管理能力，深度整合DevOps工具链（Jenkins、Argo CD/GitOps），构建云原生可观测性体系，集成了Istio服务网格，并支持GPU工作负载，覆盖前沿应用场景。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-bullseye mr-2 text-red-500"></i> <span class="font-semibold">适用：</span> 需要构建私有云、管理混合多云环境、实践DevOps或部署边缘计算应用的各类组织。
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Project: eclipse-sumo/sumo -->
+            <section>
+                <section data-background-color="#fff">
+                    <h3 class="text-tech-primary mb-4 text-center"><a href="https://github.com/eclipse-sumo/sumo" target="_blank" class="hover:underline">eclipse-sumo/sumo</a></h3>
+                    <p class="text-lg text-gray-700 mb-6 text-center">开源、高度可移植的微观连续交通仿真软件包，旨在处理大型网络。</p>
+                    <div class="project-card mx-auto max-w-4xl">
+                        <div class="grid grid-cols-2 gap-4 text-lg mb-6">
+                            <div class="flex items-center"><i class="fas fa-code mr-2 text-tech-primary"></i> <span class="font-semibold">开发语言:</span> C++</div>
+                            <div class="flex items-center"><i class="fas fa-star mr-2 text-yellow-500"></i> <span class="font-semibold">Star 数:</span> 2986</div>
+                            <div class="flex items-center"><i class="fas fa-chart-line mr-2 text-green-500"></i> <span class="font-semibold">当日 Star 增加数:</span> 61</div>
+                            <div class="flex items-center"><i class="fas fa-clock mr-2 text-blue-500"></i> <span class="font-semibold">连续在榜:</span> 1次</div>
+                            <div class="flex items-center"><i class="fas fa-medal mr-2 text-gray-500"></i> <span class="font-semibold">总上榜次数:</span> 1次</div>
+                            <div class="flex items-center"><i class="fas fa-code-branch mr-2 text-purple-500"></i> <span class="font-semibold">Forks:</span> 1.6k</div>
+                        </div>
+                        <div class="text-sm text-gray-600 border-t pt-4 mt-4">
+                             <p class="mb-1"><i class="fas fa-eye mr-2"></i> Watchers: 68 | <i class="fas fa-exclamation-circle mr-2"></i> Issues: 2.8k | <i class="fas fa-code-pull-request mr-2"></i> Pull Requests: 5</p>
+                             <p class="mb-1"><i class="fas fa-box-open mr-2"></i> Releases: 0 | <i class="fas fa-clipboard-list mr-2"></i> Commits: 47,016 | <i class="fas fa-balance-scale mr-2"></i> License: EPL-2.0 license</p>
+                             <p class="mb-1"><i class="fas fa-users mr-2"></i> Contributors: 107</p>
+                             <p><i class="fas fa-chart-pie mr-2"></i> 编程语言占比: <span class="font-bold">C++</span> 48.1%, Python 46.6%, C 2.5%, Java 1.8%, Other 1%</p>
+                        </div>
+                    </div>
+                </section>
+                <section data-background-color="#f7fafc">
+                    <h3 class="text-tech-primary">eclipse-sumo/sumo：项目速读</h3>
+                    <p class="text-lg mt-4 text-gray-700 fragment fade-in">
+                        <span class="font-bold text-tech-primary">核心：</span> Eclipse SUMO是一款开源、高度可移植的微观交通模拟软件包，旨在解决城市交通规划、研究与教育中的复杂挑战，提供强大的<strong class="text-tech-accent">仿真分析能力</strong>。
+                    </p>
+                    <ul class="pl-0 mt-6 text-lg">
+                        <li class="fragment fade-in">
+                            <i class="fas fa-globe mr-2 text-blue-500"></i> <span class="font-semibold">优势：</span> 出色的跨平台兼容性（支持Windows、Linux、macOS），能够深入洞察个体交通参与者的行为细节。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-map-marked-alt mr-2 text-green-500"></i> <span class="font-semibold">功能：</span> 用于测试新的交通策略、评估基础设施改进的效果、预测交通流量变化，进而优化城市交通效率与可持续发展。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-book mr-2 text-purple-500"></i> <span class="font-semibold">生态：</span> 基于C++开发，遵循Eclipse公共许可证V2，并辅以详尽的官方文档和活跃的社区支持。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-lightbulb mr-2 text-red-500"></i> <span class="font-semibold">价值：</span> 为交通工程师、研究人员和城市规划者提供宝贵工具，其持续增长的关注度，充分印证了它在智能交通和城市科学领域不可或缺的实践价值。
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Project: 9001/copyparty -->
+            <section>
+                <section data-background-color="#fff">
+                    <h3 class="text-tech-primary mb-4 text-center"><a href="https://github.com/9001/copyparty" target="_blank" class="hover:underline">9001/copyparty</a></h3>
+                    <p class="text-lg text-gray-700 mb-6 text-center">便携式文件服务器，具备加速可续传上传、重复数据删除、WebDAV、FTP等功能。</p>
+                    <div class="project-card mx-auto max-w-4xl">
+                        <div class="grid grid-cols-2 gap-4 text-lg mb-6">
+                            <div class="flex items-center"><i class="fas fa-code mr-2 text-tech-primary"></i> <span class="font-semibold">开发语言:</span> Python</div>
+                            <div class="flex items-center"><i class="fas fa-star mr-2 text-yellow-500"></i> <span class="font-semibold">Star 数:</span> 17191</div>
+                            <div class="flex items-center"><i class="fas fa-chart-line mr-2 text-green-500"></i> <span class="font-semibold">当日 Star 增加数:</span> 1667</div>
+                            <div class="flex items-center"><i class="fas fa-clock mr-2 text-blue-500"></i> <span class="font-semibold">连续在榜:</span> 4次</div>
+                            <div class="flex items-center"><i class="fas fa-medal mr-2 text-gray-500"></i> <span class="font-semibold">总上榜次数:</span> 4次</div>
+                            <div class="flex items-center"><i class="fas fa-code-branch mr-2 text-purple-500"></i> <span class="font-semibold">Forks:</span> 558</div>
+                        </div>
+                        <div class="text-sm text-gray-600 border-t pt-4 mt-4">
+                             <p class="mb-1"><i class="fas fa-eye mr-2"></i> Watchers: 79 | <i class="fas fa-exclamation-circle mr-2"></i> Issues: 92 | <i class="fas fa-code-pull-request mr-2"></i> Pull Requests: 16</p>
+                             <p class="mb-1"><i class="fas fa-box-open mr-2"></i> Releases: 302 | <i class="fas fa-clipboard-list mr-2"></i> Commits: 3,755 | <i class="fas fa-balance-scale mr-2"></i> License: MIT license</p>
+                             <p class="mb-1"><i class="fas fa-users mr-2"></i> Contributors: 31</p>
+                             <p><i class="fas fa-chart-pie mr-2"></i> 编程语言占比: <span class="font-bold">Python</span> 59.5%, JavaScript 30.7%, Shell 3.3%, CSS 3.2%, HTML 1.8%, Other 1.5%</p>
+                        </div>
+                    </div>
+                </section>
+                <section data-background-color="#f7fafc">
+                    <h3 class="text-tech-primary">9001/copyparty：项目速读</h3>
+                    <p class="text-lg mt-4 text-gray-700 fragment fade-in">
+                        <span class="font-bold text-tech-primary">核心：</span> 一个用 Python 编写的强大、便携式文件服务器，旨在将几乎任何设备转换为一个支持<strong class="text-tech-accent">高速断点续传的文件共享中心</strong>。
+                    </p>
+                    <ul class="pl-0 mt-6 text-lg">
+                        <li class="fragment fade-in">
+                            <i class="fas fa-lightbulb mr-2 text-blue-500"></i> <span class="font-semibold">优势：</span> 极低的依赖（仅需Python），可打包成单一文件，极大简化部署。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-file-export mr-2 text-green-500"></i> <span class="font-semibold">功能：</span> 提供功能丰富的Web界面，支持WebDAV、FTP、TFTP等多种协议，涵盖媒体索引、缩略图、拖放上传、批量下载及内置媒体播放器。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-shield-alt mr-2 text-purple-500"></i> <span class="font-semibold">安全：</span> 具备精细权限管理、文件去重、HTTPS等安全特性及强大扩展性。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-cloud mr-2 text-red-500"></i> <span class="font-semibold">适用：</span> 适用于快速文件共享、个人私有云或媒体服务器，提供高性能、安全、便捷的文件管理与传输体验。
+                        </li>
+                    </ul>
+                </section>
+                <section data-background-color="#f7fafc">
+                    <h3 class="text-tech-primary">9001/copyparty：增长分析</h3>
+                    <p class="text-lg mt-4 text-gray-700 fragment fade-in">
+                        仓库在短短三天内，凭借4次频繁上榜，实现总Star增长<strong class="text-tech-accent">8389</strong>。
+                    </p>
+                    <ul class="pl-0 mt-6 text-lg">
+                        <li class="fragment fade-in">
+                            <i class="fas fa-chart-line mr-2 text-yellow-500"></i> <span class="font-semibold">平均增幅：</span> 每次增幅显著，表明其吸引力强。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-arrow-down-long mr-2 text-red-500"></i> <span class="font-semibold">今日表现：</span> 今日新增<strong class="text-tech-accent">1667 Stars</strong>，略低于周期平均水平，增长势头略有放缓。
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Project: dyad-sh/dyad -->
+            <section>
+                <section data-background-color="#fff">
+                    <h3 class="text-tech-primary mb-4 text-center"><a href="https://github.com/dyad-sh/dyad" target="_blank" class="hover:underline">dyad-sh/dyad</a></h3>
+                    <p class="text-lg text-gray-700 mb-6 text-center">免费、本地、开源的AI应用构建器。</p>
+                    <div class="project-card mx-auto max-w-4xl">
+                        <div class="grid grid-cols-2 gap-4 text-lg mb-6">
+                            <div class="flex items-center"><i class="fas fa-code mr-2 text-tech-primary"></i> <span class="font-semibold">开发语言:</span> TypeScript</div>
+                            <div class="flex items-center"><i class="fas fa-star mr-2 text-yellow-500"></i> <span class="font-semibold">Star 数:</span> 2756</div>
+                            <div class="flex items-center"><i class="fas fa-chart-line mr-2 text-green-500"></i> <span class="font-semibold">当日 Star 增加数:</span> 276</div>
+                            <div class="flex items-center"><i class="fas fa-clock mr-2 text-blue-500"></i> <span class="font-semibold">连续在榜:</span> 1次</div>
+                            <div class="flex items-center"><i class="fas fa-medal mr-2 text-gray-500"></i> <span class="font-semibold">总上榜次数:</span> 1次</div>
+                            <div class="flex items-center"><i class="fas fa-code-branch mr-2 text-purple-500"></i> <span class="font-semibold">Forks:</span> 418</div>
+                        </div>
+                        <div class="text-sm text-gray-600 border-t pt-4 mt-4">
+                             <p class="mb-1"><i class="fas fa-eye mr-2"></i> Watchers: 26 | <i class="fas fa-exclamation-circle mr-2"></i> Issues: 99 | <i class="fas fa-code-pull-request mr-2"></i> Pull Requests: 3</p>
+                             <p class="mb-1"><i class="fas fa-box-open mr-2"></i> Releases: 30 | <i class="fas fa-clipboard-list mr-2"></i> Commits: 493 | <i class="fas fa-balance-scale mr-2"></i> License: Apache-2.0 license</p>
+                             <p class="mb-1"><i class="fas fa-users mr-2"></i> Contributors: 4</p>
+                             <p><i class="fas fa-chart-pie mr-2"></i> 编程语言占比: <span class="font-bold">TypeScript</span> 96.9%, JavaScript 1.8%, CSS 1.0%, Other 0.3%</p>
+                        </div>
+                    </div>
+                </section>
+                <section data-background-color="#f7fafc">
+                    <h3 class="text-tech-primary">dyad-sh/dyad：项目速读</h3>
+                    <p class="text-lg mt-4 text-gray-700 fragment fade-in">
+                        <span class="font-bold text-tech-primary">核心：</span> Dyad 是一个创新的本地化开源 AI 应用构建器，旨在为用户提供一个自由、私密的平台，在自己的电脑上<strong class="text-tech-accent">快速开发人工智能应用程序</strong>。
+                    </p>
+                    <ul class="pl-0 mt-6 text-lg">
+                        <li class="fragment fade-in">
+                            <i class="fas fa-user-shield mr-2 text-blue-500"></i> <span class="font-semibold">解决痛点：</span> 解决了传统云端 AI 工具可能带来的数据隐私和供应商锁定问题。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-server mr-2 text-green-500"></i> <span class="font-semibold">优势：</span> “本地化”特性，用户无需注册或依赖远程服务器，下载即可在 Mac 或 Windows 系统上直接运行，这极大地简化了上手流程，并确保了开发过程中的数据安全和响应速度。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-key mr-2 text-purple-500"></i> <span class="font-semibold">灵活：</span> 支持“自带 API 密钥”，意味着开发者可以灵活选用如 OpenAI 等不同的 AI 服务提供商，而不受限于特定生态系统。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-handshake mr-2 text-red-500"></i> <span class="font-semibold">价值：</span> 为追求数据主权、注重开发效率，或是希望在本地进行快速迭代的 AI 开发者提供了一个强大且灵活的替代方案，特别适合那些希望在私有环境中进行探索和构建的用户。
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Project: stenzek/duckstation -->
+            <section>
+                <section data-background-color="#fff">
+                    <h3 class="text-tech-primary mb-4 text-center"><a href="https://github.com/stenzek/duckstation" target="_blank" class="hover:underline">stenzek/duckstation</a></h3>
+                    <p class="text-lg text-gray-700 mb-6 text-center">支持 x86-64/AArch32/AArch64/RV64 的快速 PlayStation 1 模拟器。</p>
+                    <div class="project-card mx-auto max-w-4xl">
+                        <div class="grid grid-cols-2 gap-4 text-lg mb-6">
+                            <div class="flex items-center"><i class="fas fa-code mr-2 text-tech-primary"></i> <span class="font-semibold">开发语言:</span> C++</div>
+                            <div class="flex items-center"><i class="fas fa-star mr-2 text-yellow-500"></i> <span class="font-semibold">Star 数:</span> 8771</div>
+                            <div class="flex items-center"><i class="fas fa-chart-line mr-2 text-green-500"></i> <span class="font-semibold">当日 Star 增加数:</span> 211</div>
+                            <div class="flex items-center"><i class="fas fa-clock mr-2 text-blue-500"></i> <span class="font-semibold">连续在榜:</span> 2次</div>
+                            <div class="flex items-center"><i class="fas fa-medal mr-2 text-gray-500"></i> <span class="font-semibold">总上榜次数:</span> 2次</div>
+                            <div class="flex items-center"><i class="fas fa-code-branch mr-2 text-purple-500"></i> <span class="font-semibold">Forks:</span> 789</div>
+                        </div>
+                        <div class="text-sm text-gray-600 border-t pt-4 mt-4">
+                             <p class="mb-1"><i class="fas fa-eye mr-2"></i> Watchers: 165 | <i class="fas fa-exclamation-circle mr-2"></i> Issues: 0 | <i class="fas fa-code-pull-request mr-2"></i> Pull Requests: 1</p>
+                             <p class="mb-1"><i class="fas fa-box-open mr-2"></i> Releases: 27 | <i class="fas fa-clipboard-list mr-2"></i> Commits: 9,927 | <i class="fas fa-balance-scale mr-2"></i> License: 未知</p>
+                             <p class="mb-1"><i class="fas fa-users mr-2"></i> Contributors: 124</p>
+                             <p><i class="fas fa-chart-pie mr-2"></i> 编程语言占比: <span class="font-bold">C++</span> 78.6%, C 19.6%, Other 1.8%</p>
+                        </div>
+                    </div>
+                </section>
+                <section data-background-color="#f7fafc">
+                    <h3 class="text-tech-primary">stenzek/duckstation：项目速读</h3>
+                    <p class="text-lg mt-4 text-gray-700 fragment fade-in">
+                        <span class="font-bold text-tech-primary">核心：</span> DuckStation 是一款高速、精确且专注于长期可维护性的 PlayStation 1 (PSX) 模拟器，旨在为用户提供<strong class="text-tech-accent">高度还原的PS1游戏体验</strong>。
+                    </p>
+                    <ul class="pl-0 mt-6 text-lg">
+                        <li class="fragment fade-in">
+                            <i class="fas fa-gamepad mr-2 text-blue-500"></i> <span class="font-semibold">目标：</span> 通过卓越的性能优化，确保在多种硬件配置上都能流畅运行。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-screwdriver-wrench mr-2 text-green-500"></i> <span class="font-semibold">技术：</span> 采用了先进的CPU重编译器（支持x86-64、ARM和RISC-V），结合多线程软件渲染器及多种硬件渲染API（DirectX、OpenGL、Vulkan、Metal）。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-sliders-h mr-2 text-purple-500"></i> <span class="font-semibold">增强：</span> 提供丰富的图形增强选项，如PGXP几何精度、24位真彩色、纹理过滤和放大等，显著提升了经典游戏的视觉表现。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-desktop mr-2 text-red-500"></i> <span class="font-semibold">平台：</span> 支持Windows、Linux、macOS和Android等多个平台。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-ban mr-2 text-gray-500"></i> <span class="font-semibold">注意：</span> 该项目采用CC-BY-NC-ND许可证，允许分发未经修改的版本，但禁止用于商业用途和任何形式的修改。
+                        </li>
+                    </ul>
+                </section>
+                <section data-background-color="#f7fafc">
+                    <h3 class="text-tech-primary">stenzek/duckstation：增长分析</h3>
+                    <p class="text-lg mt-4 text-gray-700 fragment fade-in">
+                        该仓库在短短两天内两次上榜，显示出持续的曝光度。
+                    </p>
+                    <ul class="pl-0 mt-6 text-lg">
+                        <li class="fragment fade-in">
+                            <i class="fas fa-chart-line mr-2 text-yellow-500"></i> <span class="font-semibold">今日表现：</span> 昨日新增<strong class="text-tech-accent">211星</strong>，远超平均。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-arrow-up-right-dots mr-2 text-green-500"></i> <span class="font-semibold">趋势：</span> 增长势头强劲，用户关注度正快速提升。
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Project: playcanvas/editor -->
+            <section>
+                <section data-background-color="#fff">
+                    <h3 class="text-tech-primary mb-4 text-center"><a href="https://github.com/playcanvas/editor" target="_blank" class="hover:underline">playcanvas/editor</a></h3>
+                    <p class="text-lg text-gray-700 mb-6 text-center">强大的可视化编辑器环境，用于构建 WebGL、WebGPU、WebXR 应用程序。</p>
+                    <div class="project-card mx-auto max-w-4xl">
+                        <div class="grid grid-cols-2 gap-4 text-lg mb-6">
+                            <div class="flex items-center"><i class="fas fa-code mr-2 text-tech-primary"></i> <span class="font-semibold">开发语言:</span> TypeScript</div>
+                            <div class="flex items-center"><i class="fas fa-star mr-2 text-yellow-500"></i> <span class="font-semibold">Star 数:</span> 373</div>
+                            <div class="flex items-center"><i class="fas fa-chart-line mr-2 text-green-500"></i> <span class="font-semibold">当日 Star 增加数:</span> 38</div>
+                            <div class="flex items-center"><i class="fas fa-clock mr-2 text-blue-500"></i> <span class="font-semibold">连续在榜:</span> 1次</div>
+                            <div class="flex items-center"><i class="fas fa-medal mr-2 text-gray-500"></i> <span class="font-semibold">总上榜次数:</span> 1次</div>
+                            <div class="flex items-center"><i class="fas fa-code-branch mr-2 text-purple-500"></i> <span class="font-semibold">Forks:</span> 65</div>
+                        </div>
+                        <div class="text-sm text-gray-600 border-t pt-4 mt-4">
+                             <p class="mb-1"><i class="fas fa-eye mr-2"></i> Watchers: 25 | <i class="fas fa-exclamation-circle mr-2"></i> Issues: 610 | <i class="fas fa-code-pull-request mr-2"></i> Pull Requests: 2</p>
+                             <p class="mb-1"><i class="fas fa-box-open mr-2"></i> Releases: 111 | <i class="fas fa-clipboard-list mr-2"></i> Commits: 50 | <i class="fas fa-balance-scale mr-2"></i> License: MIT license</p>
+                             <p class="mb-1"><i class="fas fa-users mr-2"></i> Contributors: 5</p>
+                             <p><i class="fas fa-chart-pie mr-2"></i> 编程语言占比: <span class="font-bold">TypeScript</span> 89.0%, SCSS 10.8%, Other 0.2%</p>
+                        </div>
+                    </div>
+                </section>
+                <section data-background-color="#f7fafc">
+                    <h3 class="text-tech-primary">playcanvas/editor：项目速读</h3>
+                    <p class="text-lg mt-4 text-gray-700 fragment fade-in">
+                        <span class="font-bold text-tech-primary">核心：</span> 一个强大的可视化编辑环境，专为简化<strong class="text-tech-accent">WebGL、WebGPU和WebXR应用开发</strong>而设计。
+                    </p>
+                    <ul class="pl-0 mt-6 text-lg">
+                        <li class="fragment fade-in">
+                            <i class="fas fa-puzzle-piece mr-2 text-blue-500"></i> <span class="font-semibold">解决痛点：</span> 解决了传统 Web 3D/XR 开发流程复杂、门槛高的问题，通过直观的图形界面，让开发者能够高效地构建互动式 3D 内容、游戏及沉浸式体验。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-ruler-combined mr-2 text-green-500"></i> <span class="font-semibold">优势：</span> 对现代 Web 图形 API (WebGL, WebGPU) 和扩展现实技术 (WebXR) 的全面支持，使用户能充分利用最新的浏览器能力。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-link mr-2 text-purple-500"></i> <span class="font-semibold">技术：</span> 基于强大的 PlayCanvas Engine 驱动 3D 渲染，并集成了 Observer 库实现高效的数据绑定与历史记录管理，确保开发过程的流畅与可追溯。此外，PCUI 组件库提供了丰富的界面元素，而 PCUI-Graph 则支持复杂的节点化图表编辑，极大地提升了逻辑和场景构建的灵活性。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-bolt mr-2 text-red-500"></i> <span class="font-semibold">价值：</span> 不仅提供便捷的在线使用平台 (playcanvas.com)，也支持本地开发环境的搭建，极大地加速了从创意到实现的整个过程，尤其适合需要快速迭代和部署 Web 端沉浸式体验的团队和个人。
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Project: TideDra/zotero-arxiv-daily -->
+            <section>
+                <section data-background-color="#fff">
+                    <h3 class="text-tech-primary mb-4 text-center"><a href="https://github.com/TideDra/zotero-arxiv-daily" target="_blank" class="hover:underline">TideDra/zotero-arxiv-daily</a></h3>
+                    <p class="text-lg text-gray-700 mb-6 text-center">根据你的Zotero文献库，每日推荐你感兴趣的最新arXiv论文。</p>
+                    <div class="project-card mx-auto max-w-4xl">
+                        <div class="grid grid-cols-2 gap-4 text-lg mb-6">
+                            <div class="flex items-center"><i class="fas fa-code mr-2 text-tech-primary"></i> <span class="font-semibold">开发语言:</span> Python</div>
+                            <div class="flex items-center"><i class="fas fa-star mr-2 text-yellow-500"></i> <span class="font-semibold">Star 数:</span> 2316</div>
+                            <div class="flex items-center"><i class="fas fa-chart-line mr-2 text-green-500"></i> <span class="font-semibold">当日 Star 增加数:</span> 115</div>
+                            <div class="flex items-center"><i class="fas fa-clock mr-2 text-blue-500"></i> <span class="font-semibold">连续在榜:</span> 1次</div>
+                            <div class="flex items-center"><i class="fas fa-medal mr-2 text-gray-500"></i> <span class="font-semibold">总上榜次数:</span> 1次</div>
+                            <div class="flex items-center"><i class="fas fa-code-branch mr-2 text-purple-500"></i> <span class="font-semibold">Forks:</span> 2.2k</div>
+                        </div>
+                        <div class="text-sm text-gray-600 border-t pt-4 mt-4">
+                             <p class="mb-1"><i class="fas fa-eye mr-2"></i> Watchers: 17 | <i class="fas fa-exclamation-circle mr-2"></i> Issues: 25 | <i class="fas fa-code-pull-request mr-2"></i> Pull Requests: 4</p>
+                             <p class="mb-1"><i class="fas fa-box-open mr-2"></i> Releases: 12 | <i class="fas fa-clipboard-list mr-2"></i> Commits: 97 | <i class="fas fa-balance-scale mr-2"></i> License: AGPL-3.0 license</p>
+                             <p class="mb-1"><i class="fas fa-users mr-2"></i> Contributors: 7</p>
+                             <p><i class="fas fa-chart-pie mr-2"></i> 编程语言占比: <span class="font-bold">Python</span> 93.8%, Dockerfile 6.2%</p>
+                        </div>
+                    </div>
+                </section>
+                <section data-background-color="#f7fafc">
+                    <h3 class="text-tech-primary">TideDra/zotero-arxiv-daily：项目速读</h3>
+                    <p class="text-lg mt-4 text-gray-700 fragment fade-in">
+                        <span class="font-bold text-tech-primary">核心：</span> 一款基于Python的自动化工具，专为科研人员设计，旨在解决高效追踪学术前沿的难题，能够每日智能分析用户在Zotero文献管理软件中的个人图书馆内容，并据此从arXiv平台上筛选出<strong class="text-tech-accent">最新、最相关的论文</strong>。
+                    </p>
+                    <ul class="pl-0 mt-6 text-lg">
+                        <li class="fragment fade-in">
+                            <i class="fas fa-dollar-sign mr-2 text-blue-500"></i> <span class="font-semibold">优势：</span> 高度自动化、零成本及极简部署。完全利用GitHub Actions的免费配额进行每日运行，无需用户本地安装或额外付费。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-magic mr-2 text-green-500"></i> <span class="font-semibold">AI赋能：</span> 巧妙融合AI技术，利用大型语言模型为每篇推荐论文生成精炼TL;DR摘要，并支持灵活选择调用云端API或本地部署开源LLM。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-envelope mr-2 text-purple-500"></i> <span class="font-semibold">投递：</span> 最终通过电子邮件精准投递。邮件中不仅清晰呈现论文详情、PDF和代码链接，还会根据与用户文献库的相关性进行智能排序。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-user-graduate mr-2 text-red-500"></i> <span class="font-semibold">价值：</span> 对于依赖Zotero进行文献管理、同时渴望摆脱海量信息过载的科研工作者、研究生及学者而言，是一个极具价值的个性化文献发现解决方案。
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Project: Huanshere/VideoLingo -->
+            <section>
+                <section data-background-color="#fff">
+                    <h3 class="text-tech-primary mb-4 text-center"><a href="https://github.com/Huanshere/VideoLingo" target="_blank" class="hover:underline">Huanshere/VideoLingo</a></h3>
+                    <p class="text-lg text-gray-700 mb-6 text-center">Netflix级字幕切割、翻译、对齐，甚至配音，一键全自动AI视频字幕组。</p>
+                    <div class="project-card mx-auto max-w-4xl">
+                        <div class="grid grid-cols-2 gap-4 text-lg mb-6">
+                            <div class="flex items-center"><i class="fas fa-code mr-2 text-tech-primary"></i> <span class="font-semibold">开发语言:</span> Python</div>
+                            <div class="flex items-center"><i class="fas fa-star mr-2 text-yellow-500"></i> <span class="font-semibold">Star 数:</span> 14214</div>
+                            <div class="flex items-center"><i class="fas fa-chart-line mr-2 text-green-500"></i> <span class="font-semibold">当日 Star 增加数:</span> 105</div>
+                            <div class="flex items-center"><i class="fas fa-clock mr-2 text-blue-500"></i> <span class="font-semibold">连续在榜:</span> 1次</div>
+                            <div class="flex items-center"><i class="fas fa-medal mr-2 text-gray-500"></i> <span class="font-semibold">总上榜次数:</span> 1次</div>
+                            <div class="flex items-center"><i class="fas fa-code-branch mr-2 text-purple-500"></i> <span class="font-semibold">Forks:</span> 1.5k</div>
+                        </div>
+                        <div class="text-sm text-gray-600 border-t pt-4 mt-4">
+                             <p class="mb-1"><i class="fas fa-eye mr-2"></i> Watchers: 91 | <i class="fas fa-exclamation-circle mr-2"></i> Issues: 126 | <i class="fas fa-code-pull-request mr-2"></i> Pull Requests: 10</p>
+                             <p class="mb-1"><i class="fas fa-box-open mr-2"></i> Releases: 45 | <i class="fas fa-clipboard-list mr-2"></i> Commits: 956 | <i class="fas fa-balance-scale mr-2"></i> License: Apache-2.0 license</p>
+                             <p class="mb-1"><i class="fas fa-users mr-2"></i> Contributors: 17</p>
+                             <p><i class="fas fa-chart-pie mr-2"></i> 编程语言占比: <span class="font-bold">Python</span> 70.5%, Jupyter Notebook 28.7%, Other 0.8%</p>
+                        </div>
+                    </div>
+                </section>
+                <section data-background-color="#f7fafc">
+                    <h3 class="text-tech-primary">Huanshere/VideoLingo：项目速读</h3>
+                    <p class="text-lg mt-4 text-gray-700 fragment fade-in">
+                        <span class="font-bold text-tech-primary">核心：</span> 一款创新的全自动AI视频字幕工具，旨在彻底解决跨语言视频内容传播中翻译生硬、字幕格式混乱以及配音不自然等痛点。它提供<strong class="text-tech-accent">一键式的Netflix级字幕切割、高质量翻译、精准对齐，乃至自然配音的端到端解决方案</strong>。
+                    </p>
+                    <ul class="pl-0 mt-6 text-lg">
+                        <li class="fragment fade-in">
+                            <i class="fas fa-film mr-2 text-blue-500"></i> <span class="font-semibold">优势：</span> 让视频本地化和全球化变得前所未有的高效和专业。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-language mr-2 text-green-500"></i> <span class="font-semibold">质量追求：</span> 严格遵循单行字幕标准，避免了传统机器翻译的多行生硬感。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-microphone-alt mr-2 text-purple-500"></i> <span class="font-semibold">技术：</span> 集成WhisperX实现高精度逐词识别，并运用NLP和AI进行智能字幕分割。通过独特的“翻译-反思-适应”三步流程，确保了电影级的翻译品质。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-volume-up mr-2 text-red-500"></i> <span class="font-semibold">配音：</span> 集成了GPT-SoVITS、Azure、OpenAI等多种先进的文本转语音（TTS）引擎，能够生成流畅自然的配音，极大提升了观看体验。
+                        </li>
+                        <li class="fragment fade-in">
+                            <i class="fas fa-global-case mr-2 text-orange-500"></i> <span class="font-semibold">价值：</span> 为内容创作者、教育工作者和任何希望打破语言壁垒的人提供了强大而灵活的解决方案。
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Final Slide -->
+            <section class="final-slide title-slide" data-background-color="#4c66e2" data-background-gradient="linear-gradient(135deg, #4c66e2 0%, #8a2be2 100%)">
+                <h2 class="text-white mb-6">感谢您的聆听！</h2>
+                <p class="text-white opacity-80 text-xl mb-8">期待与您共同探索更多科技前沿！</p>
+                <h3 class="text-white opacity-90 text-2xl mb-4"><i class="fas fa-question-circle mr-2"></i> Q&A</h3>
+                <div class="qr-link-container">
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <script>
+        // Initialize Reveal.js
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            transition: 'slide', // Slide transition for horizontal navigation
+            backgroundTransition: 'fade', // Fade for background changes
+            slideNumber: 'c/t', // Current slide / total slides, e.g., "3/10"
+            preloadIframes: true, // Preload iframes on adjacent slides
+
+            // Remove default plugins not included in CDN to avoid errors
+            // If specific plugins are desired, their CDN links and initialization code would be needed.
+            plugins: []
+        });
+
+        // Initialize Mermaid for diagrams (if any were to be added via markdown/code blocks)
+        mermaid.initialize({ startOnLoad: false }); 
+        
+        // Example for triggering mermaid rendering if needed (uncomment and add mermaid code blocks)
+        // Reveal.on('slidechanged', event => {
+        //     if (event.currentSlide.querySelector('.mermaid')) {
+        //         mermaid.init(undefined, event.currentSlide.querySelectorAll('.mermaid'));
+        //     }
+        // });
+    </script>
+</body>
+</html>

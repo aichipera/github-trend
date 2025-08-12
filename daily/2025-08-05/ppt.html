@@ -1,0 +1,573 @@
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GitHub最新风向：本地智能与高效开发</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --r-background-color: #F9FAFB; /* Light Gray */
+            --r-main-color: #1F2937; /* Dark Gray for text */
+            --r-link-color: #4F46E5; /* Indigo-600 */
+            --r-link-color-hover: #A78BFA; /* Violet-400 */
+            --r-selection-background-color: #38B2AC; /* Teal-500 */
+        }
+
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback",
+                         "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--r-main-color);
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--r-link-color); /* Indigo for titles */
+            font-weight: 700;
+        }
+
+        .reveal h1 { font-size: 3rem; } /* ~48px */
+        .reveal h2 { font-size: 2.5rem; } /* ~40px */
+        .reveal h3 { font-size: 2rem; } /* ~32px */
+        .reveal p, .reveal li, .reveal div:not(.r-stack) { font-size: 1.1rem; line-height: 1.5; } /* ~17.6px */
+        .reveal strong { color: var(--r-selection-background-color); } /* Teal for emphasis */
+
+        /* Custom classes for specific elements */
+        .title-gradient {
+            background: linear-gradient(90deg, var(--r-link-color) 0%, var(--r-link-color-hover) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            font-size: 1.8rem;
+            color: #6B7280; /* Gray-500 */
+        }
+
+        .speaker-info {
+            font-size: 1.2rem;
+            color: #9CA3AF; /* Gray-400 */
+        }
+
+        /* Background gradients for sections */
+        .slide-background-gradient-blue {
+            background: linear-gradient(135deg, #4F46E5 0%, #A78BFA 100%) !important;
+        }
+        .slide-background-gradient-blue-light {
+            background: linear-gradient(135deg, #9FA8DA 0%, #C5CAE9 100%) !important; /* Lighter Indigo */
+        }
+        .text-shadow-light {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .text-shadow-dark {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+        }
+
+        /* Project card styles */
+        .project-meta span {
+            display: inline-block;
+            margin-right: 1.5rem;
+            font-size: 0.95rem;
+            color: #6B7280;
+        }
+        .project-meta i {
+            margin-right: 0.5rem;
+            color: var(--r-link-color-hover); /* Violet for icons */
+        }
+
+        /* QR Code and Project Link Container */
+        .qr-link-container {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            z-index: 1000;
+            opacity: 0.8;
+        }
+        .qr-link-container img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .qr-link-container a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            background-color: rgba(0,0,0,0.3);
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .qr-link-container a:hover {
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        /* List styling for better readability and visual appeal */
+        .reveal ul {
+            list-style-type: none; /* Remove default bullet points */
+            padding-left: 0;
+        }
+        .reveal ul li {
+            position: relative;
+            padding-left: 2em; /* Space for custom bullet */
+            margin-bottom: 0.8em;
+        }
+        .reveal ul li::before {
+            content: "\f005"; /* Font Awesome star icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--r-selection-background-color); /* Teal color */
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 0.8em;
+            line-height: 1.5; /* Align with text */
+        }
+        /* For lists that should NOT have custom bullets (e.g., nested lists, special lists) */
+        .reveal ul.no-bullet li::before {
+            content: ""; /* No custom bullet for this list */
+        }
+        .reveal ul.no-bullet {
+            list-style-type: none;
+        }
+
+        /* Fragment styles for smooth reveal */
+        .reveal .fragments .fragment:not(.visible) {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .reveal .fragments .fragment.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1: Cover Page -->
+            <section data-background-color="#4F46E5" class="slide-background-gradient-blue text-white flex flex-col justify-center items-center p-20">
+                <h1 class="text-white title-gradient leading-tight text-shadow-dark mb-4 text-center" style="font-size: 3.5rem;">GitHub最新风向：黑马项目引爆本地智能，高效开发与数据主权成未来</h1>
+                <p class="subtitle text-shadow-light text-center">Github热门仓库日报观测时间为 2025-08-05 21:09:54</p>
+                <div class="absolute bottom-20 left-20">
+                    <p class="speaker-info text-white text-shadow-light">演讲者: AIChipEra</p>
+                </div>
+                <div class="qr-link-container">
+                    <img src="../../asserts/wx.jpg" alt="微信二维码">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+            <!-- Slide 2: 日报要点 (Daily Summary) -->
+            <section>
+                <h2><i class="fas fa-newspaper mr-3 text-teal-500"></i>日报要点</h2>
+                <div class="text-left fragments mt-8">
+                    <p class="fragment" data-fragment-index="1">今日GitHub热榜揭示了技术发展的新脉络：<strong>智能工具正从云端走向你的设备</strong>，提供更强的隐私保障与自主掌控力。</p>
+                    <p class="fragment" data-fragment-index="2">无论是本地运行的智能应用构建器，还是仅用Python就能完成全栈开发的利器，亦或是将复杂网络配置变得触手可及的工具，都在<strong>重塑我们的工作方式</strong>。</p>
+                    <p class="fragment" data-fragment-index="3">这些“黑马”项目不仅大幅提升了开发效率，更将<strong>数据安全与个人隐私置于核心</strong>。</p>
+                    <p class="fragment" data-fragment-index="4"><strong>Python和TypeScript</strong>凭借其强大的生态与灵活性，成为这场技术浪潮的<strong>双核驱动</strong>。</p>
+                    <p class="fragment" data-fragment-index="5">未来，我们将看到更多<strong>个性化、场景化的智能应用</strong>，它们将更加贴近用户，降低技术门槛，让每个人都能轻松驾驭前沿科技，真正实现技术普惠。</p>
+                </div>
+            </section>
+
+            <!-- Slide 3: 热门项目趋势分析 - 今日整体趋势 -->
+            <section data-background-color="#E0F7FA">
+                <h2><i class="fas fa-chart-line mr-3 text-teal-500"></i>热门项目趋势分析</h2>
+                <h3>今日整体趋势：AI与效率的共振</h3>
+                <div class="text-left fragments mt-6">
+                    <p class="fragment" data-fragment-index="1"><strong class="text-indigo-600">核心趋势：</strong>走向本地化、智能化与普惠化。AI正从云端走向边缘，从复杂走向简易，从通用走向专精。</p>
+                    <ul class="fragment" data-fragment-index="2">
+                        <li><strong>AI应用革新：</strong> Dyad, Sim (本地化、隐私保护、自主掌控)。</li>
+                        <li><strong>AI标准化：</strong> Microsoft MCP (模型交互标准化)。</li>
+                        <li><strong>端侧智能：</strong> Vibe (离线音视频转录), Zotero-Arxiv-Daily (AI论文摘要)。</li>
+                    </ul>
+                    <p class="fragment" data-fragment-index="3"><strong class="text-indigo-600">效率提升：</strong>化繁为简，降低技术门槛。</p>
+                    <ul class="fragment" data-fragment-index="4">
+                        <li><strong>全栈开发：</strong> Reflex (纯Python全栈Web应用)。</li>
+                        <li><strong>运维自动化：</strong> WG-Easy (WireGuard VPN Web UI管理)。</li>
+                    </ul>
+                    <p class="fragment" data-fragment-index="5"><strong class="text-indigo-600">数据主权与隐私：</strong> Actual Budget (本地优先财务管理)。</p>
+                </div>
+            </section>
+
+            <!-- Slide 4: 热门项目趋势分析 - 技术栈剖析 -->
+            <section data-background-color="#E8F5E9">
+                <h2><i class="fas fa-code mr-3 text-teal-500"></i>热门项目趋势分析</h2>
+                <h3>技术栈剖析：TypeScript与Python的双核驱动</h3>
+                <div class="text-left fragments mt-6">
+                    <ul class="no-bullet">
+                        <li class="fragment" data-fragment-index="1"><i class="fab fa-python text-indigo-500 mr-2"></i><strong>Python：</strong> AI、数据处理、快速原型开发首选。
+                            <ul class="no-bullet ml-6">
+                                <li><small>Reflex (全栈Web), MCP-for-beginners (AI教育), Zotero-Arxiv-Daily (AI学术工具)。</small></li>
+                            </ul>
+                        </li>
+                        <li class="fragment" data-fragment-index="2"><i class="fab fa-node-js text-indigo-500 mr-2"></i><strong>TypeScript：</strong> 大型复杂项目、良好工程实践偏好。
+                            <ul class="no-bullet ml-6">
+                                <li><small>Dyad, Sim (AI应用构建器), WG-Easy (基础设施管理), Actual Budget, Vibe (个人应用)。</small></li>
+                            </ul>
+                        </li>
+                        <li class="fragment" data-fragment-index="3"><i class="fas fa-microchip text-indigo-500 mr-2"></i><strong>底层语言：</strong> C++ (Solidity), C (Hashcat) 在性能关键领域不可替代。</li>
+                        <li class="fragment" data-fragment-index="4"><i class="fab fa-apple text-indigo-500 mr-2"></i><strong>Apple生态：</strong> Swift (Composable Architecture) 专注于高质量应用开发。</li>
+                    </ul>
+                    <p class="fragment" data-fragment-index="5" class="mt-6"><strong class="text-indigo-600">整体特点：</strong> 前后端融合、容器化部署、现代化框架、开源数据库利用。</p>
+                </div>
+            </section>
+
+            <!-- Slide 5: 热门项目趋势分析 - 趋势演变与未来展望 -->
+            <section data-background-color="#F3E5F5">
+                <h2><i class="fas fa-rocket mr-3 text-teal-500"></i>热门项目趋势分析</h2>
+                <h3>趋势演变与未来展望：聚焦“端侧智能”与“场景创新”</h3>
+                <div class="text-left fragments mt-6">
+                    <p class="fragment" data-fragment-index="1"><strong>增长速度：</strong> “开箱即用”且解决特定痛点项目 (如 Dyad, WG-Easy) 迅速获得社区青睐。</p>
+                    <p class="fragment" data-fragment-index="2"><strong>AI发展：</strong> 不再仅限于大模型训练或云服务，更深入渗透到终端设备和日常应用层面。</p>
+                    <ul class="no-bullet fragment" data-fragment-index="3">
+                        <li><i class="fas fa-mobile-alt text-indigo-500 mr-2"></i><strong>“端侧智能”：</strong> 将成为下一波技术热点。</li>
+                        <li><i class="fas fa-robot text-indigo-500 mr-2"></i><strong>AI智能体工作流：</strong> 从概念走向实用，解决特定行业/个人需求。</li>
+                    </ul>
+                    <p class="fragment" data-fragment-index="4"><strong>未来展望：</strong> 更多个性化、注重隐私的AI助手和自动化工具，降低技术门槛，推动技术普惠。</p>
+                </div>
+            </section>
+
+            <!-- Slide 6: 热门项目双日维度对比分析 & 热点变化 -->
+            <section data-background-color="#E3F2FD">
+                <h2><i class="fas fa-retweet mr-3 text-teal-500"></i>热门项目双日维度对比分析</h2>
+                <div class="fragments mt-6 text-left">
+                    <p class="fragment" data-fragment-index="1">今日榜单<strong>活跃增长态势显著</strong>：<strong class="text-indigo-600">9个新晋项目</strong>，4个持续上升，无一下降趋势。</p>
+                    <ul class="no-bullet fragment" data-fragment-index="2">
+                        <li><i class="fas fa-globe mr-2 text-indigo-500"></i><strong>新晋广泛：</strong> 区块链 (Solidity), AI (Sim, Vibe), 工具 (公共API, Zotero), 安全 (Hashcat)。</li>
+                        <li><i class="fab fa-python mr-2 text-indigo-500"></i><strong>语言分布：</strong> Python 新增3项，巩固AI及工具地位。TypeScript, C, Swift 亦有增长。</li>
+                    </ul>
+                    <p class="fragment" data-fragment-index="3">最引人注目：<strong>dyad-sh/dyad</strong>，高达<strong class="text-indigo-600">1995星</strong>惊人涨幅 (32.3%增速)，一枝独秀。</p>
+                </div>
+
+                <h3 class="mt-8"><i class="fas fa-fire mr-3 text-teal-500"></i>热点变化</h3>
+                <div class="fragments mt-4 text-left text-sm">
+                    <p class="fragment" data-fragment-index="4"><strong class="text-indigo-600">新增热点：</strong><br>
+                        <span class="text-gray-700">public-apis/public-apis, ethereum/solidity, thewh1teagle/vibe, huiyadanli/revokemsgpatcher, simstudioai/sim, tidedra/zotero-arxiv-daily, hashcat/hashcat, pointfreeco/swift-composable-architecture, microsoft/mcp-for-beginners</span>
+                    </p>
+                    <p class="fragment" data-fragment-index="5"><strong class="text-indigo-600">减退热点：</strong><br>
+                        <span class="text-gray-700">maaassistantarknights/maaassistantarknights, motiadev/motia, rasbt/llms-from-scratch, jellyfin/jellyfin</span>
+                    </p>
+                    <p class="fragment" data-fragment-index="6"><strong class="text-indigo-600">持续热门：</strong><br>
+                        <span class="text-gray-700">dyad-sh/dyad (5次), reflex-dev/reflex (3次), wg-easy/wg-easy (3次)</span>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Vertical section for Detailed Repository Data -->
+            <section>
+                <h2><i class="fas fa-database mr-3 text-teal-500"></i>详细仓库数据</h2>
+                <p class="mt-4 text-center text-gray-600">深入探索今日GitHub热门项目</p>
+                <aside class="notes">
+                    本部分将详细介绍每个热门项目，通过垂直幻灯片形式展示，以保持内容的连贯性。
+                </aside>
+            </section>
+
+            <!-- Project: dyad-sh/dyad -->
+            <section>
+                <section data-background-color="#F0F4C3"> <!-- Light Greenish Yellow -->
+                    <h3><a href="https://github.com/dyad-sh/dyad" target="_blank" class="text-indigo-600 hover:text-indigo-800 no-underline"><i class="fas fa-project-diagram mr-2"></i>dyad-sh/dyad</a></h3>
+                    <p class="mt-4 text-lg"><strong>简介:</strong> 免费、本地、开源的AI应用构建器</p>
+                    <div class="fragments mt-6 text-left">
+                        <div class="project-meta">
+                            <span class="fragment" data-fragment-index="1"><i class="fas fa-star"></i> <strong>Stars:</strong> 8.2k ⭐</span>
+                            <span class="fragment" data-fragment-index="2"><i class="fas fa-code-branch"></i> <strong>Forks:</strong> 830 🔄</span>
+                            <span class="fragment" data-fragment-index="3"><i class="fas fa-language"></i> <strong>语言:</strong> TypeScript (97.1%)</span>
+                            <span class="fragment" data-fragment-index="4"><i class="fas fa-signal"></i> <strong>连续在榜:</strong> 5次</span>
+                            <span class="fragment" data-fragment-index="5"><i class="fas fa-plus-circle"></i> <strong>当日新增:</strong> 2024 ⭐</span>
+                        </div>
+                        <p class="mt-6 fragment text-base" data-fragment-index="6"><strong>项目速读:</strong> Dyad解决传统AI应用开发对云服务的依赖、数据隐私担忧，提供完全本地化AI应用开发与部署能力。支持自带API密钥，灵活接入多种AI服务，跨平台GUI，无缝集成用户自有AI资源。</p>
+                        <p class="mt-4 fragment text-base" data-fragment-index="7"><strong>增长分析:</strong> 5天内5次上榜，总Star增长5406，日均增量可观。今日新增2024 Star，远超平均值，<strong>增长趋势强劲加速！</strong></p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: reflex-dev/reflex -->
+            <section>
+                <section data-background-color="#E1F5FE"> <!-- Light Blue -->
+                    <h3><a href="https://github.com/reflex-dev/reflex" target="_blank" class="text-indigo-600 hover:text-indigo-800 no-underline"><i class="fas fa-globe mr-2"></i>reflex-dev/reflex</a></h3>
+                    <p class="mt-4 text-lg"><strong>简介:</strong> 🕸️ 纯Python Web应用 🐍</p>
+                    <div class="fragments mt-6 text-left">
+                        <div class="project-meta">
+                            <span class="fragment" data-fragment-index="1"><i class="fas fa-star"></i> <strong>Stars:</strong> 24.8k ⭐</span>
+                            <span class="fragment" data-fragment-index="2"><i class="fas fa-code-branch"></i> <strong>Forks:</strong> 1.5k 🔄</span>
+                            <span class="fragment" data-fragment-index="3"><i class="fas fa-language"></i> <strong>语言:</strong> Python (96.4%)</span>
+                            <span class="fragment" data-fragment-index="4"><i class="fas fa-signal"></i> <strong>连续在榜:</strong> 3次</span>
+                            <span class="fragment" data-fragment-index="5"><i class="fas fa-plus-circle"></i> <strong>当日新增:</strong> 456 ⭐</span>
+                        </div>
+                        <p class="mt-6 fragment text-base" data-fragment-index="6"><strong>项目速读:</strong> Reflex颠覆性全栈Web框架，仅用纯Python构建高性能Web应用。消除JS依赖，降低开发门槛。内置60+UI组件，快速刷新，单命令部署。<strong>极大提升Python开发者效率与自由度。</strong></p>
+                        <p class="mt-4 fragment text-base" data-fragment-index="7"><strong>增长分析:</strong> 三天内上榜三次，持续获得高位关注。今日新增456星，总增长达911星，<strong>增长趋势积极稳健。</strong></p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: ethereum/solidity -->
+            <section>
+                <section data-background-color="#FCE4EC"> <!-- Light Pink -->
+                    <h3><a href="https://github.com/ethereum/solidity" target="_blank" class="text-indigo-600 hover:text-indigo-800 no-underline"><i class="fas fa-cubes mr-2"></i>ethereum/solidity</a></h3>
+                    <p class="mt-4 text-lg"><strong>简介:</strong> Solidity，智能合约编程语言</p>
+                    <div class="fragments mt-6 text-left">
+                        <div class="project-meta">
+                            <span class="fragment" data-fragment-index="1"><i class="fas fa-star"></i> <strong>Stars:</strong> 24.7k ⭐</span>
+                            <span class="fragment" data-fragment-index="2"><i class="fas fa-code-branch"></i> <strong>Forks:</strong> 6.1k 🔄</span>
+                            <span class="fragment" data-fragment-index="3"><i class="fas fa-language"></i> <strong>语言:</strong> C++ (53.6%)</span>
+                            <span class="fragment" data-fragment-index="4"><i class="fas fa-signal"></i> <strong>连续在榜:</strong> 1次</span>
+                            <span class="fragment" data-fragment-index="5"><i class="fas fa-plus-circle"></i> <strong>当日新增:</strong> 10 ⭐</span>
+                        </div>
+                        <p class="mt-6 fragment text-base" data-fragment-index="6"><strong>项目速读:</strong> 以太坊核心智能合约语言，专为EVM设计。静态类型、类C语法，确保健壮性和安全性。驱动Web3、DeFi、NFT和DAO等去中心化应用浪潮的<strong>关键基石。</strong></p>
+                        <p class="mt-4 fragment text-base" data-fragment-index="7"><strong>增长分析:</strong> 近五个月总星数增长653，但上榜仅2次，表明增长高度依赖集中曝光。日增10星表现尚可，但上榜频率低是<strong>持续增长的关键制约。</strong></p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: microsoft/mcp-for-beginners -->
+            <section>
+                <section data-background-color="#F8BBD0"> <!-- Light Pink-Purple -->
+                    <h3><a href="https://github.com/microsoft/mcp-for-beginners" target="_blank" class="text-indigo-600 hover:text-indigo-800 no-underline"><i class="fas fa-book-open mr-2"></i>microsoft/mcp-for-beginners</a></h3>
+                    <p class="mt-4 text-lg"><strong>简介:</strong> AI工作流标准化课程，多语言示例</p>
+                    <div class="fragments mt-6 text-left">
+                        <div class="project-meta">
+                            <span class="fragment" data-fragment-index="1"><i class="fas fa-star"></i> <strong>Stars:</strong> 6.7k ⭐</span>
+                            <span class="fragment" data-fragment-index="2"><i class="fas fa-code-branch"></i> <strong>Forks:</strong> 1.9k 🔄</span>
+                            <span class="fragment" data-fragment-index="3"><i class="fas fa-language"></i> <strong>语言:</strong> Python (31.5%), Java (28.1%), etc.</span>
+                            <span class="fragment" data-fragment-index="4"><i class="fas fa-signal"></i> <strong>连续在榜:</strong> 1次</span>
+                            <span class="fragment" data-fragment-index="5"><i class="fas fa-plus-circle"></i> <strong>当日新增:</strong> 133 ⭐</span>
+                        </div>
+                        <p class="mt-6 fragment text-base" data-fragment-index="6"><strong>项目速读:</strong> 微软开源课程，介绍模型上下文协议(MCP)核心原理与实践。提供多语言代码示例(C#、Java、JS、TS、Python)，旨在标准化AI模型交互，构建高效、安全、可扩展AI工作流。<strong>提升AI应用集成能力与标准化水平的宝贵资源。</strong></p>
+                        <p class="mt-4 fragment text-base" data-fragment-index="7"><strong>增长分析:</strong> 作为教育性项目，首次上榜即获得133星，表明市场对AI标准化、跨语言学习资源的需求旺盛。<strong>具备持续吸引开发者关注的潜力。</strong></p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: simstudioai/sim -->
+            <section>
+                <section data-background-color="#BBDEFB"> <!-- Light Blue -->
+                    <h3><a href="https://github.com/simstudioai/sim" target="_blank" class="text-indigo-600 hover:text-indigo-800 no-underline"><i class="fas fa-robot mr-2"></i>simstudioai/sim</a></h3>
+                    <p class="mt-4 text-lg"><strong>简介:</strong> 开源的AI智能体工作流构建器</p>
+                    <div class="fragments mt-6 text-left">
+                        <div class="project-meta">
+                            <span class="fragment" data-fragment-index="1"><i class="fas fa-star"></i> <strong>Stars:</strong> 6.5k ⭐</span>
+                            <span class="fragment" data-fragment-index="2"><i class="fas fa-code-branch"></i> <strong>Forks:</strong> 883 🔄</span>
+                            <span class="fragment" data-fragment-index="3"><i class="fas fa-language"></i> <strong>语言:</strong> TypeScript (92.1%)</span>
+                            <span class="fragment" data-fragment-index="4"><i class="fas fa-signal"></i> <strong>连续在榜:</strong> 1次</span>
+                            <span class="fragment" data-fragment-index="5"><i class="fas fa-plus-circle"></i> <strong>当日新增:</strong> 102 ⭐</span>
+                        </div>
+                        <p class="mt-6 fragment text-base" data-fragment-index="6"><strong>项目速读:</strong> Sim提供直观、轻量级可视化界面，大幅简化AI智能体工作流开发与部署。支持云端托管或本地自托管(Ollama)，提升效率保障数据安全。<strong>为构建下一代智能应用提供了易用且高效的解决方案。</strong></p>
+                        <p class="mt-4 fragment text-base" data-fragment-index="7"><strong>增长分析:</strong> 16天内4次上榜，总新增1090 Star，平均每次上榜新增251 Star，显示持续关注度与较高增长效率。最新新增102 Star略低于平均值，<strong>需关注未来增长趋势是否放缓。</strong></p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: actualbudget/actual -->
+            <section>
+                <section data-background-color="#DCEDC8"> <!-- Light Green -->
+                    <h3><a href="https://github.com/actualbudget/actual" target="_blank" class="text-indigo-600 hover:text-indigo-800 no-underline"><i class="fas fa-wallet mr-2"></i>actualbudget/actual</a></h3>
+                    <p class="mt-4 text-lg"><strong>简介:</strong> 本地优先的个人理财应用</p>
+                    <div class="fragments mt-6 text-left">
+                        <div class="project-meta">
+                            <span class="fragment" data-fragment-index="1"><i class="fas fa-star"></i> <strong>Stars:</strong> 21k ⭐</span>
+                            <span class="fragment" data-fragment-index="2"><i class="fas fa-code-branch"></i> <strong>Forks:</strong> 1.7k 🔄</span>
+                            <span class="fragment" data-fragment-index="3"><i class="fas fa-language"></i> <strong>语言:</strong> TypeScript (87.3%)</span>
+                            <span class="fragment" data-fragment-index="4"><i class="fas fa-signal"></i> <strong>连续在榜:</strong> 2次</span>
+                            <span class="fragment" data-fragment-index="5"><i class="fas fa-plus-circle"></i> <strong>当日新增:</strong> 74 ⭐</span>
+                        </div>
+                        <p class="mt-6 fragment text-base" data-fragment-index="6"><strong>项目速读:</strong> 创新个人财务管理应用，核心是“本地优先”数据控制和信封预算。解决数据隐私和用户掌控力不足，提供免费、透明、功能强大替代方案。<strong>对用户数据隐私的坚定承诺，以及对精细化预算管理理念的深刻支持。</strong></p>
+                        <p class="mt-4 fragment text-base" data-fragment-index="7"><strong>增长分析:</strong> 总增长1524 Star，主要源于4次榜单曝光。平均每次上榜新增95 Star，榜单效应显著。当次新增74 Star，<strong>显示该榜单驱动型增长趋势稳健。</strong></p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: pointfreeco/swift-composable-architecture -->
+            <section>
+                <section data-background-color="#FFFDE7"> <!-- Light Yellow -->
+                    <h3><a href="https://github.com/pointfreeco/swift-composable-architecture" target="_blank" class="text-indigo-600 hover:text-indigo-800 no-underline"><i class="fas fa-sitemap mr-2"></i>pointfreeco/swift-composable-architecture</a></h3>
+                    <p class="mt-4 text-lg"><strong>简介:</strong> 构建一致、可测试、可组合Swift应用的库</p>
+                    <div class="fragments mt-6 text-left">
+                        <div class="project-meta">
+                            <span class="fragment" data-fragment-index="1"><i class="fas fa-star"></i> <strong>Stars:</strong> 13.7k ⭐</span>
+                            <span class="fragment" data-fragment-index="2"><i class="fas fa-code-branch"></i> <strong>Forks:</strong> 1.6k 🔄</span>
+                            <span class="fragment" data-fragment-index="3"><i class="fas fa-language"></i> <strong>语言:</strong> Swift (99.9%)</span>
+                            <span class="fragment" data-fragment-index="4"><i class="fas fa-signal"></i> <strong>连续在榜:</strong> 1次</span>
+                            <span class="fragment" data-fragment-index="5"><i class="fas fa-plus-circle"></i> <strong>当日新增:</strong> 51 ⭐</span>
+                        </div>
+                        <p class="mt-6 fragment text-base" data-fragment-index="6"><strong>项目速读:</strong> TCA是为Swift应用设计的强大库，提供一致、可理解、可组合、可测试的架构。通过State、Action、Reducer、Store核心概念，实现单向数据流和可预测性。<strong>极大地增强组件组合能力，带来无与伦比的测试能力。</strong></p>
+                        <p class="mt-4 fragment text-base" data-fragment-index="7"><strong>增长分析:</strong> 5天内高频上榜4次，总星数增长209，平均每次31.5。今日新增51星远超平均，<strong>表明其增长势头强劲，呈加速趋势。</strong></p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: public-apis/public-apis -->
+            <section>
+                <section data-background-color="#E0F7FA"> <!-- Light Blue-Green -->
+                    <h3><a href="https://github.com/public-apis/public-apis" target="_blank" class="text-indigo-600 hover:text-indigo-800 no-underline"><i class="fas fa-cloud mr-2"></i>public-apis/public-apis</a></h3>
+                    <p class="mt-4 text-lg"><strong>简介:</strong> 免费API合集</p>
+                    <div class="fragments mt-6 text-left">
+                        <div class="project-meta">
+                            <span class="fragment" data-fragment-index="1"><i class="fas fa-star"></i> <strong>Stars:</strong> 360k ⭐</span>
+                            <span class="fragment" data-fragment-index="2"><i class="fas fa-code-branch"></i> <strong>Forks:</strong> 37.7k 🔄</span>
+                            <span class="fragment" data-fragment-index="3"><i class="fas fa-language"></i> <strong>语言:</strong> Python (96.8%)</span>
+                            <span class="fragment" data-fragment-index="4"><i class="fas fa-signal"></i> <strong>连续在榜:</strong> 1次</span>
+                            <span class="fragment" data-fragment-index="5"><i class="fas fa-plus-circle"></i> <strong>当日新增:</strong> 332 ⭐</span>
+                        </div>
+                        <p class="mt-6 fragment text-base" data-fragment-index="6"><strong>项目速读:</strong> 全球开发者社区共同维护的免费API资源库。解决API碎片化痛点，帮助开发者高效发现和利用API。涵盖各类领域，信息透明，提供认证、HTTPS、CORS状态。<strong>是任何需要外部API驱动的项目的理想起点。</strong></p>
+                        <p class="mt-4 fragment text-base" data-fragment-index="7"><strong>增长分析:</strong> 5个月内13次上榜，累计增长近3万星。平均每次上榜增星高达700，显示极强持续吸引力。今日新增332星略低于平均，但<strong>总体增长态势依然非常强劲。</strong></p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: hashcat/hashcat -->
+            <section>
+                <section data-background-color="#FBE9E7"> <!-- Light Orange -->
+                    <h3><a href="https://github.com/hashcat/hashcat" target="_blank" class="text-indigo-600 hover:text-indigo-800 no-underline"><i class="fas fa-lock mr-2"></i>hashcat/hashcat</a></h3>
+                    <p class="mt-4 text-lg"><strong>简介:</strong> 全球最快、最先进的密码恢复工具</p>
+                    <div class="fragments mt-6 text-left">
+                        <div class="project-meta">
+                            <span class="fragment" data-fragment-index="1"><i class="fas fa-star"></i> <strong>Stars:</strong> 23.4k ⭐</span>
+                            <span class="fragment" data-fragment-index="2"><i class="fas fa-code-branch"></i> <strong>Forks:</strong> 3.2k 🔄</span>
+                            <span class="fragment" data-fragment-index="3"><i class="fas fa-language"></i> <strong>语言:</strong> C (97.1%)</span>
+                            <span class="fragment" data-fragment-index="4"><i class="fas fa-signal"></i> <strong>连续在榜:</strong> 1次</span>
+                            <span class="fragment" data-fragment-index="5"><i class="fas fa-plus-circle"></i> <strong>当日新增:</strong> 64 ⭐</span>
+                        </div>
+                        <p class="mt-6 fragment text-base" data-fragment-index="6"><strong>项目速读:</strong> 领先的C语言密码恢复工具，性能卓越，广泛兼容。支持300+哈希算法，5种攻击模式。利用CPU/GPU并行计算，支持分布式破解。<strong>安全审计、渗透测试、个人密码恢复不可或缺的强大工具。</strong></p>
+                        <p class="mt-4 fragment text-base" data-fragment-index="7"><strong>增长分析:</strong> 首次上榜即获得64星，对于此类专业安全工具而言表现不俗。<strong>表明其在特定技术社区内的认可度和实用价值高。</strong></p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: TideDra/zotero-arxiv-daily -->
+            <section>
+                <section data-background-color="#E1F5FE"> <!-- Light Blue -->
+                    <h3><a href="https://github.com/TideDra/zotero-arxiv-daily" target="_blank" class="text-indigo-600 hover:text-indigo-800 no-underline"><i class="fas fa-book-reader mr-2"></i>TideDra/zotero-arxiv-daily</a></h3>
+                    <p class="mt-4 text-lg"><strong>简介:</strong> 每日根据Zotero文献库推荐最新arXiv论文</p>
+                    <div class="fragments mt-6 text-left">
+                        <div class="project-meta">
+                            <span class="fragment" data-fragment-index="1"><i class="fas fa-star"></i> <strong>Stars:</strong> 2.9k ⭐</span>
+                            <span class="fragment" data-fragment-index="2"><i class="fas fa-code-branch"></i> <strong>Forks:</strong> 2.4k 🔄</span>
+                            <span class="fragment" data-fragment-index="3"><i class="fas fa-language"></i> <strong>语言:</strong> Python (94.0%)</span>
+                            <span class="fragment" data-fragment-index="4"><i class="fas fa-signal"></i> <strong>连续在榜:</strong> 1次</span>
+                            <span class="fragment" data-fragment-index="5"><i class="fas fa-plus-circle"></i> <strong>当日新增:</strong> 61 ⭐</span>
+                        </div>
+                        <p class="mt-6 fragment text-base" data-fragment-index="6"><strong>项目速读:</strong> 专为科研工作者设计，解决追踪ArXiv论文痛点。利用Zotero文献库智能分析兴趣，每日推送ArXiv论文，提供AI生成TL;DR摘要。<strong>部署简便、功能强大的个性化文献追踪解决方案。</strong></p>
+                        <p class="mt-4 fragment text-base" data-fragment-index="7"><strong>增长分析:</strong> 5天内总增571 Star，仅上榜3次，平均每次贡献114 Star，显示周期性爆发增长。今日新增61 Star，低于平均值，<strong>暗示增长可能趋缓。</strong></p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: huiyadanli/RevokeMsgPatcher -->
+            <section>
+                <section data-background-color="#EDE7F6"> <!-- Light Purple -->
+                    <h3><a href="https://github.com/huiyadanli/RevokeMsgPatcher" target="_blank" class="text-indigo-600 hover:text-indigo-800 no-underline"><i class="fas fa-comment-slash mr-2"></i>huiyadanli/RevokeMsgPatcher</a></h3>
+                    <p class="mt-4 text-lg"><strong>简介:</strong> PC版微信/QQ/TIM防撤回补丁</p>
+                    <div class="fragments mt-6 text-left">
+                        <div class="project-meta">
+                            <span class="fragment" data-fragment-index="1"><i class="fas fa-star"></i> <strong>Stars:</strong> 33.7k ⭐</span>
+                            <span class="fragment" data-fragment-index="2"><i class="fas fa-code-branch"></i> <strong>Forks:</strong> 3.7k 🔄</span>
+                            <span class="fragment" data-fragment-index="3"><i class="fas fa-language"></i> <strong>语言:</strong> C# (100.0%)</span>
+                            <span class="fragment" data-fragment-index="4"><i class="fas fa-signal"></i> <strong>连续在榜:</strong> 1次</span>
+                            <span class="fragment" data-fragment-index="5"><i class="fas fa-plus-circle"></i> <strong>当日新增:</strong> 31 ⭐</span>
+                        </div>
+                        <p class="mt-6 fragment text-base" data-fragment-index="6"><strong>项目速读:</strong> 针对Windows PC版微信/QQ/TIM，实现消息防撤回和微信多开功能。通过修改DLL文件解除限制。<strong>满足用户对信息自主权和多账号管理的特定需求。</strong></p>
+                        <p class="mt-4 fragment text-base" data-fragment-index="7"><strong>增长分析:</strong> 作为长期热门项目，新增31星表明其拥有稳定的用户基础和持续关注。<strong>社区通过技术手段赋能用户的典范。</strong></p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: wg-easy/wg-easy -->
+            <section>
+                <section data-background-color="#CFD8DC"> <!-- Light Blue-Gray -->
+                    <h3><a href="https://github.com/wg-easy/wg-easy" target="_blank" class="text-indigo-600 hover:text-indigo-800 no-underline"><i class="fas fa-network-wired mr-2"></i>wg-easy/wg-easy</a></h3>
+                    <p class="mt-4 text-lg"><strong>简介:</strong> 运行WireGuard VPN和Web管理界面的最简便方式</p>
+                    <div class="fragments mt-6 text-left">
+                        <div class="project-meta">
+                            <span class="fragment" data-fragment-index="1"><i class="fas fa-star"></i> <strong>Stars:</strong> 21.7k ⭐</span>
+                            <span class="fragment" data-fragment-index="2"><i class="fas fa-code-branch"></i> <strong>Forks:</strong> 2k 🔄</span>
+                            <span class="fragment" data-fragment-index="3"><i class="fas fa-language"></i> <strong>语言:</strong> TypeScript (56.0%), Vue (40.8%)</span>
+                            <span class="fragment" data-fragment-index="4"><i class="fas fa-signal"></i> <strong>连续在榜:</strong> 3次</span>
+                            <span class="fragment" data-fragment-index="5"><i class="fas fa-plus-circle"></i> <strong>当日新增:</strong> 430 ⭐</span>
+                        </div>
+                        <p class="mt-6 fragment text-base" data-fragment-index="6"><strong>项目速读:</strong> 创新性开源项目，彻底简化WireGuard VPN部署与管理。通过直观Web UI将复杂命令行配置转化为图形化操作。Docker容器化部署，集成WireGuard服务与用户友好前端。<strong>使得任何人都能轻松拥有强大的、定制化的WireGuard VPN服务。</strong></p>
+                        <p class="mt-4 fragment text-base" data-fragment-index="7"><strong>增长分析:</strong> 统计期内总Star增长2750，表现强劲。仅4次上榜，增长呈爆发式。平均每次近300，今日430星远超平均，<strong>预示当前正值高速增长期。</strong></p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: thewh1teagle/vibe -->
+            <section>
+                <section data-background-color="#FCE4EC"> <!-- Light Pink -->
+                    <h3><a href="https://github.com/thewh1teagle/vibe" target="_blank" class="text-indigo-600 hover:text-indigo-800 no-underline"><i class="fas fa-microphone mr-2"></i>thewh1teagle/vibe</a></h3>
+                    <p class="mt-4 text-lg"><strong>简介:</strong> 自行转录！离线音视频转录工具</p>
+                    <div class="fragments mt-6 text-left">
+                        <div class="project-meta">
+                            <span class="fragment" data-fragment-index="1"><i class="fas fa-star"></i> <strong>Stars:</strong> 3.2k ⭐</span>
+                            <span class="fragment" data-fragment-index="2"><i class="fas fa-code-branch"></i> <strong>Forks:</strong> 194 🔄</span>
+                            <span class="fragment" data-fragment-index="3"><i class="fas fa-language"></i> <strong>语言:</strong> TypeScript (48.0%), Rust (32.9%)</span>
+                            <span class="fragment" data-fragment-index="4"><i class="fas fa-signal"></i> <strong>连续在榜:</strong> 1次</span>
+                            <span class="fragment" data-fragment-index="5"><i class="fas fa-plus-circle"></i> <strong>当日新增:</strong> 41 ⭐</span>
+                        </div>
+                        <p class="mt-6 fragment text-base" data-fragment-index="6"><strong>项目速读:</strong> 强大且注重隐私的离线音视频转录工具。基于OpenAI Whisper本地运行，确保数据隐私。处理本地文件、YouTube内容、实时转录。支持AI摘要、说话人识别。<strong>为对数据隐私有严格要求、同时需要高效准确转录的用户提供理想方案。</strong></p>
+                        <p class="mt-4 fragment text-base" data-fragment-index="7"><strong>增长分析:</strong> 首次上榜即获得41星，显示市场对本地、隐私优先的AI转录工具需求旺盛。<strong>具备持续增长潜力，有望吸引更多关注隐私的用户。</strong></p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- End Page -->
+            <section data-background-color="#4F46E5" class="slide-background-gradient-blue text-white flex flex-col justify-center items-center p-20">
+                <h2 class="text-white text-shadow-dark mb-8" style="font-size: 3rem;">感谢观看！</h2>
+                <p class="text-white text-shadow-light mb-10">希望这次GitHub热门项目分析能为您带来启发与“灵光一现”！</p>
+                <div class="qr-link-container">
+                    <img src="../../asserts/wx.jpg" alt="微信二维码">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                </div>
+                <div class="absolute bottom-20 left-20">
+                    <p class="speaker-info text-white text-shadow-light">演讲者: AIChipEra</p>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <script>
+        // Mermaid.js configuration (if diagrams were included in markdown)
+        mermaid.initialize({ startOnLoad: false });
+
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            hash: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+            fragments: true, // Enable fragments for step-by-step reveal
+            dependencies: [
+                // { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                // { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js', async: true },
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/zoom/zoom.min.js', async: true },
+                // { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/math/math.min.js', async: true }
+            ]
+        });
+    </script>
+</body>
+</html>

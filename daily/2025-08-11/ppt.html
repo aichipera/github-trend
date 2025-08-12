@@ -1,0 +1,1166 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GitHub爆火：本地智能爆发，生产力翻倍秘籍！</title>
+
+    <!-- Core Reveal.js Framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+
+    <!-- Extended Dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #2c3e50; /* Dark Blue-Gray */
+            --accent-color: #3498db; /* Bright Blue */
+            --secondary-accent-color: #9b59b6; /* Purple */
+            --text-color: #34495e; /* Darker Gray for body text */
+            --light-text-color: #ecf0f1; /* Light Gray */
+            --background-color: #f7f9fa; /* Off-White background */
+        }
+
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+
+        .reveal .slides section {
+            text-align: left;
+            padding: 0 5%;
+            box-sizing: border-box;
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 0.5em;
+        }
+
+        .reveal h1 { font-size: 3.0rem; line-height: 1.2; }
+        .reveal h2 { font-size: 2.2rem; line-height: 1.3; }
+        .reveal h3 { font-size: 1.8rem; line-height: 1.4; }
+        .reveal h4 { font-size: 1.5rem; line-height: 1.5; }
+
+        .reveal p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1em;
+        }
+        .reveal ul, .reveal ol {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1em;
+            padding-left: 1.5em;
+        }
+        .reveal ul li, .reveal ol li {
+            margin-bottom: 0.5em;
+        }
+
+        .reveal .controls-container {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+
+        .reveal .controls-container img {
+            height: 80px;
+            width: 80px;
+            margin-left: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .reveal .link-text {
+            margin-right: 15px;
+        }
+
+        .reveal table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5em 0;
+            font-size: 0.95em;
+        }
+        .reveal table th,
+        .reveal table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        .reveal table th {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        .reveal table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .reveal .fragment {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease, visibility 0.8s ease;
+        }
+        .reveal .fragment.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .reveal .highlight {
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+        .reveal .sub-highlight {
+            color: var(--secondary-accent-color);
+            font-weight: 600;
+        }
+
+        .reveal .r-stretch img {
+            width: 100%;
+            height: auto;
+        }
+        .reveal .r-stack {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .reveal .slide-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5em;
+        }
+
+        .reveal .section-header {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+        .reveal .section-background {
+            background: linear-gradient(135deg, #e0eafc, #cfdef3); /* Light Blue Gradient */
+        }
+        .reveal .cover-background {
+            background: linear-gradient(135deg, #c3aed6, #a1c4fd); /* Soft Purple to Blue Gradient */
+        }
+        .reveal .aha-background {
+            background: linear-gradient(135deg, #a1c4fd, #c2e9fb); /* Blue to Light Blue Gradient */
+        }
+
+        .reveal .badge {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.3em 0.8em;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin-right: 0.5em;
+            margin-bottom: 0.5em;
+            font-weight: 500;
+        }
+        .reveal .language-badge {
+            background-color: #e74c3c; /* Red */
+        }
+        .reveal .stats-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 1.5em;
+            margin-bottom: 1.5em;
+        }
+        .reveal .stat-item {
+            background-color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            flex: 1 1 auto;
+            min-width: 120px;
+        }
+        .reveal .stat-value {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .reveal .stat-label {
+            font-size: 0.8em;
+            color: #7f8c8d;
+        }
+
+        .reveal .callout {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-left: 5px solid var(--accent-color);
+            padding: 20px;
+            margin: 2em 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .reveal .callout p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin: 0;
+            color: var(--text-color);
+        }
+        .reveal .disclaimer {
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 2em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Cover Page -->
+            <section data-background-color="#f0f2f5" data-background-image="https://images.unsplash.com/photo-1518770660435-406a303462c1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTc2MDJ8MHwxfHNlYXJjaHwyMHx8YWklMjB0ZWNobm9sb2d5JTIwYWJzdHJhY3R8ZW58MHx8fHwxNzA2NjQ5NjQ2fDA&ixlib=rb-4.0.3&q=80&w=1920" data-background-size="cover" data-background-gradient="linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8))">
+                <div class="r-stack text-white">
+                    <h1 class="text-white">GitHub爆火：本地智能爆发，生产力翻倍秘籍！</h1>
+                    <h2 class="text-white text-3xl font-light mt-4">让你的生产力飙升，立即分享！</h2>
+                    <p class="text-xl mt-8 font-light">演讲者: <span class="highlight">AIChipEra</span></p>
+                    <p class="text-lg font-light">GitHub热门仓库日报观测时间: <span class="sub-highlight">2025-08-11 21:05:39</span></p>
+                    <div class="disclaimer mt-8 text-white text-opacity-75">
+                        <p>以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</p>
+                    </div>
+                </div>
+                <div class="controls-container">
+                    <span class="link-text"><a href="https://github.com/aichipera/github-trend" target="_blank" class="text-blue-200 hover:text-blue-100">https://github.com/aichipera/github-trend</a></span>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+            <!-- Slide 2: Aha Moment - Core Message -->
+            <section data-background-color="#e8f0f8" class="aha-background">
+                <h2 class="slide-title text-center mb-10">🌍 技术浪潮新动向：从云端到边缘的智能大爆发！</h2>
+                <div class="flex flex-col items-center justify-center h-full">
+                    <p class="text-2xl font-semibold text-center leading-relaxed">
+                        <span class="highlight">告别高昂费用，掌控你的数字未来！</span>
+                    </p>
+                    <div class="text-xl mt-8 text-center leading-loose">
+                        <p class="fragment" data-fragment-index="1"><i class="fas fa-cloud-arrow-right mr-3 text-accent-color"></i>技术浪潮正从<span class="sub-highlight">依赖云端</span>转向<span class="sub-highlight">个人设备的强大赋能</span>。</p>
+                        <p class="fragment" data-fragment-index="2"><i class="fas fa-microchip mr-3 text-accent-color"></i>一系列热门项目表明，开发者正追求<span class="sub-highlight">私密、高效且能离线运行</span>的智能工具。</p>
+                        <p class="fragment" data-fragment-index="3"><i class="fas fa-robot mr-3 text-accent-color"></i>从本地数据分析、代码优化，到能自主完成任务的“数字助理”，这些创新让<span class="sub-highlight">高阶能力触手可及</span>。</p>
+                        <p class="fragment" data-fragment-index="4"><i class="fas fa-rocket mr-3 text-accent-color"></i>它意味着更强的<span class="sub-highlight">生产力</span>、更<span class="sub-highlight">安全的数据处理</span>，以及将前沿科技无缝融入日常工作流的<span class="sub-highlight">全新可能</span>。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 3: Daily Highlights -->
+            <section>
+                <h2 class="slide-title">🔥 日报要点：本地智能，生产力飙升</h2>
+                <div class="callout">
+                    <p><i class="fas fa-chart-line mr-3 text-accent-color"></i> GitHub最新趋势揭示，技术浪潮正从依赖云端转向个人设备的强大赋能。一系列热门项目表明，开发者正追求私密、高效且能离线运行的智能工具。</p>
+                    <p><i class="fas fa-robot mr-3 text-accent-color"></i> 从本地运行的数据分析、代码优化，到能自主完成任务的“数字助理”，这些创新让高阶能力触手可及。</p>
+                    <p><i class="fas fa-shield-alt mr-3 text-accent-color"></i> 它意味着更强的生产力、更安全的数据处理，以及将前沿科技无缝融入日常工作流的全新可能。</p>
+                    <p><i class="fas fa-coins mr-3 text-accent-color"></i> 告别高昂费用，掌控你的数字未来！</p>
+                </div>
+                <p class="mt-8 text-center text-sm">
+                    PPT 链接: <a href="https://aichipera.github.io/github-trend/daily/2025-08-11/ppt.html" target="_blank" class="text-blue-500 hover:text-blue-700">https://aichipera.github.io/github-trend/daily/2025-08-11/ppt.html</a>
+                </p>
+            </section>
+
+            <!-- Section: 热门项目趋势分析 -->
+            <section class="section-background">
+                <h2 class="section-header">📈 热门项目趋势分析</h2>
+            </section>
+
+            <!-- Slide 4: 今日整体趋势 -->
+            <section>
+                <h3 class="slide-title">今日整体趋势：AI深度落地与普及化</h3>
+                <p class="text-xl mt-6">今日GitHub热门项目的整体趋势，清晰地勾勒出当前技术浪潮的几个核心焦点，尤以<span class="highlight">人工智能领域的深度落地与普及化</span>为最显著特征。</p>
+                <div class="fragment mt-8">
+                    <h4 class="text-xl font-semibold mb-4 text-accent-color">今日技术领域与主题概览</h4>
+                    <ul class="list-disc ml-8">
+                        <li><i class="fas fa-globe mr-2"></i> <span class="sub-highlight">生成式AI</span>依然是中心舞台，但深入到其应用层面。</li>
+                        <li><i class="fas fa-desktop mr-2"></i> <span class="sub-highlight">本地化AI部署：</span>如nomic-ai/gpt4all和menloresearch/jan，追求数据隐私、成本控制、离线能力。</li>
+                        <li><i class="fas fa-users-cog mr-2"></i> <span class="sub-highlight">AI代理（AI Agent）的崛起：</span>从赋能LLM调用外部工具到主动发现修补漏洞（fastapi_mcp, trailofbits/buttercup, midday-ai/midday）。</li>
+                        <li><i class="fas fa-database mr-2"></i> <span class="sub-highlight">AI基础设施完善：</span>高质量数据上下文（mendableai/firecrawl, idosal/git-mcp）。</li>
+                        <li><i class="fas fa-book-reader mr-2"></i> <span class="sub-highlight">AI教育的普及：</span>Microsoft和patchy631的项目为初学者提供学习路径。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 5: 编程语言与技术栈特点 -->
+            <section>
+                <h3 class="slide-title">⚙️ 编程语言与技术栈特点</h3>
+                <ul class="list-disc ml-8">
+                    <li class="fragment" data-fragment-index="1"><i class="fab fa-python mr-2 text-accent-color"></i> <span class="sub-highlight">Python：</span> 毫无疑问继续在AI核心逻辑、模型交互和代理框架中占据主导地位。</li>
+                    <li class="fragment" data-fragment-index="2"><i class="fab fa-js-square mr-2 text-accent-color"></i> <span class="sub-highlight">TypeScript：</span> 在构建AI应用的用户界面、API服务以及数据处理层中扮演关键角色（Firecrawl, GitMCP, Jan, Midday）。</li>
+                    <li class="fragment" data-fragment-index="3"><i class="fas fa-code mr-2 text-accent-color"></i> <span class="sub-highlight">C++ (GPT4All) 和 Rust (OpenAI Codex)：</span> 追求极致性能和本地化LLM推理效率时，对底层语言的依赖。</li>
+                    <li class="fragment" data-fragment-index="4"><i class="fas fa-book mr-2 text-accent-color"></i> <span class="sub-highlight">Jupyter Notebook：</span> 继续作为AI教程和实验的理想载体。</li>
+                    <li class="fragment" data-fragment-index="5"><i class="fas fa-layer-group mr-2 text-accent-color"></i> <span class="sub-highlight">整体技术栈：</span> 趋向于高性能、跨平台、云原生（Docker, CI/CD）以及与现有生态系统深度融合。</li>
+                </ul>
+            </section>
+
+            <!-- Slide 6: 热门项目反映的技术需求与发展方向 -->
+            <section>
+                <h3 class="slide-title">🧭 技术需求与发展方向</h3>
+                <p class="text-xl mt-6">这些项目共同揭示了几个关键的技术需求与发展方向：</p>
+                <ul class="list-disc ml-8 mt-6">
+                    <li class="fragment" data-fragment-index="1"><i class="fas fa-chart-pie mr-2 text-accent-color"></i> <span class="sub-highlight">AI的去中心化与民主化：</span> 用户渴望将AI能力掌握在自己手中，实现隐私保护、降低对云服务的依赖和运营成本。</li>
+                    <li class="fragment" data-fragment-index="2"><i class="fas fa-industry mr-2 text-accent-color"></i> <span class="sub-highlight">AI实用化与垂直整合：</span> AI深度融入特定行业或解决具体痛点。</li>
+                    <li class="fragment" data-fragment-index="3"><i class="fas fa-puzzle-piece mr-2 text-accent-color"></i> <span class="sub-highlight">AI与现有系统的高效集成：</span> 通过标准协议、API和数据预处理工具无缝嵌入。</li>
+                    <li class="fragment" data-fragment-index="4"><i class="fas fa-code-branch mr-2 text-accent-color"></i> <span class="sub-highlight">开发者生产力提升：</span> AI辅助编码和成熟的全栈模板共同加速开发效率。</li>
+                    <li class="fragment" data-fragment-index="5"><i class="fas fa-info-circle mr-2 text-accent-color"></i> <span class="sub-highlight">数据与上下文的重要性：</span> 确保AI获得最新、最准确、结构化的数据是关键。</li>
+                </ul>
+            </section>
+
+            <!-- Slide 7: 热门项目变化与趋势特点 -->
+            <section>
+                <h3 class="slide-title">🔄 热门项目变化与趋势特点</h3>
+                <p class="text-xl mt-6">今日的趋势明显转向<span class="highlight">“如何使用AI”、“在哪里使用AI”和“如何让AI更安全、更可靠”</span>。</p>
+                <ul class="list-disc ml-8 mt-6">
+                    <li class="fragment" data-fragment-index="1"><i class="fas fa-tools mr-2 text-accent-color"></i> 项目重点已从AI的能力边界探索，转移到<span class="sub-highlight">AI的工程化、产品化和用户体验优化</span>。</li>
+                    <li class="fragment" data-fragment-index="2"><i class="fas fa-laptop-code mr-2 text-accent-color"></i> <span class="sub-highlight">本地AI的强劲复苏：</span> 用户对数据隐私和离线能力的追求。</li>
+                    <li class="fragment" data-fragment-index="3"><i class="fas fa-brain mr-2 text-accent-color"></i> <span class="sub-highlight">AI代理从概念走向实际应用：</span> 执行任务、解决特定问题。</li>
+                    <li class="fragment" data-fragment-index="4"><i class="fas fa-bug-slash mr-2 text-accent-color"></i> <span class="sub-highlight">针对AI固有挑战（如幻觉）的直接解决方案出现：</span> 提高AI可靠性。</li>
+                </ul>
+            </section>
+
+            <!-- Slide 8: 未来技术热点预测 -->
+            <section>
+                <h3 class="slide-title">🔮 未来技术热点预测</h3>
+                <p class="text-xl mt-6">展望未来，我们预计以下领域将持续升温：</p>
+                <ul class="list-disc ml-8 mt-6">
+                    <li class="fragment" data-fragment-index="1"><i class="fas fa-user-circle mr-2 text-accent-color"></i> <span class="sub-highlight">个性化、边缘侧AI代理：</span> 用户设备上深度学习并执行任务，成为个人或团队专属智能助手。</li>
+                    <li class="fragment" data-fragment-index="2"><i class="fas fa-user-shield mr-2 text-accent-color"></i> <span class="sub-highlight">AI安全与伦理工具：</span> 对AI行为的审计、偏见的检测、安全沙盒机制将更加关键。</li>
+                    <li class="fragment" data-fragment-index="3"><i class="fas fa-chart-bar mr-2 text-accent-color"></i> <span class="sub-highlight">AI驱动的数据智能：</span> 从非结构化数据中提炼深层洞察，转化为可执行业务策略。</li>
+                    <li class="fragment" data-fragment-index="4"><i class="fas fa-cubes mr-2 text-accent-color"></i> <span class="sub-highlight">多模态AI的本地化与集成：</span> 结合视觉、听觉等多种模态的AI模型，在本地设备上运行。</li>
+                </ul>
+                <p class="mt-8 text-center text-lg font-medium text-primary-color fragment" data-fragment-index="5">
+                    总结：AI正以前所未有的速度，以更私密、更高效、更可靠的方式，深入到技术栈的每个角落。
+                </p>
+            </section>
+
+            <!-- Section: 热门项目双日维度对比分析 -->
+            <section class="section-background">
+                <h2 class="section-header">📊 热门项目双日维度对比分析</h2>
+            </section>
+
+            <!-- Slide 9: GitHub热门项目动态概览 -->
+            <section>
+                <h3 class="slide-title">📈 GitHub热门项目动态概览</h3>
+                <p class="text-xl mt-6">昨日至今，GitHub热门项目表现出显著的活跃度。</p>
+                <ul class="list-disc ml-8 mt-6">
+                    <li class="fragment" data-fragment-index="1"><i class="fas fa-plus-circle mr-2 text-accent-color"></i> <span class="sub-highlight">新晋项目数量：</span> 达到 <span class="highlight">6个</span>。</li>
+                    <li class="fragment" data-fragment-index="2"><i class="fas fa-arrow-up mr-2 text-accent-color"></i> <span class="sub-highlight">上升趋势项目：</span> 有 <span class="highlight">8个</span>。</li>
+                    <li class="fragment" data-fragment-index="3"><i class="fas fa-arrow-down mr-2 text-accent-color"></i> <span class="sub-highlight">下降项目：</span> <span class="highlight">无</span>，生态保持强劲增长。</li>
+                    <li class="fragment" data-fragment-index="4"><i class="fas fa-fire mr-2 text-accent-color"></i> <span class="sub-highlight">新项目中AI/ML领域占据主导：</span> FastAPI_MCP, Buttercup, AI-Engineering-Hub, Generative-AI-for-Beginners (Python/Jupyter), Midday, Firecrawl (TypeScript)。</li>
+                    <li class="fragment" data-fragment-index="5"><i class="fas fa-chart-area mr-2 text-accent-color"></i> <span class="sub-highlight">编程语言分布：</span> Jupyter Notebook领跑，Python和TypeScript紧随。</li>
+                    <li class="fragment" data-fragment-index="6"><i class="fas fa-star mr-2 text-accent-color"></i> <span class="sub-highlight">涨幅最大：</span> Umami (惊人增长), OpenAI Codex, GPT4All (持续热度)。</li>
+                </ul>
+            </section>
+
+            <!-- Slide 10: 热点变化 -->
+            <section>
+                <h3 class="slide-title">🌐 热点变化概览</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+                    <div class="p-6 bg-white rounded-lg shadow-md fragment" data-fragment-index="1">
+                        <h4 class="text-xl font-bold mb-4 text-primary-color"><i class="fas fa-plus-square mr-2"></i> 新增热点</h4>
+                        <ul class="list-disc ml-6 text-base">
+                            <li>microsoft/generative-ai-for-beginners</li>
+                            <li>midday-ai/midday</li>
+                            <li>patchy631/ai-engineering-hub</li>
+                            <li>tadata-org/fastapi_mcp</li>
+                            <li>trailofbits/buttercup</li>
+                            <li>mendableai/firecrawl</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-md fragment" data-fragment-index="2">
+                        <h4 class="text-xl font-bold mb-4 text-primary-color"><i class="fas fa-minus-square mr-2"></i> 减退热点</h4>
+                        <ul class="list-disc ml-6 text-base">
+                            <li>polarsource/polar</li>
+                            <li>binhnguyennus/awesome-scalability</li>
+                            <li>openai/openai-node</li>
+                            <li>topjohnwu/magisk</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-md fragment" data-fragment-index="3">
+                        <h4 class="text-xl font-bold mb-4 text-primary-color"><i class="fas fa-redo-alt mr-2"></i> 持续热门</h4>
+                        <ul class="list-disc ml-6 text-base">
+                            <li>nomic-ai/gpt4all (3次)</li>
+                            <li>openai/codex (4次)</li>
+                            <li>xiaoyaocz/dart_simple_live (3次)</li>
+                            <li>libsdl-org/SDL (3次)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: 详细仓库数据 -->
+            <section class="section-background">
+                <h2 class="section-header">📚 详细仓库数据一览</h2>
+            </section>
+
+            <!-- Project 1: nomic-ai/gpt4all -->
+            <section>
+                <h2>nomic-ai/gpt4all</h2>
+                <p class="text-lg font-light mt-4">项目简介: GPT4All：在任何设备上运行本地大型语言模型。开源且可商用。</p>
+                <table class="my-6">
+                    <thead>
+                        <tr>
+                            <th>仓库名称</th>
+                            <th>开发语言</th>
+                            <th>Star 数</th>
+                            <th>连续在榜</th>
+                            <th>总上榜次数</th>
+                            <th>当日 Star 增加数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>[nomic-ai/gpt4all](https://github.com/nomic-ai/gpt4all)</td>
+                            <td>C++</td>
+                            <td>74594</td>
+                            <td>3次</td>
+                            <td>3次</td>
+                            <td>169</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="stats-box">
+                    <div class="stat-item"><span class="stat-value">74.6k</span><br><span class="stat-label">Stars ⭐</span></div>
+                    <div class="stat-item"><span class="stat-value">8.1k</span><br><span class="stat-label">Forks 🔄</span></div>
+                    <div class="stat-item"><span class="stat-value">116</span><br><span class="stat-label">Contributors 👥</span></div>
+                    <div class="stat-item"><span class="stat-value">MIT</span><br><span class="stat-label">License 📜</span></div>
+                </div>
+                <p class="text-center text-sm font-semibold">编程语言占比: <span class="badge language-badge">C++ 52.0%</span> <span class="badge">QML 30.3%</span> <span class="badge">Python 7.6%</span></p>
+            </section>
+            <section>
+                <h3>nomic-ai/gpt4all - 项目速读</h3>
+                <p class="font-light">GPT4All是一个开创性开源项目，旨在让LLMs在普通桌面和笔记本电脑上<span class="highlight">私密、高效地运行</span>，解决传统LLM对云端API、高端硬件的依赖及<span class="highlight">数据隐私担忧</span>。</p>
+                <ul class="list-disc ml-8 mt-4">
+                    <li class="fragment">核心优势：<span class="sub-highlight">极致本地隐私与便捷性</span>，所有推理均在设备上完成，数据不外泄。</li>
+                    <li class="fragment">卓越兼容性：基于llama.cpp，消费级CPU也能流畅运行，支持NVIDIA和AMD GPU加速，兼容GGUF等多种主流LLM格式。</li>
+                    <li class="fragment">多样化接口：桌面聊天应用、LocalDocs（私密文档对话）、Python客户端、OpenAI API兼容Docker服务器。</li>
+                </ul>
+                <p class="mt-4 font-light">
+                    <span class="highlight">价值：</span> 显著降低个人和企业本地部署与使用LLM的门槛，尤其适用于对<span class="sub-highlight">数据隐私高度敏感、需要离线运行</span>的场景，推动LLM普及化。
+                </p>
+                <p class="font-light mt-4 fragment">
+                    <span class="highlight">增长分析：</span> 连续3天上榜，曝光度高。总新增Star 598，今日新增169，增长势头强劲且稳定。
+                </p>
+            </section>
+
+            <!-- Project 2: tadata-org/fastapi_mcp -->
+            <section>
+                <h2>tadata-org/fastapi_mcp</h2>
+                <p class="text-lg font-light mt-4">项目简介: 将FastAPI端点作为模型上下文协议（MCP）工具公开，并支持认证！</p>
+                <table class="my-6">
+                    <thead>
+                        <tr>
+                            <th>仓库名称</th>
+                            <th>开发语言</th>
+                            <th>Star 数</th>
+                            <th>连续在榜</th>
+                            <th>总上榜次数</th>
+                            <th>当日 Star 增加数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>[tadata-org/fastapi_mcp](https://github.com/tadata-org/fastapi_mcp)</td>
+                            <td>Python</td>
+                            <td>7308</td>
+                            <td>1次</td>
+                            <td>3次</td>
+                            <td>247</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="stats-box">
+                    <div class="stat-item"><span class="stat-value">7.3k</span><br><span class="stat-label">Stars ⭐</span></div>
+                    <div class="stat-item"><span class="stat-value">600</span><br><span class="stat-label">Forks 🔄</span></div>
+                    <div class="stat-item"><span class="stat-value">15</span><br><span class="stat-label">Contributors 👥</span></div>
+                    <div class="stat-item"><span class="stat-value">MIT</span><br><span class="stat-label">License 📜</span></div>
+                </div>
+                <p class="text-center text-sm font-semibold">编程语言占比: <span class="badge language-badge">Python 100.0%</span></p>
+            </section>
+            <section>
+                <h3>tadata-org/fastapi_mcp - 项目速读</h3>
+                <p class="font-light">FastAPI-MCP是Python开源库，为LLM或其他AI模型提供<span class="highlight">安全、高效机制</span>，便捷调用基于FastAPI构建的<span class="highlight">外部工具或服务</span>。</p>
+                <ul class="list-disc ml-8 mt-4">
+                    <li class="fragment">独特之处：FastAPI原生深度扩展，非简单OpenAPI到MCP转换器。</li>
+                    <li class="fragment">核心优势：利用FastAPI ASGI接口进行底层通信，避免不必要HTTP调用，保证<span class="sub-highlight">低摩擦和高性能</span>。</li>
+                    <li class="fragment">无缝集成：完整保留FastAPI端点请求和响应模型定义，直接复用其依赖注入系统进行身份验证，简化开发。</li>
+                </ul>
+                <p class="mt-4 font-light">
+                    <span class="highlight">价值：</span> 为构建能够<span class="sub-highlight">安全、智能地与外部世界交互的AI代理</span>和复杂应用提供了坚实基础，显著扩展了LLM处理能力。
+                </p>
+                <p class="font-light mt-4 fragment">
+                    <span class="highlight">增长分析：</span> 上榜3次，平均获星129.7。今日新增247星，远超平均，增长势头强劲且加速。
+                </p>
+            </section>
+
+            <!-- Project 3: trailofbits/buttercup -->
+            <section>
+                <h2>trailofbits/buttercup</h2>
+                <p class="text-lg font-light mt-4">项目简介: 由Trail of Bits为DARPA AIxCC开发的网络推理系统（CRS），用于自动发现与修补开源软件漏洞。</p>
+                <table class="my-6">
+                    <thead>
+                        <tr>
+                            <th>仓库名称</th>
+                            <th>开发语言</th>
+                            <th>Star 数</th>
+                            <th>连续在榜</th>
+                            <th>总上榜次数</th>
+                            <th>当日 Star 增加数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>[trailofbits/buttercup](https://github.com/trailofbits/buttercup)</td>
+                            <td>Python</td>
+                            <td>423</td>
+                            <td>1次</td>
+                            <td>1次</td>
+                            <td>80</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="stats-box">
+                    <div class="stat-item"><span class="stat-value">423</span><br><span class="stat-label">Stars ⭐</span></div>
+                    <div class="stat-item"><span class="stat-value">51</span><br><span class="stat-label">Forks 🔄</span></div>
+                    <div class="stat-item"><span class="stat-value">14</span><br><span class="stat-label">Contributors 👥</span></div>
+                    <div class="stat-item"><span class="stat-value">AGPL-3.0</span><br><span class="stat-label">License 📜</span></div>
+                </div>
+                <p class="text-center text-sm font-semibold">编程语言占比: <span class="badge language-badge">Python 94.3%</span> <span class="badge">Shell 2.4%</span></p>
+            </section>
+            <section>
+                <h3>trailofbits/buttercup - 项目速读</h3>
+                <p class="font-light">Buttercup是Trail of Bits为DARPA AIxCC开发的网络推理系统（CRS），致力于<span class="highlight">解决开源软件漏洞的自动发现与修补难题</span>。</p>
+                <ul class="list-disc ml-8 mt-4">
+                    <li class="fragment">核心优势：<span class="sub-highlight">高度智能化与自动化漏洞处理能力</span>，结合AI/ML辅助模糊测试精准定位漏洞。</li>
+                    <li class="fragment">全自动化：利用多代理AI驱动修补器，自动生成并应用安全补丁，实现端到端闭环流程。</li>
+                    <li class="fragment">广泛集成：支持OSS-Fuzz兼容的C和Java源码，并通过Web UI提供实时监控。</li>
+                    <li class="fragment">AI驱动：内部架构精妙，广泛集成OpenAI、Anthropic等LLM服务，增强漏洞推理和补丁生成能力。</li>
+                </ul>
+                <p class="mt-4 font-light">
+                    <span class="highlight">价值：</span> 为管理大量开源代码库的组织提供革命性解决方案，将传统耗时耗力的人工漏洞管理转化为<span class="sub-highlight">高效、智能的闭环流程</span>。
+                </p>
+                <p class="font-light mt-4 fragment">
+                    <span class="highlight">增长分析：</span> 首次上榜，日增80星，显示出较强的初始吸引力。
+                </p>
+            </section>
+
+            <!-- Project 4: patchy631/ai-engineering-hub -->
+            <section>
+                <h2>patchy631/ai-engineering-hub</h2>
+                <p class="text-lg font-light mt-4">项目简介: 大型语言模型、检索增强生成和实际AI智能体应用的深度教程。</p>
+                <table class="my-6">
+                    <thead>
+                        <tr>
+                            <th>仓库名称</th>
+                            <th>开发语言</th>
+                            <th>Star 数</th>
+                            <th>连续在榜</th>
+                            <th>总上榜次数</th>
+                            <th>当日 Star 增加数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>[patchy631/ai-engineering-hub](https://github.com/patchy631/ai-engineering-hub)</td>
+                            <td>Jupyter Notebook</td>
+                            <td>16371</td>
+                            <td>1次</td>
+                            <td>12次</td>
+                            <td>330</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="stats-box">
+                    <div class="stat-item"><span class="stat-value">16.4k</span><br><span class="stat-label">Stars ⭐</span></div>
+                    <div class="stat-item"><span class="stat-value">2.8k</span><br><span class="stat-label">Forks 🔄</span></div>
+                    <div class="stat-item"><span class="stat-value">14</span><br><span class="stat-label">Contributors 👥</span></div>
+                    <div class="stat-item"><span class="stat-value">MIT</span><br><span class="stat-label">License 📜</span></div>
+                </div>
+                <p class="text-center text-sm font-semibold">编程语言占比: <span class="badge language-badge">Jupyter Notebook 96.2%</span> <span class="badge">Python 3.8%</span></p>
+            </section>
+            <section>
+                <h3>patchy631/ai-engineering-hub - 项目速读</h3>
+                <p class="font-light">AI Engineering Hub致力于成为<span class="highlight">全面AI工程资源中心</span>，解决开发者学习并实践LLMs、RAGs及AI代理实际应用的挑战。</p>
+                <ul class="list-disc ml-8 mt-4">
+                    <li class="fragment">核心优势：<span class="sub-highlight">内容深度与实践导向</span>，提供深入教程、真实世界应用示例和可复用代码。</li>
+                    <li class="fragment">涵盖范围：详细解析LLM和RAG关键概念与技术细节，包含丰富的AI代理实际应用案例。</li>
+                    <li class="fragment">普适性强：所有示例易于实现、改编和扩展，极大地提升项目实用价值。</li>
+                </ul>
+                <p class="mt-4 font-light">
+                    <span class="highlight">价值：</span> 为希望深入理解并实际部署LLM、RAG及AI代理技术的开发者、研究人员或学生提供了<span class="sub-highlight">集知识、实践与创新于一体的理想平台</span>。
+                </p>
+                <p class="font-light mt-4 fragment">
+                    <span class="highlight">增长分析：</span> 近五个月超1.1万Star增长，12次上榜。平均单次上榜增星311，今日330，增长势头强劲且稳定。
+                </p>
+            </section>
+
+            <!-- Project 5: openai/codex -->
+            <section>
+                <h2>openai/codex</h2>
+                <p class="text-lg font-light mt-4">项目简介: 在终端中运行的轻量级编程代理。</p>
+                <table class="my-6">
+                    <thead>
+                        <tr>
+                            <th>仓库名称</th>
+                            <th>开发语言</th>
+                            <th>Star 数</th>
+                            <th>连续在榜</th>
+                            <th>总上榜次数</th>
+                            <th>当日 Star 增加数</th>
+                        </tr>
+                    </thead>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>[openai/codex](https://github.com/openai/codex)</td>
+                            <td>Rust</td>
+                            <td>34179</td>
+                            <td>4次</td>
+                            <td>4次</td>
+                            <td>497</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="stats-box">
+                    <div class="stat-item"><span class="stat-value">34.2k</span><br><span class="stat-label">Stars ⭐</span></div>
+                    <div class="stat-item"><span class="stat-value">3.9k</span><br><span class="stat-label">Forks 🔄</span></div>
+                    <div class="stat-item"><span class="stat-value">131</span><br><span class="stat-label">Contributors 👥</span></div>
+                    <div class="stat-item"><span class="stat-value">Apache-2.0</span><br><span class="stat-label">License 📜</span></div>
+                </div>
+                <p class="text-center text-sm font-semibold">编程语言占比: <span class="badge language-badge">Rust 94.5%</span> <span class="badge">Python 4.1%</span></p>
+            </section>
+            <section>
+                <h3>openai/codex - 项目速读</h3>
+                <p class="font-light">OpenAI Codex CLI是OpenAI开发的、直接在命令行界面运行的<span class="highlight">轻量级AI编码代理</span>，将强大AI辅助编程能力带到开发者本地。</p>
+                <ul class="list-disc ml-8 mt-4">
+                    <li class="fragment">核心优势：默认在严密<span class="sub-highlight">安全沙盒中运行</span>，提供精细化自动化级别控制。</li>
+                    <li class="fragment">高度安全：开发者可设定Codex权限（只读、读写、自定义），确保操作始终在受控且安全环境内。</li>
+                    <li class="fragment">无缝集成：充分利用OpenAI最新AI模型（如GPT-5），无需离开终端即可获得智能代码补全、错误诊断等高效辅助。</li>
+                </ul>
+                <p class="mt-4 font-light">
+                    <span class="highlight">价值：</span> 特别适合注重数据安全、渴望将AI能力无缝融入日常开发流程的专业人士，带来<span class="sub-highlight">更私密、高效且可控的编程体验</span>。
+                </p>
+                <p class="font-light mt-4 fragment">
+                    <span class="highlight">增长分析：</span> 4天内连续4次上榜，总增长1613 Star，今日新增497，高于平均，显示出强劲且加速的增长趋势。
+                </p>
+            </section>
+
+            <!-- Project 6: menloresearch/jan -->
+            <section>
+                <h2>menloresearch/jan</h2>
+                <p class="text-lg font-light mt-4">项目简介: 简是ChatGPT的开源替代品，可在您的电脑上100%离线运行。</p>
+                <table class="my-6">
+                    <thead>
+                        <tr>
+                            <th>仓库名称</th>
+                            <th>开发语言</th>
+                            <th>Star 数</th>
+                            <th>连续在榜</th>
+                            <th>总上榜次数</th>
+                            <th>当日 Star 增加数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>[menloresearch/jan](https://github.com/menloresearch/jan)</td>
+                            <td>TypeScript</td>
+                            <td>36082</td>
+                            <td>2次</td>
+                            <td>5次</td>
+                            <td>331</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="stats-box">
+                    <div class="stat-item"><span class="stat-value">36.1k</span><br><span class="stat-label">Stars ⭐</span></div>
+                    <div class="stat-item"><span class="stat-value">2.1k</span><br><span class="stat-label">Forks 🔄</span></div>
+                    <div class="stat-item"><span class="stat-value">93</span><br><span class="stat-label">Contributors 👥</span></div>
+                    <div class="stat-item"><span class="stat-value">Apache-2.0</span><br><span class="stat-label">License 📜</span></div>
+                </div>
+                <p class="text-center text-sm font-semibold">编程语言占比: <span class="badge language-badge">TypeScript 58.6%</span> <span class="badge">MDX 16.2%</span> <span class="badge">Rust 8.2%</span></p>
+            </section>
+            <section>
+                <h3>menloresearch/jan - 项目速读</h3>
+                <p class="font-light">Jan是一个卓越的开源项目，致力于将LLM强大能力带到您的个人设备上，实现<span class="highlight">100%离线运行</span>，提供ChatGPT的本地替代方案。</p>
+                <ul class="list-disc ml-8 mt-4">
+                    <li class="fragment">核心问题：解决用户对数据隐私、计算控制及摆脱云服务依赖的需求。</li>
+                    <li class="fragment">关键优势：<span class="sub-highlight">“隐私优先”设计理念</span>，允许本地运行HuggingFace各类主流LLM（Llama, Gemma等）。</li>
+                    <li class="fragment">高度灵活：支持集成OpenAI、Anthropic等主流云端AI服务。</li>
+                    <li class="fragment">开发者利器：提供内置OpenAI兼容API服务器，使其他应用程序方便调用本地AI模型。</li>
+                </ul>
+                <p class="mt-4 font-light">
+                    <span class="highlight">价值：</span> 赋能用户在自己硬件上掌控AI，实现数据的完全隐私和计算自主权，特别适合<span class="sub-highlight">注重数据安全、降低云端成本</span>的个人和团队。
+                </p>
+                <p class="font-light mt-4 fragment">
+                    <span class="highlight">增长分析：</span> 近2个月5次上榜，持续获得关注。总增6322 Star，今日新增331 Star低于平均，但整体仍积极增长。
+                </p>
+            </section>
+
+            <!-- Project 7: microsoft/generative-ai-for-beginners -->
+            <section>
+                <h2>microsoft/generative-ai-for-beginners</h2>
+                <p class="text-lg font-light mt-4">项目简介: 21 节课，生成式 AI 动手构建入门 🔗https://microsoft.github.io/generative-ai-for-beginners/</p>
+                <table class="my-6">
+                    <thead>
+                        <tr>
+                            <th>仓库名称</th>
+                            <th>开发语言</th>
+                            <th>Star 数</th>
+                            <th>连续在榜</th>
+                            <th>总上榜次数</th>
+                            <th>当日 Star 增加数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>[microsoft/generative-ai-for-beginners](https://github.com/microsoft/generative-ai-for-beginners)</td>
+                            <td>Jupyter Notebook</td>
+                            <td>94483</td>
+                            <td>1次</td>
+                            <td>23次</td>
+                            <td>151</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="stats-box">
+                    <div class="stat-item"><span class="stat-value">94.5k</span><br><span class="stat-label">Stars ⭐</span></div>
+                    <div class="stat-item"><span class="stat-value">49.2k</span><br><span class="stat-label">Forks 🔄</span></div>
+                    <div class="stat-item"><span class="stat-value">133</span><br><span class="stat-label">Contributors 👥</span></div>
+                    <div class="stat-item"><span class="stat-value">MIT</span><br><span class="stat-label">License 📜</span></div>
+                </div>
+                <p class="text-center text-sm font-semibold">编程语言占比: <span class="badge language-badge">Jupyter Notebook 86.4%</span> <span class="badge">Python 8.2%</span></p>
+            </section>
+            <section>
+                <h3>microsoft/generative-ai-for-beginners - 项目速读</h3>
+                <p class="font-light">微软推出的面向初学者生成式AI免费在线课程，帮助<span class="highlight">零基础学习者系统掌握生成式AI核心概念并亲手构建实际应用</span>。</p>
+                <ul class="list-disc ml-8 mt-4">
+                    <li class="fragment">解决痛点：新手在面对复杂生成式AI技术时，提供清晰、实践导向的学习路径。</li>
+                    <li class="fragment">课程优势：21节课程融合理论与实践，通过Python和TypeScript代码示例，确保知识转化为实际能力。</li>
+                    <li class="fragment">全球普及：强大的<span class="sub-highlight">多语言支持</span>，通过自动化翻译机制保证课程内容同步更新，降低全球学习者门槛。</li>
+                </ul>
+                <p class="mt-4 font-light">
+                    <span class="highlight">价值：</span> 高质量开源教育资源，适合希望快速了解生成式AI并着手应用开发的个人、学生或技术爱好者。是<span class="sub-highlight">加速AI项目落地的宝贵起点</span>。
+                </p>
+                <p class="font-light mt-4 fragment">
+                    <span class="highlight">增长分析：</span> 不足五个月累计增长18765 Star，23次高频上榜，持续高度关注度与强劲增长势头。
+                </p>
+            </section>
+
+            <!-- Project 8: midday-ai/midday -->
+            <section>
+                <h2>midday-ai/midday</h2>
+                <p class="text-lg font-light mt-4">项目简介: 开票、工时跟踪、文件核对、存储、财务概览及专为自由职业者打造的专属助手。</p>
+                <table class="my-6">
+                    <thead>
+                        <tr>
+                            <th>仓库名称</th>
+                            <th>开发语言</th>
+                            <th>Star 数</th>
+                            <th>连续在榜</th>
+                            <th>总上榜次数</th>
+                            <th>当日 Star 增加数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>[midday-ai/midday](https://github.com/midday-ai/midday)</td>
+                            <td>TypeScript</td>
+                            <td>9734</td>
+                            <td>1次</td>
+                            <td>4次</td>
+                            <td>102</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="stats-box">
+                    <div class="stat-item"><span class="stat-value">9.7k</span><br><span class="stat-label">Stars ⭐</span></div>
+                    <div class="stat-item"><span class="stat-value">912</span><br><span class="stat-label">Forks 🔄</span></div>
+                    <div class="stat-item"><span class="stat-value">24</span><br><span class="stat-label">Contributors 👥</span></div>
+                    <div class="stat-item"><span class="stat-value">AGPL-3.0</span><br><span class="stat-label">License 📜</span></div>
+                </div>
+                <p class="text-center text-sm font-semibold">编程语言占比: <span class="badge language-badge">TypeScript 97.0%</span></p>
+            </section>
+            <section>
+                <h3>midday-ai/midday - 项目速读</h3>
+                <p class="font-light">Midday是专为自由职业者、承包商、顾问及个体经营者设计的一体化业务管理平台，解决其<span class="highlight">工具分散、效率低下</span>的痛点。</p>
+                <ul class="list-disc ml-8 mt-4">
+                    <li class="fragment">核心优势：<span class="sub-highlight">高度集成与智能化能力</span>。提供实时时间追踪、交互式发票、自动匹配收支交易（Magic Inbox）。</li>
+                    <li class="fragment">特色功能：<span class="sub-highlight">AI驱动的“Assistant”</span>，提供个性化财务洞察、支出分析和快速文档查找，集成Mistral和OpenAI。</li>
+                    <li class="fragment">技术架构：Monorepo模式，核心栈Bun、React、TypeScript、Next.js，基于Supabase、Vercel和Fly.io部署。</li>
+                </ul>
+                <p class="mt-4 font-light">
+                    <span class="highlight">价值：</span> 为独立专业人士提供强大且智能的工具集，显著提升业务管理效率，降低运营复杂度，并通过数据驱动更好掌控财务。
+                </p>
+                <p class="font-light mt-4 fragment">
+                    <span class="highlight">增长分析：</span> 约四个月仅四次上榜，主要依赖榜单曝光。今日新增102星远超平均，最新上榜表现强劲。
+                </p>
+            </section>
+
+            <!-- Project 9: xiaoyaocz/dart_simple_live -->
+            <section>
+                <h2>xiaoyaocz/dart_simple_live</h2>
+                <p class="text-lg font-light mt-4">项目简介: {'简简单单的看直播'}</p>
+                <table class="my-6">
+                    <thead>
+                        <tr>
+                            <th>仓库名称</th>
+                            <th>开发语言</th>
+                            <th>Star 数</th>
+                            <th>连续在榜</th>
+                            <th>总上榜次数</th>
+                            <th>当日 Star 增加数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>[xiaoyaocz/dart_simple_live](https://github.com/xiaoyaocz/dart_simple_live)</td>
+                            <td>Dart</td>
+                            <td>12247</td>
+                            <td>3次</td>
+                            <td>4次</td>
+                            <td>116</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="stats-box">
+                    <div class="stat-item"><span class="stat-value">12.2k</span><br><span class="stat-label">Stars ⭐</span></div>
+                    <div class="stat-item"><span class="stat-value">916</span><br><span class="stat-label">Forks 🔄</span></div>
+                    <div class="stat-item"><span class="stat-value">16</span><br><span class="stat-label">Contributors 👥</span></div>
+                    <div class="stat-item"><span class="stat-value">GPL-3.0</span><br><span class="stat-label">License 📜</span></div>
+                </div>
+                <p class="text-center text-sm font-semibold">编程语言占比: <span class="badge language-badge">Dart 93.7%</span></p>
+            </section>
+            <section>
+                <h3>xiaoyaocz/dart_simple_live - 项目速读</h3>
+                <p class="font-light">“dartsimplelive”是基于Flutter框架的开源项目，旨在提供<span class="highlight">“简简单单”直播观看体验</span>，整合虎牙、斗鱼、B站和抖音。</p>
+                <ul class="list-disc ml-8 mt-4">
+                    <li class="fragment">核心优势：<span class="sub-highlight">广泛的跨平台支持</span>，Android、iOS、Windows、macOS、Linux及Android TV。</li>
+                    <li class="fragment">技术特点：模块化设计，核心直播数据抓取与解析功能独立封装，系统健壮性与可扩展性强。</li>
+                </ul>
+                <p class="mt-4 font-light">
+                    <span class="highlight">价值：</span> Flutter构建复杂跨平台应用的优秀范例，解决了用户在不同直播平台间切换的痛点，提供<span class="sub-highlight">纯粹、高效的直播聚合方案</span>。
+                </p>
+                <p class="font-light mt-4 fragment">
+                    <span class="highlight">增长分析：</span> 5天内4次上榜，总计增长444星。今日新增116星，高于平均值，增长势头强劲且持续稳定。
+                </p>
+            </section>
+
+            <!-- Project 10: fastapi/full-stack-fastapi-template -->
+            <section>
+                <h2>fastapi/full-stack-fastapi-template</h2>
+                <p class="text-lg font-light mt-4">项目简介: 全栈、现代化Web应用模板，采用FastAPI、React、SQLModel、PostgreSQL、Docker、GitHub Actions、自动HTTPS等技术。</p>
+                <table class="my-6">
+                    <thead>
+                        <tr>
+                            <th>仓库名称</th>
+                            <th>开发语言</th>
+                            <th>Star 数</th>
+                            <th>连续在榜</th>
+                            <th>总上榜次数</th>
+                            <th>当日 Star 增加数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>[fastapi/full-stack-fastapi-template](https://github.com/fastapi/full-stack-fastapi-template)</td>
+                            <td>TypeScript</td>
+                            <td>35756</td>
+                            <td>2次</td>
+                            <td>3次</td>
+                            <td>93</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="stats-box">
+                    <div class="stat-item"><span class="stat-value">35.8k</span><br><span class="stat-label">Stars ⭐</span></div>
+                    <div class="stat-item"><span class="stat-value">6.8k</span><br><span class="stat-label">Forks 🔄</span></div>
+                    <div class="stat-item"><span class="stat-value">70</span><br><span class="stat-label">Contributors 👥</span></div>
+                    <div class="stat-item"><span class="stat-value">MIT</span><br><span class="stat-label">License 📜</span></div>
+                </div>
+                <p class="text-center text-sm font-semibold">编程语言占比: <span class="badge language-badge">TypeScript 63.9%</span> <span class="badge">Python 28.8%</span></p>
+            </section>
+            <section>
+                <h3>fastapi/full-stack-fastapi-template - 项目速读</h3>
+                <p class="font-light">专为<span class="highlight">快速启动现代全栈Web应用</span>而设计的开发模板，解决了从零开始搭建复杂开发环境的痛点。</p>
+                <ul class="list-disc ml-8 mt-4">
+                    <li class="fragment">集成技术栈：后端Python FastAPI+SQLModel+PostgreSQL；前端React+TypeScript+Vite+Chakra UI。</li>
+                    <li class="fragment">核心优势：<span class="sub-highlight">高度自动化与部署便利性</span>，Docker Compose实现容器化，Traefik自动配置HTTPS。</li>
+                    <li class="fragment">开发效率：内置Pytest、Playwright测试框架及GitHub Actions CI/CD流程，保障代码质量与部署效率。</li>
+                </ul>
+                <p class="mt-4 font-light">
+                    <span class="highlight">价值：</span> 提供坚实、安全的开发基础（JWT认证、密码哈希），通过Copier工具支持引导式项目生成，<span class="sub-highlight">大幅缩短开发周期</span>。
+                </p>
+                <p class="font-light mt-4 fragment">
+                    <span class="highlight">增长分析：</span> 45天内仅上榜3次，增长模式为间歇性高爆发。今日93星，显示上榜时吸引力强劲。
+                </p>
+            </section>
+
+            <!-- Project 11: mendableai/firecrawl -->
+            <section>
+                <h2>mendableai/firecrawl</h2>
+                <p class="text-lg font-light mt-4">项目简介: 将整个网站转换为LLM就绪的Markdown或结构化数据。通过单个API即可实现抓取、爬取和提取。</p>
+                <table class="my-6">
+                    <thead>
+                        <tr>
+                            <th>仓库名称</th>
+                            <th>开发语言</th>
+                            <th>Star 数</th>
+                            <th>连续在榜</th>
+                            <th>总上榜次数</th>
+                            <th>当日 Star 增加数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>[mendableai/firecrawl](https://github.com/mendableai/firecrawl)</td>
+                            <td>TypeScript</td>
+                            <td>46410</td>
+                            <td>1次</td>
+                            <td>5次</td>
+                            <td>286</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="stats-box">
+                    <div class="stat-item"><span class="stat-value">46.4k</span><br><span class="stat-label">Stars ⭐</span></div>
+                    <div class="stat-item"><span class="stat-value">4.2k</span><br><span class="stat-label">Forks 🔄</span></div>
+                    <div class="stat-item"><span class="stat-value">104</span><br><span class="stat-label">Contributors 👥</span></div>
+                    <div class="stat-item"><span class="stat-value">AGPL-3.0</span><br><span class="stat-label">License 📜</span></div>
+                </div>
+                <p class="text-center text-sm font-semibold">编程语言占比: <span class="badge language-badge">TypeScript 82.3%</span> <span class="badge">Python 9.5%</span></p>
+            </section>
+            <section>
+                <h3>mendableai/firecrawl - 项目速读</h3>
+                <p class="font-light">Firecrawl是专为AI应用设计的强大API服务，解决LLM从互联网获取<span class="highlight">干净、结构化数据</span>的痛点。</p>
+                <ul class="list-disc ml-8 mt-4">
+                    <li class="fragment">核心特点：<span class="sub-highlight">卓越的“LLM就绪”数据输出能力</span>，对复杂现代网站（JS驱动）的强大兼容性。</li>
+                    <li class="fragment">强大功能：规避代理限制、反机器人机制，支持高度定制爬取规则、多种媒体文件解析及模拟用户操作。</li>
+                    <li class="fragment">深度集成：与Langchain、Llama Index等主流LLM框架深度集成。</li>
+                </ul>
+                <p class="mt-4 font-light">
+                    <span class="highlight">价值：</span> 充当互联网信息与AI智能的关键桥梁，极大简化构建基于RAG、智能问答系统等AI应用的开发复杂度。
+                </p>
+                <p class="font-light mt-4 fragment">
+                    <span class="highlight">增长分析：</span> 总Star增长16494，呈显著爆发式，每次上榜平均贡献239.8 Star，效率极高。今日新增286 Star，吸星能力持续强劲。
+                </p>
+            </section>
+
+            <!-- Project 12: umami-software/umami -->
+            <section>
+                <h2>umami-software/umami</h2>
+                <p class="text-lg font-light mt-4">项目简介: Umami 是一个现代的、注重隐私的谷歌分析替代方案。</p>
+                <table class="my-6">
+                    <thead>
+                        <tr>
+                            <th>仓库名称</th>
+                            <th>开发语言</th>
+                            <th>Star 数</th>
+                            <th>连续在榜</th>
+                            <th>总上榜次数</th>
+                            <th>当日 Star 增加数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>[umami-software/umami](https://github.com/umami-software/umami)</td>
+                            <td>TypeScript</td>
+                            <td>29117</td>
+                            <td>2次</td>
+                            <td>2次</td>
+                            <td>202</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="stats-box">
+                    <div class="stat-item"><span class="stat-value">29.1k</span><br><span class="stat-label">Stars ⭐</span></div>
+                    <div class="stat-item"><span class="stat-value">5.3k</span><br><span class="stat-label">Forks 🔄</span></div>
+                    <div class="stat-item"><span class="stat-value">318</span><br><span class="stat-label">Contributors 👥</span></div>
+                    <div class="stat-item"><span class="stat-value">MIT</span><br><span class="stat-label">License 📜</span></div>
+                </div>
+                <p class="text-center text-sm font-semibold">编程语言占比: <span class="badge language-badge">TypeScript 91.6%</span> <span class="badge">CSS 5.1%</span></p>
+            </section>
+            <section>
+                <h3>umami-software/umami - 项目速读</h3>
+                <p class="font-light">Umami是一款现代且以隐私为核心的开源网站分析工具，提供<span class="highlight">简洁、快速且高度注重数据自主性</span>的谷歌分析替代方案。</p>
+                <ul class="list-disc ml-8 mt-4">
+                    <li class="fragment">核心特点：<span class="sub-highlight">“隐私优先”设计哲学</span>，不收集个人身份信息，不依赖Cookies追踪，确保用户隐私和数据合规。</li>
+                    <li class="fragment">数据主权：完全支持自托管部署，用户对自身分析数据有完全所有权和控制权。</li>
+                    <li class="fragment">技术优势：基于Node.js构建，支持MariaDB、MySQL和PostgreSQL，提供Docker镜像简化部署。</li>
+                </ul>
+                <p class="mt-4 font-light">
+                    <span class="highlight">价值：</span> 适合寻求透明、可控且符合伦理的网站分析方案，让<span class="sub-highlight">数据洞察与用户隐私保护并行不悖</span>。
+                </p>
+                <p class="font-light mt-4 fragment">
+                    <span class="highlight">增长分析：</span> 两天内两次上榜，总增长1125星，强劲短期增长。今日新增202星，明显高于平均，增长趋势加速。
+                </p>
+            </section>
+
+            <!-- Project 13: libsdl-org/SDL -->
+            <section>
+                <h2>libsdl-org/SDL</h2>
+                <p class="text-lg font-light mt-4">项目简介: 简单直通媒体层</p>
+                <table class="my-6">
+                    <thead>
+                        <tr>
+                            <th>仓库名称</th>
+                            <th>开发语言</th>
+                            <th>Star 数</th>
+                            <th>连续在榜</th>
+                            <th>总上榜次数</th>
+                            <th>当日 Star 增加数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>[libsdl-org/SDL](https://github.com/libsdl-org/SDL)</td>
+                            <td>C</td>
+                            <td>13194</td>
+                            <td>3次</td>
+                            <td>3次</td>
+                            <td>80</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="stats-box">
+                    <div class="stat-item"><span class="stat-value">13.2k</span><br><span class="stat-label">Stars ⭐</span></div>
+                    <div class="stat-item"><span class="stat-value">2.3k</span><br><span class="stat-label">Forks 🔄</span></div>
+                    <div class="stat-item"><span class="stat-value">666</span><br><span class="stat-label">Contributors 👥</span></div>
+                    <div class="stat-item"><span class="stat-value">Zlib</span><br><span class="stat-label">License 📜</span></div>
+                </div>
+                <p class="text-center text-sm font-semibold">编程语言占比: <span class="badge language-badge">C 89.1%</span> <span class="badge">C++ 5.1%</span></p>
+            </section>
+            <section>
+                <h3>libsdl-org/SDL - 项目速读</h3>
+                <p class="font-light">SDL（Simple Directmedia Layer）是卓越的<span class="highlight">跨平台多媒体开发库</span>，通过统一API简化游戏、模拟器及富媒体应用开发。</p>
+                <ul class="list-disc ml-8 mt-4">
+                    <li class="fragment">解决痛点：解决传统多媒体编程中因操作系统和硬件差异导致的复杂性与高门槛问题。</li>
+                    <li class="fragment">核心优势：<span class="sub-highlight">出色跨平台能力</span>，一套代码即可在多种主流操作系统无缝运行，提升开发效率。</li>
+                    <li class="fragment">高效抽象：巧妙封装显卡、声卡、输入设备等复杂硬件交互细节，开发者专注于应用逻辑。</li>
+                </ul>
+                <p class="mt-4 font-light">
+                    <span class="highlight">价值：</span> 被广泛应用于各类商业和非商业项目，成为游戏开发、模拟器制作基石，<span class="sub-highlight">大幅降低多媒体开发门槛</span>。
+                </p>
+                <p class="font-light mt-4 fragment">
+                    <span class="highlight">增长分析：</span> 三天内三度上榜，增长稳健。今日新增80个，远超平均值，增长势头积极且加速。
+                </p>
+            </section>
+
+            <!-- Project 14: idosal/git-mcp -->
+            <section>
+                <h2>idosal/git-mcp</h2>
+                <p class="text-lg font-light mt-4">项目简介: 杜绝代码幻觉！GitMCP 是一个免费、开源的远程 MCP 服务器，适用于任何 GitHub 项目。</p>
+                <table class="my-6">
+                    <thead>
+                        <tr>
+                            <th>仓库名称</th>
+                            <th>开发语言</th>
+                            <th>Star 数</th>
+                            <th>连续在榜</th>
+                            <th>总上榜次数</th>
+                            <th>当日 Star 增加数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>[idosal/git-mcp](https://github.com/idosal/git-mcp)</td>
+                            <td>TypeScript</td>
+                            <td>4587</td>
+                            <td>2次</td>
+                            <td>2次</td>
+                            <td>117</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="stats-box">
+                    <div class="stat-item"><span class="stat-value">4.6k</span><br><span class="stat-label">Stars ⭐</span></div>
+                    <div class="stat-item"><span class="stat-value">330</span><br><span class="stat-label">Forks 🔄</span></div>
+                    <div class="stat-item"><span class="stat-value">15</span><br><span class="stat-label">Contributors 👥</span></div>
+                    <div class="stat-item"><span class="stat-value">Apache-2.0</span><br><span class="stat-label">License 📜</span></div>
+                </div>
+                <p class="text-center text-sm font-semibold">编程语言占比: <span class="badge language-badge">TypeScript 98.4%</span></p>
+            </section>
+            <section>
+                <h3>idosal/git-mcp - 项目速读</h3>
+                <p class="font-light">GitMCP是创新开源项目，旨在<span class="highlight">彻底解决AI代码生成“幻觉”问题</span>，作为免费、开源远程MCP服务器。</p>
+                <ul class="list-disc ml-8 mt-4">
+                    <li class="fragment">核心价值：将GitHub项目实时转化为AI工具可直接访问和理解的<span class="sub-highlight">动态文档与代码信息源</span>。</li>
+                    <li class="fragment">关键优势：<span class="sub-highlight">“零配置”</span>云端服务，无需下载安装，提供对实时文档的智能搜索访问。</li>
+                    <li class="fragment">功能亮点：内置浏览器内聊天功能，用户能直接与仓库文档互动，确保AI助手基于最新真实数据操作。</li>
+                </ul>
+                <p class="mt-4 font-light">
+                    <span class="highlight">价值：</span> 提高AI生成代码的准确性和可靠性，特别适用于小众、全新或迭代迅速的开源库，为开发者带来<span class="sub-highlight">更可靠、更高效的AI辅助开发工作流</span>。
+                </p>
+                <p class="font-light mt-4 fragment">
+                    <span class="highlight">增长分析：</span> 2天内总计增长345星，两次上榜，持续关注度良好。今日新增117星，略低于平均但仍保持强劲增长。
+                </p>
+            </section>
+
+
+            <!-- Last Slide: Thank You & Call to Action -->
+            <section data-background-color="#f0f2f5" data-background-image="https://images.unsplash.com/photo-1579546313333-a3d5483a23a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTc2MDJ8MHwxfHNlYXJjaHwyMnx8YWklMjB0ZWNobm9sb2d5JTIwYWJzdHJhY3R8ZW58MHx8fHwxNzA2NjQ5NjQ2fDA&ixlib=rb-4.0.3&q=80&w=1920" data-background-size="cover" data-background-gradient="linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8))">
+                <div class="r-stack text-white">
+                    <h2 class="text-white">🚀 感谢聆听，未来已来！</h2>
+                    <p class="text-xl font-light mt-8">如果您觉得本次分享有帮助，请给我们的项目一个Star！</p>
+                    <p class="text-xl font-light mt-4">您的支持是我们前进的最大动力！</p>
+                </div>
+                <div class="controls-container">
+                    <span class="link-text"><a href="https://github.com/aichipera/github-trend" target="_blank" class="text-blue-200 hover:text-blue-100">https://github.com/aichipera/github-trend</a></span>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <script>
+        // Mermaid.js configuration
+        mermaid.initialize({ startOnLoad: false });
+
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+            rtl: false,
+            autoSlide: 0, // Time in ms to advance slides. Set to 0 to disable.
+            loop: false, // Loop the presentation.
+            fragments: true, // Enable slide fragments.
+
+            // Optional Reveal.js plugins.
+            plugins: [
+                RevealMermaid // Integrates Mermaid diagrams
+            ]
+        });
+    </script>
+</body>
+</html>
