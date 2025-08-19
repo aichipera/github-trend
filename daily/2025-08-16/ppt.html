@@ -1,0 +1,1291 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>GitHub热榜洞察：解锁前沿技术应用，你的代码效率翻倍！</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <!-- 主题选择：这里我们基于white主题定制 -->
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Highlight.js for code highlighting -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/highlight.js/11.5.1/styles/atom-one-dark.min.css" rel="stylesheet">
+
+
+    <style>
+        /* 全局字体设置 */
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: #333;
+        }
+
+        /* 标题字体设置 */
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: 'Noto Serif SC', 'Noto Sans SC', serif;
+            color: #2c3e50; /* 深蓝灰色 */
+            font-weight: 600;
+            text-shadow: none; /* 移除默认阴影 */
+        }
+
+        .reveal h1 { font-size: 2.8rem; line-height: 1.2; margin-bottom: 0.5em; }
+        .reveal h2 { font-size: 2.2rem; line-height: 1.3; margin-top: 1em; }
+        .reveal h3 { font-size: 1.8rem; line-height: 1.4; margin-top: 0.8em; }
+        .reveal h4 { font-size: 1.4rem; line-height: 1.5; }
+        .reveal p { font-size: 1.1rem; line-height: 1.6; margin-bottom: 1em; }
+        .reveal li { font-size: 1rem; line-height: 1.5; margin-bottom: 0.5em; }
+
+        /* 定制颜色方案 */
+        :root {
+            --primary-color: #2c3e50; /* 深蓝灰色，主色调 */
+            --accent-color-1: #3498db; /* 亮蓝色 */
+            --accent-color-2: #1abc9c; /* 鲜绿色 */
+            --background-light: #f5f5f5; /* 浅灰色背景 */
+            --text-dark: #333;
+            --text-light: #fff;
+        }
+
+        .reveal {
+            background-color: var(--background-light);
+            color: var(--text-dark);
+        }
+
+        .reveal .slides section {
+            padding: 20px;
+        }
+
+        /* 封面和结尾页定制 */
+        .slide-cover, .slide-end {
+            background: linear-gradient(135deg, #2c3e50 0%, #4a2c50 100%); /* 深色渐变背景 */
+            color: var(--text-light);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide-cover h1, .slide-cover h2, .slide-cover h3,
+        .slide-end h1, .slide-end h2, .slide-end h3 {
+            color: var(--text-light);
+        }
+
+        .cover-link, .end-link {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .cover-link img, .end-link img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+            border-radius: 8px; /* 圆角二维码 */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .cover-link a, .end-link a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: color 0.3s ease;
+        }
+
+        .cover-link a:hover, .end-link a:hover {
+            color: var(--accent-color-2);
+        }
+
+        /* 强调文字 */
+        .highlight {
+            color: var(--accent-color-1);
+            font-weight: bold;
+        }
+        .bold-text {
+            font-weight: bold;
+        }
+
+        /* 列表和段落样式 */
+        .reveal ul {
+            list-style: none; /* 移除默认列表点 */
+            margin-left: 0;
+            padding-left: 0;
+        }
+        .reveal ul li {
+            position: relative;
+            padding-left: 1.5em;
+            margin-bottom: 0.8em;
+        }
+        .reveal ul li:before {
+            content: "\f00c"; /* Font Awesome checkmark */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--accent-color-2);
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        /* fragments 动画 */
+        .fragment.fade-in { opacity: 0; }
+        .fragment.fade-in.visible { opacity: 1; transition: opacity 0.8s ease-in; }
+
+        /* 表格样式 */
+        .reveal table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5em 0;
+            font-size: 0.95em;
+        }
+        .reveal th, .reveal td {
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            text-align: left;
+        }
+        .reveal th {
+            background-color: var(--accent-color-1);
+            color: var(--text-light);
+            font-weight: 600;
+        }
+        .reveal tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .reveal tr:hover {
+            background-color: #f1f1f1;
+        }
+        .reveal td:nth-child(2), .reveal td:nth-child(3), .reveal td:nth-child(4), .reveal td:nth-child(5) {
+            text-align: center; /* 数字列居中 */
+        }
+        .reveal .r-hstack, .r-vstack {
+             align-items: center; /* Ensure alignment for content */
+        }
+
+        /* 信息块 */
+        .info-block {
+            background-color: #e0f2f7; /* 淡蓝色背景 */
+            border-left: 5px solid var(--accent-color-1);
+            padding: 15px 20px;
+            margin: 1em 0;
+            border-radius: 5px;
+            font-size: 0.95em;
+        }
+        .info-block p {
+            margin: 0;
+            color: #555;
+        }
+
+        /* 统计数据图标 */
+        .stat-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+        .stat-item i {
+            margin-right: 10px;
+            color: var(--accent-color-1);
+            font-size: 1.2em;
+        }
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 1em;
+        }
+
+        .project-language-pie {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+        }
+
+        .reveal .progress span {
+            background-color: var(--accent-color-1); /* 进度条颜色 */
+        }
+
+        .project-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 25px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .project-card h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+        .project-card .description {
+            font-size: 0.95em;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .project-card .stats span {
+            margin-right: 15px;
+            font-size: 0.9em;
+            color: #777;
+        }
+        .project-card .stats i {
+            margin-right: 5px;
+            color: var(--accent-color-1);
+        }
+        .project-card .language-breakdown {
+            margin-top: 15px;
+            font-size: 0.85em;
+            color: #666;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #3498db, #1abc9c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- 封面页 -->
+            <section class="slide-cover" data-transition="slide" data-background-color="#2c3e50">
+                <h2 class="text-white text-3xl mb-4">🔥 今日最火爆的开源项目都在这 ⭐️</h2>
+                <h1 class="text-white text-5xl font-bold leading-tight mb-8 gradient-text">GitHub热榜洞察：解锁前沿技术应用，你的代码效率翻倍！</h1>
+                <p class="text-white text-xl">Github热门仓库<strong class="font-bold">日报</strong>观测时间： <span class="highlight">2025-08-16 21:43:32</span></p>
+                <p class="text-white text-lg mt-2 opacity-80">演讲者: AIChipEra</p>
+                <div class="info-block mt-8 w-2/3 mx-auto text-center">
+                    <p class="text-gray-700"><strong>请注意甄别！</strong> 以下内容仅供项目介绍和学习使用，不构成任何投资建议。</p>
+                </div>
+
+                <div class="cover-link">
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+            <!-- 日报要点 -->
+            <section data-transition="fade" data-background-color="#fefefe">
+                <h2 class="text-4xl text-center mb-10">
+                    <i class="fas fa-lightbulb text-accent-color-1 mr-4"></i>日报要点：洞察技术前沿
+                </h2>
+                <div class="flex items-start">
+                    <div class="w-1/2 pr-8">
+                        <img src="https://images.unsplash.com/photo-1516110833957-e1e01d11842d?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="AI Insights" class="rounded-lg shadow-lg" />
+                    </div>
+                    <div class="w-1/2">
+                        <p class="fragment fade-in">GitHub最新趋势报告揭示，当前技术焦点正从<strong class="highlight">模型研究转向实用工程落地</strong>。</p>
+                        <p class="fragment fade-in">开发者们正积极探索如何将前沿智能技术转化为<strong class="highlight">可控、高效、易集成的生产力工具</strong>。</p>
+                        <ul class="list-none pl-0 mt-6 text-gray-700">
+                            <li class="fragment fade-in">提示词的精细管理 <i class="fas fa-pen-nib ml-2"></i></li>
+                            <li class="fragment fade-in">智能体行为的可靠性提升 <i class="fas fa-robot ml-2"></i></li>
+                            <li class="fragment fade-in">推理性能的极限优化 <i class="fas fa-rocket ml-2"></i></li>
+                            <li class="fragment fade-in">构建体系化学习路径 <i class="fas fa-book-open ml-2"></i></li>
+                        </ul>
+                        <p class="fragment fade-in mt-6 text-xl text-gray-800">这份洞察将助你把握技术前沿，<strong class="gradient-text">提升开发效率！</strong></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 热门项目趋势分析 - 今日整体趋势 -->
+            <section data-transition="slide">
+                <h2 class="text-center mb-8">
+                    <i class="fas fa-chart-line text-accent-color-1 mr-3"></i>热门项目趋势分析：<br>今日整体趋势
+                </h2>
+                <div class="flex">
+                    <div class="w-1/2 pr-8">
+                        <h3 class="text-xl mb-4 text-primary-color"><i class="fas fa-brain mr-2"></i>AI/LLM工程化主导</h3>
+                        <p class="fragment fade-in">榜单清晰勾勒出<strong class="highlight">人工智能，特别是大型语言模型（LLM）的实际应用与工程化</strong>主导地位。</p>
+                        <p class="fragment fade-in">不再停留模型研究，而是深入到<strong class="highlight">如何使LLM更可控、高效、易集成</strong>，真正赋能开发者。</p>
+                        <ul class="list-none pl-0 mt-4 text-gray-700">
+                            <li class="fragment fade-in">POML：提示工程精细化管理</li>
+                            <li class="fragment fade-in">Parlant：LLM代理行为可控性</li>
+                            <li class="fragment fade-in">LMCache：推理效率极限优化</li>
+                            <li class="fragment fade-in">Archon等：AI能力整合与高效工作流</li>
+                        </ul>
+                    </div>
+                    <div class="w-1/2 pl-8">
+                        <h3 class="text-xl mb-4 text-primary-color"><i class="fas fa-code mr-2"></i>编程语言分布与需求</h3>
+                        <p class="fragment fade-in">Python仍是AI领域主导，得益于丰富库生态和快速开发。</p>
+                        <p class="fragment fade-in">TypeScript活跃于前端和工具链，如微软的POML。</p>
+                        <p class="fragment fade-in">C/C#在性能或特定平台应用方面仍有优势，如tsoding/nob.h、PixiEditor。</p>
+                        <p class="fragment fade-in mt-4"><strong>核心需求：</strong>解决LLM“幻觉”、行为不可控、部署成本高、多服务集成复杂等痛点。</p>
+                        <p class="fragment fade-in mt-2">围绕<strong class="highlight">AI可控性、效率提升、标准化接口和一体化平台构建</strong>成为发展方向。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section data-transition="slide">
+                <h2 class="text-center mb-8">
+                    <i class="fas fa-balance-scale text-accent-color-1 mr-3"></i>热门项目趋势分析：<br>双日维度对比分析
+                </h2>
+                <div class="grid grid-cols-2 gap-8 text-left">
+                    <div class="col-span-1">
+                        <h3 class="text-xl mb-4 text-primary-color"><i class="fas fa-fire mr-2"></i>热度变化趋势</h3>
+                        <ul class="list-none pl-0">
+                            <li class="fragment fade-in">
+                                <i class="fas fa-arrow-alt-circle-right text-accent-color-2"></i>
+                                <span class="bold-text">12个新项目入榜</span>，无昨日项目显著涨跌。
+                            </li>
+                            <li class="fragment fade-in">
+                                <i class="fas fa-arrow-alt-circle-right text-accent-color-2"></i>
+                                榜单更迭主要由<strong class="highlight">新项目强劲入围驱动</strong>。
+                            </li>
+                            <li class="fragment fade-in">
+                                <i class="fas fa-arrow-alt-circle-right text-accent-color-2"></i>
+                                社区关注点迅速转向新发现，头部稳定，<strong class="highlight">腰部及尾部快速洗牌</strong>。
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-span-1">
+                        <h3 class="text-xl mb-4 text-primary-color"><i class="fas fa-lightbulb mr-2"></i>新项目特点</h3>
+                        <ul class="list-none pl-0">
+                            <li class="fragment fade-in">
+                                <i class="fas fa-arrow-alt-circle-right text-accent-color-2"></i>
+                                覆盖面广：<span class="bold-text">Python AI/ML工具为主</span>。
+                            </li>
+                            <li class="fragment fade-in">
+                                <i class="fas fa-arrow-alt-circle-right text-accent-color-2"></i>
+                                学习/知识共享资源抢眼（如`build-your-own-x`、`awesome-llm-apps`）。
+                            </li>
+                            <li class="fragment fade-in">
+                                <i class="fas fa-arrow-alt-circle-right text-accent-color-2"></i>
+                                包含系统工具（C）、桌面应用（C#）、Web开发（PHP, JS）。
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-span-2">
+                        <h3 class="text-xl mb-4 text-primary-color"><i class="fas fa-chart-pie mr-2"></i>编程语言分布变化</h3>
+                        <ul class="list-none pl-0 grid grid-cols-2 gap-4">
+                            <li class="fragment fade-in">
+                                <i class="fas fa-arrow-alt-circle-right text-red-500"></i>
+                                Go和Rust代表项目减少 (Go净减2)。
+                            </li>
+                            <li class="fragment fade-in">
+                                <i class="fas fa-arrow-alt-circle-right text-orange-500"></i>
+                                Python虽多新入榜，但整体净占比<span class="bold-text">下降1个</span>。
+                            </li>
+                            <li class="fragment fade-in">
+                                <i class="fas fa-arrow-alt-circle-right text-green-500"></i>
+                                PHP, JavaScript, C, Markdown项目数增加。
+                            </li>
+                            <li class="fragment fade-in">
+                                <i class="fas fa-arrow-alt-circle-right text-blue-500"></i>
+                                Python生态高活跃与快速迭代，新项目涌现但亦可能迅速被取代。
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 热点变化 -->
+            <section data-transition="zoom" data-background-color="#fefefe">
+                <h2 class="text-center mb-8"><i class="fas fa-exchange-alt text-accent-color-1 mr-3"></i>热点变化概览</h2>
+                <div class="grid grid-cols-2 gap-8 text-left">
+                    <div>
+                        <h3 class="text-2xl mb-4 text-accent-color-2"><i class="fas fa-plus-circle mr-3"></i>新增热点</h3>
+                        <ul class="text-lg list-none pl-0">
+                            <li class="fragment fade-in"><span class="font-bold">jaywcjlove/awesome-mac</span>: macOS软件精选</li>
+                            <li class="fragment fade-in"><span class="font-bold">ibm/mcp-context-forge</span>: MCP网关与注册中心</li>
+                            <li class="fragment fade-in"><span class="font-bold">microsoft/poml</span>: 提示词编排标记语言</li>
+                            <li class="fragment fade-in"><span class="font-bold">codecrafters-io/build-your-own-x</span>: 从零重构技术</li>
+                            <li class="fragment fade-in"><span class="font-bold">pixieditor/pixieditor</span>: 通用2D图形编辑器</li>
+                            <li class="fragment fade-in"><span class="font-bold">shubhamsaboo/awesome-llm-apps</span>: LLM应用合集</li>
+                            <li class="fragment fade-in"><span class="font-bold">dtyq/magic</span>: 一体化AI生产力平台</li>
+                            <li class="fragment fade-in"><span class="font-bold">farhanashrafdev/90daysofcybersecurity</span>: 90天网络安全学习</li>
+                            <li class="fragment fade-in"><span class="font-bold">emcie-co/parlant</span>: 可控的LLM智能体</li>
+                            <li class="fragment fade-in"><span class="font-bold">coleam00/archon</span>: AI编程助手知识管理</li>
+                            <li class="fragment fade-in"><span class="font-bold">tsoding/nob.h</span>: C语言构建工具</li>
+                            <li class="fragment fade-in"><span class="font-bold">lmcache/lmcache</span>: LLM最快KV缓存层</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl mb-4 text-red-500"><i class="fas fa-minus-circle mr-3"></i>减退热点</h3>
+                        <ul class="text-lg list-none pl-0">
+                            <li class="fragment fade-in">redis/go-redis</li>
+                            <li class="fragment fade-in">microsoft/markitdown</li>
+                            <li class="fragment fade-in">microsoft/magentic-ui</li>
+                            <li class="fragment fade-in">dotnet/maui</li>
+                            <li class="fragment fade-in">tadata-org/fastapi_mcp</li>
+                            <li class="fragment fade-in">manycore-research/spatiallm</li>
+                            <li class="fragment fade-in">budtmo/docker-android</li>
+                            <li class="fragment fade-in">jitsi/jitsi-meet</li>
+                            <li class="fragment fade-in">librum-reader/librum</li>
+                            <li class="fragment fade-in">ubicloud/ubicloud</li>
+                            <li class="fragment fade-in">datalab-to/marker</li>
+                            <li class="fragment fade-in">qarmin/czkawka</li>
+                            <li class="fragment fade-in">google/wire</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 详细仓库数据 - 标题页 -->
+            <section data-background-image="https://images.unsplash.com/photo-1549692520-cbac7718e877?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                     data-background-opacity="0.2" data-transition="convex">
+                <h1 class="text-white text-shadow-lg text-6xl font-bold">
+                    <span class="gradient-text">深度解析</span>：<br>热门仓库详情
+                </h1>
+                <p class="text-white text-2xl mt-4">揭秘每个项目的核心价值与增长潜力</p>
+            </section>
+
+            <!-- Project: coleam00/Archon -->
+            <section>
+                <section data-background-color="#e8f4f8">
+                    <h2 class="text-center text-primary-color mb-6">
+                        <i class="fas fa-brain mr-3 text-accent-color-1"></i>coleam00/Archon
+                    </h2>
+                    <h3 class="text-xl text-center mb-8 italic text-gray-700">Archon OS 测试版发布——AI编程助手的知识与任务管理核心。</h3>
+                    <table class="w-full text-center">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/coleam00/Archon" target="_blank" class="text-accent-color-1 hover:underline">coleam00/Archon</a></td>
+                                <td>Python</td>
+                                <td>6094</td>
+                                <td>1次</td>
+                                <td>2次</td>
+                                <td>318</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="stat-grid">
+                        <div class="stat-item"><i class="fas fa-star"></i>Stars: 6.1k</div>
+                        <div class="stat-item"><i class="fas fa-code-branch"></i>Forks: 1.3k</div>
+                        <div class="stat-item"><i class="fas fa-eye"></i>Watchers: 141</div>
+                        <div class="stat-item"><i class="fas fa-exclamation-circle"></i>Issues: 20</div>
+                        <div class="stat-item"><i class="fas fa-code-pull-request"></i>Pull Requests: 6</div>
+                        <div class="stat-item"><i class="fas fa-box"></i>Releases: 0</div>
+                        <div class="stat-item"><i class="fas fa-file-alt"></i>Commits: 66</div>
+                        <div class="stat-item"><i class="fas fa-gavel"></i>License: 未知</div>
+                        <div class="stat-item"><i class="fas fa-users"></i>Contributors: 12</div>
+                    </div>
+                    <p class="text-sm mt-4 text-gray-600">编程语言占比: <span class="bold-text">Python</span> 55.9%, <span class="bold-text">TypeScript</span> 41.3%, PLpgSQL 1.8%, CSS 0.8%, Dockerfile 0.1%, JavaScript 0.1%</p>
+                </section>
+                <section data-background-color="#f8fcfd">
+                    <h3 class="text-primary-color mb-6"><i class="fas fa-book-reader mr-2"></i>项目速读：Archon OS</h3>
+                    <p class="fragment fade-in"><strong>定位：</strong>AI编程助手的“指挥中心”，解决AI上下文理解不足和缺乏协作机制的问题。</p>
+                    <h4 class="text-accent-color-1 mt-6 mb-2 fragment fade-in"><i class="fas fa-magic mr-2"></i>核心优势</h4>
+                    <ul class="list-none pl-0">
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>强大的知识管理：</strong> 智能爬取、索引、代码提取，结合高级RAG策略。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>MCP服务器：</strong> 为兼容AI客户端提供统一知识、上下文及任务接口。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>广泛兼容：</strong> 支持OpenAI、Ollama、Google Gemini等多种LLM。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>工作流与协作：</strong> 分层项目任务管理，AI辅助任务创建，实时协作。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>现代架构：</strong> 微服务架构（React, FastAPI, MCP, PydanticAI），Docker Compose部署，Supabase数据持久化。</li>
+                    </ul>
+                    <p class="mt-6 fragment fade-in"><strong>价值：</strong>为AI驱动的软件开发提供集成且高效的协作环境，特别适用于AI深度参与代码开发、知识沉淀和项目管理的个人或团队。</p>
+                </section>
+                <section data-background-color="#e8f4f8">
+                    <h3 class="text-primary-color mb-6"><i class="fas fa-chart-line mr-2"></i>增长分析：Archon OS</h3>
+                    <p class="text-lg mb-4 fragment fade-in">该仓库在<strong class="highlight">2.5个月内仅上榜2次</strong>，却实现总Star增长1474，表明其每次上榜都带来显著爆发。</p>
+                    <p class="text-xl fragment fade-in">特别是<strong class="gradient-text">今日新增318星远超平均</strong>，显示出近期增长势头强劲，潜力巨大。</p>
+                    <div class="mt-8">
+                        <canvas id="archonGrowthChart" style="width:100%;max-width:800px;height:300px;"></canvas>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: microsoft/poml -->
+            <section>
+                <section data-background-color="#e0f0f5">
+                    <h2 class="text-center text-primary-color mb-6">
+                        <i class="fas fa-pen-nib mr-3 text-accent-color-1"></i>microsoft/poml
+                    </h2>
+                    <h3 class="text-xl text-center mb-8 italic text-gray-700">提示词编排标记语言</h3>
+                    <table class="w-full text-center">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/microsoft/poml" target="_blank" class="text-accent-color-1 hover:underline">microsoft/poml</a></td>
+                                <td>TypeScript</td>
+                                <td>2677</td>
+                                <td>1次</td>
+                                <td>4次</td>
+                                <td>511</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="stat-grid">
+                        <div class="stat-item"><i class="fas fa-star"></i>Stars: 2.7k</div>
+                        <div class="stat-item"><i class="fas fa-code-branch"></i>Forks: 110</div>
+                        <div class="stat-item"><i class="fas fa-eye"></i>Watchers: 15</div>
+                        <div class="stat-item"><i class="fas fa-exclamation-circle"></i>Issues: 8</div>
+                        <div class="stat-item"><i class="fas fa-code-pull-request"></i>Pull Requests: 15</div>
+                        <div class="stat-item"><i class="fas fa-box"></i>Releases: 0</div>
+                        <div class="stat-item"><i class="fas fa-file-alt"></i>Commits: 71</div>
+                        <div class="stat-item"><i class="fas fa-gavel"></i>License: MIT license</div>
+                        <div class="stat-item"><i class="fas fa-users"></i>Contributors: 7</div>
+                    </div>
+                    <p class="text-sm mt-4 text-gray-600">编程语言占比: <span class="bold-text">TypeScript</span> 79.4%, <span class="bold-text">Python</span> 14.8%, JavaScript 4.5%, CSS 1.1%, Other 0.2%</p>
+                </section>
+                <section data-background-color="#f8fcfd">
+                    <h3 class="text-primary-color mb-6"><i class="fas fa-book-reader mr-2"></i>项目速读：POML</h3>
+                    <p class="fragment fade-in"><strong>定位：</strong>微软推出的创新标记语言，专为大型语言模型（LLMs）高级提示工程设计。</p>
+                    <p class="fragment fade-in"><strong>解决痛点：</strong>当前LLM应用开发中提示结构不足、数据集成复杂、格式敏感、缺乏标准化工具。</p>
+                    <h4 class="text-accent-color-1 mt-6 mb-2 fragment fade-in"><i class="fas fa-magic mr-2"></i>核心优势</h4>
+                    <ul class="list-none pl-0">
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>声明式语法：</strong> 类似HTML的<role>、<task>等语义化组件，模块化复杂提示。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>样式系统：</strong> 提示内容与表现分离，灵活调整冗余度、语法，降低LLM对输入格式敏感度。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>强大模板引擎：</strong> 支持变量、循环、条件判断，动态生成复杂、数据驱动提示，无缝集成多样数据。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>开发工具：</strong> 功能丰富的VS Code扩展（语法高亮、自动补全、预览）及跨语言SDKs（Node.js/Python）。</li>
+                    </ul>
+                    <p class="mt-6 fragment fade-in"><strong>价值：</strong>为构建企业级、可扩展LLM应用提供结构化、可控框架，特别适用于精细控制提示、集成复杂数据源的场景。</p>
+                </section>
+                <section data-background-color="#e0f0f5">
+                    <h3 class="text-primary-color mb-6"><i class="fas fa-chart-line mr-2"></i>增长分析：POML</h3>
+                    <p class="text-lg mb-4 fragment fade-in">该仓库在<strong class="highlight">5天内4次上榜</strong>，表明其持续高热度与用户关注度。</p>
+                    <p class="text-xl fragment fade-in">总星数增长2022个，平均日增513星，<strong class="gradient-text">今日新增511星与平均值持平</strong>，增长趋势强劲且稳定。</p>
+                    <div class="mt-8">
+                        <canvas id="pomlGrowthChart" style="width:100%;max-width:800px;height:300px;"></canvas>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: LMCache/LMCache -->
+            <section>
+                <section data-background-color="#e0f5ee">
+                    <h2 class="text-center text-primary-color mb-6">
+                        <i class="fas fa-layer-group mr-3 text-accent-color-1"></i>LMCache/LMCache
+                    </h2>
+                    <h3 class="text-xl text-center mb-8 italic text-gray-700">用最快的KV缓存层，为您的LLM强劲赋能。</h3>
+                    <table class="w-full text-center">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/LMCache/LMCache" target="_blank" class="text-accent-color-1 hover:underline">LMCache/LMCache</a></td>
+                                <td>Python</td>
+                                <td>4279</td>
+                                <td>1次</td>
+                                <td>5次</td>
+                                <td>23</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="stat-grid">
+                        <div class="stat-item"><i class="fas fa-star"></i>Stars: 4.3k</div>
+                        <div class="stat-item"><i class="fas fa-code-branch"></i>Forks: 485</div>
+                        <div class="stat-item"><i class="fas fa-eye"></i>Watchers: 24</div>
+                        <div class="stat-item"><i class="fas fa-exclamation-circle"></i>Issues: 187</div>
+                        <div class="stat-item"><i class="fas fa-code-pull-request"></i>Pull Requests: 100</div>
+                        <div class="stat-item"><i class="fas fa-box"></i>Releases: 12</div>
+                        <div class="stat-item"><i class="fas fa-file-alt"></i>Commits: 604</div>
+                        <div class="stat-item"><i class="fas fa-gavel"></i>License: Apache-2.0 license</div>
+                        <div class="stat-item"><i class="fas fa-users"></i>Contributors: 105</div>
+                    </div>
+                    <p class="text-sm mt-4 text-gray-600">编程语言占比: <span class="bold-text">Python</span> 92.9%, Cuda 5.1%, Shell 1.5%, Other 0.5%</p>
+                </section>
+                <section data-background-color="#f8fcfd">
+                    <h3 class="text-primary-color mb-6"><i class="fas fa-book-reader mr-2"></i>项目速读：LMCache</h3>
+                    <p class="fragment fade-in"><strong>定位：</strong>专为大型语言模型（LLM）服务设计的扩展引擎。</p>
+                    <p class="fragment fade-in"><strong>解决痛点：</strong>LLM推理中首个Token生成时间（TTFT）过长及吞吐量不足。</p>
+                    <h4 class="text-accent-color-1 mt-6 mb-2 fragment fade-in"><i class="fas fa-magic mr-2"></i>核心优势</h4>
+                    <ul class="list-none pl-0">
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>高效KV缓存层：</strong> 智能存储与复用重复文本KV缓存，显著提升长上下文场景效率。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>多层级存储管理：</strong> KV缓存智能在GPU内存、CPU DRAM、本地磁盘之间卸载和访问，平衡性能与资源。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>深度集成：</strong> 与vLLM等主流LLM服务引擎集成，提供高性能CPU KVCache卸载、分离式预填充及P2P KVCache共享。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>显著效益：</strong> 多轮对话、RAG等复杂LLM应用中实现3至10倍延迟和GPU周期节省。</li>
+                    </ul>
+                    <p class="mt-6 fragment fade-in"><strong>价值：</strong>作为LLM服务栈关键优化组件，已获vLLM等官方支持，提供更经济、高效的LLM部署解决方案，提升用户体验和资源利用率。</p>
+                </section>
+                <section data-background-color="#e0f5ee">
+                    <h3 class="text-primary-color mb-6"><i class="fas fa-chart-line mr-2"></i>增长分析：LMCache</h3>
+                    <p class="text-lg mb-4 fragment fade-in">该仓库在<strong class="highlight">5次上榜周期内累计增长2241 Star</strong>，平均每次增长147.8。</p>
+                    <p class="text-xl fragment fade-in">尽管总增长显著，但<strong class="gradient-text">今日新增23 Star远低于平均水平</strong>，显示近期增长势头明显减弱。</p>
+                    <div class="mt-8">
+                        <canvas id="lmcacheGrowthChart" style="width:100%;max-width:800px;height:300px;"></canvas>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: codecrafters-io/build-your-own-x -->
+            <section>
+                <section data-background-color="#e0f7f0">
+                    <h2 class="text-center text-primary-color mb-6">
+                        <i class="fas fa-hammer mr-3 text-accent-color-1"></i>codecrafters-io/build-your-own-x
+                    </h2>
+                    <h3 class="text-xl text-center mb-8 italic text-gray-700">通过从零开始重现你喜爱的技术，精通编程。</h3>
+                    <table class="w-full text-center">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/codecrafters-io/build-your-own-x" target="_blank" class="text-accent-color-1 hover:underline">codecrafters-io/build-your-own-x</a></td>
+                                <td>Markdown</td>
+                                <td>410765</td>
+                                <td>1次</td>
+                                <td>15次</td>
+                                <td>484</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="stat-grid">
+                        <div class="stat-item"><i class="fas fa-star"></i>Stars: 411k</div>
+                        <div class="stat-item"><i class="fas fa-code-branch"></i>Forks: 38.5k</div>
+                        <div class="stat-item"><i class="fas fa-eye"></i>Watchers: 6.2k</div>
+                        <div class="stat-item"><i class="fas fa-exclamation-circle"></i>Issues: 221</div>
+                        <div class="stat-item"><i class="fas fa-code-pull-request"></i>Pull Requests: 187</div>
+                        <div class="stat-item"><i class="fas fa-box"></i>Releases: 0</div>
+                        <div class="stat-item"><i class="fas fa-file-alt"></i>Commits: 577</div>
+                        <div class="stat-item"><i class="fas fa-gavel"></i>License: 未知</div>
+                        <div class="stat-item"><i class="fas fa-users"></i>Contributors: 120</div>
+                    </div>
+                    <p class="text-sm mt-4 text-gray-600">编程语言占比: <span class="bold-text">Markdown</span> 100.0%</p>
+                </section>
+                <section data-background-color="#f8fcfd">
+                    <h3 class="text-primary-color mb-6"><i class="fas fa-book-reader mr-2"></i>项目速读：Build-Your-Own-X</h3>
+                    <p class="fragment fade-in"><strong>定位：</strong>广受赞誉的GitHub仓库，通过“从零开始重新构建”核心技术，帮助开发者掌握编程原理和深层逻辑。</p>
+                    <p class="fragment fade-in"><strong>解决痛点：</strong>开发者对复杂技术“知其然而不知其所以然”，缺乏系统实践。</p>
+                    <h4 class="text-accent-color-1 mt-6 mb-2 fragment fade-in"><i class="fas fa-magic mr-2"></i>核心优势</h4>
+                    <ul class="list-none pl-0">
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>广度和深度：</strong> 涵盖底层操作系统、网络协议、3D渲染器到数据库、Web服务器、区块链、AI组件等主流IT技术。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>多语言支持：</strong> 每个主题通常提供多种主流编程语言（C++, Go, Java, Python, Rust等）的实现路径。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>实践为核心：</strong> 深刻诠释“我不能创造的东西，我就不理解”的费曼学习理念，弥补理论与实践鸿沟。</li>
+                    </ul>
+                    <p class="mt-6 fragment fade-in"><strong>价值：</strong>对于希望深入理解技术本质、提升系统级开发能力、或准备技术面试的开发者而言，是一个不可多得的宝藏资源。已成为全球程序员公认的自学与技能提升殿堂。</p>
+                </section>
+                <section data-background-color="#e0f7f0">
+                    <h3 class="text-primary-color mb-6"><i class="fas fa-chart-line mr-2"></i>增长分析：Build-Your-Own-X</h3>
+                    <p class="text-lg mb-4 fragment fade-in">该仓库在<strong class="highlight">约5个月内总Star增长近6万</strong>，平均每次上榜贡献664。</p>
+                    <p class="text-xl fragment fade-in"><strong class="gradient-text">高达15次上榜</strong>，显示其持续且强劲的增长势头和市场吸引力。今日新增484星，略低于平均，但整体活跃度极高。</p>
+                    <div class="mt-8">
+                        <canvas id="buildYourOwnXGrowthChart" style="width:100%;max-width:800px;height:300px;"></canvas>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: farhanashrafdev/90DaysOfCyberSecurity -->
+            <section>
+                <section data-background-color="#f8e8f8">
+                    <h2 class="text-center text-primary-color mb-6">
+                        <i class="fas fa-shield-alt mr-3 text-accent-color-1"></i>farhanashrafdev/90DaysOfCyberSecurity
+                    </h2>
+                    <h3 class="text-xl text-center mb-8 italic text-gray-700">该仓库包含一份90天网络安全学习计划...</h3>
+                    <table class="w-full text-center">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/farhanashrafdev/90DaysOfCyberSecurity" target="_blank" class="text-accent-color-1 hover:underline">farhanashrafdev/90DaysOfCyberSecurity</a></td>
+                                <td></td>
+                                <td>10715</td>
+                                <td>1次</td>
+                                <td>3次</td>
+                                <td>295</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="stat-grid">
+                        <div class="stat-item"><i class="fas fa-star"></i>Stars: 10.7k</div>
+                        <div class="stat-item"><i class="fas fa-code-branch"></i>Forks: 1.2k</div>
+                        <div class="stat-item"><i class="fas fa-eye"></i>Watchers: 191</div>
+                        <div class="stat-item"><i class="fas fa-exclamation-circle"></i>Issues: 4</div>
+                        <div class="stat-item"><i class="fas fa-code-pull-request"></i>Pull Requests: 3</div>
+                        <div class="stat-item"><i class="fas fa-box"></i>Releases: 0</div>
+                        <div class="stat-item"><i class="fas fa-file-alt"></i>Commits: 55</div>
+                        <div class="stat-item"><i class="fas fa-gavel"></i>License: MIT license</div>
+                        <div class="stat-item"><i class="fas fa-users"></i>Contributors: 7</div>
+                    </div>
+                </section>
+                <section data-background-color="#f8fcfd">
+                    <h3 class="text-primary-color mb-6"><i class="fas fa-book-reader mr-2"></i>项目速读：90DaysOfCyberSecurity</h3>
+                    <p class="fragment fade-in"><strong>定位：</strong>提供“90天网络安全学习计划”的全面自学路线图，解决初学者迷失方向、难以系统掌握核心知识的痛点。</p>
+                    <h4 class="text-accent-color-1 mt-6 mb-2 fragment fade-in"><i class="fas fa-magic mr-2"></i>核心优势</h4>
+                    <ul class="list-none pl-0">
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>全面性与实践导向：</strong> 精心策划每日任务，涵盖基础网络、安全原理、Linux、Python、流量分析、Git、ELK、AWS/Azure、渗透测试等。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>资源整合：</strong> 整合Professor Messer、Codecademy等高质量外部资源。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>动手实践：</strong> 强调通过Hack The Box和Vulnhub等平台进行实践，结合理论与实战。</li>
+                    </ul>
+                    <p class="mt-6 fragment fade-in"><strong>价值：</strong>提供低门槛、高效学习框架，适合零基础学习者、技能提升者或准备行业认证的专业人士。超万星标证明其在社区的广泛认可和独特实用性。</p>
+                </section>
+                <section data-background-color="#f8e8f8">
+                    <h3 class="text-primary-color mb-6"><i class="fas fa-chart-line mr-2"></i>增长分析：90DaysOfCyberSecurity</h3>
+                    <p class="text-lg mb-4 fragment fade-in">该仓库在<strong class="highlight">约一个月内总Star增长1361</strong>，主要由3次上榜驱动。</p>
+                    <p class="text-xl fragment fade-in">平均每次上榜增175.7星。<strong class="gradient-text">今日新增295星远超平均</strong>，显示出间歇性但加速的增长势头，尤其近期吸引力显著增强。</p>
+                    <div class="mt-8">
+                        <canvas id="cybersecurityGrowthChart" style="width:100%;max-width:800px;height:300px;"></canvas>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: jaywcjlove/awesome-mac -->
+            <section>
+                <section data-background-color="#e8f8f4">
+                    <h2 class="text-center text-primary-color mb-6">
+                        <i class="fab fa-apple mr-3 text-accent-color-1"></i>jaywcjlove/awesome-mac
+                    </h2>
+                    <h3 class="text-xl text-center mb-8 italic text-gray-700">我们已发展壮大，与最初设想不同。现致力于收录各类精品软件。</h3>
+                    <table class="w-full text-center">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/jaywcjlove/awesome-mac" target="_blank" class="text-accent-color-1 hover:underline">jaywcjlove/awesome-mac</a></td>
+                                <td>JavaScript</td>
+                                <td>86810</td>
+                                <td>1次</td>
+                                <td>1次</td>
+                                <td>576</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="stat-grid">
+                        <div class="stat-item"><i class="fas fa-star"></i>Stars: 86.8k</div>
+                        <div class="stat-item"><i class="fas fa-code-branch"></i>Forks: 6.7k</div>
+                        <div class="stat-item"><i class="fas fa-eye"></i>Watchers: 1.5k</div>
+                        <div class="stat-item"><i class="fas fa-exclamation-circle"></i>Issues: 113</div>
+                        <div class="stat-item"><i class="fas fa-code-pull-request"></i>Pull Requests: 39</div>
+                        <div class="stat-item"><i class="fas fa-box"></i>Releases: 12</div>
+                        <div class="stat-item"><i class="fas fa-file-alt"></i>Commits: 2,255</div>
+                        <div class="stat-item"><i class="fas fa-gavel"></i>License: CC0-1.0 license</div>
+                        <div class="stat-item"><i class="fas fa-users"></i>Contributors: 613</div>
+                    </div>
+                    <p class="text-sm mt-4 text-gray-600">编程语言占比: <span class="bold-text">JavaScript</span> 94.2%, Dockerfile 5.8%</p>
+                </section>
+                <section data-background-color="#f8fcfd">
+                    <h3 class="text-primary-color mb-6"><i class="fas fa-book-reader mr-2"></i>项目速读：Awesome-Mac</h3>
+                    <p class="fragment fade-in"><strong>定位：</strong>广受欢迎的macOS软件精选集，旨在解决用户在庞大应用生态中高效发现和筛选优质软件的痛点。</p>
+                    <h4 class="text-accent-color-1 mt-6 mb-2 fragment fade-in"><i class="fas fa-magic mr-2"></i>核心优势</h4>
+                    <ul class="list-none pl-0">
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>内容深度和广度：</strong> 涵盖生产力工具到开发实用程序等各类应用，并持续增长与完善。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>清晰组织与直观标识：</strong> 以Markdown结构组织，通过徽章系统标识软件属性（开源、免费、App Store），提升信息获取效率。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>社区驱动：</strong> 鼓励用户建议和贡献，确保列表实时更新和高质量。</li>
+                    </ul>
+                    <p class="mt-6 fragment fade-in"><strong>价值：</strong>不仅是macOS用户寻找理想工具的实用指南，也为其他“Awesome”列表提供了优秀的范本。超八万星标和每日数百的持续增长，证明其在知识共享和社区协作方面的巨大价值。</p>
+                </section>
+            </section>
+
+            <!-- Project: tsoding/nob.h -->
+            <section>
+                <section data-background-color="#f0f4e8">
+                    <h2 class="text-center text-primary-color mb-6">
+                        <i class="fas fa-cogs mr-3 text-accent-color-1"></i>tsoding/nob.h
+                    </h2>
+                    <h3 class="text-xl text-center mb-8 italic text-gray-700">用于C语言编写构建规则的仅头文件库。</h3>
+                    <table class="w-full text-center">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/tsoding/nob.h" target="_blank" class="text-accent-color-1 hover:underline">tsoding/nob.h</a></td>
+                                <td>C</td>
+                                <td>1430</td>
+                                <td>1次</td>
+                                <td>1次</td>
+                                <td>39</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="stat-grid">
+                        <div class="stat-item"><i class="fas fa-star"></i>Stars: 1.4k</div>
+                        <div class="stat-item"><i class="fas fa-code-branch"></i>Forks: 90</div>
+                        <div class="stat-item"><i class="fas fa-eye"></i>Watchers: 10</div>
+                        <div class="stat-item"><i class="fas fa-exclamation-circle"></i>Issues: 2</div>
+                        <div class="stat-item"><i class="fas fa-code-pull-request"></i>Pull Requests: 15</div>
+                        <div class="stat-item"><i class="fas fa-box"></i>Releases: 0</div>
+                        <div class="stat-item"><i class="fas fa-file-alt"></i>Commits: 139</div>
+                        <div class="stat-item"><i class="fas fa-gavel"></i>License: 未知</div>
+                        <div class="stat-item"><i class="fas fa-users"></i>Contributors: 23</div>
+                    </div>
+                    <p class="text-sm mt-4 text-gray-600">编程语言占比: <span class="bold-text">C</span> 100.0%</p>
+                </section>
+                <section data-background-color="#f8fcfd">
+                    <h3 class="text-primary-color mb-6"><i class="fas fa-book-reader mr-2"></i>项目速读：nob.h</h3>
+                    <p class="fragment fade-in"><strong>定位：</strong>创新性的C语言头文件库，旨在彻底简化C项目构建流程，摆脱对Make、CMake等传统构建工具依赖。</p>
+                    <h4 class="text-accent-color-1 mt-6 mb-2 fragment fade-in"><i class="fas fa-magic mr-2"></i>核心优势</h4>
+                    <ul class="list-none pl-0">
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>卓越的可移植性：</strong> 唯一外部依赖是C编译器，在多操作系统上实现极其便携、开箱即用构建体验。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>语言统一：</strong> 开发语言与构建语言皆为C，简化工具链，复用项目代码与构建系统代码。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>轻量级：</strong> 单文件头文件库，复制即可用，降低集成复杂度。</li>
+                    </ul>
+                    <p class="mt-6 fragment fade-in"><strong>价值：</strong>虽为实验性项目，但为渴望完全掌控构建细节、减少外部依赖、习惯在C语言中处理一切的开发者提供独特价值。代表极致简约的构建哲学，旨在消除外部复杂性。</p>
+                </section>
+            </section>
+
+            <!-- Project: IBM/mcp-context-forge -->
+            <section>
+                <section data-background-color="#e8eef8">
+                    <h2 class="text-center text-primary-color mb-6">
+                        <i class="fas fa-cloud-upload-alt mr-3 text-accent-color-1"></i>IBM/mcp-context-forge
+                    </h2>
+                    <h3 class="text-xl text-center mb-8 italic text-gray-700">模型上下文协议 (MCP) 网关与注册中心。</h3>
+                    <table class="w-full text-center">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/IBM/mcp-context-forge" target="_blank" class="text-accent-color-1 hover:underline">IBM/mcp-context-forge</a></td>
+                                <td>Python</td>
+                                <td>1132</td>
+                                <td>1次</td>
+                                <td>1次</td>
+                                <td>46</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="stat-grid">
+                        <div class="stat-item"><i class="fas fa-star"></i>Stars: 1.1k</div>
+                        <div class="stat-item"><i class="fas fa-code-branch"></i>Forks: 185</div>
+                        <div class="stat-item"><i class="fas fa-eye"></i>Watchers: 22</div>
+                        <div class="stat-item"><i class="fas fa-exclamation-circle"></i>Issues: 152</div>
+                        <div class="stat-item"><i class="fas fa-code-pull-request"></i>Pull Requests: 11</div>
+                        <div class="stat-item"><i class="fas fa-box"></i>Releases: 7</div>
+                        <div class="stat-item"><i class="fas fa-file-alt"></i>Commits: 947</div>
+                        <div class="stat-item"><i class="fas fa-gavel"></i>License: Apache-2.0 license</div>
+                        <div class="stat-item"><i class="fas fa-users"></i>Contributors: 42</div>
+                    </div>
+                    <p class="text-sm mt-4 text-gray-600">编程语言占比: <span class="bold-text">Python</span> 78.2%, JavaScript 6.1%, Makefile 5.7%, HTML 5.3%, Go 3.4%, Shell 0.9%, Other 0.4%</p>
+                </section>
+                <section data-background-color="#f8fcfd">
+                    <h3 class="text-primary-color mb-6"><i class="fas fa-book-reader mr-2"></i>项目速读：MCP-Context-Forge</h3>
+                    <p class="fragment fade-in"><strong>定位：</strong>Model Context Protocol (MCP) 网关和注册中心，为兼容MCP的LLM应用提供统一接入点。</p>
+                    <p class="fragment fade-in"><strong>解决痛点：</strong>AI应用集成多个后端服务时面临的发现、认证、限速和可观测性等复杂性。</p>
+                    <h4 class="text-accent-color-1 mt-6 mb-2 fragment fade-in"><i class="fas fa-magic mr-2"></i>核心优势</h4>
+                    <ul class="list-none pl-0">
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>REST API虚拟化：</strong> 将现有REST API虚拟化为符合MCP规范的服务或工具。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>联邦聚合：</strong> 实现跨多个MCP和REST服务的联邦聚合。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>内置功能：</strong> 支持多种传输协议，内置认证、重试和限速，增强安全性与弹性。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>强大的可观测性：</strong> 通过OpenTelemetry提供强大的可观测性。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>部署与扩展：</strong> 基于Python开发，支持Docker、PyPI部署，Kubernetes中利用Redis实现多集群联邦和缓存。</li>
+                    </ul>
+                    <p class="mt-6 fragment fade-in"><strong>注意：</strong>当前仍处于Alpha/早期Beta阶段 (0.5.0)，明确不适用于生产环境，主要面向本地开发、测试及实验用途，功能和API尚不稳定，未经全面安全审查。</p>
+                </section>
+            </section>
+
+            <!-- Project: emcie-co/parlant -->
+            <section>
+                <section data-background-color="#f0e8f8">
+                    <h2 class="text-center text-primary-color mb-6">
+                        <i class="fas fa-robot mr-3 text-accent-color-1"></i>emcie-co/parlant
+                    </h2>
+                    <h3 class="text-xl text-center mb-8 italic text-gray-700">专为控制打造的LLM智能体。专为实际应用设计。数分钟内即可部署。</h3>
+                    <table class="w-full text-center">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/emcie-co/parlant" target="_blank" class="text-accent-color-1 hover:underline">emcie-co/parlant</a></td>
+                                <td>Python</td>
+                                <td>3918</td>
+                                <td>1次</td>
+                                <td>1次</td>
+                                <td>409</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="stat-grid">
+                        <div class="stat-item"><i class="fas fa-star"></i>Stars: 3.9k</div>
+                        <div class="stat-item"><i class="fas fa-code-branch"></i>Forks: 393</div>
+                        <div class="stat-item"><i class="fas fa-eye"></i>Watchers: 40</div>
+                        <div class="stat-item"><i class="fas fa-exclamation-circle"></i>Issues: 23</div>
+                        <div class="stat-item"><i class="fas fa-code-pull-request"></i>Pull Requests: 5</div>
+                        <div class="stat-item"><i class="fas fa-box"></i>Releases: 23</div>
+                        <div class="stat-item"><i class="fas fa-file-alt"></i>Commits: 4,254</div>
+                        <div class="stat-item"><i class="fas fa-gavel"></i>License: Apache-2.0 license</div>
+                        <div class="stat-item"><i class="fas fa-users"></i>Contributors: 17</div>
+                    </div>
+                    <p class="text-sm mt-4 text-gray-600">编程语言占比: <span class="bold-text">Python</span> 89.1%, Gherkin 6.0%, TypeScript 4.5%, CSS 0.2%, JavaScript 0.1%, Shell 0.1%</p>
+                </section>
+                <section data-background-color="#f8fcfd">
+                    <h3 class="text-primary-color mb-6"><i class="fas fa-book-reader mr-2"></i>项目速读：Parlant</h3>
+                    <p class="fragment fade-in"><strong>定位：</strong>专为实际应用设计的AI代理框架，解决现有LLM代理指令依从性差、行为不可预测、易产生幻觉等痛点。</p>
+                    <p class="fragment fade-in"><strong>核心理念：</strong>“教授原则而非脚本”，构建遵循预设指令和业务规则的智能代理。</p>
+                    <h4 class="text-accent-color-1 mt-6 mb-2 fragment fade-in"><i class="fas fa-magic mr-2"></i>核心优势</h4>
+                    <ul class="list-none pl-0">
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>自然语言“指南”机制：</strong> 清晰定义代理行为逻辑和工具调用，确保LLM代理严格遵守预设规则。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>强制依从与企业级功能：</strong> 会话旅程引导、动态指南匹配、可靠工具集成、内置安全防护、完整决策可解释性。</li>
+                    </ul>
+                    <p class="mt-6 fragment fade-in"><strong>价值：</strong>适用于金融服务、医疗保健、电子商务、法律科技等对合规性、数据安全和运行可靠性要求极高的行业。支持快速部署，弥补LLM代理在实际部署中面临的信任和可靠性鸿沟。</p>
+                </section>
+            </section>
+
+            <!-- Project: PixiEditor/PixiEditor -->
+            <section>
+                <section data-background-color="#e8f8f8">
+                    <h2 class="text-center text-primary-color mb-6">
+                        <i class="fas fa-paint-brush mr-3 text-accent-color-1"></i>PixiEditor/PixiEditor
+                    </h2>
+                    <h3 class="text-xl text-center mb-8 italic text-gray-700">PixiEditor 是一款满足您所有二维需求的通用编辑器。</h3>
+                    <table class="w-full text-center">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/PixiEditor/PixiEditor" target="_blank" class="text-accent-color-1 hover:underline">PixiEditor/PixiEditor</a></td>
+                                <td>C#</td>
+                                <td>3362</td>
+                                <td>1次</td>
+                                <td>1次</td>
+                                <td>214</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="stat-grid">
+                        <div class="stat-item"><i class="fas fa-star"></i>Stars: 3.4k</div>
+                        <div class="stat-item"><i class="fas fa-code-branch"></i>Forks: 142</div>
+                        <div class="stat-item"><i class="fas fa-eye"></i>Watchers: 26</div>
+                        <div class="stat-item"><i class="fas fa-exclamation-circle"></i>Issues: 142</div>
+                        <div class="stat-item"><i class="fas fa-code-pull-request"></i>Pull Requests: 12</div>
+                        <div class="stat-item"><i class="fas fa-box"></i>Releases: 40</div>
+                        <div class="stat-item"><i class="fas fa-file-alt"></i>Commits: 5,625</div>
+                        <div class="stat-item"><i class="fas fa-gavel"></i>License: LGPL-3.0 license</div>
+                        <div class="stat-item"><i class="fas fa-users"></i>Contributors: 24</div>
+                    </div>
+                    <p class="text-sm mt-4 text-gray-600">编程语言占比: <span class="bold-text">C#</span> 100.0%</p>
+                </section>
+                <section data-background-color="#f8fcfd">
+                    <h3 class="text-primary-color mb-6"><i class="fas fa-book-reader mr-2"></i>项目速读：PixiEditor</h3>
+                    <p class="fragment fade-in"><strong>定位：</strong>功能全面的通用2D图形编辑器，为游戏开发、动画制作、图像编辑及标志设计等2D创作提供一体化解决方案。</p>
+                    <p class="fragment fade-in"><strong>解决痛点：</strong>传统编辑器在多领域协同创作或深度定制方面的局限。</p>
+                    <h4 class="text-accent-color-1 mt-6 mb-2 fragment fade-in"><i class="fas fa-magic mr-2"></i>核心优势</h4>
+                    <ul class="list-none pl-0">
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>强大的工具集：</strong> 整合像素艺术、绘画和矢量工具，无缝混合处理栅格和矢量图形。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>节点动画功能：</strong> 除了逐帧动画，2.0引入节点动画，可创建自定义着色器效果。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>核心节点渲染系统：</strong> 所有图层、效果、结构基于节点，为文档暴露节点图，极大自由度，探索程序化艺术。</li>
+                    </ul>
+                    <p class="mt-6 fragment fade-in"><strong>价值：</strong>不仅仅是编辑工具，更是强大创作平台，满足从精细像素作品到复杂生成艺术的高阶需求。广泛导出格式支持，确保内容兼容性和传播性。</p>
+                </section>
+            </section>
+
+            <!-- Project: Shubhamsaboo/awesome-llm-apps -->
+            <section>
+                <section data-background-color="#f8e8ec">
+                    <h2 class="text-center text-primary-color mb-6">
+                        <i class="fas fa-cubes mr-3 text-accent-color-1"></i>Shubhamsaboo/awesome-llm-apps
+                    </h2>
+                    <h3 class="text-xl text-center mb-8 italic text-gray-700">精选大语言模型应用合集，集成AI Agent和RAG技术，支持OpenAI、Anthropic、Gemini及开源模型。</h3>
+                    <table class="w-full text-center">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/Shubhamsaboo/awesome-llm-apps" target="_blank" class="text-accent-color-1 hover:underline">Shubhamsaboo/awesome-llm-apps</a></td>
+                                <td>Python</td>
+                                <td>58123</td>
+                                <td>1次</td>
+                                <td>24次</td>
+                                <td>445</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="stat-grid">
+                        <div class="stat-item"><i class="fas fa-star"></i>Stars: 58.1k</div>
+                        <div class="stat-item"><i class="fas fa-code-branch"></i>Forks: 6.9k</div>
+                        <div class="stat-item"><i class="fas fa-eye"></i>Watchers: 665</div>
+                        <div class="stat-item"><i class="fas fa-exclamation-circle"></i>Issues: 4</div>
+                        <div class="stat-item"><i class="fas fa-code-pull-request"></i>Pull Requests: 7</div>
+                        <div class="stat-item"><i class="fas fa-box"></i>Releases: 0</div>
+                        <div class="stat-item"><i class="fas fa-file-alt"></i>Commits: 709</div>
+                        <div class="stat-item"><i class="fas fa-gavel"></i>License: Apache-2.0 license</div>
+                        <div class="stat-item"><i class="fas fa-users"></i>Contributors: 46</div>
+                    </div>
+                    <p class="text-sm mt-4 text-gray-600">编程语言占比: <span class="bold-text">Python</span> 64.0%, JavaScript 28.4%, TypeScript 7.0%, CSS 0.3%, PLpgSQL 0.1%, HTML 0.1%, Other 0.1%</p>
+                </section>
+                <section data-background-color="#f8fcfd">
+                    <h3 class="text-primary-color mb-6"><i class="fas fa-book-reader mr-2"></i>项目速读：Awesome LLM Apps</h3>
+                    <p class="fragment fade-in"><strong>定位：</strong>备受瞩目的GitHub仓库，汇集大量基于LLM的实用应用范例，为开发者和学习者系统展现LLM潜力。</p>
+                    <p class="fragment fade-in"><strong>侧重：</strong>结合AI代理（单智能体、多模态、多智能体协作）和检索增强生成（RAG）技术解决现实问题。</p>
+                    <h4 class="text-accent-color-1 mt-6 mb-2 fragment fade-in"><i class="fas fa-magic mr-2"></i>核心优势</h4>
+                    <ul class="list-none pl-0">
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>广泛模型兼容性：</strong> 支持OpenAI、Anthropic、Google等主流商业LLM，以及DeepSeek、Qwen、Llama等开源模型。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>RAG技术深度展示：</strong> 包括Agentic RAG、Corrective RAG等多种实现，提升LLM知识获取和响应准确性。</li>
+                    </ul>
+                    <p class="mt-6 fragment fade-in"><strong>价值：</strong>无论构建数据分析、金融咨询、法律辅助工具，还是开发语音交互或多模态协作系统，提供丰富灵感和可运行范例。超5.8万星标且持续高速增长，印证其极高认可度和实用价值。</p>
+                </section>
+                <section data-background-color="#f8e8ec">
+                    <h3 class="text-primary-color mb-6"><i class="fas fa-chart-line mr-2"></i>增长分析：Awesome LLM Apps</h3>
+                    <p class="text-lg mb-4 fragment fade-in">该仓库在<strong class="highlight">约5个月内高频上榜24次</strong>，平均每次新增718 Star，总Star增长高达37790。</p>
+                    <p class="text-xl fragment fade-in">这显示项目拥有持续高关注度和强劲用户吸引力。<strong class="gradient-text">尽管今日新增445 Star</strong>，仍表明增长势头活跃，潜力可观。</p>
+                    <div class="mt-8">
+                        <canvas id="awesomeLLMAppsGrowthChart" style="width:100%;max-width:800px;height:300px;"></canvas>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: dtyq/magic -->
+            <section>
+                <section data-background-color="#e8f8ec">
+                    <h2 class="text-center text-primary-color mb-6">
+                        <i class="fas fa-star-of-david mr-3 text-accent-color-1"></i>dtyq/magic
+                    </h2>
+                    <h3 class="text-xl text-center mb-8 italic text-gray-700">首个开源一体化AI生产力平台（通用AI智能体 + 工作流引擎 + 即时通讯 + 在线协同办公系统）</h3>
+                    <table class="w-full text-center">
+                        <thead>
+                            <tr>
+                                <th>仓库名称</th>
+                                <th>开发语言</th>
+                                <th>Star 数</th>
+                                <th>连续在榜</th>
+                                <th>总上榜次数</th>
+                                <th>当日 Star 增加数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="https://github.com/dtyq/magic" target="_blank" class="text-accent-color-1 hover:underline">dtyq/magic</a></td>
+                                <td>PHP</td>
+                                <td>1846</td>
+                                <td>1次</td>
+                                <td>1次</td>
+                                <td>146</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="stat-grid">
+                        <div class="stat-item"><i class="fas fa-star"></i>Stars: 1.8k</div>
+                        <div class="stat-item"><i class="fas fa-code-branch"></i>Forks: 215</div>
+                        <div class="stat-item"><i class="fas fa-eye"></i>Watchers: 21</div>
+                        <div class="stat-item"><i class="fas fa-exclamation-circle"></i>Issues: 17</div>
+                        <div class="stat-item"><i class="fas fa-code-pull-request"></i>Pull Requests: 2</div>
+                        <div class="stat-item"><i class="fas fa-box"></i>Releases: 0</div>
+                        <div class="stat-item"><i class="fas fa-file-alt"></i>Commits: 896</div>
+                        <div class="stat-item"><i class="fas fa-gavel"></i>License: 未知</div>
+                        <div class="stat-item"><i class="fas fa-users"></i>Contributors: 19</div>
+                    </div>
+                    <p class="text-sm mt-4 text-gray-600">编程语言占比: <span class="bold-text">PHP</span> 51.7%, TypeScript 32.6%, JavaScript 7.4%, Python 6.9%, Less 0.7%, Shell 0.4%, Other 0.3%</p>
+                </section>
+                <section data-background-color="#f8fcfd">
+                    <h3 class="text-primary-color mb-6"><i class="fas fa-book-reader mr-2"></i>项目速读：Magic</h3>
+                    <p class="fragment fade-in"><strong>定位：</strong>开创性的开源一体化AI生产力平台，旨在改变企业构建和部署AI应用的方式。</p>
+                    <p class="fragment fade-in"><strong>解决痛点：</strong>当前企业面临的AI工具碎片化、开发门槛高和系统集成复杂。</p>
+                    <h4 class="text-accent-color-1 mt-6 mb-2 fragment fade-in"><i class="fas fa-magic mr-2"></i>核心优势</h4>
+                    <ul class="list-none pl-0">
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>卓越集成能力与智能化：</strong> 融合“Super Magic”通用AI Agent，自主理解、规划、执行任务。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>可视化工作流：</strong> “Magic Flow”提供强大可视化AI工作流编排，降低AI开发门槛。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>深度AI集成通讯：</strong> “Magic IM”将AI Agent深度集成到企业即时通讯中。</li>
+                        <li class="fragment fade-in"><i class="fas fa-check-circle text-accent-color-2"></i> <strong>灵活性与可扩展性：</strong> 丰富的内置组件和自定义工具节点开发，兼容所有遵循OpenAI API协议的大模型。</li>
+                    </ul>
+                    <p class="mt-6 fragment fade-in"><strong>价值：</strong>为寻求自主可控、深度定制并渴望将AI能力无缝融入日常运营的企业，提供理想的端到端解决方案，推动全面数字化和智能化转型。</p>
+                </section>
+            </section>
+
+            <!-- 结束页 -->
+            <section class="slide-end" data-transition="slide" data-background-color="#2c3e50">
+                <h2 class="text-white text-4xl mb-6">感谢您的聆听！</h2>
+                <h1 class="text-white text-5xl font-bold leading-tight mb-8 gradient-text">与我们共同探索GitHub前沿！</h1>
+                <p class="text-white text-lg mt-2 opacity-80">期待您的关注与Star</p>
+
+                <div class="end-link">
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <!-- Plugins for Reveal.js -->
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js"></script>
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/highlight.js/11.5.1/highlight.min.js"></script>
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js"></script>
+    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/zoom/zoom.min.js"></script>
+
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+
+    <script>
+        // Mermaid initialization
+        mermaid.initialize({ startOnLoad: true });
+
+        // Reveal.js initialization
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            transitionSpeed: 'fast', // default/fast/slow
+            backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+            display: 'block', // 'block' or 'flex'
+
+            // Learn about plugins: https://revealjs.com/plugins/
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom ]
+        });
+
+        // Chart.js data and rendering
+        const createGrowthChart = (ctx, label, data, borderColor) => {
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['历史平均', '今日'],
+                    datasets: [{
+                        label: label,
+                        data: data,
+                        borderColor: borderColor,
+                        backgroundColor: 'rgba(0, 0,0, 0)',
+                        tension: 0.3,
+                        pointBackgroundColor: borderColor,
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointRadius: 5,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: ${context.raw} Stars`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: '新增 Star 数'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        };
+
+        Reveal.on( 'slidechanged', event => {
+            // Check if it's the Archon growth slide
+            if (event.currentSlide.querySelector('#archonGrowthChart')) {
+                const ctx = document.getElementById('archonGrowthChart').getContext('2d');
+                createGrowthChart(ctx, 'Archon 日新增 Star', [1474 / 2, 318], '#3498db');
+            }
+            // Check if it's the POML growth slide
+            if (event.currentSlide.querySelector('#pomlGrowthChart')) {
+                const ctx = document.getElementById('pomlGrowthChart').getContext('2d');
+                createGrowthChart(ctx, 'POML 日新增 Star', [2022 / 4, 511], '#1abc9c');
+            }
+            // Check if it's the LMCache growth slide
+            if (event.currentSlide.querySelector('#lmcacheGrowthChart')) {
+                const ctx = document.getElementById('lmcacheGrowthChart').getContext('2d');
+                createGrowthChart(ctx, 'LMCache 日新增 Star', [2241 / 5, 23], '#e74c3c'); // Use a different color for weaker growth
+            }
+            // Check if it's the Build-Your-Own-X growth slide
+            if (event.currentSlide.querySelector('#buildYourOwnXGrowthChart')) {
+                const ctx = document.getElementById('buildYourOwnXGrowthChart').getContext('2d');
+                createGrowthChart(ctx, 'Build-Your-Own-X 日新增 Star', [60000 / 15, 484], '#9b59b6');
+            }
+             // Check if it's the 90DaysOfCyberSecurity growth slide
+            if (event.currentSlide.querySelector('#cybersecurityGrowthChart')) {
+                const ctx = document.getElementById('cybersecurityGrowthChart').getContext('2d');
+                createGrowthChart(ctx, '90DaysOfCyberSecurity 日新增 Star', [1361 / 3, 295], '#f1c40f');
+            }
+             // Check if it's the Awesome LLM Apps growth slide
+            if (event.currentSlide.querySelector('#awesomeLLMAppsGrowthChart')) {
+                const ctx = document.getElementById('awesomeLLMAppsGrowthChart').getContext('2d');
+                createGrowthChart(ctx, 'Awesome LLM Apps 日新增 Star', [37790 / 24, 445], '#e67e22');
+            }
+        });
+    </script>
+
+</body>
+</html>

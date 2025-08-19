@@ -1,0 +1,1081 @@
+<html><body>```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GitHub热榜洞察：智能体“学会”操作，私有化部署重塑范式</title>
+
+    <!-- Core Reveal.js Framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- Extension Dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        :root {
+            --r-main-font: "Noto Sans SC", Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: "Noto Serif SC", serif;
+            --r-background-color: #f8faff; /* Light bluish white */
+            --r-text-color: #333;
+            --r-link-color: #007bff; /* Blue */
+            --r-link-color-hover: #0056b3; /* Darker blue */
+            --r-selection-background-color: #9cdbff; /* Light blue for selection */
+            --r-code-background-color: #f5f5f5;
+            --r-code-color: #333;
+
+            /* Custom accent colors for "Aha" moments and visual hierarchy */
+            --accent-primary: #4a90e2; /* Blue */
+            --accent-secondary: #00bcd4; /* Teal */
+            --accent-tertiary: #f5a623; /* Orange */
+            --text-dark: #2c3e50;
+        }
+
+        body {
+            font-family: var(--r-main-font);
+            color: var(--r-text-color);
+            background-color: var(--r-background-color);
+        }
+
+        .reveal .slides section {
+            padding: 40px;
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--text-dark);
+            text-shadow: none; /* Override default Reveal.js shadow */
+        }
+
+        .reveal h1 { font-size: 3.2rem; margin-bottom: 0.5em; }
+        .reveal h2 { font-size: 2.6rem; margin-bottom: 0.4em; }
+        .reveal h3 { font-size: 2.0rem; margin-bottom: 0.3em; }
+        .reveal h4 { font-size: 1.6rem; margin-bottom: 0.2em; }
+        .reveal p, .reveal li { font-size: 1.15rem; line-height: 1.65; }
+        .reveal small { font-size: 0.85rem; }
+
+        .reveal ul {
+            list-style: none; /* Remove default bullets */
+            padding-left: 0;
+        }
+        .reveal ul li {
+            position: relative;
+            padding-left: 1.5em; /* Space for custom bullet */
+            margin-bottom: 0.5em;
+        }
+        .reveal ul li::before {
+            content: "◆"; /* Custom bullet point */
+            color: var(--accent-primary);
+            position: absolute;
+            left: 0;
+        }
+        .reveal ul.no-bullet li::before {
+            content: none;
+        }
+
+        /* Custom styles for "Aha" moments / emphasis */
+        .reveal .aha-moment {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--accent-tertiary); /* Orange */
+            text-align: center;
+            margin-top: 1em;
+            margin-bottom: 1em;
+            line-height: 1.4;
+        }
+        .reveal .emphasize {
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+        .reveal .section-header {
+            font-size: 3.5rem;
+            color: #fff;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            padding: 1em 0;
+            text-align: center;
+            letter-spacing: 0.1em;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin: -40px; /* Adjust to cover full slide width */
+            margin-bottom: 40px;
+        }
+
+        /* Footer QR and Link */
+        .footer-info {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            z-index: 10;
+        }
+        .footer-info img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .footer-info a {
+            color: #777;
+            font-size: 0.9em;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer-info a:hover {
+            color: var(--accent-primary);
+        }
+
+        /* Project detail table styling */
+        .project-meta-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5em;
+            font-size: 1em;
+        }
+        .project-meta-table td {
+            padding: 0.5em 1em;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+        .project-meta-table td:first-child {
+            font-weight: 500;
+            color: var(--text-dark);
+            width: 30%;
+        }
+        .project-meta-table td i {
+            margin-right: 8px;
+            color: var(--accent-primary);
+        }
+        .lang-breakdown-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 0.9em;
+        }
+        .lang-breakdown-list li {
+            background-color: #eef2f7;
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: var(--text-dark);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+        }
+        .lang-breakdown-list li::before {
+            content: none; /* No custom bullet for these */
+        }
+        .lang-breakdown-list li .color-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        /* Custom colors for languages (example) */
+        .lang-python .color-dot { background-color: #3572A5; }
+        .lang-typescript .color-dot { background-color: #3178C6; }
+        .lang-javascript .color-dot { background-color: #F7DF1E; }
+        .lang-go .color-dot { background-color: #00ADD8; }
+        .lang-vue .color-dot { background-color: #41B883; }
+        .lang-jupyter .color-dot { background-color: #DA5B0B; }
+        .lang-csharp .color-dot { background-color: #178600; }
+        .lang-gherkin .color-dot { background-color: #5B2070; }
+        .lang-css .color-dot { background-color: #563D7C; }
+        .lang-html .color-dot { background-color: #E34C26; }
+        .lang-shell .color-dot { background-color: #89E051; }
+        .lang-cuda .color-dot { background-color: #3A4000; }
+        .lang-plpgsql .color-dot { background-color: #8C6544; }
+        .lang-dockerfile .color-dot { background-color: #384d54; }
+        .lang-mermaid .color-dot { background-color: #FF0077; }
+        .lang-smarty .color-dot { background-color: #F8F8F8; }
+        .lang-scheme .color-dot { background-color: #1E4A00; }
+        .lang-dart .color-dot { background-color: #00D3B0; }
+        .lang-svelte .color-dot { background-color: #FF3E00; }
+        .lang-kotlin .color-dot { background-color: #A97BFF; }
+        .lang-swift .color-dot { background-color: #FFAC45; }
+        .lang-makefile .color-dot { background-color: #A2A0A0; }
+        .lang-other .color-dot { background-color: #cccccc; }
+
+
+        .reveal pre {
+            background-color: var(--r-code-background-color);
+            border-radius: 8px;
+            padding: 15px 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            max-height: 400px; /* Limit height */
+            overflow-y: auto; /* Scroll if content overflows */
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Title Slide -->
+            <section data-background-image="https://images.unsplash.com/photo-1510519138101-570d1dca3d66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" data-background-size="cover" data-background-opacity="0.2">
+                <div class="bg-white bg-opacity-80 p-10 rounded-lg shadow-xl" style="backdrop-filter: blur(5px);">
+                    <p class="text-3xl font-light text-center mb-4 text-gray-700">🔥 今日最火爆的开源项目都在这 ⭐️</p>
+                    <h1 class="text-5xl font-bold text-center text-gradient-blue-purple leading-tight">
+                        GitHub热榜洞察：<br>智能体“学会”操作，私有化部署如何重塑开发范式？
+                    </h1>
+                    <p class="text-center text-lg mt-6 text-gray-600">
+                        Github热门仓库<span class="emphasize">日报</span>观测时间为 <span class="font-bold">2025-08-19 20:59:47</span>
+                    </p>
+                    <p class="text-center text-sm mt-2 text-gray-500">
+                        以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！
+                    </p>
+                    <p class="text-center text-sm mt-4 text-gray-500">
+                        PPT: <a href="https://aichipera.github.io/github-trend/daily/2025-08-19/ppt.html" target="_blank" class="text-blue-500 hover:underline">https://aichipera.github.io/github-trend/daily/2025-08-19/ppt.html</a>
+                    </p>
+                </div>
+                <div class="footer-info">
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="footer-link">
+                        github.com/aichipera/github-trend
+                    </a>
+                    <span class="text-gray-500 text-sm mt-1">演讲者: AIChipEra</span>
+                </div>
+            </section>
+
+            <!-- Daily Highlights -->
+            <section data-background-image="https://images.unsplash.com/photo-1507919420606-2dc0631ac993?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" data-background-size="cover" data-background-opacity="0.1">
+                <h2 class="section-header">日报要点</h2>
+                <div class="grid grid-cols-2 gap-8 text-left mt-10">
+                    <div>
+                        <h3 class="text-2xl text-accent-primary mb-4 fragment fade-in" data-fragment-index="1"><i class="fas fa-robot mr-3"></i>智能体“学会”操作</h3>
+                        <ul class="no-bullet text-lg">
+                            <li class="fragment fade-in" data-fragment-index="2">突破文本限制，能“看”会“操作”桌面GUI、移动应用、网页。</li>
+                            <li class="fragment fade-in" data-fragment-index="3">解决实际痛点，提升生产力。</li>
+                            <li class="fragment fade-in" data-fragment-index="4">追求行为可预测、指令遵循严格。</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl text-accent-secondary mb-4 fragment fade-in" data-fragment-index="5"><i class="fas fa-lock mr-3"></i>私有化部署浪潮</h3>
+                        <ul class="no-bullet text-lg">
+                            <li class="fragment fade-in" data-fragment-index="6">用户对数据主权与隐私的强烈渴望。</li>
+                            <li class="fragment fade-in" data-fragment-index="7">催生自托管工具的火爆。</li>
+                            <li class="fragment fade-in" data-fragment-index="8">从性能优化到知识管理，实用性至上。</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="text-center mt-12 fragment fade-in" data-fragment-index="9">
+                    <p class="text-xl font-semibold text-gray-700">
+                        Python依旧主导，预示着未来我们将迎来<br>更高效、更自主、更安全的<span class="aha-moment">开发与应用新范式！</span>
+                    </p>
+                </div>
+            </section>
+
+            <!-- 热门项目趋势分析 - Section Header -->
+            <section>
+                <h2 class="section-header">热门项目趋势分析</h2>
+                <p class="text-center text-gray-600 mt-8 text-xl">深入洞察GitHub热门榜单，把握技术脉动</p>
+            </section>
+
+            <!-- Today's Overall Trend -->
+            <section>
+                <h2>今日整体趋势</h2>
+                <p class="text-xl text-gray-700 leading-relaxed fragment fade-in" data-fragment-index="1">
+                    GitHub热门项目榜单宛如一份科技脉动的实时心电图，清晰勾勒出当前技术社群的关注焦点。
+                </p>
+                <div class="grid grid-cols-2 gap-6 mt-8">
+                    <div class="fragment fade-in" data-fragment-index="2">
+                        <h3 class="text-xl text-accent-primary"><i class="fas fa-chart-line mr-2"></i>核心焦点：LLM深度应用与落地</h3>
+                        <ul class="text-lg mt-2">
+                            <li><i class="far fa-dot-circle text-accent-secondary mr-2"></i>从“构建LLM”到“让LLM可用、可控、高效”。</li>
+                            <li><i class="far fa-dot-circle text-accent-secondary mr-2"></i>AI正从实验室走向实用化。</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in" data-fragment-index="3">
+                        <h3 class="text-xl text-accent-primary"><i class="fas fa-rocket mr-2"></i>突出主题：AI代理与行为可控性</h3>
+                        <ul class="text-lg mt-2">
+                            <li><i class="far fa-dot-circle text-accent-secondary mr-2"></i>打破文本限制，让AI能“看”会“操作”GUI。</li>
+                            <li><i class="far fa-dot-circle text-accent-secondary mr-2"></i>追求AI代理的<span class="emphasize">可靠性与普适性。</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-6 mt-6">
+                    <div class="fragment fade-in" data-fragment-index="4">
+                        <h3 class="text-xl text-accent-primary"><i class="fas fa-brain mr-2"></i>LLM上下文与知识管理</h3>
+                        <ul class="text-lg mt-2">
+                            <li><i class="far fa-dot-circle text-accent-secondary mr-2"></i>解决AI“失忆”、“跑题”问题。</li>
+                            <li><i class="far fa-dot-circle text-accent-secondary mr-2"></i>提升AI在特定领域知识背景下的<span class="emphasize">判断与生成能力。</span></li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in" data-fragment-index="5">
+                        <h3 class="text-xl text-accent-primary"><i class="fas fa-shield-alt mr-2"></i>去中心化与自托管浪潮</h3>
+                        <ul class="text-lg mt-2">
+                            <li><i class="far fa-dot-circle text-accent-secondary mr-2"></i>用户对<span class="emphasize">数据主权与隐私</span>的坚定意愿。</li>
+                            <li><i class="far fa-dot-circle text-accent-secondary mr-2"></i>降低长期运营成本，摆脱第三方依赖。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Programming Languages & Tech Stack -->
+            <section>
+                <h2>编程语言与技术栈分析</h2>
+                <div class="grid grid-cols-2 gap-8 mt-8">
+                    <div class="fragment fade-in" data-fragment-index="1">
+                        <h3 class="text-xl text-accent-primary mb-4"><i class="fab fa-python mr-2"></i>Python：AI领域的绝对王者</h3>
+                        <ul class="text-lg">
+                            <li>几乎所有LLM强相关项目首选。</li>
+                            <li>得益于丰富的AI库和活跃社区。</li>
+                            <li><span class="emphasize">代表项目：</span>Parlant, Archon, LMCache, UI-TARS。</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in" data-fragment-index="2">
+                        <h3 class="text-xl text-accent-secondary mb-4"><i class="fas fa-code mr-2"></i>前端与全栈：TypeScript & Vue</h3>
+                        <ul class="text-lg">
+                            <li>支撑复杂交互界面和跨平台应用。</li>
+                            <li><span class="emphasize">代表项目：</span>Immich, Bytebot, SPlayer。</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-8 mt-6">
+                    <div class="fragment fade-in" data-fragment-index="3">
+                        <h3 class="text-xl text-accent-primary mb-4"><i class="fas fa-server mr-2"></i>自托管服务：Go & Node.js</h3>
+                        <ul class="text-lg">
+                            <li>因高性能和部署便捷性受青睐。</li>
+                            <li><span class="emphasize">代表项目：</span>BillionMail (Go), Puter (Node.js)。</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in" data-fragment-index="4">
+                        <h3 class="text-xl text-accent-secondary mb-4"><i class="fas fa-paint-brush mr-2"></i>C#：图形编辑潜力</h3>
+                        <ul class="text-lg">
+                            <li><span class="emphasize">代表项目：</span>PixiEditor 展现跨平台能力。</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="text-center text-xl font-semibold mt-10 fragment fade-in" data-fragment-index="5">
+                    技术实用化和落地成为核心，AI不再是象牙塔中的概念，而是<span class="aha-moment">解决实际问题、提升生产力</span>的工具。
+                </p>
+            </section>
+
+            <!-- Future Outlook -->
+            <section>
+                <h2>未来技术热点展望</h2>
+                <ul class="text-left leading-relaxed mt-10">
+                    <li class="fragment fade-in" data-fragment-index="1">
+                        <i class="fas fa-arrow-right mr-3 text-accent-primary"></i>
+                        <span class="emphasize">通用AI代理的成熟：</span>能够跨越不同应用边界，自主完成复杂、多步骤任务。
+                    </li>
+                    <li class="fragment fade-in" data-fragment-index="2">
+                        <i class="fas fa-arrow-right mr-3 text-accent-primary"></i>
+                        <span class="emphasize">边缘AI与私有化部署的深化：</span>更多强大且隐私友好的AI服务能在本地运行。
+                    </li>
+                    <li class="fragment fade-in" data-fragment-index="3">
+                        <i class="fas fa-arrow-right mr-3 text-accent-primary"></i>
+                        <span class="emphasize">多模态交互的普及：</span>AI对图像、视频、音频等理解和生成能力增强。
+                    </li>
+                    <li class="fragment fade-in" data-fragment-index="4">
+                        <i class="fas fa-arrow-right mr-3 text-accent-primary"></i>
+                        <span class="emphasize">AI辅助开发生态的完善：</span>AI编程助手的知识管理、性能优化和协作工具持续演进。
+                    </li>
+                </ul>
+                <p class="text-center text-xl font-semibold mt-12 fragment fade-in" data-fragment-index="5">
+                    从“生成”到“行动”的转变，塑造未来数字世界的新格局。
+                </p>
+            </section>
+
+            <!-- Hot Project Bi-daily Comparison -->
+            <section>
+                <h2>热门项目双日维度对比分析</h2>
+                <div class="grid grid-cols-2 gap-8 mt-10">
+                    <div class="fragment fade-in" data-fragment-index="1">
+                        <h3 class="text-xl text-accent-primary mb-4"><i class="fas fa-star-of-life mr-2"></i>新晋与上升项目</h3>
+                        <ul class="text-lg">
+                            <li><i class="far fa-check-circle text-accent-secondary mr-2"></i>7个新晋项目，Python占据4席。</li>
+                            <li><i class="far fa-check-circle text-accent-secondary mr-2"></i>涵盖基础架构、新兴应用。</li>
+                            <li><i class="far fa-check-circle text-accent-secondary mr-2"></i>无项目出现显著下降趋势。</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in" data-fragment-index="2">
+                        <h3 class="text-xl text-accent-primary mb-4"><i class="fas fa-chart-pie mr-2"></i>编程语言分布</h3>
+                        <ul class="text-lg">
+                            <li><i class="far fa-check-circle text-accent-secondary mr-2"></i>Python：最大赢家，净增4个热门项目。</li>
+                            <li><i class="far fa-check-circle text-accent-secondary mr-2"></i>Vue, JavaScript, Go：各有斩获。</li>
+                            <li><i class="far fa-check-circle text-accent-secondary mr-2"></i>TypeScript：热度略有回落。</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-10 fragment fade-in" data-fragment-index="3">
+                    <h3 class="text-xl text-accent-primary mb-4"><i class="fas fa-fire mr-2"></i>涨幅最大项目</h3>
+                    <ul class="text-lg">
+                        <li><i class="far fa-check-circle text-accent-secondary mr-2"></i>两项与LLM强相关项目领涨。</li>
+                        <li><i class="far fa-check-circle text-accent-secondary mr-2"></i>coleam00/Archon 以超千星涨幅领跑。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Hotspot Changes -->
+            <section>
+                <h2>热点变化</h2>
+                <div class="grid grid-cols-3 gap-6 mt-10 text-left">
+                    <div class="fragment fade-in" data-fragment-index="1">
+                        <h3 class="text-xl text-accent-primary mb-4"><i class="fas fa-plus-circle mr-2"></i>新增热点</h3>
+                        <ul class="no-bullet text-lg">
+                            <li><i class="far fa-star text-accent-secondary mr-2"></i>aapanel/billionmail</li>
+                            <li><i class="far fa-star text-accent-secondary mr-2"></i>bytedance/ui-tars</li>
+                            <li><i class="far fa-star text-accent-secondary mr-2"></i>imsyy/splayer</li>
+                            <li><i class="far fa-star text-accent-secondary mr-2"></i>lmcache/lmcache</li>
+                            <li><i class="far fa-star text-accent-secondary mr-2"></i>heyputer/puter</li>
+                            <li><i class="far fa-star text-accent-secondary mr-2"></i>hunxbyts/ghosttrack</li>
+                            <li><i class="far fa-star text-accent-secondary mr-2"></i>awslabs/mcp</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in" data-fragment-index="2">
+                        <h3 class="text-xl text-accent-primary mb-4"><i class="fas fa-minus-circle mr-2"></i>减退热点</h3>
+                        <ul class="no-bullet text-lg">
+                            <li><i class="far fa-circle text-accent-tertiary mr-2"></i>mfts/papermark</li>
+                            <li><i class="far fa-circle text-accent-tertiary mr-2"></i>enescingoz/awesome-n8n-templates</li>
+                            <li><i class="far fa-circle text-accent-tertiary mr-2"></i>dataexpert-io/data-engineer-handbook</li>
+                            <li><i class="far fa-circle text-accent-tertiary mr-2"></i>motiadev/motia</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in" data-fragment-index="3">
+                        <h3 class="text-xl text-accent-primary mb-4"><i class="fas fa-sync-alt mr-2"></i>持续热门</h3>
+                        <ul class="no-bullet text-lg">
+                            <li><i class="fas fa-fire-alt text-accent-secondary mr-2"></i>emcie-co/parlant (4次)</li>
+                            <li><i class="fas fa-fire-alt text-accent-secondary mr-2"></i>coleam00/Archon (4次)</li>
+                            <li><i class="fas fa-fire-alt text-accent-secondary mr-2"></i>OpenBB-finance/OpenBB (3次)</li>
+                            <li><i class="fas fa-fire-alt text-accent-secondary mr-2"></i>Shubhamsaboo/awesome-llm-apps (4次)</li>
+                            <li><i class="fas fa-fire-alt text-accent-secondary mr-2"></i>PixiEditor/PixiEditor (4次)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Detailed Repository Data - Section Header -->
+            <section data-background-image="https://images.unsplash.com/photo-1517430006730-802c019d675b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" data-background-size="cover" data-background-opacity="0.1">
+                <h2 class="section-header">详细仓库数据</h2>
+                <p class="text-center text-white text-opacity-80 text-xl mt-8">深度解析每一个热门项目</p>
+            </section>
+
+            <!-- Project: emcie-co/parlant -->
+            <section>
+                <section>
+                    <h2>emcie-co/parlant</h2>
+                    <p class="text-xl text-gray-700 mt-4">
+                        <i class="fas fa-quote-left mr-2 text-accent-primary"></i>用于控制的LLM智能体。专为实际应用设计，数分钟内即可部署。
+                    </p>
+                    <a href="https://github.com/emcie-co/parlant" target="_blank" class="text-blue-500 hover:underline text-lg mt-2 inline-block">
+                        <i class="fab fa-github mr-2"></i>github.com/emcie-co/parlant
+                    </a>
+                    <table class="project-meta-table">
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>Python</td></tr>
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>6025</td></tr>
+                        <tr><td><i class="fas fa-calendar-alt"></i> 连续在榜</td><td>4次</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 总上榜次数</td><td>4次</td></tr>
+                        <tr><td><i class="fas fa-plus"></i> 当日 Star 增加</td><td>543</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>528</td></tr>
+                        <tr><td><i class="fas fa-eye"></i> Watchers</td><td>52</td></tr>
+                        <tr><td><i class="fas fa-exclamation-circle"></i> Issues</td><td>25</td></tr>
+                        <tr><td><i class="fas fa-code-fork"></i> Pull Requests</td><td>8</td></tr>
+                        <tr><td><i class="fas fa-box-open"></i> Releases</td><td>24</td></tr>
+                        <tr><td><i class="fas fa-history"></i> Commits</td><td>4,264</td></tr>
+                        <tr><td><i class="fas fa-file-contract"></i> License</td><td>Apache-2.0</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>17</td></tr>
+                    </table>
+                </section>
+                <section>
+                    <h3>emcie-co/parlant: 编程语言占比</h3>
+                    <ul class="lang-breakdown-list">
+                        <li class="lang-python"><span class="color-dot"></span>Python 89.1%</li>
+                        <li class="lang-gherkin"><span class="color-dot"></span>Gherkin 6.0%</li>
+                        <li class="lang-typescript"><span class="color-dot"></span>TypeScript 4.5%</li>
+                        <li class="lang-css"><span class="color-dot"></span>CSS 0.2%</li>
+                        <li class="lang-javascript"><span class="color-dot"></span>JavaScript 0.1%</li>
+                        <li class="lang-shell"><span class="color-dot"></span>Shell 0.1%</li>
+                    </ul>
+                    <h3 class="mt-6">项目速读</h3>
+                    <p class="text-left text-lg">Parlant是Python AI Agent框架，旨在解决LLM代理指令遵循不力、行为不可预测等痛点。它引入“准则”概念，确保AI代理严格遵循指令，避免跑题和幻觉。核心优势在于<span class="emphasize">指令遵循保证、可靠工具集成及内置安全防护</span>。易于部署，Apache 2.0开源许可证，是构建生产级AI应用的可靠基础。</p>
+                    <h3 class="mt-6">增长分析</h3>
+                    <p class="text-left text-lg">该仓库在四天内连续上榜四次，表明持续高关注。累计增长2107 Star，平均每次增长633 Star，增长强劲。然而，今日新增543 Star，低于平均值，增速可能趋缓。</p>
+                </section>
+            </section>
+
+            <!-- Project: coleam00/Archon -->
+            <section>
+                <section>
+                    <h2>coleam00/Archon</h2>
+                    <p class="text-xl text-gray-700 mt-4">
+                        <i class="fas fa-quote-left mr-2 text-accent-primary"></i>Archon OS Beta版发布——AI编码助手的知识与任务管理核心骨干。
+                    </p>
+                    <a href="https://github.com/coleam00/Archon" target="_blank" class="text-blue-500 hover:underline text-lg mt-2 inline-block">
+                        <i class="fab fa-github mr-2"></i>github.com/coleam00/Archon
+                    </a>
+                    <table class="project-meta-table">
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>Python</td></tr>
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>9541</td></tr>
+                        <tr><td><i class="fas fa-calendar-alt"></i> 连续在榜</td><td>4次</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 总上榜次数</td><td>5次</td></tr>
+                        <tr><td><i class="fas fa-plus"></i> 当日 Star 增加</td><td>1205</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>1.7k</td></tr>
+                        <tr><td><i class="fas fa-eye"></i> Watchers</td><td>164</td></tr>
+                        <tr><td><i class="fas fa-exclamation-circle"></i> Issues</td><td>57</td></tr>
+                        <tr><td><i class="fas fa-code-fork"></i> Pull Requests</td><td>14</td></tr>
+                        <tr><td><i class="fas fa-box-open"></i> Releases</td><td>0</td></tr>
+                        <tr><td><i class="fas fa-history"></i> Commits</td><td>96</td></tr>
+                        <tr><td><i class="fas fa-file-contract"></i> License</td><td>未知</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>15</td></tr>
+                    </table>
+                </section>
+                <section>
+                    <h3>coleam00/Archon: 编程语言占比</h3>
+                    <ul class="lang-breakdown-list">
+                        <li class="lang-python"><span class="color-dot"></span>Python 55.7%</li>
+                        <li class="lang-typescript"><span class="color-dot"></span>TypeScript 41.6%</li>
+                        <li class="lang-plpgsql"><span class="color-dot"></span>PLpgSQL 1.7%</li>
+                        <li class="lang-css"><span class="color-dot"></span>CSS 0.8%</li>
+                        <li class="lang-dockerfile"><span class="color-dot"></span>Dockerfile 0.1%</li>
+                        <li class="lang-javascript"><span class="color-dot"></span>JavaScript 0.1%</li>
+                    </ul>
+                    <h3 class="mt-6">项目速读</h3>
+                    <p class="text-left text-lg">Archon是AI编程助手的“指挥中心”，解决AI代码生成中的上下文和知识管理难题。它提供可定制的私有项目知识库和结构化任务管理平台，通过<span class="emphasize">智能整合多样化文档</span>和<span class="emphasize">检索增强生成（RAG）</span>策略，为AI提供精准知识。采用微服务架构，支持多种LLM，通过实时更新促进协作。不仅是数据存储，更是动态知识与任务赋能平台，让AI成为开发中不可或缺的智能伙伴。</p>
+                    <h3 class="mt-6">增长分析</h3>
+                    <p class="text-left text-lg">该仓库在短周期内增长强劲，实际5次上榜，体现持续吸引力与曝光度。平均每次新增779星，总增长4921星。今日新增1205星，表明近期增长趋势显著加速，潜力巨大。</p>
+                </section>
+            </section>
+
+            <!-- Project: LMCache/LMCache -->
+            <section>
+                <section>
+                    <h2>LMCache/LMCache</h2>
+                    <p class="text-xl text-gray-700 mt-4">
+                        <i class="fas fa-quote-left mr-2 text-accent-primary"></i>通过最快的KV缓存层，极速强化你的LLM。
+                    </p>
+                    <a href="https://github.com/LMCache/LMCache" target="_blank" class="text-blue-500 hover:underline text-lg mt-2 inline-block">
+                        <i class="fab fa-github mr-2"></i>github.com/LMCache/LMCache
+                    </a>
+                    <table class="project-meta-table">
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>Python</td></tr>
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>4724</td></tr>
+                        <tr><td><i class="fas fa-calendar-alt"></i> 连续在榜</td><td>1次</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 总上榜次数</td><td>7次</td></tr>
+                        <tr><td><i class="fas fa-plus"></i> 当日 Star 增加</td><td>236</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>521</td></tr>
+                        <tr><td><i class="fas fa-eye"></i> Watchers</td><td>29</td></tr>
+                        <tr><td><i class="fas fa-exclamation-circle"></i> Issues</td><td>191</td></tr>
+                        <tr><td><i class="fas fa-code-fork"></i> Pull Requests</td><td>100</td></tr>
+                        <tr><td><i class="fas fa-box-open"></i> Releases</td><td>12</td></tr>
+                        <tr><td><i class="fas fa-history"></i> Commits</td><td>616</td></tr>
+                        <tr><td><i class="fas fa-file-contract"></i> License</td><td>Apache-2.0</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>106</td></tr>
+                    </table>
+                </section>
+                <section>
+                    <h3>LMCache/LMCache: 编程语言占比</h3>
+                    <ul class="lang-breakdown-list">
+                        <li class="lang-python"><span class="color-dot"></span>Python 92.9%</li>
+                        <li class="lang-cuda"><span class="color-dot"></span>Cuda 5.0%</li>
+                        <li class="lang-shell"><span class="color-dot"></span>Shell 1.5%</li>
+                        <li class="lang-other"><span class="color-dot"></span>Other 0.6%</li>
+                    </ul>
+                    <h3 class="mt-6">项目速读</h3>
+                    <p class="text-left text-lg">LMCache是为LLM提供服务的创新性KV缓存扩展引擎，解决LLM长文本处理时的<span class="emphasize">TTFT过长和吞吐量受限问题</span>。它通过智能分层存储和KV缓存复用，大幅减少GPU计算消耗，显著缩短用户响应延迟。核心优势在于极致性能优化与深度集成（如vLLM v1），实现3-10倍延迟缩减。适用于长上下文、多轮对话场景，降低运营成本，提升用户体验，是优化LLM推理性能的关键组件。</p>
+                    <h3 class="mt-6">增长分析</h3>
+                    <p class="text-left text-lg">统计周期内，该仓库上榜7次，总计增长2686 Star。平均每次上榜新增158.6 Star，显示稳定吸引力。今日新增236 Star高于平均值，表明近期增长势头良好，持续受到关注。</p>
+                </section>
+            </section>
+
+            <!-- Project: aaPanel/BillionMail -->
+            <section>
+                <section>
+                    <h2>aaPanel/BillionMail</h2>
+                    <p class="text-xl text-gray-700 mt-4">
+                        <i class="fas fa-quote-left mr-2 text-accent-primary"></i>开源邮件服务器、邮件简报和电子邮件营销服务，完全自主托管、开发者友好且无月费。
+                    </p>
+                    <a href="https://github.com/aaPanel/BillionMail" target="_blank" class="text-blue-500 hover:underline text-lg mt-2 inline-block">
+                        <i class="fab fa-github mr-2"></i>github.com/aaPanel/BillionMail
+                    </a>
+                    <table class="project-meta-table">
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>Go</td></tr>
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>8940</td></tr>
+                        <tr><td><i class="fas fa-calendar-alt"></i> 连续在榜</td><td>1次</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 总上榜次数</td><td>6次</td></tr>
+                        <tr><td><i class="fas fa-plus"></i> 当日 Star 增加</td><td>250</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>770</td></tr>
+                        <tr><td><i class="fas fa-eye"></i> Watchers</td><td>39</td></tr>
+                        <tr><td><i class="fas fa-exclamation-circle"></i> Issues</td><td>119</td></tr>
+                        <tr><td><i class="fas fa-code-fork"></i> Pull Requests</td><td>2</td></tr>
+                        <tr><td><i class="fas fa-box-open"></i> Releases</td><td>14</td></tr>
+                        <tr><td><i class="fas fa-history"></i> Commits</td><td>1,052</td></tr>
+                        <tr><td><i class="fas fa-file-contract"></i> License</td><td>AGPL-3.0</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>10</td></tr>
+                    </table>
+                </section>
+                <section>
+                    <h3>aaPanel/BillionMail: 编程语言占比</h3>
+                    <ul class="lang-breakdown-list">
+                        <li class="lang-go"><span class="color-dot"></span>Go 95.7%</li>
+                        <li class="lang-shell"><span class="color-dot"></span>Shell 4.1%</li>
+                        <li class="lang-other"><span class="color-dot"></span>Other 0.2%</li>
+                    </ul>
+                    <h3 class="mt-6">项目速读</h3>
+                    <p class="text-left text-lg">BillionMail是Go语言开发的开源邮件服务器与营销解决方案，提供完全自主托管的邮件群发、新闻邮件和促销服务，<span class="emphasize">摆脱第三方依赖，实现数据主权和隐私保护</span>。核心优势包括高级数据分析、无限量邮件发送和可自定义模板。支持便捷一键安装和Docker部署，极速上线。采用AGPLv3许可证，为追求高度自主权、重视数据隐私、希望避免长期成本的用户提供高价值、成本效益的选择。</p>
+                    <h3 class="mt-6">增长分析</h3>
+                    <p class="text-left text-lg">该仓库在统计期内总增5855 Star，实际仅上榜6次，显示增长呈<span class="emphasize">间歇性爆发</span>特征，平均每次上榜贡献近400 Star，效率极高。今日新增250 Star，虽低于平均爆发水平，但整体趋势仍体现出其在特定时间点有强劲吸引力。</p>
+                </section>
+            </section>
+
+            <!-- Project: rasbt/LLMs-from-scratch -->
+            <section>
+                <section>
+                    <h2>rasbt/LLMs-from-scratch</h2>
+                    <p class="text-xl text-gray-700 mt-4">
+                        <i class="fas fa-quote-left mr-2 text-accent-primary"></i>使用PyTorch从零开始，逐步实现类似ChatGPT的LLM。
+                    </p>
+                    <a href="https://github.com/rasbt/LLMs-from-scratch" target="_blank" class="text-blue-500 hover:underline text-lg mt-2 inline-block">
+                        <i class="fab fa-github mr-2"></i>github.com/rasbt/LLMs-from-scratch
+                    </a>
+                    <table class="project-meta-table">
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>Jupyter Notebook</td></tr>
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>65512</td></tr>
+                        <tr><td><i class="fas fa-calendar-alt"></i> 连续在榜</td><td>2次</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 总上榜次数</td><td>7次</td></tr>
+                        <tr><td><i class="fas fa-plus"></i> 当日 Star 增加</td><td>1100</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>9.2k</td></tr>
+                        <tr><td><i class="fas fa-eye"></i> Watchers</td><td>598</td></tr>
+                        <tr><td><i class="fas fa-exclamation-circle"></i> Issues</td><td>5</td></tr>
+                        <tr><td><i class="fas fa-code-fork"></i> Pull Requests</td><td>0</td></tr>
+                        <tr><td><i class="fas fa-box-open"></i> Releases</td><td>0</td></tr>
+                        <tr><td><i class="fas fa-history"></i> Commits</td><td>919</td></tr>
+                        <tr><td><i class="fas fa-file-contract"></i> License</td><td>未知</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>46</td></tr>
+                    </table>
+                </section>
+                <section>
+                    <h3>rasbt/LLMs-from-scratch: 编程语言占比</h3>
+                    <ul class="lang-breakdown-list">
+                        <li class="lang-jupyter"><span class="color-dot"></span>Jupyter Notebook 76.3%</li>
+                        <li class="lang-python"><span class="color-dot"></span>Python 23.7%</li>
+                    </ul>
+                    <h3 class="mt-6">项目速读</h3>
+                    <p class="text-left text-lg">《Build a Large Language Model (From Scratch)》官方代码库，旨在提供从零开始构建LLM的实践指南，解决LLM应用门槛高、内部原理不透明的问题。<span class="emphasize">核心亮点是“从零构建”，所有组件基于PyTorch实现</span>，确保对底层逻辑的彻底理解。覆盖LLM开发全过程，包括注意力机制、GPT架构、预训练和LoRA微调。代码清晰，教育导向性强，大部分章节可在普通笔记本运行，是学习LLM原理、将理论转化为实践的绝佳平台。</p>
+                    <h3 class="mt-6">增长分析</h3>
+                    <p class="text-left text-lg">两月内Star总增14036，增长显著。实际上榜7次，反映持续高关注。平均增450星，近期单日达1100星，<span class="emphasize">增长势头强劲且加速。</span></p>
+                </section>
+            </section>
+
+            <!-- Project: OpenBB-finance/OpenBB -->
+            <section>
+                <section>
+                    <h2>OpenBB-finance/OpenBB</h2>
+                    <p class="text-xl text-gray-700 mt-4">
+                        <i class="fas fa-quote-left mr-2 text-accent-primary"></i>面向人类和AI代理的金融数据聚合器。
+                    </p>
+                    <a href="https://github.com/OpenBB-finance/OpenBB" target="_blank" class="text-blue-500 hover:underline text-lg mt-2 inline-block">
+                        <i class="fab fa-github mr-2"></i>github.com/OpenBB-finance/OpenBB
+                    </a>
+                    <table class="project-meta-table">
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>Python</td></tr>
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>50420</td></tr>
+                        <tr><td><i class="fas fa-calendar-alt"></i> 连续在榜</td><td>3次</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 总上榜次数</td><td>14次</td></tr>
+                        <tr><td><i class="fas fa-plus"></i> 当日 Star 增加</td><td>347</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>4.7k</td></tr>
+                        <tr><td><i class="fas fa-eye"></i> Watchers</td><td>374</td></tr>
+                        <tr><td><i class="fas fa-exclamation-circle"></i> Issues</td><td>49</td></tr>
+                        <tr><td><i class="fas fa-code-fork"></i> Pull Requests</td><td>19</td></tr>
+                        <tr><td><i class="fas fa-box-open"></i> Releases</td><td>46</td></tr>
+                        <tr><td><i class="fas fa-history"></i> Commits</td><td>6,714</td></tr>
+                        <tr><td><i class="fas fa-file-contract"></i> License</td><td>未知</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>248</td></tr>
+                    </table>
+                </section>
+                <section>
+                    <h3>OpenBB-finance/OpenBB: 编程语言占比</h3>
+                    <ul class="lang-breakdown-list">
+                        <li class="lang-python"><span class="color-dot"></span>Python 100.0%</li>
+                    </ul>
+                    <h3 class="mt-6">项目速读</h3>
+                    <p class="text-left text-lg">OpenBB Platform是开源金融数据聚合平台，为用户提供便捷统一的金融数据访问与分析能力。其<span class="emphasize">彻底的开源特性促进透明度与社区协作</span>，通过Python API和命令行工具提供灵活数据访问。作为高效数据集成层，连接数十家数据供应商。结合OpenBB Workspace，可作为本地API服务器，提供高级UI、数据可视化及AI代理分析。极大地赋能用户数据获取与分析，降低高质量金融数据门槛，是量化研究和投资决策的坚实基础。</p>
+                    <h3 class="mt-6">增长分析</h3>
+                    <p class="text-left text-lg">该仓库在约5个月内上榜14次，平均每次增311星，总星数增长13359。频繁上榜结合稳定日增347星，表明其<span class="emphasize">增长强劲且持续。</span></p>
+                </section>
+            </section>
+
+            <!-- Project: imsyy/SPlayer -->
+            <section>
+                <section>
+                    <h2>imsyy/SPlayer</h2>
+                    <p class="text-xl text-gray-700 mt-4">
+                        <i class="fas fa-quote-left mr-2 text-accent-primary"></i>一个简约的音乐播放器，支持逐字歌词，下载歌曲，展示评论区，音乐云盘及歌单管理，音乐频谱，移动端基础适配 | 网易云音乐 | A minimalist music player
+                    </p>
+                    <a href="https://github.com/imsyy/SPlayer" target="_blank" class="text-blue-500 hover:underline text-lg mt-2 inline-block">
+                        <i class="fab fa-github mr-2"></i>github.com/imsyy/SPlayer
+                    </a>
+                    <table class="project-meta-table">
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>Vue</td></tr>
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>4706</td></tr>
+                        <tr><td><i class="fas fa-calendar-alt"></i> 连续在榜</td><td>1次</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 总上榜次数</td><td>1次</td></tr>
+                        <tr><td><i class="fas fa-plus"></i> 当日 Star 增加</td><td>29</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>836</td></tr>
+                        <tr><td><i class="fas fa-eye"></i> Watchers</td><td>16</td></tr>
+                        <tr><td><i class="fas fa-exclamation-circle"></i> Issues</td><td>78</td></tr>
+                        <tr><td><i class="fas fa-code-fork"></i> Pull Requests</td><td>1</td></tr>
+                        <tr><td><i class="fas fa-box-open"></i> Releases</td><td>27</td></tr>
+                        <tr><td><i class="fas fa-history"></i> Commits</td><td>355</td></tr>
+                        <tr><td><i class="fas fa-file-contract"></i> License</td><td>AGPL-3.0</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>8</td></tr>
+                    </table>
+                </section>
+                <section>
+                    <h3>imsyy/SPlayer: 编程语言占比</h3>
+                    <ul class="lang-breakdown-list">
+                        <li class="lang-vue"><span class="color-dot"></span>Vue 65.5%</li>
+                        <li class="lang-typescript"><span class="color-dot"></span>TypeScript 28.9%</li>
+                        <li class="lang-html"><span class="color-dot"></span>HTML 2.6%</li>
+                        <li class="lang-javascript"><span class="color-dot"></span>JavaScript 2.3%</li>
+                        <li class="lang-scss"><span class="color-dot"></span>SCSS 0.5%</li>
+                        <li class="lang-shell"><span class="color-dot"></span>Shell 0.1%</li>
+                        <li class="lang-other"><span class="color-dot"></span>Other 0.1%</li>
+                    </ul>
+                    <h3 class="mt-6">项目速读</h3>
+                    <p class="text-left text-lg">SPlayer是简约而强大的音乐播放器，通过深度整合网易云音乐第三方API，提供逐字歌词、歌曲下载、评论区、云盘及歌单管理等丰富功能，支持音乐频谱和移动端适配。核心技术采用<span class="emphasize">Vue 3、TypeScript和Naïve UI</span>，借助Electron实现跨平台桌面应用。项目价值在于为追求个性化、功能深度和开源自由的音乐爱好者提供卓越选择，提供超越官方客户端的定制化体验。AGPL-3.0许可证，禁止商业及盈利用途。</p>
+                </section>
+            </section>
+
+            <!-- Project: Shubhamsaboo/awesome-llm-apps -->
+            <section>
+                <section>
+                    <h2>Shubhamsaboo/awesome-llm-apps</h2>
+                    <p class="text-xl text-gray-700 mt-4">
+                        <i class="fas fa-quote-left mr-2 text-accent-primary"></i>精选的LLM应用合集，整合AI智能体和RAG技术，支持OpenAI、Anthropic、Gemini及开源模型。
+                    </p>
+                    <a href="https://github.com/Shubhamsaboo/awesome-llm-apps" target="_blank" class="text-blue-500 hover:underline text-lg mt-2 inline-block">
+                        <i class="fab fa-github mr-2"></i>github.com/Shubhamsaboo/awesome-llm-apps
+                    </a>
+                    <table class="project-meta-table">
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>Python</td></tr>
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>59993</td></tr>
+                        <tr><td><i class="fas fa-calendar-alt"></i> 连续在榜</td><td>4次</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 总上榜次数</td><td>27次</td></tr>
+                        <tr><td><i class="fas fa-plus"></i> 当日 Star 增加</td><td>684</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>7.2k</td></tr>
+                        <tr><td><i class="fas fa-eye"></i> Watchers</td><td>684</td></tr>
+                        <tr><td><i class="fas fa-exclamation-circle"></i> Issues</td><td>4</td></tr>
+                        <tr><td><i class="fas fa-code-fork"></i> Pull Requests</td><td>3</td></tr>
+                        <tr><td><i class="fas fa-box-open"></i> Releases</td><td>0</td></tr>
+                        <tr><td><i class="fas fa-history"></i> Commits</td><td>715</td></tr>
+                        <tr><td><i class="fas fa-file-contract"></i> License</td><td>Apache-2.0</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>47</td></tr>
+                    </table>
+                </section>
+                <section>
+                    <h3>Shubhamsaboo/awesome-llm-apps: 编程语言占比</h3>
+                    <ul class="lang-breakdown-list">
+                        <li class="lang-python"><span class="color-dot"></span>Python 63.1%</li>
+                        <li class="lang-javascript"><span class="color-dot"></span>JavaScript 28.4%</li>
+                        <li class="lang-typescript"><span class="color-dot"></span>TypeScript 6.9%</li>
+                        <li class="lang-html"><span class="color-dot"></span>HTML 1.1%</li>
+                        <li class="lang-css"><span class="color-dot"></span>CSS 0.3%</li>
+                        <li class="lang-plpgsql"><span class="color-dot"></span>PLpgSQL 0.1%</li>
+                        <li class="lang-other"><span class="color-dot"></span>Other 0.1%</li>
+                    </ul>
+                    <h3 class="mt-6">项目速读</h3>
+                    <p class="text-left text-lg">该项目是基于LLM的卓越应用资源库，解决LLM技术落地挑战，推动开源生态发展。核心特点是<span class="emphasize">广泛集成AI代理、多代理团队协作、RAG及多链流水线等先进LLM范式</span>，使LLM能应对复杂现实问题。兼容并收录主流商业和开源模型应用。价值在于提供涵盖个人助理、数据分析、金融投资等多元场景的实战案例集，是LLM学习者和实践者的重要参考，激发创新思维，加速技术转化。</p>
+                    <h3 class="mt-6">增长分析</h3>
+                    <p class="text-left text-lg">该仓库在5个月内星标增长近4万，实际上榜27次，展现极高曝光度。每次上榜平均带来710星，<span class="emphasize">增长势头强劲且持续</span>。今日新增684星，增长势头依然可观。</p>
+                </section>
+            </section>
+
+            <!-- Project: HunxByts/GhostTrack -->
+            <section>
+                <section>
+                    <h2>HunxByts/GhostTrack</h2>
+                    <p class="text-xl text-gray-700 mt-4">
+                        <i class="fas fa-quote-left mr-2 text-accent-primary"></i>追踪位置或手机号码的实用工具
+                    </p>
+                    <a href="https://github.com/HunxByts/GhostTrack" target="_blank" class="text-blue-500 hover:underline text-lg mt-2 inline-block">
+                        <i class="fab fa-github mr-2"></i>github.com/HunxByts/GhostTrack
+                    </a>
+                    <table class="project-meta-table">
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>Python</td></tr>
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>1891</td></tr>
+                        <tr><td><i class="fas fa-calendar-alt"></i> 连续在榜</td><td>1次</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 总上榜次数</td><td>1次</td></tr>
+                        <tr><td><i class="fas fa-plus"></i> 当日 Star 增加</td><td>134</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>315</td></tr>
+                        <tr><td><i class="fas fa-eye"></i> Watchers</td><td>51</td></tr>
+                        <tr><td><i class="fas fa-exclamation-circle"></i> Issues</td><td>23</td></tr>
+                        <tr><td><i class="fas fa-code-fork"></i> Pull Requests</td><td>4</td></tr>
+                        <tr><td><i class="fas fa-box-open"></i> Releases</td><td>0</td></tr>
+                        <tr><td><i class="fas fa-history"></i> Commits</td><td>23</td></tr>
+                        <tr><td><i class="fas fa-file-contract"></i> License</td><td>未知</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>2</td></tr>
+                    </table>
+                </section>
+                <section>
+                    <h3>HunxByts/GhostTrack: 编程语言占比</h3>
+                    <ul class="lang-breakdown-list">
+                        <li class="lang-python"><span class="color-dot"></span>Python 100.0%</li>
+                    </ul>
+                    <h3 class="mt-6">项目速读</h3>
+                    <p class="text-left text-lg">GhostTrack是基于OSINT的实用工具，用于协助收集公开可用的信息，进行初步侦察。它解决了快速整合目标<span class="emphasize">位置、手机号码及社交媒体用户名相关公开数据</span>的需求。核心优势在于多维度数据收集，可追踪IP获取地理线索，查询手机号码，搜索社交媒体公开资料。采用轻量级Python开发，易于在Linux和Termux部署，可与外部Seeker工具协同增强IP追踪准确性。对安全研究人员、调查人员或需要初步信息收集的用户具有显著价值。</p>
+                </section>
+            </section>
+
+            <!-- Project: immich-app/immich -->
+            <section>
+                <section>
+                    <h2>immich-app/immich</h2>
+                    <p class="text-xl text-gray-700 mt-4">
+                        <i class="fas fa-quote-left mr-2 text-accent-primary"></i>高性能自托管照片和视频管理解决方案。
+                    </p>
+                    <a href="https://github.com/immich-app/immich" target="_blank" class="text-blue-500 hover:underline text-lg mt-2 inline-block">
+                        <i class="fab fa-github mr-2"></i>github.com/immich-app/immich
+                    </a>
+                    <table class="project-meta-table">
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>TypeScript</td></tr>
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>73467</td></tr>
+                        <tr><td><i class="fas fa-calendar-alt"></i> 连续在榜</td><td>2次</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 总上榜次数</td><td>2次</td></tr>
+                        <tr><td><i class="fas fa-plus"></i> 当日 Star 增加</td><td>347</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>3.9k</td></tr>
+                        <tr><td><i class="fas fa-eye"></i> Watchers</td><td>245</td></tr>
+                        <tr><td><i class="fas fa-exclamation-circle"></i> Issues</td><td>572</td></tr>
+                        <tr><td><i class="fas fa-code-fork"></i> Pull Requests</td><td>99</td></tr>
+                        <tr><td><i class="fas fa-box-open"></i> Releases</td><td>260</td></tr>
+                        <tr><td><i class="fas fa-history"></i> Commits</td><td>7,859</td></tr>
+                        <tr><td><i class="fas fa-file-contract"></i> License</td><td>AGPL-3.0</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>1,431</td></tr>
+                    </table>
+                </section>
+                <section>
+                    <h3>immich-app/immich: 编程语言占比</h3>
+                    <ul class="lang-breakdown-list">
+                        <li class="lang-typescript"><span class="color-dot"></span>TypeScript 44.0%</li>
+                        <li class="lang-dart"><span class="color-dot"></span>Dart 35.9%</li>
+                        <li class="lang-svelte"><span class="color-dot"></span>Svelte 15.1%</li>
+                        <li class="lang-python"><span class="color-dot"></span>Python 1.5%</li>
+                        <li class="lang-kotlin"><span class="color-dot"></span>Kotlin 1.1%</li>
+                        <li class="lang-swift"><span class="color-dot"></span>Swift 0.9%</li>
+                        <li class="lang-other"><span class="color-dot"></span>Other 1.5%</li>
+                    </ul>
+                    <h3 class="mt-6">项目速读</h3>
+                    <p class="text-left text-lg">Immich是高性能自托管照片和视频管理解决方案，旨在让用户完全掌控个人媒体文件，<span class="emphasize">摆脱第三方云服务依赖，解决数据隐私和存储限制</span>。它将商业级云相册功能搬到用户服务器，支持多种文件格式自动备份，并内置智能AI特性（人脸识别、对象识别、CLIP智能搜索、记忆功能）。提供Web界面和移动应用，支持多用户管理。价值在于为追求数据主权、注重隐私保护的用户提供强大、可定制的替代方案。</p>
+                    <h3 class="mt-6">增长分析</h3>
+                    <p class="text-left text-lg">该仓库两天内上榜2次，显示持续关注。总计增长327星，但今日新增347星远超单次平均（211星），表明<span class="emphasize">近期增长势头强劲且有加速趋势。</span>其活跃度稳定。</p>
+                </section>
+            </section>
+
+            <!-- Project: PixiEditor/PixiEditor -->
+            <section>
+                <section>
+                    <h2>PixiEditor/PixiEditor</h2>
+                    <p class="text-xl text-gray-700 mt-4">
+                        <i class="fas fa-quote-left mr-2 text-accent-primary"></i>PixiEditor是一款满足您所有2D需求的通用编辑器。
+                    </p>
+                    <a href="https://github.com/PixiEditor/PixiEditor" target="_blank" class="text-blue-500 hover:underline text-lg mt-2 inline-block">
+                        <i class="fab fa-github mr-2"></i>github.com/PixiEditor/PixiEditor
+                    </a>
+                    <table class="project-meta-table">
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>C#</td></tr>
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>4701</td></tr>
+                        <tr><td><i class="fas fa-calendar-alt"></i> 连续在榜</td><td>4次</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 总上榜次数</td><td>4次</td></tr>
+                        <tr><td><i class="fas fa-plus"></i> 当日 Star 增加</td><td>392</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>188</td></tr>
+                        <tr><td><i class="fas fa-eye"></i> Watchers</td><td>30</td></tr>
+                        <tr><td><i class="fas fa-exclamation-circle"></i> Issues</td><td>154</td></tr>
+                        <tr><td><i class="fas fa-code-fork"></i> Pull Requests</td><td>7</td></tr>
+                        <tr><td><i class="fas fa-box-open"></i> Releases</td><td>40</td></tr>
+                        <tr><td><i class="fas fa-history"></i> Commits</td><td>5,655</td></tr>
+                        <tr><td><i class="fas fa-file-contract"></i> License</td><td>LGPL-3.0</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>26</td></tr>
+                    </table>
+                </section>
+                <section>
+                    <h3>PixiEditor/PixiEditor: 编程语言占比</h3>
+                    <ul class="lang-breakdown-list">
+                        <li class="lang-csharp"><span class="color-dot"></span>C# 100.0%</li>
+                        <li class="lang-c"><span class="color-dot"></span>C 0.0%</li>
+                        <li class="lang-python"><span class="color-dot"></span>Python 0.0%</li>
+                        <li class="lang-nix"><span class="color-dot"></span>Nix 0.0%</li>
+                        <li class="lang-css"><span class="color-dot"></span>CSS 0.0%</li>
+                        <li class="lang-html"><span class="color-dot"></span>HTML 0.0%</li>
+                    </ul>
+                    <h3 class="mt-6">项目速读</h3>
+                    <p class="text-left text-lg">PixiEditor是功能全面的通用2D图形编辑器，解决游戏精灵图、动画、图像编辑和Logo设计等多样化2D创作需求。其<span class="emphasize">核心优势是能够将像素艺术、绘画和矢量工具集在同一画布上无缝混合使用</span>，实现了矢量与栅格的完美结合。独特的节点渲染系统赋予用户高度自由地定制图像，甚至创作复杂程序化艺术和动画。2.0版本引入强大的时间轴和动画功能，支持多种主流导出格式。适用于游戏开发者、动画师以及任何寻求灵活、强大2D创作工具的用户。</p>
+                    <h3 class="mt-6">增长分析</h3>
+                    <p class="text-left text-lg">该仓库四天内增长1339星，连续四次上榜，显示出<span class="emphasize">强劲且持续的关注度。</span>平均每次上榜增加398星，今日新增392星，表明增长势头稳定，用户活跃度高。</p>
+                </section>
+            </section>
+
+            <!-- Project: bytedance/UI-TARS -->
+            <section>
+                <section>
+                    <h2>bytedance/UI-TARS</h2>
+                    <p class="text-xl text-gray-700 mt-4">
+                        <i class="fas fa-quote-left mr-2 text-accent-primary"></i>字节跳动开源的多模态AI代理项目，旨在彻底革新虚拟世界中的图形用户界面（GUI）自动化方式。
+                    </p>
+                    <a href="https://github.com/bytedance/UI-TARS" target="_blank" class="text-blue-500 hover:underline text-lg mt-2 inline-block">
+                        <i class="fab fa-github mr-2"></i>github.com/bytedance/UI-TARS
+                    </a>
+                    <table class="project-meta-table">
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>Python</td></tr>
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>7091</td></tr>
+                        <tr><td><i class="fas fa-calendar-alt"></i> 连续在榜</td><td>1次</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 总上榜次数</td><td>4次</td></tr>
+                        <tr><td><i class="fas fa-plus"></i> 当日 Star 增加</td><td>80</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>492</td></tr>
+                        <tr><td><i class="fas fa-eye"></i> Watchers</td><td>79</td></tr>
+                        <tr><td><i class="fas fa-exclamation-circle"></i> Issues</td><td>43</td></tr>
+                        <tr><td><i class="fas fa-code-fork"></i> Pull Requests</td><td>7</td></tr>
+                        <tr><td><i class="fas fa-box-open"></i> Releases</td><td>0</td></tr>
+                        <tr><td><i class="fas fa-history"></i> Commits</td><td>106</td></tr>
+                        <tr><td><i class="fas fa-file-contract"></i> License</td><td>Apache-2.0</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>8</td></tr>
+                    </table>
+                </section>
+                <section>
+                    <h3>bytedance/UI-TARS: 编程语言占比</h3>
+                    <ul class="lang-breakdown-list">
+                        <li class="lang-python"><span class="color-dot"></span>Python 99.8%</li>
+                        <li class="lang-makefile"><span class="color-dot"></span>Makefile 0.2%</li>
+                    </ul>
+                    <h3 class="mt-6">项目速读</h3>
+                    <p class="text-left text-lg">UI-TARS 1.5是字节跳动开源的多模态AI代理项目，旨在革新GUI自动化。它基于强大视觉-语言模型，<span class="emphasize">能够理解并自主执行桌面、移动应用及网页上的复杂任务</span>，解决了传统自动化工具在多变界面下的局限。核心优势在于融入强化学习，赋予模型“思考”能力，在OSworld、Windows Agent Arena等基准测试中取得SOTA成果。价值在于将复杂GUI任务智能化、自动化，极大地解放生产力，适用于自动化游戏和日常电脑交互。</p>
+                    <h3 class="mt-6">增长分析</h3>
+                    <p class="text-left text-lg">该仓库在近四个月内四次上榜，累计增长2673星，平均每次上榜贡献214.5星。增长主要由有限但高效的曝光驱动，显示出榜单效应显著，每次上榜均能带来可观的星数提升。</p>
+                </section>
+            </section>
+
+            <!-- Project: bytebot-ai/bytebot -->
+            <section>
+                <section>
+                    <h2>bytebot-ai/bytebot</h2>
+                    <p class="text-xl text-gray-700 mt-4">
+                        <i class="fas fa-quote-left mr-2 text-accent-primary"></i>Bytebot是一个自托管的AI桌面代理，在容器化的Linux桌面环境中运行，通过自然语言指令自动化计算机任务。
+                    </p>
+                    <a href="https://github.com/bytebot-ai/bytebot" target="_blank" class="text-blue-500 hover:underline text-lg mt-2 inline-block">
+                        <i class="fab fa-github mr-2"></i>github.com/bytebot-ai/bytebot
+                    </a>
+                    <table class="project-meta-table">
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>TypeScript</td></tr>
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>1949</td></tr>
+                        <tr><td><i class="fas fa-calendar-alt"></i> 连续在榜</td><td>2次</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 总上榜次数</td><td>2次</td></tr>
+                        <tr><td><i class="fas fa-plus"></i> 当日 Star 增加</td><td>494</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>138</td></tr>
+                        <tr><td><i class="fas fa-eye"></i> Watchers</td><td>10</td></tr>
+                        <tr><td><i class="fas fa-exclamation-circle"></i> Issues</td><td>3</td></tr>
+                        <tr><td><i class="fas fa-code-fork"></i> Pull Requests</td><td>3</td></tr>
+                        <tr><td><i class="fas fa-box-open"></i> Releases</td><td>0</td></tr>
+                        <tr><td><i class="fas fa-history"></i> Commits</td><td>462</td></tr>
+                        <tr><td><i class="fas fa-file-contract"></i> License</td><td>Apache-2.0</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>10</td></tr>
+                    </table>
+                </section>
+                <section>
+                    <h3>bytebot-ai/bytebot: 编程语言占比</h3>
+                    <ul class="lang-breakdown-list">
+                        <li class="lang-typescript"><span class="color-dot"></span>TypeScript 91.4%</li>
+                        <li class="lang-dockerfile"><span class="color-dot"></span>Dockerfile 2.7%</li>
+                        <li class="lang-css"><span class="color-dot"></span>CSS 2.4%</li>
+                        <li class="lang-smarty"><span class="color-dot"></span>Smarty 1.8%</li>
+                        <li class="lang-scheme"><span class="color-dot"></span>Scheme 0.8%</li>
+                        <li class="lang-javascript"><span class="color-dot"></span>JavaScript 0.5%</li>
+                        <li class="lang-plpgsql"><span class="color-dot"></span>PLpgSQL 0.4%</li>
+                    </ul>
+                    <h3 class="mt-6">项目速读</h3>
+                    <p class="text-left text-lg">Bytebot是自托管的AI桌面代理，通过在容器化Linux桌面环境中运行，让AI能<span class="emphasize">通过自然语言命令自主完成复杂计算机任务</span>。它解决了传统AI自动化受限于浏览器或API的局限，赋予AI像人类一样操作桌面应用、处理文件和执行多步骤工作流的能力。AI能“看到”屏幕、移动鼠标、键盘输入，并直接使用真实桌面应用、命令行工具，甚至按需安装新软件。适用于任何需要自动化桌面级交互、复杂文件处理或跨应用协作的场景，提供强大“虚拟员工”，显著提升生产力。</p>
+                    <h3 class="mt-6">增长分析</h3>
+                    <p class="text-left text-lg">该仓库在短短2天内两次上榜，总星标增长494个。尽管上榜两次，但增长高度集中在其中一次，当日新增达494个星标，显示出<span class="emphasize">爆发性增长潜力</span>，而非持续均匀的增长模式。</p>
+                </section>
+            </section>
+
+            <!-- Project: HeyPuter/puter -->
+            <section>
+                <section>
+                    <h2>HeyPuter/puter</h2>
+                    <p class="text-xl text-gray-700 mt-4">
+                        <i class="fas fa-quote-left mr-2 text-accent-primary"></i>互联网操作系统！免费、开源、可自托管。
+                    </p>
+                    <a href="https://github.com/HeyPuter/puter" target="_blank" class="text-blue-500 hover:underline text-lg mt-2 inline-block">
+                        <i class="fab fa-github mr-2"></i>github.com/HeyPuter/puter
+                    </a>
+                    <table class="project-meta-table">
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>JavaScript</td></tr>
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>34974</td></tr>
+                        <tr><td><i class="fas fa-calendar-alt"></i> 连续在榜</td><td>1次</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 总上榜次数</td><td>4次</td></tr>
+                        <tr><td><i class="fas fa-plus"></i> 当日 Star 增加</td><td>40</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>2.7k</td></tr>
+                        <tr><td><i class="fas fa-eye"></i> Watchers</td><td>189</td></tr>
+                        <tr><td><i class="fas fa-exclamation-circle"></i> Issues</td><td>178</td></tr>
+                        <tr><td><i class="fas fa-code-fork"></i> Pull Requests</td><td>15</td></tr>
+                        <tr><td><i class="fas fa-box-open"></i> Releases</td><td>8</td></tr>
+                        <tr><td><i class="fas fa-history"></i> Commits</td><td>3,917</td></tr>
+                        <tr><td><i class="fas fa-file-contract"></i> License</td><td>AGPL-3.0</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>279</td></tr>
+                    </table>
+                </section>
+                <section>
+                    <h3>HeyPuter/puter: 编程语言占比</h3>
+                    <ul class="lang-breakdown-list">
+                        <li class="lang-javascript"><span class="color-dot"></span>JavaScript 95.5%</li>
+                        <li class="lang-css"><span class="color-dot"></span>CSS 2.5%</li>
+                        <li class="lang-html"><span class="color-dot"></span>HTML 1.8%</li>
+                        <li class="lang-shell"><span class="color-dot"></span>Shell 0.1%</li>
+                        <li class="lang-dockerfile"><span class="color-dot"></span>Dockerfile 0.1%</li>
+                        <li class="lang-nix"><span class="color-dot"></span>Nix 0.0%</li>
+                    </ul>
+                    <h3 class="mt-6">项目速读</h3>
+                    <p class="text-left text-lg">Puter是一款创新的开源“互联网操作系统”，为用户提供全面的个人云计算机体验。它解决了传统云服务数据分散和隐私难以保障的痛点，实现<span class="emphasize">集中管理和随时随地安全访问所有文件、应用及游戏</span>。作为免费、开源且可自托管的平台，Puter是注重隐私的云存储替代方案，也是强大Web开发与发布环境。基于Node.js构建，支持多种部署方式，AGPL-3.0开源许可证。核心优势在于功能丰富、运行快速、高度可扩展和强大的隐私保护。适合追求数据主权、开发效率和一体化数字生活的用户。</p>
+                    <h3 class="mt-6">增长分析</h3>
+                    <p class="text-left text-lg">周期内总增3890星，平均每次上榜增291.2。但仅上榜4次，凸显<span class="emphasize">增长爆发性强却不持续。</span>目前增长趋势尚不稳定，今日新增40星，低于平均上榜表现。</p>
+                </section>
+            </section>
+
+            <!-- Project: awslabs/mcp -->
+            <section>
+                <section>
+                    <h2>awslabs/mcp</h2>
+                    <p class="text-xl text-gray-700 mt-4">
+                        <i class="fas fa-quote-left mr-2 text-accent-primary"></i>AWS MCP 服务器——助您充分利用 AWS，无论您在何处使用 MCP。
+                    </p>
+                    <a href="https://github.com/awslabs/mcp" target="_blank" class="text-blue-500 hover:underline text-lg mt-2 inline-block">
+                        <i class="fab fa-github mr-2"></i>github.com/awslabs/mcp
+                    </a>
+                    <table class="project-meta-table">
+                        <tr><td><i class="fas fa-code"></i> 开发语言</td><td>Python</td></tr>
+                        <tr><td><i class="fas fa-star"></i> Star 数</td><td>5565</td></tr>
+                        <tr><td><i class="fas fa-calendar-alt"></i> 连续在榜</td><td>1次</td></tr>
+                        <tr><td><i class="fas fa-chart-line"></i> 总上榜次数</td><td>1次</td></tr>
+                        <tr><td><i class="fas fa-plus"></i> 当日 Star 增加</td><td>132</td></tr>
+                        <tr><td><i class="fas fa-code-branch"></i> Forks</td><td>747</td></tr>
+                        <tr><td><i class="fas fa-eye"></i> Watchers</td><td>55</td></tr>
+                        <tr><td><i class="fas fa-exclamation-circle"></i> Issues</td><td>148</td></tr>
+                        <tr><td><i class="fas fa-code-fork"></i> Pull Requests</td><td>50</td></tr>
+                        <tr><td><i class="fas fa-box-open"></i> Releases</td><td>113</td></tr>
+                        <tr><td><i class="fas fa-history"></i> Commits</td><td>684</td></tr>
+                        <tr><td><i class="fas fa-file-contract"></i> License</td><td>Apache-2.0</td></tr>
+                        <tr><td><i class="fas fa-users"></i> Contributors</td><td>151</td></tr>
+                    </table>
+                </section>
+                <section>
+                    <h3>awslabs/mcp: 编程语言占比</h3>
+                    <ul class="lang-breakdown-list">
+                        <li class="lang-python"><span class="color-dot"></span>Python 97.5%</li>
+                        <li class="lang-shell"><span class="color-dot"></span>Shell 1.0%</li>
+                        <li class="lang-dockerfile"><span class="color-dot"></span>Dockerfile 1.0%</li>
+                        <li class="lang-html"><span class="color-dot"></span>HTML 0.2%</li>
+                        <li class="lang-jinja"><span class="color-dot"></span>Jinja 0.1%</li>
+                        <li class="lang-typescript"><span class="color-dot"></span>TypeScript 0.1%</li>
+                        <li class="lang-css"><span class="color-dot"></span>CSS 0.1%</li>
+                    </ul>
+                    <h3 class="mt-6">项目速读</h3>
+                    <p class="text-left text-lg">AWS MCP Servers是为增强LLM与AWS服务集成而设计的协议服务器套件，解决LLM在处理云原生开发中<span class="emphasize">知识滞后、信息不准确</span>等问题。它将AWS官方文档、实时服务状态等转化为LLM可利用的上下文信息，极大地提升AI辅助云计算的效率与准确性。核心优势在于显著改善LLM输出质量，确保AI生成内容符合最新AWS标准，并能自动化CDK、Terraform等云工作流。基于开放Model Context Protocol（MCP）构建，支持多种部署模式，与主流开发工具无缝集成。为构建更智能、更可靠的云原生应用奠定坚实基础。</p</body></html>

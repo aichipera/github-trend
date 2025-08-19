@@ -1,0 +1,950 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>GitHub热榜透视：LLM工程化、云成本优化与开发者生产力新焦点</title>
+
+    <!-- Core framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- Extension dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        :root {
+            --r-main-font: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: 'Noto Serif SC', serif;
+            --primary-color: #4A90E2; /* Modern Blue */
+            --secondary-color: #7B68EE; /* Medium Purple */
+            --accent-color: #50E3C2; /* Teal Green */
+            --text-color-dark: #333;
+            --text-color-light: #fefefe;
+            --bg-color-light: #ffffff;
+            --bg-color-dark: #222;
+        }
+
+        body {
+            font-family: var(--r-main-font);
+            color: var(--text-color-dark);
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--primary-color);
+            line-height: 1.2;
+            text-shadow: none;
+        }
+
+        .reveal h1 { font-size: 2.8em; } /* Approx 3rem */
+        .reveal h2 { font-size: 2em; }    /* Approx 2rem */
+        .reveal h3 { font-size: 1.5em; }  /* Approx 1.5rem */
+        .reveal p, .reveal li, .reveal table { font-size: 1em; } /* Approx 1rem */
+        .reveal small { font-size: 0.8em; }
+
+        .reveal .slides section {
+            padding: 40px;
+        }
+
+        .reveal .controls {
+            z-index: 1000; /* Ensure controls are above footers */
+        }
+
+        .reveal .footer-logo {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.8em;
+            color: #666;
+            z-index: 999; /* Below controls */
+        }
+
+        .reveal .footer-logo img {
+            height: 50px; /* Adjust size as needed */
+            width: 50px;
+        }
+
+        .reveal .footer-logo a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--text-color-light);
+        }
+
+        .gradient-bg h1, .gradient-bg h2, .gradient-bg h3 {
+            color: var(--text-color-light);
+        }
+
+        .reveal ul {
+            list-style-type: none; /* Remove default bullets */
+            padding-left: 0;
+        }
+
+        .reveal ul li {
+            position: relative;
+            padding-left: 1.5em; /* Space for custom bullet/icon */
+            margin-bottom: 0.5em;
+        }
+
+        .reveal ul li:before {
+            content: "\f061"; /* Font Awesome right arrow */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        /* Specific styles for tables */
+        .reveal table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+            font-size: 0.9em;
+        }
+        .reveal th, .reveal td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .reveal th {
+            background-color: var(--primary-color);
+            color: var(--text-color-light);
+            font-weight: bold;
+        }
+        .reveal tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        /* Custom image background for cover */
+        .slide-cover-bg {
+            background-image: url('https://source.unsplash.com/random/1920x1080/?technology,futuristic,abstract'); /* Dynamic, high-quality image */
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            z-index: 0;
+        }
+        .slide-cover-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* Dark overlay for text readability */
+            z-index: -1;
+        }
+        .slide-cover-bg .reveal-title,
+        .slide-cover-bg .reveal-subtitle,
+        .slide-cover-bg .reveal-speaker,
+        .slide-cover-bg .reveal-date,
+        .slide-cover-bg .reveal-disclaimer {
+            color: var(--text-color-light);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Specific project slide layout */
+        .project-slide-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            align-items: start;
+        }
+        .project-stats ul {
+            list-style: none;
+            padding: 0;
+        }
+        .project-stats ul li {
+            padding-left: 0;
+            margin-bottom: 0.5em;
+        }
+        .project-stats ul li:before {
+            content: none;
+        }
+        .project-stats ul li i {
+            margin-right: 0.5em;
+            color: var(--primary-color);
+        }
+
+        .reveal .r-stretch img {
+            width: auto !important; /* Override reveal.js default to maintain aspect ratio */
+            max-height: 100%;
+            max-width: 100%;
+        }
+
+        /* Fragment fade-in for smooth reveals */
+        .reveal .fragment.fade-in {
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+        .reveal .fragment.fade-in.visible {
+            opacity: 1;
+        }
+
+        /* Custom style for highlighted text */
+        .highlight {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .text-primary-color { color: var(--primary-color); }
+        .text-secondary-color { color: var(--secondary-color); }
+        .text-accent-color { color: var(--accent-color); }
+
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1: Cover Page -->
+            <section class="slide-cover-bg text-center flex flex-col justify-center items-center">
+                <h1 class="reveal-title text-5xl font-bold mb-4">GitHub热榜透视：<br>LLM工程化、云成本优化与开发者生产力新焦点</h1>
+                <p class="reveal-subtitle text-2xl mb-8">技术趋势一手掌握，速分享给同行！</p>
+                <div class="reveal-speaker text-xl mb-2">演讲者: <span class="font-semibold">AIChipEra</span></div>
+                <div class="reveal-date text-lg mb-8">观测时间: <span class="font-medium">2025-08-15 21:00:08</span></div>
+                <p class="reveal-disclaimer text-sm opacity-80">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！
+                </p>
+                <!-- Footer for cover page -->
+                <div class="footer-logo">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        <i class="fab fa-github fa-2x"></i> github.com/aichipera/github-trend
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="微信公众号二维码" class="ml-4">
+                </div>
+            </section>
+
+            <!-- Slide 2: 日报要点 (Daily Highlights) -->
+            <section>
+                <h2 class="text-4xl mb-8"><i class="fas fa-newspaper mr-3 text-primary-color"></i>日报要点</h2>
+                <div class="text-left leading-relaxed text-xl">
+                    <p class="fragment fade-in mb-4">今日GitHub热门项目榜单揭示了当前技术领域的鲜明图景：</p>
+                    <ul class="list-none pl-0">
+                        <li class="fragment fade-in mb-3"><i class="fas fa-brain mr-3 text-secondary-color"></i><strong class="highlight">人工智能</strong> 正从模型构建走向实用落地，尤其聚焦如何将大模型与真实业务、数据无缝集成。</li>
+                        <li class="fragment fade-in mb-3"><i class="fas fa-cloud mr-3 text-accent-color"></i><strong class="highlight">云基础设施</strong> 则呈现出对成本效益和自主掌控的强烈需求，开源替代方案成为焦点。</li>
+                        <li class="fragment fade-in mb-3"><i class="fas fa-code mr-3 text-primary-color"></i><strong class="highlight">Python</strong> 凭借其在AI领域的统治力持续领跑，而提升<strong class="highlight">开发者生产力</strong>的工具也备受关注。</li>
+                        <li class="fragment fade-in mb-3"><i class="fas fa-chart-line mr-3 text-secondary-color"></i>本期分析将深入探讨这些趋势背后的技术价值与实践方向。</li>
+                    </ul>
+                    <p class="fragment fade-in mt-6 text-base text-gray-600">
+                        PPT: <a href="https://aichipera.github.io/github-trend/daily/2025-08-15/ppt.html" target="_blank" class="text-blue-500 hover:underline">https://aichipera.github.io/github-trend/daily/2025-08-15/ppt.html</a>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Slide 3: 热门项目趋势分析 (Overall Trends - Vertical Section) -->
+            <section>
+                <section>
+                    <h2 class="text-4xl mb-8 gradient-bg p-4 rounded-lg text-white"><i class="fas fa-chart-area mr-3"></i>热门项目趋势分析</h2>
+                    <p class="text-2xl text-center fragment fade-in">深入洞察：技术演进的核心驱动力</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+                        <div class="fragment fade-in p-6 bg-white rounded-lg shadow-lg">
+                            <h3 class="text-2xl mb-4"><i class="fas fa-lightbulb mr-2 text-primary-color"></i>今日整体趋势</h3>
+                            <p class="text-lg">今日GitHub热门项目榜单呈现出鲜明的技术图景，<strong class="highlight">人工智能、云基础设施与开发者生产力</strong>是其中最为显著的三大驱动力。</p>
+                        </div>
+                        <div class="fragment fade-in p-6 bg-white rounded-lg shadow-lg">
+                            <h3 class="text-2xl mb-4"><i class="fas fa-exchange-alt mr-2 text-secondary-color"></i>双日维度对比</h3>
+                            <p class="text-lg">近期榜单活跃度高，大量新项目涌入，且现有项目涨势强劲，表明整体热度持续上升。</p>
+                        </div>
+                    </div>
+                    <p class="text-xl text-center mt-10 fragment fade-in">
+                        <i class="fas fa-arrow-down mr-2 text-gray-500"></i>下滑查看详细分析
+                    </p>
+                </section>
+
+                <!-- Sub-slide 3.1: 热门领域与编程语言概览 -->
+                <section>
+                    <h3 class="text-3xl mb-6"><i class="fas fa-palette mr-3 text-primary-color"></i>热门领域与编程语言概览</h3>
+                    <div class="text-left text-lg">
+                        <ul class="list-none pl-0">
+                            <li class="fragment fade-in mb-3">
+                                <strong class="highlight"><i class="fas fa-robot mr-2 text-secondary-color"></i>人工智能焦点：</strong>
+                                LLM应用与落地，从模型构建到与现实数据、工具、业务流程无缝连接。
+                                <ul class="text-base mt-2 pl-6">
+                                    <li class="fragment fade-in"><i class="fas fa-angle-right mr-2 text-accent-color"></i>FastAPI-MCP: Web服务转LLM工具</li>
+                                    <li class="fragment fade-in"><i class="fas fa-angle-right mr-2 text-accent-color"></i>Marker/MarkItDown: 异构文档转Markdown (RAG系统)</li>
+                                    <li class="fragment fade-in"><i class="fas fa-angle-right mr-2 text-accent-color"></i>Magentic-UI: 人为中心Agentic AI在Web自动化</li>
+                                </ul>
+                            </li>
+                            <li class="fragment fade-in mb-3">
+                                <strong class="highlight"><i class="fas fa-server mr-2 text-secondary-color"></i>云基础设施演进：</strong>
+                                对成本效益和自主掌控的强烈需求。
+                                <ul class="text-base mt-2 pl-6">
+                                    <li class="fragment fade-in"><i class="fas fa-angle-right mr-2 text-accent-color"></i>Ubicloud: AWS开源替代，极高成本效益，裸金属利用。</li>
+                                </ul>
+                            </li>
+                            <li class="fragment fade-in mb-3">
+                                <strong class="highlight"><i class="fas fa-code mr-2 text-secondary-color"></i>编程语言分布：</strong>
+                                <ul class="text-base mt-2 pl-6">
+                                    <li class="fragment fade-in">
+                                        <i class="fab fa-python mr-1 text-blue-500"></i><strong class="highlight">Python</strong>: AI领域统治地位，数据科学、机器学习、快速原型。
+                                    </li>
+                                    <li class="fragment fade-in">
+                                        <i class="fab fa-golang mr-1 text-cyan-500"></i><strong class="highlight">Go</strong>: 高性能后端与基础设施 (go-redis, Wire)。
+                                    </li>
+                                    <li class="fragment fade-in">
+                                        <i class="fab fa-rust mr-1 text-orange-500"></i><strong class="highlight">Rust</strong>: 卓越性能与内存安全性 (Czkawka)。
+                                    </li>
+                                    <li class="fragment fade-in">
+                                        <i class="fab fa-js-square mr-1 text-yellow-500"></i>TypeScript, <i class="fab fa-microsoft mr-1 text-blue-400"></i>C#, C++: 各自领域保持活力。
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Sub-slide 3.2: 技术需求与发展方向 -->
+                <section>
+                    <h3 class="text-3xl mb-6"><i class="fas fa-compass mr-3 text-primary-color"></i>技术需求与发展方向</h3>
+                    <div class="text-left text-lg">
+                        <ul class="list-none pl-0">
+                            <li class="fragment fade-in mb-3">
+                                <strong class="highlight"><i class="fas fa-route mr-2 text-secondary-color"></i>LLM应用的“最后一公里”：</strong>
+                                如何让LLM真正落地，调用外部工具、处理复杂文档、执行多步骤任务。
+                                <p class="text-base mt-1 text-gray-700 ml-6"><i class="fas fa-caret-right mr-2 text-accent-color"></i>催生AI Agent框架、RAG数据预处理工具和API暴露方案。</p>
+                            </li>
+                            <li class="fragment fade-in mb-3">
+                                <strong class="highlight"><i class="fas fa-coins mr-2 text-secondary-color"></i>云计算的成本优化与自主掌控：</strong>
+                                寻求更经济、更灵活、更透明的云部署方案。
+                                <p class="text-base mt-1 text-gray-700 ml-6"><i class="fas fa-caret-right mr-2 text-accent-color"></i>开源私有云或裸金属云解决方案获得关注。</p>
+                            </li>
+                            <li class="fragment fade-in mb-3">
+                                <strong class="highlight"><i class="fas fa-wrench mr-2 text-secondary-color"></i>开发者生产力的持续提升：</strong>
+                                简化开发流程，提升交付效率。
+                                <p class="text-base mt-1 text-gray-700 ml-6"><i class="fas fa-caret-right mr-2 text-accent-color"></i>跨平台应用开发、自动化测试、高效文件管理工具。</p>
+                            </li>
+                            <li class="fragment fade-in mb-3">
+                                <strong class="highlight"><i class="fas fa-database mr-2 text-secondary-color"></i>数据的高效处理与标准化：</strong>
+                                将非结构化数据转化为结构化格式，AI时代数据管道的关键。
+                                <p class="text-base mt-1 text-gray-700 ml-6"><i class="fas fa-caret-right mr-2 text-accent-color"></i>Marker和MarkItDown是典型代表。</p>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Sub-slide 3.3: 今日特点与未来展望 -->
+                <section>
+                    <h3 class="text-3xl mb-6"><i class="fas fa-seedling mr-3 text-primary-color"></i>今日特点与未来展望</h3>
+                    <div class="text-left text-lg">
+                        <ul class="list-none pl-0">
+                            <li class="fragment fade-in mb-3">
+                                <strong class="highlight"><i class="fas fa-cogs mr-2 text-secondary-color"></i>技术融合与工程化：</strong>
+                                对现有成熟技术与新兴热点的深度融合与优化，从探索性研究走向实用化。
+                            </li>
+                            <li class="fragment fade-in mb-3">
+                                <strong class="highlight"><i class="fab fa-microsoft mr-2 text-secondary-color"></i>微软积极布局：</strong>
+                                多个项目上榜，显示其在开源社区的投入和AI工具链的布局。
+                            </li>
+                        </ul>
+                        <h4 class="text-2xl mt-8 mb-4 fragment fade-in"><i class="fas fa-eye mr-2 text-primary-color"></i>未来展望：</h4>
+                        <ul class="list-none pl-0">
+                            <li class="fragment fade-in mb-3">
+                                <i class="fas fa-microchip mr-2 text-accent-color"></i><strong class="highlight">更智能、更自主的AI Agent</strong> 深入业务场景。
+                            </li>
+                            <li class="fragment fade-in mb-3">
+                                <i class="fas fa-server mr-2 text-accent-color"></i><strong class="highlight">边缘计算与AI结合</strong> 更紧密，3D感知与具身智能。
+                            </li>
+                            <li class="fragment fade-in mb-3">
+                                <i class="fas fa-cloud mr-2 text-accent-color"></i><strong class="highlight">“云原生”理念回归与拓展</strong>，注重成本、主权和开放性。
+                            </li>
+                            <li class="fragment fade-in mb-3">
+                                <i class="fas fa-file-alt mr-2 text-accent-color"></i><strong class="highlight">文档智能与RAG技术</strong> 持续发展，高效数据预处理。
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Slide 4: 热门项目双日维度对比分析 -->
+            <section>
+                <h2 class="text-4xl mb-8"><i class="fas fa-chart-bar mr-3 text-primary-color"></i>热门项目双日维度对比分析</h2>
+                <div class="text-left text-xl leading-relaxed">
+                    <p class="fragment fade-in mb-4">今日GitHub热门榜单呈现显著<strong class="highlight">活跃态势</strong>：</p>
+                    <ul class="list-none pl-0">
+                        <li class="fragment fade-in mb-3"><i class="fas fa-plus-circle mr-3 text-accent-color"></i>共有<strong class="highlight">11个新项目</strong>跻身前列，2个现有项目涨势强劲。</li>
+                        <li class="fragment fade-in mb-3"><i class="fas fa-arrow-alt-circle-up mr-3 text-primary-color"></i>榜单上未见明显下降趋势项目，表明<strong class="highlight">整体热度持续上升</strong>。</li>
+                    </ul>
+
+                    <h3 class="text-3xl mt-8 mb-4 fragment fade-in"><i class="fas fa-code mr-3 text-secondary-color"></i>编程语言分布变化：</h3>
+                    <ul class="list-none pl-0">
+                        <li class="fragment fade-in mb-3">
+                            <strong class="highlight"><i class="fab fa-python mr-2 text-blue-500"></i>Python</strong> 表现最为抢眼，热度项目数量净增3个，巩固AI领域优势。
+                            <p class="text-base mt-1 ml-6 text-gray-700"><i class="fas fa-caret-right mr-2 text-accent-color"></i>多涉及AI/ML工具、开发效率提升及跨平台解决方案。</p>
+                        </li>
+                        <li class="fragment fade-in mb-3">
+                            <strong class="highlight"><i class="fab fa-rust mr-2 text-orange-500"></i>Rust</strong> (Czkawka) 和 <strong class="highlight"><i class="fas fa-code mr-2 text-gray-600"></i>C++</strong> (Librum) 也有一席新增，显示语言生态多样性。
+                        </li>
+                        <li class="fragment fade-in mb-3">
+                            <strong class="highlight"><i class="fab fa-js-square mr-2 text-yellow-500"></i>TypeScript</strong> 减少4个，<strong class="highlight"><i class="fab fa-golang mr-2 text-cyan-500"></i>Go</strong> 和 <strong class="highlight"><i class="fab fa-java mr-2 text-red-500"></i>Java</strong> 各有1个项目掉出榜单，反映短期波动。
+                        </li>
+                    </ul>
+
+                    <p class="fragment fade-in mt-8 text-xl">
+                        <i class="fas fa-fire mr-3 text-red-500"></i><strong class="highlight">Ubicloud</strong> 项目实现惊人热度涨幅，达到<span class="text-red-500 font-bold">875%</span>，显示强劲社区关注度！
+                    </p>
+                </div>
+            </section>
+
+            <!-- Slide 5: 热点变化 -->
+            <section>
+                <h2 class="text-4xl mb-8"><i class="fas fa-sync-alt mr-3 text-primary-color"></i>热点变化</h2>
+                <div class="text-left text-xl leading-relaxed">
+                    <h3 class="text-3xl mb-4 fragment fade-in"><i class="fas fa-arrow-circle-up mr-3 text-accent-color"></i>新增热点:</h3>
+                    <p class="fragment fade-in text-lg ml-6">
+                        <span class="highlight">datalab-to/marker</span>, <span class="highlight">microsoft/markitdown</span>, <span class="highlight">jitsi/jitsi-meet</span>, <span class="highlight">manycore-research/spatiallm</span>, <span class="highlight">microsoft/magentic-ui</span>, <span class="highlight">tadata-org/fastapi_mcp</span>, <span class="highlight">budtmo/docker-android</span>, <span class="highlight">librum-reader/librum</span>, <span class="highlight">google/wire</span>, <span class="highlight">qarmin/czkawka</span>, <span class="highlight">dotnet/maui</span>
+                    </p>
+
+                    <h3 class="text-3xl mt-8 mb-4 fragment fade-in"><i class="fas fa-arrow-circle-down mr-3 text-red-500"></i>减退热点:</h3>
+                    <p class="fragment fade-in text-lg ml-6">
+                        colmap/colmap, apple/embedding-atlas, ostris/ai-toolkit, oop7/ytsage, midday-ai/midday, angular/components, bytedance/ui-tars-desktop, conductor-oss/conductor, pathwaycom/pathway, microsoft/poml, external-secrets/external-secrets, hashicorp/terraform
+                    </p>
+
+                    <h3 class="text-3xl mt-8 mb-4 fragment fade-in"><i class="fas fa-fire mr-3 text-orange-500"></i>持续热门:</h3>
+                    <p class="fragment fade-in text-lg ml-6">
+                        <strong class="highlight">ubicloud/ubicloud</strong> (4次)
+                    </p>
+                </div>
+            </section>
+
+            <!-- Section for Detailed Repository Data -->
+            <section class="bg-gray-100 py-10">
+                <h2 class="text-4xl text-center text-primary-color mb-10"><i class="fas fa-code-branch mr-3"></i>详细仓库数据</h2>
+                <p class="text-xl text-center text-gray-700 fragment fade-in">深入了解每个热门项目的核心价值与增长态势</p>
+            </section>
+
+            <!-- Individual Project Slides (using horizontal navigation for projects) -->
+            <section>
+                <h3><a href="https://github.com/tadata-org/fastapi_mcp" target="_blank" class="text-primary-color hover:underline">tadata-org/fastapi_mcp</a></h3>
+                <p class="text-lg mt-2 mb-4">将FastAPI端点公开为模型上下文协议（MCP）工具，并支持认证。</p>
+                <div class="project-slide-grid mt-6">
+                    <div class="project-stats text-left">
+                        <h4 class="text-xl mb-3"><i class="fas fa-chart-line mr-2 text-primary-color"></i>关键指标</h4>
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr><th>语言</th><th>Star</th><th>在榜</th><th>总上榜</th><th>今日增</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Python</td><td>8550</td><td>1次</td><td>5次</td><td>423</td></tr>
+                            </tbody>
+                        </table>
+                        <ul class="mt-4">
+                            <li><i class="fas fa-star text-secondary-color"></i> Stars: 8.6k</li>
+                            <li><i class="fas fa-code-branch text-secondary-color"></i> Forks: 669</li>
+                            <li><i class="fas fa-eye text-secondary-color"></i> Watchers: 56</li>
+                            <li><i class="fas fa-exclamation-circle text-secondary-color"></i> Issues: 59</li>
+                            <li><i class="fas fa-code-pull-request text-secondary-color"></i> PRs: 32</li>
+                            <li><i class="fas fa-box text-secondary-color"></i> Releases: 10</li>
+                            <li><i class="fas fa-clipboard text-secondary-color"></i> Commits: 250</li>
+                            <li><i class="fas fa-scroll text-secondary-color"></i> License: MIT license</li>
+                            <li><i class="fas fa-users text-secondary-color"></i> Contributors: 15</li>
+                            <li><i class="fab fa-python text-secondary-color"></i> Python: 100.0%</li>
+                        </ul>
+                    </div>
+                    <div class="project-summary text-left">
+                        <h4 class="text-xl mb-3"><i class="fas fa-file-alt mr-2 text-primary-color"></i>项目速读</h4>
+                        <p class="text-base leading-relaxed">FastAPI-MCP 旨在将现有FastAPI应用的API端点无缝转换为<strong class="highlight">“模型上下文协议”（MCP）工具</strong>。解决了LLM难以高效、安全地调用和利用传统Web服务的问题，使得这些服务能够作为AI的“外部工具”被集成和使用，从而<strong class="highlight">极大扩展了LLM的能力边界</strong>。</p>
+                        <p class="text-base leading-relaxed mt-2">核心优势在于对<strong class="highlight">FastAPI框架的深度原生集成</strong>、开箱即用的认证授权、以及通过ASGI接口直接通信实现高性能内部集成。适用于构建与传统微服务深度交互的复杂AI应用、智能自动化平台或Agentic AI系统。</p>
+                        <h4 class="text-xl mt-4 mb-3"><i class="fas fa-chart-line mr-2 text-primary-color"></i>增长分析</h4>
+                        <p class="text-base leading-relaxed">约45天内增长2632 Stars并上榜5次。今日<strong class="highlight">激增423星</strong>，远超平均，表明近期增长势头强劲且有加速趋势。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3><a href="https://github.com/ubicloud/ubicloud" target="_blank" class="text-primary-color hover:underline">ubicloud/ubicloud</a></h3>
+                <p class="text-lg mt-2 mb-4">AWS的开源替代方案。提供弹性计算、块存储（非复制）、防火墙、负载均衡器、托管式Postgres、K8s、AI推理和IAM服务。</p>
+                <div class="project-slide-grid mt-6">
+                    <div class="project-stats text-left">
+                        <h4 class="text-xl mb-3"><i class="fas fa-chart-line mr-2 text-primary-color"></i>关键指标</h4>
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr><th>语言</th><th>Star</th><th>在榜</th><th>总上榜</th><th>今日增</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Ruby</td><td>9314</td><td>4次</td><td>4次</td><td>916</td></tr>
+                            </tbody>
+                        </table>
+                        <ul class="mt-4">
+                            <li><i class="fas fa-star text-secondary-color"></i> Stars: 9.3k</li>
+                            <li><i class="fas fa-code-branch text-secondary-color"></i> Forks: 395</li>
+                            <li><i class="fas fa-eye text-secondary-color"></i> Watchers: 63</li>
+                            <li><i class="fas fa-exclamation-circle text-secondary-color"></i> Issues: 12</li>
+                            <li><i class="fas fa-code-pull-request text-secondary-color"></i> PRs: 47</li>
+                            <li><i class="fas fa-box text-secondary-color"></i> Releases: 0</li>
+                            <li><i class="fas fa-clipboard text-secondary-color"></i> Commits: 5,088</li>
+                            <li><i class="fas fa-scroll text-secondary-color"></i> License: AGPL-3.0 license</li>
+                            <li><i class="fas fa-users text-secondary-color"></i> Contributors: 23</li>
+                            <li><i class="fab fa-dev text-secondary-color"></i> Ruby: 91.3%, HTML: 7.7%...</li>
+                        </ul>
+                    </div>
+                    <div class="project-summary text-left">
+                        <h4 class="text-xl mb-3"><i class="fas fa-file-alt mr-2 text-primary-color"></i>项目速读</h4>
+                        <p class="text-base leading-relaxed">Ubicloud是一个开源云平台，旨在成为AWS等专有云服务的强大替代品。提供完整的IaaS解决方案，帮助用户摆脱<strong class="highlight">云计算高昂成本和厂商锁定</strong>的困境。允许直接在裸金属服务器上构建和管理云基础设施。</p>
+                        <p class="text-base leading-relaxed mt-2">核心价值在于<strong class="highlight">极高的成本效益</strong>（相比AWS可降低约三分之二费用）和对基础设施的完全掌控。采用精心设计的控制平面与数据平面结合，确保系统简洁、安全与高效。适用于CI/CD、轻量级应用部署，或将现有裸金属服务器“云化”。</p>
+                        <h4 class="text-xl mt-4 mb-3"><i class="fas fa-chart-line mr-2 text-primary-color"></i>增长分析</h4>
+                        <p class="text-base leading-relaxed">四天内连续四次上榜，表明增长势头强劲且稳定。今日新增916 Stars，略高于平均，显示<strong class="highlight">增长趋势持续向好</strong>。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3><a href="https://github.com/budtmo/docker-android" target="_blank" class="text-primary-color hover:underline">budtmo/docker-android</a></h3>
+                <p class="text-lg mt-2 mb-4">Docker 中的安卓解决方案，支持 noVNC 和视频录制</p>
+                <div class="project-slide-grid mt-6">
+                    <div class="project-stats text-left">
+                        <h4 class="text-xl mb-3"><i class="fas fa-chart-line mr-2 text-primary-color"></i>关键指标</h4>
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr><th>语言</th><th>Star</th><th>在榜</th><th>总上榜</th><th>今日增</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Python</td><td>11897</td><td>1次</td><td>1次</td><td>205</td></tr>
+                            </tbody>
+                        </table>
+                        <ul class="mt-4">
+                            <li><i class="fas fa-star text-secondary-color"></i> Stars: 11.9k</li>
+                            <li><i class="fas fa-code-branch text-secondary-color"></i> Forks: 1.4k</li>
+                            <li><i class="fas fa-eye text-secondary-color"></i> Watchers: 182</li>
+                            <li><i class="fas fa-exclamation-circle text-secondary-color"></i> Issues: 136</li>
+                            <li><i class="fas fa-code-pull-request text-secondary-color"></i> PRs: 5</li>
+                            <li><i class="fas fa-box text-secondary-color"></i> Releases: 99</li>
+                            <li><i class="fas fa-clipboard text-secondary-color"></i> Commits: 680</li>
+                            <li><i class="fas fa-scroll text-secondary-color"></i> License: 未知</li>
+                            <li><i class="fas fa-users text-secondary-color"></i> Contributors: 50</li>
+                            <li><i class="fab fa-python text-secondary-color"></i> Python: 91.7%, Shell: 8.3%</li>
+                        </ul>
+                    </div>
+                    <div class="project-summary text-left">
+                        <h4 class="text-xl mb-3"><i class="fas fa-file-alt mr-2 text-primary-color"></i>项目速读</h4>
+                        <p class="text-base leading-relaxed">将完整的 Android 环境封装在可移植的容器中，为Android应用的开发、测试和自动化提供高效、隔离且易于管理的环境。解决了传统Android模拟器部署繁琐、环境依赖复杂等痛点。</p>
+                        <p class="text-base leading-relaxed mt-2">核心优势在于提供<strong class="highlight">预配置且高性能的Android运行环境</strong>。通过noVNC可视化操作，利用Linux KVM硬件加速。支持多个Android版本，无缝对接Appium、Espresso等测试框架，完美融入CI/CD流水线。对大规模、重复性Android测试的团队价值巨大。</p>
+                        <h4 class="text-xl mt-4 mb-3"><i class="fas fa-chart-line mr-2 text-primary-color"></i>增长分析</h4>
+                        <p class="text-base leading-relaxed">首次上榜即有205 Stars增长，显示该项目在社区中拥有<strong class="highlight">较高的关注度和实用价值</strong>。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3><a href="https://github.com/manycore-research/SpatialLM" target="_blank" class="text-primary-color hover:underline">manycore-research/SpatialLM</a></h3>
+                <p class="text-lg mt-2 mb-4">SpatialLM：训练用于结构化室内建模的大型语言模型</p>
+                <div class="project-slide-grid mt-6">
+                    <div class="project-stats text-left">
+                        <h4 class="text-xl mb-3"><i class="fas fa-chart-line mr-2 text-primary-color"></i>关键指标</h4>
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr><th>语言</th><th>Star</th><th>在榜</th><th>总上榜</th><th>今日增</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Python</td><td>3624</td><td>1次</td><td>1次</td><td>24</td></tr>
+                            </tbody>
+                        </table>
+                        <ul class="mt-4">
+                            <li><i class="fas fa-star text-secondary-color"></i> Stars: 3.6k</li>
+                            <li><i class="fas fa-code-branch text-secondary-color"></i> Forks: 278</li>
+                            <li><i class="fas fa-eye text-secondary-color"></i> Watchers: 45</li>
+                            <li><i class="fas fa-exclamation-circle text-secondary-color"></i> Issues: 6</li>
+                            <li><i class="fas fa-code-pull-request text-secondary-color"></i> PRs: 1</li>
+                            <li><i class="fas fa-box text-secondary-color"></i> Releases: 2</li>
+                            <li><i class="fas fa-clipboard text-secondary-color"></i> Commits: 10</li>
+                            <li><i class="fas fa-scroll text-secondary-color"></i> License: 未知</li>
+                            <li><i class="fas fa-users text-secondary-color"></i> Contributors: 2</li>
+                            <li><i class="fab fa-python text-secondary-color"></i> Python: 100.0%</li>
+                        </ul>
+                    </div>
+                    <div class="project-summary text-left">
+                        <h4 class="text-xl mb-3"><i class="fas fa-file-alt mr-2 text-primary-color"></i>项目速读</h4>
+                        <p class="text-base leading-relaxed">SpatialLM是一个开创性的<strong class="highlight">3D大语言模型（3D LLM）</strong>，旨在解决将非结构化的3D点云数据转换为富有语义的结构化场景表示这一挑战。能从多源点云中提取并输出精准的建筑元素和带有语义类别的定向物体边界框，显著降低对特定数据采集设备的依赖。</p>
+                        <p class="text-base leading-relaxed mt-2">核心优势在于其<strong class="highlight">卓越的高层语义理解和强大的空间推理能力</strong>。为具身机器人、自主导航、智能家居等领域提供了关键的空间智能基石。将原始三维数据转化为机器可理解的高级语义信息，赋能AI系统更深入地理解并智能地与物理世界交互。</p>
+                        <h4 class="text-xl mt-4 mb-3"><i class="fas fa-chart-line mr-2 text-primary-color"></i>增长分析</h4>
+                        <p class="text-base leading-relaxed">首次上榜，虽然增幅不大，但其<strong class="highlight">前沿的3D LLM概念</strong>和研究价值使其获得广泛关注，潜力巨大。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3><a href="https://github.com/microsoft/magentic-ui" target="_blank" class="text-primary-color hover:underline">microsoft/magentic-ui</a></h3>
+                <p class="text-lg mt-2 mb-4">一个以人为中心的网络智能体研究原型</p>
+                <div class="project-slide-grid mt-6">
+                    <div class="project-stats text-left">
+                        <h4 class="text-xl mb-3"><i class="fas fa-chart-line mr-2 text-primary-color"></i>关键指标</h4>
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr><th>语言</th><th>Star</th><th>在榜</th><th>总上榜</th><th>今日增</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Python</td><td>7118</td><td>1次</td><td>1次</td><td>47</td></tr>
+                            </tbody>
+                        </table>
+                        <ul class="mt-4">
+                            <li><i class="fas fa-star text-secondary-color"></i> Stars: 7.1k</li>
+                            <li><i class="fas fa-code-branch text-secondary-color"></i> Forks: 734</li>
+                            <li><i class="fas fa-eye text-secondary-color"></i> Watchers: 47</li>
+                            <li><i class="fas fa-exclamation-circle text-secondary-color"></i> Issues: 56</li>
+                            <li><i class="fas fa-code-pull-request text-secondary-color"></i> PRs: 18</li>
+                            <li><i class="fas fa-box text-secondary-color"></i> Releases: 7</li>
+                            <li><i class="fas fa-clipboard text-secondary-color"></i> Commits: 395</li>
+                            <li><i class="fas fa-scroll text-secondary-color"></i> License: MIT license</li>
+                            <li><i class="fas fa-users text-secondary-color"></i> Contributors: 28</li>
+                            <li><i class="fab fa-python text-secondary-color"></i> Python: 71.3%, TypeScript: 25.8%...</li>
+                        </ul>
+                    </div>
+                    <div class="project-summary text-left">
+                        <h4 class="text-xl mb-3"><i class="fas fa-file-alt mr-2 text-primary-color"></i>项目速读</h4>
+                        <p class="text-base leading-relaxed">Magentic-UI 是微软推出的<strong class="highlight">以人为中心的多智能体系统研究原型</strong>，旨在自动化复杂的网络任务，同时确保用户始终保持高度控制权。解决了传统自动化工具缺乏透明度和用户介入能力的痛点。</p>
+                        <p class="text-base leading-relaxed mt-2">核心优势在于其<strong class="highlight">独特的人机协作模式</strong>，通过“协作规划”、“协作任务”和“行动守卫”在自动化效率和用户控制之间找到了绝佳平衡。基于微软AutoGen框架，依赖Docker实现安全隔离的代码执行环境。不仅是强大的网络自动化工具，更是探索未来人机智能交互的前沿平台。</p>
+                        <h4 class="text-xl mt-4 mb-3"><i class="fas fa-chart-line mr-2 text-primary-color"></i>增长分析</h4>
+                        <p class="text-base leading-relaxed">首次上榜，获得47 Stars增长，作为微软的AI研究项目，具有<strong class="highlight">显著的品牌效应和技术影响力</strong>。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3><a href="https://github.com/datalab-to/marker" target="_blank" class="text-primary-color hover:underline">datalab-to/marker</a></h3>
+                <p class="text-lg mt-2 mb-4">快速高精度地将 PDF 转换为 markdown + JSON</p>
+                <div class="project-slide-grid mt-6">
+                    <div class="project-stats text-left">
+                        <h4 class="text-xl mb-3"><i class="fas fa-chart-line mr-2 text-primary-color"></i>关键指标</h4>
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr><th>语言</th><th>Star</th><th>在榜</th><th>总上榜</th><th>今日增</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Python</td><td>27559</td><td>1次</td><td>1次</td><td>126</td></tr>
+                            </tbody>
+                        </table>
+                        <ul class="mt-4">
+                            <li><i class="fas fa-star text-secondary-color"></i> Stars: 27.6k</li>
+                            <li><i class="fas fa-code-branch text-secondary-color"></i> Forks: 1.8k</li>
+                            <li><i class="fas fa-eye text-secondary-color"></i> Watchers: 99</li>
+                            <li><i class="fas fa-exclamation-circle text-secondary-color"></i> Issues: 265</li>
+                            <li><i class="fas fa-code-pull-request text-secondary-color"></i> PRs: 33</li>
+                            <li><i class="fas fa-box text-secondary-color"></i> Releases: 62</li>
+                            <li><i class="fas fa-clipboard text-secondary-color"></i> Commits: 1,192</li>
+                            <li><i class="fas fa-scroll text-secondary-color"></i> License: GPL-3.0 license</li>
+                            <li><i class="fas fa-users text-secondary-color"></i> Contributors: 23</li>
+                            <li><i class="fab fa-python text-secondary-color"></i> Python: 99.7%, Shell: 0.3%</li>
+                        </ul>
+                    </div>
+                    <div class="project-summary text-left">
+                        <h4 class="text-xl mb-3"><i class="fas fa-file-alt mr-2 text-primary-color"></i>项目速读</h4>
+                        <p class="text-base leading-relaxed">Marker 是一个高性能、高准确度的文档转换引擎，旨在解决从PDF、图像、Office文件等多种来源中，高效提取并结构化数据的难题。将非结构化信息转化为可被机器理解的Markdown、JSON等标准化格式。</p>
+                        <p class="text-base leading-relaxed mt-2">核心优势在于其<strong class="highlight">卓越的解析能力和处理速度</strong>。能智能识别并精准格式化复杂元素（表格、公式、代码），LLM增强模式进一步提升准确性，甚至能以每秒25页（H100 GPU）的速度批量处理。为数据分析、知识库构建、内容管理系统提供了关键基础。</p>
+                        <h4 class="text-xl mt-4 mb-3"><i class="fas fa-chart-line mr-2 text-primary-color"></i>增长分析</h4>
+                        <p class="text-base leading-relaxed">首次上榜即获得126 Stars增长，且拥有超2.7万总星，表明其<strong class="highlight">在文档处理和AI数据预处理领域具有强大吸引力</strong>。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3><a href="https://github.com/redis/go-redis" target="_blank" class="text-primary-color hover:underline">redis/go-redis</a></h3>
+                <p class="text-lg mt-2 mb-4">Redis Go 客户端</p>
+                <div class="project-slide-grid mt-6">
+                    <div class="project-stats text-left">
+                        <h4 class="text-xl mb-3"><i class="fas fa-chart-line mr-2 text-primary-color"></i>关键指标</h4>
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr><th>语言</th><th>Star</th><th>在榜</th><th>总上榜</th><th>今日增</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Go</td><td>21343</td><td>2次</td><td>3次</td><td>69</td></tr>
+                            </tbody>
+                        </table>
+                        <ul class="mt-4">
+                            <li><i class="fas fa-star text-secondary-color"></i> Stars: 21.3k</li>
+                            <li><i class="fas fa-code-branch text-secondary-color"></i> Forks: 2.5k</li>
+                            <li><i class="fas fa-eye text-secondary-color"></i> Watchers: 260</li>
+                            <li><i class="fas fa-exclamation-circle text-secondary-color"></i> Issues: 55</li>
+                            <li><i class="fas fa-code-pull-request text-secondary-color"></i> PRs: 32</li>
+                            <li><i class="fas fa-box text-secondary-color"></i> Releases: 48</li>
+                            <li><i class="fas fa-clipboard text-secondary-color"></i> Commits: 2,712</li>
+                            <li><i class="fas fa-scroll text-secondary-color"></i> License: BSD-2-Clause license</li>
+                            <li><i class="fas fa-users text-secondary-color"></i> Contributors: 342</li>
+                            <li><i class="fab fa-golang text-secondary-color"></i> Go: 99.8%, Other: 0.2%</li>
+                        </ul>
+                    </div>
+                    <div class="project-summary text-left">
+                        <h4 class="text-xl mb-3"><i class="fas fa-file-alt mr-2 text-primary-color"></i>项目速读</h4>
+                        <p class="text-base leading-relaxed">go-redis 是Go语言官方且功能丰富的Redis客户端库，旨在为Go应用程序提供高效、简洁的接口，实现与Redis数据库的无缝交互。彻底简化了Go应用连接、操作各类Redis数据类型及执行命令的过程。</p>
+                        <p class="text-base leading-relaxed mt-2">核心优势在于其<strong class="highlight">全面性与生产级特性</strong>。支持几乎所有Redis命令，内置自动连接池。对Pub/Sub、管道、事务、Lua脚本、Redis Sentinel、Cluster和Ring等高可用及分布式架构提供深度兼容。是Go开发者构建需要可靠、高效与可扩展Redis交互的各类应用的理想选择。</p>
+                        <h4 class="text-xl mt-4 mb-3"><i class="fas fa-chart-line mr-2 text-primary-color"></i>增长分析</h4>
+                        <p class="text-base leading-relaxed">在4天内上榜3次，今日新增69星远超平均值，表明其<strong class="highlight">增长势头正明显加速</strong>，趋势向好。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3><a href="https://github.com/qarmin/czkawka" target="_blank" class="text-primary-color hover:underline">qarmin/czkawka</a></h3>
+                <p class="text-lg mt-2 mb-4">一款多功能App，可查找重复文件、空文件夹、相似图片等。</p>
+                <div class="project-slide-grid mt-6">
+                    <div class="project-stats text-left">
+                        <h4 class="text-xl mb-3"><i class="fas fa-chart-line mr-2 text-primary-color"></i>关键指标</h4>
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr><th>语言</th><th>Star</th><th>在榜</th><th>总上榜</th><th>今日增</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Rust</td><td>24994</td><td>1次</td><td>1次</td><td>31</td></tr>
+                            </tbody>
+                        </table>
+                        <ul class="mt-4">
+                            <li><i class="fas fa-star text-secondary-color"></i> Stars: 25k</li>
+                            <li><i class="fas fa-code-branch text-secondary-color"></i> Forks: 778</li>
+                            <li><i class="fas fa-eye text-secondary-color"></i> Watchers: 139</li>
+                            <li><i class="fas fa-exclamation-circle text-secondary-color"></i> Issues: 453</li>
+                            <li><i class="fas fa-code-pull-request text-secondary-color"></i> PRs: 5</li>
+                            <li><i class="fas fa-box text-secondary-color"></i> Releases: 37</li>
+                            <li><i class="fas fa-clipboard text-secondary-color"></i> Commits: 663</li>
+                            <li><i class="fas fa-scroll text-secondary-color"></i> License: 未知</li>
+                            <li><i class="fas fa-users text-secondary-color"></i> Contributors: 72</li>
+                            <li><i class="fab fa-rust text-secondary-color"></i> Rust: 51.2%, Fluent: 43.3%...</li>
+                        </ul>
+                    </div>
+                    <div class="project-summary text-left">
+                        <h4 class="text-xl mb-3"><i class="fas fa-file-alt mr-2 text-primary-color"></i>项目速读</h4>
+                        <p class="text-base leading-relaxed">Czkawka 是一款用Rust编写的多功能文件清理应用，旨在高效、安全地帮助用户释放计算机磁盘空间。提供一套全面的工具，能快速查找并清除重复文件、空文件夹、大文件和临时文件，还能智能识别相似图片、视频和音乐。</p>
+                        <p class="text-base leading-relaxed mt-2">最显著优势在于其<strong class="highlight">卓越的性能与安全性</strong>。得益于Rust的内存安全特性，运行稳定可靠。采用先进算法和多线程技术，扫描速度极快。完全免费开源，不联网、不收集用户数据。提供跨平台支持和多种界面，是个人用户和系统管理员清理、维护电脑的理想选择。</p>
+                        <h4 class="text-xl mt-4 mb-3"><i class="fas fa-chart-line mr-2 text-primary-color"></i>增长分析</h4>
+                        <p class="text-base leading-relaxed">首次上榜，拥有近2.5万总星，表明其作为一款<strong class="highlight">高效实用的系统工具</strong>，已在用户中建立良好口碑。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3><a href="https://github.com/Librum-Reader/Librum" target="_blank" class="text-primary-color hover:underline">Librum-Reader/Librum</a></h3>
+                <p class="text-lg mt-2 mb-4">Librum客户端应用程序</p>
+                <div class="project-slide-grid mt-6">
+                    <div class="project-stats text-left">
+                        <h4 class="text-xl mb-3"><i class="fas fa-chart-line mr-2 text-primary-color"></i>关键指标</h4>
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr><th>语言</th><th>Star</th><th>在榜</th><th>总上榜</th><th>今日增</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>C++</td><td>4868</td><td>1次</td><td>1次</td><td>76</td></tr>
+                            </tbody>
+                        </table>
+                        <ul class="mt-4">
+                            <li><i class="fas fa-star text-secondary-color"></i> Stars: 4.9k</li>
+                            <li><i class="fas fa-code-branch text-secondary-color"></i> Forks: 163</li>
+                            <li><i class="fas fa-eye text-secondary-color"></i> Watchers: 43</li>
+                            <li><i class="fas fa-exclamation-circle text-secondary-color"></i> Issues: 25</li>
+                            <li><i class="fas fa-code-pull-request text-secondary-color"></i> PRs: 9</li>
+                            <li><i class="fas fa-box text-secondary-color"></i> Releases: 33</li>
+                            <li><i class="fas fa-clipboard text-secondary-color"></i> Commits: 2,731</li>
+                            <li><i class="fas fa-scroll text-secondary-color"></i> License: GPL-3.0 license</li>
+                            <li><i class="fas fa-users text-secondary-color"></i> Contributors: 12</li>
+                            <li><i class="fas fa-code text-secondary-color"></i> C++: 48.6%, QML: 46.6%...</li>
+                        </ul>
+                    </div>
+                    <div class="project-summary text-left">
+                        <h4 class="text-xl mb-3"><i class="fas fa-file-alt mr-2 text-primary-color"></i>项目速读</h4>
+                        <p class="text-base leading-relaxed">Librum 是一个功能丰富的客户端应用，致力于为用户打造个人化的<strong class="highlight">在线数字图书馆管理系统</strong>。旨在解决传统阅读器功能单一、管理分散的问题，提供一个集阅读、管理与发现为一体的综合平台。</p>
+                        <p class="text-base leading-relaxed mt-2">超越传统阅读器，集成笔记、AI辅助阅读、文本高亮等功能，并提供<strong class="highlight">超过 70,000 本书籍的访问权限</strong>。支持跨设备同步与在线书库管理。主要采用C++开发，可能基于Qt技术构建简洁现代UI，并支持用户自托管。一个开放、自由的数字阅读生态系统，展现了开源项目在赋能用户数字生活方面的巨大潜力。</p>
+                        <h4 class="text-xl mt-4 mb-3"><i class="fas fa-chart-line mr-2 text-primary-color"></i>增长分析</h4>
+                        <p class="text-base leading-relaxed">首次上榜获得76 Stars增长，显示其作为<strong class="highlight">数字阅读管理工具的吸引力</strong>，尤其在注重自托管和开源自由的用户群体中。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3><a href="https://github.com/microsoft/markitdown" target="_blank" class="text-primary-color hover:underline">microsoft/markitdown</a></h3>
+                <p class="text-lg mt-2 mb-4">Python 工具，用于将文件和办公文档转换为 Markdown。</p>
+                <div class="project-slide-grid mt-6">
+                    <div class="project-stats text-left">
+                        <h4 class="text-xl mb-3"><i class="fas fa-chart-line mr-2 text-primary-color"></i>关键指标</h4>
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr><th>语言</th><th>Star</th><th>在榜</th><th>总上榜</th><th>今日增</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Python</td><td>71570</td><td>1次</td><td>16次</td><td>308</td></tr>
+                            </tbody>
+                        </table>
+                        <ul class="mt-4">
+                            <li><i class="fas fa-star text-secondary-color"></i> Stars: 71.6k</li>
+                            <li><i class="fas fa-code-branch text-secondary-color"></i> Forks: 3.9k</li>
+                            <li><i class="fas fa-eye text-secondary-color"></i> Watchers: 251</li>
+                            <li><i class="fas fa-exclamation-circle text-secondary-color"></i> Issues: 252</li>
+                            <li><i class="fas fa-code-pull-request text-secondary-color"></i> PRs: 97</li>
+                            <li><i class="fas fa-box text-secondary-color"></i> Releases: 14</li>
+                            <li><i class="fas fa-clipboard text-secondary-color"></i> Commits: 279</li>
+                            <li><i class="fas fa-scroll text-secondary-color"></i> License: MIT license</li>
+                            <li><i class="fas fa-users text-secondary-color"></i> Contributors: 65</li>
+                            <li><i class="fab fa-python text-secondary-color"></i> Python: 99.4%, Dockerfile: 0.6%</li>
+                        </ul>
+                    </div>
+                    <div class="project-summary text-left">
+                        <h4 class="text-xl mb-3"><i class="fas fa-file-alt mr-2 text-primary-color"></i>项目速读</h4>
+                        <p class="text-base leading-relaxed">MarkItDown 是微软推出的强大Python工具，专门用于将<strong class="highlight">各式文件和办公文档统一转换为结构化的Markdown格式</strong>。核心使命是为大型语言模型（LLM）和相关文本分析管道提供优化、预处理后的输入，解决LLM处理非结构化异构数据时的格式复杂性挑战。</p>
+                        <p class="text-base leading-relaxed mt-2">最显著优势在于<strong class="highlight">深度关注原文逻辑结构的保留</strong>，确保转换后内容既能被LLM高效理解，又能最大限度保留信息上下文。支持极其广泛的文件格式，模块化、可扩展。其价值在于成功搭建异构数据与智能AI模型之间的桥梁，对于构建RAG系统、智能问答等AI应用具有重大意义。</p>
+                        <h4 class="text-xl mt-4 mb-3"><i class="fas fa-chart-line mr-2 text-primary-color"></i>增长分析</h4>
+                        <p class="text-base leading-relaxed">16次上榜，每次带来超1000星增长，总增长达30868。今日新增308星，显示<strong class="highlight">持续且强劲的增长势头</strong>。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3><a href="https://github.com/jitsi/jitsi-meet" target="_blank" class="text-primary-color hover:underline">jitsi/jitsi-meet</a></h3>
+                <p class="text-lg mt-2 mb-4">Jitsi Meet — 安全、简单、可扩展的视频会议，既可作为独立应用使用也可嵌入您的Web应用程序。</p>
+                <div class="project-slide-grid mt-6">
+                    <div class="project-stats text-left">
+                        <h4 class="text-xl mb-3"><i class="fas fa-chart-line mr-2 text-primary-color"></i>关键指标</h4>
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr><th>语言</th><th>Star</th><th>在榜</th><th>总上榜</th><th>今日增</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>TypeScript</td><td>26526</td><td>1次</td><td>2次</td><td>226</td></tr>
+                            </tbody>
+                        </table>
+                        <ul class="mt-4">
+                            <li><i class="fas fa-star text-secondary-color"></i> Stars: 26.5k</li>
+                            <li><i class="fas fa-code-branch text-secondary-color"></i> Forks: 7.4k</li>
+                            <li><i class="fas fa-eye text-secondary-color"></i> Watchers: 513</li>
+                            <li><i class="fas fa-exclamation-circle text-secondary-color"></i> Issues: 108</li>
+                            <li><i class="fas fa-code-pull-request text-secondary-color"></i> PRs: 37</li>
+                            <li><i class="fas fa-box text-secondary-color"></i> Releases: 78</li>
+                            <li><i class="fas fa-clipboard text-secondary-color"></i> Commits: 13,328</li>
+                            <li><i class="fas fa-scroll text-secondary-color"></i> License: Apache-2.0 license</li>
+                            <li><i class="fas fa-users text-secondary-color"></i> Contributors: 515</li>
+                            <li><i class="fab fa-js text-secondary-color"></i> TypeScript: 79.4%, Lua: 7.3%...</li>
+                        </ul>
+                    </div>
+                    <div class="project-summary text-left">
+                        <h4 class="text-xl mb-3"><i class="fas fa-file-alt mr-2 text-primary-color"></i>项目速读</h4>
+                        <p class="text-base leading-relaxed">Jitsi Meet 是一款功能强大、安全、简洁且可扩展的<strong class="highlight">开源视频会议解决方案</strong>。旨在帮助个人和组织轻松部署和使用高质量的在线会议平台，无论是作为独立应用，还是无缝嵌入到现有Web或移动应用中。</p>
+                        <p class="text-base leading-relaxed mt-2">核心优势在于<strong class="highlight">跨平台兼容性</strong>，支持所有主流浏览器及完备移动端应用。开发者可借助其Web和原生SDK，轻松将视频会议能力集成到自己的产品中。采用模块化架构，提供简便部署方式和全面的Docker设置，赋予用户极高的控制权和定制化能力。</p>
+                        <h4 class="text-xl mt-4 mb-3"><i class="fas fa-chart-line mr-2 text-primary-color"></i>增长分析</h4>
+                        <p class="text-base leading-relaxed">三天内两次上榜，本次新增226 Star，远超平均值，表明近期<strong class="highlight">增长势头强劲且加速</strong>，未来有望保持良好发展。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3><a href="https://github.com/dotnet/maui" target="_blank" class="text-primary-color hover:underline">dotnet/maui</a></h3>
+                <p class="text-lg mt-2 mb-4">.NET MAUI 是 .NET 多平台应用 UI，一个用于构建涵盖移动、平板和桌面平台的原生设备应用的框架。</p>
+                <div class="project-slide-grid mt-6">
+                    <div class="project-stats text-left">
+                        <h4 class="text-xl mb-3"><i class="fas fa-chart-line mr-2 text-primary-color"></i>关键指标</h4>
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr><th>语言</th><th>Star</th><th>在榜</th><th>总上榜</th><th>今日增</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>C#</td><td>22851</td><td>1次</td><td>1次</td><td>3</td></tr>
+                            </tbody>
+                        </table>
+                        <ul class="mt-4">
+                            <li><i class="fas fa-star text-secondary-color"></i> Stars: 22.9k</li>
+                            <li><i class="fas fa-code-branch text-secondary-color"></i> Forks: 1.9k</li>
+                            <li><i class="fas fa-eye text-secondary-color"></i> Watchers: 631</li>
+                            <li><i class="fas fa-exclamation-circle text-secondary-color"></i> Issues: 3.9k</li>
+                            <li><i class="fas fa-code-pull-request text-secondary-color"></i> PRs: 547</li>
+                            <li><i class="fas fa-box text-secondary-color"></i> Releases: 117</li>
+                            <li><i class="fas fa-clipboard text-secondary-color"></i> Commits: 17,208</li>
+                            <li><i class="fas fa-scroll text-secondary-color"></i> License: MIT license</li>
+                            <li><i class="fas fa-users text-secondary-color"></i> Contributors: 617</li>
+                            <li><i class="fab fa-microsoft text-secondary-color"></i> C#: 97.9%, PowerShell: 0.8%...</li>
+                        </ul>
+                    </div>
+                    <div class="project-summary text-left">
+                        <h4 class="text-xl mb-3"><i class="fas fa-file-alt mr-2 text-primary-color"></i>项目速读</h4>
+                        <p class="text-base leading-relaxed">.NET MAUI 是由微软开发的开源UI框架，旨在革新原生应用开发。解决了为Android、iOS、macOS和Windows等不同平台独立开发应用的痛点，允许开发者利用C#和XAML，通过单一共享代码库构建高性能、原生的移动、平板及桌面应用。</p>
+                        <p class="text-base leading-relaxed mt-2">核心优势在于其<strong class="highlight">出色的代码复用能力</strong>，显著提升开发效率。作为Xamarin.Forms的下一代演进，将跨平台能力从移动端扩展至桌面端，并深度整合统一.NET SDK、基础类库及强大Visual Studio工具链。为.NET开发者提供了现代化、统一的解决方案，有效应对多设备部署的挑战。</p>
+                        <h4 class="text-xl mt-4 mb-3"><i class="fas fa-chart-line mr-2 text-primary-color"></i>增长分析</h4>
+                        <p class="text-base leading-relaxed">首次上榜，虽增长数量不大，但其作为<strong class="highlight">微软官方跨平台UI框架</strong>，拥有庞大用户基础和巨大潜力。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3><a href="https://github.com/google/wire" target="_blank" class="text-primary-color hover:underline">google/wire</a></h3>
+                <p class="text-lg mt-2 mb-4">Go 编译时依赖注入</p>
+                <div class="project-slide-grid mt-6">
+                    <div class="project-stats text-left">
+                        <h4 class="text-xl mb-3"><i class="fas fa-chart-line mr-2 text-primary-color"></i>关键指标</h4>
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr><th>语言</th><th>Star</th><th>在榜</th><th>总上榜</th><th>今日增</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Go</td><td>14050</td><td>1次</td><td>1次</td><td>8</td></tr>
+                            </tbody>
+                        </table>
+                        <ul class="mt-4">
+                            <li><i class="fas fa-star text-secondary-color"></i> Stars: 14.1k</li>
+                            <li><i class="fas fa-code-branch text-secondary-color"></i> Forks: 665</li>
+                            <li><i class="fas fa-eye text-secondary-color"></i> Watchers: 111</li>
+                            <li><i class="fas fa-exclamation-circle text-secondary-color"></i> Issues: 86</li>
+                            <li><i class="fas fa-code-pull-request text-secondary-color"></i> PRs: 24</li>
+                            <li><i class="fas fa-box text-secondary-color"></i> Releases: 7</li>
+                            <li><i class="fas fa-clipboard text-secondary-color"></i> Commits: 198</li>
+                            <li><i class="fas fa-scroll text-secondary-color"></i> License: 未知</li>
+                            <li><i class="fas fa-users text-secondary-color"></i> Contributors: 30</li>
+                            <li><i class="fab fa-golang text-secondary-color"></i> Go: 95.6%, Shell: 4.4%</li>
+                        </ul>
+                    </div>
+                    <div class="project-summary text-left">
+                        <h4 class="text-xl mb-3"><i class="fas fa-file-alt mr-2 text-primary-color"></i>项目速读</h4>
+                        <p class="text-base leading-relaxed">Wire是Google为Go语言开发的<strong class="highlight">编译时依赖注入（DI）代码生成工具</strong>。旨在解决Go应用程序中组件初始化和连接的复杂性问题，通过自动化“装配”过程，鼓励开发者通过函数参数而非全局变量明确表达依赖关系，提升代码可读性和可维护性。</p>
+                        <p class="text-base leading-relaxed mt-2">核心优势在于其独特的<strong class="highlight">编译时代码生成机制</strong>。在编译阶段直接生成纯Go语言代码来管理组件依赖，避免运行时反射开销，确保原生Go的极致性能和严谨的类型安全性。适用于追求高性能、强类型安全以及清晰架构的Go项目。已达到高度成熟，重心在于稳定性和错误修复。</p>
+                        <h4 class="text-xl mt-4 mb-3"><i class="fas fa-chart-line mr-2 text-primary-color"></i>增长分析</h4>
+                        <p class="text-base leading-relaxed">首次上榜，拥有超1.4万总星，作为<strong class="highlight">Google出品的Go语言DI工具</strong>，其权威性和实用性不言而喻，受关注是必然。</p>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Final Slide: Thank You / Call to Action -->
+            <section class="gradient-bg text-center flex flex-col justify-center items-center">
+                <h2 class="text-5xl font-bold mb-6 text-white"><i class="fas fa-handshake mr-3"></i>感谢聆听！</h2>
+                <p class="text-3xl mb-8 text-white">Stay Tuned for More Tech Insights!</p>
+                <div class="footer-logo">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        <i class="fab fa-github fa-2x text-white"></i> <span class="text-white">github.com/aichipera/github-trend</span>
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="微信公众号二维码" class="ml-4">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+            fragments: true, // Enable fragments for progressive disclosure
+
+            // Optional: Add plugins here if needed
+            // plugins: [ ]
+        });
+
+        // Initialize Mermaid for diagrams if any are present (though none added in this output)
+        if (typeof mermaid !== 'undefined') {
+            mermaid.initialize({ startOnLoad: true });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,810 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>GitHub最新趋势：打造自主可靠系统，你的下一代开发利器！</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        :root {
+            --r-background-color: #F9FAFB; /* Light Gray Background */
+            --r-main-font: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: 'Noto Serif SC', serif;
+            --r-main-font-size: 1.1rem;
+            --r-heading-font-size-1: 3rem; /* Adjusted for impact */
+            --r-heading-font-size-2: 2.2rem;
+            --r-heading-font-size-3: 1.8rem;
+            --r-heading-font-size-4: 1.5rem;
+            --r-heading-font-weight: 700;
+            --r-main-color: #1F2937; /* Dark Gray Text */
+            --r-link-color: #667EEA; /* Primary Accent Blue */
+            --r-link-color-hover: #8B5CF6; /* Secondary Accent Violet */
+            --r-selection-background-color: #D1D5DB; /* Light Gray Selection */
+        }
+
+        .reveal .slides section {
+            text-align: left;
+            padding: 0 5%;
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--r-main-color);
+            text-shadow: none;
+            text-transform: none; /* No uppercase for Chinese */
+            letter-spacing: normal;
+        }
+        .reveal h1 { font-size: var(--r-heading-font-size-1); }
+        .reveal h2 { font-size: var(--r-heading-font-size-2); }
+        .reveal h3 { font-size: var(--r-heading-font-size-3); }
+        .reveal h4 { font-size: var(--r-heading-font-size-4); }
+
+        .reveal p, .reveal li {
+            font-family: var(--r-main-font);
+            font-size: var(--r-main-font-size);
+            line-height: 1.6;
+            color: var(--r-main-color);
+        }
+
+        .reveal small {
+            font-size: 0.8em;
+            color: #6B7280;
+        }
+
+        .reveal strong {
+            color: var(--r-link-color);
+        }
+
+        .reveal .controls {
+            z-index: 1000; /* Ensure controls are above footer */
+        }
+
+        /* Custom Styles for Aha Moment & Modern Look */
+        .reveal .slides {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            border-radius: 10px;
+            overflow: hidden; /* For background images */
+        }
+
+        .reveal .backgrounds {
+            opacity: 0.8; /* Subtle background */
+        }
+
+        .reveal .slide-number {
+            font-size: 0.7em;
+            color: #9CA3AF;
+        }
+
+        /* Cover slide specific styling */
+        .cover-slide {
+            background: linear-gradient(135deg, #667EEA 0%, #8B5CF6 100%);
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10%;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .cover-slide h1 {
+            color: white;
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+        .cover-slide p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.8rem;
+            margin-top: 0;
+            line-height: 1.4;
+        }
+        .cover-slide .speaker-info {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .cover-slide .disclaimer {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            position: absolute;
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            text-align: center;
+        }
+
+        /* QR Code and Project Link Footer */
+        .slide-footer {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9em;
+            color: #6B7280; /* Adjust for background visibility */
+            z-index: 99;
+        }
+        .slide-footer.dark-text {
+            color: #1F2937;
+        }
+        .slide-footer.light-text {
+            color: #D1D5DB;
+        }
+        .slide-footer img {
+            height: 60px; /* Adjust QR size */
+            width: 60px;
+            border-radius: 5px;
+        }
+        .slide-footer a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .slide-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Specific section styling */
+        .section-header {
+            text-align: center;
+            padding-bottom: 2rem;
+        }
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--r-link-color);
+            margin-bottom: 0.5rem;
+        }
+        .section-header p {
+            font-size: 1.2rem;
+            color: #4B5563;
+        }
+
+        /* Content cards/boxes for project details */
+        .project-card {
+            background: #FFFFFF;
+            border-radius: 10px;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .project-card:hover {
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        .project-card h3 {
+            color: #38B2AC; /* Teal accent */
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+        }
+        .project-card .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            color: #4B5563;
+        }
+        .project-card .stats-grid div {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .project-card .stats-grid i {
+            color: var(--r-link-color);
+        }
+        .project-card .lang-dist {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #6B7280;
+        }
+        .project-card .lang-dist span {
+            display: inline-block;
+            margin-right: 0.8rem;
+            background-color: #E5E7EB;
+            padding: 0.2rem 0.6rem;
+            border-radius: 5px;
+        }
+        .project-summary {
+            font-size: 1rem;
+            color: #374151;
+            margin-top: 1rem;
+        }
+        .growth-analysis {
+            font-size: 0.95rem;
+            color: #555;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed #E5E7EB;
+        }
+        .growth-analysis i {
+            color: #38B2AC; /* Teal accent for growth */
+        }
+
+        .highlight-box {
+            background: linear-gradient(45deg, #EBF5F5, #E8F0FE);
+            border-left: 5px solid #38B2AC;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #2D3748;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .highlight-box strong {
+            color: #38B2AC;
+        }
+
+        /* Fragment animations */
+        .reveal .has-fragments .fragment.fade-in {
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+        .reveal .has-fragments .fragment.fade-in.visible {
+            opacity: 1;
+        }
+        .reveal .has-fragments .fragment.grow {
+            transform: scale(0.8);
+            opacity: 0;
+            transition: all 0.5s ease-out;
+        }
+        .reveal .has-fragments .fragment.grow.visible {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        /* Specific layout for trend analysis */
+        .grid-3-col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .trend-item {
+            background: #FFFFFF;
+            padding: 1.2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            text-align: center;
+            border-bottom: 3px solid var(--r-link-color);
+        }
+        .trend-item h4 {
+            font-size: 1.3rem;
+            color: var(--r-link-color);
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .trend-item p {
+            font-size: 0.95rem;
+            color: #4B5563;
+        }
+        .trend-item i {
+            font-size: 2.5rem;
+            color: var(--r-link-color-hover);
+            margin-bottom: 0.5rem;
+        }
+
+        .lang-trend-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: #FFFFFF;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            margin-bottom: 10px;
+        }
+        .lang-trend-item .icon {
+            font-size: 2rem;
+            color: #38B2AC;
+        }
+        .lang-trend-item .content h4 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #1F2937;
+        }
+        .lang-trend-item .content p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #6B7280;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Cover Slide -->
+            <section class="cover-slide" data-background-image="https://images.unsplash.com/photo-1510519138101-570d1dca3d66?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-background-size="cover" data-background-color="#334155">
+                <h1 class="text-white">GitHub最新趋势：<br>打造自主可靠系统，你的下一代开发利器！</h1>
+                <p class="text-white text-3xl opacity-90 mt-4">洞察先机，掌握未来！速转分享给技术圈！</p>
+                <div class="speaker-info">
+                    <p>演讲者: AIChipEra</p>
+                    <p>Github热门仓库日报观测时间: 2025-08-18 21:04:55</p>
+                </div>
+                <small class="disclaimer">以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！</small>
+                <div class="slide-footer light-text">
+                    <img src="../../asserts/wx.jpg" alt="微信二维码">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">
+                        项目链接: github.com/aichipera/github-trend
+                    </a>
+                </div>
+            </section>
+
+            <!-- 日报要点 -->
+            <section>
+                <div class="section-header">
+                    <h2><i class="fas fa-lightbulb text-purple-600 mr-2"></i>日报要点：Aha Moment 的核心洞察</h2>
+                    <p class="text-gray-600">从“能用智能”到“用好智能”——技术社区迈向深水区</p>
+                </div>
+                <div class="grid grid-cols-2 gap-8 text-lg mt-8">
+                    <div class="fragment fade-in">
+                        <h3 class="text-indigo-600"><i class="fas fa-brain mr-2"></i>智能代理：精准、自主、可靠</h3>
+                        <p>告别行为失控，聚焦构建能<strong>精准理解、自主规划并可靠执行</strong>任务的智能代理。</p>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h3 class="text-indigo-600"><i class="fas fa-code mr-2"></i>效率集成：桌面自动化到知识管理</h3>
+                        <p>核心在于<strong>掌控行为、高效集成</strong>，提升开发效率，打造下一代生产力工具。</p>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h3 class="text-indigo-600"><i class="fas fa-star mr-2"></i>双轮驱动：Python与TypeScript</h3>
+                        <p><strong>Python</strong>在AI/ML领域主导，<strong>TypeScript</strong>在现代Web应用和基础设施中持续发力。</p>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h3 class="text-indigo-600"><i class="fas fa-chart-line mr-2"></i>未来展望：AI工程化与落地</h3>
+                        <p>AI正从概念验证走向深度工程化与产业落地，<strong>精细控制与无缝集成</strong>成主旋律。</p>
+                    </div>
+                </div>
+                <small class="block text-center mt-12 text-gray-500">
+                    本PPT可在线查看：<a href="https://aichipera.github.io/github-trend/daily/2025-08-18/ppt.html" target="_blank" class="text-teal-600 hover:underline">https://aichipera.github.io/github-trend/daily/2025-08-18/ppt.html</a>
+                </small>
+            </section>
+
+            <!-- 热门项目趋势分析 - 今日整体趋势 -->
+            <section>
+                <div class="section-header">
+                    <h2><i class="fas fa-chart-area text-purple-600 mr-2"></i>今日GitHub热门项目：整体趋势深度解析</h2>
+                    <p class="text-gray-600">AI深度应用与AI代理可靠性、可控性及自主化是核心焦点</p>
+                </div>
+                <div class="grid grid-cols-2 gap-6 mt-8">
+                    <div class="fragment fade-in grow">
+                        <div class="highlight-box">
+                            <h4 class="text-indigo-600"><i class="fas fa-robot mr-2"></i>AI Agent：从调用到可控执行</h4>
+                            <p>项目如 <strong>Archon</strong> 和 <strong>Parlant</strong> 不止调用 LLM，更构建能<strong>自主规划、理解复杂指令</strong>的AI代理。</p>
+                            <p class="text-sm text-gray-500 mt-2">Parlant强调“教导原则而非脚本”，解决幻觉与行为一致性难题；Bytebot拓展AI至桌面自动化。</p>
+                        </div>
+                    </div>
+                    <div class="fragment fade-in grow">
+                        <div class="highlight-box">
+                            <h4 class="text-indigo-600"><i class="fas fa-book-open mr-2"></i>知识管理与RAG：LLM性能关键</h4>
+                            <p><strong>检索增强生成（RAG）</strong>日益重要，为AI提供精准、动态更新的项目上下文，提升代码生成质量。</p>
+                            <p class="text-sm text-gray-500 mt-2">如Archon通过RAG策略和向量搜索，解决LLM获取整合外部知识的瓶颈。</p>
+                        </div>
+                    </div>
+                    <div class="fragment fade-in grow">
+                        <div class="highlight-box">
+                            <h4 class="text-indigo-600"><i class="fas fa-laptop-code mr-2"></i>编程语言：Python与TypeScript领跑</h4>
+                            <p><strong>Python</strong>主导AI/ML（Archon, Parlant, OpenBB），<strong>TypeScript</strong>在后端框架（Motia）、桌面AI代理（Bytebot）表现强劲。</p>
+                            <p class="text-sm text-gray-500 mt-2">Jupyter Notebook仍是学习与实践LLM底层原理的利器。</p>
+                        </div>
+                    </div>
+                    <div class="fragment fade-in grow">
+                        <div class="highlight-box">
+                            <h4 class="text-indigo-600"><i class="fas fa-cogs mr-2"></i>需求转变：从“能用AI”到“用好AI”</h4>
+                            <ul class="list-disc ml-6 mt-2 text-base">
+                                <li><strong>可靠性与安全性：</strong>强调行为控制、数据隐私。</li>
+                                <li><strong>统一与集成：</strong>如Motia致力于统一API、工作流、AI代理。</li>
+                                <li><strong>自主化与效率：</strong>AI如何更高效完成复杂任务。</li>
+                                <li><strong>深度理解：</strong>系统化学习AI与数据基础知识需求旺盛。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 热门项目趋势分析 - 热点变化与对比 -->
+            <section>
+                <div class="section-header">
+                    <h2><i class="fas fa-fire text-purple-600 mr-2"></i>热点变化与双日维度对比</h2>
+                    <p class="text-gray-600">洞察项目生命周期与技术风向</p>
+                </div>
+                <div class="grid grid-cols-2 gap-8 mt-8">
+                    <div class="fragment fade-in">
+                        <h3 class="text-indigo-600"><i class="fas fa-plus-circle mr-2"></i>新晋热点项目</h3>
+                        <ul class="list-disc ml-6 mt-4 text-base">
+                            <li><strong>immich-app/immich:</strong> 高性能自托管照片视频管理</li>
+                            <li><strong>rasbt/llms-from-scratch:</strong> 从零构建LLM教程</li>
+                            <li><strong>mfts/papermark:</strong> DocSend开源替代，内置分析</li>
+                            <li><strong>enescingoz/awesome-n8n-templates:</strong> n8n自动化模板</li>
+                            <li><strong>bytebot-ai/bytebot:</strong> 自托管AI桌面代理</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h3 class="text-indigo-600"><i class="fas fa-arrow-alt-circle-up mr-2"></i>持续热门项目</h3>
+                        <ul class="list-disc ml-6 mt-4 text-base">
+                            <li><strong>coleam00/Archon</strong> (3次上榜)</li>
+                            <li><strong>emcie-co/parlant</strong> (3次上榜)</li>
+                            <li><strong>PixiEditor/PixiEditor</strong> (3次上榜)</li>
+                            <li><strong>Shubhamsaboo/awesome-llm-apps</strong> (3次上榜)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fragment fade-in mt-8">
+                    <h3 class="text-indigo-600"><i class="fas fa-chart-bar mr-2"></i>语言趋势：TypeScript强势，Jupyter活跃</h3>
+                    <div class="grid grid-cols-2 gap-4 mt-4">
+                        <div class="lang-trend-item">
+                            <i class="fas fa-arrow-up icon"></i>
+                            <div class="content">
+                                <h4>TypeScript 持续强劲</h4>
+                                <p>新增两项目，巩固在现代Web和应用构建地位。</p>
+                            </div>
+                        </div>
+                        <div class="lang-trend-item">
+                            <i class="fas fa-flask icon"></i>
+                            <div class="content">
+                                <h4>Jupyter Notebook 活跃</h4>
+                                <p>印证机器学习和数据科学研究的热度。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-4 text-center">AI应用和相关生态构建正持续深入发展。</p>
+                </div>
+            </section>
+
+            <!-- 详细仓库数据 - Vertical Sections -->
+            <section>
+                <h2><i class="fas fa-folder-open text-purple-600 mr-2"></i>热门仓库：深入洞察</h2>
+                <p class="text-gray-600">探索每个项目如何引领技术前沿</p>
+                <small class="block text-center mt-8">（请向下滑动查看详细内容）</small>
+            </section>
+
+            <!-- Project: coleam00/Archon -->
+            <section>
+                <section>
+                    <div class="project-card">
+                        <h3 class="text-teal-600"><a href="https://github.com/coleam00/Archon" target="_blank">coleam00/Archon</a></h3>
+                        <p class="text-gray-700"><strong>简介:</strong> AI编码助手的知识与任务管理中枢。</p>
+                        <div class="stats-grid">
+                            <div><i class="fas fa-star"></i> 8403 Stars</div>
+                            <div><i class="fas fa-code"></i> Python</div>
+                            <div><i class="fas fa-chart-line"></i> 连续在榜3次</div>
+                        </div>
+                        <div class="lang-dist">
+                            语言占比: <span>Python 55.9%</span> <span>TypeScript 41.3%</span>
+                        </div>
+                        <div class="project-summary mt-4">
+                            <p><strong>速读:</strong> Archon OS 是一个前瞻性的知识与任务管理中枢，专为提升 AI 编程助手的效率而设计。它解决了当前 AI 工具在处理复杂项目时，缺乏统一上下文和知识库支持的痛点。通过作为 Model Context Protocol (MCP) 服务器，Archon 能够将各类 AI 编程工具汇聚起来，共享项目知识、上下文与任务信息，从而显著优化 AI 生成代码的质量与准确性。</p>
+                        </div>
+                        <div class="growth-analysis">
+                            <p><i class="fas fa-arrow-up"></i> <strong>增长分析:</strong> 该仓库增长势头强劲，且近期增长有显著加速趋势，最近一次新增高达1367星。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: emcie-co/parlant -->
+            <section>
+                <section>
+                    <div class="project-card">
+                        <h3 class="text-teal-600"><a href="https://github.com/emcie-co/parlant" target="_blank">emcie-co/parlant</a></h3>
+                        <p class="text-gray-700"><strong>简介:</strong> 控制型LLM代理，专为实际应用设计，几分钟内完成部署。</p>
+                        <div class="stats-grid">
+                            <div><i class="fas fa-star"></i> 5463 Stars</div>
+                            <div><i class="fas fa-code"></i> Python</div>
+                            <div><i class="fas fa-chart-line"></i> 连续在榜3次</div>
+                        </div>
+                        <div class="lang-dist">
+                            语言占比: <span>Python 89.1%</span> <span>Gherkin 6.0%</span>
+                        </div>
+                        <div class="project-summary mt-4">
+                            <p><strong>速读:</strong> Parlant 是一个基于 Python 的创新 AI Agent 框架，旨在解决当前LLM代理在实际应用中普遍存在的指令不遵循、产生幻觉以及行为不一致等核心难题。其核心优势在于独特的“教导原则而非脚本”方法论，允许开发者通过自然语言定义行为准则，确保代理行为的高度可靠性、可预测性和一致性。</p>
+                        </div>
+                        <div class="growth-analysis">
+                            <p><i class="fas fa-arrow-up"></i> <strong>增长分析:</strong> 连续3天上榜，曝光度极高，今日新增1120 Star，远超平均，呈显著加速趋势。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: DataExpert-io/data-engineer-handbook -->
+            <section>
+                <section>
+                    <div class="project-card">
+                        <h3 class="text-teal-600"><a href="https://github.com/DataExpert-io/data-engineer-handbook" target="_blank">DataExpert-io/data-engineer-handbook</a></h3>
+                        <p class="text-gray-700"><strong>简介:</strong> 包含所有数据工程学习资源的仓库。</p>
+                        <div class="stats-grid">
+                            <div><i class="fas fa-star"></i> 36.6k Stars</div>
+                            <div><i class="fas fa-code"></i> Jupyter Notebook</div>
+                            <div><i class="fas fa-chart-line"></i> 总上榜9次</div>
+                        </div>
+                        <div class="lang-dist">
+                            语言占比: <span>Jupyter Notebook 66.9%</span> <span>Python 26.3%</span>
+                        </div>
+                        <div class="project-summary mt-4">
+                            <p><strong>速读:</strong> “The Data Engineering Handbook”是一个备受推崇且增长迅速的GitHub仓库，旨在成为数据工程师学习与职业发展的终极综合指南。它解决了数据工程领域信息分散、学习路径不清晰的痛点，通过精心策划和系统组织，将海量高质量资源汇集于一处。</p>
+                        </div>
+                        <div class="growth-analysis">
+                            <p><i class="fas fa-arrow-up"></i> <strong>增长分析:</strong> 约三个月内9次上榜，增长势头强劲且持续，总增长达8772星，显示高效且稳健的星数积累趋势。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: rasbt/LLMs-from-scratch -->
+            <section>
+                <section>
+                    <div class="project-card">
+                        <h3 class="text-teal-600"><a href="https://github.com/rasbt/LLMs-from-scratch" target="_blank">rasbt/LLMs-from-scratch</a></h3>
+                        <p class="text-gray-700"><strong>简介:</strong> 从零开始，使用PyTorch一步步实现一个类ChatGPT的大语言模型。</p>
+                        <div class="stats-grid">
+                            <div><i class="fas fa-star"></i> 64.4k Stars</div>
+                            <div><i class="fas fa-code"></i> Jupyter Notebook</div>
+                            <div><i class="fas fa-chart-line"></i> 总上榜6次</div>
+                        </div>
+                        <div class="lang-dist">
+                            语言占比: <span>Jupyter Notebook 76.5%</span> <span>Python 23.5%</span>
+                        </div>
+                        <div class="project-summary mt-4">
+                            <p><strong>速读:</strong> rasbt/LLMs-from-scratch 是配套书籍《从零构建大型语言模型》的官方代码库，旨在为学习者提供一条清晰、实践性强的路径，以PyTorch从零开始开发、预训练并微调一个类似ChatGPT的LLM。它解决了LLM技术普及但内部工作原理难以深入理解的痛点。</p>
+                        </div>
+                        <div class="growth-analysis">
+                            <p><i class="fas fa-arrow-up"></i> <strong>增长分析:</strong> 近两个月6次上榜是其星标高速增长关键，累计星标增长超1.2万，趋势持续卓越。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: enescingoz/awesome-n8n-templates -->
+            <section>
+                <section>
+                    <div class="project-card">
+                        <h3 class="text-teal-600"><a href="https://github.com/enescingoz/awesome-n8n-templates" target="_blank">enescingoz/awesome-n8n-templates</a></h3>
+                        <p class="text-gray-700"><strong>简介:</strong> n8n自动化模板精选集，大幅提升工作流自动化能力。</p>
+                        <div class="stats-grid">
+                            <div><i class="fas fa-star"></i> 9k Stars</div>
+                            <div><i class="fas fa-code"></i> N/A</div>
+                            <div><i class="fas fa-chart-line"></i> 新晋上榜</div>
+                        </div>
+                        <div class="lang-dist">
+                            语言占比: N/A
+                        </div>
+                        <div class="project-summary mt-4">
+                            <p><strong>速读:</strong> 该项目旨在解决传统工作流搭建的复杂性与耗时问题，通过汇聚大量“开箱即用”的预设方案，帮助用户快速实现各类任务的自动化，从而显著提升个人与团队的工作效率。许多模板深度融合了OpenAI、ChatGPT、LangChain等先进的AI技术，赋予工作流智能化的特性。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: PixiEditor/PixiEditor -->
+            <section>
+                <section>
+                    <div class="project-card">
+                        <h3 class="text-teal-600"><a href="https://github.com/PixiEditor/PixiEditor" target="_blank">PixiEditor/PixiEditor</a></h3>
+                        <p class="text-gray-700"><strong>简介:</strong> PixiEditor 是一款能满足您所有2D需求的通用编辑器。</p>
+                        <div class="stats-grid">
+                            <div><i class="fas fa-star"></i> 4.3k Stars</div>
+                            <div><i class="fas fa-code"></i> C#</div>
+                            <div><i class="fas fa-chart-line"></i> 连续在榜3次</div>
+                        </div>
+                        <div class="lang-dist">
+                            语言占比: <span>C# 100.0%</span>
+                        </div>
+                        <div class="project-summary mt-4">
+                            <p><strong>速读:</strong> PixiEditor是一款功能强大的通用2D图形编辑器，旨在满足用户从像素艺术到矢量图形的各类创作需求。其核心创新在于独特的“节点渲染系统”，将图像中的所有图层、效果和结构抽象为可连接的节点，赋予用户极高的自由度来定制和处理图像。</p>
+                        </div>
+                        <div class="growth-analysis">
+                            <p><i class="fas fa-arrow-up"></i> <strong>增长分析:</strong> 3天内上榜3次，总计增长958 Star，平均每次400。今日新增496 Star，高于平均，势头积极。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: immich-app/immich -->
+            <section>
+                <section>
+                    <div class="project-card">
+                        <h3 class="text-teal-600"><a href="https://github.com/immich-app/immich" target="_blank">immich-app/immich</a></h3>
+                        <p class="text-gray-700"><strong>简介:</strong> 高性能自托管照片和视频管理解决方案。</p>
+                        <div class="stats-grid">
+                            <div><i class="fas fa-star"></i> 73.1k Stars</div>
+                            <div><i class="fas fa-code"></i> TypeScript</div>
+                            <div><i class="fas fa-chart-line"></i> 新晋上榜</div>
+                        </div>
+                        <div class="lang-dist">
+                            语言占比: <span>TypeScript 44.0%</span> <span>Dart 35.8%</span>
+                        </div>
+                        <div class="project-summary mt-4">
+                            <p><strong>速读:</strong> Immich是一个高性能的自托管照片和视频管理解决方案，旨在赋能用户完全掌控个人媒体文件，解决传统云服务可能带来的隐私和控制权缺失问题。它将用户数据隐私置于首位，允许用户在自己的服务器上安全高效地管理海量照片和视频。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: Shubhamsaboo/awesome-llm-apps -->
+            <section>
+                <section>
+                    <div class="project-card">
+                        <h3 class="text-teal-600"><a href="https://github.com/Shubhamsaboo/awesome-llm-apps" target="_blank">Shubhamsaboo/awesome-llm-apps</a></h3>
+                        <p class="text-gray-700"><strong>简介:</strong> 精选的LLM应用合集，结合AI智能体和RAG技术。</p>
+                        <div class="stats-grid">
+                            <div><i class="fas fa-star"></i> 59.3k Stars</div>
+                            <div><i class="fas fa-code"></i> Python</div>
+                            <div><i class="fas fa-chart-line"></i> 连续在榜3次</div>
+                        </div>
+                        <div class="lang-dist">
+                            语言占比: <span>Python 63.1%</span> <span>JavaScript 28.4%</span>
+                        </div>
+                        <div class="project-summary mt-4">
+                            <p><strong>速读:</strong> “Awesome LLM Apps”是一个极为活跃且备受关注的 GitHub 仓库，它精心汇集了基于大型语言模型（LLM）构建的各类卓越应用。其核心价值在于为开发者和学习者提供了一个宝贵的资源库，用以探索LLM在实际场景中的创新应用，特别是突出AI智能体和检索增强生成（RAG）两大前沿技术。</p>
+                        </div>
+                        <div class="growth-analysis">
+                            <p><i class="fas fa-arrow-up"></i> <strong>增长分析:</strong> 近五个月上榜26次，总Star激增39002，高频上榜与持续增长表明其具有极强的吸引力及活跃度。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: MotiaDev/motia -->
+            <section>
+                <section>
+                    <div class="project-card">
+                        <h3 class="text-teal-600"><a href="https://github.com/MotiaDev/motia" target="_blank">MotiaDev/motia</a></h3>
+                        <p class="text-gray-700"><strong>简介:</strong> 现代化后端框架，将API、后台任务、工作流和AI智能体统一整合。</p>
+                        <div class="stats-grid">
+                            <div><i class="fas fa-star"></i> 6369 Stars</div>
+                            <div><i class="fas fa-code"></i> TypeScript</div>
+                            <div><i class="fas fa-chart-line"></i> 连续在榜2次</div>
+                        </div>
+                        <div class="lang-dist">
+                            语言占比: <span>TypeScript 74.5%</span> <span>MDX 17.4%</span>
+                        </div>
+                        <div class="project-summary mt-4">
+                            <p><strong>速读:</strong> Motia 是一个创新的现代后端框架，旨在终结当前后端开发中普遍存在的碎片化问题。它将传统的 API、后台任务、复杂工作流乃至新兴的 AI 代理功能，统一整合到一个高度内聚的单一系统中，从而显著简化了应用的开发、部署和运维全生命周期。</p>
+                        </div>
+                        <div class="growth-analysis">
+                            <p><i class="fas fa-arrow-up"></i> <strong>增长分析:</strong> 约一个半月内高频上榜8次，总星数增长3411，今日新增311星高于平均，呈现加速增长趋势。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: OpenBB-finance/OpenBB -->
+            <section>
+                <section>
+                    <div class="project-card">
+                        <h3 class="text-teal-600"><a href="https://github.com/OpenBB-finance/OpenBB" target="_blank">OpenBB-finance/OpenBB</a></h3>
+                        <p class="text-gray-700"><strong>简介:</strong> 面向人类和AI代理的财务数据聚合器。</p>
+                        <div class="stats-grid">
+                            <div><i class="fas fa-star"></i> 50.1k Stars</div>
+                            <div><i class="fas fa-code"></i> Python</div>
+                            <div><i class="fas fa-chart-line"></i> 连续在榜2次</div>
+                        </div>
+                        <div class="lang-dist">
+                            语言占比: <span>Python 100.0%</span>
+                        </div>
+                        <div class="project-summary mt-4">
+                            <p><strong>速读:</strong> OpenBB Platform 是一个领先的开源金融数据聚合器，致力于为个人用户和AI代理提供全面、易于访问的金融市场数据。它旨在解决传统金融数据获取门槛高、来源分散的问题，通过一个统一且高度模块化的平台，汇集了股票、期权、加密货币、外汇以及宏观经济数据等多种金融工具信息。</p>
+                        </div>
+                        <div class="growth-analysis">
+                            <p><i class="fas fa-arrow-up"></i> <strong>增长分析:</strong> 13次上榜中累计增长13031 Star，平均每次新增308 Star。今日新增506 Star，显著高于平均，增长势头强劲。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: bytebot-ai/bytebot -->
+            <section>
+                <section>
+                    <div class="project-card">
+                        <h3 class="text-teal-600"><a href="https://github.com/bytebot-ai/bytebot" target="_blank">bytebot-ai/bytebot</a></h3>
+                        <p class="text-gray-700"><strong>简介:</strong> 自托管AI桌面代理，通过自然语言命令自动化电脑任务。</p>
+                        <div class="stats-grid">
+                            <div><i class="fas fa-star"></i> 1455 Stars</div>
+                            <div><i class="fas fa-code"></i> TypeScript</div>
+                            <div><i class="fas fa-chart-line"></i> 新晋上榜</div>
+                        </div>
+                        <div class="lang-dist">
+                            语言占比: <span>TypeScript 91.4%</span>
+                        </div>
+                        <div class="project-summary mt-4">
+                            <p><strong>速读:</strong> Bytebot是一款创新的自托管AI桌面代理，旨在为人工智能提供一个完整的、容器化的Linux虚拟桌面环境。它彻底解决了传统AI自动化工具或API难以处理的复杂、跨应用、需要深度桌面交互的任务，赋予AI像人类一样操作电脑的全新能力。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: mfts/papermark -->
+            <section>
+                <section>
+                    <div class="project-card">
+                        <h3 class="text-teal-600"><a href="https://github.com/mfts/papermark" target="_blank">mfts/papermark</a></h3>
+                        <p class="text-gray-700"><strong>简介:</strong> Papermark 是 DocSend 的开源替代方案，内置分析和自定义域名。</p>
+                        <div class="stats-grid">
+                            <div><i class="fas fa-star"></i> 7.1k Stars</div>
+                            <div><i class="fas fa-code"></i> TypeScript</div>
+                            <div><i class="fas fa-chart-line"></i> 新晋上榜</div>
+                        </div>
+                        <div class="lang-dist">
+                            语言占比: <span>TypeScript 99.4%</span>
+                        </div>
+                        <div class="project-summary mt-4">
+                            <p><strong>速读:</strong> Papermark 是一个强大的开源 DocSend 替代方案，致力于解决文档安全分享与效果追踪的难题。它为用户提供了一个功能全面的平台，能够生成可分享的自定义链接，并借助内置的深度分析工具，实时追踪文档的访问次数、停留时长乃至未来的逐页阅读行为。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- End Slide -->
+            <section class="cover-slide" data-background-image="https://images.unsplash.com/photo-1510519138101-570d1dca3d66?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" data-background-size="cover" data-background-color="#334155">
+                <h2 class="text-white">感谢聆听！</h2>
+                <p class="text-white text-3xl opacity-90 mt-4">洞察先机，掌握未来，与AIChipEra共同进步！</p>
+                <div class="mt-12 text-center">
+                    <h3 class="text-white">期待您的关注与Star！</h3>
+                    <div class="slide-footer light-text absolute bottom-20 right-20">
+                        <img src="../../asserts/wx.jpg" alt="微信二维码">
+                        <a href="https://github.com/aichipera/github-trend" target="_blank">
+                            项目链接: github.com/aichipera/github-trend
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        // Full list of Reveal.js options can be found here:
+        // https://revealjs.com/config/
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            overview: true, // Enable overview mode with 'Esc'
+            slideNumber: true, // Show slide number
+
+            // Learn about transitions: https://revealjs.com/transitions/
+            transition: 'fade', // none/fade/slide/convex/concave/zoom
+            transitionSpeed: 'default', // default/fast/slow
+
+            // Vertical sliding transitions
+            // Each section can have its own transition.
+            // https://revealjs.com/vertical-slides/
+
+            // Fragments for progressive reveal
+            // https://revealjs.com/fragments/
+            fragments: true,
+
+            // Optional Reveal.js plugins.
+            plugins: [
+                // Highlight plugin for code highlighting
+                RevealHighlight
+            ]
+        });
+
+        // Initialize Mermaid for diagrams (if any)
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default'
+        });
+    </script>
+</body>
+</html>

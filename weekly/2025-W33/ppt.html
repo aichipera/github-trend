@@ -1,0 +1,888 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub爆火项目透视：自主化、本地化成主流！</title>
+
+    <!-- Core Reveal.js Framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- Extension Dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        body {
+            font-family: "Noto Sans SC", Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            color: #333; /* Default text color */
+        }
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: "Noto Serif SC", serif;
+            color: #333; /* Darker titles */
+        }
+        .reveal .slides section h1 {
+            font-size: 2.8rem; /* Custom title size */
+            line-height: 1.2;
+            margin-bottom: 0.5em;
+        }
+        .reveal .slides section h2 {
+            font-size: 2.2rem; /* Subtitle size */
+            line-height: 1.3;
+            margin-bottom: 0.5em;
+        }
+        .reveal .slides section h3 {
+            font-size: 1.8rem; /* Sub-section title size */
+            line-height: 1.3;
+            margin-bottom: 0.5em;
+        }
+        .reveal .slides section p, .reveal .slides section li {
+            font-size: 1.1rem; /* Body text size */
+            line-height: 1.6;
+        }
+        .reveal .slides section .text-sm {
+            font-size: 0.9rem; /* Smaller text for notes/details */
+        }
+
+        /* Custom background for the cover slide */
+        .slide-background-cover {
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1518770660439-4636190af170?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Futuristic tech image */
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Gradient for certain sections */
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f4f8 0%, #e0e7ef 100%);
+        }
+
+        /* Highlight box for key points */
+        .highlight-box {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-left: 5px solid #6200EE; /* Deep Purple */
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+        .highlight-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Icon styling */
+        .icon-large {
+            font-size: 3rem;
+            color: #007bff; /* Primary blue */
+        }
+        .icon-medium {
+            font-size: 2rem;
+            color: #28a745; /* Success green */
+        }
+
+        /* Fragment animations */
+        .reveal .fragment.fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal .fragment.fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal .fragment.zoom-in {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal .fragment.zoom-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* QR code and link positioning */
+        .bottom-right-fixed {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: flex-end;
+            z-index: 1000;
+        }
+        .bottom-right-fixed img {
+            width: 80px;
+            height: 80px;
+            margin-right: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .bottom-right-fixed a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+        /* Override for white theme on QR/link */
+        .reveal.white .bottom-right-fixed a {
+            color: #333;
+            text-shadow: none;
+        }
+        .reveal.white .bottom-right-fixed img {
+             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Table styling */
+        .project-table th, .project-table td {
+            padding: 0.6rem 1rem;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+        .project-table th {
+            background-color: #f8f8f8;
+            font-weight: 600;
+        }
+        .project-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden; /* For rounded corners */
+        }
+
+        /* Progress Bar for language/star distribution */
+        .progress-bar-container {
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+        .progress-bar {
+            height: 20px;
+            background-color: #4CAF50; /* Green */
+            text-align: center;
+            color: white;
+            line-height: 20px;
+            border-radius: 5px;
+        }
+        .progress-bar.blue { background-color: #007bff; }
+        .progress-bar.purple { background-color: #6200EE; }
+        .progress-bar.red { background-color: #dc3545; }
+        .progress-bar.orange { background-color: #fd7e14; }
+        .progress-bar.cyan { background-color: #17a2b8; }
+
+        /* Specific styles for Project Read section */
+        .project-detail-section {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+            padding: 1rem 0;
+        }
+        .project-detail-section .summary-text {
+            flex: 2;
+        }
+        .project-detail-section .stats-box {
+            flex: 1;
+            background-color: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            font-size: 0.95rem;
+        }
+        .project-detail-section .stats-box ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .project-detail-section .stats-box ul li {
+            margin-bottom: 0.5rem;
+        }
+        .project-detail-section .stats-box ul li strong {
+            color: #6200EE;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Cover Slide -->
+            <section data-background-class="slide-background-cover" data-transition="zoom">
+                <div class="text-center p-8 rounded-lg" style="background-color: rgba(255, 255, 255, 0.1);">
+                    <h1 class="text-white text-5xl font-bold leading-tight" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.6);">
+                        <span class="text-yellow-400">🔥</span> 今日最火爆的开源项目都在这 <span class="text-yellow-400">⭐️</span>
+                    </h1>
+                    <h2 class="text-white text-4xl font-semibold mt-4" style="text-shadow: 1px 1px 6px rgba(0,0,0,0.5);">
+                        大厂都在用的黑科技？<br>
+                        GitHub爆火项目透视：自主化、本地化成主流！
+                    </h2>
+                    <p class="text-gray-300 text-xl mt-6">
+                        GitHub热门仓库<span class="font-bold">周报</span>观测时间：<br>
+                        <span class="text-white text-2xl font-semibold">2025-08-17 21:25:07</span>
+                    </p>
+                    <p class="text-red-300 text-sm italic mt-4">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！
+                    </p>
+                    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white">
+                        <p class="text-lg">演讲者: AIChipEra</p>
+                    </div>
+                </div>
+                <div class="bottom-right-fixed">
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="block">
+                        <i class="fab fa-github mr-2"></i>项目链接: <br>github.com/aichipera/github-trend
+                    </a>
+                </div>
+            </section>
+
+            <!-- 周报要点 - The "Aha!" Moment Intro -->
+            <section data-transition="slide">
+                <h2 class="text-center mb-10 text-5xl font-bold text-gray-800">
+                    <i class="fas fa-bullhorn text-blue-500 mr-3"></i>周报要点：把握未来科技浪潮！
+                </h2>
+                <div class="grid grid-cols-2 gap-8 text-left">
+                    <div class="fragment fade-in-up" data-fragment-index="1">
+                        <div class="highlight-box">
+                            <h3 class="text-purple-700 text-3xl mb-2"><i class="fas fa-robot mr-3"></i>自主化 Agent：AI生产力革命！</h3>
+                            <p class="text-gray-700 text-lg">
+                                大量项目致力构建<strong class="text-purple-600">模拟人类操作</strong>、自主完成复杂任务的智能系统（如字节跳动UI-TARS），预示生产力革命。
+                            </p>
+                        </div>
+                    </div>
+                    <div class="fragment fade-in-up" data-fragment-index="2">
+                        <div class="highlight-box">
+                            <h3 class="text-green-700 text-3xl mb-2"><i class="fas fa-lock mr-3"></i>本地化优先：数据隐私尽在掌控！</h3>
+                            <p class="text-gray-700 text-lg">
+                                对数据隐私的强烈需求催生<strong class="text-green-600">“本地优先”方案</strong>（如Jan），让数据在掌控中。
+                            </p>
+                        </div>
+                    </div>
+                    <div class="fragment fade-in-up" data-fragment-index="3">
+                        <div class="highlight-box">
+                            <h3 class="text-red-700 text-3xl mb-2"><i class="fas fa-code mr-3"></i>主流语言与新秀：技术栈演进！</h3>
+                            <p class="text-gray-700 text-lg">
+                                <strong class="text-red-600">TypeScript、Go、Python、Rust</strong>持续领跑，<strong class="text-red-600">PHP高效框架</strong>也异军突起。
+                            </p>
+                        </div>
+                    </div>
+                    <div class="fragment fade-in-up" data-fragment-index="4">
+                        <div class="highlight-box">
+                            <h3 class="text-indigo-700 text-3xl mb-2"><i class="fas fa-wrench mr-3"></i>大模型工具调用：走向成熟！</h3>
+                            <p class="text-gray-700 text-lg">
+                                技术从理论走向<strong class="text-indigo-600">应用落地</strong>，特别是大模型<strong class="text-indigo-600">“工具调用”能力</strong>正日趋成熟。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center text-xl mt-8 fragment fade-in-up" data-fragment-index="5">
+                    抢先看懂这些趋势，把握未来技术发展的脉搏！
+                </p>
+            </section>
+
+            <!-- 热门项目趋势分析 - 本周整体趋势 -->
+            <section data-transition="slide">
+                <h2 class="text-center mb-8 text-5xl font-bold text-gray-800">
+                    <i class="fas fa-chart-line text-green-500 mr-3"></i>AI浪潮下的开源新范式：整体趋势
+                </h2>
+                <div class="grid grid-cols-2 gap-8">
+                    <div class="p-4 bg-white rounded-lg shadow-md">
+                        <h3 class="text-2xl font-semibold mb-3 text-blue-700">AI Agent与本地化AI主导</h3>
+                        <ul class="list-disc list-inside space-y-2 text-lg text-gray-700">
+                            <li class="fragment fade-in-up">AI从模型调用走向<strong class="text-blue-600">自主操作Agent时代</strong>。</li>
+                            <li class="fragment fade-in-up">数据隐私需求催生<strong class="text-blue-600">“本地优先”解决方案</strong>爆发（Jan, OpenAI Codex）。</li>
+                            <li class="fragment fade-in-up">Umami、Syncthing持续走红印证隐私趋势。</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 bg-white rounded-lg shadow-md">
+                        <h3 class="text-2xl font-semibold mb-3 text-red-700">编程语言主流与亮点</h3>
+                        <ul class="list-disc list-inside space-y-2 text-lg text-gray-700">
+                            <li class="fragment fade-in-up"><strong class="text-red-600">TypeScript</strong>：前端、全栈及AI Agent界面。</li>
+                            <li class="fragment fade-in-up"><strong class="text-red-600">Go</strong>：后端基础设施、云原生工具。</li>
+                            <li class="fragment fade-in-up"><strong class="text-red-600">Python</strong>：AI/LLM项目首选。</li>
+                            <li class="fragment fade-in-up"><strong class="text-red-600">Rust</strong>：高性能、内存安全系统级应用。</li>
+                            <li class="fragment fade-in-up"><strong class="text-red-600">PHP</strong>：高效UI框架与AI平台异军突起。</li>
+                        </ul>
+                    </div>
+                    <div class="col-span-2 p-4 bg-white rounded-lg shadow-md fragment fade-in-up">
+                        <h3 class="text-2xl font-semibold mb-3 text-purple-700">三大核心需求与未来展望</h3>
+                        <ul class="list-disc list-inside space-y-2 text-lg text-gray-700">
+                            <li><strong class="text-purple-600">智能自动化</strong>：AI Agent解放人类，完成复杂任务。</li>
+                            <li><strong class="text-purple-600">数据主权与隐私</strong>：自托管、去中心化方案备受青睐。</li>
+                            <li><strong class="text-purple-600">开发效率极致追求</strong>：AI辅助编程、高效框架加速开发。</li>
+                            <li class="fragment fade-in-up"><strong class="text-purple-600">显著特点</strong>：AI项目“应用层”创新与“落地”趋势更明显，特别是“模型上下文协议（MCP）”旨在解决大模型“幻觉”问题，工具调用趋于成熟。</li>
+                            <li class="fragment fade-in-up"><strong class="text-purple-600">未来展望</strong>：AI Agent垂直化、AI原生应用、AI伦理安全、分布式AI部署管理。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 热门项目双周维度对比分析 -->
+            <section data-transition="slide">
+                <h2 class="text-center mb-8 text-5xl font-bold text-gray-800">
+                    <i class="fas fa-sync-alt text-purple-500 mr-3"></i>热门项目：双周趋势对比
+                </h2>
+                <div class="grid grid-cols-2 gap-8 text-left">
+                    <div class="p-4 bg-white rounded-lg shadow-md fragment fade-in-up">
+                        <h3 class="text-2xl font-semibold mb-3 text-blue-700"><i class="fas fa-plus-circle mr-2"></i>新晋项目与活跃度</h3>
+                        <ul class="list-disc list-inside space-y-2 text-lg text-gray-700">
+                            <li>新晋项目数量：<strong class="text-blue-600">15个</strong>，创造力旺盛。</li>
+                            <li>整体上升趋势：仅<strong class="text-blue-600">1个</strong>，热度集中。</li>
+                            <li>无项目下降，表明当前热点聚焦。</li>
+                            <li>新晋项目领域广泛：开发工具、AI、前端、基础设施。</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 bg-white rounded-lg shadow-md fragment fade-in-up">
+                        <h3 class="text-2xl font-semibold mb-3 text-red-700"><i class="fas fa-language mr-2"></i>编程语言分布变化</h3>
+                        <ul class="list-disc list-inside space-y-2 text-lg text-gray-700">
+                            <li><strong class="text-red-600">TypeScript、Go、PHP</strong>：强劲增长势头。</li>
+                            <li>新兴项目贡献突出：DevOps、Web应用、底层服务。</li>
+                            <li><strong class="text-red-600">Python、C、C++</strong>：略有下降，新亮点不足。</li>
+                        </ul>
+                    </div>
+                    <div class="col-span-2 p-4 bg-white rounded-lg shadow-md fragment fade-in-up">
+                        <h3 class="text-2xl font-semibold mb-3 text-green-700"><i class="fas fa-star mr-2"></i>焦点项目：OpenAI Codex</h3>
+                        <p class="text-gray-700 text-lg">
+                            <strong class="text-green-600 text-2xl">高达1617颗星的增幅</strong>，成为当日涨幅冠军。
+                            <br>
+                            强烈预示<strong class="text-green-600 text-2xl">AI辅助编程和代码生成领域爆发式关注</strong>，成为当下技术社区焦点。
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 热点变化 & 编程语言分布 & Star分布 -->
+            <section data-transition="slide">
+                <h2 class="text-center mb-8 text-5xl font-bold text-gray-800">
+                    <i class="fas fa-grip-horizontal text-orange-500 mr-3"></i>深入洞察：热点与分布
+                </h2>
+                <div class="grid grid-cols-2 gap-8 text-left">
+                    <div class="p-4 bg-white rounded-lg shadow-md fragment fade-in-up">
+                        <h3 class="text-2xl font-semibold mb-3 text-blue-700"><i class="fas fa-fire mr-2"></i>新增与减退热点</h3>
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div>
+                                <h4 class="font-bold text-green-600 mb-1">新增热点 <i class="fas fa-arrow-up"></i></h4>
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li>menloresearch/jan</li>
+                                    <li>umami-software/umami</li>
+                                    <li>external-secrets/external-secrets</li>
+                                    <li>xiaoyaocz/dart_simple_live</li>
+                                    <li>tadata-org/fastapi_mcp</li>
+                                    <li>jitsi/jitsi-meet</li>
+                                    <li>idosal/git-mcp</li>
+                                    <li>dtyq/magic</li>
+                                    <li>syncthing/syncthing</li>
+                                    <li>conductor-oss/conductor</li>
+                                    <li>librespot-org/librespot</li>
+                                    <li>lfnovo/open-notebook</li>
+                                    <li>filosottile/mkcert</li>
+                                    <li>bytedance/ui-tars-desktop</li>
+                                    <li>filamentphp/filament</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-red-600 mb-1">减退热点 <i class="fas fa-arrow-down"></i></h4>
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li>dyad-sh/dyad</li>
+                                    <li>vllm-project/vllm</li>
+                                    <li>nautechsystems/nautilus_trader</li>
+                                    <li>actualbudget/actual</li>
+                                    <li>ggml-org/llama.cpp</li>
+                                    <li>browserbase/stagehand</li>
+                                    <li>lvgl/lvgl</li>
+                                    <li>python-poetry/poetry</li>
+                                    <li>openai/openai-cookbook</li>
+                                    <li>microsoft/mcp-for-beginners</li>
+                                    <li>ollama/ollama</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-white rounded-lg shadow-md">
+                        <h3 class="text-2xl font-semibold mb-3 text-purple-700"><i class="fas fa-chart-pie mr-2"></i>编程语言分布</h3>
+                        <ul class="list-none p-0 m-0 text-lg space-y-2 fragment fade-in-up">
+                            <li><strong class="text-purple-600">TypeScript:</strong> 5个项目 (31.2%)
+                                <div class="progress-bar-container"><div class="progress-bar purple" style="width: 31.2%;"></div></div>
+                            </li>
+                            <li><strong class="text-purple-600">Go:</strong> 3个项目 (18.8%)
+                                <div class="progress-bar-container"><div class="progress-bar purple" style="width: 18.8%;"></div></div>
+                            </li>
+                            <li><strong class="text-purple-600">PHP:</strong> 2个项目 (12.5%)
+                                <div class="progress-bar-container"><div class="progress-bar purple" style="width: 12.5%;"></div></div>
+                            </li>
+                            <li><strong class="text-purple-600">Python:</strong> 2个项目 (12.5%)
+                                <div class="progress-bar-container"><div class="progress-bar purple" style="width: 12.5%;"></div></div>
+                            </li>
+                            <li><strong class="text-purple-600">Rust:</strong> 2个项目 (12.5%)
+                                <div class="progress-bar-container"><div class="progress-bar purple" style="width: 12.5%;"></div></div>
+                            </li>
+                            <li><strong class="text-purple-600">Dart:</strong> 1个项目 (6.2%)
+                                <div class="progress-bar-container"><div class="progress-bar purple" style="width: 6.2%;"></div></div>
+                            </li>
+                            <li><strong class="text-purple-600">Java:</strong> 1个项目 (6.2%)
+                                <div class="progress-bar-container"><div class="progress-bar purple" style="width: 6.2%;"></div></div>
+                            </li>
+                        </ul>
+                        <h3 class="text-2xl font-semibold mt-6 mb-3 text-red-700"><i class="fas fa-star-half-alt mr-2"></i>Star分布</h3>
+                        <ul class="list-none p-0 m-0 text-lg space-y-2 fragment fade-in-up">
+                            <li><strong class="text-red-600">1k-5k:</strong> 2个项目 (12.5%)
+                                <div class="progress-bar-container"><div class="progress-bar red" style="width: 12.5%;"></div></div>
+                            </li>
+                            <li><strong class="text-red-600">5k-10k:</strong> 4个项目 (25.0%)
+                                <div class="progress-bar-container"><div class="progress-bar red" style="width: 25.0%;"></div></div>
+                            </li>
+                            <li><strong class="text-red-600">10k-50k:</strong> 8个项目 (50.0%)
+                                <div class="progress-bar-container"><div class="progress-bar red" style="width: 50.0%;"></div></div>
+                            </li>
+                            <li><strong class="text-red-600">50k以上:</strong> 2个项目 (12.5%)
+                                <div class="progress-bar-container"><div class="progress-bar red" style="width: 12.5%;"></div></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 热门项目排名 -->
+            <section data-transition="slide">
+                <h2 class="text-center mb-8 text-5xl font-bold text-gray-800">
+                    <i class="fas fa-trophy text-yellow-500 mr-3"></i>热门项目：Top 10 榜单
+                </h2>
+                <div class="grid grid-cols-2 gap-x-12 gap-y-6 text-left text-lg">
+                    <div class="fragment fade-in-up" data-fragment-index="1">
+                        <p class="mb-1 text-gray-700"><span class="text-blue-600 font-bold text-xl">1.</span> <a href="https://github.com/syncthing/syncthing" target="_blank" class="text-blue-700 hover:underline"><strong>syncthing/syncthing</strong></a></p>
+                        <p class="text-sm italic text-gray-500 ml-6"><i class="fas fa-star text-yellow-400"></i> 75023 - 开源持续文件同步</p>
+                    </div>
+                    <div class="fragment fade-in-up" data-fragment-index="2">
+                        <p class="mb-1 text-gray-700"><span class="text-blue-600 font-bold text-xl">2.</span> <a href="https://github.com/FiloSottile/mkcert" target="_blank" class="text-blue-700 hover:underline"><strong>FiloSottile/mkcert</strong></a></p>
+                        <p class="text-sm italic text-gray-500 ml-6"><i class="fas fa-star text-yellow-400"></i> 56055 - 本地信任开发证书工具</p>
+                    </div>
+                    <div class="fragment fade-in-up" data-fragment-index="3">
+                        <p class="mb-1 text-gray-700"><span class="text-blue-600 font-bold text-xl">3.</span> <a href="https://github.com/menloresearch/jan" target="_blank" class="text-blue-700 hover:underline"><strong>menloresearch/jan</strong></a></p>
+                        <p class="text-sm italic text-gray-500 ml-6"><i class="fas fa-star text-yellow-400"></i> 37096 - 离线ChatGPT开源替代</p>
+                    </div>
+                    <div class="fragment fade-in-up" data-fragment-index="4">
+                        <p class="mb-1 text-gray-700"><span class="text-blue-600 font-bold text-xl">4.</span> <a href="https://github.com/openai/codex" target="_blank" class="text-blue-700 hover:underline"><strong>openai/codex</strong></a></p>
+                        <p class="text-sm italic text-gray-500 ml-6"><i class="fas fa-star text-yellow-400"></i> 35273 - 轻量级终端编程助手</p>
+                    </div>
+                    <div class="fragment fade-in-up" data-fragment-index="5">
+                        <p class="mb-1 text-gray-700"><span class="text-blue-600 font-bold text-xl">5.</span> <a href="https://github.com/umami-software/umami" target="_blank" class="text-blue-700 hover:underline"><strong>umami-software/umami</strong></a></p>
+                        <p class="text-sm italic text-gray-500 ml-6"><i class="fas fa-star text-yellow-400"></i> 30090 - 隐私优先的谷歌分析替代</p>
+                    </div>
+                    <div class="fragment fade-in-up" data-fragment-index="6">
+                        <p class="mb-1 text-gray-700"><span class="text-blue-600 font-bold text-xl">6.</span> <a href="https://github.com/jitsi/jitsi-meet" target="_blank" class="text-blue-700 hover:underline"><strong>jitsi/jitsi-meet</strong></a></p>
+                        <p class="text-sm italic text-gray-500 ml-6"><i class="fas fa-star text-yellow-400"></i> 26708 - 安全、简单、可扩展视频会议</p>
+                    </div>
+                    <div class="fragment fade-in-up" data-fragment-index="7">
+                        <p class="mb-1 text-gray-700"><span class="text-blue-600 font-bold text-xl">7.</span> <a href="https://github.com/conductor-oss/conductor" target="_blank" class="text-blue-700 hover:underline"><strong>conductor-oss/conductor</strong></a></p>
+                        <p class="text-sm italic text-gray-500 ml-6"><i class="fas fa-star text-yellow-400"></i> 26073 - 事件驱动编排平台</p>
+                    </div>
+                    <div class="fragment fade-in-up" data-fragment-index="8">
+                        <p class="mb-1 text-gray-700"><span class="text-blue-600 font-bold text-xl">8.</span> <a href="https://github.com/filamentphp/filament" target="_blank" class="text-blue-700 hover:underline"><strong>filamentphp/filament</strong></a></p>
+                        <p class="text-sm italic text-gray-500 ml-6"><i class="fas fa-star text-yellow-400"></i> 25775 - Laravel开源UI框架</p>
+                    </div>
+                    <div class="fragment fade-in-up" data-fragment-index="9">
+                        <p class="mb-1 text-gray-700"><span class="text-blue-600 font-bold text-xl">9.</span> <a href="https://github.com/bytedance/UI-TARS-desktop" target="_blank" class="text-blue-700 hover:underline"><strong>bytedance/UI-TARS-desktop</strong></a></p>
+                        <p class="text-sm italic text-gray-500 ml-6"><i class="fas fa-star text-yellow-400"></i> 17135 - 开源多模态AI智能体栈</p>
+                    </div>
+                    <div class="fragment fade-in-up" data-fragment-index="10">
+                        <p class="mb-1 text-gray-700"><span class="text-blue-600 font-bold text-xl">10.</span> <a href="https://github.com/xiaoyaocz/dart_simple_live" target="_blank" class="text-blue-700 hover:underline"><strong>xiaoyaocz/dart_simple_live</strong></a></p>
+                        <p class="text-sm italic text-gray-500 ml-6"><i class="fas fa-star text-yellow-400"></i> 12548 - 简简单单的看直播</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Detailed Repository Data - Vertical Slides -->
+            <section>
+                <h2 class="text-center mb-8 text-5xl font-bold text-gray-800">
+                    <i class="fas fa-flask text-indigo-500 mr-3"></i>详细仓库数据：深度解读
+                </h2>
+                <p class="text-center text-xl text-gray-700">
+                    点击向下箭头 <i class="fas fa-arrow-down text-indigo-500"></i> 查看每个项目的独特价值！
+                </p>
+
+                <!-- Project: menloresearch/jan -->
+                <section data-transition="fade">
+                    <h3 class="text-3xl mb-4 text-purple-700"><i class="fas fa-user-secret mr-3"></i>menloresearch/jan: 您的专属离线AI助手！</h3>
+                    <p class="text-lg mb-4 italic text-gray-600">项目简介: Jan是一款开源的ChatGPT替代品，可在您的电脑上100%离线运行。</p>
+                    <div class="project-detail-section">
+                        <div class="summary-text">
+                            <h4 class="text-xl font-semibold mb-2 text-blue-700">项目速读：隐私优先的本地AI革命</h4>
+                            <p class="text-gray-700">
+                                Jan是一款创新的开源本地AI助手，旨在提供<strong class="text-blue-600">完全离线运行的ChatGPT替代方案</strong>。它解决了用户对数据隐私和云端AI服务依赖的担忧，通过在用户电脑上本地运行大型语言模型（LLMs），实现对AI的完全控制。
+                                <br><br>
+                                核心优势在于<strong class="text-blue-600">“隐私优先”的设计理念</strong>，所有AI操作均在本地安全完成。用户可以从HuggingFace等平台下载并运行Llama、Gemma、Qwen等多种主流LLM，同时支持连接OpenAI、Anthropic等主流云端服务。技术上，Jan客户端采用轻量级Tauri框架，底层依赖Llama.cpp高效运行本地模型，并提供OpenAI兼容API。
+                                <br><br>
+                                Jan为追求数据主权和隐私的用户提供了强大、灵活且无需持续联网的AI交互平台。
+                            </p>
+                        </div>
+                        <div class="stats-box">
+                            <h4 class="font-bold mb-2">项目概览</h4>
+                            <ul>
+                                <li><strong>Stars:</strong> 37.1k ⭐ (新增: 1652)</li>
+                                <li><strong>Forks:</strong> 2.2k 🔄</li>
+                                <li><strong>语言:</strong> TypeScript (73.7%), Rust (10.3%)</li>
+                                <li><strong>许可:</strong> Apache-2.0</li>
+                                <li><strong>贡献者:</strong> 95 👥</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Project: bytedance/UI-TARS-desktop -->
+                <section data-transition="fade">
+                    <h3 class="text-3xl mb-4 text-purple-700"><i class="fas fa-desktop mr-3"></i>bytedance/UI-TARS-desktop: 字节跳动AI Agent！</h3>
+                    <p class="text-lg mb-4 italic text-gray-600">项目简介: 开源多模态AI智能体栈，连接尖端AI模型与智能体基础设施。</p>
+                    <div class="project-detail-section">
+                        <div class="summary-text">
+                            <h4 class="text-xl font-semibold mb-2 text-blue-700">项目速读：AI模拟人类操作，自动化新纪元</h4>
+                            <p class="text-gray-700">
+                                ByteDance 开源的 TARS 是一个前沿的多模态 AI Agent 栈，旨在赋予人工智能<strong class="text-blue-600">模拟人类操作、完成复杂任务的能力</strong>。它将图形用户界面（GUI）代理和视觉能力引入终端、桌面、浏览器等各类环境中。
+                                <br><br>
+                                核心优势在于强大的<strong class="text-blue-600">多模态能力</strong>，能基于尖端大语言模型（LLMs）和视觉理解，实现对各种应用界面的精确感知与控制（自动预订机票、生成图表等）。基于多模态通信协议（MCP）构建，使其具备卓越的灵活性和可扩展性，能够无缝集成和利用各类真实世界工具。UI-TARS Desktop 提供免费且无需配置的远程计算机和浏览器操作功能。
+                                <br><br>
+                                TARS 的出现，标志着 AI Agent 在模拟人类行为、实现跨应用自动化方面迈出了重要一步。
+                            </p>
+                        </div>
+                        <div class="stats-box">
+                            <h4 class="font-bold mb-2">项目概览</h4>
+                            <ul>
+                                <li><strong>Stars:</strong> 17.1k ⭐ (新增: 1136)</li>
+                                <li><strong>Forks:</strong> 1.5k 🔄</li>
+                                <li><strong>语言:</strong> TypeScript (92.9%)</li>
+                                <li><strong>许可:</strong> Apache-2.0</li>
+                                <li><strong>贡献者:</strong> 38 👥</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Project: external-secrets/external-secrets -->
+                <section data-transition="fade">
+                    <h3 class="text-3xl mb-4 text-purple-700"><i class="fas fa-key mr-3"></i>external-secrets/external-secrets: Kubernetes密钥安全桥梁</h3>
+                    <p class="text-lg mb-4 italic text-gray-600">项目简介: 外部密钥操作符从 AWS 密钥管理器等第三方服务读取信息，并自动将这些值作为 Kubernetes 密钥注入。</p>
+                    <div class="project-detail-section">
+                        <div class="summary-text">
+                            <h4 class="text-xl font-semibold mb-2 text-blue-700">项目速读：简化Kubernetes敏感数据管理</h4>
+                            <p class="text-gray-700">
+                                external-secrets 是一个 Kubernetes 操作符，旨在<strong class="text-blue-600">简化在 Kubernetes 环境中敏感数据的管理</strong>。它充当了 Kubernetes 集群与各种外部密钥管理系统（AWS Secrets Manager, HashiCorp Vault等）之间的安全桥梁。核心功能是<strong class="text-blue-600">自动从外部服务读取敏感信息，并将其注入为标准的Kubernetes Secret</strong>。
+                                <br><br>
+                                主要优势在于其<strong class="text-blue-600">广泛的集成能力和自动化同步机制</strong>，能够与主流云服务和企业级密钥管理解决方案无缝对接。作为 Kubernetes 原生组件，它与 Kubernetes 生态系统深度融合，易于部署和管理。
+                                <br><br>
+                                <strong class="text-red-600">重要提示：</strong> 项目目前面临维护团队人手不足挑战，已暂停官方SemVer版本发布和官方技术支持，未来发展依赖社区积极贡献。
+                            </p>
+                        </div>
+                        <div class="stats-box">
+                            <h4 class="font-bold mb-2">项目概览</h4>
+                            <ul>
+                                <li><strong>Stars:</strong> 5.6k ⭐ (新增: 272)</li>
+                                <li><strong>Forks:</strong> 1k 🔄</li>
+                                <li><strong>语言:</strong> Go (97.7%)</li>
+                                <li><strong>许可:</strong> Apache-2.0</li>
+                                <li><strong>贡献者:</strong> 525 👥</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Project: dtyq/magic -->
+                <section data-transition="fade">
+                    <h3 class="text-3xl mb-4 text-purple-700"><i class="fas fa-magic mr-3"></i>dtyq/magic: 超级麦吉 - 一体化AI生产力平台</h3>
+                    <p class="text-lg mb-4 italic text-gray-600">项目简介: 超级麦吉。首个开源一体化AI生产力平台（通用AI代理 + 工作流引擎 + 即时通讯 + 在线协作办公系统）</p>
+                    <div class="project-detail-section">
+                        <div class="summary-text">
+                            <h4 class="text-xl font-semibold mb-2 text-blue-700">项目速读：企业级AI应用一站式解决方案</h4>
+                            <p class="text-gray-700">
+                                “Magic”是一个创新的<strong class="text-blue-600">开源一体化AI生产力平台</strong>，旨在赋能企业快速构建、部署和应用AI能力。它并非单一的AI工具，而是一个由通用型AI Agent、可视化工作流引擎、即时通讯系统及底层基础设施构成的<strong class="text-blue-600">综合性产品矩阵</strong>。
+                                <br><br>
+                                核心优势体现在其三大组件：<strong class="text-blue-600">Super Magic</strong>作为通用型AI Agent，具备强大的自主理解、规划、行动和纠错能力；<strong class="text-blue-600">Magic Flow</strong>是可视化AI工作流编排系统，支持无代码设计AI驱动业务流程；<strong class="text-blue-600">Magic IM</strong>将AI Agent深度融入企业内部沟通。
+                                <br><br>
+                                “Magic”以其模块化、可视化和高度集成的设计，为企业提供了全面的AI解决方案，使其能够便捷地将AI能力融入日常运营与协作中。
+                            </p>
+                        </div>
+                        <div class="stats-box">
+                            <h4 class="font-bold mb-2">项目概览</h4>
+                            <ul>
+                                <li><strong>Stars:</strong> 2.1k ⭐ (新增: 539)</li>
+                                <li><strong>Forks:</strong> 239 🔄</li>
+                                <li><strong>语言:</strong> PHP (51.7%), TypeScript (32.6%)</li>
+                                <li><strong>许可:</strong> 未知</li>
+                                <li><strong>贡献者:</strong> 19 👥</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Project: tadata-org/fastapi_mcp -->
+                <section data-transition="fade">
+                    <h3 class="text-3xl mb-4 text-purple-700"><i class="fas fa-plug mr-3"></i>tadata-org/fastapi_mcp: 大模型与外部工具无缝连接！</h3>
+                    <p class="text-lg mb-4 italic text-gray-600">项目简介: 将 FastAPI 端点暴露为模型上下文协议（MCP）工具，支持认证！</p>
+                    <div class="project-detail-section">
+                        <div class="summary-text">
+                            <h4 class="text-xl font-semibold mb-2 text-blue-700">项目速读：告别大模型“幻觉”的利器</h4>
+                            <p class="text-gray-700">
+                                fastapimcp 是一个Python库，旨在为FastAPI框架提供创新方案：将FastAPI应用的API端点<strong class="text-blue-600">无缝转换为模型上下文协议（MCP）工具</strong>，并集成强大认证功能。核心目的是打破LLM与外部服务壁垒，使LLM能够<strong class="text-blue-600">通过标准化、安全且高效的接口，直接调用FastAPI后端功能</strong>。
+                                <br><br>
+                                最大的亮点在于其与FastAPI的深度原生集成，利用FastAPI依赖注入机制，为MCP端点提供内置认证与授权支持。设计实现了<strong class="text-blue-600">零到最小的配置需求</strong>，同时保留了FastAPI请求响应模型的元数据和文档信息。效率高，避免了不必要的HTTP调用开销。
+                                <br><br>
+                                fastapimcp提供了一个高效、安全且易于使用的桥梁，使FastAPI应用能轻松融入LLM生态系统，极大地简化了构建智能代理和自动化工作流的复杂性。
+                            </p>
+                        </div>
+                        <div class="stats-box">
+                            <h4 class="font-bold mb-2">项目概览</h4>
+                            <ul>
+                                <li><strong>Stars:</strong> 8.9k ⭐ (新增: 1912)</li>
+                                <li><strong>Forks:</strong> 697 🔄</li>
+                                <li><strong>语言:</strong> Python (100.0%)</li>
+                                <li><strong>许可:</strong> MIT</li>
+                                <li><strong>贡献者:</strong> 15 👥</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Project: openai/codex -->
+                <section data-transition="fade">
+                    <h3 class="text-3xl mb-4 text-purple-700"><i class="fas fa-terminal mr-3"></i>openai/codex: 终端里的智能编程助手</h3>
+                    <p class="text-lg mb-4 italic text-gray-600">项目简介: 轻量级终端编程助手</p>
+                    <div class="project-detail-section">
+                        <div class="summary-text">
+                            <h4 class="text-xl font-semibold mb-2 text-blue-700">项目速读：本地AI编程，高效与隐私兼得！</h4>
+                            <p class="text-gray-700">
+                                OpenAI Codex CLI 是一个由OpenAI开发的创新型<strong class="text-blue-600">本地AI编程代理</strong>，直接在开发者的终端中运行。它通过智能地生成、修改和调试代码，显著提升开发效率，同时与云端服务形成互补。
+                                <br><br>
+                                核心优势在于<strong class="text-blue-600">本地化运行</strong>，带来了极低的延迟响应和显著增强的用户数据隐私保护。提供灵活多样的认证方式：ChatGPT Plus/Pro/Team订阅用户免费使用，按量付费用户通过API Key认证。
+                                <br><br>
+                                <strong class="text-blue-600">强大自主权控制与安全设计：</strong> 默认沙盒环境运行，多级权限配置（读写/只读模式，人工审批），支持CI/CD无交互模式，零数据保留（ZDR）选项。
+                                <br><br>
+                                作为“实验性技术”，Codex CLI为开发者提供了强大、安全且高度可控的AI编程伙伴，特别适合注重本地化效率和数据隐私的开发场景。
+                            </p>
+                        </div>
+                        <div class="stats-box">
+                            <h4 class="font-bold mb-2">项目概览</h4>
+                            <ul>
+                                <li><strong>Stars:</strong> 35.3k ⭐ (新增: 2062)</li>
+                                <li><strong>Forks:</strong> 4k 🔄</li>
+                                <li><strong>语言:</strong> Rust (96.5%)</li>
+                                <li><strong>许可:</strong> Apache-2.0</li>
+                                <li><strong>贡献者:</strong> 135 👥</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Project: umami-software/umami -->
+                <section data-transition="fade">
+                    <h3 class="text-3xl mb-4 text-purple-700"><i class="fas fa-chart-bar mr-3"></i>umami-software/umami: 隐私至上的网站分析！</h3>
+                    <p class="text-lg mb-4 italic text-gray-600">项目简介: Umami 是谷歌分析的一种现代且注重隐私的替代方案。</p>
+                    <div class="project-detail-section">
+                        <div class="summary-text">
+                            <h4 class="text-xl font-semibold mb-2 text-blue-700">项目速读：您的数据，您做主！</h4>
+                            <p class="text-gray-700">
+                                Umami是一款现代、隐私优先的网站分析工具，致力于成为Google Analytics的强大替代者。它旨在解决传统分析工具可能带来的隐私顾虑，通过<strong class="text-blue-600">不收集个人身份信息、不依赖Cookie追踪</strong>，守护访客数字足迹的纯粹与安全。
+                                <br><br>
+                                核心价值在于其<strong class="text-blue-600">“隐私至上”的设计理念</strong>，同时提供简洁直观的用户界面和快速的数据处理能力。作为一个可自部署的解决方案，它赋予网站所有者对其分析数据的完全控制权，避免了第三方数据共享的风险，确保了数据主权。技术上，Umami基于Node.js构建，支持主流数据库。
+                                <br><br>
+                                该项目适用于任何关注用户隐私、寻求数据自主权的网站及开发者，帮助他们高效获取流量与用户行为洞察，而无需牺牲用户的隐私利益。
+                            </p>
+                        </div>
+                        <div class="stats-box">
+                            <h4 class="font-bold mb-2">项目概览</h4>
+                            <ul>
+                                <li><strong>Stars:</strong> 30.1k ⭐ (新增: 2248)</li>
+                                <li><strong>Forks:</strong> 5.4k 🔄</li>
+                                <li><strong>语言:</strong> TypeScript (91.6%)</li>
+                                <li><strong>许可:</strong> MIT</li>
+                                <li><strong>贡献者:</strong> 318 👥</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Project: conductor-oss/conductor -->
+                <section data-transition="fade">
+                    <h3 class="text-3xl mb-4 text-purple-700"><i class="fas fa-sitemap mr-3"></i>conductor-oss/conductor: Netflix的分布式工作流引擎</h3>
+                    <p class="text-lg mb-4 italic text-gray-600">项目简介: Conductor是一个事件驱动的编排平台，为您的应用程序提供持久化且高可用的执行引擎。</p>
+                    <div class="project-detail-section">
+                        <div class="summary-text">
+                            <h4 class="text-xl font-semibold mb-2 text-blue-700">项目速读：微服务编排的利器</h4>
+                            <p class="text-gray-700">
+                                Conductor 是一个源自 Netflix 的开源工作流编排引擎，旨在解决当今复杂微服务架构中，协调与管理分布式、异步业务流程的难题。它通过提供一个<strong class="text-blue-600">持久且高弹性的执行引擎</strong>，帮助开发者将松耦合的服务高效地组合成稳定、有弹性的业务工作流。
+                                <br><br>
+                                该项目以其出色的<strong class="text-blue-600">弹性、高伸缩性、强大的可观测性</strong>以及便捷的集成能力而著称。Conductor 采用“工作流即代码”的理念，允许通过 JSON 定义和版本化管理复杂的流程，并支持HTTP、Lambda、子工作流等丰富的任务类型。其内置的可定制 UI 提供了直观的监控与管理界面。
+                                <br><br>
+                                Conductor 提供了健壮、可控且高效的骨架，确保流程在复杂分布式环境中能够灵活、高效且可控地执行，极大地简化了大规模分布式系统的编排挑战。
+                            </p>
+                        </div>
+                        <div class="stats-box">
+                            <h4 class="font-bold mb-2">项目概览</h4>
+                            <ul>
+                                <li><strong>Stars:</strong> 26.1k ⭐ (新增: 1269)</li>
+                                <li><strong>Forks:</strong> 674 🔄</li>
+                                <li><strong>语言:</strong> Java (76.9%), Groovy (14.8%)</li>
+                                <li><strong>许可:</strong> Apache-2.0</li>
+                                <li><strong>贡献者:</strong> 79 👥</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Project: jitsi/jitsi-meet -->
+                <section data-transition="fade">
+                    <h3 class="text-3xl mb-4 text-purple-700"><i class="fas fa-video mr-3"></i>jitsi/jitsi-meet: 开源、安全、灵活的视频会议</h3>
+                    <p class="text-lg mb-4 italic text-gray-600">项目简介: Jitsi Meet：安全、简单、可扩展的视频会议，既可作为独立应用使用，也可嵌入您的Web应用。</p>
+                    <div class="project-detail-section">
+                        <div class="summary-text">
+                            <h4 class="text-xl font-semibold mb-2 text-blue-700">项目速读：定制化视频通讯的理想选择</h4>
+                            <p class="text-gray-700">
+                                Jitsi Meet是一个功能强大的开源视频会议平台，旨在提供<strong class="text-blue-600">安全、简单且可高度扩展</strong>的在线会议解决方案。它致力于解决个人、团队及企业在不同场景下对高质量、可定制视频通讯的需求。
+                                <br><br>
+                                核心优势在于其卓越的<strong class="text-blue-600">兼容性和灵活性</strong>。它支持所有主流浏览器，提供功能完备的移动应用程序（Android和iOS），并通过Web和原生SDKs极大方便了开发者将视频会议能力集成到自己的产品中。部署方式多样：Debian软件包、Docker容器化方案、源代码定制，也提供“Jitsi as a Service (JaaS)”托管服务。
+                                <br><br>
+                                凭借其开源特性、强调安全性（包括端到端加密），以及高达2.6万Star的社区认可度，Jitsi Meet为追求数据隐私、系统集成和高度定制化的组织，提供了一个可靠、自主可控的视频通讯基础设施。
+                            </p>
+                        </div>
+                        <div class="stats-box">
+                            <h4 class="font-bold mb-2">项目概览</h4>
+                            <ul>
+                                <li><strong>Stars:</strong> 26.7k ⭐ (新增: 509)</li>
+                                <li><strong>Forks:</strong> 7.4k 🔄</li>
+                                <li><strong>语言:</strong> TypeScript (79.4%), Lua (7.3%)</li>
+                                <li><strong>许可:</strong> Apache-2.0</li>
+                                <li><strong>贡献者:</strong> 515 👥</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Project: syncthing/syncthing -->
+                <section data-transition="fade">
+                    <h3 class="text-3xl mb-4 text-purple-700"><i class="fas fa-folder-open mr-3"></i>syncthing/syncthing: 安全、去中心化的文件同步</h3>
+                    <p class="text-lg mb-4 italic text-gray-600">项目简介: 开源持续文件同步</p>
+                    <div class="project-detail-section">
+                        <div class="summary-text">
+                            <h4 class="text-xl font-semibold mb-2 text-blue-700">项目速读：数据主权与隐私的守护者！</h4>
+                            <p class="text-gray-700">
+                                Syncthing 是一个备受赞誉的<strong class="text-blue-600">开源持续文件同步解决方案</strong>，旨在为个人用户提供一个安全、可靠且自动化的数据同步平台。它核心解决的是多台设备间文件实时保持一致性的难题，有效防止数据丢失和未经授权的访问。
+                                <br><br>
+                                最突出的优势在于其对<strong class="text-blue-600">数据安全和用户隐私的高度重视</strong>。Syncthing 采取多重安全措施，包括对发布二进制文件进行签名验证，确保软件的完整性，并承诺防范数据窃听和篡改。其设计理念强调直观易用性和自动化，最大程度减少用户手动干预。
+                                <br><br>
+                                采用 Go 语言开发的 Syncthing 具备卓越的跨平台兼容性，能稳定运行于各类主流操作系统，并通过 Docker 容器提供灵活部署选项。Syncthing 的价值在于为那些注重数据主权和隐私的个人用户，提供了一个强大、自主可控的本地文件同步方案。
+                            </p>
+                        </div>
+                        <div class="stats-box">
+                            <h4 class="font-bold mb-2">项目概览</h4>
+                            <ul>
+                                <li><strong>Stars:</strong> 75k ⭐ (新增: 810)</li>
+                                <li><strong>Forks:</strong> 4.7k 🔄</li>
+                                <li><strong>语言:</strong> Go (84.7%), HTML (7.1%)</li>
+                                <li><strong>许可:</strong> MPL-2.0</li>
+                                <li><strong>贡献者:</strong> 343 👥</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Project: idosal/git-mcp -->
+                <section data-transition="fade">
+                    <h3 class="text-3xl mb-4 text-purple-700"><i class="fab fa-git-alt mr-3"></i>idosal/git-mcp: 告别代码幻觉！</h3>
+                    <p class="text-lg mb-4 italic text-gray-600">项目简介: 告别代码幻觉！GitMCP是一个免费、开源的远程MCP服务器，适用于任何GitHub项目。</p>
+                    <div class="project-detail-section">
+                        <div class="summary-text">
+                            <h4 class="text-xl font-semibold mb-2 text-blue-700">项目速读：为AI提供真实、最新的代码上下文！</h4>
+                            <p class="text-gray-700">
+                                GitMCP是一个创新的远程模型上下文协议（MCP）服务器，旨在<strong class="text-blue-600">终结大型语言模型（LLM）在代码理解和生成中常见的“幻觉”现象</strong>。它通过将任意GitHub仓库及GitHub Pages实时转化为AI可直接访问的权威文档与代码中心，确保AI助手获取到最新、最准确的项目信息。
+                                <br><br>
+                                核心优势在于<strong class="text-blue-600">消除了AI“编造”代码或引用过时信息的弊端</strong>。当AI助手接入GitMCP时，它能直接访问最新且高度相关的项目文档和代码，显著提升了AI生成代码的准确性和可靠性。
+                                <br><br>
+                                GitMCP作为一款零配置的云服务，用户无需下载安装，只需简单URL配置即可与Cursor、Claude Desktop等主流AI开发工具无缝集成。它秉持开源免费原则，承诺不收集个人数据，并支持自托管，充分保障用户隐私。
+                            </p>
+                        </div>
+                        <div class="stats-box">
+                            <h4 class="font-bold mb-2">项目概览</h4>
+                            <ul>
+                                <li><strong>Stars:</strong> 5.3k ⭐ (新增: 1139)</li>
+                                <li><strong>Forks:</strong> 397 🔄</li>
+                                <li><strong>语言:</strong> TypeScript (98.4%)</li>
+                                <li><strong>许可:</strong> Apache-2.0</li>
+                                <li><strong>贡献者:</strong> 15 👥</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+            </section>
+
+            <!-- Final Summary and Call to Action -->
+            <section data-background-class="slide-background-cover" data-transition="zoom">
+                <div class="text-center p-8 rounded-lg" style="background-color: rgba(255, 255, 255, 0.1);">
+                    <h2 class="text-white text-5xl font-bold leading-tight" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.6);">
+                        <span class="text-yellow-400">💡</span> 总结：技术未来，尽在掌握！
+                    </h2>
+                    <p class="text-gray-200 text-3xl mt-6 fragment zoom-in">
+                        AI浪潮下，“自主化”与“本地化”是核心！
+                    </p>
+                    <p class="text-gray-300 text-2xl mt-4 fragment zoom-in">
+                        开源项目正引领AI从理论走向实用，解决真问题，赋能真场景。
+                    </p>
+                    <div class="mt-12 fragment zoom-in">
+                        <h3 class="text-white text-4xl font-semibold mb-4" style="text-shadow: 1px 1px 6px rgba(0,0,0,0.5);">
+                            感谢您的观看！
+                        </h3>
+                        <p class="text-white text-2xl font-semibold">
+                            期待与您共同探索更多科技前沿！
+                        </p>
+                    </div>
+                </div>
+                <div class="bottom-right-fixed">
+                    <img src="../../asserts/wx.jpg" alt="AIChipEra QR Code">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="block">
+                        <i class="fab fa-github mr-2"></i>项目链接: <br>github.com/aichipera/github-trend
+                    </a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        // Full list of plugins currently available in Reveal.js v4.x
+        const plugins = [
+            // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            // { src: 'plugin/highlight/highlight.js', async: true },
+            // { src: 'plugin/search/search.js', async: true },
+            // { src: 'plugin/notes/notes.js', async: true },
+            // { src: 'plugin/math/math.js', async: true }
+        ];
+
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            hash: true,
+            center: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            transitionSpeed: 'fast', // default/fast/slow
+            backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+
+            // Learn about plugins: https://revealjs.com/plugins/
+            plugins: plugins
+        });
+
+        // Initialize Mermaid for diagrams
+        mermaid.initialize({
+            startOnLoad: false, // Don't parse on load, we'll do it manually
+            theme: 'default'
+        });
+
+        // Parse Mermaid diagrams on slide change
+        Reveal.on('slidechanged', event => {
+            if (event.currentSlide.querySelector('.mermaid')) {
+                mermaid.init(undefined, event.currentSlide.querySelectorAll('.mermaid'));
+            }
+        });
+    </script>
+</body>
+</html>

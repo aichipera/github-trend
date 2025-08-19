@@ -1,0 +1,1617 @@
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>GitHub热榜揭示：智能工具深度融合，赋能高效协作与工程实践</title>
+
+    <!-- Core framework -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+
+    <!-- Extended dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Base font settings */
+        body {
+            font-family: 'Noto Sans SC', Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback",
+                          "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            background-color: #f8f8f8; /* Light background for white theme */
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: 'Noto Serif SC', 'Noto Sans SC', serif;
+            color: #333; /* Darker color for headings */
+        }
+
+        .reveal {
+            font-size: 1.1em; /* Adjust base font size for better readability */
+        }
+
+        .reveal h1 { font-size: 2.8rem; line-height: 1.2; }
+        .reveal h2 { font-size: 2.2rem; line-height: 1.3; }
+        .reveal h3 { font-size: 1.8rem; line-height: 1.4; }
+        .reveal p, .reveal ul, .reveal ol, .reveal table { font-size: 1.1rem; line-height: 1.6; }
+        .reveal li { margin-bottom: 0.5em; }
+
+        /* Custom Colors & Gradients */
+        :root {
+            --primary-color: #4CAF50; /* Green - for emphasis, growth */
+            --secondary-color: #2196F3; /* Blue - for tech, clarity */
+            --accent-color: #FFC107; /* Amber - for highlights, warning */
+            --text-dark: #333;
+            --text-light: #f8f8f8;
+            --bg-light: #ffffff;
+            --bg-dark: #222;
+        }
+
+        .reveal .slides section {
+            background-color: var(--bg-light);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-radius: 8px;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #e0f2f7, #bbdefb); /* Light blue gradient */
+            color: var(--text-dark);
+        }
+        .reveal .slides section.dark-bg {
+            background: linear-gradient(135deg, #333, #555);
+            color: var(--text-light);
+        }
+        .reveal .slides section.dark-bg h1, .reveal .slides section.dark-bg h2, .reveal .slides section.dark-bg h3,
+        .reveal .slides section.dark-bg p, .reveal .slides section.dark-bg li {
+            color: var(--text-light);
+        }
+
+
+        /* Cover slide specific styles */
+        .cover-slide {
+            background-image: url('https://images.unsplash.com/photo-1516110833957-e1e01d9454a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNTY3NXwwfDF8c2VhcmNofDQwfHxhcnRpZmljaWFsJTIwaW50ZWxsaWdlbmNlfGVufDB8fHx8MTY3ODk0ODg1Ng&ixlib=rb-4.0.3&q=80&w=1920'); /* Placeholder for high-quality background */
+            background-size: cover;
+            background-position: center;
+            color: var(--text-light); /* Ensure text is visible on dark background */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Text shadow for readability */
+        }
+        .cover-slide h1, .cover-slide h2, .cover-slide p {
+            color: var(--text-light);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .cover-slide .speaker-info {
+            position: absolute;
+            bottom: 20px;
+            left: 50px;
+            font-size: 1.2rem;
+            color: var(--text-light);
+        }
+        .cover-slide .project-link, .cover-slide .qr-code {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        .cover-slide .qr-code-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            background-color: white; /* To make QR code stand out */
+            padding: 5px;
+        }
+
+        /* Footer for project link and QR code (for last slide) */
+        .footer-info {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-light); /* Adjust color based on slide background */
+            font-size: 0.9rem;
+        }
+        .footer-info img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            background-color: white;
+            padding: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Specific styles for data presentation */
+        .repo-card {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f0f8ff; /* Light blue background for repo info */
+            border-left: 5px solid var(--secondary-color);
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .repo-card strong {
+            color: var(--primary-color);
+        }
+        .repo-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 20px;
+            margin-top: 10px;
+            font-size: 0.95rem;
+        }
+        .repo-stats div {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .repo-stats i {
+            color: var(--secondary-color);
+        }
+        .lang-chart {
+            width: 100%;
+            height: 20px;
+            background-color: #eee;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 10px;
+            display: flex;
+        }
+        .lang-segment {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.7em;
+            font-weight: bold;
+        }
+        .lang-colors {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px 15px;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        .lang-colors span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .lang-colors span::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        /* Specific colors for programming languages */
+        .lang-python::before { background-color: #3572A5; } .lang-python { background-color: #3572A5; }
+        .lang-typescript::before { background-color: #3178C6; } .lang-typescript { background-color: #3178C6; }
+        .lang-javascript::before { background-color: #F7DF1E; } .lang-javascript { background-color: #F7DF1E; }
+        .lang-php::before { background-color: #4F5D95; } .lang-php { background-color: #4F5D95; }
+        .lang-c::before { background-color: #555555; } .lang-c { background-color: #555555; }
+        .lang-c-plus-plus::before { background-color: #F34B7D; } .lang-c-plus-plus { background-color: #F34B7D; }
+        .lang-c-sharp::before { background-color: #178600; } .lang-c-sharp { background-color: #178600; }
+        .lang-jupyter-notebook::before { background-color: #DA5B0B; } .lang-jupyter-notebook { background-color: #DA5B0B; }
+        .lang-cuda::before { background-color: #3A4084; } .lang-cuda { background-color: #3A4084; }
+        .lang-shell::before { background-color: #89e051; } .lang-shell { background-color: #89e051; }
+        .lang-gherkin::before { background-color: #5B2060; } .lang-gherkin { background-color: #5B2060; }
+        .lang-css::before { background-color: #563D7C; } .lang-css { background-color: #563D7C; }
+        .lang-plpgsql::before { background-color: #8497DB; } .lang-plpgsql { background-color: #8497DB; }
+        .lang-dockerfile::before { background-color: #384d54; } .lang-dockerfile { background-color: #384d54; }
+        .lang-html::before { background-color: #e34c26; } .lang-html { background-color: #e34c26; }
+        .lang-makefile::before { background-color: #4d4f4e; } .lang-makefile { background-color: #4d4f4e; }
+        .lang-rust::before { background-color: #dea584; } .lang-rust { background-color: #dea584; }
+        .lang-nsis::before { background-color: #C1C3F7; } .lang-nsis { background-color: #C1C3F7; }
+        .lang-scss::before { background-color: #CB6592; } .lang-scss { background-color: #CB6592; }
+        .lang-mdx::before { background-color: #fcb321; } .lang-mdx { background-color: #fcb321; }
+        .lang-ruby::before { background-color: #701516; } .lang-ruby { background-color: #701516; }
+        .lang-nix::before { background-color: #7E7EFF; } .lang-nix { background-color: #7E7EFF; }
+        .lang-less::before { background-color: #1D365D; } .lang-less { background-color: #1D365D; }
+        .lang-other::before { background-color: #ccc; } .lang-other { background-color: #ccc; }
+
+
+        .reveal .fragment.fade-in-then-out {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .reveal .fragment.fade-in-then-out.visible {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .reveal .fragment.current-only {
+            opacity: 0;
+            visibility: hidden;
+            display: none;
+        }
+
+        .reveal .fragment.current-only.visible {
+            opacity: 1;
+            visibility: visible;
+            display: block;
+        }
+        .key-insight {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 30px auto;
+            text-align: center;
+        }
+        .key-insight h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        .key-insight p {
+            font-size: 1.2rem;
+            color: #555;
+            line-height: 1.6;
+        }
+        .aha-moment {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-top: 30px;
+            animation: pulse 1.5s infinite;
+            display: inline-block;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 300px;
+            text-align: center;
+        }
+        .chart-container svg {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- 1. Title Slide -->
+            <section class="cover-slide text-center" data-background-image="https://images.unsplash.com/photo-1516110833957-e1e01d9454a3?ixlib=rb-4.0.3&ixid=MnwzNTY3NXwwfDF8c2VhcmNofDQwfHxhcnRpZmljaWFsJTIwaW50ZWxsaWdlbmNlfGVufDB8fHx8MTY3ODk0ODg1Ng&auto=format&fit=crop&w=1920&q=80" data-background-size="cover" data-background-position="center">
+                <h1 class="text-white text-shadow-lg leading-tight">GitHub热榜揭示：</h1>
+                <h2 class="text-white text-shadow-md mt-4">智能工具深度融合，赋能高效协作与工程实践</h2>
+                <p class="text-white text-opacity-80 mt-8">🔥 今日最火爆的开源项目都在这 ⭐️</p>
+                <p class="text-white text-opacity-70 mt-2 text-sm">Github热门仓库**日报**观测时间: 2025-08-17 20:58:48</p>
+                <p class="text-red-300 text-opacity-80 mt-4 text-xs italic">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！
+                </p>
+                <div class="speaker-info">
+                    <p>演讲者: AIChipEra</p>
+                </div>
+                <div class="project-link">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-white hover:text-blue-300">
+                        <i class="fab fa-github mr-2"></i>项目链接
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code" class="qr-code-img">
+                </div>
+            </section>
+
+            <!-- 2. Daily Highlights (日报要点) -->
+            <section class="gradient-bg">
+                <h2 class="text-center mb-6">日报要点：趋势与洞察</h2>
+                <div class="flex flex-col items-center justify-center h-full">
+                    <div class="key-insight text-center">
+                        <h2 class="text-2xl font-bold mb-4 flex items-center justify-center">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-3"></i>从能力展示到实战应用
+                        </h2>
+                        <p class="text-lg">
+                            GitHub最新趋势：技术界正从单一能力展示转向<br>
+                            <strong>智能工具的深度集成与实战应用</strong>。
+                        </p>
+                    </div>
+                    <ul class="text-lg mt-8 text-left max-w-2xl mx-auto">
+                        <li class="fragment fade-in-then-out"><i class="fas fa-check-circle text-primary-color mr-2"></i>榜单聚焦于<strong>自动化、知识管理与任务执行</strong>。</li>
+                        <li class="fragment fade-in-then-out"><i class="fas fa-check-circle text-primary-color mr-2"></i>目标：大幅提升工作效率，实现生产力<strong>质的飞跃</strong>。</li>
+                        <li class="fragment fade-in-then-out"><i class="fas fa-check-circle text-primary-color mr-2"></i>核心挑战：可靠性、性能优化及跨领域融合。</li>
+                        <li class="fragment fade-in-then-out"><i class="fas fa-check-circle text-primary-color mr-2"></i>预示：先进技术正加速从实验室走向生产线。</li>
+                        <li class="fragment current-only">
+                            <p class="aha-moment"><i class="fas fa-rocket mr-2"></i>Aha! AI正被构建成解决实际问题的"生产力引擎"。</p>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 3. Overall Trend Analysis - Main Theme -->
+            <section>
+                <h2 class="text-center mb-6"><i class="fas fa-chart-line text-blue-500 mr-2"></i>今日整体趋势分析：AI生产力工具的深度融合与工程化实践</h2>
+                <div class="flex justify-center items-center h-full">
+                    <p class="text-2xl font-semibold text-gray-700 leading-relaxed text-center max-w-3xl">
+                        今日GitHub热门项目榜单呈现出鲜明且集中的技术趋势，<br>
+                        核心焦点无疑是人工智能，特别是<br>
+                        <strong class="text-secondary-color">大型语言模型（LLM）的深度应用、工程化</strong>以及与其相关的生态系统构建。
+                    </p>
+                </div>
+            </section>
+
+            <!-- 3.1 Overall Trend Analysis - AI Agent Dominance -->
+            <section>
+                <h3 class="text-center mb-6"><i class="fas fa-robot text-purple-500 mr-2"></i>AI智能体（Agent）开发与管理：绝对主导</h3>
+                <div class="grid grid-cols-2 gap-8 mt-8">
+                    <div class="fragment fade-in">
+                        <h4 class="text-xl font-bold flex items-center mb-2"><i class="fas fa-code-branch text-primary-color mr-2"></i>Archon: AI编程助手中枢</h4>
+                        <p>知识与任务管理，提升AI驱动编码效率。</p>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h4 class="text-xl font-bold flex items-center mb-2"><i class="fas fa-shield-alt text-red-500 mr-2"></i>Parlant: LLM代理可靠性与合规性</h4>
+                        <p>解决幻觉、行为不一致，数分钟部署。</p>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h4 class="text-xl font-bold flex items-center mb-2"><i class="fas fa-th-list text-green-500 mr-2"></i>awesome-llm-apps: LLM应用集大成</h4>
+                        <p>集成智能体、RAG，支持多模型。</p>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h4 class="text-xl font-bold flex items-center mb-2"><i class="fas fa-lock text-gray-700 mr-2"></i>CAI (Cybersecurity AI): AI赋能网络安全</h4>
+                        <p>人机协作模式应对漏洞赏金。</p>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h4 class="text-xl font-bold flex items-center mb-2"><i class="fas fa-chart-area text-blue-500 mr-2"></i>OpenBB: 金融数据智能体</h4>
+                        <p>将AI智能体集成至金融数据分析平台。</p>
+                    </div>
+                    <div class="fragment fade-in">
+                        <h4 class="text-xl font-bold flex items-center mb-2"><i class="fas fa-server text-orange-500 mr-2"></i>Motia: 后端框架集成AI代理</h4>
+                        <p>AI能力向基础架构层渗透。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3.2 Overall Trend Analysis - Programming Language Distribution -->
+            <section>
+                <h3 class="text-center mb-6"><i class="fas fa-code text-indigo-500 mr-2"></i>编程语言分布：Python优势依旧</h3>
+                <div class="flex justify-center items-center h-full">
+                    <ul class="text-lg list-disc list-inside space-y-4 max-w-2xl">
+                        <li class="fragment fade-in">
+                            <strong class="text-primary-color">Python:</strong> 毋庸置疑的优势地位，几乎所有AI相关热门项目首选。<br>
+                            <span class="text-sm text-gray-600">得益于成熟AI/ML库和生态，满足快速原型开发与部署。</span>
+                        </li>
+                        <li class="fragment fade-in">
+                            <strong class="text-secondary-color">TypeScript:</strong> 活跃于现代桌面GUI客户端 (Clash Verge Rev) 和统一后端框架 (Motia)。<br>
+                            <span class="text-sm text-gray-600">构建跨平台、高性能UI和集成服务的实力体现。</span>
+                        </li>
+                        <li class="fragment fade-in">
+                            <strong class="text-gray-700">C/C++:</strong> 底层性能优化选择，亮点项目如tsoding/nob.h (构建系统) 和COLMAP (3D重建)。
+                        </li>
+                        <li class="fragment fade-in">
+                            <strong class="text-purple-500">PHP (dtyq/magic):</strong> 传统语言积极拥抱AI转型，一体化AI生产力平台。
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 3.3 Overall Trend Analysis - Key Demands & Directions -->
+            <section>
+                <h3 class="text-center mb-6"><i class="fas fa-bullseye text-orange-500 mr-2"></i>当前技术发展的关键需求与方向</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+                    <div class="fragment fade-in p-6 border-l-4 border-primary-color bg-gray-50 rounded-lg shadow-md">
+                        <h4 class="text-xl font-bold mb-3 flex items-center"><i class="fas fa-dollar-sign text-primary-color mr-2"></i>AI实用化与生产力提升</h4>
+                        <p class="text-base text-gray-700">不再满足简单功能演示，AI需真正解决问题，提升工作效率。</p>
+                        <p class="text-sm text-gray-500 mt-2"><em>(如Archon, Parlant, magic)</em></p>
+                    </div>
+                    <div class="fragment fade-in p-6 border-l-4 border-secondary-color bg-gray-50 rounded-lg shadow-md">
+                        <h4 class="text-xl font-bold mb-3 flex items-center"><i class="fas fa-wrench text-secondary-color mr-2"></i>AI工程化与稳定性挑战</h4>
+                        <p class="text-base text-gray-700">确保AI代理行为可控、输出可靠，优化LLM推理性能。</p>
+                        <p class="text-sm text-gray-500 mt-2"><em>(如LMCache的KV缓存优化)</em></p>
+                    </div>
+                    <div class="fragment fade-in p-6 border-l-4 border-purple-500 bg-gray-50 rounded-lg shadow-md">
+                        <h4 class="text-xl font-bold mb-3 flex items-center"><i class="fas fa-link text-purple-500 mr-2"></i>跨领域融合与系统集成</h4>
+                        <p class="text-base text-gray-700">单一技术是组件，融入更宏大、复杂的集成系统。</p>
+                        <p class="text-sm text-gray-500 mt-2"><em>(如CAI, OpenBB, Motia)</em></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3.4 Overall Trend Analysis - Comparison & Future Outlook -->
+            <section>
+                <h3 class="text-center mb-6"><i class="fas fa-brain text-teal-500 mr-2"></i>趋势展望：从探索到实践的AI</h3>
+                <div class="flex flex-col items-center">
+                    <div class="w-2/3 text-center my-6 fragment fade-in">
+                        <p class="text-xl leading-relaxed">
+                            <strong class="text-blue-600">与过往不同：</strong> 今日趋势更为聚焦和深入。<br>
+                            AI的影子几乎无处不在，不再是基础模型的竞赛，<br>
+                            而是<strong class="text-green-600">如何有效地利用现有AI模型，构建有实际价值、可投入生产的复杂应用。</strong>
+                        </p>
+                    </div>
+                    <div class="w-full mt-8">
+                        <h4 class="text-center text-xl font-bold mb-4 fragment fade-in"><i class="fas fa-arrow-right text-orange-500 mr-2"></i>下一波技术热点预测</h4>
+                        <ul class="list-none flex justify-around text-center mt-6">
+                            <li class="fragment fade-in p-4 bg-yellow-100 rounded-lg shadow-sm w-1/4 mx-2">
+                                <i class="fas fa-sitemap text-yellow-600 text-3xl mb-2"></i>
+                                <p class="font-semibold">AI代理的编排与治理</p>
+                            </li>
+                            <li class="fragment fade-in p-4 bg-green-100 rounded-lg shadow-sm w-1/4 mx-2">
+                                <i class="fas fa-palette text-green-600 text-3xl mb-2"></i>
+                                <p class="font-semibold">多模态AI的实际应用落地</p>
+                            </li>
+                            <li class="fragment fade-in p-4 bg-blue-100 rounded-lg shadow-sm w-1/4 mx-2">
+                                <i class="fas fa-handshake text-blue-600 text-3xl mb-2"></i>
+                                <p class="font-semibold">“人机协作”范式的深化</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Hot Project Trend Comparison -->
+            <section>
+                <h2 class="text-center mb-6"><i class="fas fa-balance-scale text-red-500 mr-2"></i>热门项目双日维度对比分析</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 text-lg">
+                    <div class="fragment fade-in p-4 bg-blue-50 rounded-lg shadow-sm">
+                        <h4 class="text-xl font-bold flex items-center mb-3"><i class="fas fa-arrow-up text-green-600 mr-2"></i>趋势概览：扩张与稳健</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>新晋项目与上升趋势项目数量接近。</li>
+                            <li><strong>无项目进入下降区间</strong>，社区关注点持续扩张。</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in p-4 bg-purple-50 rounded-lg shadow-sm">
+                        <h4 class="text-xl font-bold flex items-center mb-3"><i class="fas fa-plus-circle text-purple-600 mr-2"></i>新晋项目领域广泛</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>涵盖机器人AI、计算机视觉、量化金融。</li>
+                            <li>数据工程实践、网络代理工具、开发者效率工具。</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in p-4 bg-yellow-50 rounded-lg shadow-sm">
+                        <h4 class="text-xl font-bold flex items-center mb-3"><i class="fas fa-chart-pie text-yellow-600 mr-2"></i>编程语言分布变化</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Python、TypeScript、C++ 均有净增。</li>
+                            <li>Jupyter Notebook 活跃，Markdown/JavaScript 略有减少。</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in p-4 bg-red-50 rounded-lg shadow-sm">
+                        <h4 class="text-xl font-bold flex items-center mb-3"><i class="fas fa-star text-red-600 mr-2"></i>最受瞩目：Archon领跑</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>coleam00/Archon 逾900星惊人涨幅。</li>
+                            <li>显示特定应用或解决方案的爆发式吸引力。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hot Spot Changes -->
+            <section>
+                <h3 class="text-center mb-6"><i class="fas fa-exchange-alt text-teal-500 mr-2"></i>热点变化：新增与减退</h3>
+                <div class="grid grid-cols-2 gap-8 text-left mt-8">
+                    <div class="fragment fade-in p-4 border-l-4 border-green-500 bg-gray-50 rounded-lg shadow-md">
+                        <h4 class="text-xl font-bold mb-3 flex items-center"><i class="fas fa-arrow-circle-up text-green-500 mr-2"></i>新增热点</h4>
+                        <ul class="list-none space-y-1 text-sm">
+                            <li><i class="fas fa-caret-right text-green-500 mr-1"></i>clash-verge-rev/clash-verge-rev</li>
+                            <li><i class="fas fa-caret-right text-green-500 mr-1"></i>dataexpert-io/data-engineer-handbook</li>
+                            <li><i class="fas fa-caret-right text-green-500 mr-1"></i>colmap/colmap</li>
+                            <li><i class="fas fa-caret-right text-green-500 mr-1"></i>openbb-finance/openbb</li>
+                            <li><i class="fas fa-caret-right text-green-500 mr-1"></i>motiadev/motia</li>
+                            <li><i class="fas fa-caret-right text-green-500 mr-1"></i>aliasrobotics/cai</li>
+                        </ul>
+                    </div>
+                    <div class="fragment fade-in p-4 border-l-4 border-red-500 bg-gray-50 rounded-lg shadow-md">
+                        <h4 class="text-xl font-bold mb-3 flex items-center"><i class="fas fa-arrow-circle-down text-red-500 mr-2"></i>减退热点</h4>
+                        <ul class="list-none space-y-1 text-sm">
+                            <li><i class="fas fa-caret-right text-red-500 mr-1"></i>jaywcjlove/awesome-mac</li>
+                            <li><i class="fas fa-caret-right text-red-500 mr-1"></i>codecrafters-io/build-your-own-x</li>
+                            <li><i class="fas fa-caret-right text-red-500 mr-1"></i>microsoft/poml</li>
+                            <li><i class="fas fa-caret-right text-red-500 mr-1"></i>farhanashrafdev/90daysofcybersecurity</li>
+                            <li><i class="fas fa-caret-right text-red-500 mr-1"></i>ibm/mcp-context-forge</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. Detailed Repository Data - Vertical Sections -->
+            <section>
+                <h2><i class="fas fa-database text-blue-500 mr-2"></i>详细仓库数据</h2>
+                <p class="text-lg mt-4">深入了解今日热门项目，探索其独特价值和增长潜力。</p>
+            </section>
+
+            <!-- Project: coleam00/Archon -->
+            <section>
+                <section>
+                    <h3><a href="https://github.com/coleam00/Archon" target="_blank" class="text-blue-600 hover:underline">coleam00/Archon</a></h3>
+                    <p class="text-xl italic text-gray-700">“面向AI编码助手的知识与任务管理支柱”</p>
+                    <div class="repo-card mt-6">
+                        <table class="w-full text-left text-sm">
+                            <tr>
+                                <td class="font-bold w-1/4">开发语言</td>
+                                <td class="w-1/4">Python</td>
+                                <td class="font-bold w-1/4">Star 数</td>
+                                <td class="w-1/4">7035 ⭐</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">连续在榜</td>
+                                <td>2次</td>
+                                <td class="font-bold">总上榜次数</td>
+                                <td>3次</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">当日 Star 增加数</td>
+                                <td colspan="3"><span class="text-green-600 font-bold">991</span> ⭐ (远超平均)</td>
+                            </tr>
+                        </table>
+                        <div class="repo-stats mt-4">
+                            <div><i class="fas fa-star"></i> 7k</div>
+                            <div><i class="fas fa-code-branch"></i> 1.4k</div>
+                            <div><i class="fas fa-eye"></i> 145</div>
+                            <div><i class="fas fa-exclamation-circle"></i> 36</div>
+                            <div><i class="fas fa-code-pull-request"></i> 9</div>
+                            <div><i class="fas fa-box"></i> 0</div>
+                            <div><i class="fas fa-code-commit"></i> 66</div>
+                            <div><i class="fas fa-file-contract"></i> 未知</div>
+                            <div><i class="fas fa-users"></i> 12</div>
+                        </div>
+                        <div class="lang-chart">
+                            <div class="lang-segment lang-python" style="width: 55.9%;"></div>
+                            <div class="lang-segment lang-typescript" style="width: 41.3%;"></div>
+                            <div class="lang-segment lang-plpgsql" style="width: 1.8%;"></div>
+                            <div class="lang-segment lang-css" style="width: 0.8%;"></div>
+                            <div class="lang-segment lang-dockerfile" style="width: 0.1%;"></div>
+                            <div class="lang-segment lang-javascript" style="width: 0.1%;"></div>
+                        </div>
+                        <div class="lang-colors text-sm mt-2">
+                            <span class="lang-python">Python 55.9%</span>
+                            <span class="lang-typescript">TypeScript 41.3%</span>
+                            <span class="lang-plpgsql">PLpgSQL 1.8%</span>
+                            <span class="lang-css">CSS 0.8%</span>
+                            <span class="lang-dockerfile">Dockerfile 0.1%</span>
+                            <span class="lang-javascript">JavaScript 0.1%</span>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3>Archon: 核心优势与价值</h3>
+                    <ul class="list-disc text-left text-lg space-y-3">
+                        <li class="fragment fade-in"><strong>智能知识管理：</strong> 聚合分散知识库，支持向量搜索与RAG，提供精准上下文。</li>
+                        <li class="fragment fade-in"><strong>统一MCP服务器：</strong> 连接LLM与AI客户端，协调编程任务，提升效率。</li>
+                        <li class="fragment fade-in"><strong>层级化任务管理：</strong> 支持AI辅助任务创建、实时进度追踪、WebSocket协作。</li>
+                        <li class="fragment fade-in"><strong>微服务架构：</strong> 前端UI、API、MCP、代理服务，确保可扩展与稳定性。</li>
+                    </ul>
+                    <p class="text-md italic text-gray-600 mt-6 fragment fade-in">
+                        <i class="fas fa-lightbulb text-yellow-500 mr-2"></i><strong>Aha!</strong> Archon构建了一个集成的、可协作的智能环境，极大增强AI在实际编码中的掌控力与生产力。
+                    </p>
+                </section>
+                <section>
+                    <h3>Archon: 增长分析</h3>
+                    <div class="flex flex-col items-center justify-center h-full text-center">
+                        <p class="text-2xl font-semibold mb-4 text-green-700">
+                            惊人加速增长！
+                        </p>
+                        <ul class="list-none text-left text-lg space-y-3">
+                            <li class="fragment fade-in"><i class="fas fa-history text-blue-500 mr-2"></i><strong>上榜频率：</strong> 约两个半月内3次上榜。</li>
+                            <li class="fragment fade-in"><i class="fas fa-chart-line text-green-500 mr-2"></i><strong>累计增长：</strong> 2415星。</li>
+                            <li class="fragment fade-in"><i class="fas fa-star text-yellow-500 mr-2"></i><strong>本次新增：</strong> <strong>991星</strong>（远超平均441星/次）。</li>
+                        </ul>
+                        <p class="text-xl font-bold mt-8 fragment fade-in text-secondary-color">
+                            <i class="fas fa-fire text-red-500 mr-2"></i>表明近期增长显著加速，未来有望频繁上榜并持续吸星！
+                        </p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: emcie-co/parlant -->
+            <section>
+                <section>
+                    <h3><a href="https://github.com/emcie-co/parlant" target="_blank" class="text-blue-600 hover:underline">emcie-co/parlant</a></h3>
+                    <p class="text-xl italic text-gray-700">“专为控制打造的LLM智能体，面向实际应用设计，数分钟内即可部署”</p>
+                    <div class="repo-card mt-6">
+                        <table class="w-full text-left text-sm">
+                            <tr>
+                                <td class="font-bold w-1/4">开发语言</td>
+                                <td class="w-1/4">Python</td>
+                                <td class="font-bold w-1/4">Star 数</td>
+                                <td class="w-1/4">4362 ⭐</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">连续在榜</td>
+                                <td>2次</td>
+                                <td class="font-bold">总上榜次数</td>
+                                <td>2次</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">当日 Star 增加数</td>
+                                <td colspan="3"><span class="text-green-600 font-bold">461</span> ⭐</td>
+                            </tr>
+                        </table>
+                        <div class="repo-stats mt-4">
+                            <div><i class="fas fa-star"></i> 4.4k</div>
+                            <div><i class="fas fa-code-branch"></i> 431</div>
+                            <div><i class="fas fa-eye"></i> 42</div>
+                            <div><i class="fas fa-exclamation-circle"></i> 24</div>
+                            <div><i class="fas fa-code-pull-request"></i> 5</div>
+                            <div><i class="fas fa-box"></i> 24</div>
+                            <div><i class="fas fa-code-commit"></i> 4,260</div>
+                            <div><i class="fas fa-file-contract"></i> Apache-2.0</div>
+                            <div><i class="fas fa-users"></i> 17</div>
+                        </div>
+                        <div class="lang-chart">
+                            <div class="lang-segment lang-python" style="width: 89.1%;"></div>
+                            <div class="lang-segment lang-gherkin" style="width: 6.0%;"></div>
+                            <div class="lang-segment lang-typescript" style="width: 4.5%;"></div>
+                            <div class="lang-segment lang-css" style="width: 0.2%;"></div>
+                            <div class="lang-segment lang-javascript" style="width: 0.1%;"></div>
+                            <div class="lang-segment lang-shell" style="width: 0.1%;"></div>
+                        </div>
+                        <div class="lang-colors text-sm mt-2">
+                            <span class="lang-python">Python 89.1%</span>
+                            <span class="lang-gherkin">Gherkin 6.0%</span>
+                            <span class="lang-typescript">TypeScript 4.5%</span>
+                            <span class="lang-css">CSS 0.2%</span>
+                            <span class="lang-javascript">JavaScript 0.1%</span>
+                            <span class="lang-shell">Shell 0.1%</span>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3>Parlant: 核心技术与价值</h3>
+                    <ul class="list-disc text-left text-lg space-y-3">
+                        <li class="fragment fade-in"><strong>“保证规则遵循”：</strong> 通过自然语言定义“准则”，非依赖复杂提示。</li>
+                        <li class="fragment fade-in"><strong>可靠工具集成：</strong> 无缝调用外部API和服务，强化代理能力。</li>
+                        <li class="fragment fade-in"><strong>企业级功能：</strong> 会话旅程引导、动态准则、分析、安全防护、可解释性。</li>
+                        <li class="fragment fade-in"><strong>快速部署：</strong> 基于Python 3.10+, 设计用于生产环境，数分钟即可部署。</li>
+                    </ul>
+                    <p class="text-md italic text-gray-600 mt-6 fragment fade-in">
+                        <i class="fas fa-lightbulb text-yellow-500 mr-2"></i><strong>Aha!</strong> Parlant为企业构建合规、可靠、可扩展的LLM代理，解决“幻觉”痛点，提升业务应用可信赖度。
+                    </p>
+                </section>
+                <section>
+                    <h3>Parlant: 增长分析</h3>
+                    <div class="flex flex-col items-center justify-center h-full text-center">
+                        <p class="text-2xl font-semibold mb-4 text-green-700">
+                            持续高关注，增长势头强劲！
+                        </p>
+                        <ul class="list-none text-left text-lg space-y-3">
+                            <li class="fragment fade-in"><i class="fas fa-calendar-alt text-blue-500 mr-2"></i><strong>上榜频率：</strong> 两天内两次上榜。</li>
+                            <li class="fragment fade-in"><i class="fas fa-chart-line text-green-500 mr-2"></i><strong>总Star增长：</strong> 444颗。</li>
+                            <li class="fragment fade-in"><i class="fas fa-star text-yellow-500 mr-2"></i><strong>本日新增：</strong> <strong>461颗</strong>（高于平均值）。</li>
+                        </ul>
+                        <p class="text-xl font-bold mt-8 fragment fade-in text-secondary-color">
+                            <i class="fas fa-hand-holding-heart text-blue-500 mr-2"></i>预示其增长势头强劲且稳定，社区对其解决LLM可靠性问题的方案高度认可！
+                        </p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: Shubhamsaboo/awesome-llm-apps -->
+            <section>
+                <section>
+                    <h3><a href="https://github.com/Shubhamsaboo/awesome-llm-apps" target="_blank" class="text-blue-600 hover:underline">Shubhamsaboo/awesome-llm-apps</a></h3>
+                    <p class="text-xl italic text-gray-700">“精选LLM应用集，集成AI智能体和RAG功能，并支持OpenAI、Anthropic、Gemini及开源模型”</p>
+                    <div class="repo-card mt-6">
+                        <table class="w-full text-left text-sm">
+                            <tr>
+                                <td class="font-bold w-1/4">开发语言</td>
+                                <td class="w-1/4">Python</td>
+                                <td class="font-bold w-1/4">Star 数</td>
+                                <td class="w-1/4">58523 ⭐</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">连续在榜</td>
+                                <td>2次</td>
+                                <td class="font-bold">总上榜次数</td>
+                                <td>25次</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">当日 Star 增加数</td>
+                                <td colspan="3"><span class="text-green-600 font-bold">442</span> ⭐</td>
+                            </tr>
+                        </table>
+                        <div class="repo-stats mt-4">
+                            <div><i class="fas fa-star"></i> 58.5k</div>
+                            <div><i class="fas fa-code-branch"></i> 7k</div>
+                            <div><i class="fas fa-eye"></i> 671</div>
+                            <div><i class="fas fa-exclamation-circle"></i> 4</div>
+                            <div><i class="fas fa-code-pull-request"></i> 7</div>
+                            <div><i class="fas fa-box"></i> 0</div>
+                            <div><i class="fas fa-code-commit"></i> 709</div>
+                            <div><i class="fas fa-file-contract"></i> Apache-2.0</div>
+                            <div><i class="fas fa-users"></i> 46</div>
+                        </div>
+                        <div class="lang-chart">
+                            <div class="lang-segment lang-python" style="width: 64.0%;"></div>
+                            <div class="lang-segment lang-javascript" style="width: 28.4%;"></div>
+                            <div class="lang-segment lang-typescript" style="width: 7.0%;"></div>
+                            <div class="lang-segment lang-css" style="width: 0.3%;"></div>
+                            <div class="lang-segment lang-plpgsql" style="width: 0.1%;"></div>
+                            <div class="lang-segment lang-html" style="width: 0.1%;"></div>
+                            <div class="lang-segment lang-other" style="width: 0.1%;"></div>
+                        </div>
+                        <div class="lang-colors text-sm mt-2">
+                            <span class="lang-python">Python 64.0%</span>
+                            <span class="lang-javascript">JavaScript 28.4%</span>
+                            <span class="lang-typescript">TypeScript 7.0%</span>
+                            <span class="lang-css">CSS 0.3%</span>
+                            <span class="lang-plpgsql">PLpgSQL 0.1%</span>
+                            <span class="lang-html">HTML 0.1%</span>
+                            <span class="lang-other">Other 0.1%</span>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3>Awesome LLM Apps: 核心价值与广度</h3>
+                    <ul class="list-disc text-left text-lg space-y-3">
+                        <li class="fragment fade-in"><strong>应用宝库：</strong> 汇集LLM在代码、数据、创作、金融、医疗、游戏AI等各行业案例。</li>
+                        <li class="fragment fade-in"><strong>技术广度与深度：</strong> 涵盖OpenAI、Anthropic、Google及大量开源模型应用。</li>
+                        <li class="fragment fade-in"><strong>范式细致分类：</strong> 从单一智能体到多智能体协作、多模态平台交互等。</li>
+                        <li class="fragment fade-in"><strong>实战指南：</strong> 不仅仅是代码集合，更是理解和构建复杂LLM系统的学习路径。</li>
+                    </ul>
+                    <p class="text-md italic text-gray-600 mt-6 fragment fade-in">
+                        <i class="fas fa-lightbulb text-yellow-500 mr-2"></i><strong>Aha!</strong> 该项目是LLM技术落地和开源生态发展的“活百科全书”，极大加速从理论到实践的转化。
+                    </p>
+                </section>
+                <section>
+                    <h3>Awesome LLM Apps: 增长分析</h3>
+                    <div class="flex flex-col items-center justify-center h-full text-center">
+                        <p class="text-2xl font-semibold mb-4 text-green-700">
+                            持续吸星，极强吸引力！
+                        </p>
+                        <ul class="list-none text-left text-lg space-y-3">
+                            <li class="fragment fade-in"><i class="fas fa-calendar-alt text-blue-500 mr-2"></i><strong>上榜频率：</strong> 约5个月内25次上榜（高频）。</li>
+                            <li class="fragment fade-in"><i class="fas fa-chart-line text-green-500 mr-2"></i><strong>累计增长：</strong> 38190 Star。</li>
+                            <li class="fragment fade-in"><i class="fas fa-star text-yellow-500 mr-2"></i><strong>平均每次新增：</strong> 707 Star。</li>
+                            <li class="fragment fade-in"><i class="fas fa-star text-yellow-500 mr-2"></i><strong>本日新增：</strong> <strong>442 Star</strong>。</li>
+                        </ul>
+                        <p class="text-xl font-bold mt-8 fragment fade-in text-secondary-color">
+                            <i class="fas fa-grin-stars text-yellow-500 mr-2"></i>拥有极强的持续吸引力与高度活跃的用户关注，趋势稳健！
+                        </p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: tsoding/nob.h -->
+            <section>
+                <section>
+                    <h3><a href="https://github.com/tsoding/nob.h" target="_blank" class="text-blue-600 hover:underline">tsoding/nob.h</a></h3>
+                    <p class="text-xl italic text-gray-700">“用于在C语言中编写构建规则的仅头文件库”</p>
+                    <div class="repo-card mt-6">
+                        <table class="w-full text-left text-sm">
+                            <tr>
+                                <td class="font-bold w-1/4">开发语言</td>
+                                <td class="w-1/4">C</td>
+                                <td class="font-bold w-1/4">Star 数</td>
+                                <td class="w-1/4">1549 ⭐</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">连续在榜</td>
+                                <td>2次</td>
+                                <td class="font-bold">总上榜次数</td>
+                                <td>2次</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">当日 Star 增加数</td>
+                                <td colspan="3"><span class="text-green-600 font-bold">120</span> ⭐</td>
+                            </tr>
+                        </table>
+                        <div class="repo-stats mt-4">
+                            <div><i class="fas fa-star"></i> 1.5k</div>
+                            <div><i class="fas fa-code-branch"></i> 93</div>
+                            <div><i class="fas fa-eye"></i> 11</div>
+                            <div><i class="fas fa-exclamation-circle"></i> 2</div>
+                            <div><i class="fas fa-code-pull-request"></i> 17</div>
+                            <div><i class="fas fa-box"></i> 0</div>
+                            <div><i class="fas fa-code-commit"></i> 139</div>
+                            <div><i class="fas fa-file-contract"></i> 未知</div>
+                            <div><i class="fas fa-users"></i> 23</div>
+                        </div>
+                        <div class="lang-chart">
+                            <div class="lang-segment lang-c" style="width: 100.0%;"></div>
+                        </div>
+                        <div class="lang-colors text-sm mt-2">
+                            <span class="lang-c">C 100.0%</span>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3>nob.h: 革命性C/C++构建方式</h3>
+                    <ul class="list-disc text-left text-lg space-y-3">
+                        <li class="fragment fade-in"><strong>“NoBuild”理念：</strong> 直接用C语言编写构建逻辑，摆脱Make、CMake等外部工具依赖。</li>
+                        <li class="fragment fade-in"><strong>极致可移植性：</strong> 仅依赖C编译器，Linux、macOS、Windows多平台无缝运行。</li>
+                        <li class="fragment fade-in"><strong>语言统一：</strong> 构建逻辑与项目代码同语言，提升开发效率和一致性。</li>
+                        <li class="fragment fade-in"><strong>纯粹与控制：</strong> 为C语言爱好者提供更多使用C的机会，构建过程直观纯粹。</li>
+                    </ul>
+                    <p class="text-md italic text-gray-600 mt-6 fragment fade-in">
+                        <i class="fas fa-lightbulb text-yellow-500 mr-2"></i><strong>Aha!</strong> 它提供了一种新颖、高度可控的构建范式，让C/C++项目的构建回归语言本身！
+                    </p>
+                </section>
+                <section>
+                    <h3>nob.h: 增长分析</h3>
+                    <div class="flex flex-col items-center justify-center h-full text-center">
+                        <p class="text-2xl font-semibold mb-4 text-green-700">
+                            增速显著加快，势头良好！
+                        </p>
+                        <ul class="list-none text-left text-lg space-y-3">
+                            <li class="fragment fade-in"><i class="fas fa-calendar-alt text-blue-500 mr-2"></i><strong>上榜频率：</strong> 两日内两度上榜。</li>
+                            <li class="fragment fade-in"><i class="fas fa-star text-yellow-500 mr-2"></i><strong>本日新增：</strong> <strong>120 Star</strong>（远超平均79.5 Star/次）。</li>
+                        </ul>
+                        <p class="text-xl font-bold mt-8 fragment fade-in text-secondary-color">
+                            <i class="fas fa-chart-bar text-green-500 mr-2"></i>表明其增长势头良好，且增速显著加快，潜力无限！
+                        </p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: aliasrobotics/cai -->
+            <section>
+                <section>
+                    <h3><a href="https://github.com/aliasrobotics/cai" target="_blank" class="text-blue-600 hover:underline">aliasrobotics/cai</a></h3>
+                    <p class="text-xl italic text-gray-700">“网络安全AI (CAI)，一个支持漏洞赏金的开放人工智能”</p>
+                    <div class="repo-card mt-6">
+                        <table class="w-full text-left text-sm">
+                            <tr>
+                                <td class="font-bold w-1/4">开发语言</td>
+                                <td class="w-1/4">Python</td>
+                                <td class="font-bold w-1/4">Star 数</td>
+                                <td class="w-1/4">2478 ⭐</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">连续在榜</td>
+                                <td>1次</td>
+                                <td class="font-bold">总上榜次数</td>
+                                <td>1次</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">当日 Star 增加数</td>
+                                <td colspan="3"><span class="text-green-600 font-bold">205</span> ⭐</td>
+                            </tr>
+                        </table>
+                        <div class="repo-stats mt-4">
+                            <div><i class="fas fa-star"></i> 2.5k</div>
+                            <div><i class="fas fa-code-branch"></i> 388</div>
+                            <div><i class="fas fa-eye"></i> 29</div>
+                            <div><i class="fas fa-exclamation-circle"></i> 33</div>
+                            <div><i class="fas fa-code-pull-request"></i> 1</div>
+                            <div><i class="fas fa-box"></i> 0</div>
+                            <div><i class="fas fa-code-commit"></i> 962</div>
+                            <div><i class="fas fa-file-contract"></i> 未知</div>
+                            <div><i class="fas fa-users"></i> 72</div>
+                        </div>
+                        <div class="lang-chart">
+                            <div class="lang-segment lang-python" style="width: 98.6%;"></div>
+                            <div class="lang-segment lang-other" style="width: 1.4%;"></div>
+                        </div>
+                        <div class="lang-colors text-sm mt-2">
+                            <span class="lang-python">Python 98.6%</span>
+                            <span class="lang-other">Other 1.4%</span>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3>CAI: 网络安全自动化与人机协作</h3>
+                    <ul class="list-disc text-left text-lg space-y-3">
+                        <li class="fragment fade-in"><strong>“漏洞赏金就绪”AI：</strong> 轻量、符合人体工程学的开源框架，自动化网络安全测试。</li>
+                        <li class="fragment fade-in"><strong>创新人机协作（HITL）：</strong> 确保人类专家监督AI决策，提升测试安全性与可靠性。</li>
+                        <li class="fragment fade-in"><strong>跨平台Python实现：</strong> 精巧设计，支持与OpenAI等主流LLM API集成。</li>
+                        <li class="fragment fade-in"><strong>道德与法律约束：</strong> 强调严禁用于非法，倡导“为善而渗透”，确保合规使用。</li>
+                    </ul>
+                    <p class="text-md italic text-gray-600 mt-6 fragment fade-in">
+                        <i class="fas fa-lightbulb text-yellow-500 mr-2"></i><strong>Aha!</strong> CAI推动网络安全AI民主化，通过HITL模式，使先进AI工具普及，同时保障安全与伦理。
+                    </p>
+                </section>
+                <section>
+                    <h3>CAI: 增长分析</h3>
+                    <div class="flex flex-col items-center justify-center h-full text-center">
+                        <p class="text-2xl font-semibold mb-4 text-green-700">
+                            首次上榜即受关注！
+                        </p>
+                        <ul class="list-none text-left text-lg space-y-3">
+                            <li class="fragment fade-in"><i class="fas fa-calendar-alt text-blue-500 mr-2"></i><strong>上榜频率：</strong> 1次。</li>
+                            <li class="fragment fade-in"><i class="fas fa-star text-yellow-500 mr-2"></i><strong>本日新增：</strong> <strong>205 Star</strong>。</li>
+                        </ul>
+                        <p class="text-xl font-bold mt-8 fragment fade-in text-secondary-color">
+                            <i class="fas fa-bullhorn text-blue-500 mr-2"></i>作为新晋项目，直接获得大量关注，潜力巨大，值得持续跟踪！
+                        </p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: PixiEditor/PixiEditor -->
+            <section>
+                <section>
+                    <h3><a href="https://github.com/PixiEditor/PixiEditor" target="_blank" class="text-blue-600 hover:underline">PixiEditor/PixiEditor</a></h3>
+                    <p class="text-xl italic text-gray-700">“PixiEditor 是一款满足您所有二维需求的全能编辑器”</p>
+                    <div class="repo-card mt-6">
+                        <table class="w-full text-left text-sm">
+                            <tr>
+                                <td class="font-bold w-1/4">开发语言</td>
+                                <td class="w-1/4">C#</td>
+                                <td class="font-bold w-1/4">Star 数</td>
+                                <td class="w-1/4">3825 ⭐</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">连续在榜</td>
+                                <td>2次</td>
+                                <td class="font-bold">总上榜次数</td>
+                                <td>2次</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">当日 Star 增加数</td>
+                                <td colspan="3"><span class="text-green-600 font-bold">490</span> ⭐</td>
+                            </tr>
+                        </table>
+                        <div class="repo-stats mt-4">
+                            <div><i class="fas fa-star"></i> 3.8k</div>
+                            <div><i class="fas fa-code-branch"></i> 160</div>
+                            <div><i class="fas fa-eye"></i> 27</div>
+                            <div><i class="fas fa-exclamation-circle"></i> 144</div>
+                            <div><i class="fas fa-code-pull-request"></i> 12</div>
+                            <div><i class="fas fa-box"></i> 40</div>
+                            <div><i class="fas fa-code-commit"></i> 5,625</div>
+                            <div><i class="fas fa-file-contract"></i> LGPL-3.0</div>
+                            <div><i class="fas fa-users"></i> 24</div>
+                        </div>
+                        <div class="lang-chart">
+                            <div class="lang-segment lang-c-sharp" style="width: 100.0%;"></div>
+                        </div>
+                        <div class="lang-colors text-sm mt-2">
+                            <span class="lang-c-sharp">C# 100.0%</span>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3>PixiEditor: 2D图形创作的革新</h3>
+                    <ul class="list-disc text-left text-lg space-y-3">
+                        <li class="fragment fade-in"><strong>全能2D编辑器：</strong> 游戏精灵图、动画、图像编辑、Logo设计等一体化解决方案。</li>
+                        <li class="fragment fade-in"><strong>创新节点渲染系统：</strong> 所有元素表示为可连接节点，实现非破坏性编辑。</li>
+                        <li class="fragment fade-in"><strong>多工具融合：</strong> 同一画布融合像素艺术、绘画和矢量工具集。</li>
+                        <li class="fragment fade-in"><strong>高级动画功能：</strong> 2.0版本引入时间轴，可创建逐帧动画及自定义着色器。</li>
+                    </ul>
+                    <p class="text-md italic text-gray-600 mt-6 fragment fade-in">
+                        <i class="fas fa-lightbulb text-yellow-500 mr-2"></i><strong>Aha!</strong> 其独特的节点系统和混合工具集，为2D创作者提供了前所未有的灵活性和高效工作流！
+                    </p>
+                </section>
+                <section>
+                    <h3>PixiEditor: 增长分析</h3>
+                    <div class="flex flex-col items-center justify-center h-full text-center">
+                        <p class="text-2xl font-semibold mb-4 text-green-700">
+                            强劲增长，表现突出！
+                        </p>
+                        <ul class="list-none text-left text-lg space-y-3">
+                            <li class="fragment fade-in"><i class="fas fa-calendar-alt text-blue-500 mr-2"></i><strong>上榜频率：</strong> 2天内2次上榜。</li>
+                            <li class="fragment fade-in"><i class="fas fa-star text-yellow-500 mr-2"></i><strong>本日新增：</strong> <strong>490 Star</strong>（显著高于平均352）。</li>
+                        </ul>
+                        <p class="text-xl font-bold mt-8 fragment fade-in text-secondary-color">
+                            <i class="fas fa-chart-line text-green-500 mr-2"></i>增长势头强劲，近期表现尤其突出，呈加速上升趋势！
+                        </p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: dtyq/magic -->
+            <section>
+                <section>
+                    <h3><a href="https://github.com/dtyq/magic" target="_blank" class="text-blue-600 hover:underline">dtyq/magic</a></h3>
+                    <p class="text-xl italic text-gray-700">“Super Magic (超级麦吉)。首个开源一体化AI生产力平台（通用AI智能体 + 工作流引擎 + 即时通讯 + 在线协作办公系统）”</p>
+                    <div class="repo-card mt-6">
+                        <table class="w-full text-left text-sm">
+                            <tr>
+                                <td class="font-bold w-1/4">开发语言</td>
+                                <td class="w-1/4">PHP</td>
+                                <td class="font-bold w-1/4">Star 数</td>
+                                <td class="w-1/4">2118 ⭐</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">连续在榜</td>
+                                <td>2次</td>
+                                <td class="font-bold">总上榜次数</td>
+                                <td>2次</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">当日 Star 增加数</td>
+                                <td colspan="3"><span class="text-green-600 font-bold">287</span> ⭐</td>
+                            </tr>
+                        </table>
+                        <div class="repo-stats mt-4">
+                            <div><i class="fas fa-star"></i> 2.1k</div>
+                            <div><i class="fas fa-code-branch"></i> 239</div>
+                            <div><i class="fas fa-eye"></i> 23</div>
+                            <div><i class="fas fa-exclamation-circle"></i> 17</div>
+                            <div><i class="fas fa-code-pull-request"></i> 2</div>
+                            <div><i class="fas fa-box"></i> 0</div>
+                            <div><i class="fas fa-code-commit"></i> 896</div>
+                            <div><i class="fas fa-file-contract"></i> 未知</div>
+                            <div><i class="fas fa-users"></i> 19</div>
+                        </div>
+                        <div class="lang-chart">
+                            <div class="lang-segment lang-php" style="width: 51.7%;"></div>
+                            <div class="lang-segment lang-typescript" style="width: 32.6%;"></div>
+                            <div class="lang-segment lang-javascript" style="width: 7.4%;"></div>
+                            <div class="lang-segment lang-python" style="width: 6.9%;"></div>
+                            <div class="lang-segment lang-less" style="width: 0.7%;"></div>
+                            <div class="lang-segment lang-shell" style="width: 0.4%;"></div>
+                            <div class="lang-segment lang-other" style="width: 0.3%;"></div>
+                        </div>
+                        <div class="lang-colors text-sm mt-2">
+                            <span class="lang-php">PHP 51.7%</span>
+                            <span class="lang-typescript">TypeScript 32.6%</span>
+                            <span class="lang-javascript">JavaScript 7.4%</span>
+                            <span class="lang-python">Python 6.9%</span>
+                            <span class="lang-less">Less 0.7%</span>
+                            <span class="lang-shell">Shell 0.4%</span>
+                            <span class="lang-other">Other 0.3%</span>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3>Magic: 开源一体化AI生产力平台</h3>
+                    <ul class="list-disc text-left text-lg space-y-3">
+                        <li class="fragment fade-in"><strong>综合生态：</strong> 集成通用AI智能体、可视化工作流、即时通讯、协同办公系统。</li>
+                        <li class="fragment fade-in"><strong>核心优势：</strong> 强大集成能力与高度灵活性，自主理解、规划、执行复杂任务。</li>
+                        <li class="fragment fade-in"><strong>Magic Flow：</strong> 可视化AI工作流编排器，无需编码自动化业务流程。</li>
+                        <li class="fragment fade-in"><strong>Magic IM：</strong> AI深度融入企业沟通，提升团队协作和信息流转效率。</li>
+                    </ul>
+                    <p class="text-md italic text-gray-600 mt-6 fragment fade-in">
+                        <i class="fas fa-lightbulb text-yellow-500 mr-2"></i><strong>Aha!</strong> Magic为企业提供“一站式”AI赋能基础设施，助力实现百倍生产力增长！
+                    </p>
+                </section>
+                <section>
+                    <h3>Magic: 增长分析</h3>
+                    <div class="flex flex-col items-center justify-center h-full text-center">
+                        <p class="text-2xl font-semibold mb-4 text-green-700">
+                            增长加速，吸引力强劲！
+                        </p>
+                        <ul class="list-none text-left text-lg space-y-3">
+                            <li class="fragment fade-in"><i class="fas fa-calendar-alt text-blue-500 mr-2"></i><strong>上榜频率：</strong> 两天内两次上榜。</li>
+                            <li class="fragment fade-in"><i class="fas fa-star text-yellow-500 mr-2"></i><strong>本日新增：</strong> <strong>287 Star</strong>（显著高于平均增长数）。</li>
+                        </ul>
+                        <p class="text-xl font-bold mt-8 fragment fade-in text-secondary-color">
+                            <i class="fas fa-signal text-blue-500 mr-2"></i>近期吸引力强劲，增长呈加速趋势，显示市场对一体化AI平台的强烈需求！
+                        </p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: LMCache/LMCache -->
+            <section>
+                <section>
+                    <h3><a href="https://github.com/LMCache/LMCache" target="_blank" class="text-blue-600 hover:underline">LMCache/LMCache</a></h3>
+                    <p class="text-xl italic text-gray-700">“通过最快的KV缓存层，为你的大型语言模型强力加速”</p>
+                    <div class="repo-card mt-6">
+                        <table class="w-full text-left text-sm">
+                            <tr>
+                                <td class="font-bold w-1/4">开发语言</td>
+                                <td class="w-1/4">Python</td>
+                                <td class="font-bold w-1/4">Star 数</td>
+                                <td class="w-1/4">4408 ⭐</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">连续在榜</td>
+                                <td>2次</td>
+                                <td class="font-bold">总上榜次数</td>
+                                <td>6次</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">当日 Star 增加数</td>
+                                <td colspan="3"><span class="text-green-600 font-bold">135</span> ⭐</td>
+                            </tr>
+                        </table>
+                        <div class="repo-stats mt-4">
+                            <div><i class="fas fa-star"></i> 4.4k</div>
+                            <div><i class="fas fa-code-branch"></i> 494</div>
+                            <div><i class="fas fa-eye"></i> 25</div>
+                            <div><i class="fas fa-exclamation-circle"></i> 189</div>
+                            <div><i class="fas fa-code-pull-request"></i> 101</div>
+                            <div><i class="fas fa-box"></i> 12</div>
+                            <div><i class="fas fa-code-commit"></i> 606</div>
+                            <div><i class="fas fa-file-contract"></i> Apache-2.0</div>
+                            <div><i class="fas fa-users"></i> 105</div>
+                        </div>
+                        <div class="lang-chart">
+                            <div class="lang-segment lang-python" style="width: 92.9%;"></div>
+                            <div class="lang-segment lang-cuda" style="width: 5.1%;"></div>
+                            <div class="lang-segment lang-shell" style="width: 1.5%;"></div>
+                            <div class="lang-segment lang-other" style="width: 0.5%;"></div>
+                        </div>
+                        <div class="lang-colors text-sm mt-2">
+                            <span class="lang-python">Python 92.9%</span>
+                            <span class="lang-cuda">Cuda 5.1%</span>
+                            <span class="lang-shell">Shell 1.5%</span>
+                            <span class="lang-other">Other 0.5%</span>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3>LMCache: LLM推理加速引擎</h3>
+                    <ul class="list-disc text-left text-lg space-y-3">
+                        <li class="fragment fade-in"><strong>核心目标：</strong> 解决LLM推理TTFT过长和吞吐量不足，尤其在长上下文场景。</li>
+                        <li class="fragment fade-in"><strong>智能KV缓存复用：</strong> 跨文本前缀、跨服务实例共享KV缓存，节省GPU资源。</li>
+                        <li class="fragment fade-in"><strong>多层次缓存：</strong> KV缓存可存储于GPU、CPU内存乃至本地磁盘。</li>
+                        <li class="fragment fade-in"><strong>深度集成：</strong> 与vLLM等主流LLM服务框架集成，提供高级优化功能。</li>
+                    </ul>
+                    <p class="text-md italic text-gray-600 mt-6 fragment fade-in">
+                        <i class="fas fa-lightbulb text-yellow-500 mr-2"></i><strong>Aha!</strong> LMCache是LLM部署者的强大工具，显著降低运营成本，提升用户体验，实现3-10倍延迟降低！
+                    </p>
+                </section>
+                <section>
+                    <h3>LMCache: 增长分析</h3>
+                    <div class="flex flex-col items-center justify-center h-full text-center">
+                        <p class="text-2xl font-semibold mb-4 text-green-700">
+                            持续活跃，稳健增长！
+                        </p>
+                        <ul class="list-none text-left text-lg space-y-3">
+                            <li class="fragment fade-in"><i class="fas fa-calendar-alt text-blue-500 mr-2"></i><strong>上榜频率：</strong> 近七周内六次上榜（高频）。</li>
+                            <li class="fragment fade-in"><i class="fas fa-chart-line text-green-500 mr-2"></i><strong>总星数劲增：</strong> 2370。</li>
+                            <li class="fragment fade-in"><i class="fas fa-star text-yellow-500 mr-2"></i><strong>平均每次新增：</strong> 145.7 Star。</li>
+                            <li class="fragment fade-in"><i class="fas fa-star text-yellow-500 mr-2"></i><strong>本日新增：</strong> <strong>135 Star</strong>。</li>
+                        </ul>
+                        <p class="text-xl font-bold mt-8 fragment fade-in text-secondary-color">
+                            <i class="fas fa-fire text-red-500 mr-2"></i>体现出强劲且持续的增长态势，活跃度与稳健增长趋势并存！
+                        </p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: colmap/colmap -->
+            <section>
+                <section>
+                    <h3><a href="https://github.com/colmap/colmap" target="_blank" class="text-blue-600 hover:underline">colmap/colmap</a></h3>
+                    <p class="text-xl italic text-gray-700">“COLMAP - 运动恢复结构与多视图立体视觉”</p>
+                    <div class="repo-card mt-6">
+                        <table class="w-full text-left text-sm">
+                            <tr>
+                                <td class="font-bold w-1/4">开发语言</td>
+                                <td class="w-1/4">C++</td>
+                                <td class="font-bold w-1/4">Star 数</td>
+                                <td class="w-1/4">9441 ⭐</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">连续在榜</td>
+                                <td>1次</td>
+                                <td class="font-bold">总上榜次数</td>
+                                <td>2次</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">当日 Star 增加数</td>
+                                <td colspan="3"><span class="text-green-600 font-bold">60</span> ⭐</td>
+                            </tr>
+                        </table>
+                        <div class="repo-stats mt-4">
+                            <div><i class="fas fa-star"></i> 9.4k</div>
+                            <div><i class="fas fa-code-branch"></i> 1.7k</div>
+                            <div><i class="fas fa-eye"></i> 178</div>
+                            <div><i class="fas fa-exclamation-circle"></i> 1k</div>
+                            <div><i class="fas fa-code-pull-request"></i> 35</div>
+                            <div><i class="fas fa-box"></i> 28</div>
+                            <div><i class="fas fa-code-commit"></i> 2,254</div>
+                            <div><i class="fas fa-file-contract"></i> 未知</div>
+                            <div><i class="fas fa-users"></i> 147</div>
+                        </div>
+                        <div class="lang-chart">
+                            <div class="lang-segment lang-c-plus-plus" style="width: 86.0%;"></div>
+                            <div class="lang-segment lang-python" style="width: 5.2%;"></div>
+                            <div class="lang-segment lang-c" style="width: 3.4%;"></div>
+                            <div class="lang-segment lang-cmake" style="width: 2.3%;"></div>
+                            <div class="lang-segment lang-cuda" style="width: 1.8%;"></div>
+                            <div class="lang-segment lang-shell" style="width: 0.6%;"></div>
+                            <div class="lang-segment lang-other" style="width: 0.7%;"></div>
+                        </div>
+                        <div class="lang-colors text-sm mt-2">
+                            <span class="lang-c-plus-plus">C++ 86.0%</span>
+                            <span class="lang-python">Python 5.2%</span>
+                            <span class="lang-c">C 3.4%</span>
+                            <span class="lang-cmake">CMake 2.3%</span>
+                            <span class="lang-cuda">Cuda 1.8%</span>
+                            <span class="lang-shell">Shell 0.6%</span>
+                            <span class="lang-other">Other 0.7%</span>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3>COLMAP: 图像到三维模型的桥梁</h3>
+                    <ul class="list-disc text-left text-lg space-y-3">
+                        <li class="fragment fade-in"><strong>核心功能：</strong> 从任意图像集合自动重建高精度三维模型。</li>
+                        <li class="fragment fade-in"><strong>两大技术：</strong> 集成稀疏重建(SfM)和多视图立体视觉(MVS)。</li>
+                        <li class="fragment fade-in"><strong>全面自动化：</strong> 直观GUI或命令行，即便无序图像也能构建高质量三维成果。</li>
+                        <li class="fragment fade-in"><strong>卓越性能：</strong> 整合顶尖优化库，确保重建精度和稳定性。</li>
+                        <li class="fragment fade-in"><strong>多平台支持：</strong> 预编译版本、Docker部署、Python绑定(PyCOLMAP)，降低门槛。</li>
+                    </ul>
+                    <p class="text-md italic text-gray-600 mt-6 fragment fade-in">
+                        <i class="fas fa-lightbulb text-yellow-500 mr-2"></i><strong>Aha!</strong> COLMAP是连接现实世界与数字空间的关键工具，将平面图像神奇地转化为精确三维模型！
+                    </p>
+                </section>
+                <section>
+                    <h3>COLMAP: 增长分析</h3>
+                    <div class="flex flex-col items-center justify-center h-full text-center">
+                        <p class="text-2xl font-semibold mb-4 text-green-700">
+                            稳健活跃的增长势头！
+                        </p>
+                        <ul class="list-none text-left text-lg space-y-3">
+                            <li class="fragment fade-in"><i class="fas fa-calendar-alt text-blue-500 mr-2"></i><strong>上榜频率：</strong> 四天内2次上榜。</li>
+                            <li class="fragment fade-in"><i class="fas fa-chart-line text-green-500 mr-2"></i><strong>累计增长：</strong> 245 Star。</li>
+                            <li class="fragment fade-in"><i class="fas fa-star text-yellow-500 mr-2"></i><strong>本日新增：</strong> <strong>60 Star</strong>（高于平均49.5 Star/次）。</li>
+                        </ul>
+                        <p class="text-xl font-bold mt-8 fragment fade-in text-secondary-color">
+                            <i class="fas fa-cubes text-purple-500 mr-2"></i>持续受到关注，表明其在3D重建领域的持续影响力！
+                        </p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: OpenBB-finance/OpenBB -->
+            <section>
+                <section>
+                    <h3><a href="https://github.com/OpenBB-finance/OpenBB" target="_blank" class="text-blue-600 hover:underline">OpenBB-finance/OpenBB</a></h3>
+                    <p class="text-xl italic text-gray-700">“面向人类和AI代理的金融数据聚合器”</p>
+                    <div class="repo-card mt-6">
+                        <table class="w-full text-left text-sm">
+                            <tr>
+                                <td class="font-bold w-1/4">开发语言</td>
+                                <td class="w-1/4">Python</td>
+                                <td class="font-bold w-1/4">Star 数</td>
+                                <td class="w-1/4">49599 ⭐</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">连续在榜</td>
+                                <td>1次</td>
+                                <td class="font-bold">总上榜次数</td>
+                                <td>12次</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">当日 Star 增加数</td>
+                                <td colspan="3"><span class="text-green-600 font-bold">137</span> ⭐</td>
+                            </tr>
+                        </table>
+                        <div class="repo-stats mt-4">
+                            <div><i class="fas fa-star"></i> 49.6k</div>
+                            <div><i class="fas fa-code-branch"></i> 4.6k</div>
+                            <div><i class="fas fa-eye"></i> 371</div>
+                            <div><i class="fas fa-exclamation-circle"></i> 50</div>
+                            <div><i class="fas fa-code-pull-request"></i> 18</div>
+                            <div><i class="fas fa-box"></i> 46</div>
+                            <div><i class="fas fa-code-commit"></i> 6,714</div>
+                            <div><i class="fas fa-file-contract"></i> 未知</div>
+                            <div><i class="fas fa-users"></i> 248</div>
+                        </div>
+                        <div class="lang-chart">
+                            <div class="lang-segment lang-python" style="width: 100.0%;"></div>
+                        </div>
+                        <div class="lang-colors text-sm mt-2">
+                            <span class="lang-python">Python 100.0%</span>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3>OpenBB: 金融数据智能聚合平台</h3>
+                    <ul class="list-disc text-left text-lg space-y-3">
+                        <li class="fragment fade-in"><strong>开源金融数据聚合器：</strong> 为个人和AI智能体设计，解决数据获取门槛高、信息分散痛点。</li>
+                        <li class="fragment fade-in"><strong>数据全面性：</strong> 股票、期权、外汇、加密货币、宏观经济等全方位市场数据。</li>
+                        <li class="fragment fade-in"><strong>高度可扩展：</strong> 支持集成多样化数据源和AI代理，灵活Python API和CLI。</li>
+                        <li class="fragment fade-in"><strong>内置FastAPI后端：</strong> 无缝连接OpenBB Workspace，提供可视化界面。</li>
+                    </ul>
+                    <p class="text-md italic text-gray-600 mt-6 fragment fade-in">
+                        <i class="fas fa-lightbulb text-yellow-500 mr-2"></i><strong>Aha!</strong> OpenBB是首个此类开源平台，赋能金融数据分析师，加速量化交易策略构建，但请务必注意投资风险！
+                    </p>
+                </section>
+                <section>
+                    <h3>OpenBB: 增长分析</h3>
+                    <div class="flex flex-col items-center justify-center h-full text-center">
+                        <p class="text-2xl font-semibold mb-4 text-green-700">
+                            持续高曝光，稳健增长！
+                        </p>
+                        <ul class="list-none text-left text-lg space-y-3">
+                            <li class="fragment fade-in"><i class="fas fa-calendar-alt text-blue-500 mr-2"></i><strong>上榜频率：</strong> 五个月内12次高频上榜。</li>
+                            <li class="fragment fade-in"><i class="fas fa-chart-line text-green-500 mr-2"></i><strong>累计总星增长：</strong> 12538。</li>
+                            <li class="fragment fade-in"><i class="fas fa-star text-yellow-500 mr-2"></i><strong>平均每次新增：</strong> 291.8 Star。</li>
+                            <li class="fragment fade-in"><i class="fas fa-star text-yellow-500 mr-2"></i><strong>本日新增：</strong> <strong>137 Star</strong>。</li>
+                        </ul>
+                        <p class="text-xl font-bold mt-8 fragment fade-in text-secondary-color">
+                            <i class="fas fa-money-bill-wave text-green-500 mr-2"></i>展现出持续且高效的曝光能力，通过频繁上榜实现了显著而稳健的增长！
+                        </p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: DataExpert-io/data-engineer-handbook -->
+            <section>
+                <section>
+                    <h3><a href="https://github.com/DataExpert-io/data-engineer-handbook" target="_blank" class="text-blue-600 hover:underline">DataExpert-io/data-engineer-handbook</a></h3>
+                    <p class="text-xl italic text-gray-700">“这是一个数据工程学习资源库，包含了所有你想学习的链接”</p>
+                    <div class="repo-card mt-6">
+                        <table class="w-full text-left text-sm">
+                            <tr>
+                                <td class="font-bold w-1/4">开发语言</td>
+                                <td class="w-1/4">Jupyter Notebook</td>
+                                <td class="font-bold w-1/4">Star 数</td>
+                                <td class="w-1/4">36339 ⭐</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">连续在榜</td>
+                                <td>1次</td>
+                                <td class="font-bold">总上榜次数</td>
+                                <td>8次</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">当日 Star 增加数</td>
+                                <td colspan="3"><span class="text-green-600 font-bold">33</span> ⭐</td>
+                            </tr>
+                        </table>
+                        <div class="repo-stats mt-4">
+                            <div><i class="fas fa-star"></i> 36.3k</div>
+                            <div><i class="fas fa-code-branch"></i> 7k</div>
+                            <div><i class="fas fa-eye"></i> 429</div>
+                            <div><i class="fas fa-exclamation-circle"></i> 12</div>
+                            <div><i class="fas fa-code-pull-request"></i> 8</div>
+                            <div><i class="fas fa-box"></i> 0</div>
+                            <div><i class="fas fa-code-commit"></i> 466</div>
+                            <div><i class="fas fa-file-contract"></i> 未知</div>
+                            <div><i class="fas fa-users"></i> 126</div>
+                        </div>
+                        <div class="lang-chart">
+                            <div class="lang-segment lang-jupyter-notebook" style="width: 66.9%;"></div>
+                            <div class="lang-segment lang-python" style="width: 26.3%;"></div>
+                            <div class="lang-segment lang-makefile" style="width: 3.7%;"></div>
+                            <div class="lang-segment lang-dockerfile" style="width: 2.0%;"></div>
+                            <div class="lang-segment lang-shell" style="width: 1.1%;"></div>
+                        </div>
+                        <div class="lang-colors text-sm mt-2">
+                            <span class="lang-jupyter-notebook">Jupyter Notebook 66.9%</span>
+                            <span class="lang-python">Python 26.3%</span>
+                            <span class="lang-makefile">Makefile 3.7%</span>
+                            <span class="lang-dockerfile">Dockerfile 2.0%</span>
+                            <span class="lang-shell">Shell 1.1%</span>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3>数据工程手册: 一站式学习导航</h3>
+                    <ul class="list-disc text-left text-lg space-y-3">
+                        <li class="fragment fade-in"><strong>系统化资源库：</strong> 解决数据工程知识分散、学习路径不清晰痛点。</li>
+                        <li class="fragment fade-in"><strong>内容全面结构化：</strong> 2024路线图、必读专业书籍、活跃社区、技术博客。</li>
+                        <li class="fragment fade-in"><strong>涵盖关键技术维度：</strong> 数据编排、湖仓一体、数据质量、集成、分析可视化，乃至LLM应用库。</li>
+                        <li class="fragment fade-in"><strong>理论与实践结合：</strong> 提供项目实践指导和面试准备建议。</li>
+                    </ul>
+                    <p class="text-md italic text-gray-600 mt-6 fragment fade-in">
+                        <i class="fas fa-lightbulb text-yellow-500 mr-2"></i><strong>Aha!</strong> 这本手册是数据工程领域的“活百科全书”，极大降低学习门槛和信息搜寻成本，助力从业者成长！
+                    </p>
+                </section>
+                <section>
+                    <h3>数据工程手册: 增长分析</h3>
+                    <div class="flex flex-col items-center justify-center h-full text-center">
+                        <p class="text-2xl font-semibold mb-4 text-green-700">
+                            强劲且稳定，用户关注度高！
+                        </p>
+                        <ul class="list-none text-left text-lg space-y-3">
+                            <li class="fragment fade-in"><i class="fas fa-calendar-alt text-blue-500 mr-2"></i><strong>上榜频率：</strong> 近三个月内8次上榜。</li>
+                            <li class="fragment fade-in"><i class="fas fa-chart-line text-green-500 mr-2"></i><strong>总星数激增：</strong> 8517。</li>
+                            <li class="fragment fade-in"><i class="fas fa-star text-yellow-500 mr-2"></i><strong>平均每次新增：</strong> 500 Star。</li>
+                            <li class="fragment fade-in"><i class="fas fa-star text-yellow-500 mr-2"></i><strong>本日新增：</strong> <strong>33 Star</strong>。</li>
+                        </ul>
+                        <p class="text-xl font-bold mt-8 fragment fade-in text-secondary-color">
+                            <i class="fas fa-book-reader text-purple-500 mr-2"></i>增长势头强劲且稳定，特别在获得推荐时，用户关注度高，星数增长显著！
+                        </p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: clash-verge-rev/clash-verge-rev -->
+            <section>
+                <section>
+                    <h3><a href="https://github.com/clash-verge-rev/clash-verge-rev" target="_blank" class="text-blue-600 hover:underline">clash-verge-rev/clash-verge-rev</a></h3>
+                    <p class="text-xl italic text-gray-700">“一个基于Tauri的现代GUI客户端，专为Windows、macOS和Linux设计，旨在提供定制化的代理体验”</p>
+                    <div class="repo-card mt-6">
+                        <table class="w-full text-left text-sm">
+                            <tr>
+                                <td class="font-bold w-1/4">开发语言</td>
+                                <td class="w-1/4">TypeScript</td>
+                                <td class="font-bold w-1/4">Star 数</td>
+                                <td class="w-1/4">70433 ⭐</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">连续在榜</td>
+                                <td>1次</td>
+                                <td class="font-bold">总上榜次数</td>
+                                <td>2次</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">当日 Star 增加数</td>
+                                <td colspan="3"><span class="text-green-600 font-bold">118</span> ⭐</td>
+                            </tr>
+                        </table>
+                        <div class="repo-stats mt-4">
+                            <div><i class="fas fa-star"></i> 70.4k</div>
+                            <div><i class="fas fa-code-branch"></i> 5.3k</div>
+                            <div><i class="fas fa-eye"></i> 203</div>
+                            <div><i class="fas fa-exclamation-circle"></i> 96</div>
+                            <div><i class="fas fa-code-pull-request"></i> 7</div>
+                            <div><i class="fas fa-box"></i> 49</div>
+                            <div><i class="fas fa-code-commit"></i> 2,992</div>
+                            <div><i class="fas fa-file-contract"></i> GPL-3.0</div>
+                            <div><i class="fas fa-users"></i> 102</div>
+                        </div>
+                        <div class="lang-chart">
+                            <div class="lang-segment lang-typescript" style="width: 52.2%;"></div>
+                            <div class="lang-segment lang-rust" style="width: 41.3%;"></div>
+                            <div class="lang-segment lang-javascript" style="width: 3.5%;"></div>
+                            <div class="lang-segment lang-nsis" style="width: 2.4%;"></div>
+                            <div class="lang-segment lang-shell" style="width: 0.3%;"></div>
+                            <div class="lang-segment lang-scss" style="width: 0.3%;"></div>
+                        </div>
+                        <div class="lang-colors text-sm mt-2">
+                            <span class="lang-typescript">TypeScript 52.2%</span>
+                            <span class="lang-rust">Rust 41.3%</span>
+                            <span class="lang-javascript">JavaScript 3.5%</span>
+                            <span class="lang-nsis">NSIS 2.4%</span>
+                            <span class="lang-shell">Shell 0.3%</span>
+                            <span class="lang-scss">SCSS 0.3%</span>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3>Clash Verge Rev: 现代GUI代理客户端</h3>
+                    <ul class="list-disc text-left text-lg space-y-3">
+                        <li class="fragment fade-in"><strong>现代化GUI：</strong> 基于Tauri 2框架，提供直观高效的网络代理管理体验。</li>
+                        <li class="fragment fade-in"><strong>前沿技术栈：</strong> 采用Rust和Tauri，轻盈高效，确保流畅用户体验。</li>
+                        <li class="fragment fade-in"><strong>强大功能集成：</strong> 内置Clash.Meta (mihomo) 内核，支持灵活切换内核版本。</li>
+                        <li class="fragment fade-in"><strong>深度用户优化：</strong> 简洁美观界面，高度定制化主题、图标，高级配置文件管理。</li>
+                    </ul>
+                    <p class="text-md italic text-gray-600 mt-6 fragment fade-in">
+                        <i class="fas fa-lightbulb text-yellow-500 mr-2"></i><strong>Aha!</strong> 它将复杂配置化繁为简，提供稳定高效且高度可定制的代理解决方案，是用户理想选择！
+                    </p>
+                </section>
+                <section>
+                    <h3>Clash Verge Rev: 增长分析</h3>
+                    <div class="flex flex-col items-center justify-center h-full text-center">
+                        <p class="text-2xl font-semibold mb-4 text-green-700">
+                            口碑驱动的爆炸式增长！
+                        </p>
+                        <ul class="list-none text-left text-lg space-y-3">
+                            <li class="fragment fade-in"><i class="fas fa-star text-yellow-500 mr-2"></i><strong>总星数增长：</strong> 18848。</li>
+                            <li class="fragment fade-in"><i class="fas fa-calendar-alt text-blue-500 mr-2"></i><strong>上榜频率：</strong> 近5个月仅2次上榜。</li>
+                        </ul>
+                        <p class="text-xl font-bold mt-8 fragment fade-in text-secondary-color">
+                            <i class="fas fa-share-alt text-purple-500 mr-2"></i>榜单效应不明显，巨大增长更多源于其他渠道或口碑传播，其产品力可见一斑！
+                        </p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Project: MotiaDev/motia -->
+            <section>
+                <section>
+                    <h3><a href="https://github.com/MotiaDev/motia" target="_blank" class="text-blue-600 hover:underline">MotiaDev/motia</a></h3>
+                    <p class="text-xl italic text-gray-700">“现代后端框架，将API、后台任务、工作流和AI智能体统一整合为一个内聚系统，并内置可观测性和状态管理”</p>
+                    <div class="repo-card mt-6">
+                        <table class="w-full text-left text-sm">
+                            <tr>
+                                <td class="font-bold w-1/4">开发语言</td>
+                                <td class="w-1/4">TypeScript</td>
+                                <td class="font-bold w-1/4">Star 数</td>
+                                <td class="w-1/4">6065 ⭐</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">连续在榜</td>
+                                <td>1次</td>
+                                <td class="font-bold">总上榜次数</td>
+                                <td>7次</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">当日 Star 增加数</td>
+                                <td colspan="3"><span class="text-green-600 font-bold">158</span> ⭐</td>
+                            </tr>
+                        </table>
+                        <div class="repo-stats mt-4">
+                            <div><i class="fas fa-star"></i> 6.1k</div>
+                            <div><i class="fas fa-code-branch"></i> 473</div>
+                            <div><i class="fas fa-eye"></i> 47</div>
+                            <div><i class="fas fa-exclamation-circle"></i> 33</div>
+                            <div><i class="fas fa-code-pull-request"></i> 3</div>
+                            <div><i class="fas fa-box"></i> 96</div>
+                            <div><i class="fas fa-code-commit"></i> 785</div>
+                            <div><i class="fas fa-file-contract"></i> MIT</div>
+                            <div><i class="fas fa-users"></i> 18</div>
+                        </div>
+                        <div class="lang-chart">
+                            <div class="lang-segment lang-typescript" style="width: 74.5%;"></div>
+                            <div class="lang-segment lang-mdx" style="width: 17.5%;"></div>
+                            <div class="lang-segment lang-python" style="width: 3.5%;"></div>
+                            <div class="lang-segment lang-javascript" style="width: 1.7%;"></div>
+                            <div class="lang-segment lang-css" style="width: 1.5%;"></div>
+                            <div class="lang-segment lang-ruby" style="width: 0.7%;"></div>
+                            <div class="lang-segment lang-other" style="width: 0.6%;"></div>
+                        </div>
+                        <div class="lang-colors text-sm mt-2">
+                            <span class="lang-typescript">TypeScript 74.5%</span>
+                            <span class="lang-mdx">MDX 17.5%</span>
+                            <span class="lang-python">Python 3.5%</span>
+                            <span class="lang-javascript">JavaScript 1.7%</span>
+                            <span class="lang-css">CSS 1.5%</span>
+                            <span class="lang-ruby">Ruby 0.7%</span>
+                            <span class="lang-other">Other 0.6%</span>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3>Motia: 统一后端开发的新范式</h3>
+                    <ul class="list-disc text-left text-lg space-y-3">
+                        <li class="fragment fade-in"><strong>创新后端框架：</strong> 将API、后台任务、工作流和AI代理统一整合，解决碎片化。</li>
+                        <li class="fragment fade-in"><strong>“Step”原语：</strong> 业务逻辑抽象为可执行步骤，消除多框架切换。</li>
+                        <li class="fragment fade-in"><strong>多语言混合：</strong> 支持JavaScript、TypeScript和Python混合使用，提升灵活性。</li>
+                        <li class="fragment fade-in"><strong>内置可观测性：</strong> 零配置端到端追踪和结构化日志。</li>
+                        <li class="fragment fade-in"><strong>Motia Workbench：</strong> 直观可视化界面，优化开发、调试和监控体验。</li>
+                    </ul>
+                    <p class="text-md italic text-gray-600 mt-6 fragment fade-in">
+                        <i class="fas fa-lightbulb text-yellow-500 mr-2"></i><strong>Aha!</strong> Motia通过“Step”模型和全面集成，极大简化现代后端应用构建与运维，提升团队效率和应用健壮性！
+                    </p>
+                </section>
+                <section>
+                    <h3>Motia: 增长分析</h3>
+                    <div class="flex flex-col items-center justify-center h-full text-center">
+                        <p class="text-2xl font-semibold mb-4 text-green-700">
+                            高频上榜，核心增长动力！
+                        </p>
+                        <ul class="list-none text-left text-lg space-y-3">
+                            <li class="fragment fade-in"><i class="fas fa-calendar-alt text-blue-500 mr-2"></i><strong>上榜频率：</strong> 2025年7月3日至8月17日期间，7次高频上榜。</li>
+                            <li class="fragment fade-in"><i class="fas fa-chart-line text-green-500 mr-2"></i><strong>总计增长：</strong> 3107星。</li>
+                            <li class="fragment fade-in"><i class="fas fa-star text-yellow-500 mr-2"></i><strong>平均每次贡献：</strong> 196星。</li>
+                            <li class="fragment fade-in"><i class="fas fa-star text-yellow-500 mr-2"></i><strong>本日新增：</strong> <strong>158星</strong>。</li>
+                        </ul>
+                        <p class="text-xl font-bold mt-8 fragment fade-in text-secondary-color">
+                            <i class="fas fa-hand-sparkles text-purple-500 mr-2"></i>高频次上榜是其核心增长动力，持续保持良好增长态势！
+                        </p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Final Slide -->
+            <section class="cover-slide text-center" data-background-image="https://images.unsplash.com/photo-1516110833957-e1e01d9454a3?ixlib=rb-4.0.3&ixid=MnwzNTY3NXwwfDF8c2VhcmNofDQwfHxhcnRpZmljaWFsJTIwaW50ZWxsaWdlbmNlfGVufDB8fHx8MTY3ODk0ODg1Ng&auto=format&fit=crop&w=1920&q=80" data-background-size="cover" data-background-position="center">
+                <h1 class="text-white text-shadow-lg leading-tight">感谢聆听！</h1>
+                <h2 class="text-white text-shadow-md mt-4">期待与您共同探索AI的无限可能</h2>
+                <p class="text-white text-opacity-80 mt-8">
+                    <i class="fas fa-star mr-2"></i>关注项目，获取最新GitHub趋势洞察！
+                </p>
+                <div class="footer-info">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank" class="text-white hover:text-blue-300">
+                        <i class="fab fa-github mr-2"></i>https://github.com/aichipera/github-trend
+                    </a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code" class="qr-code-img">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+            mouseWheel: true, // Enable mouse wheel navigation
+            dependencies: [
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/highlight/highlight.min.js', async: true },
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/markdown/markdown.min.js', async: true },
+                { src: 'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/plugin/notes/notes.min.js', async: true }
+            ]
+        });
+
+        // Initialize Mermaid for diagrams
+        mermaid.initialize({ startOnLoad: false });
+        // Auto-render Mermaid diagrams when slide becomes visible (if any)
+        Reveal.on( 'slidechanged', event => {
+            if (event.currentSlide.querySelector('.mermaid')) {
+                mermaid.init(undefined, event.currentSlide.querySelectorAll('.mermaid'));
+            }
+        });
+    </script>
+</body>
+</html>
