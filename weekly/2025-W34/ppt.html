@@ -1,0 +1,935 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub周榜：智能体崛起</title>
+
+    <!-- Core Reveal.js -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <!-- Base theme (white) for Reveal.js, will be customized -->
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- Extended Dependencies -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <!-- Google Fonts for Noto Serif SC (titles) and Noto Sans SC (body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        /* Custom styles for the presentation */
+        :root {
+            --r-background-color: #f7f7f7; /* Light grey for overall background */
+            --r-main-font-size: 1.1rem; /* Base font size for readability */
+            /* Custom font stack for titles (Serif first, then fallbacks) */
+            --r-heading-font: 'Noto Serif SC', serif, 'Hiragino Sans GB', 'Heiti SC', Simsun;
+            /* Custom font stack for body (Sans-serif first, then fallbacks) */
+            --r-main-font: 'Noto Sans SC', sans-serif, Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun;
+            --r-main-color: #333333; /* Dark grey for general text */
+            --r-link-color: #4A90E2; /* Primary blue for links/accents */
+            --r-selection-background-color: #8C52FF; /* Purple accent for text selection */
+        }
+
+        body {
+            font-family: var(--r-main-font);
+            color: var(--r-main-color);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--r-heading-font);
+            color: #2c3e50; /* Darker blue-grey for headings for contrast */
+            font-weight: 700; /* Bold headings */
+        }
+
+        /* Responsive font sizes for headings */
+        h1 { font-size: 2.8rem; line-height: 1.2; margin-bottom: 0.5em; }
+        h2 { font-size: 2.2rem; line-height: 1.3; margin-bottom: 0.4em; }
+        h3 { font-size: 1.8rem; line-height: 1.4; margin-bottom: 0.3em; }
+        h4 { font-size: 1.4rem; line-height: 1.5; margin-bottom: 0.2em; }
+        p, li {
+            font-size: var(--r-main-font-size);
+            line-height: 1.6; /* Improved line spacing for readability */
+            margin-bottom: 0.5em;
+        }
+
+        /* Cover and End slide specific styling */
+        .reveal .slides section.cover-slide,
+        .reveal .slides section.end-slide {
+            background: linear-gradient(135deg, #4A90E2, #8C52FF); /* Blue-Purple Gradient */
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3); /* Text shadow for better readability on gradient */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .reveal .slides section.cover-slide h1 {
+            color: white;
+            font-size: 3.5rem; /* Larger title for impact */
+            margin-bottom: 0.2em;
+        }
+        .reveal .slides section.cover-slide h2 {
+            color: white;
+            font-size: 2.5rem;
+            opacity: 0.9;
+        }
+        .reveal .slides section.cover-slide h3 {
+            color: white;
+            font-size: 1.8rem;
+            opacity: 0.9;
+        }
+        .reveal .slides section.cover-slide p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-top: 1em;
+        }
+        .reveal .slides section.cover-slide .speaker-info {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.9);
+        }
+        .reveal .slides section.end-slide {
+            background: linear-gradient(135deg, #8C52FF, #4A90E2); /* Reversed gradient for end slide */
+        }
+        .reveal .slides section.end-slide h2 {
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 0.5em;
+        }
+        .reveal .slides section.end-slide p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-top: 1em;
+        }
+
+        /* QR code and Project Link styling for first and last pages */
+        .qr-link-container {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            z-index: 1000;
+        }
+        .qr-link-container img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .qr-link-container a {
+            color: white; /* Default for cover/end slide */
+            font-size: 0.9rem;
+            text-decoration: underline;
+            background-color: rgba(0,0,0,0.3); /* Semi-transparent background for readability */
+            padding: 4px 8px;
+            border-radius: 5px;
+        }
+        /* Override for regular slides to ensure readability on light backgrounds */
+        .reveal .slides section:not(.cover-slide):not(.end-slide) .qr-link-container a {
+            color: var(--r-main-color);
+            background-color: rgba(255,255,255,0.7);
+        }
+
+        /* Custom gradient backgrounds for internal slides */
+        .reveal .slide-background-content {
+            background-size: cover;
+            background-position: center;
+        }
+        .reveal .slide-background-content.gradient-bg-1 {
+            background: linear-gradient(45deg, #e0f2f7, #f0fdf4); /* Light blue-green */
+        }
+        .reveal .slide-background-content.gradient-bg-2 {
+            background: linear-gradient(135deg, #fcefee, #fcfbe7); /* Light pink-yellow */
+        }
+        .reveal .slide-background-content.gradient-bg-3 {
+            background: linear-gradient(90deg, #f0f0f5, #e0e0e0); /* Light grey */
+        }
+
+        /* Image styling */
+        .reveal section img {
+            max-height: 80vh;
+            max-width: 90%;
+            object-fit: contain;
+            background: none;
+            border: none;
+            box-shadow: none;
+        }
+
+        /* Reveal.js controls and progress bar coloring */
+        .reveal .controls button {
+            color: #4A90E2; /* Blue controls */
+        }
+        .reveal .progress span {
+            background: #8C52FF; /* Purple progress bar */
+        }
+
+        /* Custom list item styling with Font Awesome icons */
+        .reveal ul {
+            list-style: none; /* Remove default bullets */
+            padding-left: 0;
+            margin-left: 0;
+        }
+        .reveal ul li {
+            padding-left: 1.5em; /* Space for custom bullet */
+            position: relative;
+            margin-bottom: 0.6em;
+        }
+        .reveal ul li:before {
+            content: "\f058"; /* Font Awesome check circle icon */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: #00C892; /* Green checkmark */
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 0.9em;
+        }
+        .reveal ul.no-bullet li:before { /* Option to remove custom bullet */
+            content: none;
+        }
+
+        /* Table styling */
+        .reveal table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1em 0;
+            font-size: 0.9em;
+        }
+        .reveal th, .reveal td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .reveal th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        /* Fragment animations for content reveal */
+        .reveal .fragment.fade-in {
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+        .reveal .fragment.fade-in.visible {
+            opacity: 1;
+        }
+        /* Custom highlight fragments for emphasis */
+        .reveal .fragment.highlight-current-blue {
+            opacity: 0.5;
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+        }
+        .reveal .fragment.highlight-current-blue.visible {
+            opacity: 1;
+            color: #4A90E2; /* Blue highlight */
+            transform: scale(1.03); /* Slightly enlarge for emphasis */
+        }
+        .reveal .fragment.highlight-current-purple {
+            opacity: 0.5;
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+        }
+        .reveal .fragment.highlight-current-purple.visible {
+            opacity: 1;
+            color: #8C52FF; /* Purple highlight */
+            transform: scale(1.03);
+        }
+
+        /* Tailwind classes adjustment for Reveal.js context to maintain consistency */
+        .reveal .text-2xl { font-size: 1.5rem; }
+        .reveal .text-3xl { font-size: 1.875rem; }
+        .reveal .text-4xl { font-size: 2.25rem; }
+        .reveal .text-5xl { font-size: 3rem; }
+        .reveal .text-6xl { font-size: 3.75rem; }
+
+        /* Icon specific colors for better visual grouping */
+        .icon-star { color: #FFD700; } /* Gold star */
+        .icon-fork { color: #4A90E2; } /* Blue fork */
+        .icon-watch { color: #8C52FF; } /* Purple eye */
+        .icon-issue { color: #FF4A4A; } /* Red issue */
+        .icon-pr { color: #00C892; } /* Green pull request */
+        .icon-release { color: #FFA500; } /* Orange package */
+        .icon-commit { color: #6A5ACD; } /* Slate blue commit */
+        .icon-license { color: #4CAF50; } /* Green license */
+        .icon-contributors { color: #B0C4DE; } /* Light steel blue contributors */
+        .icon-language { color: #778899; } /* Light Slate Grey */
+
+        /* Stylish section title box */
+        .section-title {
+            padding: 15px 30px;
+            background: linear-gradient(90deg, #4A90E2, #8C52FF); /* Gradient background for section titles */
+            color: white;
+            border-radius: 10px;
+            display: inline-block;
+            margin-bottom: 1em;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Soft shadow for depth */
+            font-size: 2rem; /* Ensure section titles are prominent */
+        }
+
+        /* Animation for hint arrow */
+        .animate-bounce {
+            animation: bounce 1s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(-25%);
+                animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+            }
+            50% {
+                transform: translateY(0);
+                animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- 1. 封面页 -->
+            <section class="cover-slide">
+                <h1>🔥 今日最火爆的开源项目都在这 ⭐️</h1>
+                <h2>GitHub周榜：智能体崛起重塑开发与协作</h2>
+                <h3>未来技术趋势深度解析！</h3>
+                <p>Github热门仓库周报观测时间: 2025-08-24 21:22:09</p>
+                <p class="speaker-info">演讲者: AIChipEra</p>
+                <div class="qr-link-container">
+                    <img src="../../asserts/wx.jpg" alt="微信二维码">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+            <!-- 2. 免责声明/引言 -->
+            <section data-background-color="#fff">
+                <h2>📢 重要提示</h2>
+                <div class="flex items-center justify-center h-full">
+                    <div class="p-10 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 max-w-2xl shadow-lg rounded-lg">
+                        <p class="text-xl font-semibold mb-4"><i class="fas fa-exclamation-triangle mr-2"></i>免责声明</p>
+                        <p class="mb-2"><strong>以下内容仅供项目介绍和学习使用。</strong></p>
+                        <p class="mb-0"><strong>不构成任何投资建议，请注意甄别！</strong></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. 周报要点 -->
+            <section data-background-class="gradient-bg-1">
+                <h2 class="section-title">周报要点：智能体驱动的未来</h2>
+                <ul class="no-bullet text-left text-lg mx-auto w-4/5">
+                    <li class="fragment fade-in">核心技术：从AI模型本身转向构建更智能、更可控的<strong>“智能体(Agent)”</strong>，它们能理解、规划、执行复杂任务。</li>
+                    <li class="fragment fade-in">应用焦点：近七成项目聚焦提升智能应用<strong>可靠性、解决“幻觉”问题</strong>，并深度融入项目管理、安全防护等传统领域。</li>
+                    <li class="fragment fade-in">语言趋势：<strong>Python</strong>因其生态优势主导智能应用开发，<strong>TypeScript和Vue</strong>等Web技术则在构建智能工作流前端方面表现强劲。</li>
+                    <li class="fragment fade-in">未来展望：<strong>“具身智能”</strong>和多模态交互将加速技术与物理世界的融合，个性化智能伴侣和AI驱动安全运维也将成为新热点。</li>
+                    <li class="fragment fade-in">社区偏好：对<strong>开源、自托管和高定制化</strong>的偏好日益明显。</li>
+                    <li class="fragment fade-in">总结：一个由智能体主导、用户掌控的开放技术新纪元正加速到来。</li>
+                </ul>
+            </section>
+
+            <!-- 4. 热门项目趋势分析：本周整体趋势 - 概述 -->
+            <section data-background-class="gradient-bg-2">
+                <h2 class="section-title">本周整体趋势：AI应用层爆发与深化</h2>
+                <div class="grid grid-cols-2 gap-8 mt-8">
+                    <div class="col-span-1">
+                        <h3 class="text-xl text-left fragment fade-in"><i class="fas fa-chart-line mr-2 text-blue-600"></i> AI浪潮持续高涨</h3>
+                        <ul class="text-left text-base no-bullet">
+                            <li class="fragment fade-in">近七成项目与AI相关，印证AI浪潮持续高涨。</li>
+                            <li class="fragment fade-in">焦点从基础模型转向构建<strong>更智能、实用、可控的AI应用与智能体(Agent)</strong>。</li>
+                            <li class="fragment fade-in">提高开发者和团队生产力、保障数据安全与隐私是核心需求。</li>
+                        </ul>
+                    </div>
+                    <div class="col-span-1">
+                        <h3 class="text-xl text-left fragment fade-in"><i class="fas fa-microchip mr-2 text-purple-600"></i> 从模型到智能体</h3>
+                        <ul class="text-left text-base no-bullet">
+                            <li class="fragment fade-in">AI Agent不再是单一工具，而是具备<strong>理解、规划、执行复杂任务</strong>的能力。</li>
+                            <li class="fragment fade-in">能与外部工具、环境乃至其他智能体协作。</li>
+                            <li class="fragment fade-in">将AI从“工具”推向“伙伴”甚至“决策者”的角色。</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-8 text-left">
+                    <h3 class="text-xl text-left fragment fade-in"><i class="fas fa-star mr-2 text-green-600"></i> 核心需求洞察</h3>
+                    <ul class="text-left text-base no-bullet">
+                        <li class="fragment fade-in">对<strong>AI可控性与可靠性</strong>的渴求：解决大型语言模型（LLM）的幻觉问题。</li>
+                        <li class="fragment fade-in"><strong>AI赋能全栈开发与生产力提升</strong>：论文转代码、可视化工作流、一体化AI平台。</li>
+                        <li class="fragment fade-in">对<strong>数据主权与本地化AI解决方案</strong>的重视：自托管和本地LLM运行。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 5. 热门项目趋势分析：本周整体趋势 - 语言分布 -->
+            <section data-background-class="gradient-bg-3">
+                <h2 class="section-title">语言生态：AI时代的多元共生</h2>
+                <div class="grid grid-cols-2 gap-8 mt-8">
+                    <div class="col-span-1">
+                        <h3 class="text-xl text-left fragment fade-in"><i class="fab fa-python mr-2 text-indigo-600"></i> Python: AI领域主导力量</h3>
+                        <ul class="text-left text-base no-bullet">
+                            <li class="fragment fade-in">凭借丰富生态系统和简洁性，在AI智能体、编码辅助和网络安全AI等项目中占据核心地位。</li>
+                            <li class="fragment fade-in">例如：Archon (AI编码助手), Parlant (可控LLM智能体), CAI (网络安全AI)。</li>
+                        </ul>
+                    </div>
+                    <div class="col-span-1">
+                        <h3 class="text-xl text-left fragment fade-in"><i class="fab fa-js-square mr-2 text-yellow-600"></i> Web技术栈: 前端与工作流利器</h3>
+                        <ul class="text-left text-base no-bullet">
+                            <li class="fragment fade-in"><strong>TypeScript, Vue</strong>等广泛应用于构建AI工作流前端、在线协作工具及跨平台客户端。</li>
+                            <li class="fragment fade-in">例如：Sim (AI工作流构建器), AIRI (AI虚拟伴侣), Drawnix (白板工具)。</li>
+                        </ul>
+                    </div>
+                    <div class="col-span-2">
+                        <h3 class="text-xl text-left fragment fade-in"><i class="fas fa-globe mr-2 text-gray-600"></i> 其他语言亮点</h3>
+                        <ul class="text-left text-base no-bullet">
+                            <li class="fragment fade-in"><strong>PHP</strong>: 传统Web服务和综合生产力平台 (Leantime, Magic)。</li>
+                            <li class="fragment fade-in"><strong>C#</strong>: 桌面图形处理创新 (PixiEditor)。</li>
+                            <li class="fragment fade-in"><strong>Go</strong>: 高性能后端服务及安全分析工具 (BloodHound)。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. 热门项目趋势分析：未来展望 -->
+            <section data-background-class="gradient-bg-1">
+                <h2 class="section-title">未来展望：技术融合与落地</h2>
+                <ul class="text-left text-lg mx-auto w-4/5">
+                    <li class="fragment fade-in"><i class="fas fa-robot mr-2 text-blue-500"></i> <strong>“具身智能”（Embodied AI）与多模态交互深化</strong>：AI将以更自然、沉浸方式融入生活 (如AIRI)。</li>
+                    <li class="fragment fade-in"><i class="fas fa-laptop-code mr-2 text-purple-500"></i> <strong>AI原生操作系统或开发环境</strong>：彻底改变人机交互和软件开发范式。</li>
+                    <li class="fragment fade-in"><i class="fas fa-user-circle mr-2 text-green-500"></i> <strong>个性化AI伴侣</strong>：每个人拥有一个高度定制化的“数字孪生”伴侣。</li>
+                    <li class="fragment fade-in"><i class="fas fa-shield-alt mr-2 text-red-500"></i> <strong>AI驱动安全运维 (AI-driven Security Operations)</strong>：攻防能力将进一步提升，形成更加智能化的防护。</li>
+                    <li class="fragment fade-in"><i class="fas fa-lightbulb mr-2 text-yellow-500"></i> <strong>融合性与实用性</strong>：AI作为核心驱动力，深度融入项目管理、协同办公、安全防护等多个传统领域。</li>
+                    <li class="fragment fade-in"><i class="fas fa-hand-holding-heart mr-2 text-pink-500"></i> <strong>开源、自托管与高定制性</strong>：技术社区在拥抱AI便利时的核心价值观。</li>
+                </ul>
+            </section>
+
+            <!-- 7. 热门项目双周维度对比分析 -->
+            <section data-background-class="gradient-bg-2">
+                <h2 class="section-title">双周对比：新项目激增，热度平淡</h2>
+                <div class="grid grid-cols-2 gap-8 mt-8 text-left">
+                    <div>
+                        <h3 class="text-xl fragment fade-in"><i class="fas fa-fire-alt mr-2 text-red-500"></i> 热度变化趋势</h3>
+                        <ul class="text-base no-bullet">
+                            <li class="fragment fade-in"><strong>新晋项目14个</strong>，远超上升/下降，显示热度主要由新项目驱动。</li>
+                            <li class="fragment fade-in">社区对新技术快速尝鲜，而非旧项目持续增长。</li>
+                            <li class="fragment fade-in">涨幅最大的`dtyq/magic`项目以惊人增幅领跑，头部效应显著。</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl fragment fade-in"><i class="fas fa-layer-group mr-2 text-blue-500"></i> 新项目特点</h3>
+                        <ul class="text-base no-bullet">
+                            <li class="fragment fade-in"><strong>AI/LLM相关项目占据主导</strong>（如`airi`、`sim`、`DeepCode`等），印证AI领域强劲势头。</li>
+                            <li class="fragment fade-in"><strong>Python</strong>是新晋项目中最受欢迎语言（6个），兼具系统工具、安全应用和Web前端项目。</li>
+                        </ul>
+                    </div>
+                    <div class="col-span-2">
+                        <h3 class="text-xl fragment fade-in"><i class="fas fa-code mr-2 text-green-500"></i> 编程语言分布变化</h3>
+                        <ul class="text-base no-bullet">
+                            <li class="fragment fade-in"><strong>Python以+3净增长领跑</strong>，主要得益于AI生态繁荣。</li>
+                            <li class="fragment fade-in">C++和C#略有上升。</li>
+                            <li class="fragment fade-in">TypeScript、Rust、Go均下降（-2），Dart和Java亦小幅回落，可能反映现有热门项目热度衰减。</li>
+                            <li class="fragment fade-in">主流语言生态正经历微妙调整。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 8. 热点变化 -->
+            <section data-background-class="gradient-bg-3">
+                <h2 class="section-title">热点变化：涌现与沉寂</h2>
+                <div class="grid grid-cols-2 gap-6 mt-8">
+                    <div>
+                        <h3 class="text-xl text-green-700 fragment fade-in"><i class="fas fa-plus-circle mr-2"></i> 新增热点</h3>
+                        <ul class="text-left text-base no-bullet ml-4">
+                            <li class="fragment fade-in">google/googletest</li>
+                            <li class="fragment fade-in">simstudioai/sim</li>
+                            <li class="fragment fade-in">aliasrobotics/cai</li>
+                            <li class="fragment fade-in">coleam00/archon</li>
+                            <li class="fragment fade-in">moeru-ai/airi</li>
+                            <li class="fragment fade-in">leantime/leantime</li>
+                            <li class="fragment fade-in">pixieditor/pixieditor</li>
+                            <li class="fragment fade-in">emcie-co/parlant</li>
+                            <li class="fragment fade-in">shubhamsaboo/awesome-llm-apps</li>
+                            <li class="fragment fade-in">plait-board/drawnix</li>
+                            <li class="fragment fade-in">specterops/bloodhound</li>
+                            <li class="fragment fade-in">winapps-org/winapps</li>
+                            <li class="fragment fade-in">hkuds/deepcode</li>
+                            <li class="fragment fade-in">bitwarden/clients</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl text-red-700 fragment fade-in"><i class="fas fa-minus-circle mr-2"></i> 减退热点</h3>
+                        <ul class="text-left text-base no-bullet ml-4">
+                            <li class="fragment fade-in">menloresearch/jan</li>
+                            <li class="fragment fade-in">conductor-oss/conductor</li>
+                            <li class="fragment fade-in">tadata-org/fastapi_mcp</li>
+                            <li class="fragment fade-in">openai/codex</li>
+                            <li class="fragment fade-in">filamentphp/filament</li>
+                            <li class="fragment fade-in">jitsi/jitsi-meet</li>
+                            <li class="fragment fade-in">syncthing/syncthing</li>
+                            <li class="fragment fade-in">idosal/git-mcp</li>
+                            <li class="fragment fade-in">external-secrets/external-secrets</li>
+                            <li class="fragment fade-in">lfnovo/open-notebook</li>
+                            <li class="fragment fade-in">umami-software/umami</li>
+                            <li class="fragment fade-in">librespot-org/librespot</li>
+                            <li class="fragment fade-in">bytedance/ui-tars-desktop</li>
+                            <li class="fragment fade-in">filosottile/mkcert</li>
+                            <li class="fragment fade-in">xiaoyaocz/dart_simple_live</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 9. 编程语言分布 -->
+            <section data-background-class="gradient-bg-1">
+                <h2 class="section-title">编程语言分布：主流力量</h2>
+                <div class="flex justify-center items-center h-full">
+                    <div class="w-2/3">
+                        <table class="table-auto text-left text-lg">
+                            <thead>
+                                <tr class="fragment fade-in">
+                                    <th><i class="fas fa-code mr-2"></i> 语言</th>
+                                    <th><i class="fas fa-project-diagram mr-2"></i> 项目数</th>
+                                    <th><i class="fas fa-percent mr-2"></i> 占比</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="fragment fade-in"><td><i class="fab fa-python icon-language mr-2"></i> Python</td><td>5</td><td>33.3%</td></tr>
+                                <tr class="fragment fade-in"><td><i class="fab fa-js icon-language mr-2"></i> TypeScript</td><td>3</td><td>20.0%</td></tr>
+                                <tr class="fragment fade-in"><td><i class="fab fa-php icon-language mr-2"></i> PHP</td><td>2</td><td>13.3%</td></tr>
+                                <tr class="fragment fade-in"><td><i class="fab fa-vuejs icon-language mr-2"></i> Vue</td><td>1</td><td>6.7%</td></tr>
+                                <tr class="fragment fade-in"><td><i class="fas fa-terminal icon-language mr-2"></i> Shell</td><td>1</td><td>6.7%</td></tr>
+                                <tr class="fragment fade-in"><td><i class="fab fa-cuttlefish icon-language mr-2"></i> C++</td><td>1</td><td>6.7%</td></tr>
+                                <tr class="fragment fade-in"><td><i class="fab fa-cuttlefish icon-language mr-2"></i> C#</td><td>1</td><td>6.7%</td></tr>
+                                <tr class="fragment fade-in"><td><i class="fab fa-go icon-language mr-2"></i> Go</td><td>1</td><td>6.7%</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 10. Star分布 -->
+            <section data-background-class="gradient-bg-2">
+                <h2 class="section-title">Star分布：项目热度阶梯</h2>
+                <div class="flex justify-center items-center h-full">
+                    <div class="w-2/3">
+                        <table class="table-auto text-left text-lg">
+                            <thead>
+                                <tr class="fragment fade-in">
+                                    <th><i class="fas fa-star mr-2"></i> Star 范围</th>
+                                    <th><i class="fas fa-project-diagram mr-2"></i> 项目数</th>
+                                    <th><i class="fas fa-percent mr-2"></i> 占比</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="fragment fade-in"><td>1k-5k</td><td>4</td><td>26.7%</td></tr>
+                                <tr class="fragment fade-in"><td>5k-10k</td><td>6</td><td>40.0%</td></tr>
+                                <tr class="fragment fade-in"><td>10k-50k</td><td>4</td><td>26.7%</td></tr>
+                                <tr class="fragment fade-in"><td>50k以上</td><td>1</td><td>6.7%</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 11. 热门项目排名 -->
+            <section data-background-class="gradient-bg-3">
+                <h2 class="section-title">热门项目排名</h2>
+                <ol class="text-left text-lg mx-auto w-4/5 no-bullet">
+                    <li class="fragment fade-in"><strong>1. Shubhamsaboo/awesome-llm-apps</strong> - ⭐61768 - Collection of awesome LLM apps with AI Agents and RAG using OpenAI, Anthropic, Gemini and opensource models.</li>
+                    <li class="fragment fade-in"><strong>2. google/googletest</strong> - ⭐36869 - GoogleTest - Google Testing and Mocking Framework</li>
+                    <li class="fragment fade-in"><strong>3. simstudioai/sim</strong> - ⭐11767 - Sim is an open-source AI agent workflow builder. Sim's interface is a lightweight, intuitive way to rapidly build and deploy LLMs that connect with your favorite tools.</li>
+                    <li class="fragment fade-in"><strong>4. bitwarden/clients</strong> - ⭐11011 - Bitwarden client apps (web, browser extension, desktop, and cli).</li>
+                    <li class="fragment fade-in"><strong>5. coleam00/Archon</strong> - ⭐10512 - Beta release of Archon OS - the knowledge and task management backbone for AI coding assistants.</li>
+                    <li class="fragment fade-in"><strong>6. moeru-ai/airi</strong> - ⭐8739 - 💖🧸 Self hosted, you owned Grok Companion, a container of souls of waifu, cyber livings to bring them into our worlds, wishing to achieve Neuro-sama's altitude. Capable of realtime voice chat, Minecraft, Factorio playing. Web / macOS / Windows supported.</li>
+                    <li class="fragment fade-in"><strong>7. emcie-co/parlant</strong> - ⭐7457 - LLM agents built for control. Designed for real-world use. Deployed in minutes.</li>
+                    <li class="fragment fade-in"><strong>8. Leantime/leantime</strong> - ⭐7124 - Leantime is a goals focused project management system for non-project managers. Building with ADHD, Autism, and dyslexia in mind.</li>
+                    <li class="fragment fade-in"><strong>9. plait-board/drawnix</strong> - ⭐6207 - 开源白板工具（SaaS），一体化白板，包含思维导图、流程图、自由画等。All in one open-source whiteboard tool with mind, flowchart, freehand and etc.</li>
+                    <li class="fragment fade-in"><strong>10. PixiEditor/PixiEditor</strong> - ⭐5631 - PixiEditor is a Universal Editor for all your 2D needs</li>
+                </ol>
+            </section>
+
+            <!-- 12. 详细仓库数据 (Parent Section for Vertical Slides) -->
+            <section>
+                <h2 class="section-title">🏆 热门项目深入解读</h2>
+                <p class="text-xl text-gray-700 mt-8 fragment fade-in">轻点下方向键 <i class="fas fa-arrow-down text-blue-500"></i> 查看每个项目的详细信息</p>
+                <i class="fas fa-arrow-down text-4xl text-blue-500 mt-8 animate-bounce fragment fade-in"></i>
+            </section>
+
+            <!-- Vertical slides for detailed project data -->
+            <section>
+                <section data-background-class="gradient-bg-1">
+                    <h2 class="section-title">详细仓库数据: <span class="text-white">moeru-ai/airi</span></h2>
+                    <h3 class="text-left text-2xl font-normal fragment fade-in">项目简介: <span class="font-bold">自托管AI虚拟伴侣，支持多模态互动。</span></h3>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-4 text-base">
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-code icon-language mr-2"></i> <strong>主要语言:</strong> Vue</p>
+                            <p><i class="fas fa-star icon-star mr-2"></i> <strong>Star 数:</strong> 8739</p>
+                            <p><i class="fas fa-arrow-up icon-star mr-2"></i> <strong>当期 Star 增加:</strong> 5373</p>
+                            <p><i class="fas fa-project-diagram icon-pr mr-2"></i> <strong>编程语言占比:</strong> Vue 54.6%, TS 38.2%, Rust 4.7%</p>
+                        </div>
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-user-friends icon-contributors mr-2"></i> <strong>贡献者:</strong> 47</p>
+                            <p><i class="fas fa-scroll icon-license mr-2"></i> <strong>许可证:</strong> MIT</p>
+                            <p><i class="fas fa-check-double mr-2"></i> <strong>核心优势:</strong> 多模态沉浸互动，开源自托管，跨平台支持。</p>
+                        </div>
+                    </div>
+                    <div class="text-left mt-6 fragment fade-in">
+                        <h4 class="text-xl">项目速读:</h4>
+                        <p class="text-base">AIRI致力于打造开源、自我托管的AI虚拟伴侣平台，让用户拥有并定制“赛博生命”。其核心是多模态、沉浸式互动，支持实时语音聊天、游戏（Minecraft, Factorio），甚至观察用户编码。基于WebGPU、WebAssembly实现跨平台支持（Web、macOS、Windows），本地GPU加速兼顾性能与灵活性。可扩展插件系统鼓励社区贡献，重新定义人机交互，将AI从工具转变为可定制、共同成长的数字伙伴。</p>
+                    </div>
+                </section>
+
+                <section data-background-class="gradient-bg-2">
+                    <h2 class="section-title">详细仓库数据: <span class="text-white">coleam00/Archon</span></h2>
+                    <h3 class="text-left text-2xl font-normal fragment fade-in">项目简介: <span class="font-bold">AI编码助手的知识与任务管理骨干。</span></h3>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-4 text-base">
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-code icon-language mr-2"></i> <strong>主要语言:</strong> Python</p>
+                            <p><i class="fas fa-star icon-star mr-2"></i> <strong>Star 数:</strong> 10512</p>
+                            <p><i class="fas fa-arrow-up icon-star mr-2"></i> <strong>当期 Star 增加:</strong> 4256</p>
+                            <p><i class="fas fa-project-diagram icon-pr mr-2"></i> <strong>编程语言占比:</strong> Python 56.3%, TS 40.9%</p>
+                        </div>
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-user-friends icon-contributors mr-2"></i> <strong>贡献者:</strong> 20</p>
+                            <p><i class="fas fa-scroll icon-license mr-2"></i> <strong>许可证:</strong> 未知</p>
+                            <p><i class="fas fa-check-double mr-2"></i> <strong>核心优势:</strong> 深度上下文理解，智能知识库，多LLM兼容。</p>
+                        </div>
+                    </div>
+                    <div class="text-left mt-6 fragment fade-in">
+                        <h4 class="text-xl">项目速读:</h4>
+                        <p class="text-base">Archon项目是为AI编程助手量身打造的“知识与任务管理中枢”，旨在解决AI助手在复杂编程任务中缺乏项目级深度上下文和结构化知识的痛点。它通过充当一个模型上下文协议（MCP）服务器，将AI助手从单纯的代码生成器提升为能够深刻理解并利用项目特定知识、上下文和任务的智能协作伙伴。核心优势在于提供高度集成的智能系统。Archon不仅能智能爬取网站、处理各类文档，并自动提取和索引代码示例，结合先进的向量搜索、混合搜索和结果重排技术，为AI助手提供精准实时的语义检索。此外，Archon支持多种LLM，确保了广泛兼容性。除了强大的知识管理，Archon还提供分层的项目任务管理，支持AI辅助创建需求，并具备版本控制与协作编辑，让AI驱动的开发流程更具条理和可控性。其微服务架构与WebSocket实时更新，确保了多用户协作的流畅体验和高效异步处理。</p>
+                    </div>
+                </section>
+
+                <section data-background-class="gradient-bg-3">
+                    <h2 class="section-title">详细仓库数据: <span class="text-white">simstudioai/sim</span></h2>
+                    <h3 class="text-left text-2xl font-normal fragment fade-in">项目简介: <span class="font-bold">开源AI智能体工作流构建器，快速部署LLM。</span></h3>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-4 text-base">
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-code icon-language mr-2"></i> <strong>主要语言:</strong> TypeScript</p>
+                            <p><i class="fas fa-star icon-star mr-2"></i> <strong>Star 数:</strong> 11767</p>
+                            <p><i class="fas fa-arrow-up icon-star mr-2"></i> <strong>当期 Star 增加:</strong> 4321</p>
+                            <p><i class="fas fa-project-diagram icon-pr mr-2"></i> <strong>编程语言占比:</strong> TypeScript 92.5%</p>
+                        </div>
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-user-friends icon-contributors mr-2"></i> <strong>贡献者:</strong> 25</p>
+                            <p><i class="fas fa-scroll icon-license mr-2"></i> <strong>许可证:</strong> Apache-2.0</p>
+                            <p><i class="fas fa-check-double mr-2"></i> <strong>核心优势:</strong> 灵活部署，本地LLM支持，直观界面。</p>
+                        </div>
+                    </div>
+                    <div class="text-left mt-6 fragment fade-in">
+                        <h4 class="text-xl">项目速读:</h4>
+                        <p class="text-base">Sim是一款高效的开源AI代理工作流构建平台，旨在帮助开发者以极快的速度设计、构建和部署基于大语言模型（LLM）的智能自动化流程。它通过提供一个轻量、直观的界面，极大简化了传统AI应用与各种工具集成的复杂性，让用户能够在数分钟内将想法转化为可运行的AI代理，解决了AI工作流开发耗时且复杂的痛点。其核心优势在于卓越的部署灵活性和对本地AI模型的强大支持。用户既可以选择便捷的云托管服务，也可通过NPM包或Docker Compose轻松实现自托管，满足不同环境和安全需求。尤为值得称赞的是，Sim集成了Ollama，允许用户在本地机器上运行和利用大语言模型，这不仅保障了数据隐私，也为那些希望降低API调用成本或利用自有算力的开发者提供了理想解决方案。Sim不仅降低了AI工作流的开发门槛，加速了AI创新应用的落地，更在效率、灵活性和隐私保护之间找到了一个优异的平衡点。对于希望快速构建AI原型、自动化任务，或在本地安全运行LLM应用的个人开发者和团队而言，Sim无疑是一个极具价值的选择。</p>
+                    </div>
+                </section>
+
+                <section data-background-class="gradient-bg-1">
+                    <h2 class="section-title">详细仓库数据: <span class="text-white">emcie-co/parlant</span></h2>
+                    <h3 class="text-left text-2xl font-normal fragment fade-in">项目简介: <span class="font-bold">可控LLM智能体，专为实际应用设计，几分钟内部署。</span></h3>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-4 text-base">
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-code icon-language mr-2"></i> <strong>主要语言:</strong> Python</p>
+                            <p><i class="fas fa-star icon-star mr-2"></i> <strong>Star 数:</strong> 7457</p>
+                            <p><i class="fas fa-arrow-up icon-star mr-2"></i> <strong>当期 Star 增加:</strong> 3495</p>
+                            <p><i class="fas fa-project-diagram icon-pr mr-2"></i> <strong>编程语言占比:</strong> Python 89.3%</p>
+                        </div>
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-user-friends icon-contributors mr-2"></i> <strong>贡献者:</strong> 18</p>
+                            <p><i class="fas fa-scroll icon-license mr-2"></i> <strong>许可证:</strong> Apache-2.0</p>
+                            <p><i class="fas fa-check-double mr-2"></i> <strong>核心优势:</strong> 解决LLM幻觉，行为可预测，灵活工具集成。</p>
+                        </div>
+                    </div>
+                    <div class="text-left mt-6 fragment fade-in">
+                        <h4 class="text-xl">项目速读:</h4>
+                        <p class="text-base">Parlant是一个创新的AI智能体框架，旨在彻底解决大型语言模型（LLM）在实际应用中难以始终遵循指令、易产生幻觉以及难以处理复杂边缘情况的核心痛点。它摒弃了单纯依赖提示词的传统方法，转而通过“教导原则”的方式，让开发者能够构建高度可靠、行为可预测且精确受控的AI智能体。其核心在于“会话旅程”和“行为指南”：开发者能够以自然语言精确定义智能体的对话路径与行为逻辑，确保智能体严格依照既定规则与客户互动。这一机制辅以内置的护栏，能有效防止幻觉和主题偏离，并通过“预设响应”保证输出风格和内容的一致性，显著提升了智能体在真实场景中的可靠性和可预测性。此外，Parlant还支持灵活的工具集成，能无缝连接外部服务，并通过“领域适应”功能学习特定专业知识，进一步扩展了智能体的实用边界。Parlant的价值在于它能确保AI行为的受控与可解释，将LLM从“希望”能够正确工作提升到“保证”正确工作。</p>
+                    </div>
+                </section>
+
+                <section data-background-class="gradient-bg-2">
+                    <h2 class="section-title">详细仓库数据: <span class="text-white">winapps-org/winapps</span></h2>
+                    <h3 class="text-left text-2xl font-normal fragment fade-in">项目简介: <span class="font-bold">在Linux上无缝运行Windows应用，如Office/Adobe。</span></h3>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-4 text-base">
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-code icon-language mr-2"></i> <strong>主要语言:</strong> Shell</p>
+                            <p><i class="fas fa-star icon-star mr-2"></i> <strong>Star 数:</strong> 5200</p>
+                            <p><i class="fas fa-arrow-up icon-star mr-2"></i> <strong>当期 Star 增加:</strong> 1085</p>
+                            <p><i class="fas fa-project-diagram icon-pr mr-2"></i> <strong>编程语言占比:</strong> Shell 85.6%, PowerShell 9.6%</p>
+                        </div>
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-user-friends icon-contributors mr-2"></i> <strong>贡献者:</strong> 56</p>
+                            <p><i class="fas fa-scroll icon-license mr-2"></i> <strong>许可证:</strong> 未知</p>
+                            <p><i class="fas fa-check-double mr-2"></i> <strong>核心优势:</strong> 近乎原生集成，高分辨率图标，Nautilus集成。</p>
+                        </div>
+                    </div>
+                    <div class="text-left mt-6 fragment fade-in">
+                        <h4 class="text-xl">项目速读:</h4>
+                        <p class="text-base">winapps项目为GNU/Linux用户提供了一个卓越的解决方案，旨在让他们能够在GNOME、KDE等主流桌面环境下，以近乎原生应用的方式无缝运行包括Microsoft Office和Adobe Creative Cloud在内的Windows应用程序。它完美解决了Linux用户因特定Windows软件兼容性问题而不得不放弃喜爱操作系统的困境，实现两个生态系统的巧妙融合。其核心优势在于高度的“无缝集成”能力。项目通过扫描Windows虚拟机中已安装的应用程序，并在Linux宿主机上创建快捷方式。对于常用应用，它提供高分辨率图标和正确的MIME类型关联，使得文件管理器能够直接用Windows应用打开相应文件。更进一步，它支持Nautilus右键菜单集成，允许将Linux的/home目录映射到Windows虚拟机，甚至提供了一个任务栏小部件来便捷管理和启动这些应用，极大提升了用户体验和工作效率。在技术层面，winapps利用基于KVM的Windows虚拟机作为后端，通过FreeRDP（要求v3或更高版本）技术，将Windows应用程序的图形界面实时渲染到Linux桌面。</p>
+                    </div>
+                </section>
+
+                <section data-background-class="gradient-bg-3">
+                    <h2 class="section-title">详细仓库数据: <span class="text-white">Leantime/leantime</span></h2>
+                    <h3 class="text-left text-2xl font-normal fragment fade-in">项目简介: <span class="font-bold">面向非项目经理，以目标为导向的项目管理系统。</span></h3>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-4 text-base">
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-code icon-language mr-2"></i> <strong>主要语言:</strong> PHP</p>
+                            <p><i class="fas fa-star icon-star mr-2"></i> <strong>Star 数:</strong> 7124</p>
+                            <p><i class="fas fa-arrow-up icon-star mr-2"></i> <strong>当期 Star 增加:</strong> 1146</p>
+                            <p><i class="fas fa-project-diagram icon-pr mr-2"></i> <strong>编程语言占比:</strong> PHP 45.3%, JS 26.4%, CSS 22.3%</p>
+                        </div>
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-user-friends icon-contributors mr-2"></i> <strong>贡献者:</strong> 136</p>
+                            <p><i class="fas fa-scroll icon-license mr-2"></i> <strong>许可证:</strong> AGPL-3.0</p>
+                            <p><i class="fas fa-check-double mr-2"></i> <strong>核心优势:</strong> 包容性设计，功能全面，部署灵活。</p>
+                        </div>
+                    </div>
+                    <div class="text-left mt-6 fragment fade-in">
+                        <h4 class="text-xl">项目速读:</h4>
+                        <p class="text-base">Leantime是一个独特的开源项目管理系统，它打破了传统项目管理工具的壁垒，专为“非项目经理”设计，旨在简化复杂的管理流程，让团队中的每个人都能轻松上手。其最引人注目的特点在于对包容性的深刻考量，特别是为患有ADHD、阅读障碍和自闭症的用户提供了更加友好的体验。该系统功能全面，不仅融合了Trello的直观与Jira的深度，更集成了任务管理（看板、甘特图、冲刺）、项目规划（目标跟踪、精益画布、SWOT分析）以及知识管理（Wiki、创意板、回顾）等核心模块。它提供多样的视图选择和强大的协作工具，帮助团队高效推进项目，并促进知识沉淀。技术上，Leantime基于成熟稳定的LAMP/LEMP栈构建，支持Docker部署，并提供丰富的插件和API，确保了良好的可扩展性和与其他工具的集成能力。</p>
+                    </div>
+                </section>
+
+                <section data-background-class="gradient-bg-1">
+                    <h2 class="section-title">详细仓库数据: <span class="text-white">plait-board/drawnix</span></h2>
+                    <h3 class="text-left text-2xl font-normal fragment fade-in">项目简介: <span class="font-bold">一体化开源白板工具，思维导图、流程图、自由画等。</span></h3>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-4 text-base">
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-code icon-language mr-2"></i> <strong>主要语言:</strong> TypeScript</p>
+                            <p><i class="fas fa-star icon-star mr-2"></i> <strong>Star 数:</strong> 6207</p>
+                            <p><i class="fas fa-arrow-up icon-star mr-2"></i> <strong>当期 Star 增加:</strong> 1057</p>
+                            <p><i class="fas fa-project-diagram icon-pr mr-2"></i> <strong>编程语言占比:</strong> TypeScript 89.3%, SCSS 8.9%</p>
+                        </div>
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-user-friends icon-contributors mr-2"></i> <strong>贡献者:</strong> 6</p>
+                            <p><i class="fas fa-scroll icon-license mr-2"></i> <strong>许可证:</strong> MIT</p>
+                            <p><i class="fas fa-check-double mr-2"></i> <strong>核心优势:</strong> 插件式架构，高扩展性，Mermaid/Markdown转换。</p>
+                        </div>
+                    </div>
+                    <div class="text-left mt-6 fragment fade-in">
+                        <h4 class="text-xl">项目速读:</h4>
+                        <p class="text-base">Drawnix是一款广受欢迎的免费开源一体化在线白板工具，旨在为用户提供一个集思维导图、流程图、自由绘画等多功能于一体的开箱即用平台，极大地赋能高效且富有创造力的表达和协作。它解决了传统白板工具功能分散、整合度低的痛点，通过单一界面满足用户多样化的可视化需求。项目的核心亮点在于其强大的插件式架构和高扩展性。Drawnix基于公司自研的开源Plait画图框架构建，并巧妙地支持各类UI框架和Slate等富文本编辑器。这种分层设计不仅实现了业务逻辑与界面表现的解耦，更使得功能模块能够灵活复用和扩展，极大地拓宽了白板的应用边界。尤其值得称道的是，它创新性地支持Mermaid语法转换为流程图、Markdown文本转换为思维导图，显著提升了内容创建的效率和便捷性。</p>
+                    </div>
+                </section>
+
+                <section data-background-class="gradient-bg-2">
+                    <h2 class="section-title">详细仓库数据: <span class="text-white">HKUDS/DeepCode</span></h2>
+                    <h3 class="text-left text-2xl font-normal fragment fade-in">项目简介: <span class="font-bold">开放式代理编程：论文转代码 & 文本转网页 & 文本转后端。</span></h3>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-4 text-base">
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-code icon-language mr-2"></i> <strong>主要语言:</strong> Python</p>
+                            <p><i class="fas fa-star icon-star mr-2"></i> <strong>Star 数:</strong> 2057</p>
+                            <p><i class="fas fa-arrow-up icon-star mr-2"></i> <strong>当期 Star 增加:</strong> 925</p>
+                            <p><i class="fas fa-project-diagram icon-pr mr-2"></i> <strong>编程语言占比:</strong> Python 100.0%</p>
+                        </div>
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-user-friends icon-contributors mr-2"></i> <strong>贡献者:</strong> 4</p>
+                            <p><i class="fas fa-scroll icon-license mr-2"></i> <strong>许可证:</strong> MIT</p>
+                            <p><i class="fas fa-check-double mr-2"></i> <strong>核心优势:</strong> 自动化代码生成，多模态输入，多智能体引擎。</p>
+                        </div>
+                    </div>
+                    <div class="text-left mt-6 fragment fade-in">
+                        <h4 class="text-xl">项目速读:</h4>
+                        <p class="text-base">DeepCode是一个由多智能体系统驱动的创新AI开发平台，旨在将研究论文、自然语言描述等多元输入，自动化地转化为高质量、生产就绪的代码，从而解决传统软件开发中算法复现复杂、开发周期长、重复编码等核心痛点。其核心能力包括“Paper2Code”，能够将研究论文中的复杂算法自动转换为可投入生产的代码，极大地加速了科研成果的落地与复现。“Text2Web”和“Text2Backend”则进一步将纯文本描述快速转化为功能齐全、视觉吸引力强的前端网页和高效可扩展的后端代码，实现了从概念构想到完整应用的无缝衔接。DeepCode的技术基石是其自主的“多智能体引擎”，它通过智能化的工作流，实现了从多模态文档解析、上下文感知代码合成到自动化应用原型生成的全链条自动化，确保生成代码的架构一致性和可扩展性。这不仅为科研人员提供了一个强大的算法复现工具，也为开发者带来了快速构建各类应用的全新范式，显著降低了技术门槛和开发周期，对加速软件工程的自动化进程具有重要意义。</p>
+                    </div>
+                </section>
+
+                <section data-background-class="gradient-bg-3">
+                    <h2 class="section-title">详细仓库数据: <span class="text-white">google/googletest</span></h2>
+                    <h3 class="text-left text-2xl font-normal fragment fade-in">项目简介: <span class="font-bold">GoogleTest — 谷歌C++测试和模拟框架。</span></h3>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-4 text-base">
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-code icon-language mr-2"></i> <strong>主要语言:</strong> C++</p>
+                            <p><i class="fas fa-star icon-star mr-2"></i> <strong>Star 数:</strong> 36869</p>
+                            <p><i class="fas fa-arrow-up icon-star mr-2"></i> <strong>当期 Star 增加:</strong> 252</p>
+                            <p><i class="fas fa-project-diagram icon-pr mr-2"></i> <strong>编程语言占比:</strong> C++ 89.5%, Python 7.1%</p>
+                        </div>
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-user-friends icon-contributors mr-2"></i> <strong>贡献者:</strong> 424</p>
+                            <p><i class="fas fa-scroll icon-license mr-2"></i> <strong>许可证:</strong> BSD-3-Clause</p>
+                            <p><i class="fas fa-check-double mr-2"></i> <strong>核心优势:</strong> xUnit架构，丰富断言，参数化测试。</p>
+                        </div>
+                    </div>
+                    <div class="text-left mt-6 fragment fade-in">
+                        <h4 class="text-xl">项目速读:</h4>
+                        <p class="text-base">GoogleTest 是谷歌为 C++ 生态系统打造的一款核心测试与模拟框架，旨在解决 C++ 代码复杂、测试验证困难的挑战。它提供了一套全面而强大的解决方案，帮助开发者验证代码的正确性、稳定性和预期行为，从而大幅简化 C++ 项目的测试流程。该框架基于成熟的 xUnit 测试架构，拥有一系列关键优势：它能自动发现并运行测试，提供丰富的断言集来验证各种条件，甚至支持“死亡测试”以确保错误处理的健壮性。尤其值得一提的是其强大的参数化测试能力，允许开发者使用不同的值或类型多次运行测试，极大地提升了测试覆盖率和代码复用效率。此外，灵活的测试运行选项也为开发带来了便利。GoogleTest 的价值不仅在于其功能全面，更在于其在业界的广泛认可和高度成熟。它已被 Chromium、LLVM 编译器、Protocol Buffers 和 OpenCV 等众多重量级项目广泛采用，这充分证明了其卓越的可靠性和实用性。对于任何追求高质量 C++ 开发、致力于构建健壮软件的项目而言，GoogleTest 都是一个不可或缺的强大工具。</p>
+                    </div>
+                </section>
+
+                <section data-background-class="gradient-bg-1">
+                    <h2 class="section-title">详细仓库数据: <span class="text-white">aliasrobotics/cai</span></h2>
+                    <h3 class="text-left text-2xl font-normal fragment fade-in">项目简介: <span class="font-bold">网络安全AI (CAI)，赋能AI自动化攻防任务。</span></h3>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-4 text-base">
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-code icon-language mr-2"></i> <strong>主要语言:</strong> Python</p>
+                            <p><i class="fas fa-star icon-star mr-2"></i> <strong>Star 数:</strong> 3109</p>
+                            <p><i class="fas fa-arrow-up icon-star mr-2"></i> <strong>当期 Star 增加:</strong> 687</p>
+                            <p><i class="fas fa-project-diagram icon-pr mr-2"></i> <strong>编程语言占比:</strong> Python 98.6%</p>
+                        </div>
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-user-friends icon-contributors mr-2"></i> <strong>贡献者:</strong> 72</p>
+                            <p><i class="fas fa-scroll icon-license mr-2"></i> <strong>许可证:</strong> 未知</p>
+                            <p><i class="fas fa-check-double mr-2"></i> <strong>核心优势:</strong> AI驱动攻防自动化，模块化Agent架构，实战效果显著。</p>
+                        </div>
+                    </div>
+                    <div class="text-left mt-6 fragment fade-in">
+                        <h4 class="text-xl">项目速读:</h4>
+                        <p class="text-base">Cybersecurity AI (CAI) 是一个领先的开源框架，旨在赋能安全专业人士通过人工智能实现网络安全攻防任务的自动化。它致力于成为AI安全领域的“事实标准”，解决了传统安全操作中效率低下、依赖人工的痛点。CAI允许用户构建和部署由AI驱动的自动化工具，用于漏洞发现、缓解、渗透测试及安全评估等关键任务，已被数千个人和数百组织采纳。其核心优势在于强大的AI驱动能力和高度模块化的代理（Agent）架构。CAI支持集成OpenAI、Anthropic等超过300种主流AI模型，并内置了丰富的安全工具集，确保用户能够快速开发出针对特定威胁或目标的专业AI代理。这些代理在HackTheBox竞赛、漏洞赏金项目以及工业系统和Web平台的真实漏洞发现中展现出卓越的实战效果。项目的技术设计包含代理、工具、追踪及人机协作（HITL）等组件，为构建智能、高效的安全解决方案提供了坚实基础。CAI不仅提升了安全运营的自动化水平，还通过其开源性质和学术背景，推动了网络安全AI技术的普及。</p>
+                    </div>
+                </section>
+
+                <section data-background-class="gradient-bg-2">
+                    <h2 class="section-title">详细仓库数据: <span class="text-white">PixiEditor/PixiEditor</span></h2>
+                    <h3 class="text-left text-2xl font-normal fragment fade-in">项目简介: <span class="font-bold">PixiEditor 是一个满足您所有2D需求的通用编辑器。</span></h3>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-4 text-base">
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-code icon-language mr-2"></i> <strong>主要语言:</strong> C#</p>
+                            <p><i class="fas fa-star icon-star mr-2"></i> <strong>Star 数:</strong> 5631</p>
+                            <p><i class="fas fa-arrow-up icon-star mr-2"></i> <strong>当期 Star 增加:</strong> 2174</p>
+                            <p><i class="fas fa-project-diagram icon-pr mr-2"></i> <strong>编程语言占比:</strong> C# 100.0%</p>
+                        </div>
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-user-friends icon-contributors mr-2"></i> <strong>贡献者:</strong> 26</p>
+                            <p><i class="fas fa-scroll icon-license mr-2"></i> <strong>许可证:</strong> LGPL-3.0</p>
+                            <p><i class="fas fa-check-double mr-2"></i> <strong>核心优势:</strong> 节点渲染系统，混合创作，强大动画功能。</p>
+                        </div>
+                    </div>
+                    <div class="text-left mt-6 fragment fade-in">
+                        <h4 class="text-xl">项目速读:</h4>
+                        <p class="text-base">PixiEditor是一款功能强大的通用2D图形编辑器，旨在满足用户多样化的2D创作需求，无论是制作游戏像素艺术、绘制插画、设计Logo，还是进行复杂的动画创作和通用图像编辑。它通过直观的用户界面和全面的工具集，解决了传统2D创作中工具碎片化的问题，致力于成为创作者可能唯一需要的2D编辑利器。项目的核心优势在于其革命性的节点渲染系统。这一创新架构将文档中的所有图层、效果乃至整个结构都抽象为可连接、可操作的节点，为用户提供了前所未有的自由度。通过可视化的节点图谱，创作者不仅能精细控制图像细节，还能轻松实现程序化艺术和复杂的动画效果，极大拓展了创作的可能性。PixiEditor还支持混合创作，用户可以在同一画布上无缝结合像素艺术、传统绘画和矢量图形工具，并支持矢量与栅格图层的自由叠加，显著提升了工作效率与创作灵灵活性。此外，其强大的动画时间轴和逐帧动画功能，结合节点系统驱动的自定义着色器动画，使其在2D动画领域也表现出色。</p>
+                    </div>
+                </section>
+
+                <section data-background-class="gradient-bg-3">
+                    <h2 class="section-title">详细仓库数据: <span class="text-white">Shubhamsaboo/awesome-llm-apps</span></h2>
+                    <h3 class="text-left text-2xl font-normal fragment fade-in">项目简介: <span class="font-bold">LLM应用集合，整合AI智能体和RAG。</span></h3>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-4 text-base">
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-code icon-language mr-2"></i> <strong>主要语言:</strong> Python</p>
+                            <p><i class="fas fa-star icon-star mr-2"></i> <strong>Star 数:</strong> 61768</p>
+                            <p><i class="fas fa-arrow-up icon-star mr-2"></i> <strong>当期 Star 增加:</strong> 3472</p>
+                            <p><i class="fas fa-project-diagram icon-pr mr-2"></i> <strong>编程语言占比:</strong> Python 63.1%, JS 28.4%, TS 6.9%</p>
+                        </div>
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-user-friends icon-contributors mr-2"></i> <strong>贡献者:</strong> 47</p>
+                            <p><i class="fas fa-scroll icon-license mr-2"></i> <strong>许可证:</strong> Apache-2.0</p>
+                            <p><i class="fas fa-check-double mr-2"></i> <strong>核心优势:</strong> 全面LLM资源库，广度深度兼具，多模型支持。</p>
+                        </div>
+                    </div>
+                    <div class="text-left mt-6 fragment fade-in">
+                        <h4 class="text-xl">项目速读:</h4>
+                        <p class="text-base">Shubhamsaboo/awesome-llm-apps 是一个极其活跃且备受关注的GitHub仓库，它精心收录了各类基于大型语言模型（LLM）构建的创新应用。该项目旨在为开发者和爱好者提供一个全面且实用的资源库，帮助他们深入了解并学习如何利用LLM、AI代理、检索增强生成（RAG）、多代理团队协作以及多上下文处理（MCP）等先进技术，解决从金融、医疗到教育、游戏等广泛领域的实际问题。这个集合的突出优势在于其技术的广度和深度。它不仅涵盖了OpenAI、Anthropic、Google Gemini等主流闭源模型，也集成了DeepSeek、Qwen、Llama等优秀的开源模型，展现了LLM生态的多元性。项目特别强调不同构建范式，例如结合AI代理的RAG、复杂的单代理自动化流程、多代理协同工作，以及通过语音或浏览器交互的MCP代理，为用户提供了多种实现思路和参考范例。Shubhamsaboo/awesome-llm-apps 的巨大价值在于它将抽象的LLM技术转化为生动具体的应用案例，是探索LLM潜力的理想平台。</p>
+                    </div>
+                </section>
+
+                <section data-background-class="gradient-bg-1">
+                    <h2 class="section-title">详细仓库数据: <span class="text-white">SpecterOps/BloodHound</span></h2>
+                    <h3 class="text-left text-2xl font-normal fragment fade-in">项目简介: <span class="font-bold">域管理员的六度分隔，图论分析IAM系统权限。</span></h3>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-4 text-base">
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-code icon-language mr-2"></i> <strong>主要语言:</strong> Go</p>
+                            <p><i class="fas fa-star icon-star mr-2"></i> <strong>Star 数:</strong> 2236</p>
+                            <p><i class="fas fa-arrow-up icon-star mr-2"></i> <strong>当期 Star 增加:</strong> 297</p>
+                            <p><i class="fas fa-project-diagram icon-pr mr-2"></i> <strong>编程语言占比:</strong> Go 51.6%, TypeScript 45.4%</p>
+                        </div>
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-user-friends icon-contributors mr-2"></i> <strong>贡献者:</strong> 74</p>
+                            <p><i class="fas fa-scroll icon-license mr-2"></i> <strong>许可证:</strong> Apache-2.0</p>
+                            <p><i class="fas fa-check-double mr-2"></i> <strong>核心优势:</strong> 图论分析，多平台支持，攻防兼备。</p>
+                        </div>
+                    </div>
+                    <div class="text-left mt-6 fragment fade-in">
+                        <h4 class="text-xl">项目速读:</h4>
+                        <p class="text-base">BloodHound 是一个功能强大的开源网络应用程序，它利用图论方法，系统性地揭示身份和访问管理（IAM）系统中隐藏且常常出人意料的权限关系，形象地解决了“域管的六度分隔”问题。该工具能够将 Active Directory、Azure 等多样化环境中的用户、组、计算机及其权限关系可视化为易于理解的图谱，从而帮助安全团队快速识别和利用潜在的攻击路径。其核心优势在于强大的多平台分析能力，得益于 OpenGraph 框架的支持，BloodHound 不仅限于传统域环境，还能对多种身份平台进行全面而深入的分析。它能够高效发现那些手动难以察觉的复杂特权升级或横向移动路径，极大提升了安全评估的效率和深度。对于红队而言，它是渗透测试中发现关键攻击链的利器；对于蓝队，它则是主动识别和缓解核心安全风险的宝贵工具。技术上，BloodHound 采用 Go 语言构建高性能后端，搭配 React 前端提供直观交互，并以 Neo4j 作为核心图数据库处理复杂关系数据。它遵循 Apache 2.0 许可证发布，鼓励社区的广泛使用和贡献。</p>
+                    </div>
+                </section>
+
+                <section data-background-class="gradient-bg-2">
+                    <h2 class="section-title">详细仓库数据: <span class="text-white">bitwarden/clients</span></h2>
+                    <h3 class="text-left text-2xl font-normal fragment fade-in">项目简介: <span class="font-bold">Bitwarden客户端应用（网页版、浏览器扩展、桌面版和CLI）。</span></h3>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-4 text-base">
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-code icon-language mr-2"></i> <strong>主要语言:</strong> TypeScript</p>
+                            <p><i class="fas fa-star icon-star mr-2"></i> <strong>Star 数:</strong> 11011</p>
+                            <p><i class="fas fa-arrow-up icon-star mr-2"></i> <strong>当期 Star 增加:</strong> 385</p>
+                            <p><i class="fas fa-project-diagram icon-pr mr-2"></i> <strong>编程语言占比:</strong> TypeScript 87.8%</p>
+                        </div>
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-user-friends icon-contributors mr-2"></i> <strong>贡献者:</strong> 429</p>
+                            <p><i class="fas fa-scroll icon-license mr-2"></i> <strong>许可证:</strong> 未知</p>
+                            <p><i class="fas fa-check-double mr-2"></i> <strong>核心优势:</strong> 广泛平台覆盖，开源透明，安全可靠。</p>
+                        </div>
+                    </div>
+                    <div class="text-left mt-6 fragment fade-in">
+                        <h4 class="text-xl">项目速读:</h4>
+                        <p class="text-base">Bitwarden客户端项目是广受欢迎的开源密码管理器Bitwarden的核心组成部分，它为用户提供了除移动设备之外，在各种主流平台安全管理和访问其密码与敏感信息的关键入口。该仓库汇集了Bitwarden的浏览器扩展、桌面应用程序、命令行工具（CLI）以及Web Vault，有效解决了用户在不同操作环境和使用习惯下，都能便捷、统一地使用密码管理服务的痛点。项目最显著的优势在于其无与伦比的平台覆盖广度，无论是通过浏览器插件快速填充，桌面应用提供原生体验，还是命令行接口满足高级用户需求，都能通过TypeScript构建的这些客户端实现。其开源特性极大地增强了透明度和安全性，鼓励社区贡献和安全审计，这对于密码管理这类高度敏感的服务至关重要。作为Bitwarden生态的有机组成部分，这些客户端与后端服务紧密集成，共同构建了一个强大而可靠的密码管理解决方案。它不仅是个人用户理想的选择，也为追求数据自主、开源透明和跨平台灵活性的企业和开发者提供了极具价值的工具。</p>
+                    </div>
+                </section>
+
+                <section data-background-class="gradient-bg-3">
+                    <h2 class="section-title">详细仓库数据: <span class="text-white">dtyq/magic</span></h2>
+                    <h3 class="text-left text-2xl font-normal fragment fade-in">项目简介: <span class="font-bold">首个开源一体化AI生产力平台。</span></h3>
+                    <div class="grid grid-cols-2 gap-4 text-left mt-4 text-base">
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-code icon-language mr-2"></i> <strong>主要语言:</strong> PHP</p>
+                            <p><i class="fas fa-star icon-star mr-2"></i> <strong>Star 数:</strong> 3392</p>
+                            <p><i class="fas fa-arrow-up icon-star mr-2"></i> <strong>当期 Star 增加:</strong> 1496</p>
+                            <p><i class="fas fa-project-diagram icon-pr mr-2"></i> <strong>编程语言占比:</strong> PHP 51.7%, TS 32.6%</p>
+                        </div>
+                        <div class="fragment fade-in">
+                            <p><i class="fas fa-user-friends icon-contributors mr-2"></i> <strong>贡献者:</strong> 19</p>
+                            <p><i class="fas fa-scroll icon-license mr-2"></i> <strong>许可证:</strong> 未知</p>
+                            <p><i class="fas fa-check-double mr-2"></i> <strong>核心优势:</strong> 一体化开源，通用AI Agent，可视化工作流。</p>
+                        </div>
+                    </div>
+                    <div class="text-left mt-6 fragment fade-in">
+                        <h4 class="text-xl">项目速读:</h4>
+                        <p class="text-base">Magic是一个开源的一体化AI生产力平台，旨在帮助各类企业快速构建和部署AI应用，以显著提升生产力。它通过集成通用的AI Agent、可视化工作流编排、企业级即时通讯等模块，解决了企业在AI时代面临的复杂任务自动化、业务流程优化以及智能协作与知识管理等挑战。其核心优势在于“一体化”和“开源”的特性，赋能企业深度二次开发。Super Magic作为通用的AI Agent，具备多Agent设计和工具能力，能自主理解、规划和执行复杂任务，显著提升决策效率和质量。Magic Flow则是一个强大的可视化AI工作流编排系统，支持直观的拖拽式构建，兼容OpenAI API协议的大模型，并能与Magic IM等企业IM系统无缝集成，极大地简化了AI应用的开发与部署。Magic IM则将AI Agent对话深度融入企业沟通，优化了内部知识管理和智能客服体验。Magic的价值在于提供了一个全面的AI工具矩阵，不仅包括核心应用，还涵盖Agentlang等开发基础设施，为企业提供了从底层开发到上层应用的完整AI解决方案。</p>
+                    </div>
+                </section>
+            </section> <!-- End of parent section for vertical project slides -->
+
+
+            <!-- 13. 结束页 -->
+            <section class="end-slide">
+                <h2>感谢您的聆听！</h2>
+                <p>希望本次分享能为您带来新的启发与思考。</p>
+                <h3 class="mt-4">与我们共同探索前沿科技，驱动未来！</h3>
+                <div class="qr-link-container">
+                    <img src="../../asserts/wx.jpg" alt="微信二维码">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        Reveal.initialize({
+            controls: true, // Show controls for navigation
+            progress: true, // Display a presentation progress bar
+            history: true,  // Push each slide change to the browser history
+            center: true,   // Vertical centering of slides
+            hash: true,     // Enables hash-based URL navigation
+            transition: 'slide', // Overall transition style: 'none'/'fade'/'slide'/'convex'/'concave'/'zoom'
+            transitionSpeed: 'fast', // Transition speed: 'default'/'fast'/'slow'
+            backgroundTransition: 'fade', // Background transition style: 'none'/'fade'/'slide'/'convex'/'concave'/'zoom'
+            
+            // Do not include plugins that are not explicitly used or provided in the CDN list.
+            // Mermaid initialization is handled separately on slidechanged event.
+            plugins: [] 
+        });
+
+        // Initialize Mermaid for diagrams on current slide when slide changes
+        Reveal.on( 'slidechanged', event => {
+            // Find all mermaid elements on the current slide and initialize them
+            mermaid.init(undefined, event.currentSlide.querySelectorAll('.mermaid'));
+        });
+
+        // Initial Mermaid render for the first slide if it contains diagrams
+        document.addEventListener('DOMContentLoaded', () => {
+            mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+        });
+    </script>
+</body>
+</html>

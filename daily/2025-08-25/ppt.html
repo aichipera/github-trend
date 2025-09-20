@@ -1,0 +1,1050 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>揭秘GitHub：智能工具、原生体验，开发者效率如何再升级？</title>
+
+    <!-- 核心框架 -->
+    <link href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.css" rel="stylesheet">
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/theme/white.min.css" rel="stylesheet">
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/reveal.js/4.3.0/reveal.min.js"></script>
+
+    <!-- 扩展依赖 -->
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/mermaid/8.14.0/mermaid.min.js"></script>
+
+    <style>
+        /* 配色方案与字体层次 */
+        :root {
+            --r-main-font: "Noto Sans SC", Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+            --r-heading-font: "Noto Serif SC", Georgia, "Times New Roman", serif;
+            --r-heading1-size: 2.8rem; /* 标题：2-3rem */
+            --r-heading2-size: 2.2rem; /* 副标题：1.5-2rem */
+            --r-heading3-size: 1.8rem; /* 正文中的小标题 */
+            --r-text-size: 1.15rem; /* 正文：1-1.2rem */
+
+            --r-link-color: #3498db; /* 主色调：现代蓝色 */
+            --r-main-color: #333; /* 文字颜色：深灰色，高对比度 */
+            --r-background-color: #fff; /* 背景颜色：白色 */
+            --r-heading-color: #2c3e50; /* 标题颜色：深蓝灰色 */
+            --r-accent-color-1: #e74c3c; /* 强调色1：活力红色 */
+            --r-accent-color-2: #2ecc71; /* 强调色2：清新绿色 */
+            --r-accent-color-3: #9b59b6; /* 强调色3：优雅紫色 */
+        }
+
+        /* 全局字体设置 */
+        html.has-light-background .reveal .controls,
+        html.has-light-background .reveal .progress,
+        html.has-light-background .reveal .slide-number {
+            color: var(--r-main-color);
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: var(--r-heading-font);
+            color: var(--r-heading-color);
+            line-height: 1.2;
+            text-align: center; /* 默认居中标题 */
+        }
+        .reveal h1 { font-size: var(--r-heading1-size); }
+        .reveal h2 { font-size: var(--r-heading2-size); }
+        .reveal h3 { font-size: var(--r-heading3-size); }
+        .reveal p, .reveal li, .reveal table, .reveal span {
+            font-family: var(--r-main-font);
+            font-size: var(--r-text-size);
+            line-height: 1.5;
+            color: var(--r-main-color);
+        }
+        .reveal section img {
+            border: none;
+            box-shadow: none;
+        }
+
+        /* 封面与结尾幻灯片样式 */
+        .reveal .aha-cover {
+            background-image: url('https://images.unsplash.com/photo-1598462053912-f04b11f7e025?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* 高质量背景图像 */
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100%;
+        }
+        .reveal .aha-cover h1, .reveal .aha-cover h2, .reveal .aha-cover h3, .reveal .aha-cover p {
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+        }
+        .reveal .aha-cover h1 { font-size: 3.5rem; margin-bottom: 0.5em; }
+        .reveal .aha-cover h2 { font-size: 2.2rem; margin-top: 0; margin-bottom: 1em; }
+        .reveal .aha-cover p { font-size: 1.3rem; margin-top: 1em; }
+
+        .reveal .aha-footer {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 1000;
+        }
+        .reveal .aha-footer img {
+            height: 80px;
+            width: 80px;
+            border: 5px solid rgba(255,255,255,0.7);
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .reveal .aha-footer a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            font-family: var(--r-main-font);
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+            transition: color 0.3s ease;
+        }
+        .reveal .aha-footer a:hover {
+            color: var(--r-accent-color-2);
+        }
+
+        /* “灵光一现”Aha moment 幻灯片 */
+        .reveal .aha-moment-slide {
+            text-align: center;
+            padding: 50px;
+        }
+        .reveal .aha-moment-slide h2 {
+            font-size: var(--r-heading1-size);
+            margin-bottom: 40px;
+            color: var(--r-heading-color);
+            position: relative;
+            display: inline-block;
+        }
+        .reveal .aha-moment-slide h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -15px;
+            height: 5px;
+            background: linear-gradient(to right, var(--r-accent-color-1), var(--r-accent-color-3));
+            border-radius: 3px;
+        }
+        .reveal .aha-moment-slide ul {
+            list-style: none;
+            padding: 0;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .reveal .aha-moment-slide li {
+            background: linear-gradient(135deg, #f0f4f8, #e2eaf4); /* 渐变背景 */
+            border-radius: 15px;
+            margin-bottom: 20px;
+            padding: 25px 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--r-main-color);
+            text-align: left;
+            transition: all 0.5s ease-out;
+            border-left: 10px solid var(--r-accent-color-1); /* 强调边框 */
+            transform: translateY(20px);
+            opacity: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .reveal .aha-moment-slide li::before {
+            content: "\f005"; /* 星星图标作为水印 */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--r-accent-color-1);
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.8em;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        .reveal .aha-moment-slide li > span {
+            position: relative;
+            z-index: 1;
+            font-weight: 600;
+        }
+        .reveal .aha-moment-slide li.fragment.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal .aha-moment-slide li.fragment.current-fragment {
+            border-left-color: var(--r-accent-color-2); /* 突出当前内容 */
+        }
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+
+        /* 通用表格样式 */
+        .reveal table {
+            width: 100%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            font-size: var(--r-text-size);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .reveal table th, .reveal table td {
+            border: 1px solid #e0e0e0;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        .reveal table th {
+            background-color: #f5f7fa;
+            font-weight: 600;
+            color: var(--r-heading-color);
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+        .reveal table tr:nth-child(even) {
+            background-color: #fcfdfe;
+        }
+        .reveal table tr:hover {
+            background-color: #eef2f7;
+        }
+        .reveal table td {
+            color: var(--r-main-color);
+        }
+
+        /* 强调文字颜色 */
+        .text-highlight-red { color: var(--r-accent-color-1); font-weight: 700; }
+        .text-highlight-blue { color: var(--r-link-color); font-weight: 700; }
+        .text-highlight-green { color: var(--r-accent-color-2); font-weight: 700; }
+        .text-highlight-purple { color: var(--r-accent-color-3); font-weight: 700; }
+
+        /* 趋势图标样式 */
+        .reveal .trend-icon {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        .reveal .trend-new { color: var(--r-accent-color-2); }
+        .reveal .trend-up { color: var(--r-link-color); }
+        .reveal .trend-down { color: var(--r-accent-color-1); }
+        .reveal .trend-stable { color: #f39c12; }
+
+        /* 项目详情卡片样式 */
+        .project-details {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+            background: #fdfdfd;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            margin: 0 auto;
+            max-width: 1000px;
+            text-align: left;
+        }
+        .project-details h3 {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            color: var(--r-link-color);
+            text-align: left; /* 项目详情标题左对齐 */
+        }
+        .project-details .meta-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            font-size: 0.9em;
+            color: #555;
+        }
+        .project-details .meta-item span {
+            font-weight: 600;
+            color: var(--r-heading-color);
+        }
+        .project-details .meta-item i {
+            margin-right: 5px;
+            color: var(--r-link-color);
+        }
+        .project-description {
+            margin-top: 15px;
+            border-left: 4px solid var(--r-accent-color-2);
+            padding-left: 15px;
+            background-color: #f7fffb;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .project-description p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- 封面页 -->
+            <section class="aha-cover">
+                <h1>揭秘GitHub：智能工具、原生体验，开发者效率如何再升级？</h1>
+                <h2><span class="text-highlight-green">🔥</span> 今日最火爆的开源项目都在这 <span class="text-highlight-green">⭐️</span></h2>
+                <p>演讲者: AIChipEra</p>
+                <p>日报观测时间: 2025-08-25 21:02:33</p>
+                <div class="aha-footer">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+            <!-- “灵光一现”(Aha moment) 幻灯片 -->
+            <section class="aha-moment-slide">
+                <h2>洞察未来：GitHub热榜的<span class="text-highlight-red">“灵光一现”</span></h2>
+                <ul>
+                    <li class="fragment fade-in-up"><span><i class="fas fa-brain primary-color mr-2"></i> <span class="text-highlight-blue">AI自动化开发革命</span>：从研究论文到生产级代码，颠覆传统范式。</span></li>
+                    <li class="fragment fade-in-up"><span><i class="fas fa-desktop secondary-color mr-2"></i> <span class="text-highlight-green">跨平台无缝体验</span>：Linux轻松运行Windows应用，打破操作系统壁垒。</span></li>
+                    <li class="fragment fade-in-up"><span><i class="fas fa-robot accent-color-3 mr-2"></i> <span class="text-highlight-purple">个性化数字伴侣崛起</span>：自托管AI，掌握你的赛博灵魂。</span></li>
+                    <li class="fragment fade-in-up"><span><i class="fas fa-lightbulb accent-color-1 mr-2"></i> <span class="text-highlight-red">深入探索与实践价值</span>：不止技术，更有高质量学习资源。</span></li>
+                    <li class="fragment fade-in-up"><span><i class="fas fa-code primary-color mr-2"></i> <span class="text-highlight-blue">Python与Web技术双驱</span>：后端、AI与前端交互的核心动力。</span></li>
+                </ul>
+                <p class="text-sm mt-8 text-gray-500 fragment fade-in-up">
+                    <span class="font-bold">免责声明:</span> 以下仅供项目介绍和学习使用，不构成任何投资建议，请注意甄别！
+                </p>
+            </section>
+
+            <!-- 主要章节：热门项目趋势分析 -->
+            <section>
+                <h2><i class="fas fa-chart-line mr-3 text-highlight-blue"></i>热门项目趋势分析</h2>
+                <p class="text-gray-600 mt-5 w-3/4 mx-auto">今日GitHub热门榜单，鲜明地勾勒出当前技术领域几个核心的演进方向。纵观各项高星与高速增长的项目，我们能清晰地感知到一场由人工智能引领、辅以跨平台集成与用户自主控制理念的深刻变革正在悄然进行。</p>
+            </section>
+
+            <!-- 今日整体趋势 -->
+            <section>
+                <h3><i class="fas fa-compass mr-2 primary-color"></i>今日整体趋势：AI引领，跨平台共鸣</h3>
+                <ul class="list-disc ml-8 text-left max-w-2xl mx-auto">
+                    <li class="fragment fade-in-up">
+                        <span class="font-bold text-highlight-blue">AI深度应用爆发：</span>DeepCode、AIRI、Verifiers等项目，AI正从代码生成到数字伴侣全面重塑开发。
+                    </li>
+                    <li class="fragment fade-in-up">
+                        <span class="font-bold text-highlight-green">跨平台无缝体验：</span>WinApps-org/winapps 超高增长，追求原生级应用体验。
+                    </li>
+                    <li class="fragment fade-in-up">
+                        <span class="font-bold text-highlight-purple">高效生产力工具：</span>开源白板Drawnix、信息侦察GhostTrack、开发者效率工具持续受关注。
+                    </li>
+                    <li class="fragment fade-in-up">
+                        <span class="font-bold text-highlight-red">学习资源价值凸显：</span>Karpathy、微软官方AI课程受热捧，系统性教育内容需求旺盛。
+                    </li>
+                </ul>
+            </section>
+
+            <!-- 主要编程语言分布和技术栈特点 -->
+            <section>
+                <h3><i class="fas fa-language mr-2 secondary-color"></i>编程语言与技术栈：Python主导，Web活跃</h3>
+                <ul class="list-disc ml-8 text-left max-w-2xl mx-auto">
+                    <li class="fragment fade-in-up">
+                        <span class="font-bold text-highlight-blue">Python：</span>后端、AI与脚本领域的绝对主导者 (DeepCode, GhostTrack, Verifiers)。
+                    </li>
+                    <li class="fragment fade-in-up">
+                        <span class="font-bold text-highlight-green">Web技术：</span>JavaScript, TypeScript, Vue构建富客户端体验 (Drawnix, AIRI)。
+                    </li>
+                    <li class="fragment fade-in-up">
+                        <span class="font-bold text-highlight-purple">系统级集成：</span>Shell脚本在WinApps这类项目中发挥关键作用。
+                    </li>
+                    <li class="fragment fade-in-up">
+                        <span class="font-bold text-highlight-red">教育与研究：</span>Jupyter Notebook 成为AI课程首选载体。
+                    </li>
+                    <li class="fragment fade-in-up">
+                        <span class="font-bold text-highlight-blue">技术栈创新：</span>多智能体、插件化、WebGPU/WebAssembly等追求高性能、灵活性。
+                    </li>
+                </ul>
+            </section>
+
+            <!-- 技术需求与发展方向 & 预测下一波技术热点 -->
+            <section>
+                <h3><i class="fas fa-rocket mr-2 accent-color-3"></i>未来视界：AI、原生体验与自主控制</h3>
+                <div class="flex flex-col lg:flex-row gap-8 mt-10 max-w-4xl mx-auto">
+                    <div class="flex-1 fragment fade-in-up">
+                        <h4 class="text-highlight-blue text-left mb-4"><i class="fas fa-flask mr-2"></i>核心技术需求</h4>
+                        <ul class="list-disc ml-8 text-left">
+                            <li><span class="font-bold">AI赋能开发效率：</span>AI自动化代码生成，降低开发门槛。</li>
+                            <li><span class="font-bold">打破平台壁垒：</span>追求原生级应用体验，跨操作系统无缝运行。</li>
+                            <li><span class="font-bold">数据与AI自主控制：</span>用户渴望掌握AI及数据控制权。</li>
+                            <li><span class="font-bold">优质学习资源：</span>系统性、实践性AI教育内容价值凸显。</li>
+                        </ul>
+                    </div>
+                    <div class="flex-1 fragment fade-in-up">
+                        <h4 class="text-highlight-green text-left mb-4"><i class="fas fa-forward mr-2"></i>预测下一波热点</h4>
+                        <ul class="list-disc ml-8 text-left">
+                            <li><span class="font-bold">多模态、代理式AI：</span>自主规划、执行复杂任务。</li>
+                            <li><span class="font-bold">本地化、边缘化AI：</span>更高隐私、更低延迟、更强定制。</li>
+                            <li><span class="font-bold">浏览器内高性能AI：</span>WebGPU/WebAssembly赋能。</li>
+                            <li><span class="font-bold">AI安全与伦理：</span>可解释性、透明化工具将成焦点。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 热门项目双日维度对比分析 & 热点变化 -->
+            <section>
+                <h3><i class="fas fa-fire mr-2 accent-color-1"></i>热点变化：新星涌现，榜单活态</h3>
+                <ul class="list-none text-left ml-4 max-w-3xl mx-auto">
+                    <li class="fragment fade-in-up"><span class="trend-icon trend-new"><i class="fas fa-plus-circle"></i></span>
+                        <span class="font-bold">新增热点 (7个):</span> LLM Verifiers, AI System Prompts Leaks, GitHub Readme Stats, Microsoft Generative AI for Beginners, Awesome TUIs, Karpathy's NN Zero to Hero, Spotify Downloader.
+                    </li>
+                    <li class="fragment fade-in-up"><span class="trend-icon trend-up"><i class="fas fa-arrow-alt-circle-up"></i></span>
+                        <span class="font-bold">涨幅显著：</span>winapps-org/winapps (新增<span class="text-highlight-blue">1863星</span>), moeru-ai/airi, HKUDS/DeepCode。
+                    </li>
+                    <li class="fragment fade-in-up"><span class="trend-icon trend-down"><i class="fas fa-minus-circle"></i></span>
+                        <span class="font-bold">减退热点 (13个):</span> 涉及AI代理、可视化、编程书籍等多个领域。
+                    </li>
+                    <li class="fragment fade-in-up"><span class="trend-icon trend-stable"><i class="fas fa-star"></i></span>
+                        <span class="font-bold">持续热门 (5个):</span> plait-board/drawnix, HKUDS/DeepCode, winapps-org/winapps, moeru-ai/airi, HunxByts/GhostTrack。
+                    </li>
+                </ul>
+                <p class="text-sm mt-5 text-gray-600 fragment fade-in-up">榜单整体更新迭代迅速，关注度集中于新热点与核心AI技术。</p>
+            </section>
+
+            <!-- 详细仓库数据 (垂直幻灯片容器) -->
+            <section>
+                <h2 class="text-highlight-green"><i class="fas fa-database mr-3"></i>详细仓库数据</h2>
+                <p class="mt-5 text-gray-600 w-3/4 mx-auto">深入了解今日GitHub热门项目的具体亮点、技术栈与增长趋势，把握每一个“Aha”瞬间。</p>
+                <aside class="notes">
+                    使用垂直幻灯片展示每个热门项目的详细信息，以便清晰地组织内容并保持主流程的连贯性。
+                </aside>
+            </section>
+
+            <!-- 项目详情：plait-board/drawnix -->
+            <section>
+                <section>
+                    <h3 class="text-highlight-blue"><i class="fas fa-paint-brush mr-2"></i>plait-board/drawnix: 开源白板新纪元</h3>
+                    <div class="project-details">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href="https://github.com/plait-board/drawnix" target="_blank">plait-board/drawnix</a></td>
+                                    <td>TypeScript</td>
+                                    <td><span class="text-highlight-green">6860</span></td>
+                                    <td>3次</td>
+                                    <td>4次</td>
+                                    <td><span class="text-highlight-blue">649</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="meta-info">
+                            <div class="meta-item"><i class="fas fa-code"></i><span>语言占比:</span> TypeScript 89.3%, SCSS 8.9%</div>
+                            <div class="meta-item"><i class="fas fa-users"></i><span>贡献者:</span> 6</div>
+                            <div class="meta-item"><i class="fas fa-balance-scale"></i><span>许可证:</span> MIT</div>
+                        </div>
+                        <div class="project-description">
+                            <p class="font-bold text-lg">项目速读:</p>
+                            <p class="fragment fade-in-up">Drawnix 是一款免费、开源的一体化在线白板工具，集思维导图、流程图、自由绘画于一身的无限创作平台。</p>
+                            <p class="fragment fade-in-up">其核心优势在于<span class="text-highlight-blue">革命性的插件化架构</span>，灵活支持多种UI框架和富文本框架，实现业务逻辑细粒度分层与插件开发。</p>
+                            <p class="fragment fade-in-up">集成Mermaid语法和Markdown文本自动转换为流程图与思维导图，显著提升内容创作效率。</p>
+                            <p class="font-bold mt-4 text-lg">增长分析:</p>
+                            <p class="fragment fade-in-up">该仓库在5天内4次上榜，增长活跃且稳定。今日新增<span class="text-highlight-green">649星</span>，高于平均水平，显示出强劲的加速增长势头。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- 项目详情：HKUDS/DeepCode -->
+            <section>
+                <section>
+                    <h3 class="text-highlight-blue"><i class="fas fa-code-branch mr-2"></i>HKUDS/DeepCode: 论文即代码，AI自动化编程</h3>
+                    <div class="project-details">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href="https://github.com/HKUDS/DeepCode" target="_blank">HKUDS/DeepCode</a></td>
+                                    <td>Python</td>
+                                    <td><span class="text-highlight-green">2849</span></td>
+                                    <td>3次</td>
+                                    <td>3次</td>
+                                    <td><span class="text-highlight-blue">805</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="meta-info">
+                            <div class="meta-item"><i class="fas fa-code"></i><span>语言占比:</span> Python 100.0%</div>
+                            <div class="meta-item"><i class="fas fa-users"></i><span>贡献者:</span> 4</div>
+                            <div class="meta-item"><i class="fas fa-balance-scale"></i><span>许可证:</span> MIT</div>
+                        </div>
+                        <div class="project-description">
+                            <p class="font-bold text-lg">项目速读:</p>
+                            <p class="fragment fade-in-up">由香港大学主导的开源AI代码生成平台，运用<span class="text-highlight-blue">多智能体系统</span>将研究论文、自然语言转化为高质量、可生产的代码。</p>
+                            <p class="fragment fade-in-up">拥有“Paper2Code”、“Text2Web”和“Text2Backend”三大核心功能，解决代码实现复杂性、研究瓶颈和开发延迟。</p>
+                            <p class="fragment fade-in-up">自主多智能体工作流结合上下文感知代码合成模块，确保生成代码的质量、架构一致性和可扩展性。</p>
+                            <p class="font-bold mt-4 text-lg">增长分析:</p>
+                            <p class="fragment fade-in-up">三天内连续上榜3次，展现出持续且加速的增长势头。当次新增高达<span class="text-highlight-green">805个星</span>，远超平均水平。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- 项目详情：winapps-org/winapps -->
+            <section>
+                <section>
+                    <h3 class="text-highlight-blue"><i class="fab fa-windows mr-2"></i>winapps-org/winapps: Linux下的Windows原生体验</h3>
+                    <div class="project-details">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href="https://github.com/winapps-org/winapps" target="_blank">winapps-org/winapps</a></td>
+                                    <td>Shell</td>
+                                    <td><span class="text-highlight-green">7024</span></td>
+                                    <td>3次</td>
+                                    <td>3次</td>
+                                    <td><span class="text-highlight-blue">1881</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="meta-info">
+                            <div class="meta-item"><i class="fas fa-code"></i><span>语言占比:</span> Shell 85.6%, PowerShell 9.6%</div>
+                            <div class="meta-item"><i class="fas fa-users"></i><span>贡献者:</span> 58</div>
+                            <div class="meta-item"><i class="fas fa-balance-scale"></i><span>许可证:</span> 未知</div>
+                        </div>
+                        <div class="project-description">
+                            <p class="font-bold text-lg">项目速读:</p>
+                            <p class="fragment fade-in-up">创新性解决方案，让GNU/Linux用户<span class="text-highlight-blue">无缝运行Windows应用程序</span>，如Microsoft Office、Adobe Creative Cloud。</p>
+                            <p class="fragment fade-in-up">通过KVM虚拟机运行Windows，Docker/Podman自动化部署，FreeRDP技术实现<span class="text-highlight-green">原生级界面融入</span>。</p>
+                            <p class="fragment fade-in-up">深度集成包括文件共享、Nautilus文件管理器协作，消除了操作系统切换摩擦。</p>
+                            <p class="font-bold mt-4 text-lg">增长分析:</p>
+                            <p class="fragment fade-in-up">增长强劲，三天内连续上榜3次。当次新增<span class="text-highlight-red">1881 Star</span>远超平均，增长势头加速。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- 项目详情：moeru-ai/airi -->
+            <section>
+                <section>
+                    <h3 class="text-highlight-blue"><i class="fas fa-robot mr-2"></i>moeru-ai/airi: 我的AI伴侣，专属赛博灵魂</h3>
+                    <div class="project-details">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href="https://github.com/moeru-ai/airi" target="_blank">moeru-ai/airi</a></td>
+                                    <td>Vue</td>
+                                    <td><span class="text-highlight-green">10076</span></td>
+                                    <td>6次</td>
+                                    <td>6次</td>
+                                    <td><span class="text-highlight-blue">1382</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="meta-info">
+                            <div class="meta-item"><i class="fas fa-code"></i><span>语言占比:</span> Vue 55.2%, TypeScript 37.7%</div>
+                            <div class="meta-item"><i class="fas fa-users"></i><span>贡献者:</span> 51</div>
+                            <div class="meta-item"><i class="fas fa-balance-scale"></i><span>许可证:</span> MIT</div>
+                        </div>
+                        <div class="project-description">
+                            <p class="font-bold text-lg">项目速读:</p>
+                            <p class="fragment fade-in-up">雄心勃勃的开源AI数字伴侣，旨在让用户<span class="text-highlight-blue">拥有并深度定制自己的“AI灵魂”</span>，实现类似Neuro-sama的深度互动。</p>
+                            <p class="fragment fade-in-up">核心优势在于<span class="text-highlight-green">创新的混合渲染与推理架构</span>，利用WebGPU、WebAssembly和原生CUDA/Metal实现高性能本地AI推理。</p>
+                            <p class="fragment fade-in-up">强大的插件系统，能与Minecraft、Factorio等游戏及通信平台深度集成，提供实时语音聊天、游戏互动。</p>
+                            <p class="font-bold mt-4 text-lg">增长分析:</p>
+                            <p class="fragment fade-in-up">短期内6次上榜，持续关注度极高。平均每次增1200+星，总计近7000星，今日增星高于平均，显示增长势头强劲。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- 项目详情：HunxByts/GhostTrack -->
+            <section>
+                <section>
+                    <h3 class="text-highlight-blue"><i class="fas fa-user-secret mr-2"></i>HunxByts/GhostTrack: 信息侦察，深度洞察</h3>
+                    <div class="project-details">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href="https://github.com/HunxByts/GhostTrack" target="_blank">HunxByts/GhostTrack</a></td>
+                                    <td>Python</td>
+                                    <td><span class="text-highlight-green">4426</span></td>
+                                    <td>5次</td>
+                                    <td>6次</td>
+                                    <td><span class="text-highlight-blue">671</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="meta-info">
+                            <div class="meta-item"><i class="fas fa-code"></i><span>语言占比:</span> Python 100.0%</div>
+                            <div class="meta-item"><i class="fas fa-users"></i><span>贡献者:</span> 2</div>
+                            <div class="meta-item"><i class="fas fa-balance-scale"></i><span>许可证:</span> 未知</div>
+                        </div>
+                        <div class="project-description">
+                            <p class="font-bold text-lg">项目速读:</p>
+                            <p class="fragment fade-in-up">基于Python的开源情报（OSINT）工具，专为<span class="text-highlight-blue">信息侦察和收集</span>而设计。</p>
+                            <p class="fragment fade-in-up">整合IP追踪、手机号码查询和社交媒体用户名搜索三大核心功能，提供目标的全面视图。</p>
+                            <p class="fragment fade-in-up">易于在Linux和Termux环境下部署运行，提供便捷高效的信息收集方案。</p>
+                            <p class="font-bold mt-4 text-lg">增长分析:</p>
+                            <p class="fragment fade-in-up">周期内Star增长2535，平均每次上榜增365.5 Star。当次新增<span class="text-highlight-green">671 Star</span>远超平均，增长势头强劲且加速。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- 项目详情：willccbb/verifiers -->
+            <section>
+                <section>
+                    <h3 class="text-highlight-blue"><i class="fas fa-shield-alt mr-2"></i>willccbb/verifiers: LLM强化学习的坚实基石</h3>
+                    <div class="project-details">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href="https://github.com/willccbb/verifiers" target="_blank">willccbb/verifiers</a></td>
+                                    <td>Python</td>
+                                    <td><span class="text-highlight-green">2102</span></td>
+                                    <td>1次</td>
+                                    <td>1次</td>
+                                    <td><span class="text-highlight-blue">270</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="meta-info">
+                            <div class="meta-item"><i class="fas fa-code"></i><span>语言占比:</span> Python 100.0%</div>
+                            <div class="meta-item"><i class="fas fa-users"></i><span>贡献者:</span> 19</div>
+                            <div class="meta-item"><i class="fas fa-balance-scale"></i><span>许可证:</span> MIT</div>
+                        </div>
+                        <div class="project-description">
+                            <p class="font-bold text-lg">项目速读:</p>
+                            <p class="fragment fade-in-up">专为<span class="text-highlight-blue">大型语言模型（LLM）强化学习</span>量身打造的模块化组件库。</p>
+                            <p class="fragment fade-in-up">高度模块化设计支持大规模RL训练，实现先进的异步GRPO算法，并基于Hugging Face transformers库。</p>
+                            <p class="fragment fade-in-up">创新性支持LLM原生的工具/函数调用，允许Python函数无缝集成，扩展RL应用场景。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- 项目详情：spotDL/spotify-downloader -->
+            <section>
+                <section>
+                    <h3 class="text-highlight-blue"><i class="fab fa-spotify mr-2"></i>spotDL/spotify-downloader: 音乐下载，元数据全掌控</h3>
+                    <div class="project-details">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href="https://github.com/spotdl/spotify-downloader" target="_blank">spotDL/spotify-downloader</a></td>
+                                    <td>Python</td>
+                                    <td><span class="text-highlight-green">21299</span></td>
+                                    <td>1次</td>
+                                    <td>1次</td>
+                                    <td><span class="text-highlight-blue">32</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="meta-info">
+                            <div class="meta-item"><i class="fas fa-code"></i><span>语言占比:</span> Python 99.6%</div>
+                            <div class="meta-item"><i class="fas fa-users"></i><span>贡献者:</span> 162</div>
+                            <div class="meta-item"><i class="fas fa-balance-scale"></i><span>许可证:</span> MIT</div>
+                        </div>
+                        <div class="project-description">
+                            <p class="font-bold text-lg">项目速读:</p>
+                            <p class="fragment fade-in-up">功能强大的Python命令行工具，将Spotify音乐通过智能匹配YouTube视频保存到本地。</p>
+                            <p class="fragment fade-in-up">核心优势在于其<span class="text-highlight-blue">自动化能力和丰富的功能集</span>，支持播放列表同步、元数据保存与更新。</p>
+                            <p class="fragment fade-in-up">利用YouTube作为内容来源，有效规避版权限制，同时确保音频质量。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- 项目详情：anuraghazra/github-readme-stats -->
+            <section>
+                <section>
+                    <h3 class="text-highlight-blue"><i class="fab fa-github mr-2"></i>anuraghazra/github-readme-stats: 动态README，彰显你的GitHub实力</h3>
+                    <div class="project-details">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href="https://github.com/anuraghazra/github-readme-stats" target="_blank">anuraghazra/github-readme-stats</a></td>
+                                    <td>JavaScript</td>
+                                    <td><span class="text-highlight-green">75338</span></td>
+                                    <td>1次</td>
+                                    <td>1次</td>
+                                    <td><span class="text-highlight-blue">97</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="meta-info">
+                            <div class="meta-item"><i class="fas fa-code"></i><span>语言占比:</span> JavaScript 99.8%</div>
+                            <div class="meta-item"><i class="fas fa-users"></i><span>贡献者:</span> 276</div>
+                            <div class="meta-item"><i class="fas fa-balance-scale"></i><span>许可证:</span> MIT</div>
+                        </div>
+                        <div class="project-description">
+                            <p class="font-bold text-lg">项目速读:</p>
+                            <p class="fragment fade-in-up">革新开发者在GitHub个人资料页面展示贡献的方式，生成高度定制化的<span class="text-highlight-blue">动态SVG统计卡片</span>。</p>
+                            <p class="fragment fade-in-up">核心优势在于其便捷的集成方式和强大的定制能力，多种预设主题和布局，支持展示GitHub统计、热门语言等。</p>
+                            <p class="fragment fade-in-up">部署在Vercel上的API服务，通过GitHub GraphQL API获取数据并实时渲染。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- 项目详情：karpathy/nn-zero-to-hero -->
+            <section>
+                <section>
+                    <h3 class="text-highlight-blue"><i class="fas fa-graduation-cap mr-2"></i>karpathy/nn-zero-to-hero: 神经网络，从零到精通</h3>
+                    <div class="project-details">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href="https://github.com/karpathy/nn-zero-to-hero" target="_blank">karpathy/nn-zero-to-hero</a></td>
+                                    <td>Jupyter Notebook</td>
+                                    <td><span class="text-highlight-green">15565</span></td>
+                                    <td>1次</td>
+                                    <td>2次</td>
+                                    <td><span class="text-highlight-blue">10</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="meta-info">
+                            <div class="meta-item"><i class="fas fa-code"></i><span>语言占比:</span> Jupyter Notebook 100.0%</div>
+                            <div class="meta-item"><i class="fas fa-users"></i><span>贡献者:</span> 2</div>
+                            <div class="meta-item"><i class="fas fa-balance-scale"></i><span>许可证:</span> MIT</div>
+                        </div>
+                        <div class="project-description">
+                            <p class="font-bold text-lg">项目速读:</p>
+                            <p class="fragment fade-in-up">由知名AI专家Andrej Karpathy主导的开源课程，<span class="text-highlight-blue">系统性教授神经网络，从零基础直达前沿模型</span>。</p>
+                            <p class="fragment fade-in-up">核心优势在于其“从零开始”的教学理念和对动手实践的强调，通过YouTube视频和Jupyter Notebooks。</p>
+                            <p class="fragment fade-in-up">内容覆盖广泛，从自定义自动微分引擎到PyTorch实现多层感知机，最终深入Transformer架构。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- 项目详情：asgeirtj/system_prompts_leaks -->
+            <section>
+                <section>
+                    <h3 class="text-highlight-blue"><i class="fas fa-eye mr-2"></i>asgeirtj/system_prompts_leaks: 揭秘AI大模型内部指令</h3>
+                    <div class="project-details">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href="https://github.com/asgeirtj/system_prompts_leaks" target="_blank">asgeirtj/system_prompts_leaks</a></td>
+                                    <td>JavaScript</td>
+                                    <td><span class="text-highlight-green">9198</span></td>
+                                    <td>1次</td>
+                                    <td>1次</td>
+                                    <td><span class="text-highlight-blue">253</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="meta-info">
+                            <div class="meta-item"><i class="fas fa-code"></i><span>语言占比:</span> JavaScript 100.0%</div>
+                            <div class="meta-item"><i class="fas fa-users"></i><span>贡献者:</span> 2</div>
+                            <div class="meta-item"><i class="fas fa-balance-scale"></i><span>许可证:</span> 未知</div>
+                        </div>
+                        <div class="project-description">
+                            <p class="font-bold text-lg">项目速读:</p>
+                            <p class="fragment fade-in-up">汇集ChatGPT、Claude、Gemini等主流AI聊天机器人中<span class="text-highlight-blue">不为人知的“系统提示词”</span>。</p>
+                            <p class="fragment fade-in-up">解决了AI“黑箱”问题，提供前所未有的视角，深入洞察AI模型的运作原理，优化提示工程。</p>
+                            <p class="fragment fade-in-up">集中式的知识库和低门槛的访问方式，一个活跃的社区驱动型项目。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- 项目详情：microsoft/generative-ai-for-beginners -->
+            <section>
+                <section>
+                    <h3 class="text-highlight-blue"><i class="fab fa-microsoft mr-2"></i>microsoft/generative-ai-for-beginners: 微软官方，生成式AI入门指南</h3>
+                    <div class="project-details">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href="https://github.com/microsoft/generative-ai-for-beginners" target="_blank">microsoft/generative-ai-for-beginners</a></td>
+                                    <td>Jupyter Notebook</td>
+                                    <td><span class="text-highlight-green">95770</span></td>
+                                    <td>1次</td>
+                                    <td>24次</td>
+                                    <td><span class="text-highlight-blue">167</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="meta-info">
+                            <div class="meta-item"><i class="fas fa-code"></i><span>语言占比:</span> Jupyter Notebook 86.4%, Python 8.2%</div>
+                            <div class="meta-item"><i class="fas fa-users"></i><span>贡献者:</span> 134</div>
+                            <div class="meta-item"><i class="fas fa-balance-scale"></i><span>许可证:</span> MIT</div>
+                        </div>
+                        <div class="project-description">
+                            <p class="font-bold text-lg">项目速读:</p>
+                            <p class="fragment fade-in-up">微软官方推出的权威生成式AI初学者指南，通过21节课程系统化学习。</p>
+                            <p class="fragment fade-in-up">核心优势在于内容的<span class="text-highlight-blue">全面性与实践性</span>，理论与动手操作紧密结合，支持多种编程语言。</p>
+                            <p class="fragment fade-in-up">通过自动化流程支持数十种语言翻译，确保全球学习者无障碍获取教程。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- 项目详情：GitHubDaily/GitHubDaily -->
+            <section>
+                <section>
+                    <h3 class="text-highlight-blue"><i class="fas fa-newspaper mr-2"></i>GitHubDaily/GitHubDaily: 每日精选，开源技术宝库</h3>
+                    <div class="project-details">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href="https://github.com/GitHubDaily/GitHubDaily" target="_blank">GitHubDaily/GitHubDaily</a></td>
+                                    <td>(Mixed)</td>
+                                    <td><span class="text-highlight-green">40687</span></td>
+                                    <td>2次</td>
+                                    <td>2次</td>
+                                    <td><span class="text-highlight-blue">499</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="meta-info">
+                            <div class="meta-item"><i class="fas fa-users"></i><span>贡献者:</span> 4</div>
+                            <div class="meta-item"><i class="fas fa-balance-scale"></i><span>许可证:</span> 未知</div>
+                        </div>
+                        <div class="project-description">
+                            <p class="font-bold text-lg">项目速读:</p>
+                            <p class="fragment fade-in-up">专注于精选和分享GitHub上高质量、有趣且实用的<span class="text-highlight-blue">开源技术教程、开发者工具、编程网站及技术资讯</span>。</p>
+                            <p class="fragment fade-in-up">核心优势在于其<span class="text-highlight-green">深厚的积累和卓越的传播能力</span>，自2015年已累计分享超过8000个精选项目。</p>
+                            <p class="fragment fade-in-up">采取多平台传播策略，在微信公众号、微博、知乎和X等同步更新。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- 项目详情：yt-dlp/yt-dlp -->
+            <section>
+                <section>
+                    <h3 class="text-highlight-blue"><i class="fab fa-youtube mr-2"></i>yt-dlp/yt-dlp: 万能音视频下载器</h3>
+                    <div class="project-details">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href="https://github.com/yt-dlp/yt-dlp" target="_blank">yt-dlp/yt-dlp</a></td>
+                                    <td>Python</td>
+                                    <td><span class="text-highlight-green">123894</span></td>
+                                    <td>2次</td>
+                                    <td>7次</td>
+                                    <td><span class="text-highlight-blue">321</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="meta-info">
+                            <div class="meta-item"><i class="fas fa-code"></i><span>语言占比:</span> Python 99.9%</div>
+                            <div class="meta-item"><i class="fas fa-users"></i><span>贡献者:</span> 1470</div>
+                            <div class="meta-item"><i class="fas fa-balance-scale"></i><span>许可证:</span> Unlicense</div>
+                        </div>
+                        <div class="project-description">
+                            <p class="font-bold text-lg">项目速读:</p>
+                            <p class="fragment fade-in-up">功能强大的命令行音视频下载工具，旨在从<span class="text-highlight-blue">数千个网站</span>下载内容，youtube-dl项目的活跃分支。</p>
+                            <p class="fragment fade-in-up">核心优势在于对海量在线平台<span class="text-highlight-green">无与伦比的广泛支持</span>和极高的灵活性与定制能力。</p>
+                            <p class="fragment fade-in-up">通过丰富的选项精细控制下载过程，从视频选择、网络配置到地理限制绕过，以及强大的后处理功能。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- 项目详情：rothgar/awesome-tuis -->
+            <section>
+                <section>
+                    <h3 class="text-highlight-blue"><i class="fas fa-terminal mr-2"></i>rothgar/awesome-tuis: 终端界面，效率倍增</h3>
+                    <div class="project-details">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>仓库名称</th>
+                                    <th>开发语言</th>
+                                    <th>Star 数</th>
+                                    <th>连续在榜</th>
+                                    <th>总上榜次数</th>
+                                    <th>当日 Star 增加数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href="https://github.com/rothgar/awesome-tuis" target="_blank">rothgar/awesome-tuis</a></td>
+                                    <td>(Mixed)</td>
+                                    <td><span class="text-highlight-green">11127</span></td>
+                                    <td>1次</td>
+                                    <td>1次</td>
+                                    <td><span class="text-highlight-blue">194</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="meta-info">
+                            <div class="meta-item"><i class="fas fa-users"></i><span>贡献者:</span> 192</div>
+                            <div class="meta-item"><i class="fas fa-balance-scale"></i><span>许可证:</span> 未知</div>
+                        </div>
+                        <div class="project-description">
+                            <p class="font-bold text-lg">项目速读:</p>
+                            <p class="fragment fade-in-up">精心策划的<span class="text-highlight-blue">终端用户界面（TUI）应用精选列表</span>，解决在复杂命令行环境中寻找高效工具的痛点。</p>
+                            <p class="fragment fade-in-up">核心优势在于其内容的广泛性与清晰的分类，通过丰富的交互性和可视化功能提升终端操作体验。</p>
+                            <p class="fragment fade-in-up">TUI应用普遍具备跨平台兼容性和低资源占用，是远程服务器管理、低配置环境作业的理想选择。</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- 感谢页 -->
+            <section class="aha-cover">
+                <h1 class="text-white">感谢您的聆听！</h1>
+                <p class="text-white text-2xl mt-8">期待与您在GitHub上共同探索前沿技术！</p>
+                <div class="flex flex-col items-center mt-10">
+                    <p class="text-white text-xl">
+                        关注我们，获取更多热门开源项目分析：
+                    </p>
+                </div>
+                <div class="aha-footer">
+                    <a href="https://github.com/aichipera/github-trend" target="_blank">https://github.com/aichipera/github-trend</a>
+                    <img src="../../asserts/wx.jpg" alt="QR Code">
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            hash: true,
+            center: true,
+            transition: 'slide', // 简洁流畅的动画过渡
+            transitionSpeed: 'fast',
+            
+            // 插件配置 (如果需要加载外部插件)
+            plugins: []
+        });
+        
+        // Mermaid 配置，确保按需渲染
+        mermaid.initialize({ startOnLoad: false }); 
+    </script>
+</body>
+</html>
