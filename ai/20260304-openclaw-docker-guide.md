@@ -372,6 +372,10 @@ openclaw models set siliconflow/Pro/MiniMaxAI/MiniMax-M2.5
 
 ![](./asserts/wechat_group.jpg)
 
+**如果觉得不错，可以扫描关注一下公众号。**
+
+![](../asserts/wx.jpg)
+
 或者可以通过 GitHub 提交 Issue 与开发者社区交流：
 
 | 项目/服务                 | 链接                                                                               |
