@@ -290,6 +290,9 @@ Logs: openclaw logs --follow
 
 然后在 **容器 -> openclaw-gateway -> 终端 -> 新增**，然后运行如下命令：
 
+> [!NOTE]
+> 如果你是在命令行上，如WSL或者Linux上，可以使用 `docker ps` 查看运行的镜像，然后使用 `docker exec -it <容器名或ID> /bin/bash` 连接进去。
+
 ~~~shell
 # 安装一下vim，后面可能需要编辑
 apt update
