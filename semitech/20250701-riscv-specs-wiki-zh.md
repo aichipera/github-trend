@@ -1,0 +1,73 @@
+#  RISC-V 技术规范汇总
+
+> 整理于**2025.06.30**, 数据来源 https://lf-riscv.atlassian.net/wiki/spaces/HOME/pages/16154769/RISC-V+Technical+Specifications
+
+以下是所有已批准技术出版物的完整列表。
+
+## ISA Specifications(ISA 规范)
+
+这些是 ISA 规范的当前已发布版本。先前的已发布版本以及所含扩展的原始批准规范可以在 [RISC-V 技术规范存档页面](https://wiki.riscv.org/display/HOME/RISC-V+Technical+Specifications+Archive)上找到。
+
+| 规范名称 (PDF 链接) | 版本 | 发布日期 | RISC-V 社区 | 源代码仓库 |
+| :--- | :--- | :--- | :--- | :--- |
+| **RISC-V 指令集手册第一卷：非特权 ISA (The RISC-V Instruction Set Manual Volume I: Unprivileged ISA)** | 20250508 | 2025年5月 | 非特权横向委员会 (Unprivileged Horizontal Committee) | [riscv/riscv-isa-manual](https://github.com/riscv/riscv-isa-manual) |
+| **RISC-V 指令集手册第二卷：特权架构 (The RISC-V Instruction Set Manual Volume II: Privileged Architecture)** | 20250508 | 2025年5月 | 特权横向委员会 (Privileged Horizontal Committee) | [riscv/riscv-isa-manual](https://github.com/riscv/riscv-isa-manual) |
+
+*注：最近已批准但尚未包含在完整规范中的扩展，可以在 [RISC-V 已批准扩展页面](https://wiki.riscv.org/display/HOME/RISC-V+Ratified+Extensions)上找到。*
+
+________________
+
+## Profile(配置文件)
+
+这些是配置文件规范的当前已发布版本。
+
+| 规范名称 (PDF 链接) | 版本 | 发布日期 | 配置文件 | RISC-V 社区 | 源代码仓库 |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **RVA23 配置文件 (RVA23 Profile)** | 1.0 | 2024年10月 | RVA23 | 配置文件 SIG (Profiles SIG) | [riscv/riscv-profiles](https://github.com/riscv/riscv-profiles) |
+| **RVB23 配置文件 (RVB23 Profile)** | 1.0 | 2024年10月 | RVB23 | 配置文件 SIG (Profiles SIG) | [riscv/riscv-profiles](https://github.com/riscv/riscv-profiles) |
+| **RISC-V 配置文件 (RISC-V Profiles)** | 1.0 | 2023年3月 | RVA20, RVI20, RVA22 | 配置文件 SIG (Profiles SIG) | [riscv/riscv-profiles](https://github.com/riscv/riscv-profiles) |
+
+________________
+
+## Non-ISA Specifications(非 ISA 规范)
+
+这些是非 ISA 规范的当前已发布版本。先前的已发布版本可以在 [RISC-V 技术规范存档页面](https://wiki.riscv.org/display/HOME/RISC-V+Technical+Specifications+Archive)上找到。
+
+| 规范 (PDF 链接)                                                                                                                                                                                                                                                                           | 版本    | 发布日期     | 更新日期     | RISC-V 社区                                               | 源代码仓库                                                                                     |
+| :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :---- | :------- | :------- | :------------------------------------------------------ | :---------------------------------------------------------------------------------------- |
+| [**RISC-V 高效追踪 (Efficient Trace for RISC-V)**](https://drive.google.com/file/d/1iijHsZB7YXW0A2HuuzHo5QTZSKrO_KbW/view?usp=drive_link)<br>规定了 RISC-V 核心与编码器之间的信号、压缩分支追踪算法，以及用于封装压缩分支追踪信息以实现处理器追踪的数据包格式。                                                                                                                                                                         | 2.0   | 2022年6月  | 2025年6月  | SoC 基础设施横向委员会 (SOC Infrastructure Horizontal Committee) | [riscv-non-isa/tech-trace-spec](https://github.com/riscv-non-isa/tech-trace-spec)         |
+| [**RISC-V ABI 规范 (RISC-V ABIs Specification)**](https://drive.google.com/file/d/1Ja_Tpp_5Me583CGVD-BIZMlgGBnlKU4R/view?usp=drive_link)<br>为 RISC-V 提供处理器特定的应用程序二进制接口文档。                                                                                                                                                                                                        | 1.0   | 2022年11月 |          | 应用与工具横向委员会 (Application & Tools Horizontal Committee)   | [riscv-non-isa/riscv-elf-psabi-doc](https://github.com/riscv-non-isa/riscv-elf-psabi-doc) |
+| [**RISC-V 高级中断架构 (RISC-V Advanced Interrupt Architecture)**](https://drive.google.com/file/d/16life2Y5u7Plebbl4v1fFM1-NK-KHw0Y/view?usp=sharing)<br>描述了用于 RISC-V 系统的高级中断架构。                                                                                                                                                                                                 | 1.0   | 2023年6月  |          | 特权软件横向委员会 (Privileged Software Horizontal Committee)    | [riscv/riscv-aia](https://github.com/riscv/riscv-aia)                                     |
+| [**RISC-V 容量和带宽 QoS 寄存器接口 (RISC-V Capacity and Bandwidth QoS Register Interface)**](https://drive.google.com/file/d/1XSKqg6MXEmRdpdUYLj-Q03kZD6TDQhtu/view?usp=drive_link)<br>规定了：<br>1. 用于识别向共享资源发起请求的工作负载的 QoS 标识符。<br>2. 伴随访问共享资源请求的访问类型标识符，以允许对每种访问类型进行差异化处理。<br>3. 用于共享缓存、目录等控制器中容量分配的寄存器接口。<br>4. 用于容量使用监控的寄存器接口。<br>5. 用于互连和内存控制器等控制器中带宽分配的寄存器接口。<br>6. 用于带宽使用监控的寄存器接口。 | 1.0   | 2024年6月  |          | SoC 基础设施横向委员会 (SOC Infrastructure Horizontal Committee) | [riscv-non-isa/riscv-cbqri](https://github.com/riscv-non-isa/riscv-cbqri)                 |
+| [**RISC-V 调试规范 (The RISC-V Debug Specification)**](https://drive.google.com/file/d/1h_f9NgB_8m2fS6uCnKP1Oho-3x1MpBEl/view?usp=drive_link)<br>概述了 RISC-V 硬件平台上调试支持的标准架构。该架构允许多种实现和权衡，这与广泛的 RISC-V 实现相辅相成。同时，本规范定义了通用接口，以允许调试工具和组件能够针对基于 RISC-V ISA 的各种硬件平台。                                                                                                                     | 1.0   | 2025年2月  |          | SoC 基础设施横向委员会 (SOC Infrastructure Horizontal Committee) | [riscv/tech-debug-spec](https://github.com/riscv/tech-debug-spec)                         |
+| [**RISC-V 功能性固定硬件规范 (RISC-V Functional Fixed Hardware Specification)**](https://drive.google.com/file/d/1XzlA0LE4N5_47wJXsU3aqyD69pHGvdcL/view?usp=drive_link)<br>为使用高级配置和电源接口（ACPI）的 RISC-V 系统提供了额外的系统规范，特别是针对类型为“资源描述符”的某些 ACPI 对象字段。                                                                                                                                        | 1.0.1 | 2024年1月  | 2024年10月 | 特权软件横向委员会 (Privileged Software Horizontal Committee)    | [riscv-non-isa/riscv-acpi-ffh](https://github.com/riscv-non-isa/riscv-acpi-ffh)           |
+| [**RISC-V IO 映射表规范 (RISC-V IO Mapping Table Specification)**](https://drive.google.com/file/d/1sxQ3iQ1l5Jgq9tukvGMnucRUvY16s8zN/view?usp=sharing)<br>提供有关 RISC-V IOMMU 以及在基于 ACPI 的 RISC-V 平台中 IO 拓扑与 IOMMU 之间关系的信息。RIMT 标识了哪些组件位于 IOMMU 之后以及它们是如何连接在一起的。                                                                                                                   | 1.0   | 2025年3月  |          | 特权软件横向委员会 (Privileged Software Horizontal Committee)    | [riscv-non-isa/riscv-acpi-rimt](https://github.com/riscv-non-isa/riscv-acpi-rimt)         |
+| [**RISC-V IOMMU 架构规范 (RISC-V IOMMU Architecture Specification)**](https://drive.google.com/file/d/1kVapIJPXUUNFQv_yauCDgtWzMvpgh6C2/view?usp=drive_link)<br>描述了一种将支持直接内存访问（DMA）的输入/输出（I/O）设备连接到系统内存的输入/输出内存管理单元（IOMMU）。                                                                                                                                                        | 1.0   | 2023年6月  | 2025年6月  | SoC 基础设施横向委员会 (SOC Infrastructure Horizontal Committee) | [riscv-non-isa/riscv-iommu](https://github.com/riscv-non-isa/riscv-iommu)                 |
+| [**RISC-V N-Trace (基于 Nexus 的追踪) (RISC-V N-Trace (Nexus-based Trace))**](https://drive.google.com/file/d/1UXFptcTjd5akPhKRtn0onBC6t53O61qU/view?usp=drive_link)<br>实现了为支持 RISC-V ISA 核心、hart 和 SoC/MCU 设计追踪而量身定制的 IEEE-5001 Nexus 标准。                                                                                                                                          | 1.0   | 2024年11月 |          | SoC 基础设施横向委员会 (SOC Infrastructure Horizontal Committee) | [riscv-non-isa/tg-nexus-trace](https://github.com/riscv-non-isa/tg-nexus-trace)           |
+| [**RISC-V 平台级中断控制器规范 (RISC-V Platform-Level Interrupt Controller Specification)**](https://drive.google.com/file/d/1at94PNJl4v2eAsKIwKOsZWBxsVcY2U2F/view?usp=drive_link)<br>描述了 RISC-V 上平台级中断控制器的操作参数。                                                                                                                                                                        | 1.0.0 | 2023年2月  |          | 特权软件横向委员会 (Privileged Software Horizontal Committee)    | [riscv/riscv-plic-spec](https://github.com/riscv/riscv-plic-spec)                         |
+| [**RISC-V RERI 架构规范 (RISC-V RERI Architecture Specification)**](https://drive.google.com/file/d/19gMRFbWDrfDZKyqoO3iFkySPvKpxm26a/view?usp=drive_link)<br>通过一种标准的内存映射寄存器接口报告错误的机制，增强了 SoC 中的可靠性、可用性和可服务性（RAS）功能，以实现错误报告。此外，本规范支持软件发起的错误记录、报告和 RAS 处理程序测试。最后，本规范为实现错误处理提供了最大的灵活性，并与 PCIe 和 CXL 等其他标准定义的 RAS 框架共存。                                                               | 1.0   | 2024年5月  |          | SoC 基础设施横向委员会 (SOC Infrastructure Horizontal Committee) | [riscv-non-isa/riscv-ras-eri](https://github.com/riscv-non-isa/riscv-ras-eri)             |
+| [**RISC-V 半主机 (RISC-V Semihosting)**](https://drive.google.com/file/d/1qu74D4_EmjGmc03qzfQ7Pf4g6m0fOtcD/view?usp=sharing)<br>定义了 RISC-V 平台的半主机二进制接口。                                                                                                                                                                                                                        | 1.0   | 2025年2月  |          | 特权软件横向委员会 (Privileged Software Horizontal Committee)    | [riscv-non-isa/riscv-semihosting](https://github.com/riscv-non-isa/riscv-semihosting)     |
+| [**RISC-V 服务器 SoC 规范 (RISC-V Server SOC Specification)**](https://drive.google.com/file/d/1KjewRE0NltEmbKOz7YlgOsTF51lZ6aPL/view?usp=sharing)<br>定义了一套标准化的功能集，使得操作系统和虚拟机监视器等可移植的系统软件，可以依赖这些功能在 RISC-V 服务器 SoC 中存在。                                                                                                                                                          | 1.0   | 2025年2月  |          | SoC 基础设施横向委员会 (SOC Infrastructure Horizontal Committee) | [riscv-non-isa/server-soc](https://github.com/riscv-non-isa/server-soc)                   |
+| [**RISC-V 监管者二进制接口规范 (RISC-V Supervisor Binary Interface Specification)**](https://drive.google.com/file/d/1U2kwjqxXgDONXk_-ZDTYzvsV-F_8ylEH/view?usp=drive_link)<br>RISC-V 监管者二进制接口规范的第二次发布。它增加了调试控制台、系统挂起、嵌套加速、窃取时间核算、PMU 快照和各种错误代码；放宽了对 PMU 固件计数器的计数器宽度要求；为固件事件保留了空间；并澄清了几个扩展。                                                                                              | 2.0.0 | 2024年1月  |          | 特权软件横向委员会 (Privileged Software Horizontal Committee)    | [riscv-non-isa/riscv-sbi-doc](https://github.com/riscv-non-isa/riscv-sbi-doc)             |
+| [**RISC-V 追踪连接器 (RISC-V Trace Connectors)**](https://drive.google.com/file/d/1SMypv0CUL338L-sURMyJuO60WZ7oDi9V/view?usp=drive_link)<br>将追踪信号添加到 [RISC-V 外部调试支持](https://lf-riscv.atlassian.net/wiki/spaces/HOME/pages/16154769/RISC-V+Technical+Specifications#RISC-V_External_Debug_Support_spec)中描述的连接器中，并为 MIPI 调试与追踪连接器建议白皮书（版本1.20，2021年7月2日）中描述的连接器提供了一个小的、可选的扩展。                                                                                                                                             | 1.0   | 2024年11月 |          | SoC 基础设施横向委员会 (SOC Infrastructure Horizontal Committee) | [riscv-non-isa/tg-nexus-trace](https://github.com/riscv-non-isa/tg-nexus-trace)           |
+| [**RISC-V 追踪控制接口 (RISC-V Trace Control Interface)**](https://drive.google.com/file/d/1ZQvU1WNamY5EHGum4yP1z-WmPrcxH2b8/view?usp=drive_link)<br>为 RISC-V 追踪基础设施（如追踪编码器、追踪漏斗、追踪接收器）提供了一个标准化的控制接口，用于 [RISC-V 高效追踪规范](https://lf-riscv.atlassian.net/wiki/spaces/HOME/pages/16154769/RISC-V+Technical+Specifications#Efficient_Trace_for_RISC-V_spec)和 [RISC-V N-Trace（基于 Nexus 的追踪）规范](https://lf-riscv.atlassian.net/wiki/spaces/HOME/pages/16154769/RISC-V+Technical+Specifications#RISC-V_N-Trace_spec)。标准化的控制接口允许追踪控制软件开发工具与任何实现处理器和/或数据追踪的 RISC-V 设备互换使用。                                                                            | 1.0   | 2024年11月 |          | SoC 基础设施横向委员会 (SOC Infrastructure Horizontal Committee) | [riscv-non-isa/tg-nexus-trace](https://github.com/riscv-non-isa/tg-nexus-trace)           |
+| [**RISC-V UEFI 协议规范 (RISC-V UEFI Protocol Specification)**](https://drive.google.com/file/d/1rbQDRkoeJyqTKTI6tTCKw8zmh7T9dLUZ/view?usp=drive_link)<br>详细说明了仅 RISC-V 平台所需的所有新的 UEFI 协议。                                                                                                                                                                                         | 1.0.0 | 2022年5月  |          | 特权软件横向委员会 (Privileged Software Horizontal Committee)    | [riscv-non-isa/riscv-uefi](https://github.com/riscv-non-isa/riscv-uefi)                   |
+| [**RISC-V 向量 C 内联函数规范 (RISC-V Vector C Intrinsic Specification)**](https://drive.google.com/file/d/1RTZi2iOLKzqaX95JCCnzwOm7iCIN3JEq/view?usp=drive_link)<br>在 C 语言层面提供用户接口，以直接利用 RISC-V 向量扩展，并由编译器在处理指令调度和寄存器分配方面提供帮助。这些内联函数还使用户无需负责为向量指令执行维护正确的配置设置。                                                                                                                         | 1.0   | 2025年4月  |          | 应用与工具横向委员会 (Application & Tools Horizontal Committee)   | [riscv-non-isa/rvv-intrinsic-doc](https://github.com/riscv-non-isa/rvv-intrinsic-doc)     |
+| [**RISC-V 未格式化追踪与诊断数据包封装 (Unformatted Trace & Diagnostic Data Packet Encapsulation for RISC-V)](https://drive.google.com/file/d/1R-_koXIpdb9_qW6jpz74TSnNXOfJGhfn/view?usp=drive_link)**<br>定义了一种适用于多种传输机制的封装格式，包括但不限于 AMBA 高级追踪总线（ATB）和西门子的消息传递基础设施。                                                                                                                          | 1.0   | 2024年6月  |          | SoC 基础设施横向委员会 (SOC Infrastructure Horizontal Committee) | [riscv-non-isa/e-trace-encap](https://github.com/riscv-non-isa/e-trace-encap)             |
+
+*注：如果您在上面的表格中没有看到某个规范，请访问 [RISC-V GitHub riscv-non-isa 组织](https://github.com/riscv-non-isa)，查看所有已制定或正在制定中的规范的完整列表。*
+
+________________
+
+## 兼容性测试框架(Compatibility Test Framework)
+
+RISC-V 架构兼容性测试框架(Architectural Compatibility Test Framework)第 3 版 (RISCOF 1.X 版本) 现已可用。
+
+该框架使用参考签名（其中一个应为参考模型）来比较两个任意模型，并根据模型配置自动选择测试。由于 RISC-V ISA 规范允许多种架构实现选择，因此创建了一个工具（RISCV-CONFIG）来描述实现配置。RISCOF 框架使用 RISCV-CONFIG 来选择和配置测试。
+
+当前的测试覆盖范围包括 `RV[32|64]IMCFD_Zb\*_zK\*_Zmmul_Zicsr_Zifencei`（其中 `\*` 表示许多子扩展）。扩展所支持的扩展和覆盖的配置的工作仍在继续。
+
+**更多信息可以在以下位置找到**：
+*   **兼容性测试框架 (RISCOF)** – [GitHub 仓库](https://github.com/riscv-non-isa/riscof), [文档](https://riscof.readthedocs.io/en/latest/)
+*   **测试框架配置工具 (RISCV-CONFIG)** - [GitHub 仓库](https://github.com/riscv-non-isa/riscv-config), [文档](https://riscv-config.readthedocs.io/en/latest/)
+*   **架构兼容性测试套件 (ACT)** - [GitHub 仓库](https://github.com/riscv-non-isa/riscv-arch-test), [测试格式规范](https://github.com/riscv-non-isa/riscv-arch-test/blob/main/spec/TestFormatSpec.adoc)
