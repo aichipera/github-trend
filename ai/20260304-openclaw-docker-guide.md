@@ -182,7 +182,7 @@ https://docker.1panel.live/
 1. 进入Docker的「镜像」管理页面
 2. 点击「搜索镜像」或「Pull Image」按钮
 3. 输入镜像名称：`justlikemaki/openclaw-docker-cn-im`
-4. 选择版本（建议选择 `latest` 标签）
+4. 选择版本（建议选择 `latest` 标签，我当时的版本是 `main-8642ab9`）
 5. 点击下载，等待下载完成
 ![](./asserts/pasted_image_20260302-3.png)
 镜像大小约 2-3GB，需要等待几分钟下载完成。
@@ -205,6 +205,7 @@ version: '3.8'
 services:
   openclaw-gateway:
     container_name: openclaw-gateway
+    # 如果发现镜像版本太新了，和我部署的时候版本不一样，可以将 latest 换成 main-8642ab9
     image: justlikemaki/openclaw-docker-cn-im:latest
     cap_add:
       - CHOWN
@@ -219,8 +220,10 @@ services:
       HOME: /home/node
       TERM: xterm-256color
       # ========== 请务必修改以下配置 ==========
-      # 模型配置 不能设置为True不然每次重启model配置都错了
-      SYNC_MODEL_CONFIG: false
+      # 模型配置 第一次需要配置成true，确保配置同步过去了
+      # 等openclaw.json生成以后，且配置好了飞书可用了，可以正常聊天了，我建议后面改成false
+      # 以后重新部署一次，但是不用删除myclaw文件夹，不然他default的模型又会切错
+      SYNC_MODEL_CONFIG: true
       MODEL_ID: siliconflow/Pro/MiniMaxAI/MiniMax-M2.5
       IMAGE_MODEL_ID: Qwen/Qwen-Image-Edit-2509
       BASE_URL: https://api.siliconflow.cn/v1
@@ -350,6 +353,10 @@ openclaw models set siliconflow/Pro/MiniMaxAI/MiniMax-M2.5
 
 重启OpenClaw Gateway Docker后，即可正常使用：
 ![](./asserts/pasted_image_20260304.png)
+
+> 如果发现重启以后用不了，就需要将前面提到的 `SYNC_MODEL_CONFIG` 从 `true` 改成 ``false``。
+> 然后重新部署一下，但是不需要删除 `myclaw` 目录，只需要重新用 `node` 用户执行以下，上面的 默认模型设置。
+> openclaw models相关的命令应该就可以了。
 
 然后飞书也可以正常工作了。
 
