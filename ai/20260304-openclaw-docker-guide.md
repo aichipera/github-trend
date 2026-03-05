@@ -56,7 +56,9 @@ tags:
    - 访问 [https://cloud.siliconflow.cn/i/ym4c1Vqm](https://cloud.siliconflow.cn/i/ym4c1Vqm) 注册
    - 完成实名认证后可获得赠金额度
 
-注册完成后，建议充值几块钱，然后创建**API Key**： https://cloud.siliconflow.cn/me/account/ak 
+注册完成后，实名认证并充值几块钱，不然可能模型没法用(403：账户余额不足或者权限不够，需要实名认证)，然后创建**API Key**： https://cloud.siliconflow.cn/me/account/ak 
+
+> 详细说明参见 https://docs.siliconflow.cn/cn/faqs/error-code
 
 ![](./asserts/pasted_image_20260302-18.png)
 
