@@ -183,7 +183,10 @@ https://docker.1panel.live/
 
 1. 进入Docker的「镜像」管理页面
 2. 点击「搜索镜像」或「Pull Image」按钮
-3. 输入镜像名称：`justlikemaki/openclaw-docker-cn-im`
+3. 输入镜像名称：`aichipera/openclaw-docker-cn-im`
+
+> 这里换成[修复了模型名称设置的问题](https://github.com/justlovemaki/OpenClaw-Docker-CN-IM/pull/87)，使用fork维护的镜像
+
 4. 选择版本（建议选择 `latest` 标签，我当时的版本是 `main-8642ab9`）
 5. 点击下载，等待下载完成
 ![](./asserts/pasted_image_20260302-3.png)
@@ -207,8 +210,8 @@ version: '3.8'
 services:
   openclaw-gateway:
     container_name: openclaw-gateway
-    # 如果发现镜像版本太新了，和我部署的时候版本不一样，可以将 latest 换成 main-8642ab9
-    image: justlikemaki/openclaw-docker-cn-im:latest
+    # 这里换成fork维护的版本，这个修了点上游的问题
+    image: aichipera/openclaw-docker-cn-im:latest
     cap_add:
       - CHOWN
       - SETUID
@@ -223,11 +226,9 @@ services:
       TERM: xterm-256color
       # ========== 请务必修改以下配置 ==========
       # 模型配置 第一次需要配置成true，确保配置同步过去了
-      # 等openclaw.json生成以后，且配置好了飞书可用了，可以正常聊天了，我建议后面改成false
-      # 以后重新部署一次，但是不用删除myclaw文件夹，不然他default的模型又会切错
       SYNC_MODEL_CONFIG: true
-      MODEL_ID: siliconflow/Pro/MiniMaxAI/MiniMax-M2.5
-      IMAGE_MODEL_ID: Qwen/Qwen-Image-Edit-2509
+      MODEL_ID: Pro/MiniMaxAI/MiniMax-M2.5
+      IMAGE_MODEL_ID: Qwen/Qwen-Image
       BASE_URL: https://api.siliconflow.cn/v1
       # 👇 TODO 在这里填入你在 SiliconFlow 申请的 API Key
       API_KEY: YOUR_API_KEY
@@ -264,6 +265,7 @@ services:
     init: true
     restart: unless-stopped
 ~~~
+
 按照上面的截图标红的位置，在 `docker`目录下创建一个 `myclaw`文件夹，然后创建项目的时候，选择存放位置到这个 `myclaw` 目录，然后将上面的`Compose配置`复制出来，然后把里面的`TODO`位置的**API_KEY**、**FEISHU_APP_ID**和**FEISHU_APP_SECRET**修改成自己的，然后再把修改后的内容复制到这个**Compose配置**下方文本编辑区域里面，然后点击 **立即部署**，然后等待部署完成。
 ![](./asserts/pasted_image_20260302-21.png)
 然后再点击 **容器**，选择 **openclaw-gateway** 这个容器，然后查看 **日志**，然后等出现类似下面标红输出的时候，再到飞书机器人页面继续配置。
@@ -285,6 +287,26 @@ openclaw-gateway docker镜像启动以后，第一次需要等几分钟，然后
 ![](./asserts/pasted_image_20260303-3.png)
 
 然后点击「聊天」，如果发消息报错：
+
+> 如果换成了 `aichipera/openclaw-docker-cn-im:latest` 镜像，这下面的问题不会出现，如果出现了其他问题，请排查模型名称，是否实名注册并充值。
+
+如果没有问题，那就可以直接进行飞书的测试工作了，飞书那边第一次发消息会报配对错误，直接把报错复制过来，
+在Dashboard中输入，并在最前面补上 `飞书端报错如下，请帮我解决一下。` 一般情况下，模型正常工作的话，
+就会正常帮你完成配对工作。
+
+可以在dashboard输入 `/model` 查看当前模型，正常反应的输出应该是这样的。
+
+~~~
+Current: default/Pro/MiniMaxAI/MiniMax-M2.5
+Switch: /model <provider/model>
+Browse: /models (providers) or /models <provider> (models)
+More: /model status
+~~~
+
+> [!NOTE]
+> 下面这些报错处理都是为了解决上游镜像导致的一些莫名其妙的问题，使用修复后的版本，就没必要弄了。
+
+下面这个报错是使用上游的镜像会出现的问题，已经发了[PR反馈](https://github.com/justlovemaki/OpenClaw-Docker-CN-IM/pull/87)，等待上游修正。
 
 ```
 ⚠️ Agent failed before reply: Unknown model: pro/MiniMaxAI/MiniMax-M2.5.
