@@ -11,6 +11,9 @@ tags:
 
 # 绿联NAS部署OpenClaw保姆级教程：打造飞书AI机器人
 
+> [!NOTE]
+> 推荐直接阅读最新版本 [20260308-openclaw-docker-quick-guide.md](./20260308-openclaw-docker-quick-guide.md)
+
 ## 前言
 
 如果你想在飞书里拥有一个属于自己的AI机器人，OpenClaw是一个很不错的选择。它是一个强大的AI工具代理网关，支持多种IM平台接入，并且集成了代码助手、浏览器自动化等实用功能。
